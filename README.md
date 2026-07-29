@@ -1,2 +1,2 @@
 # open-enricher
-Movie Metadata Extractor (MME) utilizes AI to extract metadata from long movies.
+Open Enricher utilizes AI to extract metadata from long movies.
