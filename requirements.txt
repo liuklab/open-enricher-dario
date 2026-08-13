@@ -1,0 +1,7 @@
+# Runtime extras for Colab / local inference.
+# PyTorch is expected to come from the Colab GPU runtime (or a local CUDA install).
+transformers>=4.57.0
+accelerate
+numpy
+pillow
+av

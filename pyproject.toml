@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "open-enricher"
+version = "0.1.0"
+description = "Experiment library for video understanding inference (metadata and embeddings)."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "transformers>=4.57.0",
+    "accelerate",
+    "numpy",
+    "pillow",
+    "av",
+]
+
+[project.optional-dependencies]
+# Optional attention backend. Install only if the Colab GPU image supports it.
+flash-attn = ["flash-attn"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
