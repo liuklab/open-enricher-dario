@@ -35,17 +35,3 @@ def load_dotenv(path: str | Path | None = None) -> Path | None:
         if key and key not in os.environ:
             os.environ[key] = value
     return env_path
-
-
-def env_str(name: str, default: str) -> str:
-    value = os.environ.get(name)
-    if value is None or value.strip() == "":
-        return default
-    return value
-
-
-def env_int(name: str, default: int) -> int:
-    value = os.environ.get(name)
-    if value is None or value.strip() == "":
-        return default
-    return int(value)

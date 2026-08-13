@@ -4,18 +4,38 @@ Non-secret defaults come from config.toml. Tokens come from .env / process env.
 """
 
 from dataclasses import dataclass
+from typing import Any
 
-from open_enricher.env import env_int, env_str, load_dotenv
-from open_enricher.settings import apply_config_to_environ
+from open_enricher.env import load_dotenv
+from open_enricher.settings import load_project_config
 
 load_dotenv()
-apply_config_to_environ()
+_CFG = load_project_config()
 
-DEFAULT_MODEL_ID = env_str("OPEN_ENRICHER_MODEL", "Qwen/Qwen3-VL-2B-Instruct")
-DEFAULT_DRIVE_ROOT = env_str("OPEN_ENRICHER_DATA", "/content/drive/MyDrive/open_enricher/data")
-DEFAULT_OUTPUT_DIR = env_str("OPEN_ENRICHER_OUTPUT", "/content/drive/MyDrive/open_enricher/outputs")
-DEFAULT_NUM_FRAMES = env_int("OPEN_ENRICHER_NUM_FRAMES", 16)
-DEFAULT_MAX_NEW_TOKENS = env_int("OPEN_ENRICHER_MAX_NEW_TOKENS", 512)
+_FALLBACKS: dict[tuple[str, str], Any] = {
+    ("model", "id"): "Qwen/Qwen3-VL-2B-Instruct",
+    ("drive", "data"): "/content/drive/MyDrive/open_enricher/data",
+    ("drive", "output"): "/content/drive/MyDrive/open_enricher/outputs",
+    ("drive", "video"): "",
+    ("model", "num_frames"): 16,
+    ("model", "max_new_tokens"): 512,
+}
+
+
+def _setting(section: str, key: str) -> Any:
+    fallback = _FALLBACKS[(section, key)]
+    value = _CFG.get(section, {}).get(key, fallback)
+    if value is None or value == "":
+        return fallback
+    return value
+
+
+DEFAULT_MODEL_ID = str(_setting("model", "id"))
+DEFAULT_DRIVE_ROOT = str(_setting("drive", "data"))
+DEFAULT_OUTPUT_DIR = str(_setting("drive", "output"))
+DEFAULT_VIDEO = str(_setting("drive", "video"))
+DEFAULT_NUM_FRAMES = int(_setting("model", "num_frames"))
+DEFAULT_MAX_NEW_TOKENS = int(_setting("model", "max_new_tokens"))
 
 DEFAULT_METADATA_PROMPT = (
     "Analyze this video and return JSON only with these keys:\n"
@@ -49,6 +69,7 @@ class DriveConfig:
 
     root: str = DEFAULT_DRIVE_ROOT
     output_dir: str = DEFAULT_OUTPUT_DIR
+    video: str = DEFAULT_VIDEO
 
 
 @dataclass

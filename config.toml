@@ -1,10 +1,5 @@
 # Project settings committed with the repo. Secrets stay in .env.
 
-[git]
-url = "https://github.com/napolitanodario/open-enricher.git"
-ref = "main"
-repo_dir = "/content/open-enricher"
-
 [drive]
 data = "/content/drive/MyDrive/open_enricher/data"
 output = "/content/drive/MyDrive/open_enricher/outputs"
