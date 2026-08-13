@@ -19,6 +19,7 @@ Training, retrieval indexes, and film-specific schemas are out of scope for this
 src/open_enricher/    library code
 scripts/              Colab CLI runners (supported)
 notebooks/            optional inspection notebooks
+.env.example          config template (copy to .env)
 ```
 
 ## Colab CLI setup
@@ -30,24 +31,21 @@ uv tool install google-colab-cli
 # or: pip install google-colab-cli
 ```
 
-1. Put videos under a Drive folder. The default placeholder is `/content/drive/MyDrive/open_enricher/data`. Any nested layout is fine; the library recursively finds `.mp4`, `.mkv`, `.avi`, `.mov`, and `.webm`.
-2. Commit and `git push` the code you want the VM to run. The VM clones this GitHub remote (default `https://github.com/liuklab/open-enricher.git`) into `/content/open-enricher`. Drive is not used for source code.
-3. From the local checkout, start a GPU session, mount Drive for videos, sync the library via git, and run:
+1. Copy `.env.example` to `.env` and fill in `HF_TOKEN` and `GITHUB_TOKEN` (the latter is required for this private GitHub remote). Paths, model id, GPU, and timeouts are also in `.env`. Do not commit `.env`.
+2. Put videos under the Drive folder in `OPEN_ENRICHER_DATA` (default `/content/drive/MyDrive/open_enricher/data`). Any nested layout is fine; the library recursively finds `.mp4`, `.mkv`, `.avi`, `.mov`, and `.webm`.
+3. Commit and `git push` the code you want the VM to run. The VM clones `OPEN_ENRICHER_GIT_URL` into `OPEN_ENRICHER_REPO`. Drive is not used for source code.
+4. From the local checkout, start a GPU session, mount Drive for videos, sync the library via git, and run:
 
 ```bash
-# Optional Hugging Face token. Do not use Colab Secrets / userdata; they do not work in CLI sessions.
-export HF_TOKEN=hf_...
-# Optional. Needed only if the git remote is private.
-export GITHUB_TOKEN=ghp_...
-
 colab new -s enricher --gpu A100 --high-mem
 colab drivemount -s enricher
 colab install -s enricher -r requirements.txt
 colab exec -s enricher --timeout 600 -f scripts/install_package.py
-colab exec -s enricher --timeout 7200 --env HF_TOKEN=$HF_TOKEN -f scripts/run_metadata.py
-# colab exec -s enricher --timeout 7200 --env HF_TOKEN=$HF_TOKEN -f scripts/run_embeddings.py
+colab exec -s enricher --timeout 7200 -f scripts/run_metadata.py
 # colab stop -s enricher
 ```
+
+The bootstrap scripts load `.env` and forward those variables into the VM with `colab exec --env`. Do not use Colab Secrets / userdata; they do not work in CLI sessions.
 
 Or run the same sequence with a helper script:
 
@@ -59,42 +57,23 @@ Or run the same sequence with a helper script:
 
 ```powershell
 # Windows PowerShell (requires `colab` on PATH)
-$env:HF_TOKEN = "hf_..."
 .\scripts\bootstrap_colab.ps1
 .\scripts\bootstrap_colab.ps1 embeddings
 ```
 
 From `cmd.exe` use `scripts\bootstrap_colab.cmd`. If `colab` is missing on Windows, run the bash script inside WSL instead.
 
-`colab exec -f` ships only that one local file to the remote kernel. `scripts/install_package.py` clones or updates the repo on the VM (`/content/open-enricher`) and runs `pip install -e`. Unpushed local edits are not visible on the VM. The bootstrap scripts pass `origin` and the current branch automatically.
+`colab exec -f` ships only that one local file to the remote kernel. `scripts/install_package.py` clones or updates the repo on the VM (`OPEN_ENRICHER_REPO`) and runs `pip install -e`. Unpushed local edits are not visible on the VM. The bootstrap scripts read `.env` and pass git URL, ref, tokens, and data paths automatically.
 
-For a private remote, set `GITHUB_TOKEN` (or `GIT_TOKEN`) in the local shell; install_package injects it into the HTTPS URL and does not print it.
+If `OPEN_ENRICHER_GIT_URL` / `OPEN_ENRICHER_GIT_REF` are empty in `.env`, bootstrap fills them from `git remote get-url origin` and the current branch.
 
-Override git source if needed:
-
-```bash
-colab exec -s enricher --timeout 600 \
-  --env OPEN_ENRICHER_GIT_URL=https://github.com/liuklab/open-enricher.git \
-  --env OPEN_ENRICHER_GIT_REF=main \
-  --env GITHUB_TOKEN=$GITHUB_TOKEN \
-  -f scripts/install_package.py
-```
+For a private remote, set `GITHUB_TOKEN` (or `GIT_TOKEN`) in `.env`; install_package injects it into the HTTPS URL and does not print it.
 
 The CLI default `--timeout` is about 30 seconds. Model download and video inference need a much larger value (the commands above use 7200).
 
-GPU examples: `T4`, `L4`, `A100`. Change `--gpu` on `colab new`. `colab drivemount` may open a browser once for Google OAuth.
+GPU examples: `T4`, `L4`, `A100`. Set `COLAB_GPU` in `.env`. `colab drivemount` may open a browser once for Google OAuth.
 
-Override paths without script argv by passing env vars (useful because `colab exec -f` does not forward extra CLI flags):
-
-```bash
-colab exec -s enricher --timeout 7200 \
-  --env HF_TOKEN=$HF_TOKEN \
-  --env OPEN_ENRICHER_VIDEO=clip.mp4 \
-  --env OPEN_ENRICHER_MODEL=Qwen/Qwen3-VL-8B-Instruct \
-  -f scripts/run_metadata.py
-```
-
-`colab run scripts/run_metadata.py -- --video clip.mp4` also works if you want argparse on a one-shot VM.
+To pick a video or a larger model, set `OPEN_ENRICHER_VIDEO` and `OPEN_ENRICHER_MODEL` in `.env` rather than hard-coding them in scripts.
 
 If a video backend error appears, install `ffmpeg` on the VM or add `torchcodec` on top of the Colab GPU PyTorch install.
 
@@ -119,7 +98,7 @@ model_config = ModelConfig(model_id="Qwen/Qwen3-VL-8B-Instruct")
 model, processor = load_model(model_config)
 ```
 
-Or set `--model-id` / `OPEN_ENRICHER_MODEL` on the runners. Larger models need more GPU memory. Keep `num_frames` low (the configs default to 16) unless you know the runtime can hold more.
+Or set `OPEN_ENRICHER_MODEL` in `.env`. Larger models need more GPU memory. Keep `OPEN_ENRICHER_NUM_FRAMES` low (default 16) unless you know the runtime can hold more.
 
 ## Library usage
 

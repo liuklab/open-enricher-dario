@@ -1,11 +1,19 @@
-"""Dataclass configs for model loading, Drive paths, and inference modes."""
+"""Dataclass configs for model loading, Drive paths, and inference modes.
+
+Runtime values come from environment variables (local .env, then colab --env).
+"""
 
 from dataclasses import dataclass
 
+from open_enricher.env import env_int, env_str, load_dotenv
 
-DEFAULT_MODEL_ID = "Qwen/Qwen3-VL-2B-Instruct"
-DEFAULT_DRIVE_ROOT = "/content/drive/MyDrive/open_enricher/data"
-DEFAULT_OUTPUT_DIR = "/content/drive/MyDrive/open_enricher/outputs"
+load_dotenv()
+
+DEFAULT_MODEL_ID = env_str("OPEN_ENRICHER_MODEL", "Qwen/Qwen3-VL-2B-Instruct")
+DEFAULT_DRIVE_ROOT = env_str("OPEN_ENRICHER_DATA", "/content/drive/MyDrive/open_enricher/data")
+DEFAULT_OUTPUT_DIR = env_str("OPEN_ENRICHER_OUTPUT", "/content/drive/MyDrive/open_enricher/outputs")
+DEFAULT_NUM_FRAMES = env_int("OPEN_ENRICHER_NUM_FRAMES", 16)
+DEFAULT_MAX_NEW_TOKENS = env_int("OPEN_ENRICHER_MAX_NEW_TOKENS", 512)
 
 DEFAULT_METADATA_PROMPT = (
     "Analyze this video and return JSON only with these keys:\n"
@@ -46,9 +54,9 @@ class MetadataConfig:
     """Settings for prompted textual metadata extraction."""
 
     prompt: str = DEFAULT_METADATA_PROMPT
-    max_new_tokens: int = 512
+    max_new_tokens: int = DEFAULT_MAX_NEW_TOKENS
     # Fixed frame count is the default because it bounds GPU memory on Colab.
-    num_frames: int | None = 16
+    num_frames: int | None = DEFAULT_NUM_FRAMES
     fps: float | None = None
 
 
@@ -57,7 +65,7 @@ class EmbeddingConfig:
     """Settings for pooled video embedding extraction."""
 
     prompt: str = DEFAULT_EMBEDDING_PROMPT
-    num_frames: int | None = 16
+    num_frames: int | None = DEFAULT_NUM_FRAMES
     fps: float | None = None
 
 

@@ -40,7 +40,11 @@ def parse_args() -> argparse.Namespace:
         help="Filename or path under data-root. Empty uses the first video found.",
     )
     parser.add_argument("--model-id", default=os.environ.get("OPEN_ENRICHER_MODEL", DEFAULT_MODEL_ID))
-    parser.add_argument("--num-frames", type=int, default=16)
+    parser.add_argument(
+        "--num-frames",
+        type=int,
+        default=int(os.environ.get("OPEN_ENRICHER_NUM_FRAMES", "16") or "16"),
+    )
     return parser.parse_args()
 
 
