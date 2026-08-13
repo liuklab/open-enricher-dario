@@ -12,7 +12,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-DEFAULT_GIT_URL = "https://github.com/liuklab/open-enricher.git"
+DEFAULT_GIT_URL = "https://github.com/napolitanodario/open-enricher.git"
 DEFAULT_GIT_REF = "main"
 DEFAULT_REPO_DIR = "/content/open-enricher"
 

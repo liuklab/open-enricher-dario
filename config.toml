@@ -1,0 +1,22 @@
+# Project settings committed with the repo. Secrets stay in .env.
+
+[git]
+url = "https://github.com/napolitanodario/open-enricher.git"
+ref = "main"
+repo_dir = "/content/open-enricher"
+
+[drive]
+data = "/content/drive/MyDrive/open_enricher/data"
+output = "/content/drive/MyDrive/open_enricher/outputs"
+video = ""
+
+[model]
+id = "Qwen/Qwen3-VL-2B-Instruct"
+num_frames = 16
+max_new_tokens = 512
+
+[colab]
+session = "enricher"
+gpu = "A100"
+timeout = 7200
+install_timeout = 600

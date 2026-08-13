@@ -1,13 +1,15 @@
 """Dataclass configs for model loading, Drive paths, and inference modes.
 
-Runtime values come from environment variables (local .env, then colab --env).
+Non-secret defaults come from config.toml. Tokens come from .env / process env.
 """
 
 from dataclasses import dataclass
 
 from open_enricher.env import env_int, env_str, load_dotenv
+from open_enricher.settings import apply_config_to_environ
 
 load_dotenv()
+apply_config_to_environ()
 
 DEFAULT_MODEL_ID = env_str("OPEN_ENRICHER_MODEL", "Qwen/Qwen3-VL-2B-Instruct")
 DEFAULT_DRIVE_ROOT = env_str("OPEN_ENRICHER_DATA", "/content/drive/MyDrive/open_enricher/data")

@@ -1,5 +1,5 @@
 # Provision a Colab Pro GPU session, mount Drive (videos only), sync code via git, run inference.
-# Configuration lives in the repository .env (copy from .env.example).
+# Secrets: .env. Project settings: config.toml.
 # Push your commits first. Install the CLI locally: uv tool install google-colab-cli
 #
 # Google Colab CLI currently documents Linux and macOS only. On native Windows, install
@@ -82,6 +82,20 @@ function Add-ForwardedEnv {
 
 Import-DotEnv -Path $EnvFile
 
+$ConfigScript = Join-Path $Root "scripts\print_config_env.py"
+if (Test-Path $ConfigScript) {
+    python3 $ConfigScript | ForEach-Object {
+        $line = $_.Trim()
+        if ($line -eq "" -or $line.StartsWith("#") -or $line -notmatch "=") {
+            return
+        }
+        $key, $value = $line.Split("=", 2)
+        if (-not [Environment]::GetEnvironmentVariable($key.Trim())) {
+            Set-Item -Path "Env:$($key.Trim())" -Value $value
+        }
+    }
+}
+
 $ForwardKeys = @(
     "HF_TOKEN",
     "GITHUB_TOKEN",
@@ -121,7 +135,7 @@ if ($env:OPEN_ENRICHER_GIT_REF -eq "HEAD") {
 }
 
 Write-Host "Starting session $Session on GPU $Gpu"
-Invoke-Colab @("new", "-s", $Session, "--gpu", $Gpu, "--high-mem")
+Invoke-Colab @("new", "-s", $Session, "--gpu", $Gpu)
 
 Write-Host "Mounting Google Drive for videos (browser OAuth may open once)"
 Invoke-Colab @("drivemount", "-s", $Session)

@@ -1,14 +1,11 @@
 #!/usr/bin/env bash
 # Provision a Colab Pro GPU session, mount Drive (videos only), sync code via git, run inference.
-# Configuration lives in the repository .env (copy from .env.example).
+# Secrets: .env. Project settings: config.toml.
 # Push your commits first. Install the CLI locally: uv tool install google-colab-cli
 #
 # Usage from the repository root:
 #   ./scripts/bootstrap_colab.sh
 #   ./scripts/bootstrap_colab.sh embeddings
-#
-# Extra flags after the mode are forwarded to the inference colab exec
-# (for example --env OPEN_ENRICHER_VIDEO=clip.mp4).
 
 set -euo pipefail
 
@@ -23,6 +20,15 @@ if [[ -f "${ENV_FILE}" ]]; then
 else
   echo "No .env found at ${ENV_FILE}. Copy .env.example to .env and fill in tokens." >&2
 fi
+
+while IFS= read -r line || [[ -n "${line}" ]]; do
+  [[ -z "${line}" || "${line}" == \#* ]] && continue
+  key="${line%%=*}"
+  val="${line#*=}"
+  if [[ -z "${!key:-}" ]]; then
+    export "${key}=${val}"
+  fi
+done < <(python3 "${ROOT}/scripts/print_config_env.py")
 
 SESSION="${COLAB_SESSION:-enricher}"
 GPU="${COLAB_GPU:-A100}"
@@ -75,7 +81,7 @@ append_forwarded_env() {
 }
 
 echo "Starting session ${SESSION} on GPU ${GPU}"
-colab new -s "${SESSION}" --gpu "${GPU}" --high-mem
+colab new -s "${SESSION}" --gpu "${GPU}"
 
 echo "Mounting Google Drive for videos (browser OAuth may open once)"
 colab drivemount -s "${SESSION}"
