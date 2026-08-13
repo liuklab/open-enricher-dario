@@ -113,14 +113,16 @@ $ForwardKeys = @(
 
 $Session = if ($env:COLAB_SESSION) { $env:COLAB_SESSION } else { "enricher" }
 $Gpu = if ($env:COLAB_GPU) { $env:COLAB_GPU } else { "A100" }
+$Auth = if ($env:COLAB_AUTH) { $env:COLAB_AUTH } else { "adc" }
 $Timeout = if ($env:COLAB_TIMEOUT) { $env:COLAB_TIMEOUT } else { "7200" }
 $InstallTimeout = if ($env:COLAB_INSTALL_TIMEOUT) { $env:COLAB_INSTALL_TIMEOUT } else { "600" }
 
 function Invoke-Colab {
     param([Parameter(Mandatory = $true)][string[]]$ColabArgs)
-    & colab @ColabArgs
+    $full = @("--auth=$Auth") + $ColabArgs
+    & colab @full
     if ($LASTEXITCODE -ne 0) {
-        throw "colab failed ($LASTEXITCODE): colab $($ColabArgs -join ' ')"
+        throw "colab failed ($LASTEXITCODE): colab $($full -join ' ')"
     }
 }
 
@@ -134,7 +136,7 @@ if ($env:OPEN_ENRICHER_GIT_REF -eq "HEAD") {
     $env:OPEN_ENRICHER_GIT_REF = (git -C $Root rev-parse HEAD)
 }
 
-Write-Host "Starting session $Session on GPU $Gpu"
+Write-Host "Starting session $Session on GPU $Gpu (auth=$Auth)"
 Invoke-Colab @("new", "-s", $Session, "--gpu", $Gpu)
 
 Write-Host "Mounting Google Drive for videos (browser OAuth may open once)"

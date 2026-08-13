@@ -32,6 +32,7 @@ done < <(python3 "${ROOT}/scripts/print_config_env.py")
 
 SESSION="${COLAB_SESSION:-enricher}"
 GPU="${COLAB_GPU:-A100}"
+AUTH="${COLAB_AUTH:-adc}"
 MODE="${1:-metadata}"
 if [[ "${#}" -gt 0 ]]; then
   shift
@@ -80,20 +81,24 @@ append_forwarded_env() {
   done
 }
 
-echo "Starting session ${SESSION} on GPU ${GPU}"
-colab new -s "${SESSION}" --gpu "${GPU}"
+run_colab() {
+  colab --auth="${AUTH}" "$@"
+}
+
+echo "Starting session ${SESSION} on GPU ${GPU} (auth=${AUTH})"
+run_colab new -s "${SESSION}" --gpu "${GPU}"
 
 echo "Mounting Google Drive for videos (browser OAuth may open once)"
-colab drivemount -s "${SESSION}"
+run_colab drivemount -s "${SESSION}"
 
 echo "Installing Python dependencies on the VM"
-colab install -s "${SESSION}" -r "${ROOT}/requirements.txt"
+run_colab install -s "${SESSION}" -r "${ROOT}/requirements.txt"
 
 INSTALL_ENV=()
 append_forwarded_env INSTALL_ENV
 
 echo "Syncing library from git${OPEN_ENRICHER_GIT_URL:+ (${OPEN_ENRICHER_GIT_URL} @ ${OPEN_ENRICHER_GIT_REF:-})}. Push local commits first."
-colab exec -s "${SESSION}" --timeout "${INSTALL_TIMEOUT}" "${INSTALL_ENV[@]}" -f "${ROOT}/scripts/install_package.py"
+run_colab exec -s "${SESSION}" --timeout "${INSTALL_TIMEOUT}" "${INSTALL_ENV[@]}" -f "${ROOT}/scripts/install_package.py"
 
 RUNNER="${ROOT}/scripts/run_metadata.py"
 if [[ "${MODE}" == "embeddings" ]]; then
@@ -104,6 +109,6 @@ RUN_ENV=()
 append_forwarded_env RUN_ENV
 
 echo "Running ${RUNNER}"
-colab exec -s "${SESSION}" --timeout "${TIMEOUT}" "${RUN_ENV[@]}" "$@" -f "${RUNNER}"
+run_colab exec -s "${SESSION}" --timeout "${TIMEOUT}" "${RUN_ENV[@]}" "$@" -f "${RUNNER}"
 
-echo "Done. Session ${SESSION} is still running. Stop it with: colab stop -s ${SESSION}"
+echo "Done. Session ${SESSION} is still running. Stop it with: colab --auth=${AUTH} stop -s ${SESSION}"

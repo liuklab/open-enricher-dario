@@ -32,18 +32,27 @@ uv tool install google-colab-cli
 # or: pip install google-colab-cli
 ```
 
+Authenticate once with Application Default Credentials. The CLI needs the Colab and Cloud Platform scopes; a generic Google login that only grants profile/email will fail with "Scope has changed".
+
+```bash
+gcloud auth application-default login \
+  --scopes=openid,https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/userinfo.email,https://www.googleapis.com/auth/colaboratory
+```
+
+Then use `colab --auth=adc ...` (the bootstrap scripts already pass `--auth=adc`). Do not use a personal `~/.colab-cli-oauth-config.json` unless it is Google's bundled Cloud SDK client; a custom OAuth client typically cannot grant the `colaboratory` scope.
+
 1. Copy `.env.example` to `.env` and fill in `HF_TOKEN` and `GITHUB_TOKEN` only. Do not commit `.env`. Paths, git remote, model, GPU, and timeouts live in [`config.toml`](config.toml).
 2. Put videos under the Drive folder in `config.toml` (`[drive] data`). Any nested layout is fine; the library recursively finds `.mp4`, `.mkv`, `.avi`, `.mov`, and `.webm`.
 3. Commit and `git push` the code you want the VM to run. The VM clones `[git] url` into `[git] repo_dir`. Drive is not used for source code.
 4. From the local checkout, start a GPU session, mount Drive for videos, sync the library via git, and run:
 
 ```bash
-colab new -s enricher --gpu A100
-colab drivemount -s enricher
-colab install -s enricher -r requirements.txt
-colab exec -s enricher --timeout 600 -f scripts/install_package.py
-colab exec -s enricher --timeout 7200 -f scripts/run_metadata.py
-# colab stop -s enricher
+colab --auth=adc new -s enricher --gpu A100
+colab --auth=adc drivemount -s enricher
+colab --auth=adc install -s enricher -r requirements.txt
+colab --auth=adc exec -s enricher --timeout 600 -f scripts/install_package.py
+colab --auth=adc exec -s enricher --timeout 7200 -f scripts/run_metadata.py
+# colab --auth=adc stop -s enricher
 ```
 
 The bootstrap scripts load `.env` (tokens) and `config.toml` (everything else), then forward those values into the VM with `colab exec --env`. Do not use Colab Secrets / userdata; they do not work in CLI sessions.

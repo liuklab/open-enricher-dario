@@ -20,3 +20,4 @@ session = "enricher"
 gpu = "A100"
 timeout = 7200
 install_timeout = 600
+auth = "adc"

@@ -20,6 +20,7 @@ _ENV_MAP = {
     ("colab", "gpu"): "COLAB_GPU",
     ("colab", "timeout"): "COLAB_TIMEOUT",
     ("colab", "install_timeout"): "COLAB_INSTALL_TIMEOUT",
+    ("colab", "auth"): "COLAB_AUTH",
 }
 
 
