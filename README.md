@@ -55,7 +55,7 @@ colab --auth=adc exec -s enricher --timeout 7200 -f scripts/run_metadata.py
 # colab --auth=adc stop -s enricher
 ```
 
-The bootstrap scripts load `.env` (tokens) and `config.toml` (everything else), then forward those values into the VM with `colab exec --env`. Do not use Colab Secrets / userdata; they do not work in CLI sessions.
+The bootstrap scripts load `.env` (tokens) and `config.toml` (everything else), then inject those values into the Colab kernel before running install/inference. This Colab CLI build has no `exec --env` flag. Do not use Colab Secrets / userdata; they do not work in CLI sessions.
 
 Or run the same sequence with a helper script:
 

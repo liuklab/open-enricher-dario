@@ -45,11 +45,13 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=int(os.environ.get("OPEN_ENRICHER_NUM_FRAMES", "16") or "16"),
     )
-    return parser.parse_args()
+    # colab exec runs inside a Jupyter kernel; sys.argv still contains `-f kernel.json`.
+    args, _unknown = parser.parse_known_args()
+    return args
 
 
 def main() -> None:
-    # Hugging Face reads HF_TOKEN from the environment when it is set via colab exec --env.
+    # Hugging Face reads HF_TOKEN from the kernel environment.
     args = parse_args()
     ensure_package(args.repo_dir)
 

@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-# Maps config.toml paths to the env names already used by scripts and Colab --env.
+# Maps config.toml paths to the env names used on the Colab kernel.
 _ENV_MAP = {
     ("git", "url"): "OPEN_ENRICHER_GIT_URL",
     ("git", "ref"): "OPEN_ENRICHER_GIT_REF",

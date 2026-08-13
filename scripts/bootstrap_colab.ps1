@@ -10,8 +10,7 @@
 #   .\scripts\bootstrap_colab.ps1
 #   .\scripts\bootstrap_colab.ps1 embeddings
 #
-# Extra flags after the mode are forwarded to the inference colab exec:
-#   .\scripts\bootstrap_colab.ps1 metadata --env OPEN_ENRICHER_VIDEO=clip.mp4
+# Extra flags after the mode are forwarded to the inference colab exec.
 
 [CmdletBinding()]
 param(
@@ -66,20 +65,6 @@ function Import-DotEnv {
     }
 }
 
-function Add-ForwardedEnv {
-    param(
-        [System.Collections.Generic.List[string]]$Dest,
-        [string[]]$Keys
-    )
-    foreach ($key in $Keys) {
-        $value = [Environment]::GetEnvironmentVariable($key)
-        if (-not [string]::IsNullOrWhiteSpace($value)) {
-            $Dest.Add("--env")
-            $Dest.Add("$key=$value")
-        }
-    }
-}
-
 Import-DotEnv -Path $EnvFile
 
 $ConfigScript = Join-Path $Root "scripts\print_config_env.py"
@@ -95,21 +80,6 @@ if (Test-Path $ConfigScript) {
         }
     }
 }
-
-$ForwardKeys = @(
-    "HF_TOKEN",
-    "GITHUB_TOKEN",
-    "GIT_TOKEN",
-    "OPEN_ENRICHER_GIT_URL",
-    "OPEN_ENRICHER_GIT_REF",
-    "OPEN_ENRICHER_REPO",
-    "OPEN_ENRICHER_DATA",
-    "OPEN_ENRICHER_OUTPUT",
-    "OPEN_ENRICHER_VIDEO",
-    "OPEN_ENRICHER_MODEL",
-    "OPEN_ENRICHER_NUM_FRAMES",
-    "OPEN_ENRICHER_MAX_NEW_TOKENS"
-)
 
 $Session = if ($env:COLAB_SESSION) { $env:COLAB_SESSION } else { "enricher" }
 $Gpu = if ($env:COLAB_GPU) { $env:COLAB_GPU } else { "A100" }
@@ -146,29 +116,34 @@ Write-Host "Installing Python dependencies on the VM"
 $Requirements = Join-Path $Root "requirements.txt"
 Invoke-Colab @("install", "-s", $Session, "-r", $Requirements)
 
-$InstallArgs = [System.Collections.Generic.List[string]]::new()
-$InstallArgs.AddRange([string[]]@("exec", "-s", $Session, "--timeout", "$InstallTimeout"))
-Add-ForwardedEnv -Dest $InstallArgs -Keys $ForwardKeys
-$InstallScript = Join-Path $Root "scripts\install_package.py"
-$InstallArgs.Add("-f")
-$InstallArgs.Add($InstallScript)
+$Inject = Join-Path $env:TEMP ("open-enricher-kernel-env-" + [guid]::NewGuid().ToString() + ".py")
+try {
+    python3 (Join-Path $Root "scripts\write_kernel_env.py") -o $Inject
+    Write-Host "Injecting environment into the Colab kernel"
+    Invoke-Colab @("exec", "-s", $Session, "--timeout", "60", "-f", $Inject)
 
-Write-Host "Syncing library from git $($env:OPEN_ENRICHER_GIT_URL) @ $($env:OPEN_ENRICHER_GIT_REF). Push local commits first."
-Invoke-Colab -ColabArgs $InstallArgs.ToArray()
+    Write-Host "Syncing library from git $($env:OPEN_ENRICHER_GIT_URL) @ $($env:OPEN_ENRICHER_GIT_REF). Push local commits first."
+    $InstallScript = Join-Path $Root "scripts\install_package.py"
+    Invoke-Colab @("exec", "-s", $Session, "--timeout", "$InstallTimeout", "-f", $InstallScript)
 
-$RunnerName = if ($Mode -eq "embeddings") { "run_embeddings.py" } else { "run_metadata.py" }
-$Runner = Join-Path $Root "scripts\$RunnerName"
+    $RunnerName = if ($Mode -eq "embeddings") { "run_embeddings.py" } else { "run_metadata.py" }
+    $Runner = Join-Path $Root "scripts\$RunnerName"
 
-$ExecArgs = [System.Collections.Generic.List[string]]::new()
-$ExecArgs.AddRange([string[]]@("exec", "-s", $Session, "--timeout", "$Timeout"))
-Add-ForwardedEnv -Dest $ExecArgs -Keys $ForwardKeys
-if ($ExtraArgs) {
-    $ExecArgs.AddRange([string[]]$ExtraArgs)
+    $ExecArgs = [System.Collections.Generic.List[string]]::new()
+    $ExecArgs.AddRange([string[]]@("exec", "-s", $Session, "--timeout", "$Timeout"))
+    if ($ExtraArgs) {
+        $ExecArgs.AddRange([string[]]$ExtraArgs)
+    }
+    $ExecArgs.Add("-f")
+    $ExecArgs.Add($Runner)
+
+    Write-Host "Running $Runner"
+    Invoke-Colab -ColabArgs $ExecArgs.ToArray()
 }
-$ExecArgs.Add("-f")
-$ExecArgs.Add($Runner)
-
-Write-Host "Running $Runner"
-Invoke-Colab -ColabArgs $ExecArgs.ToArray()
+finally {
+    if (Test-Path $Inject) {
+        Remove-Item -Force $Inject
+    }
+}
 
 Write-Host "Done. Session $Session is still running. Stop it with: colab stop -s $Session"

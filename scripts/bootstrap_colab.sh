@@ -56,31 +56,6 @@ if [[ -z "${OPEN_ENRICHER_GIT_REF:-}" ]]; then
   fi
 fi
 
-FORWARD_KEYS=(
-  HF_TOKEN
-  GITHUB_TOKEN
-  GIT_TOKEN
-  OPEN_ENRICHER_GIT_URL
-  OPEN_ENRICHER_GIT_REF
-  OPEN_ENRICHER_REPO
-  OPEN_ENRICHER_DATA
-  OPEN_ENRICHER_OUTPUT
-  OPEN_ENRICHER_VIDEO
-  OPEN_ENRICHER_MODEL
-  OPEN_ENRICHER_NUM_FRAMES
-  OPEN_ENRICHER_MAX_NEW_TOKENS
-)
-
-append_forwarded_env() {
-  local -n dest=$1
-  local key
-  for key in "${FORWARD_KEYS[@]}"; do
-    if [[ -n "${!key:-}" ]]; then
-      dest+=(--env "${key}=${!key}")
-    fi
-  done
-}
-
 run_colab() {
   colab --auth="${AUTH}" "$@"
 }
@@ -94,21 +69,21 @@ run_colab drivemount -s "${SESSION}"
 echo "Installing Python dependencies on the VM"
 run_colab install -s "${SESSION}" -r "${ROOT}/requirements.txt"
 
-INSTALL_ENV=()
-append_forwarded_env INSTALL_ENV
+INJECT="$(mktemp)"
+trap 'rm -f "${INJECT}"' EXIT
+python3 "${ROOT}/scripts/write_kernel_env.py" -o "${INJECT}"
+echo "Injecting environment into the Colab kernel"
+run_colab exec -s "${SESSION}" --timeout 60 -f "${INJECT}"
 
 echo "Syncing library from git${OPEN_ENRICHER_GIT_URL:+ (${OPEN_ENRICHER_GIT_URL} @ ${OPEN_ENRICHER_GIT_REF:-})}. Push local commits first."
-run_colab exec -s "${SESSION}" --timeout "${INSTALL_TIMEOUT}" "${INSTALL_ENV[@]}" -f "${ROOT}/scripts/install_package.py"
+run_colab exec -s "${SESSION}" --timeout "${INSTALL_TIMEOUT}" -f "${ROOT}/scripts/install_package.py"
 
 RUNNER="${ROOT}/scripts/run_metadata.py"
 if [[ "${MODE}" == "embeddings" ]]; then
   RUNNER="${ROOT}/scripts/run_embeddings.py"
 fi
 
-RUN_ENV=()
-append_forwarded_env RUN_ENV
-
 echo "Running ${RUNNER}"
-run_colab exec -s "${SESSION}" --timeout "${TIMEOUT}" "${RUN_ENV[@]}" "$@" -f "${RUNNER}"
+run_colab exec -s "${SESSION}" --timeout "${TIMEOUT}" "$@" -f "${RUNNER}"
 
 echo "Done. Session ${SESSION} is still running. Stop it with: colab --auth=${AUTH} stop -s ${SESSION}"

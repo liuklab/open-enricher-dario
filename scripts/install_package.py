@@ -34,7 +34,9 @@ def parse_args() -> argparse.Namespace:
         default=os.environ.get("OPEN_ENRICHER_REPO", DEFAULT_REPO_DIR),
         help="Checkout path on the VM.",
     )
-    return parser.parse_args()
+    # colab exec runs inside a Jupyter kernel; sys.argv still contains `-f kernel.json`.
+    args, _unknown = parser.parse_known_args()
+    return args
 
 
 def to_https_url(url: str) -> str:
