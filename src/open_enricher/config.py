@@ -1,11 +1,41 @@
-"""Dataclass configs for model loading, Drive paths, and inference modes."""
+"""Dataclass configs for model loading, Drive paths, and inference modes.
+
+Non-secret defaults come from config.toml. Tokens come from .env / process env.
+"""
 
 from dataclasses import dataclass
+from typing import Any
+
+from open_enricher.env import load_dotenv
+from open_enricher.settings import load_project_config
+
+load_dotenv()
+_CFG = load_project_config()
+
+_FALLBACKS: dict[tuple[str, str], Any] = {
+    ("model", "id"): "Qwen/Qwen3-VL-2B-Instruct",
+    ("drive", "data"): "/content/drive/MyDrive/open_enricher/data",
+    ("drive", "output"): "/content/drive/MyDrive/open_enricher/outputs",
+    ("drive", "video"): "",
+    ("model", "num_frames"): 16,
+    ("model", "max_new_tokens"): 512,
+}
 
 
-DEFAULT_MODEL_ID = "Qwen/Qwen3-VL-2B-Instruct"
-DEFAULT_DRIVE_ROOT = "/content/drive/MyDrive/open_enricher/data"
-DEFAULT_OUTPUT_DIR = "/content/drive/MyDrive/open_enricher/outputs"
+def _setting(section: str, key: str) -> Any:
+    fallback = _FALLBACKS[(section, key)]
+    value = _CFG.get(section, {}).get(key, fallback)
+    if value is None or value == "":
+        return fallback
+    return value
+
+
+DEFAULT_MODEL_ID = str(_setting("model", "id"))
+DEFAULT_DRIVE_ROOT = str(_setting("drive", "data"))
+DEFAULT_OUTPUT_DIR = str(_setting("drive", "output"))
+DEFAULT_VIDEO = str(_setting("drive", "video"))
+DEFAULT_NUM_FRAMES = int(_setting("model", "num_frames"))
+DEFAULT_MAX_NEW_TOKENS = int(_setting("model", "max_new_tokens"))
 
 DEFAULT_METADATA_PROMPT = (
     "Analyze this video and return JSON only with these keys:\n"
@@ -39,6 +69,7 @@ class DriveConfig:
 
     root: str = DEFAULT_DRIVE_ROOT
     output_dir: str = DEFAULT_OUTPUT_DIR
+    video: str = DEFAULT_VIDEO
 
 
 @dataclass
@@ -46,9 +77,9 @@ class MetadataConfig:
     """Settings for prompted textual metadata extraction."""
 
     prompt: str = DEFAULT_METADATA_PROMPT
-    max_new_tokens: int = 512
+    max_new_tokens: int = DEFAULT_MAX_NEW_TOKENS
     # Fixed frame count is the default because it bounds GPU memory on Colab.
-    num_frames: int | None = 16
+    num_frames: int | None = DEFAULT_NUM_FRAMES
     fps: float | None = None
 
 
@@ -57,7 +88,7 @@ class EmbeddingConfig:
     """Settings for pooled video embedding extraction."""
 
     prompt: str = DEFAULT_EMBEDDING_PROMPT
-    num_frames: int | None = 16
+    num_frames: int | None = DEFAULT_NUM_FRAMES
     fps: float | None = None
 
 

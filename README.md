@@ -2,7 +2,7 @@
 
 Experiment library for video understanding. This repository holds reusable Python code for inference tasks such as textual metadata extraction and video embeddings.
 
-Run inference on Google Colab Pro from your local terminal with [Google Colab CLI](https://github.com/googlecolab/google-colab-cli). The library lives in `src/open_enricher/`. Thin scripts under `scripts/` are the supported runners. Notebooks are optional leftovers for inspecting a mounted session.
+Run inference on Google Colab Pro from your local terminal with [Google Colab CLI](https://github.com/googlecolab/google-colab-cli). The library lives in `src/open_enricher/`. `scripts/bootstrap_colab.py` is the supported runner.
 
 The first bootstrap uses [Qwen3-VL](https://huggingface.co/Qwen/Qwen3-VL-2B-Instruct) open weights, with videos stored on Google Drive.
 
@@ -17,88 +17,59 @@ Training, retrieval indexes, and film-specific schemas are out of scope for this
 
 ```text
 src/open_enricher/    library code
-scripts/              Colab CLI runners (supported)
-notebooks/            optional inspection notebooks
+scripts/              Colab CLI bootstrap and runners
+config.toml           non-secret project settings
+.env.example          secret template (copy to .env)
 ```
 
 ## Colab CLI setup
 
-The CLI is a local tool (Linux or macOS, including WSL). Native Windows is not documented as supported by Google Colab CLI; use WSL or run the PowerShell wrapper if `colab` is on PATH. Do not add the CLI to this project's `requirements.txt`.
+The CLI is a local tool (Linux or macOS, including WSL). Native Windows is not supported; use WSL. Do not add the CLI to this project's `requirements.txt`.
 
 ```bash
 uv tool install google-colab-cli
 # or: pip install google-colab-cli
 ```
 
-1. Put videos under a Drive folder. The default placeholder is `/content/drive/MyDrive/open_enricher/data`. Any nested layout is fine; the library recursively finds `.mp4`, `.mkv`, `.avi`, `.mov`, and `.webm`.
-2. Commit and `git push` the code you want the VM to run. The VM clones this GitHub remote (default `https://github.com/liuklab/open-enricher.git`) into `/content/open-enricher`. Drive is not used for source code.
-3. From the local checkout, start a GPU session, mount Drive for videos, sync the library via git, and run:
+Authenticate once with Application Default Credentials. The CLI needs the Colab and Cloud Platform scopes; a generic Google login that only grants profile/email will fail with "Scope has changed".
 
 ```bash
-# Optional Hugging Face token. Do not use Colab Secrets / userdata; they do not work in CLI sessions.
-export HF_TOKEN=hf_...
-# Optional. Needed only if the git remote is private.
-export GITHUB_TOKEN=ghp_...
-
-colab new -s enricher --gpu A100 --high-mem
-colab drivemount -s enricher
-colab install -s enricher -r requirements.txt
-colab exec -s enricher --timeout 600 -f scripts/install_package.py
-colab exec -s enricher --timeout 7200 --env HF_TOKEN=$HF_TOKEN -f scripts/run_metadata.py
-# colab exec -s enricher --timeout 7200 --env HF_TOKEN=$HF_TOKEN -f scripts/run_embeddings.py
-# colab stop -s enricher
+gcloud auth application-default login \
+  --scopes=openid,https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/userinfo.email,https://www.googleapis.com/auth/colaboratory
 ```
 
-Or run the same sequence with a helper script:
+Then use `colab --auth=adc ...` (the bootstrap script already passes `--auth=adc`). Do not use a personal `~/.colab-cli-oauth-config.json` unless it is Google's bundled Cloud SDK client; a custom OAuth client typically cannot grant the `colaboratory` scope.
+
+1. Copy `.env.example` to `.env` and fill in `HF_TOKEN`. Do not commit `.env`. Paths, model, GPU, and timeouts live in [`config.toml`](config.toml).
+2. Put videos under the Drive folder in `config.toml` (`[drive] data`). Any nested layout is fine; the library recursively finds `.mp4`, `.mkv`, `.avi`, `.mov`, and `.webm`.
+3. From the local checkout, start (or reuse) a GPU session, mount Drive for videos, upload this checkout as a tarball, and run:
 
 ```bash
-# Linux, macOS, WSL
-./scripts/bootstrap_colab.sh
-./scripts/bootstrap_colab.sh embeddings
+python scripts/bootstrap_colab.py
+python scripts/bootstrap_colab.py embeddings
 ```
 
-```powershell
-# Windows PowerShell (requires `colab` on PATH)
-$env:HF_TOKEN = "hf_..."
-.\scripts\bootstrap_colab.ps1
-.\scripts\bootstrap_colab.ps1 embeddings
-```
+The bootstrap packs `src/`, `pyproject.toml`, `requirements.txt`, `config.toml`, and `.env` (if present) into one archive and uploads it with `colab upload`. Unpushed local edits are included. The VM does not clone from GitHub.
 
-From `cmd.exe` use `scripts\bootstrap_colab.cmd`. If `colab` is missing on Windows, run the bash script inside WSL instead.
+`colab exec -f` ships only one local file to the remote kernel. `scripts/install_local.py` extracts `/content/open-enricher.tgz` into `/content/open-enricher` and runs `pip install -e`. Hugging Face reads `HF_TOKEN` from the `.env` that landed in that checkout.
 
-`colab exec -f` ships only that one local file to the remote kernel. `scripts/install_package.py` clones or updates the repo on the VM (`/content/open-enricher`) and runs `pip install -e`. Unpushed local edits are not visible on the VM. The bootstrap scripts pass `origin` and the current branch automatically.
+Do not use Colab Secrets / userdata; they do not work in CLI sessions.
 
-For a private remote, set `GITHUB_TOKEN` (or `GIT_TOKEN`) in the local shell; install_package injects it into the HTTPS URL and does not print it.
+The CLI default `--timeout` is about 30 seconds. Model download and video inference need a much larger value (`[colab] timeout` defaults to 7200).
 
-Override git source if needed:
+GPU examples: `T4`, `L4`, `A100`. Set `[colab] gpu` in `config.toml`. `colab drivemount` may open a browser once for Google OAuth.
 
-```bash
-colab exec -s enricher --timeout 600 \
-  --env OPEN_ENRICHER_GIT_URL=https://github.com/liuklab/open-enricher.git \
-  --env OPEN_ENRICHER_GIT_REF=main \
-  --env GITHUB_TOKEN=$GITHUB_TOKEN \
-  -f scripts/install_package.py
-```
-
-The CLI default `--timeout` is about 30 seconds. Model download and video inference need a much larger value (the commands above use 7200).
-
-GPU examples: `T4`, `L4`, `A100`. Change `--gpu` on `colab new`. `colab drivemount` may open a browser once for Google OAuth.
-
-Override paths without script argv by passing env vars (useful because `colab exec -f` does not forward extra CLI flags):
-
-```bash
-colab exec -s enricher --timeout 7200 \
-  --env HF_TOKEN=$HF_TOKEN \
-  --env OPEN_ENRICHER_VIDEO=clip.mp4 \
-  --env OPEN_ENRICHER_MODEL=Qwen/Qwen3-VL-8B-Instruct \
-  -f scripts/run_metadata.py
-```
-
-`colab run scripts/run_metadata.py -- --video clip.mp4` also works if you want argparse on a one-shot VM.
+To pick a video or a larger model, set `[drive] video` and `[model] id` in `config.toml`.
 
 If a video backend error appears, install `ffmpeg` on the VM or add `torchcodec` on top of the Colab GPU PyTorch install.
 
 PyTorch itself should come from the Colab GPU image. `requirements.txt` only adds Transformers and related extras.
+
+The named session stays running after inference. Stop it when you are done:
+
+```bash
+colab --auth=adc stop -s enricher
+```
 
 ## Local install
 
@@ -119,7 +90,7 @@ model_config = ModelConfig(model_id="Qwen/Qwen3-VL-8B-Instruct")
 model, processor = load_model(model_config)
 ```
 
-Or set `--model-id` / `OPEN_ENRICHER_MODEL` on the runners. Larger models need more GPU memory. Keep `num_frames` low (the configs default to 16) unless you know the runtime can hold more.
+Or set `[model] id` in `config.toml`. Larger models need more GPU memory. Keep `[model] num_frames` low (default 16) unless you know the runtime can hold more.
 
 ## Library usage
 
