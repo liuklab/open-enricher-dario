@@ -7,14 +7,14 @@ import os
 import sys
 from pathlib import Path
 
-DEFAULT_REPO_DIR = "/content/drive/MyDrive/open_enricher/code"
+DEFAULT_REPO_DIR = "/content/open-enricher"
 DEFAULT_DATA_ROOT = "/content/drive/MyDrive/open_enricher/data"
 DEFAULT_OUTPUT_DIR = "/content/drive/MyDrive/open_enricher/outputs"
 DEFAULT_MODEL_ID = "Qwen/Qwen3-VL-2B-Instruct"
 
 
 def ensure_package(repo_dir: str) -> None:
-    """Import open_enricher, using the Drive checkout if it is not installed."""
+    """Import open_enricher, using the VM git checkout if it is not installed."""
 
     try:
         import open_enricher  # noqa: F401
