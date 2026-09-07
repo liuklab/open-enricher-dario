@@ -2,11 +2,13 @@
 
 import gc
 import json
+import os
 from dataclasses import asdict, dataclass
 from typing import Any, Dict
 
 import torch
 import whisperx
+from whisperx.diarize import DiarizationPipeline, assign_word_speakers
 
 from src.open_enricher.remote.storage import db
 
@@ -53,6 +55,17 @@ class AudioStage:
         del model_a
         gc.collect()
         torch.cuda.empty_cache()
+
+        print("[INFO] Identifying speakers...")
+        os.environ["HF_TOKEN"] = self.hf_token
+        
+        try:
+            diarize_model = DiarizationPipeline(token=self.hf_token, device=self.device)
+        except TypeError:
+            diarize_model = DiarizationPipeline(device=self.device)
+            
+        diarize_segments = diarize_model(audio)
+        result = assign_word_speakers(diarize_segments, result)
 
         print("[INFO] Structuring data payload...")
         dialogues = []
