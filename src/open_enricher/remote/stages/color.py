@@ -5,8 +5,10 @@ import shutil
 from typing import Any, Dict
 
 import cv2
+import numpy as np
 from PIL import Image
 from scenedetect import ContentDetector, detect
+from sklearn.cluster import KMeans
 
 from src.open_enricher.remote.storage import db
 
@@ -18,6 +20,17 @@ class ColorStage:
     def __init__(self, max_long_scenes: int = 120, grid_interval_sec: int = 180):
         self.max_long_scenes = max_long_scenes
         self.grid_interval_sec = grid_interval_sec
+
+    def _get_dominant_colors(self, frame_rgb: np.ndarray, k: int = 3) -> list[str]:
+        """Executes K-Means clustering to find the color palette."""
+        small_image = cv2.resize(frame_rgb, (150, 150))
+        pixels = small_image.reshape((-1, 3))
+        
+        kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)
+        kmeans.fit(pixels)
+        colors = kmeans.cluster_centers_
+        
+        return ["#{:02x}{:02x}{:02x}".format(int(c[0]), int(c[1]), int(c[2])) for c in colors]
 
     def run(self, video_filename: str) -> Dict[str, Any]:
         video_path = db.video_inputs / video_filename
@@ -73,6 +86,7 @@ class ColorStage:
             if success:
                 frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 timestamp = round(f_num / fps, 2)
+                palette = self._get_dominant_colors(frame_rgb, k=3)
                 
                 frame_name = f"scene_{i+1}_t{timestamp}.jpg"
                 img = Image.fromarray(frame_rgb)
@@ -81,7 +95,8 @@ class ColorStage:
                 results.append({
                     "scene_id": i + 1,
                     "timestamp": timestamp,
-                    "frame_file": frame_name
+                    "frame_file": frame_name,
+                    "color_palette": palette
                 })
                 
         cap.release()
