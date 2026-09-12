@@ -8,6 +8,9 @@ import torch
 from pydantic import BaseModel
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
+# Importiamo la libreria per forzare matematicamente l'output
+from lmformatenforcer import JsonSchemaParser
+from lmformatenforcer.integrations.transformers import build_transformers_prefix_allowed_tokens_fn
 
 from src.open_enricher.remote.storage import db
 
@@ -111,6 +114,12 @@ class LLMStage:
             trust_remote_code=True
         )
 
+        print("[INFO] Preparing Constrained Generation Enforcer...")
+        # Creiamo il parser basato sullo schema Pydantic
+        parser = JsonSchemaParser(VideoProfile.model_json_schema())
+        # Costruiamo il filtro che impedirà all'LLM di generare token errati
+        prefix_function = build_transformers_prefix_allowed_tokens_fn(tokenizer, parser)
+
         messages = [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt}
@@ -126,6 +135,8 @@ class LLMStage:
         generated_ids = model.generate(
             model_inputs.input_ids,
             max_new_tokens=1500,
+            # La magia avviene qui: questo forza ogni singolo token generato a rispettare lo schema JSON
+            prefix_allowed_tokens_fn=prefix_function, 
             # Rimuoviamo il sampling per massimizzare il determinismo e lasciare fare al parser
             do_sample=False 
         )
