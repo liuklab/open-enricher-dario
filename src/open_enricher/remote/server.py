@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 # Deve essere chiamato PRIMA di inizializzare le classi.
 load_dotenv("/content/.env")
 
+from src.open_enricher.remote.storage import db
 from src.open_enricher.remote.stages.interface import PipelineStage
 from src.open_enricher.remote.stages.audio import AudioStage
 from src.open_enricher.remote.stages.color import ColorStage
@@ -32,6 +33,25 @@ STAGES: dict[str, PipelineStage] = {
 
 class StageRequest(BaseModel):
     video_name: str
+
+@app.on_event("startup")
+def startup_event() -> None:
+    """Pre-flight checks and database setup on boot."""
+    print("[INFO] Starting worker server...")
+    
+    # Login automatico a Hugging Face se il token è presente
+    if HF_TOKEN:
+        try:
+            from huggingface_hub import login
+            login(token=HF_TOKEN, add_to_git_credential=False)
+            print("[INFO] Login a Hugging Face completato via .env iniettato dal client.")
+        except ImportError:
+            print("[WARNING] huggingface_hub non installato, login saltato.")
+    else:
+        print("[WARNING] Nessun HF_TOKEN trovato nel file .env. I download potrebbero essere lenti o fallire.")
+        
+    db.setup_database()
+    db.configure_environment()
 
 @app.post("/stage/{stage_name}")
 def execute_stage(stage_name: str, payload: StageRequest) -> dict[str, object]:
