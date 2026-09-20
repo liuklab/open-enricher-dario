@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import subprocess
+import time
 from contextlib import contextmanager
 from typing import Generator
 
@@ -13,6 +15,23 @@ def setup_server_connection(mode: str, target: str, port: int = 8000) -> Generat
     if mode == "tailscale":
         yield f"http://{target}:{port}"
         
+    elif mode == "colab-cli":
+        print(f"[INFO] Automatically establishing SSH tunnel to '{target}'...")
+        # Apriamo il tunnel come processo in background
+        process = subprocess.Popen(
+            ["colab", "tunnel", "--port", str(port), "--session", target],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        )
+        time.sleep(3)  # Diamo 3 secondi a SSH per stabilire la connessione
+        
+        try:
+            yield f"http://localhost:{port}"
+        finally:
+            print("[INFO] Tearing down SSH tunnel...")
+            process.terminate()
+            process.wait()
+            
     else:
         raise ValueError(f"Unknown network mode: {mode}")
 
