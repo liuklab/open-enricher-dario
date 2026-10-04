@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 import json
 from pathlib import Path
 from typing import Any, Literal
@@ -136,3 +137,71 @@ def load_vlm_params(path: str | Path | None = None) -> dict[str, Any]:
     except json.JSONDecodeError as exc:
         raise ValueError(f"vlm_params is not valid JSON: {params_path}") from exc
     return validate_vlm_params(payload)
+
+
+@dataclass(frozen=True)
+class ModelConfig:
+    model_id: str
+    dtype: str
+    device_map: str
+    attn_implementation: AttnImplementation
+    load_in_4bit: bool
+
+
+@dataclass(frozen=True)
+class MetadataConfig:
+    prompt: str
+    prompt_path: str
+    max_new_tokens: int
+    fps: float
+    video_seconds: int | None
+    min_frames: int
+    max_frames: int
+    max_video_tokens: int
+    video_shortest_edge: int
+    video_longest_edge: int
+    do_sample: bool
+    temperature: float
+    top_p: float
+    top_k: int
+    repetition_penalty: float
+
+
+def build_configs() -> tuple[ModelConfig, MetadataConfig]:
+    """Reads vlm_prompts.md and vlm_params.json from disk and returns validated configs."""
+    if not VLM_PROMPTS_PATH.is_file():
+        raise FileNotFoundError(f"VLM prompt file does not exist: {VLM_PROMPTS_PATH}")
+    prompt_text = VLM_PROMPTS_PATH.read_text(encoding="utf-8").strip()
+    params = load_vlm_params(VLM_PARAMS_PATH)
+
+    model_config = ModelConfig(
+        model_id=_require_str("MODEL_ID", MODEL_ID),
+        dtype=_require_str("MODEL_DTYPE", MODEL_DTYPE),
+        device_map=_require_str("MODEL_DEVICE_MAP", MODEL_DEVICE_MAP),
+        attn_implementation=_require_attn(MODEL_ATTN_IMPLEMENTATION),
+        load_in_4bit=_require_bool("MODEL_LOAD_IN_4BIT", MODEL_LOAD_IN_4BIT),
+    )
+
+    metadata_config = MetadataConfig(
+        prompt=_require_str("VLM_PROMPTS", prompt_text),
+        prompt_path=_require_str("VLM_PROMPTS_PATH", str(VLM_PROMPTS_PATH)),
+        max_new_tokens=params["max_new_tokens"],
+        fps=params["fps"],
+        video_seconds=_require_optional_positive_int("METADATA_VIDEO_SECONDS", METADATA_VIDEO_SECONDS),
+        min_frames=_require_positive_int("METADATA_MIN_FRAMES", METADATA_MIN_FRAMES),
+        max_frames=_require_positive_int("METADATA_MAX_FRAMES", METADATA_MAX_FRAMES),
+        max_video_tokens=_require_positive_int("METADATA_MAX_VIDEO_TOKENS", METADATA_MAX_VIDEO_TOKENS),
+        video_shortest_edge=_require_positive_int(
+            "METADATA_VIDEO_SHORTEST_EDGE", METADATA_VIDEO_SHORTEST_EDGE
+        ),
+        video_longest_edge=_require_positive_int(
+            "METADATA_VIDEO_LONGEST_EDGE", METADATA_VIDEO_LONGEST_EDGE
+        ),
+        do_sample=params["do_sample"],
+        temperature=params["temperature"],
+        top_p=params["top_p"],
+        top_k=params["top_k"],
+        repetition_penalty=params["repetition_penalty"],
+    )
+
+    return model_config, metadata_config
