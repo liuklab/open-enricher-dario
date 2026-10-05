@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterator
+from contextlib import contextmanager
 from pathlib import Path
 import subprocess
+import tempfile
 
 
 def probe_duration_seconds(path: str | Path) -> float:
@@ -68,3 +71,21 @@ def clip_video_prefix(src: str | Path, seconds: int, dest: str | Path) -> Path:
     if not output.is_file() or output.stat().st_size == 0:
         raise RuntimeError(f"ffmpeg wrote no clip for {source}")
     return output
+
+
+@contextmanager
+def video_input_path(path: str | Path, seconds: int | None) -> Iterator[Path]:
+    """Yield the file the model should read (original or temporary prefix clip)."""
+    source = Path(path)
+    if seconds is None:
+        yield source
+        return
+    if type(seconds) is not int or seconds <= 0:
+        raise ValueError(f"video seconds must be a positive int or None, got {seconds!r}")
+    if probe_duration_seconds(source) <= seconds:
+        yield source
+        return
+
+    with tempfile.TemporaryDirectory(prefix="open-enricher-clip-") as tmp:
+        dest = Path(tmp) / f"{source.stem}.mp4"
+        yield clip_video_prefix(source, seconds, dest)
