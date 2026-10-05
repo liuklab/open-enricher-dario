@@ -3,13 +3,16 @@
 from __future__ import annotations
 
 import gc
+from pathlib import Path
 from typing import Any
 
 import torch
 from transformers import AutoModelForImageTextToText, AutoProcessor, BitsAndBytesConfig
 
-from src.open_enricher.remote.stages.vlm_core.config import ModelConfig
+from src.open_enricher.remote.stages.vlm_core.config import MetadataConfig, ModelConfig
+from src.open_enricher.remote.stages.vlm_core.video import video_input_path
 
+_VIDEO_TENSOR_KEYS = ("pixel_values_videos", "pixel_values")
 
 
 def load_model(config: ModelConfig) -> tuple[Any, Any]:
@@ -83,3 +86,130 @@ def apply_long_video_limits(
     video_processor.size = {"shortest_edge": shortest_edge, "longest_edge": longest_edge}
     video_processor.min_pixels = shortest_edge
     video_processor.max_pixels = longest_edge
+
+
+def prepare_video_inputs(
+    processor: Any,
+    video_path: str | Path,
+    text: str,
+    *,
+    fps: float,
+    max_frames: int,
+    shortest_edge: int,
+    longest_edge: int,
+    device: torch.device,
+    add_generation_prompt: bool,
+) -> Any:
+    """Turn a local video path and a text prompt into model-ready tensors."""
+    path = Path(video_path)
+    if not path.is_file():
+        raise FileNotFoundError(f"Video file does not exist: {path}")
+    if not text.strip():
+        raise ValueError("Prompt text is empty")
+    if fps <= 0:
+        raise ValueError(f"fps must be positive, got {fps}")
+
+    messages = [
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "video",
+                    "video": str(path),
+                    "fps": fps,
+                    "max_frames": max_frames,
+                    "min_pixels": shortest_edge,
+                    "max_pixels": longest_edge,
+                },
+                {"type": "text", "text": text},
+            ],
+        }
+    ]
+    inputs = processor.apply_chat_template(
+        messages,
+        tokenize=True,
+        add_generation_prompt=add_generation_prompt,
+        return_dict=True,
+        return_tensors="pt",
+        processor_kwargs={"fps": fps, "cap_pixels_per_frame": True},
+    )
+    if "input_ids" not in inputs:
+        raise RuntimeError(f"Processor did not return input_ids. Keys: {list(inputs.keys())}")
+    if inputs["input_ids"].shape[0] != 1:
+        raise RuntimeError(f"Expected batch size 1, got {tuple(inputs['input_ids'].shape)}")
+    if not any(key in inputs and inputs[key] is not None for key in _VIDEO_TENSOR_KEYS):
+        raise RuntimeError(
+            "Processor produced no video tensors "
+            f"(looked for {_VIDEO_TENSOR_KEYS}). Keys: {list(inputs.keys())}"
+        )
+
+    total_tokens = inputs["input_ids"].shape[1]
+    print(f"[INFO] VLM prepared input sequence length: {total_tokens} tokens")
+    return inputs.to(device)
+
+
+def extract_metadata(
+    model: Any,
+    processor: Any,
+    video_path: str | Path,
+    config: MetadataConfig,
+) -> str:
+    """Return the decoded generation for one video. Raises if nothing was generated."""
+    apply_long_video_limits(
+        processor,
+        min_frames=config.min_frames,
+        max_frames=config.max_frames,
+        max_video_tokens=config.max_video_tokens,
+        shortest_edge=config.video_shortest_edge,
+        longest_edge=config.video_longest_edge,
+    )
+
+    with video_input_path(video_path, config.video_seconds) as model_video:
+        inputs = prepare_video_inputs(
+            processor,
+            model_video,
+            config.prompt,
+            fps=config.fps,
+            max_frames=config.max_frames,
+            shortest_edge=config.video_shortest_edge,
+            longest_edge=config.video_longest_edge,
+            device=model_device(model),
+            add_generation_prompt=True,
+        )
+
+        try:
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+
+            gen_kwargs: dict[str, Any] = {
+                "max_new_tokens": config.max_new_tokens,
+                "do_sample": config.do_sample,
+                "repetition_penalty": config.repetition_penalty,
+            }
+            if config.do_sample:
+                gen_kwargs["temperature"] = config.temperature
+                gen_kwargs["top_p"] = config.top_p
+                gen_kwargs["top_k"] = config.top_k
+
+            with torch.inference_mode():
+                generated = model.generate(**inputs, **gen_kwargs)
+
+            prompt_len = inputs.input_ids.shape[1]
+            if generated.shape[0] != 1:
+                raise RuntimeError(f"Expected batch size 1 from generate, got {tuple(generated.shape)}")
+            if generated.shape[1] <= prompt_len:
+                raise RuntimeError("Model produced no new tokens")
+
+            text = processor.batch_decode(
+                generated[:, prompt_len:],
+                skip_special_tokens=True,
+                clean_up_tokenization_spaces=False,
+            )[0]
+        finally:
+            del inputs
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+
+    if not text.strip():
+        raise RuntimeError("Decoded generation is empty")
+    return text
