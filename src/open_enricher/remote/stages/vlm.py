@@ -1,25 +1,79 @@
-"""Vision-Language Model processing stage (Domain Layer)."""
+"""Vision-Language Model processing stage orchestrator (Domain Layer)."""
 
+from __future__ import annotations
+
+import json
+import re
 from typing import Any, Dict
+
+from src.open_enricher.remote.stages.vlm_core.config import build_configs
+from src.open_enricher.remote.stages.vlm_core.model import (
+    extract_metadata,
+    load_model,
+    unload_model,
+)
 from src.open_enricher.remote.storage import db
 
+
 class VLMStage:
-    """Handles multimodal feature extraction using Vision-Language Models."""
-    
+    """Handles multimodal feature extraction using Qwen3-VL in 4-bit."""
+
     name = "vlm"
 
-    def __init__(self):
-        # Initialization logic for VLM (e.g., Qwen-VL) goes here
-        pass
+    def _parse_json_safely(self, raw_text: str) -> tuple[dict[str, Any], bool]:
+        """Extracts and parses the JSON object from raw VLM output."""
+        cleaned = re.sub(r"```(?:json)?", "", raw_text).strip()
+        start = cleaned.find("{")
+        end = cleaned.rfind("}")
+        if start != -1 and end != -1 and end > start:
+            candidate = cleaned[start : end + 1]
+            candidate = re.sub(r",\s*([}\]])", r"\1", candidate)
+            try:
+                return json.loads(candidate), True
+            except json.JSONDecodeError:
+                pass
+
+        return {"raw_unparsed_vlm_output": raw_text}, False
 
     def run(self, video_filename: str) -> Dict[str, Any]:
-        """Reads frames and audio data to generate semantic metadata."""
+        """Executes the VLM pipeline stage and persists outputs + sidecar."""
+        video_path = db.video_inputs / video_filename
+        if not video_path.exists():
+            raise FileNotFoundError(f"Video not found in Data Lake: {video_path}")
+
         print(f"[INFO] Starting VLM stage for {video_filename}")
-        
-        # TODO: Implement VLM logic
-        
+        model_cfg, meta_cfg = build_configs()
+
+        print(f"[INFO] Loading VLM: {model_cfg.model_id} (4-bit={model_cfg.load_in_4bit})...")
+        model, processor = load_model(model_cfg)
+
+        try:
+            print(
+                f"[INFO] Extracting VLM metadata "
+                f"(video_seconds={meta_cfg.video_seconds!r}, fps={meta_cfg.fps})..."
+            )
+            raw_text = extract_metadata(model, processor, video_path, meta_cfg)
+        finally:
+            print("[INFO] Unloading VLM and freeing VRAM...")
+            unload_model(model, processor)
+
+        output_dir = db.get_output_dir(self.name)
+
+        # 1. Salva l'output grezzo (.txt) per ispezione e per il Judger
+        raw_path = output_dir / f"{video_filename}_vlm_raw.txt"
+        raw_path.write_text(raw_text, encoding="utf-8")
+
+        # 2. Salva il JSON strutturato (.json) letto dallo stage LLM successivo
+        parsed_payload, is_valid_json = self._parse_json_safely(raw_text)
+        json_path = output_dir / f"{video_filename}_vlm.json"
+        with open(json_path, "w", encoding="utf-8") as f:
+            json.dump(parsed_payload, f, indent=2, ensure_ascii=False)
+
+        print(f"[INFO] VLM stage completed. Saved to {json_path} (json_valid={is_valid_json})")
         return {
             "stage": self.name,
-            "status": "not_implemented_yet",
-            "output_file": None
+            "status": "success",
+            "json_valid": is_valid_json,
+            "output_file": str(json_path.name),
+            "raw_file": str(raw_path.name),
         }
