@@ -69,6 +69,35 @@ class VLMStage:
         with open(json_path, "w", encoding="utf-8") as f:
             json.dump(parsed_payload, f, indent=2, ensure_ascii=False)
 
+        # 3. Salva il sidecar JSON con tutti i parametri dell'esecuzione
+        sidecar_path = output_dir / f"{video_filename}_vlm_sidecar.json"
+        sidecar_payload = {
+            "video": str(video_path),
+            "model_id": model_cfg.model_id,
+            "dtype": model_cfg.dtype,
+            "load_in_4bit": model_cfg.load_in_4bit,
+            "device_map": model_cfg.device_map,
+            "attn_implementation": model_cfg.attn_implementation,
+            "fps": meta_cfg.fps,
+            "video_seconds": meta_cfg.video_seconds,
+            "min_frames": meta_cfg.min_frames,
+            "max_frames": meta_cfg.max_frames,
+            "max_video_tokens": meta_cfg.max_video_tokens,
+            "video_shortest_edge": meta_cfg.video_shortest_edge,
+            "video_longest_edge": meta_cfg.video_longest_edge,
+            "cap_pixels_per_frame": True,
+            "max_new_tokens": meta_cfg.max_new_tokens,
+            "do_sample": meta_cfg.do_sample,
+            "temperature": meta_cfg.temperature,
+            "top_p": meta_cfg.top_p,
+            "top_k": meta_cfg.top_k,
+            "repetition_penalty": meta_cfg.repetition_penalty,
+            "prompt_path": meta_cfg.prompt_path,
+            "json_valid": is_valid_json,
+        }
+        with open(sidecar_path, "w", encoding="utf-8") as f:
+            json.dump(sidecar_payload, f, indent=2, ensure_ascii=False)
+
         print(f"[INFO] VLM stage completed. Saved to {json_path} (json_valid={is_valid_json})")
         return {
             "stage": self.name,
@@ -76,4 +105,5 @@ class VLMStage:
             "json_valid": is_valid_json,
             "output_file": str(json_path.name),
             "raw_file": str(raw_path.name),
+            "sidecar_file": str(sidecar_path.name),
         }
