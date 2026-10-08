@@ -1,25 +1,22 @@
 # --- Web, API & System Tools ---
 fastapi
 uvicorn
-nest-asyncio
 pydantic
 python-dotenv
 requests
-tailscale
 
 # --- WhisperX (Fase 1 - Audio) ---
 git+https://github.com/m-bain/whisperx.git
 
-# --- Qwen3-VL & LLM Utils (Fase 2 - Visione) ---
-git+https://github.com/huggingface/transformers.git
+# --- Qwen3-VL & LLM Utils (Fase 2 & 3 - Visione e LLM) ---
+transformers>=4.57.0
 qwen-vl-utils
 bitsandbytes
+accelerate
+av
 
 # --- Video, Immagini & ML Utilities ---
 scenedetect
 opencv-python-headless
 scikit-learn
 Pillow
-accelerate
-lm-format-enforcer
-transformers
