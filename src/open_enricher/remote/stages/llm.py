@@ -5,7 +5,7 @@ import json
 from typing import Any, Dict, List
 
 import torch
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 # Importiamo la libreria per forzare matematicamente l'output
@@ -18,29 +18,34 @@ from src.open_enricher.remote.storage import db
 # 1. DEFINIZIONE DELLO SCHEMA (PYDANTIC)
 # ==========================================
 class RecSysMetadata(BaseModel):
-    primary_genre: str
-    sub_genres: List[str]
-    pacing: str
-    mood: List[str]
+    primary_genre: str = Field(..., description="Main genre, e.g. Action, Comedy, Education, Vlog")
+    sub_genres: List[str] = Field(..., description="1 to 4 specific sub-genres")
+    pacing: str = Field(..., description="Fast, Moderate, or Slow")
+    mood: List[str] = Field(..., description="1 to 4 mood adjectives")
+
 
 class SearchAndDiscovery(BaseModel):
-    semantic_tags: List[str]
-    main_topics: List[str]
+    semantic_tags: List[str] = Field(..., description="3 to 6 search keywords/tags")
+    main_topics: List[str] = Field(..., description="1 to 4 main topics discussed or shown")
+
 
 class AudienceProfiling(BaseModel):
-    target_age_group: str
-    viewer_interests: List[str]
+    target_age_group: str = Field(..., description="e.g. Gen Z, Millennials, Young Adults, All Ages")
+    viewer_interests: List[str] = Field(..., description="1 to 4 target audience interests")
+
 
 class ContentSummary(BaseModel):
-    visual_style: str
-    narrative_hook: str
+    visual_style: str = Field(..., description="Concise description of aesthetic and color palette")
+    narrative_hook: str = Field(..., description="One sentence describing what makes the video engaging")
+
 
 class VideoProfile(BaseModel):
-    """Il modello JSON finale perfetto e garantito."""
+    """Schema JSON finale validato per il Recommender System."""
     recsys_metadata: RecSysMetadata
     search_and_discovery: SearchAndDiscovery
     audience_profiling: AudienceProfiling
     content_summary: ContentSummary
+
 
 # ==========================================
 # 2. LOGICA DELLO STAGE
