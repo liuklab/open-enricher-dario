@@ -1,71 +1,68 @@
-"""Textual metadata extraction via prompted VLM generation."""
+"""Text generation from a prompted vision-language model."""
 
 from __future__ import annotations
 
-import json
-import re
 from pathlib import Path
 from typing import Any
 
 import torch
 
 from open_enricher.config import MetadataConfig
-from open_enricher.model import model_device, prepare_video_inputs
-
-
-_FENCE_RE = re.compile(r"^```(?:json)?\s*|\s*```$", re.IGNORECASE)
-
-
-def parse_json_from_text(text: str) -> dict[str, Any]:
-    """Best-effort JSON object parse. Falls back to `{"text": ...}`."""
-
-    stripped = _FENCE_RE.sub("", text.strip()).strip()
-    start = stripped.find("{")
-    end = stripped.rfind("}")
-    if start != -1 and end != -1 and end > start:
-        try:
-            parsed = json.loads(stripped[start : end + 1])
-            if isinstance(parsed, dict):
-                return parsed
-        except json.JSONDecodeError:
-            pass
-    return {"text": text}
+from open_enricher.model import apply_long_video_limits, model_device, prepare_video_inputs
+from open_enricher.video import video_input_path
 
 
 def extract_metadata(
     model: Any,
     processor: Any,
     video_path: str | Path,
-    config: MetadataConfig | None = None,
-    *,
-    model_id: str | None = None,
-) -> dict[str, Any]:
-    """Generate structured (or raw) textual metadata for one video."""
+    config: MetadataConfig,
+) -> str:
+    """Return the decoded generation for one video. Raises if nothing was generated."""
 
-    config = config or MetadataConfig()
-    inputs = prepare_video_inputs(
+    apply_long_video_limits(
         processor,
-        video_path,
-        config.prompt,
-        num_frames=config.num_frames,
-        fps=config.fps,
-        device=model_device(model),
+        min_frames=config.min_frames,
+        max_frames=config.max_frames,
+        max_video_tokens=config.max_video_tokens,
+        shortest_edge=config.video_shortest_edge,
+        longest_edge=config.video_longest_edge,
     )
+    # The processor samples the whole file it is given. A prefix clip is a
+    # separate file so the unread tail never enters the frame index.
+    with video_input_path(video_path, config.video_seconds) as model_video:
+        inputs = prepare_video_inputs(
+            processor,
+            model_video,
+            config.prompt,
+            fps=config.fps,
+            device=model_device(model),
+            add_generation_prompt=True,
+        )
 
-    with torch.inference_mode():
-        generated = model.generate(**inputs, max_new_tokens=config.max_new_tokens, do_sample=False)
+        with torch.inference_mode():
+            # generate() returns prompt tokens concatenated with the continuation.
+            generated = model.generate(
+                **inputs,
+                max_new_tokens=config.max_new_tokens,
+                do_sample=config.do_sample,
+                temperature=config.temperature,
+                top_p=config.top_p,
+                top_k=config.top_k,
+                repetition_penalty=config.repetition_penalty,
+            )
 
-    trimmed = [out[len(inp) :] for inp, out in zip(inputs.input_ids, generated)]
-    raw_text = processor.batch_decode(
-        trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=True
+    prompt_len = inputs.input_ids.shape[1]
+    if generated.shape[0] != 1:
+        raise RuntimeError(f"Expected batch size 1 from generate, got {tuple(generated.shape)}")
+    if generated.shape[1] <= prompt_len:
+        raise RuntimeError("Model produced no new tokens")
+
+    text = processor.batch_decode(
+        generated[:, prompt_len:],
+        skip_special_tokens=True,  # drop eos / chat markers; leave whitespace as decoded
+        clean_up_tokenization_spaces=False,
     )[0]
-
-    payload: dict[str, Any] = {
-        "video": str(video_path),
-        "prompt": config.prompt,
-        "metadata": parse_json_from_text(raw_text),
-        "raw_text": raw_text,
-    }
-    if model_id:
-        payload["model_id"] = model_id
-    return payload
+    if not text.strip():
+        raise RuntimeError("Decoded generation is empty")
+    return text

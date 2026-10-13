@@ -1,15 +1,13 @@
-"""Thin runner: metadata or embeddings inference on a Colab VM.
+"""Thin runner: textual metadata inference on a Colab or Kaggle VM.
 
-MODE is patched by bootstrap_colab.py in a temp copy before colab exec.
-Settings come from config.toml on the VM via the installed package.
+Settings come from open_enricher.config on the VM (metadata params from metadata_params.json).
 """
 
 from __future__ import annotations
 
 import sys
+from datetime import datetime
 from pathlib import Path
-
-MODE = "metadata"
 
 # The Colab Jupyter kernel often does not see a just-finished `pip install -e`
 # until restart. Prefer the uploaded checkout on disk.
@@ -17,76 +15,84 @@ _REPO_SRC = Path("/content/open-enricher/src")
 if _REPO_SRC.is_dir() and str(_REPO_SRC) not in sys.path:
     sys.path.insert(0, str(_REPO_SRC))
 
+# Colab exec reuses the same kernel. Drop a previous import so this run
+# reads the tarball just extracted.
+for _name in list(sys.modules):
+    if _name == "open_enricher" or _name.startswith("open_enricher."):
+        del sys.modules[_name]
+
 from open_enricher import (
-    DriveConfig,
-    EmbeddingConfig,
-    MetadataConfig,
-    ModelConfig,
-    extract_embedding,
+    DRIVE_CONFIG,
+    METADATA_CONFIG,
+    MODEL_CONFIG,
     extract_metadata,
-    list_videos,
     load_model,
     resolve_video,
-    save_embedding,
     save_json,
+    save_text,
+    build_output_tarball,
 )
 
 
-def pick_video(drive: DriveConfig) -> Path:
-    videos = list_videos(drive.root)
-    print(f"Found {len(videos)} video(s) under {drive.root}")
-    if not videos:
-        raise FileNotFoundError(f"No videos under {drive.root}")
-    if drive.video:
-        return resolve_video(drive.video, drive.root)
-    return videos[0]
+def new_run_dir(output_root: str | Path) -> Path:
+    # One directory per invocation so later runs do not overwrite earlier artifacts.
+    stamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    path = Path(output_root) / stamp
+    path.mkdir(parents=True, exist_ok=True)
+    return path
 
 
-def run_metadata(drive: DriveConfig, video_path: Path, model_config: ModelConfig) -> None:
-    model, processor = load_model(model_config)
-    result = extract_metadata(
-        model,
-        processor,
-        video_path,
-        MetadataConfig(),
-        model_id=model_config.model_id,
+def run_metadata(video_path: Path, run_dir: Path) -> None:
+    print(f"Video seconds: {METADATA_CONFIG.video_seconds!r}")
+    model, processor = load_model(MODEL_CONFIG)
+    text = extract_metadata(model, processor, video_path, METADATA_CONFIG)
+    out_path = run_dir / "metadata" / f"{video_path.stem}.txt"
+    save_text(out_path, text)
+    # Sidecar keeps the text file as raw model output.
+    save_json(
+        out_path.with_suffix(".json"),
+        {
+            "video": str(video_path),
+            "model_id": MODEL_CONFIG.model_id,
+            "dtype": MODEL_CONFIG.dtype,
+            "device_map": MODEL_CONFIG.device_map,
+            "attn_implementation": MODEL_CONFIG.attn_implementation,
+            "fps": METADATA_CONFIG.fps,
+            "video_seconds": METADATA_CONFIG.video_seconds,
+            "min_frames": METADATA_CONFIG.min_frames,
+            "max_frames": METADATA_CONFIG.max_frames,
+            "max_video_tokens": METADATA_CONFIG.max_video_tokens,
+            "video_shortest_edge": METADATA_CONFIG.video_shortest_edge,
+            "video_longest_edge": METADATA_CONFIG.video_longest_edge,
+            "cap_pixels_per_frame": True,
+            "max_new_tokens": METADATA_CONFIG.max_new_tokens,
+            "do_sample": METADATA_CONFIG.do_sample,
+            "temperature": METADATA_CONFIG.temperature,
+            "top_p": METADATA_CONFIG.top_p,
+            "top_k": METADATA_CONFIG.top_k,
+            "repetition_penalty": METADATA_CONFIG.repetition_penalty,
+            "prompt_path": METADATA_CONFIG.prompt_path,
+            "prompt": METADATA_CONFIG.prompt,
+        },
     )
-    out_path = Path(drive.output_dir) / "metadata" / f"{video_path.stem}.json"
-    save_json(out_path, result)
     print("Saved:", out_path)
-
-
-def run_embeddings(drive: DriveConfig, video_path: Path, model_config: ModelConfig) -> None:
-    embedding_config = EmbeddingConfig()
-    model, processor = load_model(model_config)
-    vector = extract_embedding(model, processor, video_path, embedding_config)
-    sidecar = {
-        "video": str(video_path),
-        "model_id": model_config.model_id,
-        "shape": list(vector.shape),
-        "dtype": str(vector.dtype),
-        "num_frames": embedding_config.num_frames,
-        "fps": embedding_config.fps,
-    }
-    out_path = Path(drive.output_dir) / "embeddings" / f"{video_path.stem}.npy"
-    save_embedding(out_path, vector, sidecar=sidecar)
-    print("Saved:", out_path)
-    print("Shape:", vector.shape)
+    print("Log:", out_path.with_suffix(".json"))
 
 
 def main() -> None:
-    if MODE not in {"metadata", "embeddings"}:
-        raise ValueError(f"Unknown MODE: {MODE}")
-
-    drive = DriveConfig()
-    video_path = pick_video(drive)
+    print(f"Configured video: {DRIVE_CONFIG.video!r}")
+    video_path = resolve_video(DRIVE_CONFIG.video, DRIVE_CONFIG.root)
     print("Using:", video_path)
+    run_dir = new_run_dir(DRIVE_CONFIG.output_dir)
+    print("Run directory:", run_dir)
 
-    model_config = ModelConfig()
-    if MODE == "metadata":
-        run_metadata(drive, video_path, model_config)
-        return
-    run_embeddings(drive, video_path, model_config)
+    run_metadata(video_path, run_dir)
+
+    output_tarball = build_output_tarball(
+        src=run_dir,
+        dest=Path(DRIVE_CONFIG.output_dir).parent / "last_run.tgz",
+    )
+    print("Output tarball:", output_tarball)
 
 
 if __name__ == "__main__":

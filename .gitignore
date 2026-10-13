@@ -149,6 +149,7 @@ activemq-data/
 
 # Environments
 .env
+.env.eval
 .envrc
 .venv
 env/
@@ -220,4 +221,9 @@ __marimo__/
 # Local experiment data and inference outputs
 /data/
 /outputs/
+/kaggle_job/output/
+/kaggle_job/kernel-metadata.json
 *.npy
+
+
+dataset/

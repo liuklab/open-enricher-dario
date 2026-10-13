@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "open-enricher"
 version = "0.1.0"
-description = "Experiment library for video understanding inference (metadata and embeddings)."
+description = "Experiment library for video understanding: textual metadata and a modular remote pipeline."
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
@@ -14,11 +14,19 @@ dependencies = [
     "numpy",
     "pillow",
     "av",
+    "python-dotenv",
 ]
 
 [project.optional-dependencies]
 # Optional attention backend. Install only if the Colab GPU image supports it.
 flash-attn = ["flash-attn"]
+# Local metadata evaluation loop (scripts/evaluate.py). Not installed on Colab.
+eval = ["cursor-sdk"]
+# FastAPI worker, HTTP client, and notebook/Tailscale helpers.
+remote = ["fastapi", "uvicorn", "nest-asyncio", "requests"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+open_enricher = ["*.json", "*.md"]

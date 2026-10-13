@@ -5,3 +5,4 @@ accelerate
 numpy
 pillow
 av
+python-dotenv

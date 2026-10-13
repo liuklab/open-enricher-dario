@@ -21,9 +21,10 @@ def extract_tarball() -> None:
         shutil.rmtree(REPO)
     REPO.mkdir(parents=True)
     with tarfile.open(TARBALL, "r:gz") as archive:
-        try:
+        # 3.12+ `filter="data"` blocks path-traversal members in the archive.
+        if sys.version_info >= (3, 12):
             archive.extractall(REPO, filter="data")
-        except TypeError:
+        else:
             archive.extractall(REPO)
 
 
@@ -43,6 +44,10 @@ def main() -> None:
     src = REPO / "src"
     if src.is_dir() and str(src) not in sys.path:
         sys.path.insert(0, str(src))
+    # Colab reuses the kernel; drop a stale import from a previous tarball extract.
+    for name in list(sys.modules):
+        if name == "open_enricher" or name.startswith("open_enricher."):
+            del sys.modules[name]
     importlib.invalidate_caches()
     import open_enricher  # noqa: F401
 
