@@ -7,7 +7,7 @@ Rules:
 - Use an empty string or an empty array only for a single field that the frames cannot support. Do not leave title_guess, short_summary, tags, genres, mood, visual_style, opening_scene, or ending_scene empty.
 - scene_timeline must contain several segments spaced across the whole file. Each segment needs a non-empty description. The last segment ends near the end of the file.
 - setting is one string. notable_scenes is a list of strings. Do not nest arrays inside those fields.
-- Lists hold at most 10 items. Do not pad lists. Do not repeat an item.
+- Lists hold at most 8 short items. After the last item, close the array and write the next key. Do not describe one object piece by piece. Do not repeat an item or extend it with the words "content" or "visible".
 - Return one JSON object and no other text. No Markdown fences. Include every key below. Replace every placeholder with real content.
 
 Keys and types:

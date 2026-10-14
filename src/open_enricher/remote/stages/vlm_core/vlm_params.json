@@ -1,9 +1,9 @@
 {
   "fps": 2,
-  "max_new_tokens": 2048,
-  "do_sample": false,
+  "max_new_tokens": 1600,
+  "do_sample": true,
   "temperature": 0.12,
   "top_p": 0.8,
   "top_k": 15,
-  "repetition_penalty": 1.05
+  "repetition_penalty": 1.12
 }
