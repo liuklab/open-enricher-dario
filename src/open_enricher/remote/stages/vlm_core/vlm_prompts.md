@@ -53,3 +53,5 @@ Keys and types:
   "content_warnings": ["warning grounded in a visible image, or empty"],
   "evidence_notes": ["which observation is uncertain"]
 }
+
+Fill tags, genres, mood, and setting from the timeline. tags, genres, and mood have 3 to 6 items. setting and visual_style are non-empty strings. content_suitability_notes is a string. The last timeline segment must describe a different image from the segment before it.
