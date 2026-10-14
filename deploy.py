@@ -11,7 +11,7 @@ def main() -> None:
     
     root_dir = Path(__file__).resolve().parent
     tarball_path = root_dir / "open-enricher.tgz"
-    script_path = Path("deployment/launch.sh")
+    script_path = root_dir / "deployment" / "launch.sh"
     
     # 0. Cerchiamo il file .env locale
     env_path = root_dir / ".env"

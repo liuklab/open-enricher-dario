@@ -12,6 +12,7 @@ from whisperx.diarize import DiarizationPipeline, assign_word_speakers
 
 from src.open_enricher.remote.storage import db
 
+
 @dataclass
 class DialogueLine:
     start_timestamp: float
@@ -19,16 +20,23 @@ class DialogueLine:
     speaker: str
     text: str
 
+
 class AudioStage:
     """Handles audio transcription, alignment, and diarization."""
-    
+
     name = "audio"
 
     def __init__(self, hf_token: str):
         self.hf_token = hf_token
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.batch_size = 16
-        self.compute_type = "float16"
+        self.compute_type = "float16" if self.device == "cuda" else "int8"
+
+    def _free_vram(self) -> None:
+        """Forces garbage collection and clears PyTorch CUDA cache."""
+        gc.collect()
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
 
     def run(self, video_filename: str) -> Dict[str, Any]:
         video_path = db.video_inputs / video_filename
@@ -37,42 +45,53 @@ class AudioStage:
 
         print("[INFO] Loading WhisperX model...")
         model = whisperx.load_model("large-v2", self.device, compute_type=self.compute_type)
-        
-        print(f"[INFO] Reading audio from: {video_path}")
-        audio = whisperx.load_audio(str(video_path))
-        
-        print("[INFO] Transcribing...")
-        result = model.transcribe(audio, batch_size=self.batch_size, interleaved_context=True)
-        
-        del model
-        gc.collect()
-        torch.cuda.empty_cache()
+
+        try:
+            print(f"[INFO] Reading audio from: {video_path}")
+            audio = whisperx.load_audio(str(video_path))
+
+            print("[INFO] Transcribing...")
+            result = model.transcribe(audio, batch_size=self.batch_size, interleaved_context=True)
+        finally:
+            del model
+            self._free_vram()
 
         print("[INFO] Performing temporal alignment...")
         model_a, metadata = whisperx.load_align_model(language_code=result["language"], device=self.device)
-        result = whisperx.align(result["segments"], model_a, metadata, audio, self.device, return_char_alignments=False)
-        
-        del model_a
-        gc.collect()
-        torch.cuda.empty_cache()
+        try:
+            result = whisperx.align(
+                result["segments"],
+                model_a,
+                metadata,
+                audio,
+                self.device,
+                return_char_alignments=False
+            )
+        finally:
+            del model_a
+            self._free_vram()
 
         print("[INFO] Identifying speakers...")
         os.environ["HF_TOKEN"] = self.hf_token
-        
+
         try:
             diarize_model = DiarizationPipeline(token=self.hf_token, device=self.device)
         except TypeError:
             diarize_model = DiarizationPipeline(device=self.device)
-            
-        diarize_segments = diarize_model(audio)
-        result = assign_word_speakers(diarize_segments, result)
+
+        try:
+            diarize_segments = diarize_model(audio)
+            result = assign_word_speakers(diarize_segments, result)
+        finally:
+            del diarize_model
+            self._free_vram()
 
         print("[INFO] Structuring data payload...")
         dialogues = []
         for segment in result["segments"]:
             speaker = segment.get("speaker", "UNKNOWN")
             testo = segment.get("text", "").strip()
-            
+
             if testo:
                 dialogues.append(DialogueLine(
                     start_timestamp=round(segment["start"], 2),
@@ -82,11 +101,11 @@ class AudioStage:
                 ))
 
         output_path = db.get_output_dir(self.name) / f"{video_filename}_audio.json"
-        
+
         print(f"[INFO] Saving results to {output_path}")
         with open(output_path, "w", encoding="utf-8") as f:
             json.dump([asdict(d) for d in dialogues], f, indent=2, ensure_ascii=False)
-            
+
         return {
             "stage": self.name,
             "status": "success",

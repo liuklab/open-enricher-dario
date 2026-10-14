@@ -9,12 +9,15 @@ description = "Experiment library for video understanding: textual metadata and 
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "transformers>=4.57.0",
+    "transformers>=4.51.0",
     "accelerate",
+    "bitsandbytes",
+    "pydantic>=2.0.0",
     "numpy",
     "pillow",
     "av",
     "python-dotenv",
+    "requests",
 ]
 
 [project.optional-dependencies]
@@ -22,8 +25,8 @@ dependencies = [
 flash-attn = ["flash-attn"]
 # Local metadata evaluation loop (scripts/evaluate.py). Not installed on Colab.
 eval = ["cursor-sdk"]
-# FastAPI worker, HTTP client, and notebook/Tailscale helpers.
-remote = ["fastapi", "uvicorn", "nest-asyncio", "requests"]
+# FastAPI worker and HTTP server helpers.
+remote = ["fastapi", "uvicorn"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
