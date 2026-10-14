@@ -9,7 +9,7 @@ from typing import Any
 import torch
 from transformers import AutoModelForImageTextToText, AutoProcessor
 
-from old.config import ModelConfig
+from old_files.config import ModelConfig
 
 # Qwen2/3-VL may pack video under either name depending on Transformers version.
 _VIDEO_TENSOR_KEYS = ("pixel_values_videos", "pixel_values")

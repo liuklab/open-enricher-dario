@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from old.config import (
+from old_files.config import (
     DRIVE_CONFIG,
     METADATA_CONFIG,
     METADATA_PARAMS_PATH,
@@ -19,8 +19,8 @@ from old.config import (
     load_metadata_params,
     validate_metadata_params,
 )
-from old.io import build_output_tarball, load_json, load_text, save_json, save_text
-from old.video import list_videos, resolve_video
+from old_files.io import build_output_tarball, load_json, load_text, save_json, save_text
+from old_files.video import list_videos, resolve_video
 
 __all__ = [
     "DRIVE_CONFIG",
