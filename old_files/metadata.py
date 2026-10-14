@@ -7,9 +7,9 @@ from typing import Any
 
 import torch
 
-from open_enricher.config import MetadataConfig
-from open_enricher.model import apply_long_video_limits, model_device, prepare_video_inputs
-from open_enricher.video import video_input_path
+from old.config import MetadataConfig
+from old.model import apply_long_video_limits, model_device, prepare_video_inputs
+from old.video import video_input_path
 
 
 def extract_metadata(
