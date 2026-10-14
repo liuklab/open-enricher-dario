@@ -17,6 +17,33 @@ from src.open_enricher.remote.stages.vlm_core.video import probe_duration_second
 from src.open_enricher.remote.storage import db
 
 
+def _clock(seconds: float) -> str:
+    total = max(0, int(round(seconds)))
+    hours, remainder = divmod(total, 3600)
+    minutes, secs = divmod(remainder, 60)
+    return f"{hours:02d}:{minutes:02d}:{secs:02d}"
+
+
+def _timeline_instruction(duration: float, parts: int = 8) -> str:
+    """Fixed windows so the model cannot collapse a long file into the first minutes."""
+    rows = []
+    for index in range(parts):
+        start = duration * index / parts
+        end = duration * (index + 1) / parts
+        rows.append(f"{_clock(start)} to {_clock(end)}")
+    windows = "; ".join(rows)
+    return (
+        f"This file lasts {duration:.0f} seconds ({duration / 60:.0f} minutes). "
+        "Frames are spaced evenly from the start to the end. "
+        f"scene_timeline must contain exactly these {parts} segments, in this order, "
+        f"using these times and no others: {windows}. "
+        "Each description must say what is visible in that part of the file, "
+        "and later segments must not repeat the opening. "
+        "setting is one string, not a list. "
+        "notable_scenes is a list of strings, not a list of lists."
+    )
+
+
 class VLMStage:
     """Handles multimodal feature extraction using Qwen3-VL in 4-bit."""
 
@@ -48,15 +75,7 @@ class VLMStage:
         duration = probe_duration_seconds(video_path)
         meta_cfg = replace(
             meta_cfg,
-            prompt=(
-                f"{meta_cfg.prompt}\n\n"
-                f"This file lasts {duration:.0f} seconds ({duration / 60:.0f} minutes). "
-                "The frames you see are spaced evenly from the first seconds to the final minutes. "
-                "scene_timeline must cover that full span: the last segment ends near the end of the file, "
-                "not after only the opening minutes. "
-                "setting is one string, not a list. "
-                "notable_scenes is a list of strings, not a list of lists."
-            ),
+            prompt=f"{meta_cfg.prompt}\n\n{_timeline_instruction(duration)}",
         )
 
         print(f"[INFO] Loading VLM: {model_cfg.model_id} (4-bit={model_cfg.load_in_4bit})...")
