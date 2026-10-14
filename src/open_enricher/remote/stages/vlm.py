@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import re
+from dataclasses import replace
 from typing import Any, Dict
 
 from src.open_enricher.remote.stages.vlm_core.config import build_configs
@@ -12,6 +13,7 @@ from src.open_enricher.remote.stages.vlm_core.model import (
     load_model,
     unload_model,
 )
+from src.open_enricher.remote.stages.vlm_core.video import probe_duration_seconds
 from src.open_enricher.remote.storage import db
 
 
@@ -43,6 +45,19 @@ class VLMStage:
 
         print(f"[INFO] Starting VLM stage for {video_filename}")
         model_cfg, meta_cfg = build_configs()
+        duration = probe_duration_seconds(video_path)
+        meta_cfg = replace(
+            meta_cfg,
+            prompt=(
+                f"{meta_cfg.prompt}\n\n"
+                f"This file lasts {duration:.0f} seconds ({duration / 60:.0f} minutes). "
+                "The frames you see are spaced evenly from the first seconds to the final minutes. "
+                "scene_timeline must cover that full span: the last segment ends near the end of the file, "
+                "not after only the opening minutes. "
+                "setting is one string, not a list. "
+                "notable_scenes is a list of strings, not a list of lists."
+            ),
+        )
 
         print(f"[INFO] Loading VLM: {model_cfg.model_id} (4-bit={model_cfg.load_in_4bit})...")
         model, processor = load_model(model_cfg)
