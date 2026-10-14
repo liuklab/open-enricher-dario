@@ -227,3 +227,10 @@ __marimo__/
 
 
 dataset/
+
+
+.env
+config/secrets.toml
+__pycache__/
+*.pkl
+.venv/

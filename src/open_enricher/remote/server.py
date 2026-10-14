@@ -1,71 +1,75 @@
-"""FastAPI worker: resolve a video file name and run one pipeline stage."""
+"""FastAPI Server Entrypoint (Infrastructure Layer)."""
 
-from __future__ import annotations
-
-import traceback
-from typing import Any
-
+import os
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
+from dotenv import load_dotenv
 
-from open_enricher.config import DRIVE_CONFIG
-from open_enricher.pipeline.order import STAGE_ORDER
-from open_enricher.pipeline.stages import STAGES, require_registered_stages
-from open_enricher.video import resolve_video
+# 1. Carica automaticamente TUTTI i segreti dal file iniettato dal deploy script!
+# Deve essere chiamato PRIMA di inizializzare le classi.
+load_dotenv("/content/.env")
 
-require_registered_stages()
+from src.open_enricher.remote.storage import db
+from src.open_enricher.remote.stages.interface import PipelineStage
+from src.open_enricher.remote.stages.audio import AudioStage
+from src.open_enricher.remote.stages.color import ColorStage
+from src.open_enricher.remote.stages.vlm import VLMStage
+from src.open_enricher.remote.stages.llm import LLMStage
+from src.open_enricher.remote.stages.judger import JudgerStage
 
-app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
+app = FastAPI(title="Open-Enricher Worker API")
 
+# Retrieve the token safely from the environment (ora popolato dal file .env)
+HF_TOKEN = os.getenv("HF_TOKEN", "")
+
+# Registry linking URL path names to class instances
+STAGES: dict[str, PipelineStage] = {
+    "audio": AudioStage(hf_token=HF_TOKEN),
+    "color": ColorStage(max_long_scenes=120, grid_interval_sec=180),
+    "vlm": VLMStage(),
+    "llm": LLMStage(),
+    "judger": JudgerStage()
+}
 
 class StageRequest(BaseModel):
-    """Body for POST /stages/{name}. `video` is a file name, not a path."""
+    video_name: str
 
-    video: str = Field(min_length=1)
+@app.on_event("startup")
+def startup_event() -> None:
+    """Pre-flight checks and database setup on boot."""
+    print("[INFO] Starting worker server...")
+    
+    # Login automatico a Hugging Face se il token è presente
+    if HF_TOKEN:
+        try:
+            from huggingface_hub import login
+            login(token=HF_TOKEN, add_to_git_credential=False)
+            print("[INFO] Login a Hugging Face completato via .env iniettato dal client.")
+        except ImportError:
+            print("[WARNING] huggingface_hub non installato, login saltato.")
+    else:
+        print("[WARNING] Nessun HF_TOKEN trovato nel file .env. I download potrebbero essere lenti o fallire.")
+        
+    db.setup_database()
+    db.configure_environment()
 
-
-@app.get("/stages")
-def list_stages() -> dict[str, list[str]]:
-    """Return the canonical stage order."""
-
-    return {"stages": list(STAGE_ORDER)}
-
-
-@app.post("/stages/{name}")
-def run_stage(name: str, request: StageRequest) -> dict[str, Any]:
-    """Resolve the video in the dataset root and run the named stage."""
-
-    stage = STAGES.get(name)
-    if stage is None:
-        raise HTTPException(status_code=404, detail=f"Unknown stage: {name}")
-
+@app.post("/stage/{stage_name}")
+def execute_stage(stage_name: str, payload: StageRequest) -> dict[str, object]:
+    """Triggers a specific pipeline stage."""
+    if stage_name not in STAGES:
+        print(f"[ERROR] Requested stage not found: {stage_name}")
+        raise HTTPException(status_code=404, detail=f"Stage '{stage_name}' not registered.")
+    
+    stage = STAGES[stage_name]
+    video_filename = payload.video_name
+    
+    print(f"[INFO] Received request to run '{stage_name}' on '{video_filename}'.")
+    
     try:
-        video_path = resolve_video(request.video, DRIVE_CONFIG.root)
-    except FileNotFoundError as exc:
-        raise HTTPException(status_code=404, detail=str(exc)) from exc
-
-    print(f"Running stage {name} on {video_path}")
-    try:
-        return stage.run(video_path)
-    except Exception as exc:
-        print(f"Stage {name} failed:\n{traceback.format_exc()}")
-        raise HTTPException(status_code=500, detail=str(exc)) from exc
-
-
-def start_worker_server(host: str = "0.0.0.0", port: int = 8000) -> None:
-    """Start uvicorn. Apply nest_asyncio so a notebook event loop can host it."""
-
-    import nest_asyncio
-    import uvicorn
-
-    nest_asyncio.apply()
-    print(f"Starting worker server on {host}:{port}")
-    uvicorn.run(app, host=host, port=port)
-
-
-def main() -> None:
-    start_worker_server()
-
-
-if __name__ == "__main__":
-    main()
+        return stage.run(video_filename)
+    except FileNotFoundError as e:
+        print(f"[ERROR] File missing: {e}")
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        print(f"[ERROR] Stage '{stage_name}' failed: {e}")
+        raise HTTPException(status_code=500, detail=f"Internal stage error: {e}")
