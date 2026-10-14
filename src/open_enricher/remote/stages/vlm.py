@@ -103,6 +103,7 @@ class VLMStage:
             "stage": self.name,
             "status": "success",
             "json_valid": is_valid_json,
+            "result": parsed_payload,
             "output_file": str(json_path.name),
             "raw_file": str(raw_path.name),
             "sidecar_file": str(sidecar_path.name),

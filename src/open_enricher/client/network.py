@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import shlex
+import socket
 import subprocess
 import time
 from contextlib import contextmanager
@@ -9,29 +11,79 @@ from typing import Generator
 
 import requests
 
+
+def _wait_for_local_port(port: int, timeout: float) -> bool:
+    """Return True once something accepts TCP connections on localhost."""
+    deadline = time.monotonic() + timeout
+    while time.monotonic() < deadline:
+        try:
+            with socket.create_connection(("127.0.0.1", port), timeout=0.5):
+                return True
+        except OSError:
+            time.sleep(0.2)
+    return False
+
+
+def _start_colab_tunnel(session: str, port: int) -> subprocess.Popen[str]:
+    """Forward a local port to the Colab VM through `colab ssh --proxy-mode`."""
+    proxy = "colab ssh --proxy-mode -s " + shlex.quote(session)
+    command = [
+        "ssh",
+        "-N",
+        "-L",
+        f"{port}:127.0.0.1:{port}",
+        "-o",
+        f"ProxyCommand={proxy}",
+        "-o",
+        "StrictHostKeyChecking=no",
+        "-o",
+        "UserKnownHostsFile=/dev/null",
+        "-o",
+        "ExitOnForwardFailure=yes",
+        "-o",
+        "ServerAliveInterval=30",
+        "-o",
+        "LogLevel=ERROR",
+        "root@colab-runtime",
+    ]
+    return subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+
+
+def _stop_process(process: subprocess.Popen[str]) -> str:
+    """Terminate a tunnel process and return any stderr it produced."""
+    if process.poll() is None:
+        process.terminate()
+        try:
+            process.wait(timeout=5)
+        except subprocess.TimeoutExpired:
+            process.kill()
+            process.wait()
+    if process.stderr is None:
+        return ""
+    return process.stderr.read().strip()
+
+
 @contextmanager
 def setup_server_connection(mode: str, target: str, port: int = 8000) -> Generator[str, None, None]:
     """Abstracts network complexity by auto-managing SSH tunnels if needed."""
     if mode == "tailscale":
         yield f"http://{target}:{port}"
-        
+
     elif mode == "colab-cli":
         print(f"[INFO] Automatically establishing SSH tunnel to '{target}'...")
-        # Apriamo il tunnel come processo in background
-        process = subprocess.Popen(
-            ["colab", "tunnel", "--port", str(port), "--session", target],
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL
-        )
-        time.sleep(3)  # Diamo 3 secondi a SSH per stabilire la connessione
-        
+        process = _start_colab_tunnel(target, port)
         try:
-            yield f"http://localhost:{port}"
+            if not _wait_for_local_port(port, timeout=30) or process.poll() is not None:
+                detail = _stop_process(process)
+                message = f"Colab SSH tunnel did not open localhost:{port}."
+                if detail:
+                    message = f"{message} {detail}"
+                raise RuntimeError(message)
+            yield f"http://127.0.0.1:{port}"
         finally:
             print("[INFO] Tearing down SSH tunnel...")
-            process.terminate()
-            process.wait()
-            
+            _stop_process(process)
+
     else:
         raise ValueError(f"Unknown network mode: {mode}")
 

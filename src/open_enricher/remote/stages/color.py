@@ -119,6 +119,7 @@ class ColorStage:
             "stage": self.name,
             "status": "success",
             "keyframes_extracted": len(results),
+            "result": results,
             "output_json": str(json_path.name),
             "frames_folder": str(frames_dir.name)
         }

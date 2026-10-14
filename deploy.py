@@ -28,7 +28,7 @@ def main() -> None:
     if args.mode == "tailscale":
         strategy = TailscaleStrategy()
     else:
-        strategy = ColabCliStrategy()
+        strategy = ColabCliStrategy(gpu=args.gpu)
         
     # 4. Execute deployment
     try:

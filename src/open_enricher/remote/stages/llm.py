@@ -236,5 +236,6 @@ class LLMStage:
         return {
             "stage": self.name,
             "status": "success",
+            "result": final_json,
             "output_file": str(output_path.name)
         }

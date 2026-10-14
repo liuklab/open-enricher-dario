@@ -100,15 +100,17 @@ class AudioStage:
                     text=testo
                 ))
 
+        payload = [asdict(d) for d in dialogues]
         output_path = db.get_output_dir(self.name) / f"{video_filename}_audio.json"
 
         print(f"[INFO] Saving results to {output_path}")
         with open(output_path, "w", encoding="utf-8") as f:
-            json.dump([asdict(d) for d in dialogues], f, indent=2, ensure_ascii=False)
+            json.dump(payload, f, indent=2, ensure_ascii=False)
 
         return {
             "stage": self.name,
             "status": "success",
             "lines_extracted": len(dialogues),
+            "result": payload,
             "output_file": str(output_path.name)
         }

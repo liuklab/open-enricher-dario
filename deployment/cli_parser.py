@@ -23,5 +23,10 @@ def parse_args() -> argparse.Namespace:
         required=True, 
         help="The Tailscale IP address or Colab CLI session name."
     )
+    parser.add_argument(
+        "--gpu",
+        default="T4",
+        help="GPU used only when colab-cli creates a missing session. Default: T4.",
+    )
     
     return parser.parse_args()

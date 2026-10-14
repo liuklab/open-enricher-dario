@@ -16,16 +16,21 @@ AttnImplementation = Literal["eager", "sdpa", "flash_attention_2"]
 ATTN_IMPLEMENTATIONS: tuple[AttnImplementation, ...] = ("eager", "sdpa", "flash_attention_2")
 MODEL_ATTN_IMPLEMENTATION: AttnImplementation = "sdpa"
 
-# None: analizza l'intero file video. Int positivo: ricodifica solo i primi N secondi.
-METADATA_VIDEO_SECONDS: int | None = 30
+# None: analizza l'intero file. Un intero positivo ricodifica solo i primi N secondi.
+# Per un film di 50 minuti il prefisso nasconderebbe tutto tranne l'apertura.
+METADATA_VIDEO_SECONDS: int | None = None
 
-# Budget frame e pixel tarato per GPU Colab T4 (15GB VRAM) con Qwen3-VL-8B in 4-bit:
-# Max 64 frame distribuiti uniformemente e ~2.500 token visivi massimi (~5.2M pixel totali).
+# Budget tarato per una T4 da 15 GB con Qwen3-VL-8B in 4-bit.
+# 64 frame sul film intero (~3000 s) sono un campione ogni ~47 s, spaziati in modo
+# uniforme, e restano intorno ai 2500 token visivi (~5.2M pixel). 768 frame stanno
+# su una GPU da 22 GB e vanno in out-of-memory sulla T4.
+# fps in vlm_params.json deve restare sopra 64/3000 ≈ 0.022: sotto quel valore il
+# tetto non scatta e la copertura peggiora. Con fps=2 il tetto è quello che conta.
 METADATA_MIN_FRAMES = 4
 METADATA_MAX_FRAMES = 64
 METADATA_MAX_VIDEO_TOKENS = 128
 METADATA_VIDEO_SHORTEST_EDGE = 64 * 32 * 32
-METADATA_VIDEO_LONGEST_EDGE = (80 * 32 * 32) * 64
+METADATA_VIDEO_LONGEST_EDGE = (80 * 32 * 32) * METADATA_MAX_FRAMES
 
 VLM_CORE_DIR = Path(__file__).resolve().parent
 VLM_PROMPTS_PATH = VLM_CORE_DIR / "vlm_prompts.md"
