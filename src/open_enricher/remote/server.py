@@ -2,6 +2,7 @@
 
 from contextlib import asynccontextmanager
 import os
+import threading
 from typing import AsyncGenerator
 
 from dotenv import load_dotenv
@@ -53,6 +54,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
 
 
 app = FastAPI(title="Open-Enricher Worker API", lifespan=lifespan)
+_stage_lock = threading.Lock()
 
 
 class StageRequest(BaseModel):
@@ -71,6 +73,9 @@ def execute_stage(stage_name: str, payload: StageRequest) -> dict[str, object]:
 
     print(f"[INFO] Received request to run '{stage_name}' on '{video_filename}'.")
 
+    if not _stage_lock.acquire(blocking=False):
+        raise HTTPException(status_code=409, detail="A stage is already running on this GPU.")
+
     try:
         return stage.run(video_filename)
     except FileNotFoundError as e:
@@ -79,3 +84,5 @@ def execute_stage(stage_name: str, payload: StageRequest) -> dict[str, object]:
     except Exception as e:
         print(f"[ERROR] Stage '{stage_name}' failed: {e}")
         raise HTTPException(status_code=500, detail=f"Internal stage error: {e}")
+    finally:
+        _stage_lock.release()
