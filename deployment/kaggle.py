@@ -22,6 +22,9 @@ CODE_TITLE = os.environ.get("OPEN_ENRICHER_CODE_TITLE", CODE_SLUG).strip() or CO
 SESSION_DIR = Path(".session")
 TUNNEL_RE = re.compile(r"OPEN_ENRICHER_TUNNEL_URL=(https://\S+)")
 STATUS_RE = re.compile(r'has status "([^"]+)"')
+FILE_ROW_RE = re.compile(
+    r"^(?P<name>\S+)\s+\d+\s+(?P<created>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(?:\.\d+)?)\s*$"
+)
 TERMINAL_FAIL = {"ERROR", "CANCEL_ACKNOWLEDGED"}
 
 
@@ -100,6 +103,16 @@ def _dataset_status(ref: str) -> str | None:
     return lines[-1].lower() if lines else None
 
 
+def _dataset_file_created(ref: str, filename: str) -> str | None:
+    """Return the creation timestamp Kaggle lists for one file, if present."""
+    text = _run_kaggle(["datasets", "files", ref], echo=False)
+    for line in text.splitlines():
+        match = FILE_ROW_RE.match(line.strip())
+        if match and match.group("name") == filename:
+            return match.group("created")
+    return None
+
+
 def _wait_until_ready(ref: str, wait_seconds: int) -> None:
     deadline = time.monotonic() + wait_seconds
     seen = None
@@ -127,15 +140,51 @@ def _kernel_status(kernel: str) -> str:
     return match.group(1).rsplit(".", 1)[-1]
 
 
+def _wait_for_new_code_version(
+    ref: str,
+    previous_created: str | None,
+    wait_seconds: int,
+) -> None:
+    """Wait until Kaggle is serving a dataset version that contains this upload.
+
+    ``datasets status`` stays ``ready`` on the previous version while a new one
+    is still processing. Pushing a kernel in that window mounts the old files,
+    so ``/kaggle/input/open-enricher-code/launch.sh`` is missing.
+    """
+    deadline = time.monotonic() + wait_seconds
+    seen = None
+    while True:
+        status = _dataset_status(ref)
+        created = _dataset_file_created(ref, "launch.sh")
+        marker = (status, created)
+        if marker != seen:
+            print(f"[INFO] Dataset {ref} is {status}; launch.sh created {created}")
+            seen = marker
+        fresh = created is not None and created != previous_created
+        if status == "ready" and fresh:
+            print(f"[INFO] Dataset {ref} is serving launch.sh from {created}")
+            return
+        if status in {"error", "failed", "deleted"}:
+            raise SystemExit(f"Dataset {ref} is {status}.")
+        if time.monotonic() >= deadline:
+            raise SystemExit(
+                f"Dataset {ref} did not publish a new launch.sh "
+                f"(status {status}, created {created}) after {wait_seconds}s."
+            )
+        time.sleep(10)
+
+
 def publish_code_dataset(folder: Path, ref: str, wait_seconds: int = 600) -> None:
     """Create the private code dataset, or upload a new version."""
+    previous_created = None
     if _dataset_status(ref) is None:
         print(f"[INFO] Creating code dataset {ref}")
         _run_kaggle(["datasets", "create", "-p", str(folder)])
     else:
+        previous_created = _dataset_file_created(ref, "launch.sh")
         print(f"[INFO] Updating code dataset {ref}")
         _run_kaggle(["datasets", "version", "-p", str(folder), "-m", "worker checkout"])
-    _wait_until_ready(ref, wait_seconds)
+    _wait_for_new_code_version(ref, previous_created, wait_seconds)
 
 
 def wait_for_tunnel_url(kernel: str, slug: str, wait_seconds: int = 1200) -> str:

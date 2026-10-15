@@ -7,6 +7,7 @@ import os
 import subprocess
 import sys
 import threading
+import time
 from pathlib import Path
 from typing import Any
 
@@ -26,6 +27,27 @@ from src.open_enricher.experiments.archive import (
 )
 from src.open_enricher.experiments.benchmark import save_score, score_profile
 from src.open_enricher.experiments.config import PIPELINE_STAGES, REPO_ROOT, MachineBinding
+
+
+def _wait_for_worker(base_url: str, timeout: float = 180) -> None:
+    """Poll /health until uvicorn is accepting requests.
+
+    The SSH tunnel accepts local connections before the remote process binds,
+    so the first POST can be reset while the app is still starting.
+    """
+    deadline = time.monotonic() + timeout
+    last_error = "no response"
+    while time.monotonic() < deadline:
+        try:
+            response = requests.get(f"{base_url}/health", timeout=10)
+            if response.status_code == 200:
+                print(f"[INFO] Worker ready at {base_url}", flush=True)
+                return
+            last_error = f"HTTP {response.status_code}"
+        except requests.RequestException as exc:
+            last_error = str(exc)
+        time.sleep(2)
+    raise RuntimeError(f"Worker at {base_url} did not become ready: {last_error}")
 
 
 def _run(cmd: list[str], *, cwd: Path, env: dict[str, str] | None = None) -> None:
@@ -225,6 +247,7 @@ def run_machine_pipeline(
 
         with setup_server_connection(mode=machine.mode, target=machine.target) as base_url:
             client = PipelineClient(base_url=base_url, timeout=timeout)
+            _wait_for_worker(base_url)
             _fetch_worker_log(base_url, out / "worker_before.log")
 
             stages_to_run = list(PIPELINE_STAGES)
