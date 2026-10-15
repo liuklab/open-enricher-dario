@@ -73,17 +73,20 @@ class AudioStage:
 
         print("[INFO] Identifying speakers...")
         os.environ["HF_TOKEN"] = self.hf_token
-
+        diarize_model = None
         try:
-            diarize_model = DiarizationPipeline(token=self.hf_token, device=self.device)
-        except TypeError:
-            diarize_model = DiarizationPipeline(device=self.device)
-
-        try:
+            try:
+                diarize_model = DiarizationPipeline(token=self.hf_token, device=self.device)
+            except TypeError:
+                diarize_model = DiarizationPipeline(device=self.device)
             diarize_segments = diarize_model(audio)
             result = assign_word_speakers(diarize_segments, result)
+        except Exception as exc:
+            # The community diarization weights are gated. The transcript is still usable.
+            print(f"[WARNING] Speaker diarization skipped: {exc}")
         finally:
-            del diarize_model
+            if diarize_model is not None:
+                del diarize_model
             self._free_vram()
 
         print("[INFO] Structuring data payload...")
