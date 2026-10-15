@@ -16,16 +16,15 @@ AttnImplementation = Literal["eager", "sdpa", "flash_attention_2"]
 ATTN_IMPLEMENTATIONS: tuple[AttnImplementation, ...] = ("eager", "sdpa", "flash_attention_2")
 MODEL_ATTN_IMPLEMENTATION: AttnImplementation = "sdpa"
 
-# None: analizza l'intero file. Un intero positivo ricodifica solo i primi N secondi.
-# Per un film di 50 minuti il prefisso nasconderebbe tutto tranne l'apertura.
+# None analyzes the whole file. A positive integer re-encodes only the first N seconds.
+# On a 50 minute film, a prefix would hide everything after the opening.
 METADATA_VIDEO_SECONDS: int | None = None
 
-# Budget tarato per una T4 da 15 GB con Qwen3-VL-8B in 4-bit.
-# 40 frame sul film intero (~3000 s) sono un campione ogni ~75 s. 64 frame più
-# il prompt allungato esauriscono la T4 durante generate(). 768 frame stanno
-# su una GPU da 22 GB.
-# fps in vlm_params.json deve restare sopra 40/3000 ≈ 0.014: sotto quel valore il
-# tetto non scatta e la copertura peggiora. Con fps=2 il tetto è quello che conta.
+# Budget for a 15 GB T4 running Qwen3-VL-8B in 4-bit.
+# 40 frames across a ~3000 s film are about one sample every 75 s. 64 frames plus
+# the long prompt exhaust the T4 inside generate(). 768 frames fit on a 22 GB GPU.
+# fps in vlm_params.json must stay above 40/3000 ≈ 0.014. Below that the frame cap
+# never triggers and coverage gets worse. With fps=2 the cap is what matters.
 METADATA_MIN_FRAMES = 4
 METADATA_MAX_FRAMES = 40
 METADATA_MAX_VIDEO_TOKENS = 128

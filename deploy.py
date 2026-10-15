@@ -4,6 +4,7 @@ from pathlib import Path
 
 from deployment.cli_parser import parse_args
 from deployment.packager import ProjectPackager
+from deployment.kaggle import KaggleStrategy
 from deployment.network import ColabCliStrategy, DeployStrategy, TailscaleStrategy
 
 def main() -> None:
@@ -13,9 +14,8 @@ def main() -> None:
     tarball_path = root_dir / "open-enricher.tgz"
     script_path = root_dir / "deployment" / "launch.sh"
     
-    # 0. Cerchiamo il file .env locale
     env_path = root_dir / ".env"
-    
+
     # 1. Read the bash script
     remote_script = script_path.read_text(encoding="utf-8").replace("\r\n", "\n")
     
@@ -27,12 +27,12 @@ def main() -> None:
     strategy: DeployStrategy
     if args.mode == "tailscale":
         strategy = TailscaleStrategy()
+    elif args.mode == "kaggle":
+        strategy = KaggleStrategy(gpu=args.gpu)
     else:
         strategy = ColabCliStrategy(gpu=args.gpu)
-        
-    # 4. Execute deployment
+
     try:
-        # Passiamo anche env_path alla strategia
         strategy.deploy(tarball_path, env_path, args.target, remote_script)
     finally:
         if tarball_path.exists():

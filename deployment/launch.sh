@@ -1,8 +1,12 @@
 #!/bin/bash
 set -e
 
-REMOTE_DIR="/content/open-enricher"
-TARBALL_PATH="/content/open-enricher.tgz"
+HOME_DIR="${OPEN_ENRICHER_HOME:-/content}"
+DATA_ROOT="${OPEN_ENRICHER_DATA_ROOT:-/content/drive/MyDrive/Open-Enricher-Database}"
+REMOTE_DIR="$HOME_DIR/open-enricher"
+TARBALL_PATH="${OPEN_ENRICHER_TARBALL:-$HOME_DIR/open-enricher.tgz}"
+export OPEN_ENRICHER_DATA_ROOT="$DATA_ROOT"
+export OPEN_ENRICHER_HOME="$HOME_DIR"
 
 echo "[INFO] Force-stopping existing FastAPI workers to free up VRAM and port 8000..."
 pkill -9 -f "uvicorn" || true
@@ -35,8 +39,8 @@ echo "[INFO] Dependencies verified!"
 
 # 3. Environment Variables & Cache Configuration
 echo "[INFO] Injecting correct Database Cache paths for Hugging Face..."
-export HF_HOME="/content/drive/MyDrive/Open-Enricher-Database/Models-Cache/huggingface"
-export TORCH_HOME="/content/drive/MyDrive/Open-Enricher-Database/Models-Cache/torch"
+export HF_HOME="$DATA_ROOT/Models-Cache/huggingface"
+export TORCH_HOME="$DATA_ROOT/Models-Cache/torch"
 export HF_HUB_DISABLE_SYMLINKS=1
 export PYTHONUNBUFFERED=1
 export LD_LIBRARY_PATH=/usr/lib64-nvidia:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda/lib64:$LD_LIBRARY_PATH

@@ -221,6 +221,7 @@ __marimo__/
 # Local experiment data and inference outputs
 /data/
 /outputs/
+.session/
 /kaggle_job/output/
 /kaggle_job/kernel-metadata.json
 *.npy

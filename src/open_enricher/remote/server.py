@@ -9,8 +9,10 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
-# 1. Carica i segreti e configura subito i path di cache PRIMA di importare transformers/torch
-load_dotenv("/content/.env")
+# Load secrets and cache paths before importing transformers or torch.
+_env_file = os.environ.get("OPEN_ENRICHER_ENV", "/content/.env")
+if os.path.isfile(_env_file):
+    load_dotenv(_env_file)
 
 from src.open_enricher.remote.storage import db
 
@@ -44,11 +46,11 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
         try:
             from huggingface_hub import login
             login(token=HF_TOKEN, add_to_git_credential=False)
-            print("[INFO] Login a Hugging Face completato via .env iniettato dal client.")
+            print("[INFO] Hugging Face login completed from the injected .env file.")
         except ImportError:
-            print("[WARNING] huggingface_hub non installato, login saltato.")
+            print("[WARNING] huggingface_hub is not installed; login skipped.")
     else:
-        print("[WARNING] Nessun HF_TOKEN trovato nel file .env. I download potrebbero essere lenti o fallire.")
+        print("[WARNING] No HF_TOKEN in the environment. Model downloads may be slow or fail.")
 
     yield
 

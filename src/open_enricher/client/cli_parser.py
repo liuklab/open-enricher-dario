@@ -14,13 +14,13 @@ def parse_args(argv: list[str] | None = None) -> PipelineConfig:
 
     arguments = [
         ("--mode", {
-            "choices": ["tailscale", "colab-cli"],
+            "choices": ["tailscale", "colab-cli", "kaggle"],
             "required": True,
-            "help": "Networking mode to communicate with the server."
+            "help": "How to reach the remote worker."
         }),
         ("--target", {
             "required": True,
-            "help": "Tailscale IP address or Colab CLI session name."
+            "help": "Tailscale IP, Colab session name, or Kaggle kernel slug."
         }),
         ("--video", {"required": True, "help": "Video file name with extension."}),
         ("--timeout", {"type": int, "default": 3600, "help": "Timeout in seconds."}),

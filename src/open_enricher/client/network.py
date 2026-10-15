@@ -69,6 +69,12 @@ def setup_server_connection(mode: str, target: str, port: int = 8000) -> Generat
     if mode == "tailscale":
         yield f"http://{target}:{port}"
 
+    elif mode == "kaggle":
+        from deployment.kaggle import read_tunnel_url
+
+        print(f"[INFO] Looking up the Kaggle tunnel for '{target}'...")
+        yield read_tunnel_url(target)
+
     elif mode == "colab-cli":
         print(f"[INFO] Automatically establishing SSH tunnel to '{target}'...")
         process = _start_colab_tunnel(target, port)

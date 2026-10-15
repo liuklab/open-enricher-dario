@@ -111,7 +111,7 @@ class LLMStage:
                 "error": "No input metadata found from previous stages."
             }
 
-        # JSON compatto senza spazi inutili per ridurre il consumo di token in KV-cache
+        # Compact JSON keeps the prompt inside the T4 KV cache.
         script_text = json.dumps(metadata, separators=(",", ":"), ensure_ascii=False)
 
         example_structure = {

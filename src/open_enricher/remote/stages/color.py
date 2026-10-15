@@ -67,7 +67,7 @@ class ColorStage:
             for f in range(grid_interval_frames, total_frames, grid_interval_frames):
                 target_frames_set.add(f)
 
-            # Fallback per video brevi/statici senza cambi di scena rilevati
+            # Fallback for short or static videos where no scene cut was detected.
             if not target_frames_set and total_frames > 0:
                 target_frames_set.add(total_frames // 2)
 

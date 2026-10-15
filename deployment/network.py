@@ -64,17 +64,15 @@ class TailscaleStrategy:
         print(f"[INFO] Deploying via Tailscale SSH to {target}...")
         remote_host = f"root@{target}"
 
-        # 1. Invia il codice sorgente
         _run_cmd(["scp", "-o", "StrictHostKeyChecking=no", str(tarball_path), f"{remote_host}:{REMOTE_TARBALL_PATH}"])
 
-        # 2. Invia i segreti (se il file .env esiste)
         if env_path.exists():
-            print("[INFO] Trovato file .env locale: invio sicuro dei segreti al server...")
+            print("[INFO] Uploading the local .env file to the worker...")
             _run_cmd(["scp", "-o", "StrictHostKeyChecking=no", str(env_path), f"{remote_host}:{REMOTE_ENV_PATH}"])
         else:
-            print("[WARNING] Nessun file .env locale trovato. Deploy senza segreti extra.")
+            print("[WARNING] No local .env file found. Deploying without extra secrets.")
 
-        # 3. Lancia lo script remoto
+        # Start the remote worker.
         _run_cmd(["ssh", "-o", "StrictHostKeyChecking=no", remote_host, "bash", "-s"], input_data=remote_script)
 
 
@@ -88,19 +86,16 @@ class ColabCliStrategy:
         print(f"[INFO] Deploying via Colab CLI to session '{target}'...")
         ensure_colab_session(target, self.gpu)
 
-        # 1. Invia il codice sorgente
         _run_cmd(["colab", "upload", "-s", target, str(tarball_path), REMOTE_TARBALL_PATH])
 
-        # 2. Invia i segreti (se il file .env esiste)
         if env_path.exists():
-            print("[INFO] Trovato file .env locale: invio sicuro dei segreti al server...")
+            print("[INFO] Uploading the local .env file to the worker...")
             _run_cmd(["colab", "upload", "-s", target, str(env_path), REMOTE_ENV_PATH])
         else:
-            print("[WARNING] Nessun file .env locale trovato. Deploy senza segreti extra.")
+            print("[WARNING] No local .env file found. Deploying without extra secrets.")
 
-        # 3. Lancia lo script remoto. `colab exec` esegue Python nel kernel e non
-        # accetta argomenti shell: il timeout di default è 30 secondi, troppo corto
-        # per il pip install dentro launch.sh.
+        # `colab exec` runs Python in the kernel and does not take a shell command.
+        # The default 30 second timeout is too short for the pip install in launch.sh.
         script_path = tarball_path.parent / "launch_tmp.sh"
         runner_path = tarball_path.parent / "launch_runner.py"
         try:

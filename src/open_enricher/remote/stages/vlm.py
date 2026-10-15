@@ -115,16 +115,16 @@ class VLMStage:
                 unload_model(model, processor)
             parsed_payload, is_valid_json = self._parse_json_safely(raw_text)
 
-        # 1. Salva l'output grezzo (.txt) per ispezione e per il Judger
+        # 1. Save the raw text for inspection and for the judger.
         raw_path = output_dir / f"{video_filename}_vlm_raw.txt"
         raw_path.write_text(raw_text, encoding="utf-8")
 
-        # 2. Salva il JSON strutturato (.json) letto dallo stage LLM successivo
+        # 2. Save the structured JSON read by the following LLM stage.
         json_path = output_dir / f"{video_filename}_vlm.json"
         with open(json_path, "w", encoding="utf-8") as f:
             json.dump(parsed_payload, f, indent=2, ensure_ascii=False)
 
-        # 3. Salva il sidecar JSON con tutti i parametri dell'esecuzione
+        # 3. Save the sidecar JSON with the parameters of this run.
         sidecar_path = output_dir / f"{video_filename}_vlm_sidecar.json"
         sidecar_payload = {
             "video": str(video_path),

@@ -14,7 +14,6 @@ def main(argv: list[str] | None = None) -> None:
     print(f"[INFO] Initializing connection via {config.mode.upper()}...")
     
     try:
-        # La complessità di rete è incapsulata qui dentro!
         with setup_server_connection(mode=config.mode, target=config.target) as base_url:
             
             client = PipelineClient(base_url=base_url, timeout=config.timeout)
