@@ -14,7 +14,7 @@ from typing import Any
 
 from src.open_enricher.remote.storage import db
 
-EXPERIMENT_ID = "02-longer-json-compact-llm"
+EXPERIMENT_ID = "05-segments-5min"
 SUMMARY_MODEL_ID = "Qwen/Qwen3-8B"
 # A full episode transcript does not fit comfortably next to the VLM frames.
 # The text model sees a capped sample; the VLM sees only the short summary.

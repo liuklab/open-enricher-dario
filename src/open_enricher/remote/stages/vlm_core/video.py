@@ -36,6 +36,51 @@ def probe_duration_seconds(path: str | Path) -> float:
     return duration
 
 
+def clip_video_range(
+    src: str | Path,
+    start_seconds: float,
+    duration_seconds: float,
+    dest: str | Path,
+) -> Path:
+    """Re-encode one time window of `src` into `dest`, without audio."""
+    if start_seconds < 0:
+        raise ValueError(f"start_seconds must be >= 0, got {start_seconds}")
+    if duration_seconds <= 0:
+        raise ValueError(f"duration_seconds must be positive, got {duration_seconds}")
+
+    source = Path(src)
+    if not source.is_file():
+        raise FileNotFoundError(f"Video file does not exist: {source}")
+
+    output = Path(dest)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    cmd = [
+        "ffmpeg",
+        "-y",
+        "-hide_banner",
+        "-loglevel", "error",
+        "-ss", f"{start_seconds:.3f}",
+        "-i", str(source),
+        "-t", f"{duration_seconds:.3f}",
+        "-an",
+        "-c:v", "libx264",
+        "-preset", "veryfast",
+        "-pix_fmt", "yuv420p",
+        str(output),
+    ]
+    try:
+        subprocess.run(cmd, check=True, capture_output=True, text=True)
+    except FileNotFoundError as exc:
+        raise RuntimeError("ffmpeg is required to clip the input video") from exc
+    except subprocess.CalledProcessError as exc:
+        detail = (exc.stderr or "").strip()
+        raise RuntimeError(f"ffmpeg failed to clip {source}: {detail}") from exc
+
+    if not output.is_file() or output.stat().st_size == 0:
+        raise RuntimeError(f"ffmpeg wrote no clip for {source}")
+    return output
+
+
 def clip_video_prefix(src: str | Path, seconds: int, dest: str | Path) -> Path:
     """Re-encode the first `seconds` of `src` into `dest`, without audio."""
     if type(seconds) is not int or seconds <= 0:

@@ -9,6 +9,12 @@ from typing import Any, Dict
 
 from src.open_enricher.remote.stages.vlm_core.config import build_configs
 from src.open_enricher.remote.stages.vlm_core.enrichment import EXPERIMENT_ID, build_vlm_context
+from src.open_enricher.remote.stages.vlm_core.segments import (
+    SEGMENT_MAX_FRAMES,
+    SEGMENT_MAX_NEW_TOKENS,
+    SEGMENT_SECONDS,
+    run_segmented,
+)
 from src.open_enricher.remote.stages.vlm_core.model import (
     extract_metadata,
     load_model,
@@ -81,30 +87,39 @@ class VLMStage:
         context_path = output_dir / f"{video_filename}_vlm_context.txt"
         context_path.write_text(context, encoding="utf-8")
         print(f"[INFO] Wrote VLM context ({len(context)} chars) to {context_path.name}")
-        meta_cfg = replace(
-            meta_cfg,
-            prompt=f"{meta_cfg.prompt}\n\n{_timeline_instruction(duration)}\n\n{context}",
-        )
 
-        print(f"[INFO] Loading VLM: {model_cfg.model_id} (4-bit={model_cfg.load_in_4bit})...")
-        model, processor = load_model(model_cfg)
-
-        try:
-            print(
-                f"[INFO] Extracting VLM metadata "
-                f"(video_seconds={meta_cfg.video_seconds!r}, fps={meta_cfg.fps})..."
+        segment_count = 0
+        if SEGMENT_SECONDS:
+            raw_text, parsed_payload, is_valid_json, segment_count = run_segmented(
+                video_path,
+                video_filename,
+                model_cfg,
+                meta_cfg,
+                duration,
             )
-            raw_text = extract_metadata(model, processor, video_path, meta_cfg)
-        finally:
-            print("[INFO] Unloading VLM and freeing VRAM...")
-            unload_model(model, processor)
+        else:
+            meta_cfg = replace(
+                meta_cfg,
+                prompt=f"{meta_cfg.prompt}\n\n{_timeline_instruction(duration)}\n\n{context}",
+            )
+            print(f"[INFO] Loading VLM: {model_cfg.model_id} (4-bit={model_cfg.load_in_4bit})...")
+            model, processor = load_model(model_cfg)
+            try:
+                print(
+                    f"[INFO] Extracting VLM metadata "
+                    f"(video_seconds={meta_cfg.video_seconds!r}, fps={meta_cfg.fps})..."
+                )
+                raw_text = extract_metadata(model, processor, video_path, meta_cfg)
+            finally:
+                print("[INFO] Unloading VLM and freeing VRAM...")
+                unload_model(model, processor)
+            parsed_payload, is_valid_json = self._parse_json_safely(raw_text)
 
         # 1. Salva l'output grezzo (.txt) per ispezione e per il Judger
         raw_path = output_dir / f"{video_filename}_vlm_raw.txt"
         raw_path.write_text(raw_text, encoding="utf-8")
 
         # 2. Salva il JSON strutturato (.json) letto dallo stage LLM successivo
-        parsed_payload, is_valid_json = self._parse_json_safely(raw_text)
         json_path = output_dir / f"{video_filename}_vlm.json"
         with open(json_path, "w", encoding="utf-8") as f:
             json.dump(parsed_payload, f, indent=2, ensure_ascii=False)
@@ -137,7 +152,12 @@ class VLMStage:
             "experiment_id": EXPERIMENT_ID,
             "context_file": context_path.name,
             "context_chars": len(context),
+            "segment_seconds": SEGMENT_SECONDS,
+            "segment_count": segment_count,
         }
+        if segment_count:
+            sidecar_payload["max_frames"] = SEGMENT_MAX_FRAMES
+            sidecar_payload["max_new_tokens"] = SEGMENT_MAX_NEW_TOKENS
         with open(sidecar_path, "w", encoding="utf-8") as f:
             json.dump(sidecar_payload, f, indent=2, ensure_ascii=False)
 
