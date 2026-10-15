@@ -8,6 +8,7 @@ from dataclasses import replace
 from typing import Any, Dict
 
 from src.open_enricher.remote.stages.vlm_core.config import build_configs
+from src.open_enricher.remote.stages.vlm_core.enrichment import EXPERIMENT_ID, build_vlm_context
 from src.open_enricher.remote.stages.vlm_core.model import (
     extract_metadata,
     load_model,
@@ -70,12 +71,19 @@ class VLMStage:
         if not video_path.exists():
             raise FileNotFoundError(f"Video not found in Data Lake: {video_path}")
 
-        print(f"[INFO] Starting VLM stage for {video_filename}")
+        print(f"[INFO] Starting VLM stage for {video_filename} ({EXPERIMENT_ID})")
         model_cfg, meta_cfg = build_configs()
         duration = probe_duration_seconds(video_path)
+        # Summarize audio and colors before the VLM is loaded. The text model
+        # releases the GPU inside build_vlm_context.
+        context = build_vlm_context(video_filename)
+        output_dir = db.get_output_dir(self.name)
+        context_path = output_dir / f"{video_filename}_vlm_context.txt"
+        context_path.write_text(context, encoding="utf-8")
+        print(f"[INFO] Wrote VLM context ({len(context)} chars) to {context_path.name}")
         meta_cfg = replace(
             meta_cfg,
-            prompt=f"{meta_cfg.prompt}\n\n{_timeline_instruction(duration)}",
+            prompt=f"{meta_cfg.prompt}\n\n{_timeline_instruction(duration)}\n\n{context}",
         )
 
         print(f"[INFO] Loading VLM: {model_cfg.model_id} (4-bit={model_cfg.load_in_4bit})...")
@@ -90,8 +98,6 @@ class VLMStage:
         finally:
             print("[INFO] Unloading VLM and freeing VRAM...")
             unload_model(model, processor)
-
-        output_dir = db.get_output_dir(self.name)
 
         # 1. Salva l'output grezzo (.txt) per ispezione e per il Judger
         raw_path = output_dir / f"{video_filename}_vlm_raw.txt"
@@ -128,6 +134,9 @@ class VLMStage:
             "repetition_penalty": meta_cfg.repetition_penalty,
             "prompt_path": meta_cfg.prompt_path,
             "json_valid": is_valid_json,
+            "experiment_id": EXPERIMENT_ID,
+            "context_file": context_path.name,
+            "context_chars": len(context),
         }
         with open(sidecar_path, "w", encoding="utf-8") as f:
             json.dump(sidecar_payload, f, indent=2, ensure_ascii=False)
