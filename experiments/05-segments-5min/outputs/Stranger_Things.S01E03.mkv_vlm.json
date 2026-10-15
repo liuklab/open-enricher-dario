@@ -1,0 +1,225 @@
+{
+  "title_guess": "Segmented viewing of the file",
+  "short_summary": "A man and woman are shown in intimate moments in dimly lit settings, including a bedroom scene where they appear close together, followed by scenes showing a woman waking up or moving around her home at night. A woman in a blue jacket sits up in bed looking concerned as she speaks to someone off-screen. The scene shifts to show her standing beside a young man who looks distressed. They move into a dimly lit living room where several teenagers gather around a couch, appearing anxious and confused. A young girl sits cross-legged on the floor in a dimly lit room, surrounded by furniture and personal items. She looks up at someone off-camera while speaking. The scene shifts to show her interacting with others in different settings, including a police station where she's seated across from an officer. A young girl wearing an EEG cap sits in a dimly lit room, followed by scenes showing two men conversing at a grocery store checkout, three police officers walking outside near parked cars, and a boy standing beside a cake display. A young boy stands indoors near a doorway, looking out into a dimly lit room where another person is partially visible. A woman sits at a desk in a dimly lit office or library, surrounded by shelves filled with files and documents. She looks down at papers while another person stands nearby, speaking to her. A man in a suit stands over a woman lying on the floor in a dimly lit hallway while another person watches. A young woman walks through a school hallway, then exits into a wooded area. Later, she enters a dimly lit kitchen where a dog sits near a tabl",
+  "content_type": "episode",
+  "setting": "",
+  "visual_style": "",
+  "scene_timeline": [
+    {
+      "start_time": "00:00:00",
+      "end_time": "00:05:00",
+      "description": "A man and woman are shown in intimate moments in dimly lit settings, including a bedroom scene where they appear close together, followed by scenes showing a woman waking up or moving around her home at night.",
+      "subjects_and_objects": [
+        "man",
+        "woman",
+        "bedroom",
+        "stairs",
+        "lamp"
+      ],
+      "actions": [
+        "lying down",
+        "looking at each other",
+        "waking up",
+        "walking downstairs",
+        "sitting on bed"
+      ],
+      "camera_and_shot": "Close-up shots focusing on faces and interactions, transitioning to wider shots of rooms and movement through spaces.",
+      "lighting_and_color": "Dim, moody lighting with dark tones and shadows dominating the scenes, creating an intimate atmosphere."
+    },
+    {
+      "start_time": "00:05:00",
+      "end_time": "00:10:00",
+      "description": "A woman in a blue jacket sits up in bed looking concerned as she speaks to someone off-screen. The scene shifts to show her standing beside a young man who looks distressed. They move into a dimly lit living room where several teenagers gather around a couch, appearing anxious and confused.",
+      "subjects_and_objects": [
+        "woman",
+        "young man",
+        "teenagers",
+        "bed",
+        "living room",
+        "couch"
+      ],
+      "actions": [
+        "sitting up in bed",
+        "speaking",
+        "standing",
+        "gathering around couch",
+        "looking worried"
+      ],
+      "camera_and_shot": "Close-up shots transitioning to medium shots showing interactions between characters.",
+      "lighting_and_color": "Dim indoor lighting with warm tones casting shadows across faces and furniture."
+    },
+    {
+      "start_time": "00:10:00",
+      "end_time": "00:15:00",
+      "description": "A young girl sits cross-legged on the floor in a dimly lit room, surrounded by furniture and personal items. She looks up at someone off-camera while speaking. The scene shifts to show her interacting with others in different settings, including a police station where she's seated across from an officer.",
+      "subjects_and_objects": [
+        "girl",
+        "police officer",
+        "room",
+        "furniture",
+        "lamp",
+        "table"
+      ],
+      "actions": [
+        "sitting cross-legged",
+        "speaking",
+        "looking up",
+        "seated across from officer",
+        "gesturing"
+      ],
+      "camera_and_shot": "Close-up shots of the girl’s face, medium shot showing her sitting in the room, over-the-shoulder shot during conversation with the officer.",
+      "lighting_and_color": "Dim indoor lighting with warm tones from lamps, creating shadows and contrasted areas. Dark color palette with muted browns and grays."
+    },
+    {
+      "start_time": "00:15:00",
+      "end_time": "00:20:00",
+      "description": "A young girl wearing an EEG cap sits in a dimly lit room, followed by scenes showing two men conversing at a grocery store checkout, three police officers walking outside near parked cars, and a boy standing beside a cake display.",
+      "subjects_and_objects": [
+        "girl",
+        "EEG cap",
+        "men",
+        "grocery store",
+        "checkout counter",
+        "police officers"
+      ],
+      "actions": [
+        "sitting",
+        "conversing",
+        "walking",
+        "standing"
+      ],
+      "camera_and_shot": "Close-up shots transitioning to medium and wide shots.",
+      "lighting_and_color": "#1a1a18"
+    },
+    {
+      "start_time": "00:20:00",
+      "end_time": "00:25:00",
+      "description": "A young boy stands indoors near a doorway, looking out into a dimly lit room where another person is partially visible.",
+      "subjects_and_objects": [
+        "boy",
+        "person"
+      ],
+      "actions": [
+        "standing",
+        "looking out"
+      ],
+      "camera_and_shot": "close-up shot focusing on the boy’s profile as he looks toward the door",
+      "lighting_and_color": "dim indoor lighting with warm tones, casting soft shadows across the scene"
+    },
+    {
+      "start_time": "00:25:00",
+      "end_time": "00:30:00",
+      "description": "A woman sits at a desk in a dimly lit office or library, surrounded by shelves filled with files and documents. She looks down at papers while another person stands nearby, speaking to her.",
+      "subjects_and_objects": [
+        "woman",
+        "man",
+        "desk",
+        "files",
+        "documents"
+      ],
+      "actions": [
+        "sitting",
+        "speaking",
+        "looking down at papers"
+      ],
+      "camera_and_shot": "medium shot",
+      "lighting_and_color": "dim indoor lighting with warm tones"
+    },
+    {
+      "start_time": "00:30:00",
+      "end_time": "00:35:00",
+      "description": "A man in a suit stands over a woman lying on the floor in a dimly lit hallway while another person watches.",
+      "subjects_and_objects": [
+        "man",
+        "woman",
+        "person"
+      ],
+      "actions": [
+        "standing over",
+        "lying down",
+        "watching"
+      ],
+      "camera_and_shot": "static shot",
+      "lighting_and_color": "#242420"
+    },
+    {
+      "start_time": "00:35:00",
+      "end_time": "00:40:00",
+      "description": "A young woman walks through a school hallway, then exits into a wooded area. Later, she enters a dimly lit kitchen where a dog sits near a table.",
+      "subjects_and_objects": [
+        "young woman",
+        "dog",
+        "school hallway",
+        "wooded area",
+        "kitchen"
+      ],
+      "actions": [
+        "walking",
+        "entering",
+        "sitting"
+      ],
+      "camera_and_shot": "medium shot transitioning to wide shot",
+      "lighting_and_color": "#101b1c"
+    },
+    {
+      "start_time": "00:40:00",
+      "end_time": "00:45:00",
+      "description": "A woman with dark hair tied back, wearing a dark jacket, looks upward with a joyful expression while holding a string of glowing fairy lights. The scene transitions to her sitting at a desk in a dimly lit library, writing intently under the glow of a green lamp.",
+      "subjects_and_objects": [
+        "woman",
+        "fairy lights",
+        "desk",
+        "green lamp",
+        "library"
+      ],
+      "actions": [
+        "holding fairy lights",
+        "writing",
+        "looking up joyfully"
+      ],
+      "camera_and_shot": "Close-up shot focusing on the woman's face as she holds the lights, then cuts to a medium shot showing her seated at the desk in the library.",
+      "lighting_and_color": "Warm, soft lighting emanating from the fairy lights and the green lamp, casting gentle shadows in the otherwise dim environment. The overall color palette is muted with earthy tones."
+    },
+    {
+      "start_time": "00:45:00",
+      "end_time": "00:50:00",
+      "description": "A group of people stand together at night under dim lighting, appearing to be engaged in conversation or planning something.",
+      "subjects_and_objects": [
+        "people",
+        "backpacks"
+      ],
+      "actions": [
+        "standing",
+        "talking",
+        "gesturing"
+      ],
+      "camera_and_shot": "medium shot",
+      "lighting_and_color": "dark, low-light environment with faint ambient illumination casting shadows"
+    },
+    {
+      "start_time": "00:50:00",
+      "end_time": "00:51:52",
+      "description": "A black screen displaying white text listing production credits for roles such as Construction Coordinator, Visual Effects Supervisor, and others, followed by logos and titles including 'IMAGINARY FORCES', 'twenty-one laps entertainment', and 'Georgia' with a peach logo.",
+      "subjects_and_objects": [
+        "text",
+        "logos"
+      ],
+      "actions": [],
+      "camera_and_shot": "static shot",
+      "lighting_and_color": "#010202"
+    }
+  ],
+  "on_screen_text": [
+    "DAVID HARBOUR",
+    "CHAPTER THREE",
+    "HOLLY. JOLLY",
+    "Construction Coordinator MICHAEL J. WHEELER",
+    "Construction Buyer RUSS WEBSTER",
+    "Construction Foreman JEFFREY GIBBS",
+    "Shop Foreman DALE JEANTET",
+    "Location Foreman JOHN MADGE"
+  ],
+  "segmentation_seconds": 300,
+  "segments_parsed": 11,
+  "segments_total": 11
+}

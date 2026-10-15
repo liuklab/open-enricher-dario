@@ -1,0 +1,208 @@
+{
+  "video": "Stranger_Things.S01E03.mkv",
+  "profile_file": "Stranger_Things.S01E03.mkv_llm.json",
+  "evidence_present": {
+    "audio": true,
+    "color": true,
+    "vlm": true
+  },
+  "fields": {
+    "recsys_metadata.primary_genre": {
+      "score": 0.625,
+      "checks": {
+        "presence": 1.0,
+        "conformance": 1.0,
+        "specificity": 0.5,
+        "grounding": 0.0
+      },
+      "evidence_sources": [],
+      "notes": [
+        "weak_evidence_overlap"
+      ]
+    },
+    "recsys_metadata.sub_genres": {
+      "score": 0.75,
+      "checks": {
+        "presence": 1.0,
+        "cardinality": 1.0,
+        "specificity": 1.0,
+        "grounding": 0.0
+      },
+      "evidence_sources": [],
+      "notes": [
+        "weak_evidence_overlap"
+      ]
+    },
+    "recsys_metadata.pacing": {
+      "score": 0.625,
+      "checks": {
+        "presence": 1.0,
+        "conformance": 1.0,
+        "specificity": 0.5,
+        "grounding": 0.0
+      },
+      "evidence_sources": [],
+      "notes": [
+        "weak_evidence_overlap"
+      ]
+    },
+    "recsys_metadata.mood": {
+      "score": 0.8333,
+      "checks": {
+        "presence": 1.0,
+        "cardinality": 1.0,
+        "specificity": 1.0,
+        "grounding": 0.3333
+      },
+      "evidence_sources": [
+        "vlm"
+      ],
+      "notes": [
+        "weak_evidence_overlap"
+      ]
+    },
+    "search_and_discovery.semantic_tags": {
+      "score": 0.7788,
+      "checks": {
+        "presence": 1.0,
+        "cardinality": 1.0,
+        "specificity": 0.9615,
+        "grounding": 0.1538
+      },
+      "evidence_sources": [
+        "audio",
+        "vlm"
+      ],
+      "notes": [
+        "weak_evidence_overlap"
+      ]
+    },
+    "search_and_discovery.main_topics": {
+      "score": 0.7679,
+      "checks": {
+        "presence": 1.0,
+        "cardinality": 1.0,
+        "specificity": 0.9286,
+        "grounding": 0.1429
+      },
+      "evidence_sources": [
+        "audio",
+        "vlm"
+      ],
+      "notes": [
+        "weak_evidence_overlap"
+      ]
+    },
+    "audience_profiling.target_age_group": {
+      "score": 0.875,
+      "checks": {
+        "presence": 1.0,
+        "conformance": 1.0,
+        "specificity": 1.0,
+        "grounding": 0.5
+      },
+      "evidence_sources": [
+        "vlm"
+      ],
+      "notes": []
+    },
+    "audience_profiling.viewer_interests": {
+      "score": 0.7778,
+      "checks": {
+        "presence": 1.0,
+        "cardinality": 1.0,
+        "specificity": 1.0,
+        "grounding": 0.1111
+      },
+      "evidence_sources": [
+        "vlm"
+      ],
+      "notes": [
+        "weak_evidence_overlap"
+      ]
+    },
+    "content_summary.visual_style": {
+      "score": 0.8667,
+      "checks": {
+        "presence": 1.0,
+        "specificity": 1.0,
+        "grounding": 0.6
+      },
+      "evidence_sources": [
+        "audio",
+        "vlm"
+      ],
+      "notes": []
+    },
+    "content_summary.narrative_hook": {
+      "score": 0.7857,
+      "checks": {
+        "presence": 1.0,
+        "specificity": 1.0,
+        "grounding": 0.3571
+      },
+      "evidence_sources": [
+        "audio",
+        "vlm"
+      ],
+      "notes": [
+        "weak_evidence_overlap"
+      ]
+    },
+    "_consistency": {
+      "score": 0.9136,
+      "checks": {},
+      "evidence_sources": [],
+      "notes": [
+        "tags_topics_jaccard=0.1111"
+      ]
+    }
+  },
+  "dimensions": {
+    "completeness": {
+      "score": 1.0,
+      "weight": 0.2
+    },
+    "conformance": {
+      "score": 1.0,
+      "weight": 0.15
+    },
+    "consistency": {
+      "score": 0.9136,
+      "weight": 0.15
+    },
+    "specificity": {
+      "score": 0.8798,
+      "weight": 0.2
+    },
+    "grounding": {
+      "score": 0.205,
+      "weight": 0.2
+    },
+    "provenance": {
+      "score": 0.7,
+      "weight": 0.1
+    },
+    "accessibility": {
+      "score": 1.0,
+      "weight": 0.0
+    }
+  },
+  "overall": 0.774,
+  "usable": false,
+  "thresholds": {
+    "completeness": 0.7,
+    "grounding": 0.4,
+    "overall": 0.65
+  },
+  "method": {
+    "deterministic": true,
+    "sources": [
+      "Bruce and Hillmann 2004",
+      "Ochoa and Duval 2009",
+      "EU Metadata Quality Assessment",
+      "Park 2009"
+    ],
+    "limitations": "Grounding is token overlap with upstream JSON, not human factuality. Timeliness is not scored. Thresholds are hypotheses pending human calibration. See docs/judger_references.md."
+  }
+}
