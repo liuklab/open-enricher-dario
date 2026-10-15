@@ -143,6 +143,22 @@ class LLMStage:
 
         user_prompt = (
             f"Analyze the following available video metadata:\n{script_text}\n\n"
+            "Hard limits, which override any longer list in the metadata:\n"
+            "- recsys_metadata.primary_genre is exactly one of: Action, Adventure, Animation, "
+            "Comedy, Crime, Documentary, Drama, Education, Fantasy, Horror, Music, Mystery, "
+            "News, Romance, Sci-Fi, Science Fiction, Sports, Thriller, Vlog, Western.\n"
+            "- recsys_metadata.pacing is exactly one of: Fast, Moderate, Slow.\n"
+            "- recsys_metadata.sub_genres has 1 to 4 items. recsys_metadata.mood has 1 to 4 items.\n"
+            "- search_and_discovery.semantic_tags has 3 to 6 items. "
+            "search_and_discovery.main_topics has 1 to 4 items.\n"
+            "- audience_profiling.viewer_interests has 1 to 4 items.\n"
+            "- audience_profiling.target_age_group is exactly one of: All Ages, Children, Teens, "
+            "Young Adults, Gen Z, Millennials, Adults, Family. Do not join two labels with 'and'.\n"
+            "- content_summary.visual_style is one sentence and must mention the dominant palette "
+            "when the metadata describes dark, near-black, or night colors.\n"
+            "- content_summary.narrative_hook is one sentence. Do not say a missing person was "
+            "found alive unless the metadata says that without contradiction.\n"
+            "- Use spoken names only when the metadata already contains them.\n\n"
             f"Populate this exact JSON structure:\n{json.dumps(example_structure, indent=2)}"
         )
 
