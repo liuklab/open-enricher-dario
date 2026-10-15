@@ -46,6 +46,26 @@ export PYTHONUNBUFFERED=1
 export LD_LIBRARY_PATH=/usr/lib64-nvidia:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 export PATH=/usr/local/cuda/bin:$PATH
 export CUDA_VISIBLE_DEVICES=0
+# Optional experiment namespacing (set by the laptop harness before deploy).
+# Prefer values already in the environment; otherwise read them from the uploaded .env.
+ENV_FILE="${OPEN_ENRICHER_ENV:-$HOME_DIR/.env}"
+if [ -f "$ENV_FILE" ]; then
+    # shellcheck disable=SC1090
+    set -a
+    # Export only the experiment keys without printing secrets.
+    while IFS= read -r line; do
+        case "$line" in
+            OPEN_ENRICHER_EXPERIMENT_ID=*|OPEN_ENRICHER_EXPERIMENT_PREFIX=*)
+                export "$line"
+                ;;
+        esac
+    done < "$ENV_FILE"
+    set +a
+fi
+export OPEN_ENRICHER_EXPERIMENT_PREFIX="${OPEN_ENRICHER_EXPERIMENT_PREFIX:-exp2}"
+if [ -n "${OPEN_ENRICHER_EXPERIMENT_ID:-}" ]; then
+    echo "[INFO] Experiment id: $OPEN_ENRICHER_EXPERIMENT_ID (prefix=$OPEN_ENRICHER_EXPERIMENT_PREFIX)"
+fi
 
 # 4. Background server startup
 echo "[INFO] Starting new FastAPI instance in the background..."

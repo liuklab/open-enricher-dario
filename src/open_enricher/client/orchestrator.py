@@ -44,5 +44,12 @@ class PipelineOrchestrator:
             if isinstance(result, dict) and "result" in result:
                 saved = save_stage_result(self.config.video, name, result["result"])
                 print(f"[INFO] Saved {name} result to {saved.resolve()}")
+            if isinstance(result, dict) and "timings" in result:
+                timing_path = OUTPUT_DIR / f"{self.config.video}_{name}_timings.json"
+                timing_path.write_text(
+                    json.dumps(result["timings"], indent=2, ensure_ascii=False) + "\n",
+                    encoding="utf-8",
+                )
+                print(f"[INFO] Saved {name} timings to {timing_path.resolve()}")
 
         return results

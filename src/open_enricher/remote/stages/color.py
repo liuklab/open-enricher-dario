@@ -11,6 +11,7 @@ from scenedetect import ContentDetector, detect
 from sklearn.cluster import KMeans
 
 from src.open_enricher.remote.storage import db
+from src.open_enricher.remote.timings import TimingRecorder
 
 
 class ColorStage:
@@ -38,8 +39,10 @@ class ColorStage:
         if not video_path.exists():
             raise FileNotFoundError(f"Video not found in Data Lake: {video_path}")
 
+        timing = TimingRecorder(self.name)
         print("[INFO] Detecting scene cuts (Hybrid Sampling)...")
-        scene_list = detect(str(video_path), ContentDetector(threshold=27.0))
+        with timing.span("scene_detect"):
+            scene_list = detect(str(video_path), ContentDetector(threshold=27.0))
 
         cap = cv2.VideoCapture(str(video_path))
         try:
@@ -89,37 +92,42 @@ class ColorStage:
             frames_dir.mkdir(parents=True)
 
             results = []
-            for i, f_num in enumerate(final_frames):
-                cap.set(cv2.CAP_PROP_POS_FRAMES, f_num)
-                success, frame = cap.read()
+            with timing.span("color_extract", frames=len(final_frames)):
+                for i, f_num in enumerate(final_frames):
+                    cap.set(cv2.CAP_PROP_POS_FRAMES, f_num)
+                    success, frame = cap.read()
 
-                if success:
-                    frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                    timestamp = round(f_num / fps, 2)
-                    palette = self._get_dominant_colors(frame_rgb, k=3)
+                    if success:
+                        frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                        timestamp = round(f_num / fps, 2)
+                        palette = self._get_dominant_colors(frame_rgb, k=3)
 
-                    frame_name = f"scene_{i+1}_t{timestamp}.jpg"
-                    img = Image.fromarray(frame_rgb)
-                    img.save(frames_dir / frame_name)
+                        frame_name = f"scene_{i+1}_t{timestamp}.jpg"
+                        img = Image.fromarray(frame_rgb)
+                        img.save(frames_dir / frame_name)
 
-                    results.append({
-                        "scene_id": i + 1,
-                        "timestamp": timestamp,
-                        "frame_file": frame_name,
-                        "color_palette": palette
-                    })
+                        results.append({
+                            "scene_id": i + 1,
+                            "timestamp": timestamp,
+                            "frame_file": frame_name,
+                            "color_palette": palette
+                        })
         finally:
             cap.release()
 
         json_path = output_dir / f"{video_filename}_color.json"
         with open(json_path, "w", encoding="utf-8") as f:
             json.dump(results, f, indent=2, ensure_ascii=False)
+        timings_path = output_dir / f"{video_filename}_color_timings.json"
+        timing.save(timings_path)
 
         return {
             "stage": self.name,
             "status": "success",
             "keyframes_extracted": len(results),
             "result": results,
+            "timings": timing.document(),
             "output_json": str(json_path.name),
+            "timings_file": str(timings_path.name),
             "frames_folder": str(frames_dir.name)
         }

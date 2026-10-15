@@ -9,6 +9,7 @@ URL from the kernel log.
 from __future__ import annotations
 
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -16,8 +17,8 @@ import sys
 import time
 from pathlib import Path
 
-CODE_SLUG = "open-enricher-code"
-CODE_TITLE = "open-enricher-code"
+CODE_SLUG = os.environ.get("OPEN_ENRICHER_CODE_SLUG", "open-enricher-code").strip() or "open-enricher-code"
+CODE_TITLE = os.environ.get("OPEN_ENRICHER_CODE_TITLE", CODE_SLUG).strip() or CODE_SLUG
 SESSION_DIR = Path(".session")
 TUNNEL_RE = re.compile(r"OPEN_ENRICHER_TUNNEL_URL=(https://\S+)")
 STATUS_RE = re.compile(r'has status "([^"]+)"')

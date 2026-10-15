@@ -33,3 +33,5 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 open_enricher = ["*.json", "*.md"]
+"open_enricher.remote.stages" = ["pipeline_spec.json"]
+"open_enricher.experiments" = ["variants/*.json", "prompts/*.md"]

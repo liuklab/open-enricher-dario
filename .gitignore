@@ -222,6 +222,8 @@ __marimo__/
 /data/
 /outputs/
 .session/
+# Shared audio/color cache for the exp2 loop (regenerable)
+/runs/exp2/_cache/
 /kaggle_job/output/
 /kaggle_job/kernel-metadata.json
 *.npy

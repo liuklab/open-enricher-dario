@@ -12,9 +12,14 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
+from src.open_enricher.remote.stages.pipeline_spec import load_pipeline_spec
 from src.open_enricher.remote.storage import db
+from src.open_enricher.remote.timings import TimingRecorder
 
-EXPERIMENT_ID = "segmented-5min"
+try:
+    EXPERIMENT_ID = load_pipeline_spec().experiment_id
+except Exception:
+    EXPERIMENT_ID = "segmented-5min"
 SUMMARY_MODEL_ID = "Qwen/Qwen3-8B"
 # A full episode transcript does not fit comfortably next to the VLM frames.
 # The text model sees a capped sample; the VLM sees only the short summary.
@@ -127,7 +132,11 @@ def _strip_think(text: str) -> str:
     return _THINK_RE.sub("", text).strip()
 
 
-def summarize_transcript(transcript: str) -> str:
+def summarize_transcript(
+    transcript: str,
+    *,
+    timing: TimingRecorder | None = None,
+) -> str:
     """Summarize dialogue with the local 8B text model, then free the GPU."""
     import gc
 
@@ -166,14 +175,15 @@ def summarize_transcript(transcript: str) -> str:
     model = None
     tokenizer = None
     try:
-        tokenizer = AutoTokenizer.from_pretrained(SUMMARY_MODEL_ID, trust_remote_code=True)
-        model = AutoModelForCausalLM.from_pretrained(
-            SUMMARY_MODEL_ID,
-            quantization_config=quantization_config,
-            device_map="auto" if device == "cuda" else None,
-            low_cpu_mem_usage=True,
-            trust_remote_code=True,
-        )
+        with (timing.span("summary_load", model_id=SUMMARY_MODEL_ID) if timing else _nullcontext()):
+            tokenizer = AutoTokenizer.from_pretrained(SUMMARY_MODEL_ID, trust_remote_code=True)
+            model = AutoModelForCausalLM.from_pretrained(
+                SUMMARY_MODEL_ID,
+                quantization_config=quantization_config,
+                device_map="auto" if device == "cuda" else None,
+                low_cpu_mem_usage=True,
+                trust_remote_code=True,
+            )
         prompt_text = tokenizer.apply_chat_template(
             messages,
             tokenize=False,
@@ -181,13 +191,14 @@ def summarize_transcript(transcript: str) -> str:
             enable_thinking=False,
         )
         model_inputs = tokenizer([prompt_text], return_tensors="pt").to(device)
-        with torch.no_grad():
-            generated_ids = model.generate(
-                **model_inputs,
-                max_new_tokens=SUMMARY_MAX_NEW_TOKENS,
-                do_sample=False,
-                repetition_penalty=1.05,
-            )
+        with (timing.span("summary_generate", model_id=SUMMARY_MODEL_ID) if timing else _nullcontext()):
+            with torch.no_grad():
+                generated_ids = model.generate(
+                    **model_inputs,
+                    max_new_tokens=SUMMARY_MAX_NEW_TOKENS,
+                    do_sample=False,
+                    repetition_penalty=1.05,
+                )
         new_tokens = generated_ids[0][len(model_inputs.input_ids[0]) :]
         summary = _strip_think(tokenizer.decode(new_tokens, skip_special_tokens=True))
     finally:
@@ -203,8 +214,18 @@ def summarize_transcript(transcript: str) -> str:
     return summary
 
 
-def build_vlm_context(video_filename: str) -> str:
-    """Return the evidence block appended to the VLM prompt."""
+def _nullcontext():
+    from contextlib import nullcontext
+
+    return nullcontext()
+
+
+def build_vlm_context(
+    video_filename: str,
+    *,
+    timing: TimingRecorder | None = None,
+) -> tuple[str, str]:
+    """Return (evidence block for non-segmented path, dialogue summary text)."""
     color_path = db.get_output_dir("color") / f"{video_filename}_color.json"
     audio_path = db.get_output_dir("audio") / f"{video_filename}_audio.json"
     print(f"[INFO] Building VLM context from {color_path.name} and {audio_path.name}")
@@ -212,9 +233,9 @@ def build_vlm_context(video_filename: str) -> str:
     colors = color_digest(_load_json(color_path))
     transcript = condense_transcript(_load_json(audio_path))
     print(f"[INFO] Condensed transcript is {len(transcript)} characters")
-    summary = summarize_transcript(transcript)
+    summary = summarize_transcript(transcript, timing=timing)
 
-    return (
+    context = (
         "Prior evidence extracted from this same file, before these frames:\n"
         "Color samples are k-means hex palettes from frames spread across the file. "
         "Use them in lighting_and_color and visual_style when they agree with what you see.\n"
@@ -225,3 +246,4 @@ def build_vlm_context(video_filename: str) -> str:
         f"COLOR SAMPLES (about every {COLOR_BUCKET_SECONDS // 60} minutes):\n{colors}\n\n"
         f"DIALOGUE SUMMARY:\n{summary}"
     )
+    return context, summary

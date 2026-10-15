@@ -35,6 +35,19 @@ def _export_runtime() -> None:
     os.environ["OPEN_ENRICHER_ENV"] = str(CODE_INPUT / ".env")
     os.environ["OPEN_ENRICHER_TARBALL"] = str(CODE_INPUT / "open-enricher.tgz")
     os.environ["PYTHONUNBUFFERED"] = "1"
+    # Propagate experiment namespacing baked into the code dataset env file if present.
+    env_path = CODE_INPUT / ".env"
+    if env_path.is_file():
+        for line in env_path.read_text(encoding="utf-8").splitlines():
+            if "=" not in line or line.lstrip().startswith("#"):
+                continue
+            key, _, value = line.partition("=")
+            key = key.strip()
+            if key in {
+                "OPEN_ENRICHER_EXPERIMENT_ID",
+                "OPEN_ENRICHER_EXPERIMENT_PREFIX",
+            }:
+                os.environ.setdefault(key, value.strip().strip('"').strip("'"))
 
 
 def _run_launch() -> None:

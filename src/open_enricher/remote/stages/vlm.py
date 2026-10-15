@@ -7,12 +7,12 @@ import re
 from dataclasses import replace
 from typing import Any, Dict
 
+from src.open_enricher.remote.stages.pipeline_spec import load_pipeline_spec
 from src.open_enricher.remote.stages.vlm_core.config import build_configs
-from src.open_enricher.remote.stages.vlm_core.enrichment import EXPERIMENT_ID, build_vlm_context
+from src.open_enricher.remote.stages.vlm_core.enrichment import build_vlm_context
 from src.open_enricher.remote.stages.vlm_core.segments import (
     SEGMENT_MAX_FRAMES,
     SEGMENT_MAX_NEW_TOKENS,
-    SEGMENT_SECONDS,
     run_segmented,
 )
 from src.open_enricher.remote.stages.vlm_core.model import (
@@ -22,6 +22,7 @@ from src.open_enricher.remote.stages.vlm_core.model import (
 )
 from src.open_enricher.remote.stages.vlm_core.video import probe_duration_seconds
 from src.open_enricher.remote.storage import db
+from src.open_enricher.remote.timings import TimingRecorder
 
 
 def _clock(seconds: float) -> str:
@@ -77,25 +78,34 @@ class VLMStage:
         if not video_path.exists():
             raise FileNotFoundError(f"Video not found in Data Lake: {video_path}")
 
-        print(f"[INFO] Starting VLM stage for {video_filename} ({EXPERIMENT_ID})")
+        spec = load_pipeline_spec()
+        timing = TimingRecorder(self.name)
+        print(f"[INFO] Starting VLM stage for {video_filename} ({spec.experiment_id})")
         model_cfg, meta_cfg = build_configs()
         duration = probe_duration_seconds(video_path)
         # Summarize audio and colors before the VLM is loaded. The text model
         # releases the GPU inside build_vlm_context.
-        context = build_vlm_context(video_filename)
+        context, dialogue_summary = build_vlm_context(video_filename, timing=timing)
         output_dir = db.get_output_dir(self.name)
         context_path = output_dir / f"{video_filename}_vlm_context.txt"
         context_path.write_text(context, encoding="utf-8")
+        summary_path = output_dir / f"{video_filename}_dialogue_summary.txt"
+        summary_path.write_text(dialogue_summary, encoding="utf-8")
         print(f"[INFO] Wrote VLM context ({len(context)} chars) to {context_path.name}")
 
+        # Segmented path is the default for this round.
+        use_segments = True
         segment_count = 0
-        if SEGMENT_SECONDS:
+        if use_segments:
             raw_text, parsed_payload, is_valid_json, segment_count = run_segmented(
                 video_path,
                 video_filename,
                 model_cfg,
                 meta_cfg,
                 duration,
+                dialogue_summary=dialogue_summary,
+                timing=timing,
+                spec=spec,
             )
         else:
             meta_cfg = replace(
@@ -103,28 +113,30 @@ class VLMStage:
                 prompt=f"{meta_cfg.prompt}\n\n{_timeline_instruction(duration)}\n\n{context}",
             )
             print(f"[INFO] Loading VLM: {model_cfg.model_id} (4-bit={model_cfg.load_in_4bit})...")
-            model, processor = load_model(model_cfg)
+            with timing.span("vlm_load", model_id=model_cfg.model_id):
+                model, processor = load_model(model_cfg)
             try:
                 print(
                     f"[INFO] Extracting VLM metadata "
                     f"(video_seconds={meta_cfg.video_seconds!r}, fps={meta_cfg.fps})..."
                 )
-                raw_text = extract_metadata(model, processor, video_path, meta_cfg)
+                with timing.span("vlm_generate", model_id=model_cfg.model_id):
+                    raw_text = extract_metadata(model, processor, video_path, meta_cfg)
             finally:
                 print("[INFO] Unloading VLM and freeing VRAM...")
                 unload_model(model, processor)
             parsed_payload, is_valid_json = self._parse_json_safely(raw_text)
 
-        # 1. Save the raw text for inspection and for the judger.
         raw_path = output_dir / f"{video_filename}_vlm_raw.txt"
         raw_path.write_text(raw_text, encoding="utf-8")
 
-        # 2. Save the structured JSON read by the following LLM stage.
         json_path = output_dir / f"{video_filename}_vlm.json"
         with open(json_path, "w", encoding="utf-8") as f:
             json.dump(parsed_payload, f, indent=2, ensure_ascii=False)
 
-        # 3. Save the sidecar JSON with the parameters of this run.
+        timings_path = output_dir / f"{video_filename}_vlm_timings.json"
+        timing.save(timings_path)
+
         sidecar_path = output_dir / f"{video_filename}_vlm_sidecar.json"
         sidecar_payload = {
             "video": str(video_path),
@@ -149,11 +161,16 @@ class VLMStage:
             "repetition_penalty": meta_cfg.repetition_penalty,
             "prompt_path": meta_cfg.prompt_path,
             "json_valid": is_valid_json,
-            "experiment_id": EXPERIMENT_ID,
+            "experiment_id": spec.experiment_id,
             "context_file": context_path.name,
             "context_chars": len(context),
-            "segment_seconds": SEGMENT_SECONDS,
+            "segmentation": spec.segmentation,
             "segment_count": segment_count,
+            "dialogue_color_routing": spec.dialogue_color_routing,
+            "vlm_memory": spec.vlm_memory,
+            "dialogue_summary_to_vlm": spec.dialogue_summary_to_vlm,
+            "rolling_plot": spec.rolling_plot,
+            "timings_file": timings_path.name,
         }
         if segment_count:
             sidecar_payload["max_frames"] = SEGMENT_MAX_FRAMES
@@ -167,7 +184,9 @@ class VLMStage:
             "status": "success",
             "json_valid": is_valid_json,
             "result": parsed_payload,
+            "timings": timing.document(),
             "output_file": str(json_path.name),
             "raw_file": str(raw_path.name),
             "sidecar_file": str(sidecar_path.name),
+            "timings_file": str(timings_path.name),
         }

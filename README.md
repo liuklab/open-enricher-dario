@@ -111,3 +111,17 @@ src/open_enricher/remote/      # FastAPI worker and stages
 ```
 
 `old_files/` and the per-experiment notes from the first Colab round are not part of this branch.
+
+## Exp2 experiment loop
+
+On branch `exp2`, an unattended harness runs each pipeline variant on **Colab** (`Stranger_Things.S01E03.mkv`) and **Kaggle** (`Suits.S01E02.mkv`) in parallel, archives outputs under `runs/exp2/`, and scores each profile with a clean-context Cursor agent (`cursor-sdk`). The deterministic `judger` stage is not used in this round.
+
+```bash
+pip install -r requirements-cli.txt
+# .env: HF_TOKEN and CURSOR_API_KEY
+
+python -m src.open_enricher.experiments --list
+python -m src.open_enricher.experiments --only 01-interval-llm
+```
+
+See [docs/exp2_loop.md](docs/exp2_loop.md). Pipeline knobs for a run live in `src/open_enricher/remote/stages/pipeline_spec.json` (copied from `src/open_enricher/experiments/variants/`).

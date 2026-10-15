@@ -2,11 +2,14 @@
 
 from contextlib import asynccontextmanager
 import os
+import sys
 import threading
+from pathlib import Path
 from typing import AsyncGenerator
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import FileResponse, PlainTextResponse
 from pydantic import BaseModel
 
 # Load secrets and cache paths before importing transformers or torch.
@@ -32,8 +35,32 @@ STAGES: dict[str, PipelineStage] = {
     "color": ColorStage(max_long_scenes=120, grid_interval_sec=180),
     "vlm": VLMStage(),
     "llm": LLMStage(),
-    "judger": JudgerStage()
+    "judger": JudgerStage(),
 }
+
+
+class _TeeStream:
+    """Mirror stdout/stderr into the experiment worker log when configured."""
+
+    def __init__(self, primary, log_path: Path) -> None:
+        self._primary = primary
+        self._log_path = log_path
+        self._lock = threading.Lock()
+
+    def write(self, data: str) -> int:
+        with self._lock:
+            self._primary.write(data)
+            self._primary.flush()
+            self._log_path.parent.mkdir(parents=True, exist_ok=True)
+            with open(self._log_path, "a", encoding="utf-8") as handle:
+                handle.write(data)
+        return len(data)
+
+    def flush(self) -> None:
+        self._primary.flush()
+
+    def fileno(self):
+        return self._primary.fileno()
 
 
 @asynccontextmanager
@@ -42,9 +69,15 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     print("[INFO] Starting worker server...")
     db.setup_database()
 
+    log_path = db.experiment_log
+    sys.stdout = _TeeStream(sys.__stdout__, log_path)
+    sys.stderr = _TeeStream(sys.__stderr__, log_path)
+    print(f"[INFO] Worker log mirroring to {log_path}")
+
     if HF_TOKEN:
         try:
             from huggingface_hub import login
+
             login(token=HF_TOKEN, add_to_git_credential=False)
             print("[INFO] Hugging Face login completed from the injected .env file.")
         except ImportError:
@@ -61,6 +94,58 @@ _stage_lock = threading.Lock()
 
 class StageRequest(BaseModel):
     video_name: str
+
+
+@app.get("/health")
+def health() -> dict[str, object]:
+    return {
+        "status": "ok",
+        "experiment_id": os.environ.get("OPEN_ENRICHER_EXPERIMENT_ID", ""),
+        "experiment_prefix": os.environ.get("OPEN_ENRICHER_EXPERIMENT_PREFIX", "exp2"),
+    }
+
+
+@app.get("/log", response_class=PlainTextResponse)
+def read_worker_log(tail: int = 20000) -> str:
+    """Return the mirrored experiment worker log (last ``tail`` characters)."""
+    path = db.experiment_log
+    if not path.is_file():
+        return ""
+    text = path.read_text(encoding="utf-8", errors="replace")
+    if tail > 0 and len(text) > tail:
+        return text[-tail:]
+    return text
+
+
+@app.get("/artifact/{stage_name}/{file_name}")
+def download_artifact(stage_name: str, file_name: str) -> FileResponse:
+    """Download one stage artifact (JSON, raw, sidecar, timings) from the data lake."""
+    if stage_name not in STAGES:
+        raise HTTPException(status_code=404, detail=f"Stage '{stage_name}' not registered.")
+    if "/" in file_name or "\\" in file_name or ".." in file_name:
+        raise HTTPException(status_code=400, detail="Invalid file name.")
+    path = db.get_output_dir(stage_name) / file_name
+    if not path.is_file():
+        raise HTTPException(status_code=404, detail=f"Artifact not found: {file_name}")
+    return FileResponse(path)
+
+
+@app.post("/restore/{stage_name}")
+def restore_stage_artifact(stage_name: str, payload: dict) -> dict[str, object]:
+    """Write a cached stage JSON into the data lake (audio/color reuse across experiments)."""
+    if stage_name not in ("audio", "color"):
+        raise HTTPException(status_code=400, detail="Only audio and color may be restored.")
+    video_name = str(payload.get("video_name") or "").strip()
+    document = payload.get("document")
+    if not video_name or document is None:
+        raise HTTPException(status_code=400, detail="video_name and document are required.")
+    import json as _json
+
+    out = db.get_output_dir(stage_name) / f"{video_name}_{stage_name}.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(_json.dumps(document, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    print(f"[INFO] Restored cached {stage_name} artifact for {video_name}")
+    return {"stage": stage_name, "status": "restored", "output_file": out.name}
 
 
 @app.post("/stage/{stage_name}")

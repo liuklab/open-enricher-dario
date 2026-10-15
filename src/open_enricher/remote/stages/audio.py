@@ -11,6 +11,7 @@ import whisperx
 from whisperx.diarize import DiarizationPipeline, assign_word_speakers
 
 from src.open_enricher.remote.storage import db
+from src.open_enricher.remote.timings import TimingRecorder
 
 
 @dataclass
@@ -43,30 +44,39 @@ class AudioStage:
         if not video_path.exists():
             raise FileNotFoundError(f"Video not found in Data Lake: {video_path}")
 
+        timing = TimingRecorder(self.name)
         print("[INFO] Loading WhisperX model...")
-        model = whisperx.load_model("large-v2", self.device, compute_type=self.compute_type)
+        with timing.span("whisperx_load", model_id="large-v2"):
+            model = whisperx.load_model("large-v2", self.device, compute_type=self.compute_type)
 
         try:
             print(f"[INFO] Reading audio from: {video_path}")
             audio = whisperx.load_audio(str(video_path))
 
             print("[INFO] Transcribing...")
-            result = model.transcribe(audio, batch_size=self.batch_size, interleaved_context=True)
+            with timing.span("whisperx_transcribe", model_id="large-v2"):
+                result = model.transcribe(
+                    audio, batch_size=self.batch_size, interleaved_context=True
+                )
         finally:
             del model
             self._free_vram()
 
         print("[INFO] Performing temporal alignment...")
-        model_a, metadata = whisperx.load_align_model(language_code=result["language"], device=self.device)
-        try:
-            result = whisperx.align(
-                result["segments"],
-                model_a,
-                metadata,
-                audio,
-                self.device,
-                return_char_alignments=False
+        with timing.span("whisperx_align_load"):
+            model_a, metadata = whisperx.load_align_model(
+                language_code=result["language"], device=self.device
             )
+        try:
+            with timing.span("whisperx_align"):
+                result = whisperx.align(
+                    result["segments"],
+                    model_a,
+                    metadata,
+                    audio,
+                    self.device,
+                    return_char_alignments=False,
+                )
         finally:
             del model_a
             self._free_vram()
@@ -75,12 +85,14 @@ class AudioStage:
         os.environ["HF_TOKEN"] = self.hf_token
         diarize_model = None
         try:
-            try:
-                diarize_model = DiarizationPipeline(token=self.hf_token, device=self.device)
-            except TypeError:
-                diarize_model = DiarizationPipeline(device=self.device)
-            diarize_segments = diarize_model(audio)
-            result = assign_word_speakers(diarize_segments, result)
+            with timing.span("diarization_load"):
+                try:
+                    diarize_model = DiarizationPipeline(token=self.hf_token, device=self.device)
+                except TypeError:
+                    diarize_model = DiarizationPipeline(device=self.device)
+            with timing.span("diarization_infer"):
+                diarize_segments = diarize_model(audio)
+                result = assign_word_speakers(diarize_segments, result)
         except Exception as exc:
             # The community diarization weights are gated. The transcript is still usable.
             print(f"[WARNING] Speaker diarization skipped: {exc}")
@@ -96,15 +108,20 @@ class AudioStage:
             testo = segment.get("text", "").strip()
 
             if testo:
-                dialogues.append(DialogueLine(
-                    start_timestamp=round(segment["start"], 2),
-                    end_timestamp=round(segment["end"], 2),
-                    speaker=speaker,
-                    text=testo
-                ))
+                dialogues.append(
+                    DialogueLine(
+                        start_timestamp=round(segment["start"], 2),
+                        end_timestamp=round(segment["end"], 2),
+                        speaker=speaker,
+                        text=testo,
+                    )
+                )
 
         payload = [asdict(d) for d in dialogues]
-        output_path = db.get_output_dir(self.name) / f"{video_filename}_audio.json"
+        output_dir = db.get_output_dir(self.name)
+        output_path = output_dir / f"{video_filename}_audio.json"
+        timings_path = output_dir / f"{video_filename}_audio_timings.json"
+        timing.save(timings_path)
 
         print(f"[INFO] Saving results to {output_path}")
         with open(output_path, "w", encoding="utf-8") as f:
@@ -115,5 +132,7 @@ class AudioStage:
             "status": "success",
             "lines_extracted": len(dialogues),
             "result": payload,
-            "output_file": str(output_path.name)
+            "timings": timing.document(),
+            "output_file": str(output_path.name),
+            "timings_file": str(timings_path.name),
         }
