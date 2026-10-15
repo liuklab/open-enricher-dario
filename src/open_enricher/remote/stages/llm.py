@@ -47,6 +47,19 @@ class LLMStage:
             else:
                 print(f"[INFO] No metadata found for stage: {stage_name}. Skipping.")
 
+        # The full transcript plus every color sample exhausted the T4 during
+        # generate(). The VLM context file is already the compact brief.
+        context_path = db.get_output_dir("vlm") / f"{video_filename}_vlm_context.txt"
+        if context_path.is_file():
+            brief = context_path.read_text(encoding="utf-8")
+            print(f"[INFO] Using VLM context brief ({len(brief)} chars) instead of raw audio and color.")
+            enriched_script["prior_context"] = brief[:6000]
+            enriched_script.pop("audio", None)
+            color = enriched_script.get("color")
+            if isinstance(color, list):
+                enriched_script["color_frame_count"] = len(color)
+                enriched_script.pop("color", None)
+
         return enriched_script
 
     def _clean_json_candidate(self, raw_text: str) -> str:
