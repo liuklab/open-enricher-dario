@@ -151,6 +151,14 @@ def deploy_worker(
         lines.append("OPEN_ENRICHER_EXPERIMENT_PREFIX=exp2")
         env_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
+        # dataset/ is gitignored, so a fresh worktree does not contain it.
+        # Kaggle only needs the metadata id; the videos already live in that dataset.
+        metadata_src = REPO_ROOT / "dataset" / "dataset-metadata.json"
+        if metadata_src.is_file():
+            metadata_dest = worktree / "dataset" / "dataset-metadata.json"
+            metadata_dest.parent.mkdir(parents=True, exist_ok=True)
+            metadata_dest.write_text(metadata_src.read_text(encoding="utf-8"), encoding="utf-8")
+
         _run(
             [
                 sys.executable,

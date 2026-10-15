@@ -1,6 +1,6 @@
 # Exp2 unattended experiment loop
 
-This round runs on branch `exp2`. Each experiment forks `exp2/<id>` in a temporary worktree, deploys the same commit to **two independent terminals**, archives results under `runs/exp2/`, and scores each profile with a clean-context Cursor agent.
+This round runs on branch `exp2`. Each experiment forks `exp2-run/<id>` from that tip in a temporary worktree, deploys the same commit to **two independent terminals**, archives results under `runs/exp2/`, and scores each profile with a clean-context Cursor agent. Git cannot store `exp2/<id>` while the branch `exp2` exists.
 
 ## Machine mapping (fixed)
 

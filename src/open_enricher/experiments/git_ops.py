@@ -6,7 +6,11 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from src.open_enricher.experiments.config import BASE_BRANCH, REPO_ROOT
+from src.open_enricher.experiments.config import (
+    BASE_BRANCH,
+    EXPERIMENT_BRANCH_PREFIX,
+    REPO_ROOT,
+)
 
 
 def _run(
@@ -25,7 +29,7 @@ def _run(
 
 
 def branch_name(experiment_id: str) -> str:
-    return f"{BASE_BRANCH}/{experiment_id}"
+    return f"{EXPERIMENT_BRANCH_PREFIX}/{experiment_id}"
 
 
 def worktree_path(experiment_id: str) -> Path:
@@ -33,7 +37,7 @@ def worktree_path(experiment_id: str) -> Path:
 
 
 def ensure_experiment_worktree(experiment_id: str) -> Path:
-    """Create branch BASE_BRANCH/<id> from BASE_BRANCH tip and a temporary worktree.
+    """Create branch exp2-run/<id> from BASE_BRANCH tip and a temporary worktree.
 
     Does not change the checkout of the primary working tree.
     """
@@ -46,7 +50,14 @@ def ensure_experiment_worktree(experiment_id: str) -> Path:
     existing = _run(["git", "rev-parse", "--verify", branch], check=False)
     if existing.returncode != 0:
         base_tip = _run(["git", "rev-parse", BASE_BRANCH])
-        _run(["git", "branch", branch, base_tip.stdout.strip()])
+        created = _run(
+            ["git", "branch", branch, base_tip.stdout.strip()],
+            check=False,
+        )
+        if created.returncode != 0:
+            raise RuntimeError(
+                f"Failed to create branch {branch}: {created.stderr or created.stdout}"
+            )
 
     if path.exists():
         shutil.rmtree(path)

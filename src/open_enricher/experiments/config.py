@@ -15,6 +15,8 @@ PROGRESS_PATH = RUNS_ROOT / "progress.jsonl"
 
 EXPERIMENT_PREFIX = "exp2"
 BASE_BRANCH = "exp2"
+# refs/heads/exp2 already exists, so refs/heads/exp2/<id> cannot be created.
+EXPERIMENT_BRANCH_PREFIX = "exp2-run"
 
 COLAB_VIDEO = "Stranger_Things.S01E03.mkv"
 KAGGLE_VIDEO = "Suits.S01E02.mkv"
