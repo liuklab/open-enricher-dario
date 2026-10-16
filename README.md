@@ -65,7 +65,7 @@ Put the source videos in a private dataset and record its id in `dataset/dataset
 }
 ```
 
-Videos must sit at the root of that dataset. Kaggle mounts it at `/kaggle/input/<slug>`.
+Videos must sit at the root of that dataset. The CLI mounts it at `/kaggle/input/datasets/<owner>/<slug>`; the notebook editor still uses `/kaggle/input/<slug>`. The worker checks both.
 
 ```bash
 python deploy.py --mode kaggle --target open-enricher --gpu T4

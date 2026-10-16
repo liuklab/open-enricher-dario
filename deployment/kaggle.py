@@ -149,7 +149,7 @@ def _wait_for_new_code_version(
 
     ``datasets status`` stays ``ready`` on the previous version while a new one
     is still processing. Pushing a kernel in that window mounts the old files,
-    so ``/kaggle/input/open-enricher-code/launch.sh`` is missing.
+    so ``launch.sh`` is missing from the code dataset.
     """
     deadline = time.monotonic() + wait_seconds
     seen = None
@@ -257,10 +257,10 @@ class KaggleStrategy:
 
             push_dir = Path(tmp) / "kernel"
             push_dir.mkdir()
-            video_slug = video_ref.split("/", 1)[1]
-            worker_source = worker.read_text(encoding="utf-8").replace(
-                'Path("/kaggle/input/open-enricher-dataset")',
-                f'Path("/kaggle/input/{video_slug}")',
+            worker_source = (
+                worker.read_text(encoding="utf-8")
+                .replace("__OPEN_ENRICHER_CODE_REF__", code_ref)
+                .replace("__OPEN_ENRICHER_VIDEO_REF__", video_ref)
             )
             (push_dir / "kernel_main.py").write_text(worker_source, encoding="utf-8")
             metadata = {

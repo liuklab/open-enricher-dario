@@ -16,6 +16,9 @@ import time
 import urllib.request
 from pathlib import Path
 
+# Deploy substitutes these owner/slug refs before the kernel is pushed.
+CODE_REF = "__OPEN_ENRICHER_CODE_REF__"
+VIDEO_REF = "__OPEN_ENRICHER_VIDEO_REF__"
 CODE_INPUT = Path("/kaggle/input/open-enricher-code")
 VIDEO_INPUT = Path("/kaggle/input/open-enricher-dataset")
 HOME = Path("/kaggle/working")
@@ -26,6 +29,27 @@ CLOUDFLARED_URL = (
     "cloudflared-linux-amd64"
 )
 HOLD_SECONDS = 8 * 60 * 60
+
+
+def mounted_dataset(ref: str, input_root: Path = Path("/kaggle/input")) -> Path:
+    """Return the directory Kaggle used for one attached dataset.
+
+    A dataset added through the CLI is mounted at
+    ``/kaggle/input/datasets/<owner>/<slug>``. The notebook editor still
+    uses ``/kaggle/input/<slug>``.
+    """
+    owner, _, slug = ref.partition("/")
+    if not owner or not slug or "/" in slug:
+        raise SystemExit(f"Dataset ref must look like owner/slug, got {ref!r}.")
+    candidates = (
+        input_root / "datasets" / owner / slug,
+        input_root / slug,
+    )
+    for path in candidates:
+        if path.is_dir():
+            return path
+    checked = ", ".join(str(path) for path in candidates)
+    raise SystemExit(f"Dataset {ref} is not mounted. Checked: {checked}")
 
 
 def _export_runtime() -> None:
@@ -97,6 +121,9 @@ def _open_tunnel() -> None:
 
 
 def main() -> None:
+    global CODE_INPUT, VIDEO_INPUT
+    CODE_INPUT = mounted_dataset(CODE_REF)
+    VIDEO_INPUT = mounted_dataset(VIDEO_REF)
     _export_runtime()
     _run_launch()
     _open_tunnel()
