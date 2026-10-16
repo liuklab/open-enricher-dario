@@ -1,0 +1,7 @@
+{
+  "machine": "kaggle",
+  "video": "Suits.S01E02.mkv",
+  "experiment_id": "02-interval-vlm",
+  "status": "error",
+  "error": "Command failed (1): /home/darionapolitano/projects/open_enricher/open-enricher/.venv/bin/python deploy.py --mode kaggle --target open-enricher --gpu T4"
+}

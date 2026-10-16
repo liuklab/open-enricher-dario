@@ -1,0 +1,239 @@
+{
+  "title_guess": "Segmented viewing of the file",
+  "short_summary": "A man and woman are lying close together in bed, sharing an intimate moment under dim lighting. The scene transitions to show them in different settings — including a dark room where they appear to be sleeping or resting, and later, a woman standing near stairs while another person watches from behind. A dimly lit room where two people stand close together, appearing concerned or engaged in an intense conversation. A young girl sits cross-legged on the floor in a dimly lit room, surrounded by furniture including an armchair and side tables. She appears focused or contemplative as she looks toward the camera. A young girl wearing an EEG cap sits calmly while being monitored; later, she stands beside a dog in a dimly lit room, followed by scenes showing two men interacting at a checkout counter, three law enforcement officers walking outside near parked cars, and finally, a boy looking intently at a cake displayed on a stand. A young boy stands inside a dimly lit room, looking out through a glass door at another person standing outside. A woman sits at a desk in a dimly lit room, surrounded by various items including a lamp, books, and papers. She appears focused as she works or reads. A man in a suit stands inside a dimly lit room with tiled walls, holding papers while looking down at another person lying on the floor. A man with gray hair leans down to kiss a woman lying on her back; they appear intimate and connected. The scene transitions to show them walking through a school hallway, followed by shots of a woman standing alone in a forested area looking distressed, then ",
+  "content_type": "episode",
+  "setting": "",
+  "visual_style": "",
+  "scene_timeline": [
+    {
+      "start_time": "00:00:00",
+      "end_time": "00:05:00",
+      "description": "A man and woman are lying close together in bed, sharing an intimate moment under dim lighting. The scene transitions to show them in different settings — including a dark room where they appear to be sleeping or resting, and later, a woman standing near stairs while another person watches from behind.",
+      "subjects_and_objects": [
+        "man",
+        "woman",
+        "bed",
+        "stairs",
+        "lamp"
+      ],
+      "actions": [
+        "lying down",
+        "sleeping",
+        "watching",
+        "standing"
+      ],
+      "camera_and_shot": "Close-up shots focusing on faces and interactions; medium shot showing characters in context.",
+      "lighting_and_color": "Dimly lit scenes with soft shadows; warm tones in indoor settings; darker ambiance during nighttime moments.",
+      "dialogue": "[00:00:23] Nancy!\n[00:00:28] Nancy!\n[00:01:02] What are you doing?\n[00:01:08] Nothing.\n[00:01:35] You're so beautiful!\n[00:03:26] Steve.\n[00:03:31] Hey, Steve.\n[00:03:32] See you tomorrow, okay?\n[00:04:18] Jesus, you scared me!\n[00:04:18] I scared you?\n[00:04:19] I should have called.\n[00:04:21] Where have you been?",
+      "colors": "#142930, #020306, #0a141a; #03050c, #0e242b, #07141c; #05080e, #091317, #020307"
+    },
+    {
+      "start_time": "00:05:00",
+      "end_time": "00:10:00",
+      "description": "A dimly lit room where two people stand close together, appearing concerned or engaged in an intense conversation.",
+      "subjects_and_objects": [
+        "woman",
+        "man"
+      ],
+      "actions": [
+        "standing",
+        "conversing",
+        "looking at each other"
+      ],
+      "camera_and_shot": "medium shot",
+      "lighting_and_color": "dim, warm ambient lighting casting soft shadows",
+      "dialogue": "[00:05:01] Can you talk to me if something happened to you?\n[00:05:05] Nothing, Mom.\n[00:05:09] Nancy.\n[00:05:13] Nothing, Mom.\n[00:05:17] Please, can I go?\n[00:05:17] Where is he?\n[00:05:47] Mom.\n[00:05:47] Jonathan, come here.\n[00:05:51] What is this?\n[00:05:56] Come here.\n[00:05:56] What's going on?\n[00:05:56] It's Will.",
+      "colors": "#392e2a, #080705, #20180f; #1c1710, #3d2f29, #090605; #3d2b1f, #070604, #1c170d"
+    },
+    {
+      "start_time": "00:10:00",
+      "end_time": "00:15:00",
+      "description": "A young girl sits cross-legged on the floor in a dimly lit room, surrounded by furniture including an armchair and side tables. She appears focused or contemplative as she looks toward the camera.",
+      "subjects_and_objects": [
+        "girl",
+        "armchair",
+        "side table",
+        "lamp",
+        "wall art"
+      ],
+      "actions": [
+        "sitting cross-legged",
+        "looking at camera"
+      ],
+      "camera_and_shot": "static shot from slightly above eye level",
+      "lighting_and_color": "dim, warm ambient lighting casting soft shadows; muted tones dominate the scene",
+      "dialogue": "[00:10:21] Ciao.\n[00:10:22] Ciao.\n[00:10:24] Va tutto bene?\n[00:10:25] Si.\n[00:10:26] Si, benissimo.\n[00:10:28] Solo che... Mi sento come se tutti mi fissassero.\n[00:10:34] Io non ho detto niente a nessuno.\n[00:10:35] Lo so.\n[00:10:36] Lo so.\n[00:10:37] No, certo.\n[00:10:40] Ma che mi dici di Tommy e Carol?\n[00:10:42] Tu sei paranoica.",
+      "colors": "#090a12, #45423e, #817171; #09090b, #302824, #5c5350; #75706f, #474541, #191716"
+    },
+    {
+      "start_time": "00:15:00",
+      "end_time": "00:20:00",
+      "description": "A young girl wearing an EEG cap sits calmly while being monitored; later, she stands beside a dog in a dimly lit room, followed by scenes showing two men interacting at a checkout counter, three law enforcement officers walking outside near parked cars, and finally, a boy looking intently at a cake displayed on a stand.",
+      "subjects_and_objects": [
+        "young girl",
+        "EEG cap",
+        "dog",
+        "two men",
+        "checkout counter",
+        "law enforcement officers"
+      ],
+      "actions": [
+        "sitting still",
+        "standing beside a dog",
+        "interacting at a checkout counter",
+        "walking outdoors",
+        "looking at a cake"
+      ],
+      "camera_and_shot": "Close-up shots transitioning to medium and wide shots capturing interactions and environments.",
+      "lighting_and_color": "Dim indoor lighting for medical setting, natural daylight for outdoor scenes, warm tones indoors, cool blue hues outdoors.",
+      "dialogue": "[00:16:37] I\n[00:17:05] the\n[00:17:37] As I said, we would have seen it.\n[00:17:41] On the night of the 7th, a team was looking for Will.\n[00:17:47] Do you remember anything about that night?\n[00:17:49] I remember that we suspended the search for the weather.\n[00:17:52] Yes, it was raining that night.\n[00:17:53] Did you see the rain in that video?\n[00:17:55] What are you thinking?\n[00:17:58] I don't know.\n[00:18:00] But they're lying.\n[00:19:31] I don't know.",
+      "colors": "#25231d, #99a6a0, #685f46; #716c66, #a09b92, #1a1a18; #0e0f0d, #bbb5a4, #564e45"
+    },
+    {
+      "start_time": "00:20:00",
+      "end_time": "00:25:00",
+      "description": "A young boy stands inside a dimly lit room, looking out through a glass door at another person standing outside.",
+      "subjects_and_objects": [
+        "young boy",
+        "person outside",
+        "glass door"
+      ],
+      "actions": [
+        "looking out",
+        "standing still"
+      ],
+      "camera_and_shot": "medium shot from indoors, focused on the boy's profile as he looks outward",
+      "lighting_and_color": "dim indoor lighting with warm tones; contrasted by cooler outdoor light filtering through the glass",
+      "dialogue": "[00:20:06] I don't know.\n[00:20:31] I don't know.\n[00:20:45] ♪♪\n[00:21:11] ♪ ♪\n[00:21:37] ♪ ♪\n[00:22:07] ♪ ♪\n[00:22:35] ♪ ♪ ♪\n[00:23:10] What do you think of this?\n[00:23:14] Yes, it's okay.\n[00:23:17] Yes, he's a killer monster.\n[00:23:49] Bye.\n[00:23:51] Bye.",
+      "colors": "#3e342d, #17110e, #908176; #0e0d0d, #57656c, #3e3730; #8d8886, #0e0d0f, #4c423d"
+    },
+    {
+      "start_time": "00:25:00",
+      "end_time": "00:30:00",
+      "description": "A woman sits at a desk in a dimly lit room, surrounded by various items including a lamp, books, and papers. She appears focused as she works or reads.",
+      "subjects_and_objects": [
+        "woman",
+        "desk",
+        "lamp",
+        "books",
+        "papers"
+      ],
+      "actions": [
+        "sitting",
+        "reading or working"
+      ],
+      "camera_and_shot": "static shot from slightly above eye level",
+      "lighting_and_color": "dim, warm lighting; muted color palette",
+      "dialogue": "[00:25:03] Hey, Marissa.\n[00:25:06] How are you?\n[00:25:08] You have a pretty tough face to come here.\n[00:25:11] What?\n[00:25:12] You could at least call and say, Marissa, hi, we're not going.\n[00:25:15] Sorry if I made you lose time.\n[00:25:16] I'm a bitch.\n[00:25:17] It's true.\n[00:25:19] I'm sorry.\n[00:25:24] Maybe we'll go out next week.\n[00:25:33] We have the New York Times, the Post, and more importantly, organized by year and topic.\n[00:25:41] You'll find the corresponding microfiche in the reading room.",
+      "colors": "#d3d4d0, #17100c, #504139; #271c0f, #c3c6c1, #69584e; #141918, #78716a, #b5b8bc"
+    },
+    {
+      "start_time": "00:30:00",
+      "end_time": "00:35:00",
+      "description": "A man in a suit stands inside a dimly lit room with tiled walls, holding papers while looking down at another person lying on the floor.",
+      "subjects_and_objects": [
+        "man in suit",
+        "person lying on floor",
+        "tiled walls"
+      ],
+      "actions": [
+        "standing",
+        "holding papers",
+        "looking down"
+      ],
+      "camera_and_shot": "static shot from slightly above eye level",
+      "lighting_and_color": "dim, cool-toned lighting with muted colors",
+      "dialogue": "[00:30:13] Hi, beautiful.\n[00:30:15] What's up?\n[00:30:16] Nicole was telling us about your work.\n[00:30:18] Yes, she said great things.\n[00:30:19] Yes, she must be strong.\n[00:30:20] We'd like to take a look.\n[00:30:21] You know, like art lovers.\n[00:30:23] I don't know what you're talking about.\n[00:30:26] Oh, no.\n[00:30:27] Hey, please, give me back my bag.\n[00:30:28] Guys, come on.\n[00:30:30] She really has something to hide.",
+      "colors": "#695d55, #afafab, #212227; #e9e3e0, #312d29, #817c7f; #242420, #afb5b6, #717372"
+    },
+    {
+      "start_time": "00:35:00",
+      "end_time": "00:40:00",
+      "description": "A man with gray hair leans down to kiss a woman lying on her back; they appear intimate and connected. The scene transitions to show them walking through a school hallway, followed by shots of a woman standing alone in a forested area looking distressed, then sitting at a table in a dimly lit room holding a phone.",
+      "subjects_and_objects": [
+        "man",
+        "woman",
+        "school hallway",
+        "forest",
+        "table",
+        "phone"
+      ],
+      "actions": [
+        "kissing",
+        "walking",
+        "standing",
+        "sitting",
+        "holding phone"
+      ],
+      "camera_and_shot": "Close-up shot transitioning to medium shots and wide shots.",
+      "lighting_and_color": "Dim indoor lighting with warm tones, contrasted with natural daylight in outdoor scenes.",
+      "dialogue": "[00:35:43] Papa!\n[00:35:47] Papa!\n[00:36:02] That's what I told Mr. Mandy.\n[00:36:05] The solution of 10 plus y is equal to Pompino.\n[00:36:10] Great!\n[00:36:10] If you had done it, you would have been punished.\n[00:36:12] Saturday.\n[00:36:14] I bet Mandy is still a virgin.\n[00:36:16] So much!\n[00:36:17] Maybe you should do it, Carol, to improve your grades a bit.\n[00:36:20] Come on!\n[00:36:22] Oh, Nancy, where are you going?",
+      "colors": "#151511, #8aa899, #3f4539; #101b1c, #435f59, #8aa295; #5f574b, #14191a, #454033"
+    },
+    {
+      "start_time": "00:40:00",
+      "end_time": "00:45:00",
+      "description": "A man wearing a police uniform sits at a desk inside a police station, looking down at documents while holding a pen.",
+      "subjects_and_objects": [
+        "man",
+        "police uniform",
+        "desk",
+        "pen",
+        "documents"
+      ],
+      "actions": [
+        "sitting",
+        "looking down",
+        "holding pen"
+      ],
+      "camera_and_shot": "medium shot from slightly above eye level",
+      "lighting_and_color": "even indoor lighting, muted tones",
+      "dialogue": "[00:40:16] You blink once to say yes, twice to say no.\n[00:40:21] You do it for me, darling.\n[00:40:22] Then... Oh, good.\n[00:40:23] Good.\n[00:40:24] Darling, I have to know.\n[00:40:32] You're alive, Will.\n[00:40:36] You're safe, Will.\n[00:40:55] I have to know where to find you, darling.\n[00:41:00] Where are you?\n[00:41:02] Can you tell me where you are?\n[00:41:04] Please, darling.\n[00:41:07] I have to find you.",
+      "colors": "#050406, #5e3511, #26180a; #23170a, #5a330e, #050405; #130c07, #755237, #432c17"
+    },
+    {
+      "start_time": "00:45:00",
+      "end_time": "00:50:00",
+      "description": "A group of people stand together at night under dim lighting, appearing to be engaged in conversation or observation.",
+      "subjects_and_objects": [
+        "people",
+        "backpacks"
+      ],
+      "actions": [
+        "standing",
+        "looking around",
+        "talking"
+      ],
+      "camera_and_shot": "medium shot from behind the group",
+      "lighting_and_color": "dimly lit scene with dark blue tones, illuminated by faint ambient light sources",
+      "dialogue": "[00:45:17] Pi.\n[00:45:18] Bene, bene, bene, bene.\n[00:45:19] Così va bene.\n[00:45:20] Andiamo, dai.\n[00:45:22] R-O-P-R-I-O-Q-U-I.\n[00:45:32] Proprio qui.\n[00:45:34] Proprio qui.\n[00:45:36] Non so cosa significa.\n[00:45:39] Devi dirmi che cosa devo fare.\n[00:45:41] Che cosa devo fare.\n[00:45:42] Come ti raggiungo?\n[00:45:43] Come ti trovo?",
+      "colors": "#0d0c0b, #dbd6cb, #6d5a4f; #000001, #e7dcbf, #562223; #0d141c, #030407, #1c252e"
+    },
+    {
+      "start_time": "00:50:00",
+      "end_time": "00:51:52",
+      "description": "A black screen displaying white text listing production credits for various roles such as Construction Coordinator, Visual Effects Supervisor, Scenic Artist, etc., followed by logos and names of companies like WETA Workshop, Industrial Light & Magic, and others.",
+      "subjects_and_objects": [],
+      "actions": [],
+      "camera_and_shot": "Static shot",
+      "lighting_and_color": "Black background with white text",
+      "colors": "#010202, #c37761, #46642f"
+    }
+  ],
+  "on_screen_text": [
+    "DAVID HARBOUR",
+    "CHAPTER THREE",
+    "HOLLY. JOLLY",
+    "Construction Coordinator MICHAEL J. WHEELER",
+    "Construction Buyer RUSS WEBSTER",
+    "Construction Foreman JEFFREY GIBBS",
+    "Shop Foreman DALE JEANTET",
+    "Location Foreman JOHN MADGE"
+  ],
+  "segmentation": "interval",
+  "segmentation_seconds": 300,
+  "segments_parsed": 11,
+  "segments_total": 11,
+  "experiment_id": "01-interval-llm",
+  "memory_truncated": false
+}
