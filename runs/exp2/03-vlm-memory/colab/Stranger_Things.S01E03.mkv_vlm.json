@@ -1,0 +1,274 @@
+{
+  "title_guess": "Segmented viewing of the file",
+  "short_summary": "A man and woman are lying close together in bed, sharing an intimate moment under dim lighting. The scene transitions to show them waking up or moving around in their bedroom, with the woman sitting up while the man remains partially covered by blankets. A group of teenagers gather in a dimly lit living room, engaging in conversation and interaction. One boy stands over another who is seated, while others watch closely. A girl sits nearby holding a phone, appearing focused or concerned. A young girl holds a framed picture while standing near a couch in a warmly lit living room. She interacts with a police officer seated at a table, handing him papers. Another teenager sits cross-legged on the floor nearby, looking toward her. A young girl wearing a headband with wires is shown in a clinical setting, followed by scenes of people interacting in various environments including a grocery store, a kitchen, and outdoors. Three boys stand outside near a blue dumpster and shed, engaged in conversation. They appear to be discussing something serious, with one boy gesturing while speaking. The environment is rural with trees and grass surrounding them. A teenage girl walks past a school bus stop where students are gathered, then enters a classroom filled with students. Later, she is seen walking alone down a hallway, passing lockers and posters. A tense confrontation unfolds between two men in front of a yellow school bus as students walk nearby. The scene shifts to a dark corridor where a man in a suit confronts a distressed woman holding a pillow, before transitioning to a hospital ",
+  "content_type": "episode",
+  "setting": "",
+  "visual_style": "",
+  "scene_timeline": [
+    {
+      "start_time": "00:00:00",
+      "end_time": "00:05:00",
+      "description": "A man and woman are lying close together in bed, sharing an intimate moment under dim lighting. The scene transitions to show them waking up or moving around in their bedroom, with the woman sitting up while the man remains partially covered by blankets.",
+      "subjects_and_objects": [
+        "man",
+        "woman",
+        "bed",
+        "pillow",
+        "blanket"
+      ],
+      "actions": [
+        "lying down",
+        "gazing at each other",
+        "sitting up",
+        "moving in bed"
+      ],
+      "camera_and_shot": "Close-up shots focusing on faces and upper bodies, transitioning to medium shots as they move.",
+      "lighting_and_color": "Dim, warm indoor lighting; dark tones dominate with soft highlights from ambient light sources.",
+      "dialogue": "[00:00:23] Nancy!\n[00:00:28] Nancy!\n[00:01:02] What are you doing?\n[00:01:08] Nothing.\n[00:01:35] You're so beautiful!\n[00:03:26] Steve.\n[00:03:31] Hey, Steve.\n[00:03:32] See you tomorrow, okay?\n[00:04:18] Jesus, you scared me!\n[00:04:18] I scared you?\n[00:04:19] I should have called.\n[00:04:21] Where have you been?",
+      "colors": "#142930, #020306, #0a141a; #03050c, #0e242b, #07141c; #05080e, #091317, #020307"
+    },
+    {
+      "start_time": "00:05:00",
+      "end_time": "00:10:00",
+      "description": "A group of teenagers gather in a dimly lit living room, engaging in conversation and interaction. One boy stands over another who is seated, while others watch closely. A girl sits nearby holding a phone, appearing focused or concerned.",
+      "subjects_and_objects": [
+        "teenagers",
+        "boy",
+        "girl",
+        "living room",
+        "sofa",
+        "lamp"
+      ],
+      "actions": [
+        "standing",
+        "seated",
+        "watching",
+        "holding phone",
+        "talking",
+        "interacting"
+      ],
+      "camera_and_shot": "Medium shot capturing multiple characters within the room, slightly angled to include interactions between individuals.",
+      "lighting_and_color": "Warm, low lighting casting shadows across the room; muted tones with amber hues from lamps.",
+      "dialogue": "[00:05:01] Can you talk to me if something happened to you?\n[00:05:05] Nothing, Mom.\n[00:05:09] Nancy.\n[00:05:13] Nothing, Mom.\n[00:05:17] Please, can I go?\n[00:05:17] Where is he?\n[00:05:47] Mom.\n[00:05:47] Jonathan, come here.\n[00:05:51] What is this?\n[00:05:56] Come here.\n[00:05:56] What's going on?\n[00:05:56] It's Will.",
+      "colors": "#392e2a, #080705, #20180f; #1c1710, #3d2f29, #090605; #3d2b1f, #070604, #1c170d"
+    },
+    {
+      "start_time": "00:10:00",
+      "end_time": "00:15:00",
+      "description": "A young girl holds a framed picture while standing near a couch in a warmly lit living room. She interacts with a police officer seated at a table, handing him papers. Another teenager sits cross-legged on the floor nearby, looking toward her.",
+      "subjects_and_objects": [
+        "young girl",
+        "police officer",
+        "teenager",
+        "framed picture",
+        "couch",
+        "table"
+      ],
+      "actions": [
+        "holding frame",
+        "handing papers",
+        "sitting cross-legged",
+        "looking at someone",
+        "interacting"
+      ],
+      "camera_and_shot": "Medium shot capturing the girl and officer at the table, with a wider view showing the teenager on the floor.",
+      "lighting_and_color": "Warm, golden indoor lighting with soft shadows; rich browns and creams dominate the color palette.",
+      "dialogue": "[00:10:21] Ciao.\n[00:10:22] Ciao.\n[00:10:24] Va tutto bene?\n[00:10:25] Si.\n[00:10:26] Si, benissimo.\n[00:10:28] Solo che... Mi sento come se tutti mi fissassero.\n[00:10:34] Io non ho detto niente a nessuno.\n[00:10:35] Lo so.\n[00:10:36] Lo so.\n[00:10:37] No, certo.\n[00:10:40] Ma che mi dici di Tommy e Carol?\n[00:10:42] Tu sei paranoica.",
+      "colors": "#090a12, #45423e, #817171; #09090b, #302824, #5c5350; #75706f, #474541, #191716"
+    },
+    {
+      "start_time": "00:15:00",
+      "end_time": "00:20:00",
+      "description": "A young girl wearing a headband with wires is shown in a clinical setting, followed by scenes of people interacting in various environments including a grocery store, a kitchen, and outdoors.",
+      "subjects_and_objects": [
+        "girl",
+        "headband",
+        "wires",
+        "grocery store",
+        "shopping cart",
+        "kitchen"
+      ],
+      "actions": [
+        "wearing headgear",
+        "walking through store",
+        "pushing shopping cart",
+        "eating cereal",
+        "walking outside",
+        "carrying bag"
+      ],
+      "camera_and_shot": "Close-ups on facial expressions and equipment, wide shots for environmental context, tracking shots following movement.",
+      "lighting_and_color": "Mixed lighting — clinical white in lab settings, natural daylight in outdoor and retail areas, warm interior tones in domestic spaces.",
+      "dialogue": "[00:16:37] I\n[00:17:05] the\n[00:17:37] As I said, we would have seen it.\n[00:17:41] On the night of the 7th, a team was looking for Will.\n[00:17:47] Do you remember anything about that night?\n[00:17:49] I remember that we suspended the search for the weather.\n[00:17:52] Yes, it was raining that night.\n[00:17:53] Did you see the rain in that video?\n[00:17:55] What are you thinking?\n[00:17:58] I don't know.\n[00:18:00] But they're lying.\n[00:19:31] I don't know.",
+      "colors": "#25231d, #99a6a0, #685f46; #716c66, #a09b92, #1a1a18; #0e0f0d, #bbb5a4, #564e45"
+    },
+    {
+      "start_time": "00:20:00",
+      "end_time": "00:25:00",
+      "description": "Three boys stand outside near a blue dumpster and shed, engaged in conversation. They appear to be discussing something serious, with one boy gesturing while speaking. The environment is rural with trees and grass surrounding them.",
+      "subjects_and_objects": [
+        "boys",
+        "dumpster",
+        "shed",
+        "trees",
+        "grass"
+      ],
+      "actions": [
+        "standing",
+        "gesturing",
+        "speaking",
+        "listening"
+      ],
+      "camera_and_shot": "Wide shot capturing all three boys and their surroundings, emphasizing the outdoor setting.",
+      "lighting_and_color": "Natural daylight with soft shadows; earthy tones dominate the scene with greenery and blue structures.",
+      "dialogue": "[00:20:06] I don't know.\n[00:20:31] I don't know.\n[00:20:45] ♪♪\n[00:21:11] ♪ ♪\n[00:21:37] ♪ ♪\n[00:22:07] ♪ ♪\n[00:22:35] ♪ ♪ ♪\n[00:23:10] What do you think of this?\n[00:23:14] Yes, it's okay.\n[00:23:17] Yes, he's a killer monster.\n[00:23:49] Bye.\n[00:23:51] Bye.",
+      "colors": "#3e342d, #17110e, #908176; #0e0d0d, #57656c, #3e3730; #8d8886, #0e0d0f, #4c423d"
+    },
+    {
+      "start_time": "00:25:00",
+      "end_time": "00:30:00",
+      "description": "A teenage girl walks past a school bus stop where students are gathered, then enters a classroom filled with students. Later, she is seen walking alone down a hallway, passing lockers and posters.",
+      "subjects_and_objects": [
+        "teenage girl",
+        "students",
+        "school bus",
+        "classroom",
+        "hallway",
+        "lockers"
+      ],
+      "actions": [
+        "walking",
+        "entering classroom",
+        "passing by",
+        "standing in line",
+        "reading poster"
+      ],
+      "camera_and_shot": "Tracking shot following the girl’s movement, cutting to static shots inside the classroom and hallway.",
+      "lighting_and_color": "Natural daylight streaming through windows; neutral tones with pops of color from clothing and posters.",
+      "dialogue": "[00:25:03] Hey, Marissa.\n[00:25:06] How are you?\n[00:25:08] You have a pretty tough face to come here.\n[00:25:11] What?\n[00:25:12] You could at least call and say, Marissa, hi, we're not going.\n[00:25:15] Sorry if I made you lose time.\n[00:25:16] I'm a bitch.\n[00:25:17] It's true.\n[00:25:19] I'm sorry.\n[00:25:24] Maybe we'll go out next week.\n[00:25:33] We have the New York Times, the Post, and more importantly, organized by year and topic.\n[00:25:41] You'll find the corresponding microfiche in the reading room.",
+      "colors": "#d3d4d0, #17100c, #504139; #271c0f, #c3c6c1, #69584e; #141918, #78716a, #b5b8bc"
+    },
+    {
+      "start_time": "00:30:00",
+      "end_time": "00:35:00",
+      "description": "A tense confrontation unfolds between two men in front of a yellow school bus as students walk nearby. The scene shifts to a dark corridor where a man in a suit confronts a distressed woman holding a pillow, before transitioning to a hospital room where a patient lies unconscious.",
+      "subjects_and_objects": [
+        "two men",
+        "yellow school bus",
+        "students",
+        "man in suit",
+        "distressed woman",
+        "pillow"
+      ],
+      "actions": [
+        "confronting",
+        "walking",
+        "standing",
+        "entering",
+        "holding",
+        "lying down"
+      ],
+      "camera_and_shot": "Close-up shots transition to medium shots capturing interactions, followed by a wide shot showing the hospital room environment.",
+      "lighting_and_color": "Dim indoor lighting contrasts with natural outdoor light during the school bus scene. The hospital room has cold, sterile lighting.",
+      "dialogue": "[00:30:13] Hi, beautiful.\n[00:30:15] What's up?\n[00:30:16] Nicole was telling us about your work.\n[00:30:18] Yes, she said great things.\n[00:30:19] Yes, she must be strong.\n[00:30:20] We'd like to take a look.\n[00:30:21] You know, like art lovers.\n[00:30:23] I don't know what you're talking about.\n[00:30:26] Oh, no.\n[00:30:27] Hey, please, give me back my bag.\n[00:30:28] Guys, come on.\n[00:30:30] She really has something to hide.",
+      "colors": "#695d55, #afafab, #212227; #e9e3e0, #312d29, #817c7f; #242420, #afb5b6, #717372"
+    },
+    {
+      "start_time": "00:35:00",
+      "end_time": "00:40:00",
+      "description": "A man in a suit confronts a distressed woman in a dimly lit corridor, leading to a physical altercation that ends with her falling backward into darkness.",
+      "subjects_and_objects": [
+        "man",
+        "woman",
+        "school bus",
+        "students",
+        "corridor"
+      ],
+      "actions": [
+        "confronting",
+        "falling",
+        "walking",
+        "fighting"
+      ],
+      "camera_and_shot": "Close-up shots transitioning to wide-angle views showing the environment and action.",
+      "lighting_and_color": "Dim, moody lighting with shadows casting across the scene, emphasizing tension and drama.",
+      "dialogue": "[00:35:43] Papa!\n[00:35:47] Papa!\n[00:36:02] That's what I told Mr. Mandy.\n[00:36:05] The solution of 10 plus y is equal to Pompino.\n[00:36:10] Great!\n[00:36:10] If you had done it, you would have been punished.\n[00:36:12] Saturday.\n[00:36:14] I bet Mandy is still a virgin.\n[00:36:16] So much!\n[00:36:17] Maybe you should do it, Carol, to improve your grades a bit.\n[00:36:20] Come on!\n[00:36:22] Oh, Nancy, where are you going?",
+      "colors": "#151511, #8aa899, #3f4539; #101b1c, #435f59, #8aa295; #5f574b, #14191a, #454033"
+    },
+    {
+      "start_time": "00:40:00",
+      "end_time": "00:45:00",
+      "description": "A man and woman share an intimate moment in a dimly lit room, transitioning to a library study scene, then to a police station interrogation, and finally to a nighttime outdoor encounter.",
+      "subjects_and_objects": [
+        "man",
+        "woman",
+        "police officers",
+        "library books",
+        "desk lamp",
+        "interrogation chair"
+      ],
+      "actions": [
+        "hugging",
+        "studying",
+        "talking",
+        "interrogating",
+        "walking outdoors"
+      ],
+      "camera_and_shot": "Close-up shots transition to medium and wide shots capturing interactions and settings.",
+      "lighting_and_color": "Dim indoor lighting contrasts with bright artificial light in the library and harsh fluorescent lights in the police station, ending in low-light outdoor night scenes.",
+      "dialogue": "[00:40:16] You blink once to say yes, twice to say no.\n[00:40:21] You do it for me, darling.\n[00:40:22] Then... Oh, good.\n[00:40:23] Good.\n[00:40:24] Darling, I have to know.\n[00:40:32] You're alive, Will.\n[00:40:36] You're safe, Will.\n[00:40:55] I have to know where to find you, darling.\n[00:41:00] Where are you?\n[00:41:02] Can you tell me where you are?\n[00:41:04] Please, darling.\n[00:41:07] I have to find you.",
+      "colors": "#050406, #5e3511, #26180a; #23170a, #5a330e, #050405; #130c07, #755237, #432c17"
+    },
+    {
+      "start_time": "00:45:00",
+      "end_time": "00:50:00",
+      "description": "A person runs through a dark forest path toward a distant light source, pursued by figures in the background. The scene cuts to a red fire truck parked outdoors at night, with two individuals approaching it cautiously. Inside a dimly lit cave-like environment, several teens huddle together, looking upward in awe or fear.",
+      "subjects_and_objects": [
+        "person running",
+        "figures in background",
+        "red fire truck",
+        "two individuals",
+        "teens"
+      ],
+      "actions": [
+        "running",
+        "pursuing",
+        "approaching",
+        "huddling",
+        "looking upward"
+      ],
+      "camera_and_shot": "Dynamic tracking shot following runner, static wide shot of fire truck, medium shot of teens huddled inside cave",
+      "lighting_and_color": "Dark, moody atmosphere with low ambient light; contrasted by bright artificial light from fire truck and distant glow in forest",
+      "dialogue": "[00:45:17] Pi.\n[00:45:18] Bene, bene, bene, bene.\n[00:45:19] Così va bene.\n[00:45:20] Andiamo, dai.\n[00:45:22] R-O-P-R-I-O-Q-U-I.\n[00:45:32] Proprio qui.\n[00:45:34] Proprio qui.\n[00:45:36] Non so cosa significa.\n[00:45:39] Devi dirmi che cosa devo fare.\n[00:45:41] Che cosa devo fare.\n[00:45:42] Come ti raggiungo?\n[00:45:43] Come ti trovo?",
+      "colors": "#0d0c0b, #dbd6cb, #6d5a4f; #000001, #e7dcbf, #562223; #0d141c, #030407, #1c252e"
+    },
+    {
+      "start_time": "00:50:00",
+      "end_time": "00:51:52",
+      "description": "A sequence displaying end credits for a film, listing production roles and names against a black background, followed by logos and titles indicating involvement from studios and organizations.",
+      "subjects_and_objects": [
+        "text",
+        "logos"
+      ],
+      "actions": [],
+      "camera_and_shot": "Static shot displaying text and logos sequentially.",
+      "lighting_and_color": "Black background with white text and colorful logos appearing intermittently.",
+      "colors": "#010202, #c37761, #46642f"
+    }
+  ],
+  "on_screen_text": [
+    "ALLEGED EXPERIMENTS, ABUSE",
+    "Terry Ives' legal case against embattled research scientist Dr. Martin Brenner suffered another setback today when the district attorney's office formally refused to press criminal charges against Brenner, his fellow researchers, assistants, or the projects sponsors, citing lack of evidence. Local law enforcement executed a search warrant at the facility last week.",
+    "HAWKINS POLICE DEPT.",
+    "ENGINE NO.4",
+    "NAT 911",
+    "Visual Effects Supervisor MARC KOLBE",
+    "Visual Effects Co-Supervisor ROB WEAVER",
+    "Creature Design and Visual Effects by THE AARON SIMS COMPANY VFX"
+  ],
+  "segmentation": "interval",
+  "segmentation_seconds": 300,
+  "segments_parsed": 11,
+  "segments_total": 11,
+  "experiment_id": "03-vlm-memory",
+  "memory_truncated": false
+}

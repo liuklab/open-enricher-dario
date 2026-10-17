@@ -1,0 +1,16 @@
+{
+  "stage": "color",
+  "wall_seconds": 917.244,
+  "spans": [
+    {
+      "name": "scene_detect",
+      "seconds": 779.608
+    },
+    {
+      "name": "color_extract",
+      "seconds": 135.7,
+      "frames": 111
+    }
+  ],
+  "cached": true
+}

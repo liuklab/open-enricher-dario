@@ -1,0 +1,41 @@
+{
+  "recsys_metadata": {
+    "primary_genre": "Mystery",
+    "sub_genres": [
+      "Psychological",
+      "Suspense",
+      "Thriller"
+    ],
+    "pacing": "Moderate",
+    "mood": [
+      "Tense",
+      "Anxious",
+      "Unsettling"
+    ]
+  },
+  "search_and_discovery": {
+    "semantic_tags": [
+      "Missing persons",
+      "Supernatural elements",
+      "Emotional tension",
+      "Investigation"
+    ],
+    "main_topics": [
+      "Search for a missing individual",
+      "Strange occurrences",
+      "Character dynamics"
+    ]
+  },
+  "audience_profiling": {
+    "target_age_group": "Adults",
+    "viewer_interests": [
+      "Psychological thrillers",
+      "Mystery narratives",
+      "Character-driven stories"
+    ]
+  },
+  "content_summary": {
+    "visual_style": "Dark, moody visuals with deep blues and blacks (#0a141a), creating an eerie and suspenseful atmosphere.",
+    "narrative_hook": "A woman searches for her missing brother, uncovering strange occurrences and confronting unsettling truths about his disappearance."
+  }
+}

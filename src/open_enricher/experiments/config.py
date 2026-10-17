@@ -67,3 +67,25 @@ def default_machines(
             video=KAGGLE_VIDEO,
         ),
     )
+
+
+def select_machines(
+    names: list[str] | None = None,
+    *,
+    colab_target: str = "enricher",
+    kaggle_target: str = "open-enricher",
+) -> tuple[MachineBinding, ...]:
+    """Return the fixed bindings, optionally restricted to the given names.
+
+    ``names`` is matched against ``colab`` and ``kaggle``. An empty selection
+    keeps both machines. Order stays Colab then Kaggle.
+    """
+    catalog = default_machines(colab_target=colab_target, kaggle_target=kaggle_target)
+    if not names:
+        return catalog
+    wanted = {name.strip().lower() for name in names}
+    unknown = wanted - {machine.name for machine in catalog}
+    if unknown:
+        known = ", ".join(machine.name for machine in catalog)
+        raise ValueError(f"Unknown machine(s): {', '.join(sorted(unknown))}. Known: {known}")
+    return tuple(machine for machine in catalog if machine.name in wanted)

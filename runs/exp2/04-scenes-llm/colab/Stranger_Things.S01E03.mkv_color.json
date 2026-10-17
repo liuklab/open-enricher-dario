@@ -1,0 +1,1102 @@
+[
+  {
+    "scene_id": 1,
+    "timestamp": 15.56,
+    "frame_file": "scene_1_t15.56.jpg",
+    "color_palette": [
+      "#142930",
+      "#020306",
+      "#0a141a"
+    ]
+  },
+  {
+    "scene_id": 2,
+    "timestamp": 30.61,
+    "frame_file": "scene_2_t30.61.jpg",
+    "color_palette": [
+      "#03050c",
+      "#0e242b",
+      "#07141c"
+    ]
+  },
+  {
+    "scene_id": 3,
+    "timestamp": 70.36,
+    "frame_file": "scene_3_t70.36.jpg",
+    "color_palette": [
+      "#05080e",
+      "#091317",
+      "#020307"
+    ]
+  },
+  {
+    "scene_id": 4,
+    "timestamp": 111.36,
+    "frame_file": "scene_4_t111.36.jpg",
+    "color_palette": [
+      "#00030b",
+      "#031820",
+      "#020c14"
+    ]
+  },
+  {
+    "scene_id": 5,
+    "timestamp": 121.75,
+    "frame_file": "scene_5_t121.75.jpg",
+    "color_palette": [
+      "#000000",
+      "#a6a6a8",
+      "#655450"
+    ]
+  },
+  {
+    "scene_id": 6,
+    "timestamp": 143.69,
+    "frame_file": "scene_6_t143.69.jpg",
+    "color_palette": [
+      "#a01716",
+      "#060000",
+      "#460103"
+    ]
+  },
+  {
+    "scene_id": 7,
+    "timestamp": 173.01,
+    "frame_file": "scene_7_t173.01.jpg",
+    "color_palette": [
+      "#000000",
+      "#780104",
+      "#3a0203"
+    ]
+  },
+  {
+    "scene_id": 8,
+    "timestamp": 204.91,
+    "frame_file": "scene_8_t204.91.jpg",
+    "color_palette": [
+      "#4a4a48",
+      "#93a8af",
+      "#161715"
+    ]
+  },
+  {
+    "scene_id": 9,
+    "timestamp": 216.76,
+    "frame_file": "scene_9_t216.76.jpg",
+    "color_palette": [
+      "#35342f",
+      "#0d0d0a",
+      "#89989a"
+    ]
+  },
+  {
+    "scene_id": 10,
+    "timestamp": 234.15,
+    "frame_file": "scene_10_t234.15.jpg",
+    "color_palette": [
+      "#1a1e19",
+      "#030c0c",
+      "#635c51"
+    ]
+  },
+  {
+    "scene_id": 11,
+    "timestamp": 290.67,
+    "frame_file": "scene_11_t290.67.jpg",
+    "color_palette": [
+      "#110e0a",
+      "#b08f76",
+      "#3f3229"
+    ]
+  },
+  {
+    "scene_id": 12,
+    "timestamp": 300.8,
+    "frame_file": "scene_12_t300.8.jpg",
+    "color_palette": [
+      "#392e2a",
+      "#080705",
+      "#20180f"
+    ]
+  },
+  {
+    "scene_id": 13,
+    "timestamp": 314.77,
+    "frame_file": "scene_13_t314.77.jpg",
+    "color_palette": [
+      "#1c1710",
+      "#3d2f29",
+      "#090605"
+    ]
+  },
+  {
+    "scene_id": 14,
+    "timestamp": 327.12,
+    "frame_file": "scene_14_t327.12.jpg",
+    "color_palette": [
+      "#3d2b1f",
+      "#070604",
+      "#1c170d"
+    ]
+  },
+  {
+    "scene_id": 15,
+    "timestamp": 348.93,
+    "frame_file": "scene_15_t348.93.jpg",
+    "color_palette": [
+      "#0f0c07",
+      "#c1b199",
+      "#41372a"
+    ]
+  },
+  {
+    "scene_id": 16,
+    "timestamp": 359.94,
+    "frame_file": "scene_16_t359.94.jpg",
+    "color_palette": [
+      "#120c06",
+      "#d8c7a6",
+      "#42321f"
+    ]
+  },
+  {
+    "scene_id": 17,
+    "timestamp": 373.5,
+    "frame_file": "scene_17_t373.5.jpg",
+    "color_palette": [
+      "#16100a",
+      "#cfbca2",
+      "#423e3a"
+    ]
+  },
+  {
+    "scene_id": 18,
+    "timestamp": 389.35,
+    "frame_file": "scene_18_t389.35.jpg",
+    "color_palette": [
+      "#090704",
+      "#514f4c",
+      "#241c14"
+    ]
+  },
+  {
+    "scene_id": 19,
+    "timestamp": 445.95,
+    "frame_file": "scene_19_t445.95.jpg",
+    "color_palette": [
+      "#0a0806",
+      "#25201a",
+      "#585955"
+    ]
+  },
+  {
+    "scene_id": 20,
+    "timestamp": 469.39,
+    "frame_file": "scene_20_t469.39.jpg",
+    "color_palette": [
+      "#0e0a09",
+      "#987c55",
+      "#51331b"
+    ]
+  },
+  {
+    "scene_id": 21,
+    "timestamp": 491.45,
+    "frame_file": "scene_21_t491.45.jpg",
+    "color_palette": [
+      "#0c0904",
+      "#b28653",
+      "#513a26"
+    ]
+  },
+  {
+    "scene_id": 22,
+    "timestamp": 536.99,
+    "frame_file": "scene_22_t536.99.jpg",
+    "color_palette": [
+      "#1a1005",
+      "#d2a44b",
+      "#5d3914"
+    ]
+  },
+  {
+    "scene_id": 23,
+    "timestamp": 627.34,
+    "frame_file": "scene_23_t627.34.jpg",
+    "color_palette": [
+      "#090a12",
+      "#45423e",
+      "#817171"
+    ]
+  },
+  {
+    "scene_id": 24,
+    "timestamp": 658.7,
+    "frame_file": "scene_24_t658.7.jpg",
+    "color_palette": [
+      "#09090b",
+      "#302824",
+      "#5c5350"
+    ]
+  },
+  {
+    "scene_id": 25,
+    "timestamp": 673.92,
+    "frame_file": "scene_25_t673.92.jpg",
+    "color_palette": [
+      "#75706f",
+      "#474541",
+      "#191716"
+    ]
+  },
+  {
+    "scene_id": 26,
+    "timestamp": 688.1,
+    "frame_file": "scene_26_t688.1.jpg",
+    "color_palette": [
+      "#19110b",
+      "#8a7b75",
+      "#514030"
+    ]
+  },
+  {
+    "scene_id": 27,
+    "timestamp": 702.41,
+    "frame_file": "scene_27_t702.41.jpg",
+    "color_palette": [
+      "#51585d",
+      "#10171b",
+      "#c7d2d8"
+    ]
+  },
+  {
+    "scene_id": 28,
+    "timestamp": 719.89,
+    "frame_file": "scene_28_t719.89.jpg",
+    "color_palette": [
+      "#565551",
+      "#141618",
+      "#abadab"
+    ]
+  },
+  {
+    "scene_id": 29,
+    "timestamp": 731.61,
+    "frame_file": "scene_29_t731.61.jpg",
+    "color_palette": [
+      "#070806",
+      "#484c4f",
+      "#282827"
+    ]
+  },
+  {
+    "scene_id": 30,
+    "timestamp": 754.8,
+    "frame_file": "scene_30_t754.8.jpg",
+    "color_palette": [
+      "#53514d",
+      "#151617",
+      "#a6a9a7"
+    ]
+  },
+  {
+    "scene_id": 31,
+    "timestamp": 782.2,
+    "frame_file": "scene_31_t782.2.jpg",
+    "color_palette": [
+      "#1e150e",
+      "#060406",
+      "#342719"
+    ]
+  },
+  {
+    "scene_id": 32,
+    "timestamp": 794.71,
+    "frame_file": "scene_32_t794.71.jpg",
+    "color_palette": [
+      "#1d1511",
+      "#484039",
+      "#a59f99"
+    ]
+  },
+  {
+    "scene_id": 33,
+    "timestamp": 815.4,
+    "frame_file": "scene_33_t815.4.jpg",
+    "color_palette": [
+      "#513d26",
+      "#0e0a05",
+      "#aca6a0"
+    ]
+  },
+  {
+    "scene_id": 34,
+    "timestamp": 829.58,
+    "frame_file": "scene_34_t829.58.jpg",
+    "color_palette": [
+      "#171719",
+      "#a8aaa7",
+      "#6e7071"
+    ]
+  },
+  {
+    "scene_id": 35,
+    "timestamp": 860.4,
+    "frame_file": "scene_35_t860.4.jpg",
+    "color_palette": [
+      "#2b231a",
+      "#040402",
+      "#756f6e"
+    ]
+  },
+  {
+    "scene_id": 36,
+    "timestamp": 877.21,
+    "frame_file": "scene_36_t877.21.jpg",
+    "color_palette": [
+      "#212e2c",
+      "#9db8ad",
+      "#667a73"
+    ]
+  },
+  {
+    "scene_id": 37,
+    "timestamp": 899.86,
+    "frame_file": "scene_37_t899.86.jpg",
+    "color_palette": [
+      "#2a332e",
+      "#a8beb1",
+      "#72776c"
+    ]
+  },
+  {
+    "scene_id": 38,
+    "timestamp": 1032.82,
+    "frame_file": "scene_38_t1032.82.jpg",
+    "color_palette": [
+      "#25231d",
+      "#99a6a0",
+      "#685f46"
+    ]
+  },
+  {
+    "scene_id": 39,
+    "timestamp": 1071.03,
+    "frame_file": "scene_39_t1071.03.jpg",
+    "color_palette": [
+      "#716c66",
+      "#a09b92",
+      "#1a1a18"
+    ]
+  },
+  {
+    "scene_id": 40,
+    "timestamp": 1090.88,
+    "frame_file": "scene_40_t1090.88.jpg",
+    "color_palette": [
+      "#0e0f0d",
+      "#bbb5a4",
+      "#564e45"
+    ]
+  },
+  {
+    "scene_id": 41,
+    "timestamp": 1100.97,
+    "frame_file": "scene_41_t1100.97.jpg",
+    "color_palette": [
+      "#030403",
+      "#000000",
+      "#060c07"
+    ]
+  },
+  {
+    "scene_id": 42,
+    "timestamp": 1125.96,
+    "frame_file": "scene_42_t1125.96.jpg",
+    "color_palette": [
+      "#070a07",
+      "#9cbdb6",
+      "#343f34"
+    ]
+  },
+  {
+    "scene_id": 43,
+    "timestamp": 1143.64,
+    "frame_file": "scene_43_t1143.64.jpg",
+    "color_palette": [
+      "#0b0b08",
+      "#373228",
+      "#80725f"
+    ]
+  },
+  {
+    "scene_id": 44,
+    "timestamp": 1154.57,
+    "frame_file": "scene_44_t1154.57.jpg",
+    "color_palette": [
+      "#575247",
+      "#9ba8b0",
+      "#191916"
+    ]
+  },
+  {
+    "scene_id": 45,
+    "timestamp": 1166.92,
+    "frame_file": "scene_45_t1166.92.jpg",
+    "color_palette": [
+      "#232018",
+      "#48453e",
+      "#9b9999"
+    ]
+  },
+  {
+    "scene_id": 46,
+    "timestamp": 1178.76,
+    "frame_file": "scene_46_t1178.76.jpg",
+    "color_palette": [
+      "#47443c",
+      "#9a9998",
+      "#1f1e16"
+    ]
+  },
+  {
+    "scene_id": 47,
+    "timestamp": 1200.66,
+    "frame_file": "scene_47_t1200.66.jpg",
+    "color_palette": [
+      "#3e342d",
+      "#17110e",
+      "#908176"
+    ]
+  },
+  {
+    "scene_id": 48,
+    "timestamp": 1236.44,
+    "frame_file": "scene_48_t1236.44.jpg",
+    "color_palette": [
+      "#0e0d0d",
+      "#57656c",
+      "#3e3730"
+    ]
+  },
+  {
+    "scene_id": 49,
+    "timestamp": 1247.2,
+    "frame_file": "scene_49_t1247.2.jpg",
+    "color_palette": [
+      "#8d8886",
+      "#0e0d0f",
+      "#4c423d"
+    ]
+  },
+  {
+    "scene_id": 50,
+    "timestamp": 1259.8,
+    "frame_file": "scene_50_t1259.8.jpg",
+    "color_palette": [
+      "#1f1916",
+      "#5f4f4e",
+      "#92837b"
+    ]
+  },
+  {
+    "scene_id": 51,
+    "timestamp": 1282.78,
+    "frame_file": "scene_51_t1282.78.jpg",
+    "color_palette": [
+      "#4a3e3d",
+      "#7c6c65",
+      "#181412"
+    ]
+  },
+  {
+    "scene_id": 52,
+    "timestamp": 1302.13,
+    "frame_file": "scene_52_t1302.13.jpg",
+    "color_palette": [
+      "#574844",
+      "#151214",
+      "#a69895"
+    ]
+  },
+  {
+    "scene_id": 53,
+    "timestamp": 1344.3,
+    "frame_file": "scene_53_t1344.3.jpg",
+    "color_palette": [
+      "#2e3530",
+      "#777258",
+      "#d4d6d2"
+    ]
+  },
+  {
+    "scene_id": 54,
+    "timestamp": 1421.17,
+    "frame_file": "scene_54_t1421.17.jpg",
+    "color_palette": [
+      "#3a0503",
+      "#720007",
+      "#540205"
+    ]
+  },
+  {
+    "scene_id": 55,
+    "timestamp": 1439.77,
+    "frame_file": "scene_55_t1439.77.jpg",
+    "color_palette": [
+      "#060404",
+      "#3e0701",
+      "#1e0702"
+    ]
+  },
+  {
+    "scene_id": 56,
+    "timestamp": 1453.7,
+    "frame_file": "scene_56_t1453.7.jpg",
+    "color_palette": [
+      "#c4c1b3",
+      "#1f120c",
+      "#634136"
+    ]
+  },
+  {
+    "scene_id": 57,
+    "timestamp": 1484.32,
+    "frame_file": "scene_57_t1484.32.jpg",
+    "color_palette": [
+      "#191213",
+      "#503431",
+      "#a0ae8a"
+    ]
+  },
+  {
+    "scene_id": 58,
+    "timestamp": 1504.75,
+    "frame_file": "scene_58_t1504.75.jpg",
+    "color_palette": [
+      "#d3d4d0",
+      "#17100c",
+      "#504139"
+    ]
+  },
+  {
+    "scene_id": 59,
+    "timestamp": 1524.65,
+    "frame_file": "scene_59_t1524.65.jpg",
+    "color_palette": [
+      "#271c0f",
+      "#c3c6c1",
+      "#69584e"
+    ]
+  },
+  {
+    "scene_id": 60,
+    "timestamp": 1577.83,
+    "frame_file": "scene_60_t1577.83.jpg",
+    "color_palette": [
+      "#141918",
+      "#78716a",
+      "#b5b8bc"
+    ]
+  },
+  {
+    "scene_id": 61,
+    "timestamp": 1618.74,
+    "frame_file": "scene_61_t1618.74.jpg",
+    "color_palette": [
+      "#0f0b08",
+      "#cfc6ba",
+      "#54473a"
+    ]
+  },
+  {
+    "scene_id": 62,
+    "timestamp": 1631.88,
+    "frame_file": "scene_62_t1631.88.jpg",
+    "color_palette": [
+      "#0c0a06",
+      "#a48d7c",
+      "#422e17"
+    ]
+  },
+  {
+    "scene_id": 63,
+    "timestamp": 1652.11,
+    "frame_file": "scene_63_t1652.11.jpg",
+    "color_palette": [
+      "#0f0a08",
+      "#eee5cf",
+      "#4d3829"
+    ]
+  },
+  {
+    "scene_id": 64,
+    "timestamp": 1700.49,
+    "frame_file": "scene_64_t1700.49.jpg",
+    "color_palette": [
+      "#100e08",
+      "#bec8cd",
+      "#54575a"
+    ]
+  },
+  {
+    "scene_id": 65,
+    "timestamp": 1754.38,
+    "frame_file": "scene_65_t1754.38.jpg",
+    "color_palette": [
+      "#382822",
+      "#64564f",
+      "#c3c0b3"
+    ]
+  },
+  {
+    "scene_id": 66,
+    "timestamp": 1779.74,
+    "frame_file": "scene_66_t1779.74.jpg",
+    "color_palette": [
+      "#352418",
+      "#979089",
+      "#57504c"
+    ]
+  },
+  {
+    "scene_id": 67,
+    "timestamp": 1799.71,
+    "frame_file": "scene_67_t1799.71.jpg",
+    "color_palette": [
+      "#161c1f",
+      "#a3aba1",
+      "#686660"
+    ]
+  },
+  {
+    "scene_id": 68,
+    "timestamp": 1886.88,
+    "frame_file": "scene_68_t1886.88.jpg",
+    "color_palette": [
+      "#695d55",
+      "#afafab",
+      "#212227"
+    ]
+  },
+  {
+    "scene_id": 69,
+    "timestamp": 1911.99,
+    "frame_file": "scene_69_t1911.99.jpg",
+    "color_palette": [
+      "#e9e3e0",
+      "#312d29",
+      "#817c7f"
+    ]
+  },
+  {
+    "scene_id": 70,
+    "timestamp": 1937.52,
+    "frame_file": "scene_70_t1937.52.jpg",
+    "color_palette": [
+      "#242420",
+      "#afb5b6",
+      "#717372"
+    ]
+  },
+  {
+    "scene_id": 71,
+    "timestamp": 1966.17,
+    "frame_file": "scene_71_t1966.17.jpg",
+    "color_palette": [
+      "#7d7e73",
+      "#272a28",
+      "#ecf0ea"
+    ]
+  },
+  {
+    "scene_id": 72,
+    "timestamp": 1979.69,
+    "frame_file": "scene_72_t1979.69.jpg",
+    "color_palette": [
+      "#0c1517",
+      "#83978d",
+      "#394642"
+    ]
+  },
+  {
+    "scene_id": 73,
+    "timestamp": 2003.25,
+    "frame_file": "scene_73_t2003.25.jpg",
+    "color_palette": [
+      "#16211e",
+      "#445346",
+      "#95ab9d"
+    ]
+  },
+  {
+    "scene_id": 74,
+    "timestamp": 2056.39,
+    "frame_file": "scene_74_t2056.39.jpg",
+    "color_palette": [
+      "#121210",
+      "#8cab9e",
+      "#3c4339"
+    ]
+  },
+  {
+    "scene_id": 75,
+    "timestamp": 2078.79,
+    "frame_file": "scene_75_t2078.79.jpg",
+    "color_palette": [
+      "#0a0a09",
+      "#74776f",
+      "#51473f"
+    ]
+  },
+  {
+    "scene_id": 76,
+    "timestamp": 2105.39,
+    "frame_file": "scene_76_t2105.39.jpg",
+    "color_palette": [
+      "#151511",
+      "#8aa899",
+      "#3f4539"
+    ]
+  },
+  {
+    "scene_id": 77,
+    "timestamp": 2128.21,
+    "frame_file": "scene_77_t2128.21.jpg",
+    "color_palette": [
+      "#101b1c",
+      "#435f59",
+      "#8aa295"
+    ]
+  },
+  {
+    "scene_id": 78,
+    "timestamp": 2158.49,
+    "frame_file": "scene_78_t2158.49.jpg",
+    "color_palette": [
+      "#5f574b",
+      "#14191a",
+      "#454033"
+    ]
+  },
+  {
+    "scene_id": 79,
+    "timestamp": 2229.39,
+    "frame_file": "scene_79_t2229.39.jpg",
+    "color_palette": [
+      "#534e4d",
+      "#b6c2cc",
+      "#1b2329"
+    ]
+  },
+  {
+    "scene_id": 80,
+    "timestamp": 2253.29,
+    "frame_file": "scene_80_t2253.29.jpg",
+    "color_palette": [
+      "#282c2f",
+      "#5e595a",
+      "#b6c3cd"
+    ]
+  },
+  {
+    "scene_id": 81,
+    "timestamp": 2264.47,
+    "frame_file": "scene_81_t2264.47.jpg",
+    "color_palette": [
+      "#2c454c",
+      "#588694",
+      "#121d1f"
+    ]
+  },
+  {
+    "scene_id": 82,
+    "timestamp": 2277.98,
+    "frame_file": "scene_82_t2277.98.jpg",
+    "color_palette": [
+      "#d9e1df",
+      "#1b2422",
+      "#566263"
+    ]
+  },
+  {
+    "scene_id": 83,
+    "timestamp": 2288.04,
+    "frame_file": "scene_83_t2288.04.jpg",
+    "color_palette": [
+      "#162727",
+      "#0a6f78",
+      "#697f82"
+    ]
+  },
+  {
+    "scene_id": 84,
+    "timestamp": 2304.97,
+    "frame_file": "scene_84_t2304.97.jpg",
+    "color_palette": [
+      "#091311",
+      "#2a3230",
+      "#566160"
+    ]
+  },
+  {
+    "scene_id": 85,
+    "timestamp": 2320.19,
+    "frame_file": "scene_85_t2320.19.jpg",
+    "color_palette": [
+      "#627177",
+      "#242d2c",
+      "#b5c5c8"
+    ]
+  },
+  {
+    "scene_id": 86,
+    "timestamp": 2339.63,
+    "frame_file": "scene_86_t2339.63.jpg",
+    "color_palette": [
+      "#171f1d",
+      "#2c383b",
+      "#616b72"
+    ]
+  },
+  {
+    "scene_id": 87,
+    "timestamp": 2365.36,
+    "frame_file": "scene_87_t2365.36.jpg",
+    "color_palette": [
+      "#0d0a07",
+      "#d0bbaf",
+      "#684f44"
+    ]
+  },
+  {
+    "scene_id": 88,
+    "timestamp": 2447.86,
+    "frame_file": "scene_88_t2447.86.jpg",
+    "color_palette": [
+      "#050406",
+      "#5e3511",
+      "#26180a"
+    ]
+  },
+  {
+    "scene_id": 89,
+    "timestamp": 2471.26,
+    "frame_file": "scene_89_t2471.26.jpg",
+    "color_palette": [
+      "#23170a",
+      "#5a330e",
+      "#050405"
+    ]
+  },
+  {
+    "scene_id": 90,
+    "timestamp": 2491.16,
+    "frame_file": "scene_90_t2491.16.jpg",
+    "color_palette": [
+      "#130c07",
+      "#755237",
+      "#432c17"
+    ]
+  },
+  {
+    "scene_id": 91,
+    "timestamp": 2506.42,
+    "frame_file": "scene_91_t2506.42.jpg",
+    "color_palette": [
+      "#19100a",
+      "#b1b1ac",
+      "#5e4438"
+    ]
+  },
+  {
+    "scene_id": 92,
+    "timestamp": 2519.06,
+    "frame_file": "scene_92_t2519.06.jpg",
+    "color_palette": [
+      "#0a0807",
+      "#585049",
+      "#281e12"
+    ]
+  },
+  {
+    "scene_id": 93,
+    "timestamp": 2532.07,
+    "frame_file": "scene_93_t2532.07.jpg",
+    "color_palette": [
+      "#443f39",
+      "#0a0909",
+      "#c5c3be"
+    ]
+  },
+  {
+    "scene_id": 94,
+    "timestamp": 2583.21,
+    "frame_file": "scene_94_t2583.21.jpg",
+    "color_palette": [
+      "#171214",
+      "#d3d6df",
+      "#6d6d7c"
+    ]
+  },
+  {
+    "scene_id": 95,
+    "timestamp": 2618.07,
+    "frame_file": "scene_95_t2618.07.jpg",
+    "color_palette": [
+      "#2e3339",
+      "#ccd1d2",
+      "#0c121b"
+    ]
+  },
+  {
+    "scene_id": 96,
+    "timestamp": 2633.26,
+    "frame_file": "scene_96_t2633.26.jpg",
+    "color_palette": [
+      "#040506",
+      "#0d1317",
+      "#20292e"
+    ]
+  },
+  {
+    "scene_id": 97,
+    "timestamp": 2699.57,
+    "frame_file": "scene_97_t2699.57.jpg",
+    "color_palette": [
+      "#050607",
+      "#0b1517",
+      "#1a292d"
+    ]
+  },
+  {
+    "scene_id": 98,
+    "timestamp": 2735.44,
+    "frame_file": "scene_98_t2735.44.jpg",
+    "color_palette": [
+      "#0d0c0b",
+      "#dbd6cb",
+      "#6d5a4f"
+    ]
+  },
+  {
+    "scene_id": 99,
+    "timestamp": 2757.21,
+    "frame_file": "scene_99_t2757.21.jpg",
+    "color_palette": [
+      "#000001",
+      "#e7dcbf",
+      "#562223"
+    ]
+  },
+  {
+    "scene_id": 100,
+    "timestamp": 2771.19,
+    "frame_file": "scene_100_t2771.19.jpg",
+    "color_palette": [
+      "#0d141c",
+      "#030407",
+      "#1c252e"
+    ]
+  },
+  {
+    "scene_id": 101,
+    "timestamp": 2799.13,
+    "frame_file": "scene_101_t2799.13.jpg",
+    "color_palette": [
+      "#020407",
+      "#12181b",
+      "#3e4c53"
+    ]
+  },
+  {
+    "scene_id": 102,
+    "timestamp": 2818.32,
+    "frame_file": "scene_102_t2818.32.jpg",
+    "color_palette": [
+      "#0c0e0a",
+      "#caba97",
+      "#443629"
+    ]
+  },
+  {
+    "scene_id": 103,
+    "timestamp": 2845.3,
+    "frame_file": "scene_103_t2845.3.jpg",
+    "color_palette": [
+      "#0a0d0a",
+      "#886e5a",
+      "#3c352c"
+    ]
+  },
+  {
+    "scene_id": 104,
+    "timestamp": 2861.78,
+    "frame_file": "scene_104_t2861.78.jpg",
+    "color_palette": [
+      "#040401",
+      "#594e47",
+      "#1d0c09"
+    ]
+  },
+  {
+    "scene_id": 105,
+    "timestamp": 2879.54,
+    "frame_file": "scene_105_t2879.54.jpg",
+    "color_palette": [
+      "#070808",
+      "#3f3634",
+      "#201d1d"
+    ]
+  },
+  {
+    "scene_id": 106,
+    "timestamp": 2903.03,
+    "frame_file": "scene_106_t2903.03.jpg",
+    "color_palette": [
+      "#100d0a",
+      "#9f2425",
+      "#20201b"
+    ]
+  },
+  {
+    "scene_id": 107,
+    "timestamp": 2920.71,
+    "frame_file": "scene_107_t2920.71.jpg",
+    "color_palette": [
+      "#05080d",
+      "#cbbf9d",
+      "#2b2723"
+    ]
+  },
+  {
+    "scene_id": 108,
+    "timestamp": 2957.7,
+    "frame_file": "scene_108_t2957.7.jpg",
+    "color_palette": [
+      "#0c0907",
+      "#876f58",
+      "#211a14"
+    ]
+  },
+  {
+    "scene_id": 109,
+    "timestamp": 2999.37,
+    "frame_file": "scene_109_t2999.37.jpg",
+    "color_palette": [
+      "#000000",
+      "#e8e8e8",
+      "#5c5c5c"
+    ]
+  },
+  {
+    "scene_id": 110,
+    "timestamp": 3042.83,
+    "frame_file": "scene_110_t3042.83.jpg",
+    "color_palette": [
+      "#010202",
+      "#c37761",
+      "#46642f"
+    ]
+  }
+]

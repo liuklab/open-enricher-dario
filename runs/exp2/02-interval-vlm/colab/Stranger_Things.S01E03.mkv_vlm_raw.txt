@@ -1,0 +1,330 @@
+--- 00:00:00-00:05:00 ---
+{
+  "description": "A man and woman are shown in intimate moments in dimly lit settings, including a bedroom scene where they lie close together. A young girl is seen sitting up in bed looking concerned. Another scene shows a woman walking down stairs while being followed by another person.",
+  "subjects_and_objects": [
+    "man",
+    "woman",
+    "girl",
+    "bed",
+    "stairs"
+  ],
+  "actions": [
+    "lying next to each other",
+    "sitting up in bed",
+    "walking down stairs",
+    "following someone"
+  ],
+  "camera_and_shot": "Close-up shots focusing on faces and interactions, medium shot showing a girl in bed, tracking shot following a woman down stairs.",
+  "lighting_and_color": "Dim, moody lighting with dark tones and shadows dominating the scenes. The color palette includes deep blues and blacks (#0a141a) with occasional soft ambient light.",
+  "on_screen_text": [
+    "DAVID HARBOUR",
+    "CHAPTER THREE",
+    "HOLLY. JOLLY"
+  ]
+}
+
+--- 00:05:00-00:10:00 ---
+{
+  "description": "A woman in a blue jacket sits up in bed looking concerned as she speaks to someone off-screen. The scene shifts to show her standing beside a young man who looks distressed. They move into a dimly lit living room where several teenagers gather around a couch, appearing tense and anxious.",
+  "subjects_and_objects": [
+    "woman",
+    "young man",
+    "teenagers",
+    "bed",
+    "living room",
+    "couch"
+  ],
+  "actions": [
+    "sitting up in bed",
+    "speaking",
+    "standing",
+    "gathering around couch",
+    "looking worried"
+  ],
+  "camera_and_shot": "Close-up shot of woman in bed, then medium shots showing interaction between characters, followed by wider shot capturing group gathering in living room.",
+  "lighting_and_color": "Dim indoor lighting with warm tones casting shadows across faces and furniture; overall muted color palette dominated by browns and dark blues.",
+  "on_screen_text": [],
+  "spoken_lines": [
+    "Can you talk to me if something happened to you?",
+    "Nothing, Mom.",
+    "Nancy.",
+    "Nothing, Mom.",
+    "Please, can I go?",
+    "Where is he?",
+    "Mom.",
+    "Jonathan, come here.",
+    "What is this?",
+    "Come here.",
+    "What's going on?",
+    "It's Will."
+  ]
+}
+
+--- 00:10:00-00:15:00 ---
+{
+  "description": "A young woman sits at a table in an office setting, engaged in conversation with two police officers. One officer gestures while speaking, and another listens attentively. The scene shifts to show her seated alone in a dimly lit room, appearing contemplative or distressed.",
+  "subjects_and_objects": [
+    "young woman",
+    "police officers",
+    "table",
+    "office chairs",
+    "lamp",
+    "window blinds"
+  ],
+  "actions": [
+    "sitting",
+    "gesturing",
+    "speaking",
+    "listening",
+    "looking around"
+  ],
+  "camera_and_shot": "medium shot transitioning to close-up",
+  "lighting_and_color": "warm indoor lighting with soft shadows, muted tones",
+  "on_screen_text": [],
+  "spoken_lines": [
+    "Ciao.",
+    "Va tutto bene?",
+    "Si.",
+    "Solo che... Mi sento come se tutti mi fissassero.",
+    "Io non ho detto niente a nessuno.",
+    "Lo so.",
+    "Ma che mi dici di Tommy e Carol?",
+    "Tu sei paranoica."
+  ]
+}
+
+--- 00:15:00-00:20:00 ---
+{
+  "description": "A young girl wearing an EEG cap sits in a dimly lit room, followed by scenes showing two men conversing at a store checkout, a man holding a box while walking through a supermarket aisle, three police officers walking outside near parked cars, and a boy standing beside a cake display.",
+  "subjects_and_objects": [
+    "girl",
+    "EEG cap",
+    "men",
+    "store checkout",
+    "supermarket aisle",
+    "police officers",
+    "parked cars",
+    "boy",
+    "cake display"
+  ],
+  "actions": [
+    "sitting",
+    "conversing",
+    "holding a box",
+    "walking",
+    "standing"
+  ],
+  "camera_and_shot": "Close-up shots transitioning to medium and wide shots.",
+  "lighting_and_color": "Dim indoor lighting with muted tones; natural daylight outdoors; warm interior lighting in the store scene.",
+  "on_screen_text": []
+}
+
+--- 00:20:00-00:25:00 ---
+{
+  "description": "A young boy stands indoors near a doorway, looking out into a dimly lit room where another person is partially visible. The scene transitions to an outdoor setting showing three boys walking through a wooded area near a building.",
+  "subjects_and_objects": [
+    "boy",
+    "person",
+    "boys"
+  ],
+  "actions": [
+    "standing",
+    "looking out",
+    "walking"
+  ],
+  "camera_and_shot": "Close-up shot transitioning to wide-angle outdoors",
+  "lighting_and_color": "Dim indoor lighting with warm tones, transitioning to natural daylight outdoors",
+  "on_screen_text": []
+}
+
+--- 00:25:00-00:30:00 ---
+{
+  "description": "A woman sits at a desk in a dimly lit office or library, surrounded by shelves filled with files and documents. She looks down at papers while another person stands nearby, speaking to her.",
+  "subjects_and_objects": [
+    "woman",
+    "man",
+    "desk",
+    "files",
+    "documents"
+  ],
+  "actions": [
+    "sitting",
+    "speaking",
+    "looking down at papers"
+  ],
+  "camera_and_shot": "medium shot",
+  "lighting_and_color": "dim indoor lighting with warm tones",
+  "on_screen_text": [],
+  "spoken_lines": [
+    "Hey, Marissa.",
+    "How are you?",
+    "You have a pretty tough face to come here.",
+    "What?",
+    "You could at least call and say, Marissa, hi, we're not going.",
+    "Sorry if I made you lose time.",
+    "I'm a bitch.",
+    "It's true.",
+    "I'm sorry.",
+    "Maybe we'll go out next week."
+  ]
+}
+
+--- 00:30:00-00:35:00 ---
+{
+  "description": "A man in a suit stands over a woman lying on the floor in a dimly lit hallway while another person watches.",
+  "subjects_and_objects": [
+    "man",
+    "woman",
+    "person"
+  ],
+  "actions": [
+    "standing over",
+    "lying down",
+    "watching"
+  ],
+  "camera_and_shot": "static shot",
+  "lighting_and_color": "#242420",
+  "on_screen_text": [],
+  "spoken_lines": [
+    "Hi, beautiful.",
+    "What's up?",
+    "Nicole was telling us about your work.",
+    "Yes, she said great things.",
+    "Yes, she must be strong.",
+    "We'd like to take a look.",
+    "You know, like art lovers.",
+    "I don't know what you're talking about.",
+    "Oh, no.",
+    "Hey, please, give me back my bag.",
+    "Guys, come on.",
+    "She really has something to hide."
+  ]
+}
+
+--- 00:35:00-00:40:00 ---
+{
+  "description": "A young woman walks through a school hallway, then runs into a wooded area, followed by scenes showing her interacting with others in various settings including a dimly lit room and an outdoor scene at night.",
+  "subjects_and_objects": [
+    "young woman",
+    "school hallway",
+    "wooded area",
+    "dog",
+    "man",
+    "woman"
+  ],
+  "actions": [
+    "walking",
+    "running",
+    "speaking",
+    "standing",
+    "looking around",
+    "holding hands",
+    "kissing",
+    "sitting down"
+  ],
+  "camera_and_shot": "Close-up shots, medium shots, tracking shot following character movement, handheld camera motion during running sequence.",
+  "lighting_and_color": "Dim indoor lighting with warm tones, natural daylight outdoors, dark nighttime setting with moonlit ambiance.",
+  "on_screen_text": []
+}
+
+--- 00:40:00-00:45:00 ---
+{
+  "description": "A woman with dark hair tied back, wearing a dark jacket, looks up at someone off-screen while holding a string of glowing fairy lights. The scene transitions to her sitting alone at a wooden table in a dimly lit library, surrounded by bookshelves, writing in a notebook under the glow of a green lamp.",
+  "subjects_and_objects": [
+    "woman",
+    "fairy lights",
+    "notebook",
+    "green lamp",
+    "library",
+    "bookshelves"
+  ],
+  "actions": [
+    "holding fairy lights",
+    "writing in notebook",
+    "sitting at table"
+  ],
+  "camera_and_shot": "Close-up shot of the woman holding lights, then medium shot of her sitting at a table in a library.",
+  "lighting_and_color": "Dim, warm lighting from the green lamp illuminates the woman's face and workspace. The background remains shadowy, emphasizing the cozy yet isolated atmosphere.",
+  "on_screen_text": [],
+  "spoken_lines": [
+    "You blink once to say yes, twice to say no.",
+    "You do it for me, darling.",
+    "Then... Oh, good.",
+    "Good.",
+    "Darling, I have to know.",
+    "You're alive, Will.",
+    "You're safe, Will.",
+    "I have to know where to find you, darling.",
+    "Where are you?",
+    "Can you tell me where you are?",
+    "Please, darling.",
+    "I have to find you."
+  ]
+}
+
+--- 00:45:00-00:50:00 ---
+{
+  "description": "A group of people stand together at night under dim lighting, appearing to be engaged in conversation or planning something.",
+  "subjects_and_objects": [
+    "people",
+    "backpacks"
+  ],
+  "actions": [
+    "standing",
+    "talking",
+    "gesturing"
+  ],
+  "camera_and_shot": "medium shot",
+  "lighting_and_color": "dim, dark blue tones with faint ambient light illuminating faces",
+  "on_screen_text": [],
+  "spoken_lines": [
+    "Pi.",
+    "Bene, bene, bene, bene.",
+    "Così va bene.",
+    "Andiamo, dai.",
+    "R-O-P-R-I-O-Q-U-I.",
+    "Proprio qui.",
+    "Non so cosa significa.",
+    "Devi dirmi che cosa devo fare.",
+    "Che cosa devo fare.",
+    "Come ti raggiungo?",
+    "Come ti trovi?"
+  ]
+}
+
+--- 00:50:00-00:51:52 ---
+{
+  "description": "A black screen displaying white text listing production credits for roles such as Construction Coordinator, Visual Effects Supervisor, and others, followed by logos for companies like Industrial Light & Magic and Georgia Film.",
+  "subjects_and_objects": [
+    "text",
+    "logos"
+  ],
+  "actions": [],
+  "camera_and_shot": "static shot",
+  "lighting_and_color": "#010202",
+  "on_screen_text": [
+    "Construction Coordinator MICHAEL J. WHEELER",
+    "Construction Buyer RUSS WEBSTER",
+    "Construction Foreman JEFFREY GIBBS",
+    "Shop Foreman DALE JEANTET",
+    "Location Foreman JOHN MADGE",
+    "Visual Effects Supervisor FRANK KADUENS",
+    "Visual Effects Co-Supervisor SOFIA VELINS",
+    "Creature Design and Visual Effects by ILM",
+    "Scenic Artist JERI WOODWARD",
+    "Charge Scenic RANDAL WOODWARD",
+    "Scenic Foreman JEFF WILLIAMSON",
+    "Avid Rental and Support Provided by RUNWAY",
+    "Key Assistant Location Manager TONY ROLLEY",
+    "Post Production Audio Provided by TECHNICOLOR SOUND SERVICES",
+    "Assistant Location Managers KORE HEAVIGAN",
+    "Sound Designer CHRISLIE STEWART",
+    "Supervising Sound Editor PRAJNATH",
+    "Re-Recording Mixers JOE DABRACK",
+    "Music Editor ADAM JENKINS",
+    "DAVID E. MOORE",
+    "Main Titles Designed by IMAGINARY FORCES",
+    "twenty-one laps entertainment",
+    "Georgia tourgeorgiafilm.com"
+  ]
+}

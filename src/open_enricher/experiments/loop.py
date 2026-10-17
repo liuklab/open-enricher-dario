@@ -17,7 +17,8 @@ from src.open_enricher.experiments.archive import (
 from src.open_enricher.experiments.config import (
     REPO_ROOT,
     VARIANTS_DIR,
-    default_machines,
+    MachineBinding,
+    select_machines,
 )
 from src.open_enricher.experiments.git_ops import (
     commit_all,
@@ -29,15 +30,29 @@ from src.open_enricher.experiments.git_ops import (
 from src.open_enricher.experiments.machine_run import run_machine_pipeline
 
 
-ORCHESTRATOR_NOTES = """# EXPERIMENT.md template (orchestrator)
+def _machine_label(machine: MachineBinding) -> str:
+    labels = {
+        "colab": "Colab (Stranger Things)",
+        "kaggle": "Kaggle (Suits)",
+    }
+    return labels.get(machine.name, machine.name)
 
-Write three short sections after BOTH machines finish:
+
+def _orchestrator_notes(machines: tuple[MachineBinding, ...]) -> str:
+    described = " and ".join(_machine_label(machine) for machine in machines)
+    if len(machines) == 1:
+        finished = f"the {machines[0].name} run finishes"
+    else:
+        finished = "BOTH machines finish"
+    return f"""# EXPERIMENT.md template (orchestrator)
+
+Write three short sections after {finished}:
 
 1. **Code change** — what the pipeline_spec / stage code changed for this experiment
-2. **Execution** — unified outcome of Colab (Stranger Things) and Kaggle (Suits): errors, OOM, truncations
-3. **Quality and next step** — one conclusion across both episodes; what the next experiment should change
+2. **Execution** — outcome of {described}: errors, OOM, truncations
+3. **Quality and next step** — one conclusion; what the next experiment should change
 
-Do not treat the two machines as separate plans. Scores stay in each machine's `score.json`.
+Scores stay in each machine's `score.json`.
 """
 
 
@@ -51,6 +66,7 @@ def _write_stub_experiment_md(
     experiment_id: str,
     variant: dict[str, Any],
     machine_results: list[dict[str, Any]],
+    machines: tuple[MachineBinding, ...],
 ) -> Path:
     lines = [
         f"# Experiment {experiment_id}",
@@ -80,11 +96,12 @@ def _write_stub_experiment_md(
             "",
             "## Quality and next step",
             "",
-            "_Orchestrator: replace this section with a unified conclusion from both "
-            "`runs/exp2/<id>/*/score.json`, metadata JSON, timings, and worker logs. "
+            "_Orchestrator: replace this section with a conclusion from "
+            + ", ".join(f"`runs/exp2/<id>/{machine.name}/score.json`" for machine in machines)
+            + ", metadata JSON, timings, and worker logs. "
             "That conclusion is the only input for the next experiment's code changes._",
             "",
-            ORCHESTRATOR_NOTES,
+            _orchestrator_notes(machines),
             "",
         ]
     )
@@ -93,20 +110,19 @@ def _write_stub_experiment_md(
     return path
 
 
-def _collect_scores(exp_dir: Path) -> dict[str, Any]:
+def _collect_scores(exp_dir: Path, machines: tuple[MachineBinding, ...]) -> dict[str, Any]:
     scores = {}
-    for machine in ("colab", "kaggle"):
-        path = exp_dir / machine / "score.json"
+    for machine in machines:
+        path = exp_dir / machine.name / "score.json"
         if path.is_file():
-            scores[machine] = json.loads(path.read_text(encoding="utf-8"))
+            scores[machine.name] = json.loads(path.read_text(encoding="utf-8"))
     return scores
 
 
 def run_one_experiment(
     variant_path: Path,
     *,
-    colab_target: str,
-    kaggle_target: str,
+    machines: tuple[MachineBinding, ...],
     timeout: int,
     gpu: str,
     keep_worktree: bool,
@@ -130,11 +146,13 @@ def run_one_experiment(
     install_pipeline_spec(worktree, source)
     commit_all(worktree, f"Prepare pipeline spec for {experiment_id}")
 
-    machines = default_machines(colab_target=colab_target, kaggle_target=kaggle_target)
     results: list[dict[str, Any]] = []
+    print(
+        "[INFO] Machines: " + ", ".join(machine.name for machine in machines),
+        flush=True,
+    )
 
-    # Two independent terminals: parallel futures.
-    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max(1, len(machines))) as pool:
         futures = {
             pool.submit(
                 run_machine_pipeline,
@@ -164,10 +182,10 @@ def run_one_experiment(
 
     exp_dir = experiment_dir(experiment_id)
     write_json(exp_dir / "machine_results.json", results)
-    write_json(exp_dir / "scores.json", _collect_scores(exp_dir))
+    write_json(exp_dir / "scores.json", _collect_scores(exp_dir, machines))
     write_json(exp_dir / "variant.json", variant)
 
-    _write_stub_experiment_md(worktree, experiment_id, variant, results)
+    _write_stub_experiment_md(worktree, experiment_id, variant, results, machines)
     commit_all(worktree, f"Record EXPERIMENT.md for {experiment_id}")
     copy_experiment_md(worktree, exp_dir)
 
@@ -176,7 +194,7 @@ def run_one_experiment(
     append_progress(
         {
             "experiment_id": experiment_id,
-            "machine": "both",
+            "machine": ",".join(machine.name for machine in machines),
             "step": "archived",
             "status": "ok",
             "results": [
@@ -199,6 +217,7 @@ def run_one_experiment(
 def run_loop(
     *,
     only: list[str] | None = None,
+    machines: list[str] | None = None,
     colab_target: str = "enricher",
     kaggle_target: str = "open-enricher",
     timeout: int = 10800,
@@ -206,6 +225,11 @@ def run_loop(
     keep_worktree: bool = False,
     skip_deploy: bool = False,
 ) -> list[dict[str, Any]]:
+    selected = select_machines(
+        machines,
+        colab_target=colab_target,
+        kaggle_target=kaggle_target,
+    )
     variants = list_variants(VARIANTS_DIR)
     if only:
         wanted = set(only)
@@ -223,8 +247,7 @@ def run_loop(
         summaries.append(
             run_one_experiment(
                 path,
-                colab_target=colab_target,
-                kaggle_target=kaggle_target,
+                machines=selected,
                 timeout=timeout,
                 gpu=gpu,
                 keep_worktree=keep_worktree,
@@ -238,14 +261,20 @@ def run_loop(
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description=(
-            "Run the exp2 experiment loop: each variant deploys the same commit to "
-            "Colab (Stranger Things) and Kaggle (Suits) in parallel."
+            "Run the exp2 experiment loop. Each variant deploys the same commit to "
+            "the selected machines (Colab and Kaggle by default)."
         )
     )
     parser.add_argument(
         "--only",
         nargs="+",
         help="Run only these experiment ids or variant stems (e.g. 01-interval-llm).",
+    )
+    parser.add_argument(
+        "--machines",
+        nargs="+",
+        choices=["colab", "kaggle"],
+        help="Machines to run this round. Default is Colab and Kaggle.",
     )
     parser.add_argument("--colab-target", default="enricher")
     parser.add_argument("--kaggle-target", default="open-enricher")
@@ -278,6 +307,7 @@ def main(argv: list[str] | None = None) -> None:
         return
     run_loop(
         only=args.only,
+        machines=args.machines,
         colab_target=args.colab_target,
         kaggle_target=args.kaggle_target,
         timeout=args.timeout,

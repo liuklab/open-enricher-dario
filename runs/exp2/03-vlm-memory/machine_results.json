@@ -1,0 +1,16 @@
+[
+  {
+    "machine": "kaggle",
+    "video": "Suits.S01E02.mkv",
+    "experiment_id": "03-vlm-memory",
+    "status": "error",
+    "error": "Command failed (1): /home/darionapolitano/projects/open_enricher/open-enricher/.venv/bin/python deploy.py --mode kaggle --target open-enricher --gpu T4"
+  },
+  {
+    "machine": "colab",
+    "video": "Stranger_Things.S01E03.mkv",
+    "experiment_id": "03-vlm-memory",
+    "status": "error",
+    "error": "500 Server Error: Internal Server Error for url: http://127.0.0.1:8000/stage/llm"
+  }
+]

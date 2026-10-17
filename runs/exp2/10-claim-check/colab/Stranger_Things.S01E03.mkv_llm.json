@@ -1,0 +1,40 @@
+{
+  "recsys_metadata": {
+    "primary_genre": "Drama",
+    "sub_genres": [
+      "Psychological",
+      "Suspense",
+      "Mystery"
+    ],
+    "pacing": "Moderate",
+    "mood": [
+      "Tense",
+      "Uneasy",
+      "Intimate"
+    ]
+  },
+  "search_and_discovery": {
+    "semantic_tags": [
+      "Introspective conversations",
+      "Distressed children",
+      "Nighttime settings"
+    ],
+    "main_topics": [
+      "Emotional tension",
+      "Unreliable narration",
+      "Psychological states"
+    ]
+  },
+  "audience_profiling": {
+    "target_age_group": "Young Adults",
+    "viewer_interests": [
+      "Character-driven stories",
+      "Psychological thrillers",
+      "Family dynamics"
+    ]
+  },
+  "content_summary": {
+    "visual_style": "Dark, moody lighting with deep shadows and muted tones create an oppressive atmosphere.",
+    "narrative_hook": "A young woman experiences paranoia and distress as she converses with an unseen figure, revealing underlying tensions within a family unit."
+  }
+}

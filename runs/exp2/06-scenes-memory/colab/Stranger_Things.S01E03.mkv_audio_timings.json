@@ -1,0 +1,29 @@
+{
+  "stage": "audio",
+  "wall_seconds": 420.91,
+  "spans": [
+    {
+      "name": "whisperx_load",
+      "seconds": 89.124,
+      "model_id": "large-v2"
+    },
+    {
+      "name": "whisperx_transcribe",
+      "seconds": 84.182,
+      "model_id": "large-v2"
+    },
+    {
+      "name": "whisperx_align_load",
+      "seconds": 9.868
+    },
+    {
+      "name": "whisperx_align",
+      "seconds": 20.981
+    },
+    {
+      "name": "diarization_load",
+      "seconds": 0.129
+    }
+  ],
+  "cached": true
+}

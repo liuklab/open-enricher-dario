@@ -1,0 +1,213 @@
+{
+  "stage": "vlm",
+  "wall_seconds": 3039.56,
+  "spans": [
+    {
+      "name": "summary_load",
+      "seconds": 149.591,
+      "model_id": "Qwen/Qwen3-8B"
+    },
+    {
+      "name": "summary_generate",
+      "seconds": 59.83,
+      "model_id": "Qwen/Qwen3-8B"
+    },
+    {
+      "name": "vlm_load",
+      "seconds": 356.013,
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+    },
+    {
+      "name": "vlm_generate",
+      "seconds": 70.329,
+      "window": 1,
+      "start": "00:00:00",
+      "end": "00:00:47",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+    },
+    {
+      "name": "vlm_generate",
+      "seconds": 54.667,
+      "window": 2,
+      "start": "00:01:33",
+      "end": "00:02:18",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+    },
+    {
+      "name": "vlm_generate",
+      "seconds": 68.008,
+      "window": 3,
+      "start": "00:04:06",
+      "end": "00:04:55",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+    },
+    {
+      "name": "vlm_generate",
+      "seconds": 68.137,
+      "window": 4,
+      "start": "00:05:40",
+      "end": "00:06:35",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+    },
+    {
+      "name": "vlm_generate",
+      "seconds": 65.087,
+      "window": 5,
+      "start": "00:08:08",
+      "end": "00:08:54",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+    },
+    {
+      "name": "vlm_generate",
+      "seconds": 67.214,
+      "window": 6,
+      "start": "00:10:24",
+      "end": "00:11:11",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+    },
+    {
+      "name": "vlm_generate",
+      "seconds": 58.578,
+      "window": 7,
+      "start": "00:11:58",
+      "end": "00:12:48",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+    },
+    {
+      "name": "vlm_generate",
+      "seconds": 64.32,
+      "window": 8,
+      "start": "00:14:30",
+      "end": "00:15:17",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+    },
+    {
+      "name": "vlm_generate",
+      "seconds": 78.397,
+      "window": 9,
+      "start": "00:16:50",
+      "end": "00:17:39",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+    },
+    {
+      "name": "vlm_generate",
+      "seconds": 81.703,
+      "window": 10,
+      "start": "00:18:24",
+      "end": "00:19:22",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+    },
+    {
+      "name": "vlm_generate",
+      "seconds": 80.929,
+      "window": 11,
+      "start": "00:20:59",
+      "end": "00:21:48",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+    },
+    {
+      "name": "vlm_generate",
+      "seconds": 74.245,
+      "window": 12,
+      "start": "00:22:33",
+      "end": "00:23:22",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+    },
+    {
+      "name": "vlm_generate",
+      "seconds": 57.269,
+      "window": 13,
+      "start": "00:25:00",
+      "end": "00:25:46",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+    },
+    {
+      "name": "vlm_generate",
+      "seconds": 70.601,
+      "window": 14,
+      "start": "00:27:17",
+      "end": "00:28:03",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+    },
+    {
+      "name": "vlm_generate",
+      "seconds": 62.011,
+      "window": 15,
+      "start": "00:28:48",
+      "end": "00:29:33",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+    },
+    {
+      "name": "vlm_generate",
+      "seconds": 69.065,
+      "window": 16,
+      "start": "00:31:05",
+      "end": "00:31:56",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+    },
+    {
+      "name": "vlm_generate",
+      "seconds": 76.357,
+      "window": 17,
+      "start": "00:33:29",
+      "end": "00:34:21",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+    },
+    {
+      "name": "vlm_generate",
+      "seconds": 69.179,
+      "window": 18,
+      "start": "00:35:09",
+      "end": "00:35:55",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+    },
+    {
+      "name": "vlm_generate",
+      "seconds": 66.553,
+      "window": 19,
+      "start": "00:37:29",
+      "end": "00:38:14",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+    },
+    {
+      "name": "vlm_generate",
+      "seconds": 69.947,
+      "window": 20,
+      "start": "00:39:02",
+      "end": "00:39:48",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+    },
+    {
+      "name": "vlm_generate",
+      "seconds": 61.042,
+      "window": 21,
+      "start": "00:41:51",
+      "end": "00:42:39",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+    },
+    {
+      "name": "vlm_generate",
+      "seconds": 64.725,
+      "window": 22,
+      "start": "00:44:15",
+      "end": "00:45:02",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+    },
+    {
+      "name": "vlm_generate",
+      "seconds": 66.102,
+      "window": 23,
+      "start": "00:45:47",
+      "end": "00:46:33",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+    },
+    {
+      "name": "vlm_generate",
+      "seconds": 76.453,
+      "window": 24,
+      "start": "00:48:05",
+      "end": "00:48:52",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+    }
+  ]
+}

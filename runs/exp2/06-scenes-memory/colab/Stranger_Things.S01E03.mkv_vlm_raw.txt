@@ -1,0 +1,434 @@
+--- 00:00:00-00:00:47 ---
+{
+  "description": "A person wearing glasses and a dark jacket stands in a dimly lit, eerie environment surrounded by twisted tree roots or branches. The scene transitions to show them looking down at another individual lying on the ground, suggesting concern or distress.",
+  "subjects_and_objects": [
+    "person",
+    "glasses",
+    "dark jacket",
+    "tree roots/branches",
+    "another individual"
+  ],
+  "actions": [
+    "standing",
+    "looking down",
+    "lying on ground"
+  ],
+  "camera_and_shot": "Close-up shot focusing on the person's face, then transitioning to a wider view showing their surroundings and interaction with another person.",
+  "lighting_and_color": "Dark blue and teal tones; low light creating an ominous atmosphere.",
+  "on_screen_text": []
+}
+
+--- 00:01:33-00:02:18 ---
+{
+  "description": "The scene opens with a dark, atmospheric setting featuring twisted tree roots or branches under dim lighting. It transitions into a close-up of a hand gripping something tightly, followed by a wide shot revealing a muddy path flanked by gnarled trees. A red screen briefly appears before fading back to the natural setting.",
+  "subjects_and_objects": ["hand", "muddy path", "gnarled trees", "red screen"],
+  "actions": ["grasping", "fading transition"],
+  "camera_and_shot": "Wide shot capturing the environment, transitioning to close-up of hand, then returning to wide shot.",
+  "lighting_and_color": "Dim, moody lighting with deep blues and teals, contrasted by a sudden bright red screen.",
+  "on_screen_text": [
+    "WINONA RYDER",
+    "FINN WOLFHARD",
+    "MILLIE BOBBY BROWN"
+  ]
+}
+
+--- 00:04:06-00:04:55 ---
+{
+  "description": "Two women confront each other in a dimly lit wooden interior, with one standing near a staircase railing while the other approaches her.",
+  "subjects_and_objects": ["woman in blue robe", "woman in grey hoodie", "wooden staircase", "lamp", "wallpaper"],
+  "actions": ["standing", "approaching", "looking at each other", "holding stair rail"],
+  "camera_and_shot": "Medium shot focused on the two women interacting, with slight movement as the second woman steps forward.",
+  "lighting_and_color": "Warm but dim indoor lighting casting shadows, with muted wood tones and soft lamp glow.",
+  "on_screen_text": [],
+  "colors": "#142930, #020306, #0a141a; #03050c, #0e242b, #07141c"
+}
+
+--- 00:05:40-00:06:35 ---
+{
+  "description": "Two individuals stand side-by-side in a dimly lit bedroom, appearing concerned or startled as they look toward something off-screen.",
+  "subjects_and_objects": ["two people", "bedroom", "poster", "lamp", "wallpaper"],
+  "actions": ["standing", "looking off-screen", "expressing concern"],
+  "camera_and_shot": "Static medium shot framing both individuals from chest up.",
+  "lighting_and_color": "Low-key lighting with warm yellow tones, casting shadows across the room.",
+  "on_screen_text": [],
+  "colors": "#1d1d1d, #2d2d2d, #3d3d3d"
+}
+
+--- 00:08:08-00:08:54 ---
+{
+  "description": "Two young boys are in a dimly lit room, engaged in conversation. One boy wears a white t-shirt with a graphic design and a baseball cap, while the other wears a plaid shirt. They appear to be discussing something important, with expressions ranging from serious to surprised.",
+  "subjects_and_objects": ["boy in white t-shirt", "boy in plaid shirt", "baseball cap", "plaid shirt", "dimly lit room"],
+  "actions": ["talking", "listening", "showing something", "reacting with surprise"],
+  "camera_and_shot": "Close-up shots alternating between the two boys' faces, emphasizing their reactions and dialogue.",
+  "lighting_and_color": "Warm, dim lighting with orange-yellow tones from lamps, creating an intimate and slightly mysterious atmosphere.",
+  "on_screen_text": [],
+  "colors": "#141414, #1a1a1a, #2a2a2a; #ffccaa, #ffd6b3, #ffb380"
+}
+
+--- 00:10:24-00:11:11 ---
+{
+  "description": "A girl with long brown hair and colorful barrettes stands beside a locker, smiling and talking to a boy who leans against the locker holding a book titled 'Hunger Games'.",
+  "subjects_and_objects": ["girl", "boy", "locker", "book", "barrettes"],
+  "actions": ["smiling", "talking", "leaning", "holding book"],
+  "camera_and_shot": "Close-up shot focusing on the girl’s face and upper body, with the boy partially visible.",
+  "lighting_and_color": "Bright, even lighting typical of a school hallway, with neutral beige lockers and casual clothing colors.",
+  "on_screen_text": [],
+  "colors": "#eaeaea, #ffffff, #8a8a8a"
+}
+
+--- 00:11:58-00:12:48 ---
+{
+  "description": "Two law enforcement officers are seated inside a vehicle, with one driving and the other looking ahead intently. Another officer stands outside the car, facing them.",
+  "subjects_and_objects": [
+    "law enforcement officers",
+    "police car",
+    "uniforms",
+    "hats"
+  ],
+  "actions": [
+    "driving",
+    "looking forward",
+    "standing outside the car"
+  ],
+  "camera_and_shot": "Close-up shot from within the car, focusing on the driver and passenger, with an external view showing another officer.",
+  "lighting_and_color": "Natural daylight with muted tones, creating a serious and focused atmosphere.",
+  "on_screen_text": []
+}
+
+--- 00:14:30-00:15:17 ---
+{
+  "description": "A child wearing an EEG headset sits at a table with a soda can nearby, then turns around to face an older man in a suit who appears stern and focused.",
+  "subjects_and_objects": [
+    "child",
+    "EEG headset",
+    "soda can",
+    "older man",
+    "suit",
+    "table"
+  ],
+  "actions": [
+    "sitting",
+    "turning around",
+    "looking forward",
+    "staring intensely"
+  ],
+  "camera_and_shot": "Close-up shot transitioning to medium shot",
+  "lighting_and_color": "Cool-toned, clinical lighting with muted colors",
+  "on_screen_text": []
+}
+
+--- 00:16:50-00:17:39 ---
+{
+  "description": "A group of uniformed officers, including a man in a suit, walk through a hallway and enter an elevator, followed by another officer.",
+  "subjects_and_objects": [
+    "man in suit",
+    "uniformed officers",
+    "elevator"
+  ],
+  "actions": [
+    "walking",
+    "entering elevator"
+  ],
+  "camera_and_shot": "medium shot following characters moving forward",
+  "lighting_and_color": "warm indoor lighting, neutral color tones",
+  "on_screen_text": []
+}
+
+--- 00:18:24-00:19:22 ---
+{
+  "description": "A young boy with short dark hair is seen from behind, sitting upright in bed and gazing out a window. He has a thoughtful expression as he looks towards the right side of the frame.",
+  "subjects_and_objects": [
+    "boy",
+    "bed",
+    "window"
+  ],
+  "actions": [
+    "sitting upright",
+    "gazing out window"
+  ],
+  "camera_and_shot": "static shot from behind the subject",
+  "lighting_and_color": "soft natural light filtering through the window, casting gentle shadows in the room",
+  "on_screen_text": []
+}
+
+--- 00:20:59-00:21:48 ---
+{
+  "description": "A group of teenagers sit together at a cafeteria-style table, eating ice cream and engaging in animated conversation.",
+  "subjects_and_objects": [
+    "teenagers",
+    "ice cream containers",
+    "table",
+    "soda cans"
+  ],
+  "actions": [
+    "eating ice cream",
+    "talking",
+    "laughing",
+    "leaning forward"
+  ],
+  "camera_and_shot": "Close-up shot focusing on the group's interaction at the table.",
+  "lighting_and_color": "Warm, natural indoor lighting with soft shadows, creating a casual and lively atmosphere.",
+  "on_screen_text": []
+}
+
+--- 00:22:33-00:23:22 ---
+{
+  "description": "Three young boys stand outdoors in a casual, friendly interaction, with one boy gesturing while speaking to the others.",
+  "subjects_and_objects": [
+    "three young boys",
+    "baseball cap",
+    "plaid shirt",
+    "brown jacket"
+  ],
+  "actions": [
+    "standing",
+    "gesturing",
+    "talking",
+    "smiling",
+    "looking at each other"
+  ],
+  "camera_and_shot": "medium shot transitioning to close-ups",
+  "lighting_and_color": "natural daylight, muted tones, outdoor setting",
+  "on_screen_text": []
+}
+
+--- 00:25:00-00:25:46 ---
+{
+  "description": "A sheriff's deputy enters a library-like office, walks past shelves filled with books and files, and stops to speak with a woman seated at a desk.",
+  "subjects_and_objects": [
+    "sheriff's deputy",
+    "woman",
+    "desk",
+    "bookshelves",
+    "file cabinets",
+    "doorway"
+  ],
+  "actions": [
+    "entering",
+    "walking",
+    "speaking",
+    "standing"
+  ],
+  "camera_and_shot": "medium shot, following the deputy’s movement, then cutting to a close-up of his face during dialogue",
+  "lighting_and_color": "warm indoor lighting with natural light filtering through windows, creating soft shadows and highlighting wood paneling",
+  "on_screen_text": []
+}
+
+--- 00:27:17-00:28:03 ---
+{
+  "description": "A young girl in overalls walks away from the camera down a dimly lit hallway, passing by a doorway where two adults are seated at a table.",
+  "subjects_and_objects": [
+    "young girl",
+    "adults",
+    "hallway",
+    "doorway",
+    "table"
+  ],
+  "actions": [
+    "walking away",
+    "seated"
+  ],
+  "camera_and_shot": "overhead shot following the girl walking down the hallway",
+  "lighting_and_color": "dim, warm-toned lighting with shadows cast along the hallway walls",
+  "on_screen_text": []
+}
+
+--- 00:28:48-00:29:33 ---
+{
+  "description": "A woman holds a young girl while walking through a dimly lit hallway, followed by another woman. The scene shifts to a school corridor where students gather, some leaning against walls and others conversing.",
+  "subjects_and_objects": [
+    "woman",
+    "young girl",
+    "another woman",
+    "students",
+    "school corridor",
+    "brick wall"
+  ],
+  "actions": [
+    "walking",
+    "holding",
+    "leaning",
+    "conversing"
+  ],
+  "camera_and_shot": "medium shot following movement, transitioning to wide shot of corridor",
+  "lighting_and_color": "dim indoor lighting with warm tones, transitioning to brighter natural light in corridor",
+  "on_screen_text": []
+}
+
+--- 00:31:05-00:31:56 ---
+{
+  "description": "A group of teenagers gathers around a vintage car parked outside a school, interacting casually while one kneels to examine something on the ground.",
+  "subjects_and_objects": [
+    "teenagers",
+    "vintage car",
+    "school bus",
+    "students",
+    "trees",
+    "buildings"
+  ],
+  "actions": [
+    "standing",
+    "kneeling",
+    "examining",
+    "interacting",
+    "looking around"
+  ],
+  "camera_and_shot": "medium shot capturing group dynamics, transitioning to wider shots showing surroundings",
+  "lighting_and_color": "overcast daylight with muted tones, casting soft shadows across outdoor setting",
+  "on_screen_text": []
+}
+
+--- 00:33:29-00:34:21 ---
+{
+  "description": "A person in a hospital gown is being escorted down a sterile hallway by a man in a suit, leading to a bathroom stall where the person collapses.",
+  "subjects_and_objects": [
+    "person in hospital gown",
+    "man in suit",
+    "hospital hallway",
+    "bathroom stall"
+  ],
+  "actions": [
+    "escorting",
+    "walking",
+    "collapsing"
+  ],
+  "camera_and_shot": "following shot transitioning to static wide-angle view",
+  "lighting_and_color": "clinical fluorescent lighting, cool color palette",
+  "on_screen_text": []
+}
+
+--- 00:35:09-00:35:55 ---
+{
+  "description": "A man in a suit carries a limp individual wrapped in a sheet down a tiled hallway, while another person lies motionless on the floor nearby.",
+  "subjects_and_objects": [
+    "man in suit",
+    "person wrapped in sheet",
+    "person lying on floor"
+  ],
+  "actions": [
+    "carrying",
+    "walking",
+    "lying still"
+  ],
+  "camera_and_shot": "following shot tracking the man carrying the person down the hallway",
+  "lighting_and_color": "dim, cool-toned lighting with stark shadows casting across the tiled walls and floor",
+  "on_screen_text": []
+}
+
+--- 00:37:29-00:38:14 ---
+{
+  "description": "Two young boys are shown in various outdoor settings, first examining a bicycle handlebar, then running across a grassy field, and finally approaching a vintage car parked on a road.",
+  "subjects_and_objects": [
+    "two young boys",
+    "bicycle",
+    "grass",
+    "vintage car"
+  ],
+  "actions": [
+    "examining a bicycle",
+    "running across a field",
+    "approaching a car"
+  ],
+  "camera_and_shot": "Close-ups transitioning to wide shots showing movement and environment.",
+  "lighting_and_color": "Natural daylight with muted tones, suggesting late afternoon or early evening.",
+  "on_screen_text": []
+}
+
+--- 00:39:02-00:39:48 ---
+{
+  "description": "A dimly lit indoor space with string lights hanging overhead, showing a person standing near a wall covered in posters and decorations.",
+  "subjects_and_objects": [
+    "person",
+    "string lights",
+    "wall",
+    "posters"
+  ],
+  "actions": [
+    "standing",
+    "looking up"
+  ],
+  "camera_and_shot": "static shot",
+  "lighting_and_color": "dim, warm-toned lighting with colorful string lights casting soft glows",
+  "on_screen_text": []
+}
+
+--- 00:41:51-00:42:39 ---
+{
+  "description": "A woman in a dark blue shirt stands in a kitchen holding a bowl, then the scene cuts to a man in a police uniform reading a newspaper article about a murder case in a library.",
+  "subjects_and_objects": [
+    "woman",
+    "bowl",
+    "man",
+    "newspaper",
+    "police uniform"
+  ],
+  "actions": [
+    "standing",
+    "holding",
+    "reading",
+    "looking at newspaper"
+  ],
+  "camera_and_shot": "Close-up shot transitioning to medium shot",
+  "lighting_and_color": "Warm indoor lighting with natural tones",
+  "on_screen_text": [
+    "MURDER EXPOSÉD"
+  ]
+}
+
+--- 00:44:15-00:45:02 ---
+{
+  "description": "Two young boys are walking through a dark forest at night, illuminated by the headlight of a bicycle. They appear cautious and alert as they navigate the path.",
+  "subjects_and_objects": [
+    "two young boys",
+    "bicycle",
+    "forest path",
+    "headlight"
+  ],
+  "actions": [
+    "walking",
+    "looking around cautiously",
+    "riding a bicycle"
+  ],
+  "camera_and_shot": "medium shot following the boys as they move forward",
+  "lighting_and_color": "dark and moody with low ambient light, primarily illuminated by the bright headlight of the bicycle casting shadows",
+  "on_screen_text": []
+}
+
+--- 00:45:47-00:46:33 ---
+{
+  "description": "A person rides a bicycle through a dark forest at night, with headlights illuminating the path ahead.",
+  "subjects_and_objects": [
+    "person",
+    "bicycle",
+    "forest",
+    "headlights"
+  ],
+  "actions": [
+    "riding a bicycle",
+    "navigating a path"
+  ],
+  "camera_and_shot": "Wide shot capturing the rider moving forward along a forest trail.",
+  "lighting_and_color": "Dark and moody, with bright headlights cutting through the darkness of the forest.",
+  "on_screen_text": []
+}
+
+--- 00:48:05-00:48:52 ---
+{
+  "description": "A tense nighttime scene unfolds where a group of people, including children, cautiously approach a red truck with glowing headlights. An adult figure stands near the truck, seemingly overseeing the situation, while others watch from behind. The atmosphere is suspenseful, set against a backdrop of rocky terrain.",
+  "subjects_and_objects": [
+    "children",
+    "adults",
+    "red truck",
+    "headlights",
+    "rocky terrain"
+  ],
+  "actions": [
+    "approaching",
+    "standing",
+    "watching",
+    "glowing headlights"
+  ],
+  "camera_and_shot": "Wide shot capturing multiple characters moving toward a central point, with low-angle shots emphasizing the looming presence of the truck and surrounding darkness.",
+  "lighting_and_color": "Dark and moody, dominated by deep shadows and stark contrasts created by the bright red glow of the truck’s headlights piercing the night.",
+  "on_screen_text": []
+}

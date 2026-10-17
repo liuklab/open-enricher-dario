@@ -1,0 +1,297 @@
+--- 00:00:00-00:05:00 ---
+{
+  "description": "A dimly lit bedroom scene shows two people lying close together, suggesting intimacy or comfort. A woman sits up in bed looking concerned, then stands near a staircase. Another shot reveals her standing alone in a hallway, appearing startled.",
+  "subjects_and_objects": [
+    "woman",
+    "man",
+    "bed",
+    "staircase",
+    "hallway"
+  ],
+  "actions": [
+    "lying down",
+    "sitting up",
+    "standing",
+    "looking around",
+    "speaking"
+  ],
+  "camera_and_shot": "Close-up shots focusing on facial expressions and interactions, transitioning to medium shots showing environment.",
+  "lighting_and_color": "Dim, moody lighting with dark tones and shadows emphasizing emotion and suspense.",
+  "on_screen_text": [
+    "DAVID HARBOUR",
+    "CHAPTER THREE",
+    "HOLLY. JOLLY"
+  ]
+}
+
+--- 00:05:00-00:10:00 ---
+{
+  "description": "A woman, likely Nancy, speaks anxiously to someone off-screen, then turns to confront another person who responds with hesitation. A young man, possibly Steve, tries to leave but is stopped by her. Another boy, Jonathan, enters the room looking concerned, and the group gathers around a couch where a child lies asleep. The atmosphere is tense and filled with unease.",
+  "subjects_and_objects": [
+    "Nancy",
+    "Steve",
+    "Jonathan",
+    "Will",
+    "child",
+    "couch",
+    "lamp",
+    "wall"
+  ],
+  "actions": [
+    "speaking",
+    "confronting",
+    "trying to leave",
+    "entering",
+    "gathering",
+    "lying down"
+  ],
+  "camera_and_shot": "Close-up shots alternate with medium shots, focusing on facial expressions during dialogue and wider angles showing group dynamics. Camera movement includes slight pans and tracking movements following characters' motions.",
+  "lighting_and_color": "Warm indoor lighting with soft shadows cast across faces and furniture. The color palette features muted browns, creams, and dark tones, creating an intimate yet uneasy ambiance. Flickering lights add dynamic contrast.",
+  "on_screen_text": [],
+  "spoken_lines": [
+    "Can you talk to me if something happened to you?",
+    "Nothing, Mom.",
+    "Nancy.",
+    "Nothing, Mom.",
+    "Please, can I go?",
+    "Where is he?",
+    "Mom.",
+    "Jonathan, come here.",
+    "What is this?",
+    "Come here.",
+    "What's going on?",
+    "It's Will."
+  ]
+}
+
+--- 00:10:00-00:15:00 ---
+{
+  "description": "A young woman sits nervously in a dimly lit room, engaging in an intense conversation with another person who is partially obscured. She expresses feelings of being watched despite having said nothing to anyone, referencing Tommy and Carol. The other person dismisses her concerns, calling her paranoid.",
+  "subjects_and_objects": [
+    "young woman",
+    "another person",
+    "room"
+  ],
+  "actions": [
+    "sitting",
+    "talking",
+    "expressing anxiety"
+  ],
+  "camera_and_shot": "Close-up shot focusing on the young woman's face during conversation, capturing her expressions and emotions.",
+  "lighting_and_color": "Dim, warm indoor lighting casting soft shadows across the room, creating an intimate yet tense atmosphere.",
+  "on_screen_text": [],
+  "spoken_lines": [
+    "Ciao.",
+    "Va tutto bene?",
+    "Si.",
+    "Solo che... Mi sento come se tutti mi fissassero.",
+    "Io non ho detto niente a nessuno.",
+    "Lo so.",
+    "Ma che mi dici di Tommy e Carol?",
+    "Tu sei paranoica."
+  ]
+}
+
+--- 00:15:00-00:20:00 ---
+{
+  "description": "A young boy wearing an EEG cap sits in a dimly lit room, appearing distressed. A man in a suit stands beside him, holding a box labeled 'Cerebral Cortex.' The scene transitions to a supermarket where two men interact near a checkout counter. Another shot shows three law enforcement officers walking outside a building. Finally, a close-up reveals a child's tear-streaked face.",
+  "subjects_and_objects": [
+    "young boy",
+    "EEG cap",
+    "man in suit",
+    "box labeled Cerebral Cortex",
+    "supermarket",
+    "checkout counter",
+    "law enforcement officers",
+    "child"
+  ],
+  "actions": [
+    "sitting still",
+    "holding a box",
+    "walking",
+    "tearful expression"
+  ],
+  "camera_and_shot": "Close-ups of individuals' faces, medium shots of interactions, wide shot of officers walking.",
+  "lighting_and_color": "#1a1a18",
+  "on_screen_text": []
+}
+
+--- 00:20:00-00:25:00 ---
+{
+  "description": "A young boy stands in front of a mirror, looking at his reflection with a serious expression.",
+  "subjects_and_objects": [
+    "young boy",
+    "mirror"
+  ],
+  "actions": [
+    "looking at reflection"
+  ],
+  "camera_and_shot": "close-up shot focusing on the boy's face and upper body",
+  "lighting_and_color": "dimly lit room with warm tones, soft shadows accentuating facial features",
+  "on_screen_text": [],
+  "spoken_lines": [
+    "I don't know."
+  ]
+}
+
+--- 00:25:00-00:30:00 ---
+{
+  "description": "A woman sits at a desk in a dimly lit office, surrounded by papers and books, appearing focused on her work.",
+  "subjects_and_objects": [
+    "woman",
+    "desk",
+    "papers",
+    "books"
+  ],
+  "actions": [
+    "sitting",
+    "writing",
+    "looking down at papers"
+  ],
+  "camera_and_shot": "static shot focusing on the woman seated at the desk",
+  "lighting_and_color": "dim indoor lighting with warm tones, casting shadows around the workspace",
+  "on_screen_text": [],
+  "spoken_lines": [
+    "Hey, Marissa.",
+    "How are you?",
+    "You have a pretty tough face to come here.",
+    "What?",
+    "You could at least call and say, Marissa, hi, we're not going.",
+    "Sorry if I made you lose time.",
+    "I'm a bitch.",
+    "It's true.",
+    "I'm sorry.",
+    "Maybe we'll go out next week."
+  ]
+}
+
+--- 00:30:00-00:35:00 ---
+{
+  "description": "A young man stands near a school bus, surrounded by students. He interacts with another student who approaches him, and later, he walks away holding his backpack. A woman with red hair watches nearby, appearing concerned.",
+  "subjects_and_objects": [
+    "young man",
+    "student",
+    "school bus",
+    "woman with red hair",
+    "backpack"
+  ],
+  "actions": [
+    "standing",
+    "walking away",
+    "holding backpack",
+    "watching"
+  ],
+  "camera_and_shot": "medium shot, slightly panning across the scene",
+  "lighting_and_color": "overcast daylight, muted tones",
+  "on_screen_text": [],
+  "spoken_lines": [
+    "Hi, beautiful.",
+    "What's up?",
+    "Nicole was telling us about your work.",
+    "Yes, she said great things.",
+    "Yes, she must be strong.",
+    "We'd like to take a look.",
+    "You know, like art lovers.",
+    "I don't know what you're talking about.",
+    "Oh, no.",
+    "Hey, please, give me back my bag.",
+    "Guys, come on.",
+    "She really has something to hide."
+  ]
+}
+
+--- 00:35:00-00:40:00 ---
+{
+  "description": "A young woman walks through a dimly lit hallway, then enters an outdoor area surrounded by trees. She pauses near a parked car, looking around nervously before walking away into the woods.",
+  "subjects_and_objects": [
+    "young woman",
+    "hallway",
+    "trees",
+    "car"
+  ],
+  "actions": [
+    "walking",
+    "pausing",
+    "looking around",
+    "walking away"
+  ],
+  "camera_and_shot": "The camera follows the young woman as she moves through different environments, starting with a steady shot down a hallway and transitioning to a wider view outdoors.",
+  "lighting_and_color": "Dim indoor lighting transitions to natural daylight filtering through trees outside, creating a contrast between shadowy and sunlit areas.",
+  "on_screen_text": []
+}
+
+--- 00:40:00-00:45:00 ---
+{
+  "description": "A woman holds glowing string lights in a dimly lit space, then transitions to a library study scene with two men working. A police officer speaks into a radio inside a patrol car, followed by an outdoor shot of two men walking through foggy terrain.",
+  "subjects_and_objects": [
+    "woman",
+    "string lights",
+    "two men studying",
+    "police officer",
+    "patrol car",
+    "two men walking outdoors"
+  ],
+  "actions": [
+    "holding string lights",
+    "studying",
+    "speaking into radio",
+    "walking outdoors"
+  ],
+  "camera_and_shot": "Close-up shots transition to medium and wide shots, capturing both intimate and expansive scenes.",
+  "lighting_and_color": "Dim, warm glow from string lights contrasts with cool blue tones in outdoor night scenes.",
+  "on_screen_text": [],
+  "spoken_lines": [
+    "You blink once to say yes, twice to say no.",
+    "You do it for me, darling.",
+    "Then... Oh, good.",
+    "Good.",
+    "Darling, I have to know.",
+    "You're alive, Will.",
+    "You're safe, Will.",
+    "I have to know where to find you, darling.",
+    "Where are you?",
+    "Can you tell me where you are?",
+    "Please, darling.",
+    "I have to find you."
+  ]
+}
+
+--- 00:45:00-00:50:00 ---
+{
+  "description": "A dimly lit outdoor scene at night shows two people walking toward a red fire truck labeled 'ENGINE NO. 4'. One person gestures urgently while speaking, and the other listens intently. A third individual stands nearby holding a flashlight, illuminating part of the rocky terrain.",
+  "subjects_and_objects": [
+    "two people",
+    "red fire truck",
+    "third person",
+    "flashlight"
+  ],
+  "actions": [
+    "walking",
+    "gesturing",
+    "speaking",
+    "listening"
+  ],
+  "camera_and_shot": "static shot focusing on the interaction near the fire truck",
+  "lighting_and_color": "dark nighttime environment with artificial light casting shadows; muted tones including dark browns and blacks, accented by the red of the fire truck and faint illumination from the flashlight",
+  "on_screen_text": [
+    "ENGINE NO. 4",
+    "NAT 911"
+  ]
+}
+
+--- 00:50:00-00:51:52 ---
+{
+  "description": "The video displays closing credits and production logos against black backgrounds, followed by a title card featuring 'twenty-one laps' and an animated logo sequence.",
+  "subjects_and_objects": [
+    "text",
+    "logos"
+  ],
+  "actions": [],
+  "camera_and_shot": "Static shots displaying text and logos sequentially.",
+  "lighting_and_color": "#010202 background with golden-yellow glowing effects during logo animation.",
+  "on_screen_text": [
+    "Main Titles Designed by IMAGINARY FORCES",
+    "twenty-one laps entertainment",
+    "Georgia tourgeorgiafilm.com"
+  ]
+}

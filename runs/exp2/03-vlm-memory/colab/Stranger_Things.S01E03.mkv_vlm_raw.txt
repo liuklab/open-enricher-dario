@@ -1,0 +1,231 @@
+--- 00:00:00-00:05:00 ---
+{
+  "description": "A man and woman are lying close together in bed, sharing an intimate moment under dim lighting. The scene transitions to show them waking up or moving around in their bedroom, with the woman sitting up while the man remains partially covered by blankets.",
+  "subjects_and_objects": [
+    "man",
+    "woman",
+    "bed",
+    "pillow",
+    "blanket"
+  ],
+  "actions": [
+    "lying down",
+    "gazing at each other",
+    "sitting up",
+    "moving in bed"
+  ],
+  "camera_and_shot": "Close-up shots focusing on faces and upper bodies, transitioning to medium shots as they move.",
+  "lighting_and_color": "Dim, warm indoor lighting; dark tones dominate with soft highlights from ambient light sources.",
+  "on_screen_text": []
+}
+
+--- 00:05:00-00:10:00 ---
+{
+  "description": "A group of teenagers gather in a dimly lit living room, engaging in conversation and interaction. One boy stands over another who is seated, while others watch closely. A girl sits nearby holding a phone, appearing focused or concerned.",
+  "subjects_and_objects": ["teenagers", "boy", "girl", "living room", "sofa", "lamp", "phone"],
+  "actions": ["standing", "seated", "watching", "holding phone", "talking", "interacting"],
+  "camera_and_shot": "Medium shot capturing multiple characters within the room, slightly angled to include interactions between individuals.",
+  "lighting_and_color": "Warm, low lighting casting shadows across the room; muted tones with amber hues from lamps.",
+  "on_screen_text": [],
+  "colors": "#142930, #020306, #0a141a; #03050c, #0e242b, #07141c; #05080e, #091317, #020307"
+}
+
+--- 00:10:00-00:15:00 ---
+{
+  "description": "A young girl holds a framed picture while standing near a couch in a warmly lit living room. She interacts with a police officer seated at a table, handing him papers. Another teenager sits cross-legged on the floor nearby, looking toward her.",
+  "subjects_and_objects": ["young girl", "police officer", "teenager", "framed picture", "couch", "table", "papers"],
+  "actions": ["holding frame", "handing papers", "sitting cross-legged", "looking at someone", "interacting"],
+  "camera_and_shot": "Medium shot capturing the girl and officer at the table, with a wider view showing the teenager on the floor.",
+  "lighting_and_color": "Warm, golden indoor lighting with soft shadows; rich browns and creams dominate the color palette.",
+  "on_screen_text": []
+}
+
+--- 00:15:00-00:20:00 ---
+{
+  "description": "A young girl wearing a headband with wires is shown in a clinical setting, followed by scenes of people interacting in various environments including a grocery store, a kitchen, and outdoors.",
+  "subjects_and_objects": [
+    "girl",
+    "headband",
+    "wires",
+    "grocery store",
+    "shopping cart",
+    "kitchen",
+    "dog",
+    "sheriff officers"
+  ],
+  "actions": [
+    "wearing headgear",
+    "walking through store",
+    "pushing shopping cart",
+    "eating cereal",
+    "walking outside",
+    "carrying bag"
+  ],
+  "camera_and_shot": "Close-ups on facial expressions and equipment, wide shots for environmental context, tracking shots following movement.",
+  "lighting_and_color": "Mixed lighting — clinical white in lab settings, natural daylight in outdoor and retail areas, warm interior tones in domestic spaces.",
+  "on_screen_text": [],
+  "colors": "#ffffff, #eaeaea, #cccccc; #ffeb3b, #f5f5f5, #eeeeee; #2e2e2e, #1a1a1a, #000000"
+}
+
+--- 00:20:00-00:25:00 ---
+{
+  "description": "Three boys stand outside near a blue dumpster and shed, engaged in conversation. They appear to be discussing something serious, with one boy gesturing while speaking. The environment is rural with trees and grass surrounding them.",
+  "subjects_and_objects": ["boys", "dumpster", "shed", "trees", "grass"],
+  "actions": ["standing", "gesturing", "speaking", "listening"],
+  "camera_and_shot": "Wide shot capturing all three boys and their surroundings, emphasizing the outdoor setting.",
+  "lighting_and_color": "Natural daylight with soft shadows; earthy tones dominate the scene with greenery and blue structures.",
+  "on_screen_text": []
+}
+
+--- 00:25:00-00:30:00 ---
+{
+  "description": "A teenage girl walks past a school bus stop where students are gathered, then enters a classroom filled with students. Later, she is seen walking alone down a hallway, passing lockers and posters.",
+  "subjects_and_objects": ["teenage girl", "students", "school bus", "classroom", "hallway", "lockers", "posters"],
+  "actions": ["walking", "entering classroom", "passing by", "standing in line", "reading poster"],
+  "camera_and_shot": "Tracking shot following the girl’s movement, cutting to static shots inside the classroom and hallway.",
+  "lighting_and_color": "Natural daylight streaming through windows; neutral tones with pops of color from clothing and posters.",
+  "on_screen_text": [
+    "ALLEGED EXPERIMENTS, ABUSE",
+    "Terry Ives' legal case against embattled research scientist Dr. Martin Brenner suffered another setback today when the district attorney's office formally refused to press criminal charges against Brenner, his fellow researchers, assistants, or the projects sponsors, citing lack of evidence. Local law enforcement executed a search warrant at the facility last week."
+  ]
+}
+
+--- 00:30:00-00:35:00 ---
+{
+  "description": "A tense confrontation unfolds between two men in front of a yellow school bus as students walk nearby. The scene shifts to a dark corridor where a man in a suit confronts a distressed woman holding a pillow, before transitioning to a hospital room where a patient lies unconscious.",
+  "subjects_and_objects": [
+    "two men",
+    "yellow school bus",
+    "students",
+    "man in suit",
+    "distressed woman",
+    "pillow",
+    "hospital room",
+    "patient"
+  ],
+  "actions": [
+    "confronting",
+    "walking",
+    "standing",
+    "entering",
+    "holding",
+    "lying down",
+    "waking up"
+  ],
+  "camera_and_shot": "Close-up shots transition to medium shots capturing interactions, followed by a wide shot showing the hospital room environment.",
+  "lighting_and_color": "Dim indoor lighting contrasts with natural outdoor light during the school bus scene. The hospital room has cold, sterile lighting.",
+  "on_screen_text": []
+}
+
+--- 00:35:00-00:40:00 ---
+{
+  "description": "A man in a suit confronts a distressed woman in a dimly lit corridor, leading to a physical altercation that ends with her falling backward into darkness.",
+  "subjects_and_objects": [
+    "man",
+    "woman",
+    "school bus",
+    "students",
+    "corridor"
+  ],
+  "actions": [
+    "confronting",
+    "falling",
+    "walking",
+    "fighting"
+  ],
+  "camera_and_shot": "Close-up shots transitioning to wide-angle views showing the environment and action.",
+  "lighting_and_color": "Dim, moody lighting with shadows casting across the scene, emphasizing tension and drama.",
+  "on_screen_text": []
+}
+
+--- 00:40:00-00:45:00 ---
+{
+  "description": "A man and woman share an intimate moment in a dimly lit room, transitioning to a library study scene, then to a police station interrogation, and finally to a nighttime outdoor encounter.",
+  "subjects_and_objects": [
+    "man",
+    "woman",
+    "police officers",
+    "library books",
+    "desk lamp",
+    "interrogation chair",
+    "school bus"
+  ],
+  "actions": [
+    "hugging",
+    "studying",
+    "talking",
+    "interrogating",
+    "walking outdoors"
+  ],
+  "camera_and_shot": "Close-up shots transition to medium and wide shots capturing interactions and settings.",
+  "lighting_and_color": "Dim indoor lighting contrasts with bright artificial light in the library and harsh fluorescent lights in the police station, ending in low-light outdoor night scenes.",
+  "on_screen_text": [
+    "HAWKINS POLICE DEPT."
+  ]
+}
+
+--- 00:45:00-00:50:00 ---
+{
+  "description": "A person runs through a dark forest path toward a distant light source, pursued by figures in the background. The scene cuts to a red fire truck parked outdoors at night, with two individuals approaching it cautiously. Inside a dimly lit cave-like environment, several teens huddle together, looking upward in awe or fear.",
+  "subjects_and_objects": [
+    "person running",
+    "figures in background",
+    "red fire truck",
+    "two individuals",
+    "teens"
+  ],
+  "actions": [
+    "running",
+    "pursuing",
+    "approaching",
+    "huddling",
+    "looking upward"
+  ],
+  "camera_and_shot": "Dynamic tracking shot following runner, static wide shot of fire truck, medium shot of teens huddled inside cave",
+  "lighting_and_color": "Dark, moody atmosphere with low ambient light; contrasted by bright artificial light from fire truck and distant glow in forest",
+  "on_screen_text": [
+    "ENGINE NO.4",
+    "NAT 911",
+    "Visual Effects Supervisor MARC KOLBE",
+    "Visual Effects Co-Supervisor ROB WEAVER",
+    "Creature Design and Visual Effects by THE AARON SIMS COMPANY VFX",
+    "Visual Effects by GRADIENT EFFECTS",
+    "CoSA VFX"
+  ]
+}
+
+--- 00:50:00-00:51:52 ---
+{
+  "description": "A sequence displaying end credits for a film, listing production roles and names against a black background, followed by logos and titles indicating involvement from studios and organizations.",
+  "subjects_and_objects": [
+    "text",
+    "logos"
+  ],
+  "actions": [],
+  "camera_and_shot": "Static shot displaying text and logos sequentially.",
+  "lighting_and_color": "Black background with white text and colorful logos appearing intermittently.",
+  "on_screen_text": [
+    "Construction Coordinator MICHAEL J. WHEELER",
+    "Construction Buyer RUSS WEBSTER",
+    "Construction Foreman JEFFREY GIBBS",
+    "Shop Foreman DALE JEANTET",
+    "Location Foreman JOHN MADGE",
+    "Visual Effects Supervisor FRANK KADUES",
+    "Visual Effects Co-Supervisor SOFIA VELINS",
+    "Creature Design and Visual Effects by KEVIN DARSEY",
+    "Scenic Artist JERI WOODWARD",
+    "Charge Scenic RANDAL WOODWARD",
+    "Scenic Foreman JEFF WILLIAMSON",
+    "Key Assistant Location Manager TONY ROLLEY",
+    "Assistant Location Managers KOREN CARNY",
+    "Sound Designer CHRIS HEUGHAN",
+    "Supervising Sound Editor CHLOE STEWART",
+    "Re-Recording Mixers JOE DRABKIL",
+    "Music Editor ADAM PEPINE",
+    "Post Production Provided by RUNWAY",
+    "Technical Color Sound Services DAVE H. THOMPSON",
+    "Main Titles Designed by IMAGINARY FORCES",
+    "twenty-one laps entertainment",
+    "Georgia tourgeorgiafilm.com"
+  ]
+}

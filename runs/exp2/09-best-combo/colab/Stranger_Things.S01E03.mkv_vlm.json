@@ -1,0 +1,235 @@
+{
+  "title_guess": "Segmented viewing of the file",
+  "short_summary": "A man and woman share an intimate moment in bed under dim lighting, followed by scenes showing a woman waking up, walking down stairs, and interacting with another person in a hallway. A title card reading 'CHAPTER THREE HOLLY JOLLY' appears. A woman, likely Nancy, speaks anxiously to someone off-screen, then turns to confront another person who responds with hesitation. A young boy, possibly Jonathan, tries to leave but is stopped by his mother. Another child, Will, is found hiding under a bed, prompting concern among adults. The room has dim lighting and vintage decor. A young woman sits nervously in a dimly lit room, surrounded by furniture and personal items, engaging in an intense conversation with another person who enters unexpectedly. Their interaction reveals anxiety and suspicion, particularly regarding someone named Tommy and Carol. The atmosphere is tense, filled with unease and paranoia. A young boy wearing an EEG cap sits in a dimly lit room, appearing distressed. A man in a suit stands beside him, holding a box labeled 'Cerebral Cortex.' The scene transitions to show two men walking through a store aisle, followed by three law enforcement officers walking outside near parked cars. The final shot shows a close-up of the boy's face as he looks toward something off-screen. A young boy stands in front of a mirror, looking concerned. He then walks into a dimly lit room filled with posters and papers, appearing thoughtful. A woman sits at a desk in a dimly lit office, surrounded by papers and books, appearing focused on her work. A young man stands near a school bu",
+  "content_type": "episode",
+  "setting": "",
+  "visual_style": "",
+  "scene_timeline": [
+    {
+      "start_time": "00:00:00",
+      "end_time": "00:05:00",
+      "description": "A man and woman share an intimate moment in bed under dim lighting, followed by scenes showing a woman waking up, walking down stairs, and interacting with another person in a hallway. A title card reading 'CHAPTER THREE HOLLY JOLLY' appears.",
+      "subjects_and_objects": [
+        "man",
+        "woman",
+        "bed",
+        "stairs",
+        "hallway"
+      ],
+      "actions": [
+        "lying in bed",
+        "waking up",
+        "walking down stairs",
+        "interacting with someone"
+      ],
+      "camera_and_shot": "Close-up shots of the couple in bed, medium shot of the woman waking up, wide shot of her walking down stairs, close-up of her face during interaction.",
+      "lighting_and_color": "Dim, warm indoor lighting with dark shadows, transitioning to brighter but still subdued tones in later frames."
+    },
+    {
+      "start_time": "00:05:00",
+      "end_time": "00:10:00",
+      "description": "A woman, likely Nancy, speaks anxiously to someone off-screen, then turns to confront another person who responds with hesitation. A young boy, possibly Jonathan, tries to leave but is stopped by his mother. Another child, Will, is found hiding under a bed, prompting concern among adults. The room has dim lighting and vintage decor.",
+      "subjects_and_objects": [
+        "Nancy",
+        "Steve",
+        "Jonathan",
+        "Will",
+        "bed",
+        "lamp"
+      ],
+      "actions": [
+        "speaking",
+        "confronting",
+        "hiding",
+        "trying to leave",
+        "searching",
+        "looking around"
+      ],
+      "camera_and_shot": "Close-up shots of faces during intense conversations, medium shot showing multiple people reacting, low-angle shot focusing on a hidden figure under a bed.",
+      "lighting_and_color": "Dim, warm indoor lighting with shadows casting across walls and furniture; muted earth tones dominate the color palette."
+    },
+    {
+      "start_time": "00:10:00",
+      "end_time": "00:15:00",
+      "description": "A young woman sits nervously in a dimly lit room, surrounded by furniture and personal items, engaging in an intense conversation with another person who enters unexpectedly. Their interaction reveals anxiety and suspicion, particularly regarding someone named Tommy and Carol. The atmosphere is tense, filled with unease and paranoia.",
+      "subjects_and_objects": [
+        "young woman",
+        "another person",
+        "room",
+        "furniture"
+      ],
+      "actions": [
+        "sitting",
+        "talking",
+        "entering",
+        "arguing",
+        "feeling anxious"
+      ],
+      "camera_and_shot": "Close-up shots focusing on facial expressions during dialogue, transitioning to wider shots showing the environment and interactions.",
+      "lighting_and_color": "Dim, warm indoor lighting casting shadows across faces and surroundings, creating a moody and suspenseful ambiance."
+    },
+    {
+      "start_time": "00:15:00",
+      "end_time": "00:20:00",
+      "description": "A young boy wearing an EEG cap sits in a dimly lit room, appearing distressed. A man in a suit stands beside him, holding a box labeled 'Cerebral Cortex.' The scene transitions to show two men walking through a store aisle, followed by three law enforcement officers walking outside near parked cars. The final shot shows a close-up of the boy's face as he looks toward something off-screen.",
+      "subjects_and_objects": [
+        "young boy",
+        "EEG cap",
+        "man in suit",
+        "box labeled Cerebral Cortex",
+        "two men in store",
+        "three law enforcement officers"
+      ],
+      "actions": [
+        "sitting still",
+        "holding a box",
+        "walking through store",
+        "walking outdoors",
+        "looking off-screen"
+      ],
+      "camera_and_shot": "Close-up shots of the boy and the man, medium shot of the two men in the store, wide shot of the officers walking, and close-up of the boy's face.",
+      "lighting_and_color": "Dim indoor lighting with muted tones, transitioning to natural daylight outdoors. The color palette includes dark grays, browns, and soft blues."
+    },
+    {
+      "start_time": "00:20:00",
+      "end_time": "00:25:00",
+      "description": "A young boy stands in front of a mirror, looking concerned. He then walks into a dimly lit room filled with posters and papers, appearing thoughtful.",
+      "subjects_and_objects": [
+        "young boy",
+        "mirror",
+        "posters",
+        "papers"
+      ],
+      "actions": [
+        "standing",
+        "walking",
+        "looking thoughtfully"
+      ],
+      "camera_and_shot": "Close-up shot focusing on the boy's face, transitioning to a medium shot as he moves through the room.",
+      "lighting_and_color": "Dim lighting with warm tones, creating an intimate atmosphere."
+    },
+    {
+      "start_time": "00:25:00",
+      "end_time": "00:30:00",
+      "description": "A woman sits at a desk in a dimly lit office, surrounded by papers and books, appearing focused on her work.",
+      "subjects_and_objects": [
+        "woman",
+        "desk",
+        "papers",
+        "books"
+      ],
+      "actions": [
+        "sitting",
+        "writing",
+        "looking down at documents"
+      ],
+      "camera_and_shot": "static shot focusing on the woman seated at her desk",
+      "lighting_and_color": "dim indoor lighting with warm tones casting shadows across the workspace"
+    },
+    {
+      "start_time": "00:30:00",
+      "end_time": "00:35:00",
+      "description": "A young man stands near a school bus, surrounded by students. He interacts with another student who approaches him, and later, he walks away holding a book. A woman with red hair watches nearby.",
+      "subjects_and_objects": [
+        "young man",
+        "student",
+        "woman with red hair",
+        "school bus",
+        "students"
+      ],
+      "actions": [
+        "standing",
+        "walking",
+        "holding a book",
+        "watching"
+      ],
+      "camera_and_shot": "medium shot, slightly panning across the scene",
+      "lighting_and_color": "overcast daylight, muted tones"
+    },
+    {
+      "start_time": "00:35:00",
+      "end_time": "00:40:00",
+      "description": "A young woman walks through a dimly lit hallway, then enters an outdoor area surrounded by trees. She pauses near a parked car, looking around nervously before walking toward a house.",
+      "subjects_and_objects": [
+        "young woman",
+        "hallway",
+        "trees",
+        "car",
+        "house"
+      ],
+      "actions": [
+        "walking",
+        "pausing",
+        "looking around",
+        "approaching a house"
+      ],
+      "camera_and_shot": "The camera follows the young woman as she moves through different environments, transitioning from an indoor hallway to an outdoor wooded area, ending with her approaching a house.",
+      "lighting_and_color": "#8aa295"
+    },
+    {
+      "start_time": "00:40:00",
+      "end_time": "00:45:00",
+      "description": "A woman holds glowing string lights in a dimly lit space, then transitions to a library study scene with two men working. A police officer speaks into a radio inside a patrol car, followed by an outdoor shot of two men walking through foggy terrain.",
+      "subjects_and_objects": [
+        "woman",
+        "string lights",
+        "two men studying",
+        "police officer",
+        "patrol car",
+        "two men walking outdoors"
+      ],
+      "actions": [
+        "holding string lights",
+        "studying",
+        "speaking into radio",
+        "walking outdoors"
+      ],
+      "camera_and_shot": "Close-up shots transition to medium shots, including handheld movement during outdoor scenes.",
+      "lighting_and_color": "Dim indoor lighting with warm glow from string lights; cool blue tones outdoors under misty conditions."
+    },
+    {
+      "start_time": "00:45:00",
+      "end_time": "00:50:00",
+      "description": "A dimly lit outdoor scene at night where two people walk toward a fire truck labeled 'ENGINE NO.4'. A third person stands nearby holding a flashlight, illuminating part of the area. The environment appears rugged and rocky, suggesting an isolated location.",
+      "subjects_and_objects": [
+        "two people walking",
+        "fire truck",
+        "third person holding flashlight"
+      ],
+      "actions": [
+        "walking towards the fire truck",
+        "holding a flashlight"
+      ],
+      "camera_and_shot": "static shot capturing the three individuals and the fire truck in a wide frame",
+      "lighting_and_color": "dark nighttime setting with artificial light from the fire truck and flashlight casting shadows; muted earth tones dominate the scene"
+    },
+    {
+      "start_time": "00:50:00",
+      "end_time": "00:51:52",
+      "description": "The video displays closing credits and production logos against black backgrounds, followed by a title card featuring 'twenty-one laps' and an animated logo sequence.",
+      "subjects_and_objects": [
+        "text",
+        "logos"
+      ],
+      "actions": [],
+      "camera_and_shot": "static display of text and logos",
+      "lighting_and_color": "#010202 background with golden-yellow glowing effects during logo animation"
+    }
+  ],
+  "on_screen_text": [
+    "DAVID HARBOUR",
+    "CHAPTER THREE",
+    "HOLLY JOLLY",
+    "ENGINE NO.4",
+    "MAY 911",
+    "Construction Coordinator MICHAEL J. WHEELER",
+    "Avid Rental and Support Provided by RUNWAY",
+    "Main Titles Designed by IMAGINARY FORCES"
+  ],
+  "segmentation": "interval",
+  "segmentation_seconds": 300,
+  "segments_parsed": 11,
+  "segments_total": 11,
+  "experiment_id": "09-best-combo",
+  "memory_truncated": false
+}
