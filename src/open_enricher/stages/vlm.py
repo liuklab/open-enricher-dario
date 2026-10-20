@@ -15,6 +15,7 @@ from typing import Any, Dict
 from open_enricher import storage
 from open_enricher.logging_setup import get_logger
 from open_enricher.stages.pipeline_spec import load_pipeline_spec
+from open_enricher.stages.prompt_load import fill_prompt, load_prompt
 from open_enricher.stages.vlm_core.config import build_configs
 from open_enricher.stages.vlm_core.enrichment import build_vlm_context
 from open_enricher.stages.vlm_core.model import (
@@ -48,15 +49,14 @@ def _timeline_instruction(duration: float, parts: int = 8) -> str:
         end = duration * (index + 1) / parts
         rows.append(f"{_clock(start)} to {_clock(end)}")
     windows = "; ".join(rows)
-    return (
-        f"This file lasts {duration:.0f} seconds ({duration / 60:.0f} minutes). "
-        "Frames are spaced evenly from the start to the end. "
-        f"scene_timeline must contain exactly these {parts} segments, in this order, "
-        f"using these times and no others: {windows}. "
-        "Each description must say what is visible in that part of the file, "
-        "and later segments must not repeat the opening. "
-        "setting is one string, not a list. "
-        "notable_scenes is a list of strings, not a list of lists."
+    return fill_prompt(
+        load_prompt("timeline_instruction.md"),
+        {
+            "DURATION_SECONDS": f"{duration:.0f}",
+            "DURATION_MINUTES": f"{duration / 60:.0f}",
+            "PARTS": str(parts),
+            "WINDOWS": windows,
+        },
     )
 
 

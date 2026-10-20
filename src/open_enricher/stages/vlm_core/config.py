@@ -7,6 +7,8 @@ import json
 from pathlib import Path
 from typing import Any, Literal
 
+from open_enricher.stages.prompt_load import PROMPTS_DIR
+
 MODEL_ID = "Qwen/Qwen3-VL-8B-Instruct"
 MODEL_DTYPE = "float16"
 MODEL_DEVICE_MAP = "auto"
@@ -32,7 +34,7 @@ METADATA_VIDEO_SHORTEST_EDGE = 64 * 32 * 32
 METADATA_VIDEO_LONGEST_EDGE = (80 * 32 * 32) * METADATA_MAX_FRAMES
 
 VLM_CORE_DIR = Path(__file__).resolve().parent
-VLM_PROMPTS_PATH = VLM_CORE_DIR / "vlm_prompts.md"
+VLM_PROMPTS_PATH = PROMPTS_DIR / "vlm_prompts.md"
 VLM_PARAMS_PATH = VLM_CORE_DIR / "vlm_params.json"
 
 VLM_PARAMS_KEYS = (

@@ -1,63 +1,20 @@
 """Prompt builders for the empty-context LLM evaluator.
 
-Loads system and user templates from ``evaluator_prompt.md`` next to this module.
-The markdown file intentionally excludes synopsis text and upstream pipeline
-artifacts. Placeholders are filled at runtime with score bounds, rubrics,
-weights, title, and profile JSON.
+Loads system and user templates from ``stages/prompts``.
+Placeholders are filled at runtime with score bounds, rubrics, weights,
+title, and profile JSON. Synopsis text and pipeline evidence are not used.
 """
 
 from __future__ import annotations
 
 import json
-from functools import lru_cache
-from pathlib import Path
 from typing import Any, Dict
 
 from open_enricher.stages.evaluator_core import criteria as C
+from open_enricher.stages.prompt_load import PROMPTS_DIR, fill_prompt, load_prompt
 
-_PROMPT_PATH = Path(__file__).resolve().parent / "evaluator_prompt.md"
-
-
-@lru_cache(maxsize=1)
-def _load_sections() -> Dict[str, str]:
-    """
-    Parse ``evaluator_prompt.md`` into named sections.
-
-    Expected headings are ``## System`` and ``## User``. Content under each
-    heading is kept verbatim (placeholders still present).
-
-    Returns:
-        Mapping of lowercased section name to template body.
-
-    Raises:
-        FileNotFoundError: When the markdown file is missing.
-        ValueError: When a required section is absent.
-    """
-    if not _PROMPT_PATH.is_file():
-        raise FileNotFoundError(f"Evaluator prompt file not found: {_PROMPT_PATH}")
-
-    sections: Dict[str, list[str]] = {}
-    current: str | None = None
-    for line in _PROMPT_PATH.read_text(encoding="utf-8").splitlines():
-        if line.startswith("## "):
-            current = line[3:].strip().lower()
-            sections[current] = []
-            continue
-        if current is None:
-            continue
-        sections[current].append(line)
-
-    result = {
-        name: "\n".join(lines).strip()
-        for name, lines in sections.items()
-        if name in ("system", "user")
-    }
-    if "system" not in result or "user" not in result:
-        raise ValueError(
-            f"evaluator_prompt.md must define ## System and ## User sections "
-            f"(found: {sorted(sections)})"
-        )
-    return result
+_SYSTEM_PATH = PROMPTS_DIR / "evaluator_system_prompt.md"
+_USER_PATH = PROMPTS_DIR / "evaluator_user_prompt.md"
 
 
 def _format_rubrics() -> str:
@@ -74,33 +31,15 @@ def _format_weights() -> str:
     )
 
 
-def _fill(template: str, mapping: Dict[str, str]) -> str:
-    """
-    Replace ``{{KEY}}`` placeholders in a template.
-
-    Args:
-        template: Markdown section body.
-        mapping: Placeholder name to replacement string.
-
-    Returns:
-        Filled template with placeholders substituted.
-    """
-    text = template
-    for key, value in mapping.items():
-        text = text.replace("{{" + key + "}}", value)
-    return text
-
-
 def system_prompt() -> str:
     """
     Return the system message for a fresh evaluator conversation.
 
     Returns:
-        Instruction string loaded from ``evaluator_prompt.md`` with rubrics and
-        score bounds filled in.
+        Instruction string with rubrics and score bounds filled in.
     """
-    return _fill(
-        _load_sections()["system"],
+    return fill_prompt(
+        load_prompt("evaluator_system_prompt.md"),
         {
             "SCORE_MIN": str(C.SCORE_MIN),
             "SCORE_MAX": str(C.SCORE_MAX),
@@ -119,12 +58,11 @@ def user_prompt(*, title: str, profile: Dict[str, Any]) -> str:
         profile: Parsed ``VideoProfile`` dict from the LLM stage.
 
     Returns:
-        User content string from ``evaluator_prompt.md`` with title and profile
-        JSON substituted.
+        User content with title and profile JSON substituted.
     """
     profile_json = json.dumps(profile, ensure_ascii=False, indent=2)
-    return _fill(
-        _load_sections()["user"],
+    return fill_prompt(
+        load_prompt("evaluator_user_prompt.md"),
         {
             "TITLE": title,
             "PROFILE_JSON": profile_json,

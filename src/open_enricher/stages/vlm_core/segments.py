@@ -13,6 +13,7 @@ from typing import Any
 from open_enricher import storage
 from open_enricher.logging_setup import get_logger
 from open_enricher.stages.pipeline_spec import PipelineSpec, load_pipeline_spec
+from open_enricher.stages.prompt_load import fill_prompt, load_prompt
 from open_enricher.stages.vlm_core.config import MetadataConfig, ModelConfig
 from open_enricher.stages.vlm_core.model import extract_metadata, load_model, unload_model
 from open_enricher.stages.vlm_core.video import clip_video_range
@@ -184,17 +185,17 @@ def _memory_block(prior: list[dict[str, Any]], *, compact: bool) -> str:
                     f"{segment.get('start_time')}-{segment.get('end_time')}: {desc[:180]}"
                 )
         body = "\n".join(lines)
-        return (
-            "\nEarlier scenes already described (one line each; trust frames if they disagree):\n"
-            f"{body}\n"
-        )
+        return "\n" + fill_prompt(
+            load_prompt("segment_memory_compact.md"),
+            {"BODY": body},
+        ) + "\n"
     body = json.dumps(prior, ensure_ascii=False, separators=(",", ":"))
     if len(body) > 6000:
         return _memory_block(prior, compact=True)
-    return (
-        "\nJSON for earlier scenes already described. Keep continuity; trust frames if they disagree:\n"
-        f"{body}\n"
-    )
+    return "\n" + fill_prompt(
+        load_prompt("segment_memory_json.md"),
+        {"BODY": body},
+    ) + "\n"
 
 
 def _segment_prompt(
@@ -208,37 +209,45 @@ def _segment_prompt(
     dialogue_summary: str,
     rolling_plot: str,
 ) -> str:
-    extra = ""
+    extras: list[str] = []
     if inject_evidence and dialogue:
-        extra += (
-            "\nSpoken lines from this window only. Use a name only if it appears here. "
-            f"Do not resolve contradictions:\n{dialogue}\n"
+        extras.append(
+            fill_prompt(
+                load_prompt("segment_dialogue_extra.md"),
+                {"DIALOGUE": dialogue},
+            )
         )
     if inject_evidence and colors:
-        extra += (
-            "\nSampled hex colors from this window. Mention one only when it matches "
-            f"the light you see: {colors}\n"
+        extras.append(
+            fill_prompt(
+                load_prompt("segment_colors_extra.md"),
+                {"COLORS": colors},
+            )
         )
     if dialogue_summary:
-        extra += (
-            "\nEpisode dialogue summary (whole file). Use for plot context only; "
-            f"describe this window from the frames:\n{dialogue_summary}\n"
+        extras.append(
+            fill_prompt(
+                load_prompt("segment_dialogue_summary_extra.md"),
+                {"DIALOGUE_SUMMARY": dialogue_summary},
+            )
         )
     if rolling_plot:
-        extra += (
-            "\nRolling plot state so far (may be incomplete):\n"
-            f"{rolling_plot}\n"
+        extras.append(
+            fill_prompt(
+                load_prompt("segment_rolling_plot_extra.md"),
+                {"ROLLING_PLOT": rolling_plot},
+            )
         )
     if memory:
-        extra += memory
-    return (
-        f"These frames are only {_clock(start)} to {_clock(end)} of a longer file. "
-        "Describe what is visible in this window. Do not describe other parts of the file. "
-        "Return one JSON object and no other text, with these keys: "
-        "description (string), subjects_and_objects (list of strings), actions (list of strings), "
-        "camera_and_shot (string), lighting_and_color (string), on_screen_text (list of strings). "
-        "lighting_and_color describes the image. on_screen_text is empty when nothing is readable."
-        f"{extra}"
+        extras.append(memory.strip())
+    extra = ("\n\n" + "\n\n".join(extras)) if extras else ""
+    return fill_prompt(
+        load_prompt("segment_window_prompt.md"),
+        {
+            "START": _clock(start),
+            "END": _clock(end),
+            "EXTRA": extra,
+        },
     )
 
 
@@ -261,18 +270,22 @@ def _update_rolling_plot(previous: str, segment: dict[str, Any]) -> str:
     if not description:
         return previous
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    system_prompt = (
-        "You maintain a rolling plot summary for a cataloguer watching an episode in order. "
-        "Write plain prose of at most 150 words. No JSON or markdown."
-    )
-    user_prompt = (
-        f"Previous plot state:\n{previous or '(none yet)'}\n\n"
-        f"New scene {_clock_from_segment(segment)}:\n{description}\n\n"
-        "Update the plot state. Keep names only when the new scene supports them."
-    )
     messages = [
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": user_prompt},
+        {
+            "role": "system",
+            "content": load_prompt("rolling_plot_system_prompt.md"),
+        },
+        {
+            "role": "user",
+            "content": fill_prompt(
+                load_prompt("rolling_plot_user_prompt.md"),
+                {
+                    "PREVIOUS": previous or "(none yet)",
+                    "SCENE_CLOCK": _clock_from_segment(segment),
+                    "DESCRIPTION": description,
+                },
+            ),
+        },
     ]
     model_id = "Qwen/Qwen3-8B"
     logger.info(f"Updating rolling plot with {model_id}...")

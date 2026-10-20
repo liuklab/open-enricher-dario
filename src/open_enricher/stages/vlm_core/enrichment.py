@@ -17,6 +17,7 @@ from typing import Any
 from open_enricher import storage
 from open_enricher.logging_setup import get_logger
 from open_enricher.stages.pipeline_spec import load_pipeline_spec
+from open_enricher.stages.prompt_load import fill_prompt, load_prompt
 from open_enricher.timings import TimingRecorder
 
 logger = get_logger(__name__)
@@ -33,6 +34,24 @@ COLOR_BUCKET_SECONDS = 300
 SUMMARY_MAX_NEW_TOKENS = 420
 
 _THINK_RE = re.compile(r"<think>.*?</think>", flags=re.DOTALL)
+
+
+def dialogue_summary_system_prompt() -> str:
+    """Return the system message for the dialogue summary model."""
+    return load_prompt("dialogue_summary_system_prompt.md")
+
+
+def dialogue_summary_user_prompt(transcript: str) -> str:
+    """
+    Return the user message with the (possibly sampled) transcript inserted.
+
+    Args:
+        transcript: Formatted Whisper lines, possibly thinned in the middle.
+    """
+    return fill_prompt(
+        load_prompt("dialogue_summary_user_prompt.md"),
+        {"TRANSCRIPT": transcript},
+    )
 
 
 def _clock(seconds: float) -> str:
@@ -177,21 +196,9 @@ def summarize_transcript(
         raise ValueError("Transcript passed to the summary model is empty")
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    system_prompt = (
-        "You summarize television dialogue for a cataloguer who will also see sparse video frames. "
-        "Write plain prose. Do not use JSON, lists of timestamps, or markdown."
-    )
-    user_prompt = (
-        "The lines below are a Whisper transcript. Some middle lines may have been sampled out.\n\n"
-        f"{transcript}\n\n"
-        "Write 150 to 220 words. Cover the opening, the middle, and the ending. "
-        "Name people only when a speaker or the dialogue names them. "
-        "Mention places, conflicts, and what the characters are trying to do. "
-        "Do not invent events that the transcript does not support."
-    )
     messages = [
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": user_prompt},
+        {"role": "system", "content": dialogue_summary_system_prompt()},
+        {"role": "user", "content": dialogue_summary_user_prompt(transcript)},
     ]
 
     logger.info(f"Loading {SUMMARY_MODEL_ID} to summarize the Whisper transcript...")

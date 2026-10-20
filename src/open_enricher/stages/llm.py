@@ -16,6 +16,13 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 from open_enricher import storage
 from open_enricher.logging_setup import get_logger
+from open_enricher.stages.llm_core.prompt import (
+    claim_check_system_prompt,
+    claim_check_user_prompt,
+    profile_repair_user_prompt,
+    profile_system_prompt,
+    profile_user_prompt,
+)
 from open_enricher.stages.pipeline_spec import load_pipeline_spec
 from open_enricher.stages.video_profile import VideoProfile
 from open_enricher.timings import TimingRecorder
@@ -138,20 +145,9 @@ class LLMStage:
         if summary_path.is_file():
             evidence["dialogue_summary"] = summary_path.read_text(encoding="utf-8")[:5000]
 
-        system_prompt = (
-            "You are a strict JSON editor for a Video Recommender System. "
-            "Rewrite unsupported claims in the profile using only the provided evidence. "
-            "Output ONLY a valid JSON object matching the profile schema."
-        )
-        user_prompt = (
-            "Evidence (timeline and dialogue summary produced by the pipeline, not a human synopsis):\n"
-            f"{json.dumps(evidence, separators=(',', ':'), ensure_ascii=False)}\n\n"
-            "Return the corrected VideoProfile JSON. Keep the same keys. "
-            "Remove or soften statements the evidence does not support."
-        )
         messages = [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt},
+            {"role": "system", "content": claim_check_system_prompt()},
+            {"role": "user", "content": claim_check_user_prompt(evidence=evidence)},
         ]
         logger.info("Running claim-check pass on the profile...")
         with timing.span("llm_claim_check", model_id=self.model_id):
@@ -209,33 +205,6 @@ class LLMStage:
             },
         }
 
-        system_prompt = (
-            "You are a strict JSON generator for a Video Recommender System. "
-            "Output ONLY a valid JSON object matching the exact structure requested. "
-            "Never include explanations or markdown blocks."
-        )
-
-        user_prompt = (
-            f"Analyze the following available video metadata:\n{script_text}\n\n"
-            "Hard limits, which override any longer list in the metadata:\n"
-            "- recsys_metadata.primary_genre is exactly one of: Action, Adventure, Animation, "
-            "Comedy, Crime, Documentary, Drama, Education, Fantasy, Horror, Music, Mystery, "
-            "News, Romance, Sci-Fi, Science Fiction, Sports, Thriller, Vlog, Western.\n"
-            "- recsys_metadata.pacing is exactly one of: Fast, Moderate, Slow.\n"
-            "- recsys_metadata.sub_genres has 1 to 4 items. recsys_metadata.mood has 1 to 4 items.\n"
-            "- search_and_discovery.semantic_tags has 3 to 6 items. "
-            "search_and_discovery.main_topics has 1 to 4 items.\n"
-            "- audience_profiling.viewer_interests has 1 to 4 items.\n"
-            "- audience_profiling.target_age_group is exactly one of: All Ages, Children, Teens, "
-            "Young Adults, Gen Z, Millennials, Adults, Family. Do not join two labels with 'and'.\n"
-            "- content_summary.visual_style is one sentence and must mention the dominant palette "
-            "when the metadata describes dark, near-black, or night colors.\n"
-            "- content_summary.narrative_hook is one sentence. Do not say a missing person was "
-            "found alive unless the metadata says that without contradiction.\n"
-            "- Use spoken names only when the metadata already contains them.\n\n"
-            f"Populate this exact JSON structure:\n{json.dumps(example_structure, indent=2)}"
-        )
-
         logger.info(f"Loading textual LLM: {self.model_id} in 4-bit...")
         quantization_config = BitsAndBytesConfig(
             load_in_4bit=True,
@@ -253,8 +222,14 @@ class LLMStage:
             )
 
         messages = [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt},
+            {"role": "system", "content": profile_system_prompt()},
+            {
+                "role": "user",
+                "content": profile_user_prompt(
+                    script_text=script_text,
+                    example_structure=example_structure,
+                ),
+            },
         ]
 
         final_json = None
@@ -279,10 +254,7 @@ class LLMStage:
                     messages.append(
                         {
                             "role": "user",
-                            "content": (
-                                f"Your JSON failed schema validation with error:\n{err}\n"
-                                "Fix the JSON and output ONLY the corrected valid JSON object."
-                            ),
+                            "content": profile_repair_user_prompt(error=err),
                         }
                     )
 

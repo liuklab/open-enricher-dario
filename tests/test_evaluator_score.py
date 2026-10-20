@@ -91,14 +91,15 @@ class TestEvaluatorHelpers(unittest.TestCase):
         self.assertNotIn("transcript", user.lower())
 
     def test_prompt_loaded_from_markdown(self) -> None:
-        from open_enricher.stages.evaluator_core.prompt import _PROMPT_PATH
+        from open_enricher.stages.evaluator_core.prompt import _SYSTEM_PATH, _USER_PATH
 
-        self.assertTrue(_PROMPT_PATH.is_file())
-        text = _PROMPT_PATH.read_text(encoding="utf-8")
-        self.assertIn("## System", text)
-        self.assertIn("## User", text)
-        self.assertIn("{{TITLE}}", text)
-        self.assertIn("{{PROFILE_JSON}}", text)
+        self.assertTrue(_SYSTEM_PATH.is_file())
+        self.assertTrue(_USER_PATH.is_file())
+        system_text = _SYSTEM_PATH.read_text(encoding="utf-8")
+        user_text = _USER_PATH.read_text(encoding="utf-8")
+        self.assertIn("{{SCORE_MIN}}", system_text)
+        self.assertIn("{{TITLE}}", user_text)
+        self.assertIn("{{PROFILE_JSON}}", user_text)
 
 
 if __name__ == "__main__":
