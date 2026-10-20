@@ -161,7 +161,7 @@ def primary_artifact_path(stage: str, video_filename: str) -> Path:
 
     Args:
         stage: Pipeline stage name.
-        video_filename: Exact file name under ``Video-Inputs``.
+        video_filename: Exact file name under ``video_inputs``.
 
     Returns:
         Path under the active experiment output folder.
@@ -176,7 +176,7 @@ def stage_output_exists(stage: str, video_filename: str) -> bool:
 
     Args:
         stage: Pipeline stage name.
-        video_filename: Exact file name under ``Video-Inputs``.
+        video_filename: Exact file name under ``video_inputs``.
 
     Returns:
         True when the expected JSON file is present and non-empty.
@@ -191,7 +191,7 @@ def _artifact_globs(stage: str, video_filename: str) -> list[str]:
 
     Args:
         stage: Pipeline stage name.
-        video_filename: Exact file name under ``Video-Inputs``.
+        video_filename: Exact file name under ``video_inputs``.
 
     Returns:
         Glob patterns relative to the stage output directory.
@@ -235,7 +235,7 @@ def restore_cached_stage(
 
     Args:
         stage: Must be a cacheable stage (audio or color).
-        video_filename: Exact file name under ``Video-Inputs``.
+        video_filename: Exact file name under ``video_inputs``.
         cache_root: Directory holding per-video cache folders.
 
     Returns:
@@ -272,7 +272,7 @@ def save_stage_to_cache(
 
     Args:
         stage: Must be a cacheable stage (audio or color).
-        video_filename: Exact file name under ``Video-Inputs``.
+        video_filename: Exact file name under ``video_inputs``.
         cache_root: Directory holding per-video cache folders.
 
     Side effects:
@@ -300,7 +300,7 @@ def list_videos(video_names: Sequence[str] | None = None) -> list[str]:
             file in ``db.video_inputs`` is used (sorted).
 
     Returns:
-        Sorted list of video filenames that exist under ``Video-Inputs``.
+        Sorted list of video filenames that exist under ``video_inputs``.
 
     Raises:
         FileNotFoundError: When the input directory is missing, no videos
@@ -339,7 +339,7 @@ def run_pipeline(
     Execute the requested stages for one video in process.
 
     Args:
-        video_filename: Exact file name under ``Video-Inputs``.
+        video_filename: Exact file name under ``video_inputs``.
         stages: Ordered stage names to run.
         stage_registry: Optional pre-built registry. Built on demand otherwise.
         cache_root: Shared cache for audio and color. When None, caching is
@@ -415,7 +415,7 @@ def collect_artifacts(video_filename: str, stages: Iterable[str] = PIPELINE_STAG
     List existing artifact paths for a video across the given stages.
 
     Args:
-        video_filename: Exact file name under ``Video-Inputs``.
+        video_filename: Exact file name under ``video_inputs``.
         stages: Stage names whose artifacts should be collected.
 
     Returns:
@@ -446,7 +446,7 @@ def archive_artifacts(
     Copy stage artifacts for one video into an archive directory.
 
     Args:
-        video_filename: Exact file name under ``Video-Inputs``.
+        video_filename: Exact file name under ``video_inputs``.
         dest_dir: Destination folder (created if needed).
         stages: Stage names to archive.
 
@@ -477,7 +477,7 @@ def load_judger_score(video_filename: str) -> dict[str, Any] | None:
     Load the judger report for a video when present.
 
     Args:
-        video_filename: Exact file name under ``Video-Inputs``.
+        video_filename: Exact file name under ``video_inputs``.
 
     Returns:
         Parsed JSON document, or None when the report is missing or invalid.

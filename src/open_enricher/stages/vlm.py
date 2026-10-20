@@ -82,7 +82,7 @@ class VLMStage:
         Run segmented VLM inference and persist JSON plus sidecar files.
 
         Args:
-            video_filename: Exact file name under ``Video-Inputs``.
+            video_filename: Exact file name under ``video_inputs``.
 
         Returns:
             Status dict with output file names and parse success flags.

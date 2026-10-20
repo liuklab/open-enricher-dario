@@ -5,7 +5,7 @@ This round runs on branch `local`. Each experiment points the process at one var
 ## Prerequisites
 
 1. CUDA-capable GPU with enough VRAM for WhisperX, Qwen3-VL-8B (4-bit), and Qwen3-8B (4-bit).
-2. Videos under `data/Video-Inputs/` (or `OPEN_ENRICHER_VIDEO_INPUTS`).
+2. Videos under `data/video_inputs/` (or `OPEN_ENRICHER_VIDEO_INPUTS`).
 3. `.env` with `HF_TOKEN` when gated weights are required.
 
 ```bash
@@ -32,7 +32,7 @@ python -m open_enricher --video Stranger_Things.S01E03.mkv Suits.S01E02.mkv
 
 ## What happens per variant
 
-1. Set `OPEN_ENRICHER_PIPELINE_SPEC` to the variant file and namespace outputs under `Outputs/local/<experiment_id>/`.
+1. Set `OPEN_ENRICHER_PIPELINE_SPEC` to the variant file and namespace outputs under `outputs/local/<experiment_id>/`.
 2. For each video, run `audio -> color -> vlm -> llm -> judger` via `open_enricher.runner`.
 3. Restore audio/color from `runs/local/_cache/<video>/` when present; refresh the cache after a fresh run.
 4. Copy artifacts into `runs/local/<experiment_id>/<video>/`, write `score.json` from the judger report, and append `progress.jsonl`.

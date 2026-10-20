@@ -24,7 +24,7 @@ CACHE_ROOT = RUNS_ROOT / "_cache"
 # Append-only resume log for the experiment loop.
 PROGRESS_PATH = RUNS_ROOT / "progress.jsonl"
 
-# Round prefix written into the data lake under Outputs/.
+# Round prefix written into the data lake under outputs/.
 EXPERIMENT_PREFIX = "local"
 
 # Stages executed for each local experiment (includes deterministic judger).

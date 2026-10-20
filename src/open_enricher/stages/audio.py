@@ -59,7 +59,7 @@ class AudioStage:
         Transcribe one video and write dialogue JSON into the data lake.
 
         Args:
-            video_filename: Exact file name under ``Video-Inputs``.
+            video_filename: Exact file name under ``video_inputs``.
 
         Returns:
             Status dict with line count, output file name, and timings.

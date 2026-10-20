@@ -60,7 +60,7 @@ class ColorStage:
         Extract keyframes and dominant colors for one video.
 
         Args:
-            video_filename: Exact file name under ``Video-Inputs``.
+            video_filename: Exact file name under ``video_inputs``.
 
         Returns:
             Status dict with output file name and timings.

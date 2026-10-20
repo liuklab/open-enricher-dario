@@ -155,7 +155,7 @@ def _activate_variant(variant_path: Path, experiment_id: str) -> None:
 
     Args:
         variant_path: Absolute path to the variant JSON file.
-        experiment_id: Id used under ``Outputs/<prefix>/<id>/``.
+        experiment_id: Id used under ``outputs/<prefix>/<id>/``.
 
     Side effects:
         Sets ``OPEN_ENRICHER_PIPELINE_SPEC``, ``OPEN_ENRICHER_EXPERIMENT_ID``,
@@ -181,7 +181,7 @@ def run_one_experiment(
 
     Args:
         variant_path: Path to the variant JSON file.
-        videos: Video filenames under the data lake ``Video-Inputs``.
+        videos: Video filenames under the data lake ``video_inputs``.
         stages: Ordered stage names to execute.
         use_cache: Reuse shared audio/color cache when available.
         skip_done: Skip the experiment when progress already marks it archived.
@@ -298,7 +298,7 @@ def run_loop(
         only: Optional list of experiment ids or variant stems to run.
         from_id: When set without ``only``, start at this id and continue.
         videos: Optional explicit video filenames. Defaults to every file in
-            ``Video-Inputs``.
+            ``video_inputs``.
         stages: Ordered stage names for each run.
         use_cache: Reuse shared audio/color cache when available.
         skip_done: Skip experiments already marked archived in progress.jsonl.
@@ -383,7 +383,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--video",
         nargs="+",
         dest="videos",
-        help="Video filenames under Video-Inputs. Default: every file there.",
+        help="Video filenames under video_inputs. Default: every file there.",
     )
     parser.add_argument(
         "--stages",

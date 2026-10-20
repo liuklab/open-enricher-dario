@@ -36,7 +36,7 @@ def test_build_parser_has_local_flags() -> None:
 
 def test_list_videos_missing_file(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     """Missing video names raise FileNotFoundError without network access."""
-    video_dir = tmp_path / "Video-Inputs"
+    video_dir = tmp_path / "video_inputs"
     video_dir.mkdir()
     (video_dir / "present.mkv").write_bytes(b"fake")
     monkeypatch.setenv("OPEN_ENRICHER_DATA_ROOT", str(tmp_path))
@@ -54,7 +54,7 @@ def test_run_pipeline_rejects_missing_video(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     """``run_pipeline`` fails fast when the video file is not on disk."""
-    video_dir = tmp_path / "Video-Inputs"
+    video_dir = tmp_path / "video_inputs"
     video_dir.mkdir()
     monkeypatch.setenv("OPEN_ENRICHER_DATA_ROOT", str(tmp_path))
     monkeypatch.setenv("OPEN_ENRICHER_VIDEO_INPUTS", str(video_dir))
@@ -70,13 +70,13 @@ def test_run_pipeline_rejects_missing_video(
 def test_primary_artifact_path_uses_experiment_namespace(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    """Artifact paths land under Outputs/<prefix>/<experiment_id>/."""
+    """Artifact paths land under outputs/<prefix>/<experiment_id>/."""
     monkeypatch.setenv("OPEN_ENRICHER_DATA_ROOT", str(tmp_path))
     monkeypatch.setenv("OPEN_ENRICHER_EXPERIMENT_PREFIX", "local")
     monkeypatch.setenv("OPEN_ENRICHER_EXPERIMENT_ID", "01-interval-llm")
     db.refresh()
     path = primary_artifact_path("llm", "episode.mkv")
-    assert "Outputs" in path.parts
+    assert "outputs" in path.parts
     assert "local" in path.parts
     assert "01-interval-llm" in path.parts
     assert path.name == "episode.mkv_llm.json"

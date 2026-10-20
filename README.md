@@ -31,18 +31,18 @@ Default layout under `data/` (override with `OPEN_ENRICHER_DATA_ROOT`):
 
 ```text
 data/
-├── Models-Cache/
-├── Video-Inputs/          # put source videos here
-└── Outputs/
+├── models_cache/
+├── video_inputs/          # put source videos here
+└── outputs/
     └── local/<experiment_id>/
-        ├── Audio-Results/
-        ├── Color-Results/
-        ├── VLMs-Results/
-        ├── LLMs-Results/
-        └── Judger-Results/
+        ├── audio_results/
+        ├── color_results/
+        ├── vlms_results/
+        ├── llms_results/
+        └── judger_results/
 ```
 
-Put episode files in `data/Video-Inputs/` before running.
+Put episode files in `data/video_inputs/` before running.
 
 ## Run one video through all stages
 

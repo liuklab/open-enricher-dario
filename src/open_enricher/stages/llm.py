@@ -165,7 +165,7 @@ class LLMStage:
         Fuse upstream metadata into a validated VideoProfile JSON file.
 
         Args:
-            video_filename: Exact file name under ``Video-Inputs``.
+            video_filename: Exact file name under ``video_inputs``.
 
         Returns:
             Status dict. On success includes the profile and output file name.

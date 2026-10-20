@@ -23,7 +23,7 @@ class PipelineStage(Protocol):
         Execute the stage logic for one video.
 
         Args:
-            video_filename: Exact name of the file in the Video-Inputs folder.
+            video_filename: Exact name of the file in the video_inputs folder.
 
         Returns:
             A JSON-serializable dictionary with execution metadata. Successful

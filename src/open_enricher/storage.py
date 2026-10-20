@@ -6,7 +6,7 @@ downloaded model weights, and per-stage JSON or frame outputs.
 Default root is ``<repository>/data``. Override with
 ``OPEN_ENRICHER_DATA_ROOT`` or point videos elsewhere with
 ``OPEN_ENRICHER_VIDEO_INPUTS``. When ``OPEN_ENRICHER_EXPERIMENT_ID`` is set,
-stage outputs go under ``Outputs/<prefix>/<experiment_id>/`` so sequential
+stage outputs go under ``outputs/<prefix>/<experiment_id>/`` so sequential
 experiment runs do not overwrite each other.
 """
 
@@ -52,17 +52,17 @@ def video_input_dir(root: Path) -> Path:
         root: Data lake root from ``data_root()``.
 
     Returns:
-        ``OPEN_ENRICHER_VIDEO_INPUTS`` when set, otherwise ``root/Video-Inputs``.
+        ``OPEN_ENRICHER_VIDEO_INPUTS`` when set, otherwise ``root/video_inputs``.
     """
     override = os.environ.get("OPEN_ENRICHER_VIDEO_INPUTS")
     if override:
         return Path(override)
-    return root / "Video-Inputs"
+    return root / "video_inputs"
 
 
 def experiment_prefix() -> str:
     """
-    Return the round prefix used under ``Outputs/``.
+    Return the round prefix used under ``outputs/``.
 
     Defaults to ``local`` so archived runs line up with ``runs/local/``.
     Override with ``OPEN_ENRICHER_EXPERIMENT_PREFIX``.
@@ -72,10 +72,10 @@ def experiment_prefix() -> str:
 
 def experiment_id() -> str:
     """
-    Return the active experiment id, or empty for the shared Outputs tree.
+    Return the active experiment id, or empty for the shared outputs tree.
 
-    When empty, stage folders sit directly under ``Outputs/``. When set, they
-    sit under ``Outputs/<prefix>/<id>/``.
+    When empty, stage folders sit directly under ``outputs/``. When set, they
+    sit under ``outputs/<prefix>/<id>/``.
     """
     return os.environ.get("OPEN_ENRICHER_EXPERIMENT_ID", "").strip()
 
@@ -109,9 +109,9 @@ class DatabaseManager:
         experiment namespace.
         """
         self.root = data_root()
-        self.models_cache = self.root / "Models-Cache"
+        self.models_cache = self.root / "models_cache"
         self.video_inputs = video_input_dir(self.root)
-        self.outputs = self.root / "Outputs"
+        self.outputs = self.root / "outputs"
         self.hf_cache = self.models_cache / "huggingface"
         self.torch_cache = self.models_cache / "torch"
         self._rebuild_stage_folders()
@@ -128,11 +128,11 @@ class DatabaseManager:
         else:
             base = self.outputs
         self.stage_folders = {
-            "audio": base / "Audio-Results",
-            "color": base / "Color-Results",
-            "vlm": base / "VLMs-Results",
-            "llm": base / "LLMs-Results",
-            "judger": base / "Judger-Results",
+            "audio": base / "audio_results",
+            "color": base / "color_results",
+            "vlm": base / "vlms_results",
+            "llm": base / "llms_results",
+            "judger": base / "judger_results",
         }
         self.experiment_log = base / "worker.log" if exp else self.outputs / "worker.log"
 
@@ -156,7 +156,7 @@ class DatabaseManager:
         self.hf_cache.mkdir(exist_ok=True)
         self.torch_cache.mkdir(exist_ok=True)
         self.outputs.mkdir(parents=True, exist_ok=True)
-        if self.video_inputs == self.root / "Video-Inputs":
+        if self.video_inputs == self.root / "video_inputs":
             self.video_inputs.mkdir(parents=True, exist_ok=True)
         elif not self.video_inputs.is_dir():
             raise FileNotFoundError(
