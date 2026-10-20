@@ -1,8 +1,7 @@
 """Pydantic schema for the final RecSys video profile.
 
-Shared by the LLM stage (writer) and the Judger stage (reader) so the scored
-shape cannot drift from the generated shape. Depends only on pydantic, not
-torch, so the judger and its tests stay CPU-only and deterministic.
+Shared by the LLM stage (writer) and the judger stage (reader) so the scored
+shape cannot drift from the generated shape. Depends only on pydantic.
 """
 
 from __future__ import annotations

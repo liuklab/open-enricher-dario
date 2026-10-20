@@ -1,146 +1,104 @@
-"""Dependency-free tests for the deterministic metadata judger.
+"""GPU-free tests for LLM judger helpers (title, weights, report assembly).
 
-Requires only pydantic (already a project dependency). No Drive, no GPU, no torch.
-Run from the repository root:
+Does not load torch or call a model. Run from the repository root:
 
-    PYTHONPATH=src python -m unittest tests.test_judger_score -v
+    PYTHONPATH=src python -m pytest tests/test_judger_score.py -q
 """
 
 from __future__ import annotations
 
-import copy
 import unittest
 
-from open_enricher.stages.judger_core.score import score_profile
+from open_enricher.stages.judger_core import criteria as C
+from open_enricher.stages.judger_core.prompt import system_prompt, user_prompt
+from open_enricher.stages.judger_core.score import (
+    build_report,
+    failed_report,
+    title_from_filename,
+    weighted_overall,
+)
 
 
-def _grounded_profile() -> dict:
-    """Filled profile whose tokens overlap the evidence below."""
-    return {
-        "recsys_metadata": {
-            "primary_genre": "Drama",
-            "sub_genres": ["Mystery", "Thriller"],
-            "pacing": "Moderate",
-            "mood": ["tense", "eerie"],
-        },
-        "search_and_discovery": {
-            "semantic_tags": ["teenagers", "forest", "police", "hospital"],
-            "main_topics": ["teenagers", "mysterious events"],
-        },
-        "audience_profiling": {
-            "target_age_group": "Young Adults",
-            "viewer_interests": ["supernatural mystery", "ensemble drama"],
-        },
-        "content_summary": {
-            "visual_style": "Dim warm lighting with dark forest greens and muted blues",
-            "narrative_hook": "Teenagers navigate eerie forest events while police investigate.",
-        },
-    }
-
-
-def _generic_profile() -> dict:
-    """Schema-valid but thin: placeholders, empty lists, and generic fillers."""
-    return {
-        "recsys_metadata": {
-            "primary_genre": "n/a",
-            "sub_genres": [],
-            "pacing": "Moderate",
-            "mood": [],
-        },
-        "search_and_discovery": {
-            "semantic_tags": ["video", "scene", "content"],
-            "main_topics": ["various things"],
-        },
-        "audience_profiling": {
-            "target_age_group": "unknown",
-            "viewer_interests": ["stuff"],
-        },
-        "content_summary": {
-            "visual_style": "nice video",
-            "narrative_hook": "something happens in the video",
-        },
-    }
-
-
-def _evidence() -> dict:
-    return {
-        "audio": [
-            {
-                "start_timestamp": 0.0,
-                "end_timestamp": 2.5,
-                "speaker": "SPEAKER_00",
-                "text": "The teenagers went into the dark forest near the hospital.",
-            }
-        ],
-        "color": [
-            {
-                "scene_id": 1,
-                "timestamp": 12.0,
-                "frame_file": "scene_1.jpg",
-                "color_palette": ["#284028", "#3c3c3c", "#5064c8"],
-            }
-        ],
-        "vlm": {
-            "short_summary": "Teenagers and police officers encounter eerie forest and hospital scenes.",
-            "tags": ["teenagers", "police", "forest"],
-            "mood": ["tense", "eerie"],
-            "setting": "dark forest and hospital corridor",
-            "genres": ["drama", "mystery"],
-        },
-    }
-
-
-class TestJudgerScore(unittest.TestCase):
-    def test_grounded_beats_generic_on_key_dimensions(self) -> None:
-        evidence = _evidence()
-        grounded = score_profile(_grounded_profile(), evidence, video="demo.mp4")
-        generic = score_profile(_generic_profile(), evidence, video="demo.mp4")
-
-        self.assertEqual(grounded["dimensions"]["accessibility"]["score"], 1.0)
-        self.assertEqual(generic["dimensions"]["accessibility"]["score"], 1.0)
-
-        self.assertGreater(
-            grounded["dimensions"]["completeness"]["score"],
-            generic["dimensions"]["completeness"]["score"],
+class TestJudgerHelpers(unittest.TestCase):
+    def test_title_from_filename(self) -> None:
+        self.assertEqual(
+            title_from_filename("Stranger_Things.S01E03.mkv"),
+            "Stranger Things S01E03",
         )
-        self.assertGreater(
-            grounded["dimensions"]["specificity"]["score"],
-            generic["dimensions"]["specificity"]["score"],
-        )
-        self.assertGreater(
-            grounded["dimensions"]["grounding"]["score"],
-            generic["dimensions"]["grounding"]["score"],
-        )
-        self.assertGreater(grounded["overall"], generic["overall"])
+        self.assertEqual(title_from_filename("Suits.S01E02.mkv"), "Suits S01E02")
 
-    def test_scoring_is_deterministic(self) -> None:
-        profile = _grounded_profile()
-        evidence = _evidence()
-        first = score_profile(profile, evidence, video="demo.mp4", profile_file="demo_llm.json")
-        second = score_profile(
-            copy.deepcopy(profile),
-            copy.deepcopy(evidence),
-            video="demo.mp4",
-            profile_file="demo_llm.json",
+    def test_weights_sum_to_one(self) -> None:
+        self.assertAlmostEqual(sum(C.DIMENSION_WEIGHTS.values()), 1.0, places=9)
+
+    def test_weighted_overall(self) -> None:
+        scores = {name: 5 for name in C.DIMENSION_ORDER}
+        overall, normalized = weighted_overall(scores)
+        self.assertEqual(overall, 5.0)
+        self.assertEqual(normalized, 1.0)
+
+        low = {name: 1 for name in C.DIMENSION_ORDER}
+        overall_low, normalized_low = weighted_overall(low)
+        self.assertEqual(overall_low, 1.0)
+        self.assertEqual(normalized_low, 0.0)
+
+    def test_build_report_applies_weights(self) -> None:
+        payload = {
+            "dimensions": {
+                "completeness": {"score": 5, "note": "full"},
+                "specificity": {"score": 4, "note": "ok"},
+                "fidelity": {"score": 5, "note": "matches title"},
+                "consistency": {"score": 4, "note": "ok"},
+                "recsys_usefulness": {"score": 5, "note": "useful"},
+            },
+            "summary": "Strong profile for the titled episode.",
+        }
+        report = build_report(
+            video_filename="Stranger_Things.S01E03.mkv",
+            title="Stranger Things S01E03",
+            profile_file="Stranger_Things.S01E03.mkv_llm.json",
+            llm_payload=payload,
         )
-        self.assertEqual(first, second)
-
-    def test_invalid_profile_zeroes_overall(self) -> None:
-        report = score_profile({"broken": True}, {}, video="bad.mp4")
-        self.assertEqual(report["dimensions"]["accessibility"]["score"], 0.0)
-        self.assertEqual(report["overall"], 0.0)
-        self.assertFalse(report["usable"])
-        self.assertIn("validation_error", report)
-
-    def test_usable_flag_on_grounded_profile(self) -> None:
-        report = score_profile(_grounded_profile(), _evidence(), video="demo.mp4")
-        self.assertTrue(report["method"]["deterministic"])
-        # Grounded fixture should clear the hypothesized usability gate.
+        self.assertFalse(report["method"]["uses_synopsis"])
+        self.assertFalse(report["method"]["uses_pipeline_evidence"])
+        self.assertEqual(report["title"], "Stranger Things S01E03")
         self.assertTrue(report["usable"])
-        self.assertGreaterEqual(
-            report["dimensions"]["completeness"]["score"],
-            report["thresholds"]["completeness"],
+        expected, _ = weighted_overall(
+            {name: report["dimensions"][name]["score"] for name in C.DIMENSION_ORDER}
         )
+        self.assertEqual(report["overall"], expected)
+
+    def test_failed_report_not_usable(self) -> None:
+        report = failed_report(
+            video_filename="demo.mkv",
+            title="demo",
+            profile_file=None,
+            error="missing profile",
+        )
+        self.assertFalse(report["usable"])
+        self.assertEqual(report["error"], "missing profile")
+        self.assertEqual(report["overall"], 1.0)
+
+    def test_prompt_excludes_synopsis_and_includes_title(self) -> None:
+        system = system_prompt()
+        self.assertIn("empty conversation", system.lower())
+        self.assertIn("Do NOT invent or request a synopsis", system)
+        user = user_prompt(
+            title="Stranger Things S01E03",
+            profile={"recsys_metadata": {"primary_genre": "Drama"}},
+        )
+        self.assertIn("Stranger Things S01E03", user)
+        self.assertNotIn("synopsis", user.lower())
+        self.assertNotIn("transcript", user.lower())
+
+    def test_prompt_loaded_from_markdown(self) -> None:
+        from open_enricher.stages.judger_core.prompt import _PROMPT_PATH
+
+        self.assertTrue(_PROMPT_PATH.is_file())
+        text = _PROMPT_PATH.read_text(encoding="utf-8")
+        self.assertIn("## System", text)
+        self.assertIn("## User", text)
+        self.assertIn("{{TITLE}}", text)
+        self.assertIn("{{PROFILE_JSON}}", text)
 
 
 if __name__ == "__main__":

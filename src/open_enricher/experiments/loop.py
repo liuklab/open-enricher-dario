@@ -121,7 +121,7 @@ def _write_stub_experiment_md(
             "",
             "## Quality",
             "",
-            "See each video folder's `score.json` (deterministic judger report).",
+            "See each video folder's `score.json` (LLM judger report with weighted overall).",
             "",
         ]
     )

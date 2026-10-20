@@ -31,5 +31,6 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 open_enricher = ["*.json", "*.md"]
-"open_enricher.stages" = ["pipeline_spec.json", "vlm_core/*.json"]
+"open_enricher.stages" = ["pipeline_spec.json", "vlm_core/*.json", "vlm_core/*.md"]
+"open_enricher.stages.judger_core" = ["*.md"]
 "open_enricher.experiments" = ["variants/*.json"]

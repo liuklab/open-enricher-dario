@@ -221,7 +221,11 @@ def _artifact_globs(stage: str, video_filename: str) -> list[str]:
             f"{video_filename}_llm_timings.json",
         ]
     if stage == "judger":
-        return [f"{video_filename}_judger.json"]
+        return [
+            f"{video_filename}_judger.json",
+            f"{video_filename}_judger_timings.json",
+            f"{video_filename}_judger_raw.txt",
+        ]
     return []
 
 

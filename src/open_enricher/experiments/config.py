@@ -27,6 +27,15 @@ PROGRESS_PATH = RUNS_ROOT / "progress.jsonl"
 # Round prefix written into the data lake under outputs/.
 EXPERIMENT_PREFIX = "local"
 
-# Stages executed for each local experiment (includes deterministic judger).
+# Stages executed for each local experiment (includes empty-context LLM judger).
 # Kept here (not imported from runner) so CLI --list stays free of torch/whisperx.
 PIPELINE_STAGES: tuple[str, ...] = ("audio", "color", "vlm", "llm", "judger")
+
+# Host-side judger weights (must match judger_core.criteria.DIMENSION_WEIGHTS).
+JUDGER_SCORE_WEIGHTS = {
+    "completeness": 0.15,
+    "specificity": 0.25,
+    "fidelity": 0.35,
+    "consistency": 0.10,
+    "recsys_usefulness": 0.15,
+}

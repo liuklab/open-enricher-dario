@@ -1,33 +1,56 @@
-"""Deterministic metadata quality assurance stage.
+"""LLM metadata quality judger with an empty conversation context.
 
-Fifth pipeline stage. Scores the RecSys ``VideoProfile`` from the LLM stage
-against upstream audio, color, and VLM evidence using explicit rules. No
-second model call: the same inputs always produce the same report.
-
-See ``docs/judger_references.md`` for the quality frameworks behind each
-dimension (Bruce and Hillmann, Ochoa and Duval, EU MQA, Park).
+Fifth pipeline stage. Loads Qwen3-8B fresh, sends only the title derived from
+the video file name and the VideoProfile JSON, and asks for per-dimension
+scores. No synopsis and no upstream audio/color/VLM evidence are passed.
+The host applies fixed weights to produce the final quality metric.
 """
 
 from __future__ import annotations
 
+import gc
 import json
-from typing import Any, Dict
+import re
+from typing import Any, Dict, List
 
-from open_enricher.stages.judger_core import score_profile
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
+
+from open_enricher.stages.judger_core import (
+    build_report,
+    failed_report,
+    title_from_filename,
+)
+from open_enricher.stages.judger_core.prompt import system_prompt, user_prompt
 from open_enricher.storage import db
+from open_enricher.timings import TimingRecorder
 
 
 class JudgerStage:
-    """Evaluates completeness, conformance, consistency, specificity, and grounding."""
+    """Score a VideoProfile with a fresh LLM chat and host-side weights."""
 
     name = "judger"
 
     def __init__(self) -> None:
-        # No model weights: this stage is CPU-only and deterministic.
-        pass
+        """
+        Configure device and model id for the judger LLM.
+
+        The model is loaded inside ``run`` and unloaded before return so each
+        experiment evaluation starts from an empty context and free VRAM.
+        """
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.model_id = "Qwen/Qwen3-8B"
 
     def _load_json(self, path) -> Any:
-        """Load a JSON file; return None when missing or unreadable."""
+        """
+        Load a JSON file; return None when missing or unreadable.
+
+        Args:
+            path: Filesystem path to a JSON document.
+
+        Returns:
+            Parsed object, or None on failure.
+        """
         if not path.exists():
             return None
         try:
@@ -37,66 +60,229 @@ class JudgerStage:
             print(f"[WARNING] Failed to parse {path.name}: {err}")
             return None
 
-    def _gather_evidence(self, video_filename: str) -> Dict[str, Any]:
-        """Collect upstream stage JSON the same way ``LLMStage._gather_metadata`` does."""
-        evidence: Dict[str, Any] = {}
-        expected_files = {
-            "audio": db.get_output_dir("audio") / f"{video_filename}_audio.json",
-            "color": db.get_output_dir("color") / f"{video_filename}_color.json",
-            "vlm": db.get_output_dir("vlm") / f"{video_filename}_vlm.json",
-        }
-        for stage_name, file_path in expected_files.items():
-            payload = self._load_json(file_path)
-            if payload is not None:
-                print(f"[INFO] Found evidence for stage: {stage_name}")
-                evidence[stage_name] = payload
-            else:
-                print(f"[INFO] No evidence found for stage: {stage_name}. Skipping.")
-        return evidence
+    def _clean_json_candidate(self, raw_text: str) -> str:
+        """
+        Isolate the JSON object between the first '{' and last '}'.
+
+        Args:
+            raw_text: Raw model completion, possibly wrapped in fences.
+
+        Returns:
+            Substring that should parse as a JSON object.
+        """
+        cleaned = re.sub(r"```(?:json)?", "", raw_text).strip()
+        start = cleaned.find("{")
+        end = cleaned.rfind("}")
+        if start != -1 and end != -1 and end > start:
+            return cleaned[start : end + 1]
+        return cleaned
+
+    def _generate_text(
+        self,
+        model: AutoModelForCausalLM,
+        tokenizer: AutoTokenizer,
+        messages: List[Dict[str, str]],
+        prefill: str = "{",
+        max_new_tokens: int = 700,
+    ) -> str:
+        """
+        Run a single-turn completion with assistant prefill forcing.
+
+        Args:
+            model: Loaded causal LM.
+            tokenizer: Matching tokenizer.
+            messages: Fresh chat (system + user only).
+            prefill: Forced assistant prefix (default ``{``).
+            max_new_tokens: Generation budget.
+
+        Returns:
+            Prefill plus decoded new tokens.
+        """
+        prompt_text = tokenizer.apply_chat_template(
+            messages,
+            tokenize=False,
+            add_generation_prompt=True,
+            enable_thinking=False,
+        )
+        forced_prompt = prompt_text + prefill
+        model_inputs = tokenizer([forced_prompt], return_tensors="pt").to(self.device)
+
+        with torch.no_grad():
+            generated_ids = model.generate(
+                **model_inputs,
+                max_new_tokens=max_new_tokens,
+                do_sample=False,
+                repetition_penalty=1.1,
+            )
+
+        new_tokens = generated_ids[0][len(model_inputs.input_ids[0]) :]
+        decoded = tokenizer.decode(new_tokens, skip_special_tokens=True)
+        return prefill + decoded
+
+    def _free_vram(self) -> None:
+        """Force garbage collection and clear the CUDA cache when available."""
+        gc.collect()
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
 
     def run(self, video_filename: str) -> Dict[str, Any]:
-        """Score ``<video>_llm.json`` and write ``<video>_judger.json``."""
-        print(f"[INFO] Starting Judger validation stage for {video_filename}")
+        """
+        Score ``<video>_llm.json`` with an empty-context LLM and write the report.
+
+        Args:
+            video_filename: Exact file name under ``video_inputs``. The stem is
+                turned into the title shown to the model.
+
+        Returns:
+            Status dict with overall score, usability flag, and output file name.
+            On failure, ``status`` is ``failed`` and a zeroed report may still
+            be written when possible.
+
+        Side effects:
+            Writes ``<video>_judger.json`` and ``<video>_judger_timings.json``
+            under ``judger_results``. Loads and unloads Qwen3-8B.
+        """
+        print(f"[INFO] Starting LLM judger stage for {video_filename}")
+        timing = TimingRecorder(self.name)
+        title = title_from_filename(video_filename)
+        print(f"[INFO] Judger title from filename: {title!r}")
 
         profile_path = db.get_output_dir("llm") / f"{video_filename}_llm.json"
+        output_dir = db.get_output_dir(self.name)
+        output_path = output_dir / f"{video_filename}_judger.json"
+        timings_path = output_dir / f"{video_filename}_judger_timings.json"
+
         if not profile_path.exists():
+            report = failed_report(
+                video_filename=video_filename,
+                title=title,
+                profile_file=None,
+                error=f"Missing LLM profile: {profile_path.name}",
+            )
+            with open(output_path, "w", encoding="utf-8") as handle:
+                json.dump(report, handle, indent=2, ensure_ascii=False)
+            timing.save(timings_path)
             return {
                 "stage": self.name,
                 "status": "failed",
-                "error": f"Missing LLM profile: {profile_path.name}",
-                "output_file": None,
+                "error": report["error"],
+                "output_file": str(output_path.name),
+                "timings_file": str(timings_path.name),
             }
 
         profile_data = self._load_json(profile_path)
-        if profile_data is None:
+        if profile_data is None or not isinstance(profile_data, dict):
+            report = failed_report(
+                video_filename=video_filename,
+                title=title,
+                profile_file=profile_path.name,
+                error=f"Unreadable LLM profile: {profile_path.name}",
+            )
+            with open(output_path, "w", encoding="utf-8") as handle:
+                json.dump(report, handle, indent=2, ensure_ascii=False)
+            timing.save(timings_path)
             return {
                 "stage": self.name,
                 "status": "failed",
-                "error": f"Unreadable LLM profile: {profile_path.name}",
-                "output_file": None,
+                "error": report["error"],
+                "output_file": str(output_path.name),
+                "timings_file": str(timings_path.name),
             }
 
-        evidence = self._gather_evidence(video_filename)
-        report = score_profile(
-            profile_data,
-            evidence,
-            video=video_filename,
-            profile_file=profile_path.name,
-        )
+        # Fresh conversation every run: system + user only, no prior turns.
+        messages = [
+            {"role": "system", "content": system_prompt()},
+            {
+                "role": "user",
+                "content": user_prompt(title=title, profile=profile_data),
+            },
+        ]
 
-        output_path = db.get_output_dir(self.name) / f"{video_filename}_judger.json"
+        quantization_config = None
+        if self.device == "cuda":
+            quantization_config = BitsAndBytesConfig(
+                load_in_4bit=True,
+                bnb_4bit_compute_dtype=torch.float16,
+                bnb_4bit_quant_type="nf4",
+                bnb_4bit_use_double_quant=True,
+            )
+
+        model = None
+        tokenizer = None
+        last_raw = ""
+        try:
+            print(f"[INFO] Loading judger model {self.model_id} (empty context)...")
+            with timing.span("judger_load", model_id=self.model_id):
+                tokenizer = AutoTokenizer.from_pretrained(
+                    self.model_id, trust_remote_code=True
+                )
+                model = AutoModelForCausalLM.from_pretrained(
+                    self.model_id,
+                    quantization_config=quantization_config,
+                    device_map="auto" if self.device == "cuda" else None,
+                    low_cpu_mem_usage=True,
+                    trust_remote_code=True,
+                )
+                if self.device != "cuda":
+                    model = model.to(self.device)
+
+            print("[INFO] Requesting dimension scores from judger LLM...")
+            with timing.span("judger_generate", model_id=self.model_id):
+                last_raw = self._generate_text(model, tokenizer, messages, prefill="{")
+        finally:
+            print("[INFO] Unloading judger model and freeing VRAM...")
+            if model is not None:
+                del model
+            if tokenizer is not None:
+                del tokenizer
+            self._free_vram()
+
+        candidate = self._clean_json_candidate(last_raw)
+        try:
+            payload = json.loads(candidate)
+            if not isinstance(payload, dict):
+                raise ValueError("Judger response is not a JSON object")
+            report = build_report(
+                video_filename=video_filename,
+                title=title,
+                profile_file=profile_path.name,
+                llm_payload=payload,
+            )
+            status = "success"
+            error = None
+        except (json.JSONDecodeError, ValueError, TypeError) as exc:
+            raw_path = output_dir / f"{video_filename}_judger_raw.txt"
+            raw_path.write_text(last_raw, encoding="utf-8")
+            report = failed_report(
+                video_filename=video_filename,
+                title=title,
+                profile_file=profile_path.name,
+                error=f"Judger JSON parse failed: {exc}",
+            )
+            report["raw_output_file"] = raw_path.name
+            status = "failed"
+            error = report["error"]
+
         print(f"[INFO] Saving judger report to {output_path}")
         with open(output_path, "w", encoding="utf-8") as handle:
             json.dump(report, handle, indent=2, ensure_ascii=False)
+        timing.save(timings_path)
 
         dimension_scores = {
             name: payload["score"] for name, payload in report["dimensions"].items()
         }
-        return {
+        result: Dict[str, Any] = {
             "stage": self.name,
-            "status": "success",
+            "status": status,
+            "title": title,
             "overall": report["overall"],
+            "overall_normalized": report["overall_normalized"],
             "usable": report["usable"],
             "dimensions": dimension_scores,
             "output_file": str(output_path.name),
+            "timings": timing.document(),
+            "timings_file": str(timings_path.name),
         }
+        if error:
+            result["error"] = error
+        return result

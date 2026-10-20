@@ -1,6 +1,6 @@
 # Local experiment loop
 
-This round runs on branch `local`. Each experiment points the process at one variant JSON, runs the enricher stages in process on the local GPU, archives outputs under `runs/local/`, and scores each profile with the deterministic `judger` stage.
+This round runs on branch `local`. Each experiment points the process at one variant JSON, runs the enricher stages in process on the local GPU, archives outputs under `runs/local/`, and scores each profile with an empty-context LLM `judger` (title from the file name only; no synopsis).
 
 ## Prerequisites
 
