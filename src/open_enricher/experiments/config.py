@@ -24,11 +24,12 @@ CACHE_ROOT = RUNS_ROOT / "_cache"
 # Append-only resume log for the experiment loop.
 PROGRESS_PATH = RUNS_ROOT / "progress.jsonl"
 
-# Stages executed for each local experiment (includes empty-context LLM evaluator).
+# Stages executed for each local experiment (metadata generation only).
 # Kept here (not imported from runner) so CLI --list stays free of torch/whisperx.
-PIPELINE_STAGES: tuple[str, ...] = ("audio", "color", "vlm", "llm", "evaluator")
+# Scoring lives in ``open_enricher.evaluation`` and is run separately.
+PIPELINE_STAGES: tuple[str, ...] = ("audio", "color", "vlm", "llm")
 
-# Host-side evaluator weights (must match evaluator_core.criteria.DIMENSION_WEIGHTS).
+# Host-side evaluator weights (must match evaluation.criteria.DIMENSION_WEIGHTS).
 EVALUATOR_SCORE_WEIGHTS = {
     "completeness": 0.15,
     "specificity": 0.25,

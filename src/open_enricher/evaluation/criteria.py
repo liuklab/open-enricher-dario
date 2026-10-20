@@ -1,9 +1,7 @@
-"""Dimension definitions and weights for the LLM metadata evaluator.
+"""Dimension definitions and weights for the metadata evaluator.
 
-The evaluator model scores each dimension on a 1-5 integer scale. The host
-process applies these weights to produce the final quality metric. No
-synopsis or upstream pipeline evidence is used: fidelity is judged against
-the model's training knowledge of the titled work.
+The evaluator provider scores each dimension on a 1-5 integer scale. The host
+process applies these weights to produce the final quality metric.
 """
 
 from __future__ import annotations
@@ -21,7 +19,7 @@ DIMENSION_WEIGHTS: Dict[str, float] = {
 
 DIMENSION_ORDER: Tuple[str, ...] = tuple(DIMENSION_WEIGHTS.keys())
 
-# Inclusive integer score range expected from the LLM.
+# Inclusive integer score range expected from the provider.
 SCORE_MIN: int = 1
 SCORE_MAX: int = 5
 
@@ -36,10 +34,12 @@ DIMENSION_RUBRICS: Dict[str, str] = {
         "(avoid vague words like video, scene, content, various)?"
     ),
     "fidelity": (
-        "Given only the film or episode title, how well do the metadata claims "
-        "match the real work as you know it from training? Penalize invented "
-        "plot points, wrong genre, wrong characters, or wrong setting. "
-        "If you do not recognize the title, score low and say so in the note."
+        "How well do the metadata claims match the real work? "
+        "Without a synopsis, judge against your training knowledge of the titled "
+        "film or episode. With a synopsis, judge against that synopsis text. "
+        "Penalize invented plot points, wrong genre, wrong characters, or wrong "
+        "setting. If you do not recognize the title and no synopsis is given, "
+        "score low and say so in the note."
     ),
     "consistency": (
         "Do fields agree with each other (genre vs mood vs tags vs narrative_hook) "

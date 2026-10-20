@@ -22,9 +22,12 @@ dependencies = [
 [project.optional-dependencies]
 # Optional attention backend. Install only when the GPU stack supports it.
 flash-attn = ["flash-attn"]
+# External metadata evaluator (Cursor SDK / Grok). Not required for the local GPU pipeline.
+evaluation = ["cursor-sdk"]
 
 [project.scripts]
 open-enricher = "open_enricher.experiments.loop:main"
+open-enricher-eval = "open_enricher.evaluation.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -33,4 +36,5 @@ where = ["src"]
 open_enricher = ["*.json", "*.md"]
 "open_enricher.stages" = ["pipeline_spec.json", "prompts/*.md"]
 "open_enricher.stages.vlm_core" = ["*.json"]
+"open_enricher.evaluation" = ["prompts/*.md"]
 "open_enricher.experiments" = ["variants/*.json"]

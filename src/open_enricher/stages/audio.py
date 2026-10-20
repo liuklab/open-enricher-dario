@@ -2,7 +2,7 @@
 
 First pipeline stage. Reads a video from the local dataset, produces a
 timestamped dialogue list, and writes ``<video>_audio.json`` plus timings.
-Later stages (VLM enrichment, LLM profiling, evaluator) consume that JSON.
+Later stages (VLM enrichment, LLM profiling) consume that JSON.
 """
 
 import gc

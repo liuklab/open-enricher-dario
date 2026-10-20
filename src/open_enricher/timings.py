@@ -31,7 +31,7 @@ class TimingRecorder:
         Start recording for a pipeline stage.
 
         Args:
-            stage: Stable stage name (audio, color, vlm, llm, evaluator).
+            stage: Stable stage name (audio, color, vlm, llm).
         """
         self.stage = stage
         self.entries: List[Dict[str, Any]] = []

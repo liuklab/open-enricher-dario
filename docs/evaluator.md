@@ -1,14 +1,36 @@
-# LLM evaluator
+# External metadata evaluator
 
-After `llm` writes a `VideoProfile`, the `evaluator` stage loads Qwen3-8B with a
-fresh chat (system + user only). It receives:
+After `llm` writes a `VideoProfile`, scoring is a **separate** step. It is not
+part of the local GPU pipeline. Run it with:
 
-1. The title derived from the video file name (for example
+```bash
+pip install -e ".[evaluation]"
+python -m open_enricher.evaluation --video Suits.S01E02.mkv
+```
+
+The default provider is Cursor SDK with Grok 4.7 (`CURSOR_API_KEY` in `.env`).
+Each video gets a fresh one-shot `Agent.prompt` with `tools=[]` and an empty
+temporary `cwd`, so the agent cannot read the repository, synopsis files, or
+pipeline outputs unless you put that text in the prompt yourself.
+
+## Inputs
+
+1. Title derived from the video file name (for example
    `Stranger_Things.S01E03.mkv` -> `Stranger Things S01E03`)
-2. The profile JSON
+2. The profile JSON (`*_llm.json`)
+3. Optional: `synopsis/<video>_summary.txt` when `--with-synopsis` is set
 
-It does **not** receive a synopsis, transcript, color frames, or VLM output.
-Fidelity is judged against the model's training knowledge of the titled work.
+No transcript, color frames, or VLM output is passed.
+
+## Synopsis flag
+
+| Flag | Fidelity judged against |
+| :--- | :--- |
+| (default) | Model training knowledge of the titled work |
+| `--with-synopsis` | The synopsis file text |
+
+If `--with-synopsis` is set and the synopsis file is missing, that video fails
+(no silent fallback).
 
 ## Dimensions (1-5) and weights
 
@@ -24,15 +46,39 @@ The host computes `overall` as the weighted mean on the 1-5 scale and
 `overall_normalized` on 0-1. A profile is `usable` when
 `overall >= 3.0` and `fidelity >= 2`.
 
-## Prompt
+## Providers
 
-Editable templates live in
-[`src/open_enricher/stages/evaluator_core/evaluator_prompt.md`](../src/open_enricher/stages/evaluator_core/evaluator_prompt.md)
-(`## System` and `## User`). Placeholders such as `{{TITLE}}` and
-`{{PROFILE_JSON}}` are filled by `prompt.py`.
+Modular registry under `src/open_enricher/evaluation/providers/`:
+
+| Key | Backend | Notes |
+| :--- | :--- | :--- |
+| `cursor` | Cursor SDK | Default. Model `grok-4.7-high-fast` (override with `--model` or `OPEN_ENRICHER_EVAL_MODEL`) |
+
+Future providers (Codex, Gemini, ...) register the same way without changing
+weights or report assembly.
+
+## CLI examples
+
+```bash
+# Live dataset outputs
+python -m open_enricher.evaluation --video Suits.S01E02.mkv
+
+# With synopsis
+python -m open_enricher.evaluation --video Suits.S01E02.mkv --with-synopsis
+
+# Score an archived experiment (writes score.json under runs/local/<id>/<video>/)
+python -m open_enricher.evaluation --experiment 01-interval-llm --with-synopsis
+```
 
 ## Outputs
 
-- `dataset/outputs/evaluator_results/<video>_evaluator.json` (shared live output)
-- Archived under `runs/local/<id>/<video>/score.json`
-- Archived copy under `runs/local/<id>/<video>/score.json`
+- Live: `dataset/outputs/evaluation/<video>_evaluation.json`
+- Experiment: `runs/local/<id>/<video>/score.json` and refreshed `scores.json`
+- On JSON parse failure: sibling `*_evaluation_raw.txt` with the raw text
+
+## Prompt templates
+
+Editable markdown under
+[`src/open_enricher/evaluation/prompts/`](../src/open_enricher/evaluation/prompts/).
+Placeholders such as `{{TITLE}}`, `{{SYNOPSIS_BLOCK}}`, and `{{PROFILE_JSON}}`
+are filled by `prompt.py`.

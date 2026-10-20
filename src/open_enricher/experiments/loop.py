@@ -122,7 +122,8 @@ def _write_stub_experiment_md(
             "",
             "## Quality",
             "",
-            "See each video folder's `score.json` (LLM evaluator report with weighted overall).",
+            "Run `python -m open_enricher.evaluation --experiment "
+            f"{experiment_id}` to write per-video `score.json` reports.",
             "",
         ]
     )
@@ -225,14 +226,6 @@ def run_one_experiment(
         dest = video_archive_dir(experiment_id, video)
         archived = runner.archive_artifacts(video, dest, stages=stages)
         summary["archived_files"] = archived
-
-        score = runner.load_evaluator_score(video)
-        if score is not None:
-            write_json(dest / "score.json", score)
-            summary["score"] = {
-                "overall": score.get("overall"),
-                "usable": score.get("usable"),
-            }
 
         timing_paths = list(dest.glob(f"{video}_*_timings.json"))
         write_json(dest / "timings.json", merge_timings(timing_paths))
@@ -385,7 +378,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--stages",
         nargs="+",
         choices=list(PIPELINE_STAGES),
-        help="Subset of stages to run. Default: all stages including evaluator.",
+        help="Subset of stages to run. Default: audio color vlm llm.",
     )
     parser.add_argument(
         "--no-cache",

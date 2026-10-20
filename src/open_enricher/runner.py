@@ -24,7 +24,7 @@ logger = get_logger(__name__)
 # Default stage order for a full local enricher pass.
 # Stage classes are imported lazily inside ``build_stages`` so CLI helpers
 # and unit tests can import this module without loading torch or whisperx.
-PIPELINE_STAGES: tuple[str, ...] = ("audio", "color", "vlm", "llm", "evaluator")
+PIPELINE_STAGES: tuple[str, ...] = ("audio", "color", "vlm", "llm")
 
 # Stages whose outputs do not depend on the active pipeline_spec knobs.
 CACHEABLE_STAGES: frozenset[str] = frozenset({"audio", "color"})
@@ -35,7 +35,6 @@ STAGE_PRIMARY_ARTIFACT: dict[str, str] = {
     "color": "{video}_color.json",
     "vlm": "{video}_vlm.json",
     "llm": "{video}_llm.json",
-    "evaluator": "{video}_evaluator.json",
 }
 
 
@@ -95,7 +94,6 @@ def build_stages(hf_token: str | None = None) -> dict[str, Any]:
     """
     from open_enricher.stages.audio import AudioStage
     from open_enricher.stages.color import ColorStage
-    from open_enricher.stages.evaluator import EvaluatorStage
     from open_enricher.stages.llm import LLMStage
     from open_enricher.stages.vlm import VLMStage
 
@@ -105,7 +103,6 @@ def build_stages(hf_token: str | None = None) -> dict[str, Any]:
         "color": ColorStage(max_long_scenes=120, grid_interval_sec=180),
         "vlm": VLMStage(),
         "llm": LLMStage(),
-        "evaluator": EvaluatorStage(),
     }
 
 
@@ -173,12 +170,6 @@ def _artifact_globs(stage: str, video_filename: str) -> list[str]:
         return [
             f"{video_filename}_llm.json",
             f"{video_filename}_llm_timings.json",
-        ]
-    if stage == "evaluator":
-        return [
-            f"{video_filename}_evaluator.json",
-            f"{video_filename}_evaluator_timings.json",
-            f"{video_filename}_evaluator_raw.txt",
         ]
     return []
 
@@ -427,22 +418,3 @@ def archive_artifacts(
         shutil.copy2(log_path, dest_dir / "worker.log")
         copied.append("worker.log")
     return copied
-
-
-def load_evaluator_score(video_filename: str) -> dict[str, Any] | None:
-    """
-    Load the evaluator report for a video when present.
-
-    Args:
-        video_filename: Exact file name under ``video_inputs``.
-
-    Returns:
-        Parsed JSON document, or None when the report is missing or invalid.
-    """
-    path = primary_artifact_path("evaluator", video_filename)
-    if not path.is_file():
-        return None
-    try:
-        return json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
-        return None

@@ -1,6 +1,6 @@
-"""CPU helpers for the LLM evaluator: title parsing, weighting, report assembly.
+"""CPU helpers for the evaluator: title parsing, weighting, report assembly.
 
-No torch and no network. The GPU stage calls ``build_report`` after the model
+No network. The evaluation runner calls ``build_report`` after a provider
 returns a JSON document of per-dimension scores.
 """
 
@@ -9,7 +9,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Dict, Mapping, Tuple
 
-from open_enricher.stages.evaluator_core import criteria as C
+from open_enricher.evaluation import criteria as C
 
 
 def title_from_filename(video_filename: str) -> str:
@@ -23,7 +23,7 @@ def title_from_filename(video_filename: str) -> str:
         video_filename: Exact file name under ``video_inputs``.
 
     Returns:
-        Title string passed to the evaluator LLM. Never empty for a non-empty name.
+        Title string passed to the evaluator. Never empty for a non-empty name.
     """
     stem = Path(video_filename).stem.strip()
     if not stem:
@@ -34,7 +34,7 @@ def title_from_filename(video_filename: str) -> str:
 
 def clamp_score(value: Any) -> int | None:
     """
-    Coerce a raw LLM score to an integer in ``[SCORE_MIN, SCORE_MAX]``.
+    Coerce a raw score to an integer in ``[SCORE_MIN, SCORE_MAX]``.
 
     Args:
         value: Raw JSON value (int, float, or numeric string).
@@ -81,13 +81,16 @@ def build_report(
     title: str,
     profile_file: str,
     llm_payload: Dict[str, Any],
+    uses_synopsis: bool = False,
+    provider: str = "cursor",
+    model: str | None = None,
 ) -> Dict[str, Any]:
     """
-    Build the archived evaluator report from a parsed LLM JSON payload.
+    Build the evaluator report from a parsed provider JSON payload.
 
     Args:
         video_filename: Exact source video file name.
-        title: Title string that was shown to the evaluator LLM.
+        title: Title string that was shown to the evaluator.
         profile_file: Name of the LLM profile JSON that was scored.
         llm_payload: Parsed model output. Expected shape::
 
@@ -99,10 +102,13 @@ def build_report(
               "summary": "optional short overall comment"
             }
 
+        uses_synopsis: Whether a synopsis was included in the prompt.
+        provider: Provider key used for this run (for example ``cursor``).
+        model: Model id when known.
+
     Returns:
         Report dict with weighted ``overall``, ``overall_normalized``,
         ``usable``, per-dimension scores, weights, and method metadata.
-        Does not call a model.
     """
     raw_dims = llm_payload.get("dimensions")
     if not isinstance(raw_dims, dict):
@@ -154,8 +160,10 @@ def build_report(
             "usable_fidelity_min": C.USABLE_FIDELITY_MIN,
         },
         "method": {
-            "kind": "llm_empty_context",
-            "uses_synopsis": False,
+            "kind": "external_provider",
+            "provider": provider,
+            "model": model,
+            "uses_synopsis": uses_synopsis,
             "uses_pipeline_evidence": False,
             "title_source": "video_filename",
         },
@@ -169,6 +177,9 @@ def failed_report(
     title: str,
     profile_file: str | None,
     error: str,
+    uses_synopsis: bool = False,
+    provider: str = "cursor",
+    model: str | None = None,
 ) -> Dict[str, Any]:
     """
     Build a zeroed report when the evaluator cannot score the profile.
@@ -178,6 +189,9 @@ def failed_report(
         title: Title derived from the file name.
         profile_file: Profile file name when known.
         error: Human-readable failure reason.
+        uses_synopsis: Whether a synopsis was requested for this run.
+        provider: Provider key used for this run.
+        model: Model id when known.
 
     Returns:
         Report with minimum scores, ``usable=False``, and the error string.
@@ -209,8 +223,10 @@ def failed_report(
             "usable_fidelity_min": C.USABLE_FIDELITY_MIN,
         },
         "method": {
-            "kind": "llm_empty_context",
-            "uses_synopsis": False,
+            "kind": "external_provider",
+            "provider": provider,
+            "model": model,
+            "uses_synopsis": uses_synopsis,
             "uses_pipeline_evidence": False,
             "title_source": "video_filename",
         },

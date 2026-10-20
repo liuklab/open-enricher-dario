@@ -13,7 +13,7 @@ class PipelineStage(Protocol):
     """
     Contract that all ML analysis stages must implement.
 
-    Implementations live in sibling modules (audio, color, vlm, llm, evaluator).
+    Implementations live in sibling modules (audio, color, vlm, llm).
     """
 
     name: str

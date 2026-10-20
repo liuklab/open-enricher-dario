@@ -1,6 +1,6 @@
 # Local experiment loop
 
-This round runs on branch `local`. Each experiment points the process at one variant JSON, runs the enricher stages in process on the local GPU, archives outputs under `runs/local/`, and scores each profile with an empty-context LLM `evaluator` (title from the file name only; no synopsis).
+This round runs on branch `local`. Each experiment points the process at one variant JSON, runs the enricher stages in process on the local GPU, and archives outputs under `runs/local/`. Metadata generation stops at `llm`. Scoring is a separate step: see [evaluator.md](evaluator.md).
 
 ## Prerequisites
 
@@ -34,12 +34,20 @@ python -m open_enricher --video Stranger_Things.S01E03.mkv Suits.S01E02.mkv
 
 1. Set `OPEN_ENRICHER_PIPELINE_SPEC` to the variant file. The dataset under
    `dataset/` is shared by every experiment.
-2. For each video, run `audio -> color -> vlm -> llm -> evaluator` via `open_enricher.runner`.
+2. For each video, run `audio -> color -> vlm -> llm` via `open_enricher.runner`.
 3. Reuse audio/color already present in the shared dataset (or restore from
    `runs/local/_cache/<video>/`); refresh the cache after a fresh run.
-4. Copy artifacts into `runs/local/<experiment_id>/<video>/`, write `score.json`
-   from the evaluator report, and append `progress.jsonl`.
+4. Copy artifacts into `runs/local/<experiment_id>/<video>/` and append
+   `progress.jsonl`.
 5. On stage failure, record the error and continue to the next variant.
+
+After the loop, score profiles separately:
+
+```bash
+pip install -e ".[evaluation]"
+python -m open_enricher.evaluation --experiment 01-interval-llm
+python -m open_enricher.evaluation --experiment 01-interval-llm --with-synopsis
+```
 
 ## Archive layout
 
@@ -50,12 +58,12 @@ runs/local/
 ├── _cache/<video>/{audio,color}/
 └── <experiment_id>/
     ├── variant.json
-    ├── scores.json
+    ├── scores.json          # written by the evaluation CLI
     ├── video_results.json
     ├── EXPERIMENT.md
     └── <video>/
-        ├── *_audio.json, *_color.json, *_vlm.json, *_llm.json, *_evaluator.json
-        ├── score.json
+        ├── *_audio.json, *_color.json, *_vlm.json, *_llm.json
+        ├── score.json       # written by the evaluation CLI
         ├── timings.json
         └── worker.log
 ```

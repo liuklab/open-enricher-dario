@@ -23,7 +23,6 @@ _STAGE_DIRS: dict[str, str] = {
     "color": "color_results",
     "vlm": "vlms_results",
     "llm": "llms_results",
-    "evaluator": "evaluator_results",
 }
 
 
@@ -107,7 +106,7 @@ def get_output_dir(stage_name: str) -> Path:
     Return the shared output directory for a named stage.
 
     Args:
-        stage_name: One of audio, color, vlm, llm, evaluator.
+        stage_name: One of audio, color, vlm, llm.
 
     Returns:
         Path under ``dataset/outputs/<stage>_results``.

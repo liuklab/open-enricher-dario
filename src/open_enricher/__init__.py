@@ -1,8 +1,10 @@
 """Open-Enricher: local video understanding pipeline for recommender metadata.
 
 Stages run in process on a GPU host:
-audio (WhisperX) -> color (scene colors) -> vlm (Qwen3-VL) -> llm (VideoProfile)
--> evaluator (empty-context LLM scores).
+audio (WhisperX) -> color (scene colors) -> vlm (Qwen3-VL) -> llm (VideoProfile).
+
+Scoring is separate: ``python -m open_enricher.evaluation`` judges profiles
+with an external provider (Cursor SDK / Grok by default).
 
 Experiment variants under ``open_enricher.experiments.variants`` are executed
 in sequence by ``python -m open_enricher``.
