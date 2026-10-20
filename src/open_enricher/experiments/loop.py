@@ -121,7 +121,7 @@ def _write_stub_experiment_md(
             "",
             "## Quality",
             "",
-            "See each video folder's `score.json` (LLM judger report with weighted overall).",
+            "See each video folder's `score.json` (LLM evaluator report with weighted overall).",
             "",
         ]
     )
@@ -132,7 +132,7 @@ def _write_stub_experiment_md(
 
 def _collect_scores(exp_dir: Path, videos: list[str]) -> dict[str, Any]:
     """
-    Load archived judger scores for each video under an experiment folder.
+    Load archived evaluator scores for each video under an experiment folder.
 
     Args:
         exp_dir: Archive directory for this experiment.
@@ -229,7 +229,7 @@ def run_one_experiment(
         archived = runner.archive_artifacts(video, dest, stages=stages)
         summary["archived_files"] = archived
 
-        score = runner.load_judger_score(video)
+        score = runner.load_evaluator_score(video)
         if score is not None:
             write_json(dest / "score.json", score)
             summary["score"] = {
@@ -389,7 +389,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--stages",
         nargs="+",
         choices=list(PIPELINE_STAGES),
-        help="Subset of stages to run. Default: all stages including judger.",
+        help="Subset of stages to run. Default: all stages including evaluator.",
     )
     parser.add_argument(
         "--no-cache",

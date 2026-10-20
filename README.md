@@ -2,7 +2,7 @@
 
 Local video understanding pipeline. A GPU host runs five stages in process and writes structured metadata for a recommender:
 
-`audio` (WhisperX) -> `color` (scene colors) -> `vlm` (Qwen3-VL) -> `llm` (Qwen3-8B profile) -> `judger` (Qwen3-8B empty-context scores).
+`audio` (WhisperX) -> `color` (scene colors) -> `vlm` (Qwen3-VL) -> `llm` (Qwen3-8B profile) -> `evaluator` (Qwen3-8B empty-context scores).
 
 There is no client/server split, no Colab or Kaggle deploy, and no Google Drive. Experiment variants run in sequence on the same machine.
 
@@ -39,7 +39,7 @@ data/
         ├── color_results/
         ├── vlms_results/
         ├── llms_results/
-        └── judger_results/
+        └── evaluator_results/
 ```
 
 Put episode files in `data/video_inputs/` before running.
@@ -54,7 +54,7 @@ python -m open_enricher --only 01-interval-llm --video Stranger_Things.S01E03.mk
 
 ## Sequential experiments
 
-Variants live in `src/open_enricher/experiments/variants/`. Each run sets `OPEN_ENRICHER_PIPELINE_SPEC` to that JSON, executes `audio -> color -> vlm -> llm -> judger` in process, archives under `runs/local/<experiment_id>/`, and continues to the next variant. Audio and color outputs are cached under `runs/local/_cache/` because they do not depend on the variant knobs.
+Variants live in `src/open_enricher/experiments/variants/`. Each run sets `OPEN_ENRICHER_PIPELINE_SPEC` to that JSON, executes `audio -> color -> vlm -> llm -> evaluator` in process, archives under `runs/local/<experiment_id>/`, and continues to the next variant. Audio and color outputs are cached under `runs/local/_cache/` because they do not depend on the variant knobs.
 
 ```bash
 python -m open_enricher --list
@@ -75,7 +75,7 @@ See [docs/local_loop.md](docs/local_loop.md).
 | `color` | Keyframes and dominant hex colors |
 | `vlm` | One description per window or scene, merged into one JSON. A local 8B model summarizes the transcript first when the variant enables that option. |
 | `llm` | `VideoProfile` for search, audience, and a short summary. |
-| `judger` | Fresh Qwen3-8B chat: scores the profile given only the title from the file name (no synopsis). Host applies dimension weights for the final quality metric. |
+| `evaluator` | Fresh Qwen3-8B chat: scores the profile given only the title from the file name (no synopsis). Host applies dimension weights for the final quality metric. |
 
 ## Layout
 
@@ -83,7 +83,7 @@ See [docs/local_loop.md](docs/local_loop.md).
 src/open_enricher/
   runner.py                 # in-process stage registry and pipeline
   storage.py                # local data lake
-  stages/                   # audio, color, vlm, llm, judger
+  stages/                   # audio, color, vlm, llm, evaluator
   experiments/
     loop.py                 # sequential variants
     variants/*.json         # experiment knobs

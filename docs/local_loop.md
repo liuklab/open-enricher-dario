@@ -1,6 +1,6 @@
 # Local experiment loop
 
-This round runs on branch `local`. Each experiment points the process at one variant JSON, runs the enricher stages in process on the local GPU, archives outputs under `runs/local/`, and scores each profile with an empty-context LLM `judger` (title from the file name only; no synopsis).
+This round runs on branch `local`. Each experiment points the process at one variant JSON, runs the enricher stages in process on the local GPU, archives outputs under `runs/local/`, and scores each profile with an empty-context LLM `evaluator` (title from the file name only; no synopsis).
 
 ## Prerequisites
 
@@ -33,9 +33,9 @@ python -m open_enricher --video Stranger_Things.S01E03.mkv Suits.S01E02.mkv
 ## What happens per variant
 
 1. Set `OPEN_ENRICHER_PIPELINE_SPEC` to the variant file and namespace outputs under `outputs/local/<experiment_id>/`.
-2. For each video, run `audio -> color -> vlm -> llm -> judger` via `open_enricher.runner`.
+2. For each video, run `audio -> color -> vlm -> llm -> evaluator` via `open_enricher.runner`.
 3. Restore audio/color from `runs/local/_cache/<video>/` when present; refresh the cache after a fresh run.
-4. Copy artifacts into `runs/local/<experiment_id>/<video>/`, write `score.json` from the judger report, and append `progress.jsonl`.
+4. Copy artifacts into `runs/local/<experiment_id>/<video>/`, write `score.json` from the evaluator report, and append `progress.jsonl`.
 5. On stage failure, record the error and continue to the next variant.
 
 ## Archive layout
@@ -51,7 +51,7 @@ runs/local/
     ├── video_results.json
     ├── EXPERIMENT.md
     └── <video>/
-        ├── *_audio.json, *_color.json, *_vlm.json, *_llm.json, *_judger.json
+        ├── *_audio.json, *_color.json, *_vlm.json, *_llm.json, *_evaluator.json
         ├── score.json
         ├── timings.json
         └── worker.log

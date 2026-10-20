@@ -1,17 +1,17 @@
-"""GPU-free tests for LLM judger helpers (title, weights, report assembly).
+"""GPU-free tests for LLM evaluator helpers (title, weights, report assembly).
 
 Does not load torch or call a model. Run from the repository root:
 
-    PYTHONPATH=src python -m pytest tests/test_judger_score.py -q
+    PYTHONPATH=src python -m pytest tests/test_evaluator_score.py -q
 """
 
 from __future__ import annotations
 
 import unittest
 
-from open_enricher.stages.judger_core import criteria as C
-from open_enricher.stages.judger_core.prompt import system_prompt, user_prompt
-from open_enricher.stages.judger_core.score import (
+from open_enricher.stages.evaluator_core import criteria as C
+from open_enricher.stages.evaluator_core.prompt import system_prompt, user_prompt
+from open_enricher.stages.evaluator_core.score import (
     build_report,
     failed_report,
     title_from_filename,
@@ -19,7 +19,7 @@ from open_enricher.stages.judger_core.score import (
 )
 
 
-class TestJudgerHelpers(unittest.TestCase):
+class TestEvaluatorHelpers(unittest.TestCase):
     def test_title_from_filename(self) -> None:
         self.assertEqual(
             title_from_filename("Stranger_Things.S01E03.mkv"),
@@ -91,7 +91,7 @@ class TestJudgerHelpers(unittest.TestCase):
         self.assertNotIn("transcript", user.lower())
 
     def test_prompt_loaded_from_markdown(self) -> None:
-        from open_enricher.stages.judger_core.prompt import _PROMPT_PATH
+        from open_enricher.stages.evaluator_core.prompt import _PROMPT_PATH
 
         self.assertTrue(_PROMPT_PATH.is_file())
         text = _PROMPT_PATH.read_text(encoding="utf-8")

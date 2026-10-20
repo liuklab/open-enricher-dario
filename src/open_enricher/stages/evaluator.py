@@ -1,4 +1,4 @@
-"""LLM metadata quality judger with an empty conversation context.
+"""LLM metadata quality evaluator with an empty conversation context.
 
 Fifth pipeline stage. Loads Qwen3-8B fresh, sends only the title derived from
 the video file name and the VideoProfile JSON, and asks for per-dimension
@@ -16,24 +16,24 @@ from typing import Any, Dict, List
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
-from open_enricher.stages.judger_core import (
+from open_enricher.stages.evaluator_core import (
     build_report,
     failed_report,
     title_from_filename,
 )
-from open_enricher.stages.judger_core.prompt import system_prompt, user_prompt
+from open_enricher.stages.evaluator_core.prompt import system_prompt, user_prompt
 from open_enricher.storage import db
 from open_enricher.timings import TimingRecorder
 
 
-class JudgerStage:
+class EvaluatorStage:
     """Score a VideoProfile with a fresh LLM chat and host-side weights."""
 
-    name = "judger"
+    name = "evaluator"
 
     def __init__(self) -> None:
         """
-        Configure device and model id for the judger LLM.
+        Configure device and model id for the evaluator LLM.
 
         The model is loaded inside ``run`` and unloaded before return so each
         experiment evaluation starts from an empty context and free VRAM.
@@ -139,18 +139,18 @@ class JudgerStage:
             be written when possible.
 
         Side effects:
-            Writes ``<video>_judger.json`` and ``<video>_judger_timings.json``
-            under ``judger_results``. Loads and unloads Qwen3-8B.
+            Writes ``<video>_evaluator.json`` and ``<video>_evaluator_timings.json``
+            under ``evaluator_results``. Loads and unloads Qwen3-8B.
         """
-        print(f"[INFO] Starting LLM judger stage for {video_filename}")
+        print(f"[INFO] Starting LLM evaluator stage for {video_filename}")
         timing = TimingRecorder(self.name)
         title = title_from_filename(video_filename)
-        print(f"[INFO] Judger title from filename: {title!r}")
+        print(f"[INFO] Evaluator title from filename: {title!r}")
 
         profile_path = db.get_output_dir("llm") / f"{video_filename}_llm.json"
         output_dir = db.get_output_dir(self.name)
-        output_path = output_dir / f"{video_filename}_judger.json"
-        timings_path = output_dir / f"{video_filename}_judger_timings.json"
+        output_path = output_dir / f"{video_filename}_evaluator.json"
+        timings_path = output_dir / f"{video_filename}_evaluator_timings.json"
 
         if not profile_path.exists():
             report = failed_report(
@@ -211,8 +211,8 @@ class JudgerStage:
         tokenizer = None
         last_raw = ""
         try:
-            print(f"[INFO] Loading judger model {self.model_id} (empty context)...")
-            with timing.span("judger_load", model_id=self.model_id):
+            print(f"[INFO] Loading evaluator model {self.model_id} (empty context)...")
+            with timing.span("evaluator_load", model_id=self.model_id):
                 tokenizer = AutoTokenizer.from_pretrained(
                     self.model_id, trust_remote_code=True
                 )
@@ -226,11 +226,11 @@ class JudgerStage:
                 if self.device != "cuda":
                     model = model.to(self.device)
 
-            print("[INFO] Requesting dimension scores from judger LLM...")
-            with timing.span("judger_generate", model_id=self.model_id):
+            print("[INFO] Requesting dimension scores from evaluator LLM...")
+            with timing.span("evaluator_generate", model_id=self.model_id):
                 last_raw = self._generate_text(model, tokenizer, messages, prefill="{")
         finally:
-            print("[INFO] Unloading judger model and freeing VRAM...")
+            print("[INFO] Unloading evaluator model and freeing VRAM...")
             if model is not None:
                 del model
             if tokenizer is not None:
@@ -241,7 +241,7 @@ class JudgerStage:
         try:
             payload = json.loads(candidate)
             if not isinstance(payload, dict):
-                raise ValueError("Judger response is not a JSON object")
+                raise ValueError("Evaluator response is not a JSON object")
             report = build_report(
                 video_filename=video_filename,
                 title=title,
@@ -251,19 +251,19 @@ class JudgerStage:
             status = "success"
             error = None
         except (json.JSONDecodeError, ValueError, TypeError) as exc:
-            raw_path = output_dir / f"{video_filename}_judger_raw.txt"
+            raw_path = output_dir / f"{video_filename}_evaluator_raw.txt"
             raw_path.write_text(last_raw, encoding="utf-8")
             report = failed_report(
                 video_filename=video_filename,
                 title=title,
                 profile_file=profile_path.name,
-                error=f"Judger JSON parse failed: {exc}",
+                error=f"Evaluator JSON parse failed: {exc}",
             )
             report["raw_output_file"] = raw_path.name
             status = "failed"
             error = report["error"]
 
-        print(f"[INFO] Saving judger report to {output_path}")
+        print(f"[INFO] Saving evaluator report to {output_path}")
         with open(output_path, "w", encoding="utf-8") as handle:
             json.dump(report, handle, indent=2, ensure_ascii=False)
         timing.save(timings_path)

@@ -1,6 +1,6 @@
-"""Prompt builders for the empty-context LLM judger.
+"""Prompt builders for the empty-context LLM evaluator.
 
-Loads system and user templates from ``judger_prompt.md`` next to this module.
+Loads system and user templates from ``evaluator_prompt.md`` next to this module.
 The markdown file intentionally excludes synopsis text and upstream pipeline
 artifacts. Placeholders are filled at runtime with score bounds, rubrics,
 weights, title, and profile JSON.
@@ -13,15 +13,15 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any, Dict
 
-from open_enricher.stages.judger_core import criteria as C
+from open_enricher.stages.evaluator_core import criteria as C
 
-_PROMPT_PATH = Path(__file__).resolve().parent / "judger_prompt.md"
+_PROMPT_PATH = Path(__file__).resolve().parent / "evaluator_prompt.md"
 
 
 @lru_cache(maxsize=1)
 def _load_sections() -> Dict[str, str]:
     """
-    Parse ``judger_prompt.md`` into named sections.
+    Parse ``evaluator_prompt.md`` into named sections.
 
     Expected headings are ``## System`` and ``## User``. Content under each
     heading is kept verbatim (placeholders still present).
@@ -34,7 +34,7 @@ def _load_sections() -> Dict[str, str]:
         ValueError: When a required section is absent.
     """
     if not _PROMPT_PATH.is_file():
-        raise FileNotFoundError(f"Judger prompt file not found: {_PROMPT_PATH}")
+        raise FileNotFoundError(f"Evaluator prompt file not found: {_PROMPT_PATH}")
 
     sections: Dict[str, list[str]] = {}
     current: str | None = None
@@ -54,7 +54,7 @@ def _load_sections() -> Dict[str, str]:
     }
     if "system" not in result or "user" not in result:
         raise ValueError(
-            f"judger_prompt.md must define ## System and ## User sections "
+            f"evaluator_prompt.md must define ## System and ## User sections "
             f"(found: {sorted(sections)})"
         )
     return result
@@ -93,10 +93,10 @@ def _fill(template: str, mapping: Dict[str, str]) -> str:
 
 def system_prompt() -> str:
     """
-    Return the system message for a fresh judger conversation.
+    Return the system message for a fresh evaluator conversation.
 
     Returns:
-        Instruction string loaded from ``judger_prompt.md`` with rubrics and
+        Instruction string loaded from ``evaluator_prompt.md`` with rubrics and
         score bounds filled in.
     """
     return _fill(
@@ -119,7 +119,7 @@ def user_prompt(*, title: str, profile: Dict[str, Any]) -> str:
         profile: Parsed ``VideoProfile`` dict from the LLM stage.
 
     Returns:
-        User content string from ``judger_prompt.md`` with title and profile
+        User content string from ``evaluator_prompt.md`` with title and profile
         JSON substituted.
     """
     profile_json = json.dumps(profile, ensure_ascii=False, indent=2)

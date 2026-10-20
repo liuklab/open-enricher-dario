@@ -1,6 +1,6 @@
-# Judger prompts
+# Evaluator prompts
 
-Templates for the empty-context LLM judger. Placeholders are replaced by
+Templates for the empty-context LLM evaluator. Placeholders are replaced by
 `prompt.py` before the chat is sent. Do not pass synopsis text or pipeline
 evidence; the model sees only the title and the VideoProfile JSON.
 

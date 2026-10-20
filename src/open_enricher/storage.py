@@ -132,7 +132,7 @@ class DatabaseManager:
             "color": base / "color_results",
             "vlm": base / "vlms_results",
             "llm": base / "llms_results",
-            "judger": base / "judger_results",
+            "evaluator": base / "evaluator_results",
         }
         self.experiment_log = base / "worker.log" if exp else self.outputs / "worker.log"
 
@@ -188,7 +188,7 @@ class DatabaseManager:
         Return the output directory for a named stage.
 
         Args:
-            stage_name: One of audio, color, vlm, llm, judger.
+            stage_name: One of audio, color, vlm, llm, evaluator.
 
         Returns:
             Path to that stage folder under the active experiment namespace.

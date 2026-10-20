@@ -1,11 +1,11 @@
-"""LLM judger helpers: weights, prompts, and report assembly.
+"""LLM evaluator helpers: weights, prompts, and report assembly.
 
-The GPU stage ``JudgerStage`` loads a fresh language model with an empty
+The GPU stage ``EvaluatorStage`` loads a fresh language model with an empty
 chat context, scores a VideoProfile given only the title from the file name,
 then uses ``build_report`` to apply host-side weights.
 """
 
-from open_enricher.stages.judger_core.score import (
+from open_enricher.stages.evaluator_core.score import (
     build_report,
     failed_report,
     title_from_filename,

@@ -1,6 +1,6 @@
-# LLM judger
+# LLM evaluator
 
-After `llm` writes a `VideoProfile`, the `judger` stage loads Qwen3-8B with a
+After `llm` writes a `VideoProfile`, the `evaluator` stage loads Qwen3-8B with a
 fresh chat (system + user only). It receives:
 
 1. The title derived from the video file name (for example
@@ -27,11 +27,11 @@ The host computes `overall` as the weighted mean on the 1-5 scale and
 ## Prompt
 
 Editable templates live in
-[`src/open_enricher/stages/judger_core/judger_prompt.md`](../src/open_enricher/stages/judger_core/judger_prompt.md)
+[`src/open_enricher/stages/evaluator_core/evaluator_prompt.md`](../src/open_enricher/stages/evaluator_core/evaluator_prompt.md)
 (`## System` and `## User`). Placeholders such as `{{TITLE}}` and
 `{{PROFILE_JSON}}` are filled by `prompt.py`.
 
 ## Outputs
 
-- `data/outputs/local/<id>/judger_results/<video>_judger.json`
+- `data/outputs/local/<id>/evaluator_results/<video>_evaluator.json`
 - Archived copy under `runs/local/<id>/<video>/score.json`

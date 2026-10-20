@@ -1,6 +1,6 @@
-"""Dimension definitions and weights for the LLM metadata judger.
+"""Dimension definitions and weights for the LLM metadata evaluator.
 
-The judger model scores each dimension on a 1-5 integer scale. The host
+The evaluator model scores each dimension on a 1-5 integer scale. The host
 process applies these weights to produce the final quality metric. No
 synopsis or upstream pipeline evidence is used: fidelity is judged against
 the model's training knowledge of the titled work.
@@ -10,7 +10,7 @@ from __future__ import annotations
 
 from typing import Dict, Tuple
 
-# Ordered dimensions the judger must return. Weights sum to 1.0.
+# Ordered dimensions the evaluator must return. Weights sum to 1.0.
 DIMENSION_WEIGHTS: Dict[str, float] = {
     "completeness": 0.15,
     "specificity": 0.25,
@@ -25,7 +25,7 @@ DIMENSION_ORDER: Tuple[str, ...] = tuple(DIMENSION_WEIGHTS.keys())
 SCORE_MIN: int = 1
 SCORE_MAX: int = 5
 
-# Short rubrics injected into the judger prompt.
+# Short rubrics injected into the evaluator prompt.
 DIMENSION_RUBRICS: Dict[str, str] = {
     "completeness": (
         "Are all RecSys fields present, non-empty, and informative "

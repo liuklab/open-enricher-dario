@@ -1,6 +1,6 @@
 """Pydantic schema for the final RecSys video profile.
 
-Shared by the LLM stage (writer) and the judger stage (reader) so the scored
+Shared by the LLM stage (writer) and the evaluator stage (reader) so the scored
 shape cannot drift from the generated shape. Depends only on pydantic.
 """
 

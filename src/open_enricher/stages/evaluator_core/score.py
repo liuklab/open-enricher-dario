@@ -1,4 +1,4 @@
-"""CPU helpers for the LLM judger: title parsing, weighting, report assembly.
+"""CPU helpers for the LLM evaluator: title parsing, weighting, report assembly.
 
 No torch and no network. The GPU stage calls ``build_report`` after the model
 returns a JSON document of per-dimension scores.
@@ -9,7 +9,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Dict, Mapping, Tuple
 
-from open_enricher.stages.judger_core import criteria as C
+from open_enricher.stages.evaluator_core import criteria as C
 
 
 def title_from_filename(video_filename: str) -> str:
@@ -23,7 +23,7 @@ def title_from_filename(video_filename: str) -> str:
         video_filename: Exact file name under ``video_inputs``.
 
     Returns:
-        Title string passed to the judger LLM. Never empty for a non-empty name.
+        Title string passed to the evaluator LLM. Never empty for a non-empty name.
     """
     stem = Path(video_filename).stem.strip()
     if not stem:
@@ -83,11 +83,11 @@ def build_report(
     llm_payload: Dict[str, Any],
 ) -> Dict[str, Any]:
     """
-    Build the archived judger report from a parsed LLM JSON payload.
+    Build the archived evaluator report from a parsed LLM JSON payload.
 
     Args:
         video_filename: Exact source video file name.
-        title: Title string that was shown to the judger LLM.
+        title: Title string that was shown to the evaluator LLM.
         profile_file: Name of the LLM profile JSON that was scored.
         llm_payload: Parsed model output. Expected shape::
 
@@ -171,7 +171,7 @@ def failed_report(
     error: str,
 ) -> Dict[str, Any]:
     """
-    Build a zeroed report when the judger cannot score the profile.
+    Build a zeroed report when the evaluator cannot score the profile.
 
     Args:
         video_filename: Exact source video file name.
