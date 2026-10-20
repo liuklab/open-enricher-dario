@@ -25,12 +25,12 @@ HF_TOKEN=hf_your_token
 
 The token is used only for gated model weights (WhisperX / pyannote). If diarization weights cannot be downloaded, the audio stage still saves the transcript and marks every speaker as `UNKNOWN`.
 
-## Data lake
+## Dataset
 
-Default layout under `data/` (override with `OPEN_ENRICHER_DATA_ROOT`):
+Default layout under `dataset/` (override with `OPEN_ENRICHER_DATASET_ROOT`):
 
 ```text
-data/
+dataset/
 ├── models_cache/
 ├── video_inputs/          # put source videos here
 └── outputs/
@@ -42,7 +42,7 @@ data/
         └── evaluator_results/
 ```
 
-Put episode files in `data/video_inputs/` before running.
+Put episode files in `dataset/video_inputs/` before running.
 
 ## Run one video through all stages
 
@@ -82,13 +82,13 @@ See [docs/local_loop.md](docs/local_loop.md).
 ```text
 src/open_enricher/
   runner.py                 # in-process stage registry and pipeline
-  storage.py                # local data lake
+  storage.py                # local dataset
   stages/                   # audio, color, vlm, llm, evaluator
   experiments/
     loop.py                 # sequential variants
     variants/*.json         # experiment knobs
 runs/local/                 # archived results and scores
-data/                       # videos, model cache, live outputs
+dataset/                    # videos, model cache, live outputs
 ```
 
 Historical `runs/exp2/` archives from the remote Colab/Kaggle round may still be present. New runs write only under `runs/local/`.

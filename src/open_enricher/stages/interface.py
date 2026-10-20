@@ -1,7 +1,7 @@
 """Base protocol for all pipeline stages.
 
 Every enricher stage exposes a stable ``name`` and a ``run`` method that
-takes a video filename from the local data lake and returns a JSON-friendly
+takes a video filename from the local dataset and returns a JSON-friendly
 status dict. The in-process runner in ``open_enricher.runner`` calls stages
 through this contract without HTTP.
 """

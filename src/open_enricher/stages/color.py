@@ -66,11 +66,11 @@ class ColorStage:
             Status dict with output file name and timings.
 
         Raises:
-            FileNotFoundError: When the video is missing from the data lake.
+            FileNotFoundError: When the video is missing from the dataset.
         """
         video_path = db.video_inputs / video_filename
         if not video_path.exists():
-            raise FileNotFoundError(f"Video not found in data lake: {video_path}")
+            raise FileNotFoundError(f"Video not found in dataset: {video_path}")
 
         timing = TimingRecorder(self.name)
         print("[INFO] Detecting scene cuts (Hybrid Sampling)...")

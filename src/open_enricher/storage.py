@@ -1,10 +1,10 @@
-"""Local data lake for Open-Enricher.
+"""Local dataset layout for Open-Enricher.
 
 Owns the on-disk layout used by every pipeline stage: source videos,
 downloaded model weights, and per-stage JSON or frame outputs.
 
-Default root is ``<repository>/data``. Override with
-``OPEN_ENRICHER_DATA_ROOT`` or point videos elsewhere with
+Default root is ``<repository>/dataset``. Override with
+``OPEN_ENRICHER_DATASET_ROOT`` or point videos elsewhere with
 ``OPEN_ENRICHER_VIDEO_INPUTS``. When ``OPEN_ENRICHER_EXPERIMENT_ID`` is set,
 stage outputs go under ``outputs/<prefix>/<experiment_id>/`` so sequential
 experiment runs do not overwrite each other.
@@ -22,26 +22,30 @@ def _repo_root() -> Path:
 
     ``storage.py`` lives at ``src/open_enricher/storage.py``, so two parents
     up from the package directory lands on the checkout root. Used only when
-    building the default data lake path.
+    building the default dataset path.
     """
     return Path(__file__).resolve().parents[2]
 
 
-def data_root() -> Path:
+def dataset_root() -> Path:
     """
-    Return the persistent data lake root for this process.
+    Return the persistent dataset root for this process.
 
     Preference order:
-    1. ``OPEN_ENRICHER_DATA_ROOT`` if set
-    2. ``<repo>/data`` next to the package source tree
+    1. ``OPEN_ENRICHER_DATASET_ROOT`` if set
+    2. ``OPEN_ENRICHER_DATASET_ROOT`` if set (legacy alias)
+    3. ``<repo>/dataset`` next to the package source tree
 
     Returns:
-        Absolute or relative Path to the data lake directory.
+        Absolute or relative Path to the dataset directory.
     """
-    override = os.environ.get("OPEN_ENRICHER_DATA_ROOT")
+    override = (
+        os.environ.get("OPEN_ENRICHER_DATASET_ROOT")
+        or os.environ.get("OPEN_ENRICHER_DATASET_ROOT")
+    )
     if override:
         return Path(override)
-    return _repo_root() / "data"
+    return _repo_root() / "dataset"
 
 
 def video_input_dir(root: Path) -> Path:
@@ -49,7 +53,7 @@ def video_input_dir(root: Path) -> Path:
     Return the directory that holds source video files.
 
     Args:
-        root: Data lake root from ``data_root()``.
+        root: Dataset root from ``dataset_root()``.
 
     Returns:
         ``OPEN_ENRICHER_VIDEO_INPUTS`` when set, otherwise ``root/video_inputs``.
@@ -80,21 +84,21 @@ def experiment_id() -> str:
     return os.environ.get("OPEN_ENRICHER_EXPERIMENT_ID", "").strip()
 
 
-class DatabaseManager:
+class DatasetManager:
     """
     Directory registry for videos, caches, and stage output folders.
 
     Constructed once as the module-level ``db`` singleton. Call
-    ``setup_database()`` before running stages and ``configure_environment()``
+    ``setup_dataset()`` before running stages and ``configure_environment()``
     before importing heavy ML libraries so Hugging Face and Torch caches land
-    inside the data lake.
+    inside the dataset tree.
     """
 
     def __init__(self) -> None:
         """
         Bind paths from the current environment.
 
-        Does not create directories. Call ``setup_database()`` for that.
+        Does not create directories. Call ``setup_dataset()`` for that.
         Re-read environment variables by constructing a new instance or by
         calling ``refresh()`` after changing ``OPEN_ENRICHER_*`` vars.
         """
@@ -108,7 +112,7 @@ class DatabaseManager:
         or ``OPEN_ENRICHER_PIPELINE_SPEC`` so stage folders point at the new
         experiment namespace.
         """
-        self.root = data_root()
+        self.root = dataset_root()
         self.models_cache = self.root / "models_cache"
         self.video_inputs = video_input_dir(self.root)
         self.outputs = self.root / "outputs"
@@ -136,7 +140,7 @@ class DatabaseManager:
         }
         self.experiment_log = base / "worker.log" if exp else self.outputs / "worker.log"
 
-    def setup_database(self) -> None:
+    def setup_dataset(self) -> None:
         """
         Create the required folder structure if it does not exist.
 
@@ -145,7 +149,7 @@ class DatabaseManager:
         ``OPEN_ENRICHER_VIDEO_INPUTS`` points at a missing directory.
         """
         self.refresh()
-        print(f"[INFO] Initializing data lake at {self.root}...")
+        print(f"[INFO] Initializing dataset at {self.root}...")
         if experiment_id():
             print(
                 f"[INFO] Experiment outputs under "
@@ -168,11 +172,11 @@ class DatabaseManager:
         if self.experiment_log.parent != self.outputs or experiment_id():
             self.experiment_log.parent.mkdir(parents=True, exist_ok=True)
 
-        print("[INFO] Database structure verified.")
+        print("[INFO] Dataset structure verified.")
 
     def configure_environment(self) -> None:
         """
-        Route Hugging Face and PyTorch caches into the data lake.
+        Route Hugging Face and PyTorch caches into the dataset tree.
 
         Sets ``HF_HOME``, ``TORCH_HOME``, disables hub symlinks, and enables
         expandable CUDA allocator segments. Call before importing transformers
@@ -202,4 +206,4 @@ class DatabaseManager:
 
 
 # Process-wide singleton used by every stage module.
-db = DatabaseManager()
+db = DatasetManager()

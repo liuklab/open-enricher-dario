@@ -165,7 +165,7 @@ def _activate_variant(variant_path: Path, experiment_id: str) -> None:
     os.environ["OPEN_ENRICHER_EXPERIMENT_ID"] = experiment_id
     os.environ["OPEN_ENRICHER_EXPERIMENT_PREFIX"] = EXPERIMENT_PREFIX
     db.refresh()
-    db.setup_database()
+    db.setup_dataset()
 
 
 def run_one_experiment(
@@ -181,7 +181,7 @@ def run_one_experiment(
 
     Args:
         variant_path: Path to the variant JSON file.
-        videos: Video filenames under the data lake ``video_inputs``.
+        videos: Video filenames under the dataset ``video_inputs``.
         stages: Ordered stage names to execute.
         use_cache: Reuse shared audio/color cache when available.
         skip_done: Skip the experiment when progress already marks it archived.
@@ -366,7 +366,7 @@ def build_parser() -> argparse.ArgumentParser:
         description=(
             "Run Open-Enricher experiment variants locally in sequence. "
             "Each variant sets OPEN_ENRICHER_PIPELINE_SPEC and runs the "
-            "in-process pipeline on the videos under the local data lake."
+            "in-process pipeline on the videos under the local dataset."
         )
     )
     parser.add_argument(

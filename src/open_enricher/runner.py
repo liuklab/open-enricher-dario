@@ -87,7 +87,7 @@ class _TeeStream:
 
 def bootstrap_runtime(*, env_file: Path | None = None, tee_log: bool = True) -> None:
     """
-    Load secrets, configure caches, and create the data lake folders.
+    Load secrets, configure caches, and create the dataset folders.
 
     Args:
         env_file: Optional ``.env`` path. Defaults to ``<repo>/.env`` when
@@ -106,7 +106,7 @@ def bootstrap_runtime(*, env_file: Path | None = None, tee_log: bool = True) -> 
         load_dotenv(env_file)
 
     db.configure_environment()
-    db.setup_database()
+    db.setup_dataset()
 
     hf_token = os.getenv("HF_TOKEN", "").strip()
     if hf_token:
@@ -297,7 +297,7 @@ def save_stage_to_cache(
 
 def list_videos(video_names: Sequence[str] | None = None) -> list[str]:
     """
-    Resolve which videos to process from the data lake.
+    Resolve which videos to process from the dataset.
 
     Args:
         video_names: Explicit filenames. When None or empty, every regular
@@ -357,7 +357,7 @@ def run_pipeline(
     """
     video_path = db.video_inputs / video_filename
     if not video_path.is_file():
-        raise FileNotFoundError(f"Video not found in data lake: {video_path}")
+        raise FileNotFoundError(f"Video not found in dataset: {video_path}")
 
     registry = stage_registry if stage_registry is not None else build_stages()
     results: list[dict[str, Any]] = []

@@ -5,7 +5,7 @@ This round runs on branch `local`. Each experiment points the process at one var
 ## Prerequisites
 
 1. CUDA-capable GPU with enough VRAM for WhisperX, Qwen3-VL-8B (4-bit), and Qwen3-8B (4-bit).
-2. Videos under `data/video_inputs/` (or `OPEN_ENRICHER_VIDEO_INPUTS`).
+2. Videos under `dataset/video_inputs/` (or `OPEN_ENRICHER_VIDEO_INPUTS`).
 3. `.env` with `HF_TOKEN` when gated weights are required.
 
 ```bash

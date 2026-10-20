@@ -1,6 +1,6 @@
 """Audio transcription and speaker diarization using WhisperX.
 
-First pipeline stage. Reads a video from the local data lake, produces a
+First pipeline stage. Reads a video from the local dataset, produces a
 timestamped dialogue list, and writes ``<video>_audio.json`` plus timings.
 Later stages (VLM enrichment, LLM profiling, evaluator) consume that JSON.
 """
@@ -56,7 +56,7 @@ class AudioStage:
 
     def run(self, video_filename: str) -> Dict[str, Any]:
         """
-        Transcribe one video and write dialogue JSON into the data lake.
+        Transcribe one video and write dialogue JSON into the dataset.
 
         Args:
             video_filename: Exact file name under ``video_inputs``.
@@ -65,11 +65,11 @@ class AudioStage:
             Status dict with line count, output file name, and timings.
 
         Raises:
-            FileNotFoundError: When the video is missing from the data lake.
+            FileNotFoundError: When the video is missing from the dataset.
         """
         video_path = db.video_inputs / video_filename
         if not video_path.exists():
-            raise FileNotFoundError(f"Video not found in data lake: {video_path}")
+            raise FileNotFoundError(f"Video not found in dataset: {video_path}")
 
         timing = TimingRecorder(self.name)
         print("[INFO] Loading WhisperX model...")

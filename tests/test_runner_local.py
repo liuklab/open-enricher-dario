@@ -39,7 +39,7 @@ def test_list_videos_missing_file(tmp_path: Path, monkeypatch: pytest.MonkeyPatc
     video_dir = tmp_path / "video_inputs"
     video_dir.mkdir()
     (video_dir / "present.mkv").write_bytes(b"fake")
-    monkeypatch.setenv("OPEN_ENRICHER_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("OPEN_ENRICHER_DATASET_ROOT", str(tmp_path))
     monkeypatch.setenv("OPEN_ENRICHER_VIDEO_INPUTS", str(video_dir))
     monkeypatch.delenv("OPEN_ENRICHER_EXPERIMENT_ID", raising=False)
     db.refresh()
@@ -56,11 +56,11 @@ def test_run_pipeline_rejects_missing_video(
     """``run_pipeline`` fails fast when the video file is not on disk."""
     video_dir = tmp_path / "video_inputs"
     video_dir.mkdir()
-    monkeypatch.setenv("OPEN_ENRICHER_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("OPEN_ENRICHER_DATASET_ROOT", str(tmp_path))
     monkeypatch.setenv("OPEN_ENRICHER_VIDEO_INPUTS", str(video_dir))
     monkeypatch.delenv("OPEN_ENRICHER_EXPERIMENT_ID", raising=False)
     db.refresh()
-    db.setup_database()
+    db.setup_dataset()
 
     with pytest.raises(FileNotFoundError) as exc:
         run_pipeline("missing.mkv", use_cache=False)
@@ -71,7 +71,7 @@ def test_primary_artifact_path_uses_experiment_namespace(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     """Artifact paths land under outputs/<prefix>/<experiment_id>/."""
-    monkeypatch.setenv("OPEN_ENRICHER_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("OPEN_ENRICHER_DATASET_ROOT", str(tmp_path))
     monkeypatch.setenv("OPEN_ENRICHER_EXPERIMENT_PREFIX", "local")
     monkeypatch.setenv("OPEN_ENRICHER_EXPERIMENT_ID", "01-interval-llm")
     db.refresh()

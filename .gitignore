@@ -218,7 +218,8 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-# Local experiment data and inference outputs
+# Local experiment dataset and inference outputs
+/dataset/
 /data/
 /outputs/
 .session/
