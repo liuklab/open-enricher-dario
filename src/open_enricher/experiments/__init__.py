@@ -1,1 +1,1 @@
-"""Unattended experiment loop for the exp2 round."""
+"""Local experiment harness: sequential variants, archive, and resume."""

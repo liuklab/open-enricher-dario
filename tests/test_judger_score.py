@@ -11,7 +11,7 @@ from __future__ import annotations
 import copy
 import unittest
 
-from src.open_enricher.remote.stages.judger_core.score import score_profile
+from open_enricher.stages.judger_core.score import score_profile
 
 
 def _grounded_profile() -> dict:

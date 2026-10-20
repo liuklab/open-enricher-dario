@@ -1,17 +1,20 @@
 # Open-Enricher
 
-Client-server pipeline for video understanding. A laptop packs the code and starts a GPU worker. The worker runs five stages and writes structured metadata for a recommender:
+Local video understanding pipeline. A GPU host runs five stages in process and writes structured metadata for a recommender:
 
-`audio` (WhisperX) → `color` (scene colors) → `vlm` (Qwen3-VL, in 5-minute windows) → `llm` (Qwen3-8B profile) → `judger` (deterministic score).
+`audio` (WhisperX) -> `color` (scene colors) -> `vlm` (Qwen3-VL) -> `llm` (Qwen3-8B profile) -> `judger` (deterministic score).
 
-The worker can run on Google Colab or on a Kaggle GPU kernel. Both modes keep the same stage API. The laptop calls that API. It does not need a local GPU.
+There is no client/server split, no Colab or Kaggle deploy, and no Google Drive. Experiment variants run in sequence on the same machine.
 
-## Install the client
+## Install
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements-cli.txt
+
+# Install PyTorch for your CUDA version first, then:
+pip install -r requirements.txt
+pip install -e .
 ```
 
 Create `.env` in the repository root:
@@ -20,73 +23,49 @@ Create `.env` in the repository root:
 HF_TOKEN=hf_your_token
 ```
 
-The token is uploaded to the worker and is not stored in git. Pyannote diarization weights are gated. If the token cannot download them, the audio stage still saves the transcript and marks every speaker as `UNKNOWN`.
+The token is used only for gated model weights (WhisperX / pyannote). If diarization weights cannot be downloaded, the audio stage still saves the transcript and marks every speaker as `UNKNOWN`.
 
-## Colab
+## Data lake
 
-Requires the `colab` CLI on `PATH`, already authenticated.
-
-```bash
-python deploy.py --mode colab-cli --target enricher --gpu T4
-python -m src.open_enricher.client \
-  --mode colab-cli --target enricher \
-  --video Stranger_Things.S01E03.mkv \
-  --stages audio color vlm llm judger \
-  --timeout 10800
-```
-
-`deploy.py` reuses the named session when it already exists. Otherwise it starts a T4 session and mounts Google Drive. The data lake is:
+Default layout under `data/` (override with `OPEN_ENRICHER_DATA_ROOT`):
 
 ```text
-/content/drive/MyDrive/Open-Enricher-Database/
+data/
 ├── Models-Cache/
-├── Video-Inputs/          # put the source video here
+├── Video-Inputs/          # put source videos here
 └── Outputs/
-    ├── Audio-Results/
-    ├── Color-Results/
-    ├── VLMs-Results/
-    ├── LLMs-Results/
-    └── Judger-Results/
+    └── local/<experiment_id>/
+        ├── Audio-Results/
+        ├── Color-Results/
+        ├── VLMs-Results/
+        ├── LLMs-Results/
+        └── Judger-Results/
 ```
 
-The client opens an SSH tunnel to port 8000, runs the requested stages, and saves each JSON response under `outputs/` on the laptop. The full artifacts stay on Drive.
+Put episode files in `data/Video-Inputs/` before running.
 
-## Kaggle
+## Run one video through all stages
 
-Requires the `kaggle` CLI and `kaggle auth login`.
-
-Put the source videos in a private dataset and record its id in `dataset/dataset-metadata.json`:
-
-```json
-{
-  "title": "open-enricher-dataset",
-  "id": "your-user/open-enricher-dataset",
-  "licenses": [{"name": "CC0-1.0"}]
-}
-```
-
-Videos must sit at the root of that dataset. The CLI mounts it at `/kaggle/input/datasets/<owner>/<slug>`; the notebook editor still uses `/kaggle/input/<slug>`. The worker checks both.
+The experiment loop is the main entrypoint. To process every video once with the default packaged `pipeline_spec.json` knobs via a single variant:
 
 ```bash
-python deploy.py --mode kaggle --target open-enricher --gpu T4
-python -m src.open_enricher.client \
-  --mode kaggle --target open-enricher \
-  --video Stranger_Things.S01E03.mkv \
-  --stages audio color vlm llm judger \
-  --timeout 10800
+python -m open_enricher --only 01-interval-llm --video Stranger_Things.S01E03.mkv
 ```
 
-`--target` is the kernel slug. The full kernel id is `<kaggle-user>/open-enricher`.
+## Sequential experiments
 
-Deploy uploads a private code dataset (`<user>/open-enricher-code`, including `.env`), pushes the kernel on a T4 with internet enabled, and waits until the worker prints a tunnel URL. Kaggle kernels do not accept inbound SSH, so the kernel opens an outbound Cloudflare tunnel and the client calls the same HTTP stage API through that URL. The URL is cached in `.session/<slug>.url`.
-
-Outputs and the model cache are written under `/kaggle/working/Open-Enricher-Database`. Pull them while the kernel is still running:
+Variants live in `src/open_enricher/experiments/variants/`. Each run sets `OPEN_ENRICHER_PIPELINE_SPEC` to that JSON, executes `audio -> color -> vlm -> llm -> judger` in process, archives under `runs/local/<experiment_id>/`, and continues to the next variant. Audio and color outputs are cached under `runs/local/_cache/` because they do not depend on the variant knobs.
 
 ```bash
-kaggle kernels output <user>/open-enricher -p outputs
+python -m open_enricher --list
+python -m open_enricher --only 01-interval-llm
+python -m open_enricher --from 04-scenes-llm
+python -m open_enricher
 ```
 
-The kernel stays up for 8 hours after deploy so later stage commands can reuse it.
+Resume uses `runs/local/progress.jsonl`. Pass `--force` to re-run experiments already marked done. Pass `--no-cache` to ignore the shared audio/color cache.
+
+See [docs/local_loop.md](docs/local_loop.md).
 
 ## Stages
 
@@ -94,34 +73,22 @@ The kernel stays up for 8 hours after deploy so later stage commands can reuse i
 | :--- | :--- |
 | `audio` | Timestamped transcript |
 | `color` | Keyframes and dominant hex colors |
-| `vlm` | One description per 5-minute window, merged into one JSON. A local 8B model summarizes the transcript first and that summary is added to the prompt, together with the color digest. |
-| `llm` | `VideoProfile` for search, audience, and a short summary. It reads the brief instead of the full transcript so a 15 GB GPU can hold the model. |
+| `vlm` | One description per window or scene, merged into one JSON. A local 8B model summarizes the transcript first when the variant enables that option. |
+| `llm` | `VideoProfile` for search, audience, and a short summary. |
 | `judger` | Deterministic score of that profile. No second model. |
-
-Run a subset by passing `--stages`. Later stages reuse JSON already stored in the data lake.
 
 ## Layout
 
 ```text
-deploy.py                      # upload and start the worker
-deployment/launch.sh           # remote install and uvicorn
-deployment/kaggle_worker.py    # Kaggle kernel entrypoint
-src/open_enricher/client/      # laptop CLI
-src/open_enricher/remote/      # FastAPI worker and stages
+src/open_enricher/
+  runner.py                 # in-process stage registry and pipeline
+  storage.py                # local data lake
+  stages/                   # audio, color, vlm, llm, judger
+  experiments/
+    loop.py                 # sequential variants
+    variants/*.json         # experiment knobs
+runs/local/                 # archived results and scores
+data/                       # videos, model cache, live outputs
 ```
 
-`old_files/` and the per-experiment notes from the first Colab round are not part of this branch.
-
-## Exp2 experiment loop
-
-On branch `exp2`, an unattended harness runs each pipeline variant on **Colab** (`Stranger_Things.S01E03.mkv`) and **Kaggle** (`Suits.S01E02.mkv`) in parallel, archives outputs under `runs/exp2/`, and scores each profile with a clean-context Cursor agent (`cursor-sdk`). The deterministic `judger` stage is not used in this round.
-
-```bash
-pip install -r requirements-cli.txt
-# .env: HF_TOKEN and CURSOR_API_KEY
-
-python -m src.open_enricher.experiments --list
-python -m src.open_enricher.experiments --only 01-interval-llm
-```
-
-See [docs/exp2_loop.md](docs/exp2_loop.md). Pipeline knobs for a run live in `src/open_enricher/remote/stages/pipeline_spec.json` (copied from `src/open_enricher/experiments/variants/`).
+Historical `runs/exp2/` archives from the remote Colab/Kaggle round may still be present. New runs write only under `runs/local/`.

@@ -1,79 +1,104 @@
-"""Unattended experiment loop: variant → dual terminals → scores → notes."""
+"""Sequential local experiment loop.
+
+For each pipeline variant JSON, point the process at that spec, run the
+in-process enricher on the configured videos, archive artifacts under
+``runs/local/<experiment_id>/``, and continue to the next variant. No
+deploy, HTTP client, Colab, Kaggle, or Google Drive is involved.
+"""
 
 from __future__ import annotations
 
 import argparse
-import concurrent.futures
 import json
+import os
 from pathlib import Path
 from typing import Any
 
-from src.open_enricher.experiments.archive import (
+from open_enricher.experiments.archive import (
     append_progress,
     experiment_dir,
+    is_done,
     list_variants,
+    merge_timings,
+    video_archive_dir,
     write_json,
 )
-from src.open_enricher.experiments.config import (
+from open_enricher.experiments.config import (
+    CACHE_ROOT,
+    EXPERIMENT_PREFIX,
+    PIPELINE_STAGES,
     REPO_ROOT,
     VARIANTS_DIR,
-    MachineBinding,
-    select_machines,
 )
-from src.open_enricher.experiments.git_ops import (
-    commit_all,
-    copy_experiment_md,
-    ensure_experiment_worktree,
-    install_pipeline_spec,
-    remove_worktree,
-)
-from src.open_enricher.experiments.machine_run import run_machine_pipeline
+from open_enricher.storage import db
 
 
-def _machine_label(machine: MachineBinding) -> str:
-    labels = {
-        "colab": "Colab (Stranger Things)",
-        "kaggle": "Kaggle (Suits)",
-    }
-    return labels.get(machine.name, machine.name)
+def _runner():
+    """
+    Lazy-import runner helpers that pull in heavy stage dependencies.
 
+    Returns:
+        The ``open_enricher.runner`` module.
+    """
+    from open_enricher import runner as runner_module
 
-def _orchestrator_notes(machines: tuple[MachineBinding, ...]) -> str:
-    described = " and ".join(_machine_label(machine) for machine in machines)
-    if len(machines) == 1:
-        finished = f"the {machines[0].name} run finishes"
-    else:
-        finished = "BOTH machines finish"
-    return f"""# EXPERIMENT.md template (orchestrator)
-
-Write three short sections after {finished}:
-
-1. **Code change** — what the pipeline_spec / stage code changed for this experiment
-2. **Execution** — outcome of {described}: errors, OOM, truncations
-3. **Quality and next step** — one conclusion; what the next experiment should change
-
-Scores stay in each machine's `score.json`.
-"""
+    return runner_module
 
 
 def _variant_id(path: Path) -> str:
+    """
+    Read the experiment id from a variant file, falling back to the stem.
+
+    Args:
+        path: Path to a variant JSON document.
+
+    Returns:
+        Non-empty experiment id string.
+    """
     data = json.loads(path.read_text(encoding="utf-8"))
     return str(data.get("experiment_id") or path.stem)
 
 
+def _load_variant(path: Path) -> dict[str, Any]:
+    """
+    Load a variant JSON object and drop private underscore keys.
+
+    Args:
+        path: Path to a variant JSON document.
+
+    Returns:
+        Dict suitable for ``load_pipeline_spec`` and for archiving.
+    """
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        raise ValueError(f"Variant must be a JSON object: {path}")
+    return {key: value for key, value in data.items() if not str(key).startswith("_")}
+
+
 def _write_stub_experiment_md(
-    worktree: Path,
+    exp_dir: Path,
     experiment_id: str,
     variant: dict[str, Any],
-    machine_results: list[dict[str, Any]],
-    machines: tuple[MachineBinding, ...],
+    video_results: list[dict[str, Any]],
 ) -> Path:
+    """
+    Write a short EXPERIMENT.md stub summarizing the local run.
+
+    Args:
+        exp_dir: Archive directory for this experiment.
+        experiment_id: Stable experiment id.
+        variant: Cleaned variant dict.
+        video_results: Per-video pipeline summaries.
+
+    Returns:
+        Path to the written markdown file.
+    """
     lines = [
         f"# Experiment {experiment_id}",
         "",
-        "## Code change",
+        "## Spec",
         "",
-        f"- Spec title: `{variant.get('title')}`",
+        f"- Title: `{variant.get('title')}`",
         f"- Segmentation: `{variant.get('segmentation')}`",
         f"- Dialogue/color routing: `{variant.get('dialogue_color_routing')}`",
         f"- VLM memory: `{variant.get('vlm_memory')}`",
@@ -84,132 +109,175 @@ def _write_stub_experiment_md(
         "## Execution",
         "",
     ]
-    for result in machine_results:
+    for result in video_results:
         status = result.get("status")
         err = result.get("error")
         lines.append(
-            f"- `{result.get('machine')}` / `{result.get('video')}`: **{status}**"
-            + (f" — {err}" if err else "")
+            f"- `{result.get('video')}`: **{status}**"
+            + (f" - {err}" if err else "")
         )
     lines.extend(
         [
             "",
-            "## Quality and next step",
+            "## Quality",
             "",
-            "_Orchestrator: replace this section with a conclusion from "
-            + ", ".join(f"`runs/exp2/<id>/{machine.name}/score.json`" for machine in machines)
-            + ", metadata JSON, timings, and worker logs. "
-            "That conclusion is the only input for the next experiment's code changes._",
-            "",
-            _orchestrator_notes(machines),
+            "See each video folder's `score.json` (deterministic judger report).",
             "",
         ]
     )
-    path = worktree / "EXPERIMENT.md"
+    path = exp_dir / "EXPERIMENT.md"
     path.write_text("\n".join(lines), encoding="utf-8")
     return path
 
 
-def _collect_scores(exp_dir: Path, machines: tuple[MachineBinding, ...]) -> dict[str, Any]:
-    scores = {}
-    for machine in machines:
-        path = exp_dir / machine.name / "score.json"
+def _collect_scores(exp_dir: Path, videos: list[str]) -> dict[str, Any]:
+    """
+    Load archived judger scores for each video under an experiment folder.
+
+    Args:
+        exp_dir: Archive directory for this experiment.
+        videos: Video filenames that were processed.
+
+    Returns:
+        Mapping of video filename to score document when present.
+    """
+    scores: dict[str, Any] = {}
+    for video in videos:
+        path = exp_dir / video / "score.json"
         if path.is_file():
-            scores[machine.name] = json.loads(path.read_text(encoding="utf-8"))
+            scores[video] = json.loads(path.read_text(encoding="utf-8"))
     return scores
+
+
+def _activate_variant(variant_path: Path, experiment_id: str) -> None:
+    """
+    Point the process at one variant and experiment output namespace.
+
+    Args:
+        variant_path: Absolute path to the variant JSON file.
+        experiment_id: Id used under ``Outputs/<prefix>/<id>/``.
+
+    Side effects:
+        Sets ``OPEN_ENRICHER_PIPELINE_SPEC``, ``OPEN_ENRICHER_EXPERIMENT_ID``,
+        and ``OPEN_ENRICHER_EXPERIMENT_PREFIX``, then refreshes ``db``.
+    """
+    os.environ["OPEN_ENRICHER_PIPELINE_SPEC"] = str(variant_path.resolve())
+    os.environ["OPEN_ENRICHER_EXPERIMENT_ID"] = experiment_id
+    os.environ["OPEN_ENRICHER_EXPERIMENT_PREFIX"] = EXPERIMENT_PREFIX
+    db.refresh()
+    db.setup_database()
 
 
 def run_one_experiment(
     variant_path: Path,
     *,
-    machines: tuple[MachineBinding, ...],
-    timeout: int,
-    gpu: str,
-    keep_worktree: bool,
-    skip_deploy: bool,
+    videos: list[str],
+    stages: tuple[str, ...] = PIPELINE_STAGES,
+    use_cache: bool = True,
+    skip_done: bool = True,
 ) -> dict[str, Any]:
+    """
+    Run the full local pipeline for one variant across the given videos.
+
+    Args:
+        variant_path: Path to the variant JSON file.
+        videos: Video filenames under the data lake ``Video-Inputs``.
+        stages: Ordered stage names to execute.
+        use_cache: Reuse shared audio/color cache when available.
+        skip_done: Skip the experiment when progress already marks it archived.
+
+    Returns:
+        Summary dict with experiment_id, per-video results, and archive path.
+    """
     experiment_id = _variant_id(variant_path)
-    variant = json.loads(variant_path.read_text(encoding="utf-8"))
+    variant = _load_variant(variant_path)
     print(f"\n======== Experiment {experiment_id} ========\n", flush=True)
 
-    worktree = ensure_experiment_worktree(experiment_id)
-    # Prefer variant from worktree package if the harness was committed; else from source.
-    local_variant = (
-        worktree
-        / "src"
-        / "open_enricher"
-        / "experiments"
-        / "variants"
-        / variant_path.name
-    )
-    source = local_variant if local_variant.is_file() else variant_path
-    install_pipeline_spec(worktree, source)
-    commit_all(worktree, f"Prepare pipeline spec for {experiment_id}")
-
-    results: list[dict[str, Any]] = []
-    print(
-        "[INFO] Machines: " + ", ".join(machine.name for machine in machines),
-        flush=True,
-    )
-
-    with concurrent.futures.ThreadPoolExecutor(max_workers=max(1, len(machines))) as pool:
-        futures = {
-            pool.submit(
-                run_machine_pipeline,
-                worktree,
-                machine,
-                experiment_id,
-                timeout=timeout,
-                gpu=gpu,
-                skip_deploy=skip_deploy,
-            ): machine
-            for machine in machines
+    if skip_done and is_done(experiment_id, "archived"):
+        print(f"[INFO] Skipping {experiment_id}: already archived", flush=True)
+        return {
+            "experiment_id": experiment_id,
+            "status": "skipped_done",
+            "results": [],
+            "runs_dir": str(experiment_dir(experiment_id)),
         }
-        for future in concurrent.futures.as_completed(futures):
-            machine = futures[future]
-            try:
-                results.append(future.result())
-            except Exception as exc:
-                results.append(
-                    {
-                        "machine": machine.name,
-                        "video": machine.video,
-                        "experiment_id": experiment_id,
-                        "status": "error",
-                        "error": str(exc),
-                    }
-                )
+
+    _activate_variant(variant_path, experiment_id)
+    runner = _runner()
+    registry = runner.build_stages()
+    video_results: list[dict[str, Any]] = []
+
+    for video in videos:
+        print(f"[INFO] Pipeline for video {video}", flush=True)
+        try:
+            summary = runner.run_pipeline(
+                video,
+                stages=stages,
+                stage_registry=registry,
+                cache_root=CACHE_ROOT if use_cache else None,
+                use_cache=use_cache,
+            )
+        except Exception as exc:  # noqa: BLE001 - keep the loop moving
+            summary = {
+                "video": video,
+                "status": "error",
+                "error": str(exc),
+                "stages": [],
+            }
+
+        dest = video_archive_dir(experiment_id, video)
+        archived = runner.archive_artifacts(video, dest, stages=stages)
+        summary["archived_files"] = archived
+
+        score = runner.load_judger_score(video)
+        if score is not None:
+            write_json(dest / "score.json", score)
+            summary["score"] = {
+                "overall": score.get("overall"),
+                "usable": score.get("usable"),
+            }
+
+        timing_paths = list(dest.glob(f"{video}_*_timings.json"))
+        write_json(dest / "timings.json", merge_timings(timing_paths))
+        write_json(dest / "result.json", summary)
+        video_results.append(summary)
+
+        append_progress(
+            {
+                "experiment_id": experiment_id,
+                "video": video,
+                "step": "pipeline",
+                "status": "ok" if summary.get("status") == "success" else "error",
+                "detail": summary.get("status"),
+            }
+        )
 
     exp_dir = experiment_dir(experiment_id)
-    write_json(exp_dir / "machine_results.json", results)
-    write_json(exp_dir / "scores.json", _collect_scores(exp_dir, machines))
+    write_json(exp_dir / "video_results.json", video_results)
+    write_json(exp_dir / "scores.json", _collect_scores(exp_dir, videos))
     write_json(exp_dir / "variant.json", variant)
+    _write_stub_experiment_md(exp_dir, experiment_id, variant, video_results)
 
-    _write_stub_experiment_md(worktree, experiment_id, variant, results, machines)
-    commit_all(worktree, f"Record EXPERIMENT.md for {experiment_id}")
-    copy_experiment_md(worktree, exp_dir)
+    overall = "ok"
+    if any(row.get("status") != "success" for row in video_results):
+        overall = "error"
 
-    # Copy worktree EXPERIMENT.md and mirror key notes onto base branch runs/.
-    # The harness commits runs/ from the main checkout (BASE_BRANCH).
     append_progress(
         {
             "experiment_id": experiment_id,
-            "machine": ",".join(machine.name for machine in machines),
             "step": "archived",
-            "status": "ok",
+            "status": overall,
             "results": [
-                {"machine": r.get("machine"), "status": r.get("status")} for r in results
+                {"video": row.get("video"), "status": row.get("status")}
+                for row in video_results
             ],
         }
     )
 
-    if not keep_worktree:
-        # Keep the branch; drop only the temporary worktree directory.
-        remove_worktree(experiment_id)
-
     return {
         "experiment_id": experiment_id,
-        "results": results,
+        "status": overall,
+        "results": video_results,
         "runs_dir": str(exp_dir),
     }
 
@@ -217,19 +285,32 @@ def run_one_experiment(
 def run_loop(
     *,
     only: list[str] | None = None,
-    machines: list[str] | None = None,
-    colab_target: str = "enricher",
-    kaggle_target: str = "open-enricher",
-    timeout: int = 10800,
-    gpu: str = "T4",
-    keep_worktree: bool = False,
-    skip_deploy: bool = False,
+    from_id: str | None = None,
+    videos: list[str] | None = None,
+    stages: tuple[str, ...] = PIPELINE_STAGES,
+    use_cache: bool = True,
+    skip_done: bool = True,
 ) -> list[dict[str, Any]]:
-    selected = select_machines(
-        machines,
-        colab_target=colab_target,
-        kaggle_target=kaggle_target,
-    )
+    """
+    Run selected variants in sequence on the local GPU host.
+
+    Args:
+        only: Optional list of experiment ids or variant stems to run.
+        from_id: When set without ``only``, start at this id and continue.
+        videos: Optional explicit video filenames. Defaults to every file in
+            ``Video-Inputs``.
+        stages: Ordered stage names for each run.
+        use_cache: Reuse shared audio/color cache when available.
+        skip_done: Skip experiments already marked archived in progress.jsonl.
+
+    Returns:
+        List of per-experiment summary dicts. Also writes
+        ``runs/local/loop_summary.json``.
+    """
+    runner = _runner()
+    runner.bootstrap_runtime(tee_log=False)
+    selected_videos = runner.list_videos(videos)
+
     variants = list_variants(VARIANTS_DIR)
     if only:
         wanted = set(only)
@@ -238,31 +319,54 @@ def run_loop(
             for path in variants
             if path.stem in wanted or _variant_id(path) in wanted
         ]
-    # Fixed first seven; 08-10 are hypotheses the orchestrator may rewrite.
-    if not only:
-        variants = [p for p in variants if p.name[:2] <= "07"]
+    elif from_id:
+        start = None
+        for index, path in enumerate(variants):
+            if path.stem == from_id or _variant_id(path) == from_id:
+                start = index
+                break
+        if start is None:
+            raise ValueError(f"Unknown --from experiment id: {from_id}")
+        variants = variants[start:]
+
+    if not variants:
+        raise ValueError("No variants selected to run")
+
+    print(
+        "[INFO] Videos: "
+        + ", ".join(selected_videos)
+        + f" | variants: {len(variants)}",
+        flush=True,
+    )
 
     summaries: list[dict[str, Any]] = []
     for path in variants:
         summaries.append(
             run_one_experiment(
                 path,
-                machines=selected,
-                timeout=timeout,
-                gpu=gpu,
-                keep_worktree=keep_worktree,
-                skip_deploy=skip_deploy,
+                videos=selected_videos,
+                stages=stages,
+                use_cache=use_cache,
+                skip_done=skip_done,
             )
         )
-    write_json(REPO_ROOT / "runs" / "exp2" / "loop_summary.json", summaries)
+
+    write_json(REPO_ROOT / "runs" / "local" / "loop_summary.json", summaries)
     return summaries
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """
+    Build the CLI parser for the local experiment loop.
+
+    Returns:
+        Configured ``ArgumentParser`` instance.
+    """
     parser = argparse.ArgumentParser(
         description=(
-            "Run the exp2 experiment loop. Each variant deploys the same commit to "
-            "the selected machines (Colab and Kaggle by default)."
+            "Run Open-Enricher experiment variants locally in sequence. "
+            "Each variant sets OPEN_ENRICHER_PIPELINE_SPEC and runs the "
+            "in-process pipeline on the videos under the local data lake."
         )
     )
     parser.add_argument(
@@ -271,24 +375,31 @@ def build_parser() -> argparse.ArgumentParser:
         help="Run only these experiment ids or variant stems (e.g. 01-interval-llm).",
     )
     parser.add_argument(
-        "--machines",
+        "--from",
+        dest="from_id",
+        help="Start at this experiment id and continue through later variants.",
+    )
+    parser.add_argument(
+        "--video",
         nargs="+",
-        choices=["colab", "kaggle"],
-        help="Machines to run this round. Default is Colab and Kaggle.",
-    )
-    parser.add_argument("--colab-target", default="enricher")
-    parser.add_argument("--kaggle-target", default="open-enricher")
-    parser.add_argument("--timeout", type=int, default=10800)
-    parser.add_argument("--gpu", default="T4")
-    parser.add_argument(
-        "--keep-worktree",
-        action="store_true",
-        help="Leave the temporary worktree on disk after the experiment.",
+        dest="videos",
+        help="Video filenames under Video-Inputs. Default: every file there.",
     )
     parser.add_argument(
-        "--skip-deploy",
+        "--stages",
+        nargs="+",
+        choices=list(PIPELINE_STAGES),
+        help="Subset of stages to run. Default: all stages including judger.",
+    )
+    parser.add_argument(
+        "--no-cache",
         action="store_true",
-        help="Reuse an already-running worker (debug).",
+        help="Do not restore or update the shared audio/color cache.",
+    )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Re-run experiments even when progress.jsonl already marks them done.",
     )
     parser.add_argument(
         "--list",
@@ -299,21 +410,27 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> None:
+    """
+    CLI entrypoint for ``python -m open_enricher`` and the experiments module.
+
+    Args:
+        argv: Optional argument list for tests. Defaults to ``sys.argv[1:]``.
+    """
     parser = build_parser()
     args = parser.parse_args(argv)
     if args.list:
         for path in list_variants(VARIANTS_DIR):
             print(_variant_id(path), path.name)
         return
+
+    stages = tuple(args.stages) if args.stages else PIPELINE_STAGES
     run_loop(
         only=args.only,
-        machines=args.machines,
-        colab_target=args.colab_target,
-        kaggle_target=args.kaggle_target,
-        timeout=args.timeout,
-        gpu=args.gpu,
-        keep_worktree=args.keep_worktree,
-        skip_deploy=args.skip_deploy,
+        from_id=args.from_id,
+        videos=args.videos,
+        stages=stages,
+        use_cache=not args.no_cache,
+        skip_done=not args.force,
     )
 
 

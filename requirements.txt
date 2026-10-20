@@ -1,21 +1,23 @@
-# --- Web, API & System Tools ---
-fastapi
-uvicorn
+# Local GPU worker stack for Open-Enricher.
+# Install PyTorch for your CUDA version first, then:
+#   pip install -r requirements.txt
+#   pip install -e .
+
+# --- Config ---
 pydantic
 python-dotenv
-requests
 
-# --- WhisperX (Fase 1 - Audio) ---
+# --- WhisperX (audio stage) ---
 git+https://github.com/m-bain/whisperx.git
 
-# --- Qwen3-VL & LLM Utils (Fase 2 & 3 - Visione e LLM) ---
+# --- Qwen3-VL and LLM utils (vlm / llm stages) ---
 transformers>=4.57.0
 qwen-vl-utils
 bitsandbytes
 accelerate
 av
 
-# --- Video, Immagini & ML Utilities ---
+# --- Video, images, ML utilities (color stage) ---
 scenedetect
 opencv-python-headless
 scikit-learn

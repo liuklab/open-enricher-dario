@@ -1,91 +1,32 @@
-"""Fixed machine ↔ video mapping and paths for the exp2 round."""
+"""Fixed paths and defaults for the local experiment round.
+
+Centralizes repository-relative locations for variants, archived runs,
+shared audio/color cache, and the default stage order. The local runner
+reads these constants instead of Colab or Kaggle machine bindings.
+"""
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 from pathlib import Path
 
+# Repository root: experiments/config.py -> open_enricher -> src -> repo.
 REPO_ROOT = Path(__file__).resolve().parents[3]
+
+# Packaged experiment variant JSON files.
 VARIANTS_DIR = Path(__file__).resolve().parent / "variants"
-PROMPTS_DIR = Path(__file__).resolve().parent / "prompts"
-RUNS_ROOT = REPO_ROOT / "runs" / "exp2"
-CACHE_ROOT = REPO_ROOT / "runs" / "exp2" / "_cache"
-SUMMARIES_DIR = REPO_ROOT / "test_videos_summary"
+
+# Archived outputs for the local sequential round.
+RUNS_ROOT = REPO_ROOT / "runs" / "local"
+
+# Shared audio and color cache reused across variants for the same video.
+CACHE_ROOT = RUNS_ROOT / "_cache"
+
+# Append-only resume log for the experiment loop.
 PROGRESS_PATH = RUNS_ROOT / "progress.jsonl"
 
-EXPERIMENT_PREFIX = "exp2"
-BASE_BRANCH = "exp2"
-# refs/heads/exp2 already exists, so refs/heads/exp2/<id> cannot be created.
-EXPERIMENT_BRANCH_PREFIX = "exp2-run"
+# Round prefix written into the data lake under Outputs/.
+EXPERIMENT_PREFIX = "local"
 
-COLAB_VIDEO = "Stranger_Things.S01E03.mkv"
-KAGGLE_VIDEO = "Suits.S01E02.mkv"
-
-# Stages executed in this round (deterministic judger stays out).
-PIPELINE_STAGES = ("audio", "color", "vlm", "llm")
-
-# Benchmark score weights (sum to 1.0). Applied by the harness, not the agent.
-SCORE_WEIGHTS = {
-    "completeness": 0.15,
-    "specificity": 0.25,
-    "fidelity": 0.35,
-    "consistency": 0.10,
-    "recsys_usefulness": 0.15,
-}
-
-BENCHMARK_MODEL = "composer-2.5"
-
-
-@dataclass(frozen=True)
-class MachineBinding:
-    name: str  # colab | kaggle
-    mode: str
-    target: str
-    video: str
-
-    @property
-    def summary_path(self) -> Path:
-        return SUMMARIES_DIR / f"{self.video}_summary.txt"
-
-
-def default_machines(
-    *,
-    colab_target: str = "enricher",
-    kaggle_target: str = "open-enricher",
-) -> tuple[MachineBinding, MachineBinding]:
-    return (
-        MachineBinding(
-            name="colab",
-            mode="colab-cli",
-            target=colab_target,
-            video=COLAB_VIDEO,
-        ),
-        MachineBinding(
-            name="kaggle",
-            mode="kaggle",
-            target=kaggle_target,
-            video=KAGGLE_VIDEO,
-        ),
-    )
-
-
-def select_machines(
-    names: list[str] | None = None,
-    *,
-    colab_target: str = "enricher",
-    kaggle_target: str = "open-enricher",
-) -> tuple[MachineBinding, ...]:
-    """Return the fixed bindings, optionally restricted to the given names.
-
-    ``names`` is matched against ``colab`` and ``kaggle``. An empty selection
-    keeps both machines. Order stays Colab then Kaggle.
-    """
-    catalog = default_machines(colab_target=colab_target, kaggle_target=kaggle_target)
-    if not names:
-        return catalog
-    wanted = {name.strip().lower() for name in names}
-    unknown = wanted - {machine.name for machine in catalog}
-    if unknown:
-        known = ", ".join(machine.name for machine in catalog)
-        raise ValueError(f"Unknown machine(s): {', '.join(sorted(unknown))}. Known: {known}")
-    return tuple(machine for machine in catalog if machine.name in wanted)
+# Stages executed for each local experiment (includes deterministic judger).
+# Kept here (not imported from runner) so CLI --list stays free of torch/whisperx.
+PIPELINE_STAGES: tuple[str, ...] = ("audio", "color", "vlm", "llm", "judger")
