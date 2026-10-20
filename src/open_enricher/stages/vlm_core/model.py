@@ -9,8 +9,11 @@ from typing import Any
 import torch
 from transformers import AutoModelForImageTextToText, AutoProcessor, BitsAndBytesConfig
 
+from open_enricher.logging_setup import get_logger
 from open_enricher.stages.vlm_core.config import MetadataConfig, ModelConfig
 from open_enricher.stages.vlm_core.video import video_input_path
+
+logger = get_logger(__name__)
 
 _VIDEO_TENSOR_KEYS = ("pixel_values_videos", "pixel_values")
 
@@ -144,7 +147,7 @@ def prepare_video_inputs(
         )
 
     total_tokens = inputs["input_ids"].shape[1]
-    print(f"[INFO] VLM prepared input sequence length: {total_tokens} tokens")
+    logger.info(f"VLM prepared input sequence length: {total_tokens} tokens")
     return inputs.to(device)
 
 

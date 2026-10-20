@@ -14,10 +14,13 @@ import torch
 from pydantic import ValidationError
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
+from open_enricher import storage
+from open_enricher.logging_setup import get_logger
 from open_enricher.stages.pipeline_spec import load_pipeline_spec
 from open_enricher.stages.video_profile import VideoProfile
-from open_enricher import storage
 from open_enricher.timings import TimingRecorder
+
+logger = get_logger(__name__)
 
 
 class LLMStage:
@@ -42,14 +45,14 @@ class LLMStage:
 
         for stage_name, file_path in expected_files.items():
             if file_path.exists():
-                print(f"[INFO] Found metadata for stage: {stage_name}")
+                logger.info(f"Found metadata for stage: {stage_name}")
                 try:
                     with open(file_path, "r", encoding="utf-8") as f:
                         enriched_script[stage_name] = json.load(f)
                 except Exception as e:
-                    print(f"[WARNING] Failed to parse {file_path.name}: {e}")
+                    logger.warning(f"Failed to parse {file_path.name}: {e}")
             else:
-                print(f"[INFO] No metadata found for stage: {stage_name}. Skipping.")
+                logger.info(f"No metadata found for stage: {stage_name}. Skipping.")
 
         if spec.inject_dialogue_color_into_llm:
             # Per-scene dialogue/colors may already sit on the VLM timeline.
@@ -150,14 +153,14 @@ class LLMStage:
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
         ]
-        print("[INFO] Running claim-check pass on the profile...")
+        logger.info("Running claim-check pass on the profile...")
         with timing.span("llm_claim_check", model_id=self.model_id):
             raw = self._generate_text(model, tokenizer, messages, prefill="{")
         candidate = self._clean_json_candidate(raw)
         try:
             return VideoProfile.model_validate_json(candidate).model_dump()
         except (ValidationError, ValueError) as err:
-            print(f"[WARNING] Claim-check validation failed; keeping original profile: {err}")
+            logger.warning(f"Claim-check validation failed; keeping original profile: {err}")
             return profile
 
     def run(self, video_filename: str) -> Dict[str, Any]:
@@ -171,7 +174,7 @@ class LLMStage:
             Status dict. On success includes the profile and output file name.
             On failure includes an error message and optional raw output path.
         """
-        print(f"[INFO] Starting RecSys LLM profiling for {video_filename}")
+        logger.info(f"Starting RecSys LLM profiling for {video_filename}")
         timing = TimingRecorder(self.name)
         spec = load_pipeline_spec()
 
@@ -233,7 +236,7 @@ class LLMStage:
             f"Populate this exact JSON structure:\n{json.dumps(example_structure, indent=2)}"
         )
 
-        print(f"[INFO] Loading textual LLM: {self.model_id} in 4-bit...")
+        logger.info(f"Loading textual LLM: {self.model_id} in 4-bit...")
         quantization_config = BitsAndBytesConfig(
             load_in_4bit=True,
             bnb_4bit_compute_dtype=torch.float16,
@@ -259,7 +262,7 @@ class LLMStage:
 
         try:
             for attempt in range(1, 3):
-                print(f"[INFO] Generating structured JSON profile (Attempt {attempt}/2)...")
+                logger.info(f"Generating structured JSON profile (Attempt {attempt}/2)...")
                 with timing.span("llm_generate", model_id=self.model_id, attempt=attempt):
                     raw_response = self._generate_text(model, tokenizer, messages, prefill="{")
                 last_raw_response = raw_response
@@ -268,10 +271,10 @@ class LLMStage:
                 try:
                     validated_profile = VideoProfile.model_validate_json(candidate)
                     final_json = validated_profile.model_dump()
-                    print("[INFO] Pydantic schema validation succeeded!")
+                    logger.info("Pydantic schema validation succeeded!")
                     break
                 except (ValidationError, ValueError) as err:
-                    print(f"[WARNING] Validation failed on attempt {attempt}: {err}")
+                    logger.warning(f"Validation failed on attempt {attempt}: {err}")
                     messages.append({"role": "assistant", "content": raw_response})
                     messages.append(
                         {
@@ -288,7 +291,7 @@ class LLMStage:
                     model, tokenizer, final_json, video_filename, timing
                 )
         finally:
-            print("[INFO] Unloading LLM and freeing VRAM...")
+            logger.info("Unloading LLM and freeing VRAM...")
             del model
             del tokenizer
             gc.collect()
@@ -313,7 +316,7 @@ class LLMStage:
             }
 
         output_path = output_dir / f"{video_filename}_llm.json"
-        print(f"[INFO] Saving structured profile to {output_path}")
+        logger.info(f"Saving structured profile to {output_path}")
         with open(output_path, "w", encoding="utf-8") as f:
             json.dump(final_json, f, indent=2, ensure_ascii=False)
 

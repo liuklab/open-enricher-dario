@@ -16,14 +16,17 @@ from typing import Any, Dict, List
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
+from open_enricher import storage
+from open_enricher.logging_setup import get_logger
 from open_enricher.stages.evaluator_core import (
     build_report,
     failed_report,
     title_from_filename,
 )
 from open_enricher.stages.evaluator_core.prompt import system_prompt, user_prompt
-from open_enricher import storage
 from open_enricher.timings import TimingRecorder
+
+logger = get_logger(__name__)
 
 
 class EvaluatorStage:
@@ -57,7 +60,7 @@ class EvaluatorStage:
             with open(path, "r", encoding="utf-8") as handle:
                 return json.load(handle)
         except (OSError, json.JSONDecodeError) as err:
-            print(f"[WARNING] Failed to parse {path.name}: {err}")
+            logger.warning(f"Failed to parse {path.name}: {err}")
             return None
 
     def _clean_json_candidate(self, raw_text: str) -> str:
@@ -142,10 +145,10 @@ class EvaluatorStage:
             Writes ``<video>_evaluator.json`` and ``<video>_evaluator_timings.json``
             under ``evaluator_results``. Loads and unloads Qwen3-8B.
         """
-        print(f"[INFO] Starting LLM evaluator stage for {video_filename}")
+        logger.info(f"Starting LLM evaluator stage for {video_filename}")
         timing = TimingRecorder(self.name)
         title = title_from_filename(video_filename)
-        print(f"[INFO] Evaluator title from filename: {title!r}")
+        logger.info(f"Evaluator title from filename: {title!r}")
 
         profile_path = storage.get_output_dir("llm") / f"{video_filename}_llm.json"
         output_dir = storage.get_output_dir(self.name)
@@ -211,7 +214,7 @@ class EvaluatorStage:
         tokenizer = None
         last_raw = ""
         try:
-            print(f"[INFO] Loading evaluator model {self.model_id} (empty context)...")
+            logger.info(f"Loading evaluator model {self.model_id} (empty context)...")
             with timing.span("evaluator_load", model_id=self.model_id):
                 tokenizer = AutoTokenizer.from_pretrained(
                     self.model_id, trust_remote_code=True
@@ -226,11 +229,11 @@ class EvaluatorStage:
                 if self.device != "cuda":
                     model = model.to(self.device)
 
-            print("[INFO] Requesting dimension scores from evaluator LLM...")
+            logger.info("Requesting dimension scores from evaluator LLM...")
             with timing.span("evaluator_generate", model_id=self.model_id):
                 last_raw = self._generate_text(model, tokenizer, messages, prefill="{")
         finally:
-            print("[INFO] Unloading evaluator model and freeing VRAM...")
+            logger.info("Unloading evaluator model and freeing VRAM...")
             if model is not None:
                 del model
             if tokenizer is not None:
@@ -263,7 +266,7 @@ class EvaluatorStage:
             status = "failed"
             error = report["error"]
 
-        print(f"[INFO] Saving evaluator report to {output_path}")
+        logger.info(f"Saving evaluator report to {output_path}")
         with open(output_path, "w", encoding="utf-8") as handle:
             json.dump(report, handle, indent=2, ensure_ascii=False)
         timing.save(timings_path)

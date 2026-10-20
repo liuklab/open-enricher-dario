@@ -16,7 +16,10 @@ from scenedetect import ContentDetector, detect
 from sklearn.cluster import KMeans
 
 from open_enricher import storage
+from open_enricher.logging_setup import get_logger
 from open_enricher.timings import TimingRecorder
+
+logger = get_logger(__name__)
 
 
 class ColorStage:
@@ -73,7 +76,7 @@ class ColorStage:
             raise FileNotFoundError(f"Video not found in dataset: {video_path}")
 
         timing = TimingRecorder(self.name)
-        print("[INFO] Detecting scene cuts (Hybrid Sampling)...")
+        logger.info("Detecting scene cuts (Hybrid Sampling)...")
         with timing.span("scene_detect"):
             scene_list = detect(str(video_path), ContentDetector(threshold=27.0))
 
@@ -115,7 +118,7 @@ class ColorStage:
                 if not final_frames or (f - final_frames[-1]) > min_distance_frames:
                     final_frames.append(f)
 
-            print(f"[INFO] Sampling complete. Extracting {len(final_frames)} semantic frames.")
+            logger.info(f"Sampling complete. Extracting {len(final_frames)} semantic frames.")
 
             output_dir = storage.get_output_dir(self.name)
             frames_dir = output_dir / f"{video_filename}_frames"

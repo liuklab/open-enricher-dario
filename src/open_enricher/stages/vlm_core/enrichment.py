@@ -14,9 +14,12 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
-from open_enricher.stages.pipeline_spec import load_pipeline_spec
 from open_enricher import storage
+from open_enricher.logging_setup import get_logger
+from open_enricher.stages.pipeline_spec import load_pipeline_spec
 from open_enricher.timings import TimingRecorder
+
+logger = get_logger(__name__)
 
 try:
     EXPERIMENT_ID = load_pipeline_spec().experiment_id
@@ -166,7 +169,7 @@ def summarize_transcript(
         {"role": "user", "content": user_prompt},
     ]
 
-    print(f"[INFO] Loading {SUMMARY_MODEL_ID} to summarize the Whisper transcript...")
+    logger.info(f"Loading {SUMMARY_MODEL_ID} to summarize the Whisper transcript...")
     quantization_config = None
     if device == "cuda":
         quantization_config = BitsAndBytesConfig(
@@ -204,7 +207,7 @@ def summarize_transcript(
         new_tokens = generated_ids[0][len(model_inputs.input_ids[0]) :]
         summary = _strip_think(tokenizer.decode(new_tokens, skip_special_tokens=True))
     finally:
-        print("[INFO] Unloading transcript summary model and freeing VRAM...")
+        logger.info("Unloading transcript summary model and freeing VRAM...")
         del model
         del tokenizer
         gc.collect()
@@ -230,11 +233,11 @@ def build_vlm_context(
     """Return (evidence block for non-segmented path, dialogue summary text)."""
     color_path = storage.get_output_dir("color") / f"{video_filename}_color.json"
     audio_path = storage.get_output_dir("audio") / f"{video_filename}_audio.json"
-    print(f"[INFO] Building VLM context from {color_path.name} and {audio_path.name}")
+    logger.info(f"Building VLM context from {color_path.name} and {audio_path.name}")
 
     colors = color_digest(_load_json(color_path))
     transcript = condense_transcript(_load_json(audio_path))
-    print(f"[INFO] Condensed transcript is {len(transcript)} characters")
+    logger.info(f"Condensed transcript is {len(transcript)} characters")
     summary = summarize_transcript(transcript, timing=timing)
 
     context = (

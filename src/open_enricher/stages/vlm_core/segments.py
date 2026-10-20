@@ -10,12 +10,15 @@ from dataclasses import replace
 from pathlib import Path
 from typing import Any
 
+from open_enricher import storage
+from open_enricher.logging_setup import get_logger
 from open_enricher.stages.pipeline_spec import PipelineSpec, load_pipeline_spec
 from open_enricher.stages.vlm_core.config import MetadataConfig, ModelConfig
 from open_enricher.stages.vlm_core.model import extract_metadata, load_model, unload_model
 from open_enricher.stages.vlm_core.video import clip_video_range
-from open_enricher import storage
 from open_enricher.timings import TimingRecorder
+
+logger = get_logger(__name__)
 
 SEGMENT_MAX_FRAMES = 8
 SEGMENT_MAX_NEW_TOKENS = 450
@@ -272,7 +275,7 @@ def _update_rolling_plot(previous: str, segment: dict[str, Any]) -> str:
         {"role": "user", "content": user_prompt},
     ]
     model_id = "Qwen/Qwen3-8B"
-    print(f"[INFO] Updating rolling plot with {model_id}...")
+    logger.info(f"Updating rolling plot with {model_id}...")
     quantization_config = None
     if device == "cuda":
         quantization_config = BitsAndBytesConfig(
@@ -308,7 +311,7 @@ def _update_rolling_plot(previous: str, segment: dict[str, Any]) -> str:
         text = tokenizer.decode(new_tokens, skip_special_tokens=True).strip()
         return text[:1200] if text else previous
     except Exception as exc:
-        print(f"[WARNING] Rolling plot update failed: {exc}")
+        logger.warning(f"Rolling plot update failed: {exc}")
         fallback = f"{previous} {description}".strip()
         return fallback[:900]
     finally:
@@ -337,11 +340,14 @@ def run_segmented(
     """Clip the file into windows, run the VLM once per window, merge the timeline."""
     spec = spec or load_pipeline_spec()
     windows = build_windows(video_path, duration, spec)
-    print(
-        f"[INFO] Segmenting {duration:.0f}s into {len(windows)} windows "
-        f"(mode={spec.segmentation}, experiment={spec.experiment_id})"
+    logger.info(
+        "Segmenting %.0fs into %s windows (mode=%s, experiment=%s)",
+        duration,
+        len(windows),
+        spec.segmentation,
+        spec.experiment_id,
     )
-    print(f"[INFO] Loading VLM: {model_cfg.model_id} (4-bit={model_cfg.load_in_4bit})...")
+    logger.info(f"Loading VLM: {model_cfg.model_id} (4-bit={model_cfg.load_in_4bit})...")
     load_started = time.perf_counter()
     model, processor = load_model(model_cfg)
     if timing is not None:
@@ -352,7 +358,7 @@ def run_segmented(
                 "model_id": model_cfg.model_id,
             }
         )
-        print(f"[TIMING] vlm.vlm_load={timing.entries[-1]['seconds']}s")
+        logger.info(f"TIMING vlm.vlm_load={timing.entries[-1]['seconds']}s")
 
     segments: list[dict[str, Any]] = []
     raw_parts: list[str] = []
@@ -361,7 +367,7 @@ def run_segmented(
     rolling_plot = ""
     try:
         for index, (start, end) in enumerate(windows, start=1):
-            print(f"[INFO] VLM window {index}/{len(windows)} {_clock(start)}-{_clock(end)}")
+            logger.info(f"VLM window {index}/{len(windows)} {_clock(start)}-{_clock(end)}")
             dialogue = _lines_in_window(video_filename, start, end)
             colors = _colors_in_window(video_filename, start, end)
             memory = ""
@@ -398,7 +404,7 @@ def run_segmented(
             except Exception as exc:
                 # Retry once with compact memory when context or VRAM blows up.
                 if spec.vlm_memory and segments and not memory_truncated:
-                    print(f"[WARNING] VLM window failed ({exc}); retrying with compact memory")
+                    logger.warning(f"VLM window failed ({exc}); retrying with compact memory")
                     memory_truncated = True
                     prompt = _segment_prompt(
                         start,
@@ -434,7 +440,7 @@ def run_segmented(
                         "model_id": model_cfg.model_id,
                     }
                 )
-                print(f"[TIMING] vlm.vlm_generate.window{index}={timing.entries[-1]['seconds']}s")
+                logger.info(f"TIMING vlm.vlm_generate.window{index}={timing.entries[-1]['seconds']}s")
 
             raw_parts.append(f"--- {_clock(start)}-{_clock(end)} ---\n{raw_text}")
             parsed = _parse_object(raw_text)
@@ -481,7 +487,7 @@ def run_segmented(
                     f"{rolling_plot} [{_clock(start)}] {description}".strip()[:900]
                 )
     finally:
-        print("[INFO] Unloading VLM and freeing VRAM...")
+        logger.info("Unloading VLM and freeing VRAM...")
         unload_model(model, processor)
 
     if spec.rolling_plot and segments:
@@ -492,7 +498,7 @@ def run_segmented(
                 polished = _update_rolling_plot(polished, segment)
             rolling_plot = polished or rolling_plot
         except Exception as exc:
-            print(f"[WARNING] Post-pass rolling plot polish failed: {exc}")
+            logger.warning(f"Post-pass rolling plot polish failed: {exc}")
 
     on_screen: list[str] = []
     for segment in segments:

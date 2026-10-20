@@ -11,14 +11,15 @@ from __future__ import annotations
 import json
 import os
 import shutil
-import sys
-import threading
 from pathlib import Path
 from typing import Any, Iterable, Sequence
 
 from dotenv import load_dotenv
 
 from open_enricher import storage
+from open_enricher.logging_setup import configure_logging, get_logger
+
+logger = get_logger(__name__)
 
 # Default stage order for a full local enricher pass.
 # Stage classes are imported lazily inside ``build_stages`` so CLI helpers
@@ -38,65 +39,18 @@ STAGE_PRIMARY_ARTIFACT: dict[str, str] = {
 }
 
 
-class _TeeStream:
-    """
-    Mirror stdout or stderr into the experiment worker log.
-
-    Used so a long local run leaves a durable log next to stage outputs
-    without replacing the process-wide streams permanently unless requested.
-    """
-
-    def __init__(self, primary, log_path: Path) -> None:
-        """
-        Bind a primary stream and a log file path.
-
-        Args:
-            primary: Original ``sys.stdout`` or ``sys.stderr``.
-            log_path: File that receives a copy of every write.
-        """
-        self._primary = primary
-        self._log_path = log_path
-        self._lock = threading.Lock()
-
-    def write(self, data: str) -> int:
-        """
-        Write to the primary stream and append the same bytes to the log.
-
-        Args:
-            data: Text chunk from print or library logging helpers.
-
-        Returns:
-            Number of characters written to the primary stream.
-        """
-        with self._lock:
-            self._primary.write(data)
-            self._primary.flush()
-            self._log_path.parent.mkdir(parents=True, exist_ok=True)
-            with open(self._log_path, "a", encoding="utf-8") as handle:
-                handle.write(data)
-        return len(data)
-
-    def flush(self) -> None:
-        """Flush the primary stream."""
-        self._primary.flush()
-
-    def fileno(self):
-        """Expose the primary file descriptor for libraries that need it."""
-        return self._primary.fileno()
-
-
 def bootstrap_runtime(*, env_file: Path | None = None, tee_log: bool = True) -> None:
     """
-    Load secrets, configure caches, and create the dataset folders.
+    Load secrets, configure logging and caches, and create dataset folders.
 
     Args:
         env_file: Optional ``.env`` path. Defaults to ``<repo>/.env`` when
             present, otherwise relies on the process environment alone.
-        tee_log: When True, mirror stdout and stderr into ``storage.experiment_log()``.
+        tee_log: When True, also write CSV log lines to ``storage.experiment_log()``.
 
     Side effects:
-        Sets Hugging Face and Torch cache environment variables, creates
-        directories, and may replace ``sys.stdout`` / ``sys.stderr``.
+        Configures the ``open_enricher`` logger, sets Hugging Face and Torch
+        cache environment variables, and creates dataset directories.
     """
     if env_file is None:
         candidate = Path(__file__).resolve().parents[2] / ".env"
@@ -104,6 +58,9 @@ def bootstrap_runtime(*, env_file: Path | None = None, tee_log: bool = True) -> 
             env_file = candidate
     if env_file is not None and env_file.is_file():
         load_dotenv(env_file)
+
+    log_file = storage.experiment_log() if tee_log else None
+    configure_logging(log_file=log_file, force=True)
 
     storage.configure_environment()
     storage.setup_dataset()
@@ -114,15 +71,12 @@ def bootstrap_runtime(*, env_file: Path | None = None, tee_log: bool = True) -> 
             from huggingface_hub import login
 
             login(token=hf_token)
-            print("[INFO] Hugging Face login succeeded.")
+            logger.info("Hugging Face login succeeded.")
         except Exception as exc:  # noqa: BLE001 - login is best-effort
-            print(f"[WARNING] Hugging Face login failed: {exc}")
+            logger.warning("Hugging Face login failed: %s", exc)
 
-    if tee_log:
-        log_path = storage.experiment_log()
-        sys.stdout = _TeeStream(sys.__stdout__, log_path)
-        sys.stderr = _TeeStream(sys.__stderr__, log_path)
-        print(f"[INFO] Worker log mirroring to {log_path}")
+    if log_file is not None:
+        logger.info("Worker log file: %s", log_file)
 
 
 def build_stages(hf_token: str | None = None) -> dict[str, Any]:
@@ -164,7 +118,7 @@ def primary_artifact_path(stage: str, video_filename: str) -> Path:
         video_filename: Exact file name under ``video_inputs``.
 
     Returns:
-        Path under the active experiment output folder.
+        Path under the shared dataset output folder.
     """
     pattern = STAGE_PRIMARY_ARTIFACT[stage]
     return storage.get_output_dir(stage) / pattern.format(video=video_filename)
@@ -235,7 +189,7 @@ def restore_cached_stage(
     cache_root: Path,
 ) -> bool:
     """
-    Copy cached audio or color artifacts into the active experiment folders.
+    Copy cached audio or color artifacts into the shared dataset folders.
 
     Args:
         stage: Must be a cacheable stage (audio or color).
@@ -260,8 +214,11 @@ def restore_cached_stage(
             copied += 1
     ok = stage_output_exists(stage, video_filename)
     if ok:
-        print(
-            f"[INFO] Restored {copied} cached file(s) for {stage} / {video_filename}"
+        logger.info(
+            "Restored %s cached file(s) for %s / %s",
+            copied,
+            stage,
+            video_filename,
         )
     return ok
 
@@ -278,9 +235,6 @@ def save_stage_to_cache(
         stage: Must be a cacheable stage (audio or color).
         video_filename: Exact file name under ``video_inputs``.
         cache_root: Directory holding per-video cache folders.
-
-    Side effects:
-        Creates ``cache_root/<video>/<stage>/`` and copies matching artifacts.
     """
     if stage not in CACHEABLE_STAGES:
         return
@@ -378,7 +332,7 @@ def run_pipeline(
             if not stage_output_exists(name, video_filename):
                 restore_cached_stage(name, video_filename, cache_root)
             if stage_output_exists(name, video_filename):
-                print(f"[INFO] Skipping {name} for {video_filename} (cached)")
+                logger.info("Skipping %s for %s (cached)", name, video_filename)
                 results.append(
                     {
                         "stage": name,
@@ -388,7 +342,7 @@ def run_pipeline(
                 )
                 continue
 
-        print(f"[INFO] Running stage '{name}' on {video_filename}")
+        logger.info("Running stage '%s' on %s", name, video_filename)
         try:
             outcome = registry[name].run(video_filename)
         except Exception as exc:  # noqa: BLE001 - surface stage failures to the loop
@@ -401,7 +355,7 @@ def run_pipeline(
         status = str(outcome.get("status") or "failed")
         if status != "success":
             overall = "failed"
-            print(f"[ERROR] Stage '{name}' failed: {outcome.get('error')}")
+            logger.error("Stage '%s' failed: %s", name, outcome.get("error"))
             break
 
         if use_cache and cache_root is not None and name in CACHEABLE_STAGES:
@@ -432,7 +386,6 @@ def collect_artifacts(video_filename: str, stages: Iterable[str] = PIPELINE_STAG
             for path in folder.glob(pattern):
                 if path.is_file():
                     found.append(path)
-        # Color stage also writes a frames directory.
         if stage == "color":
             frames = folder / f"{video_filename}_frames"
             if frames.is_dir():

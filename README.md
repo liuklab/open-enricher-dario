@@ -21,9 +21,18 @@ Create `.env` in the repository root:
 
 ```env
 HF_TOKEN=hf_your_token
+# OPEN_ENRICHER_LOG_LEVEL=INFO
 ```
 
 The token is used only for gated model weights (WhisperX / pyannote). If diarization weights cannot be downloaded, the audio stage still saves the transcript and marks every speaker as `UNKNOWN`.
+
+Logs use the standard library `logging` package. Every line is CSV with `;` as separator:
+
+```text
+YYYY-MM-DD HH:MM:SS.mmm;LEVEL;logger.name;message
+```
+
+Console and `dataset/outputs/worker.log` share the same format. Set `OPEN_ENRICHER_LOG_LEVEL` to change the level (default `INFO`).
 
 ## Dataset
 

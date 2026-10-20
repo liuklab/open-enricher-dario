@@ -16,7 +16,10 @@ import whisperx
 from whisperx.diarize import DiarizationPipeline, assign_word_speakers
 
 from open_enricher import storage
+from open_enricher.logging_setup import get_logger
 from open_enricher.timings import TimingRecorder
+
+logger = get_logger(__name__)
 
 
 @dataclass
@@ -72,15 +75,15 @@ class AudioStage:
             raise FileNotFoundError(f"Video not found in dataset: {video_path}")
 
         timing = TimingRecorder(self.name)
-        print("[INFO] Loading WhisperX model...")
+        logger.info("Loading WhisperX model...")
         with timing.span("whisperx_load", model_id="large-v2"):
             model = whisperx.load_model("large-v2", self.device, compute_type=self.compute_type)
 
         try:
-            print(f"[INFO] Reading audio from: {video_path}")
+            logger.info(f"Reading audio from: {video_path}")
             audio = whisperx.load_audio(str(video_path))
 
-            print("[INFO] Transcribing...")
+            logger.info("Transcribing...")
             with timing.span("whisperx_transcribe", model_id="large-v2"):
                 result = model.transcribe(
                     audio, batch_size=self.batch_size, interleaved_context=True
@@ -89,7 +92,7 @@ class AudioStage:
             del model
             self._free_vram()
 
-        print("[INFO] Performing temporal alignment...")
+        logger.info("Performing temporal alignment...")
         with timing.span("whisperx_align_load"):
             model_a, metadata = whisperx.load_align_model(
                 language_code=result["language"], device=self.device
@@ -108,7 +111,7 @@ class AudioStage:
             del model_a
             self._free_vram()
 
-        print("[INFO] Identifying speakers...")
+        logger.info("Identifying speakers...")
         os.environ["HF_TOKEN"] = self.hf_token
         diarize_model = None
         try:
@@ -122,13 +125,13 @@ class AudioStage:
                 result = assign_word_speakers(diarize_segments, result)
         except Exception as exc:
             # The community diarization weights are gated. The transcript is still usable.
-            print(f"[WARNING] Speaker diarization skipped: {exc}")
+            logger.warning(f"Speaker diarization skipped: {exc}")
         finally:
             if diarize_model is not None:
                 del diarize_model
             self._free_vram()
 
-        print("[INFO] Structuring data payload...")
+        logger.info("Structuring data payload...")
         dialogues = []
         for segment in result["segments"]:
             speaker = segment.get("speaker", "UNKNOWN")
@@ -150,7 +153,7 @@ class AudioStage:
         timings_path = output_dir / f"{video_filename}_audio_timings.json"
         timing.save(timings_path)
 
-        print(f"[INFO] Saving results to {output_path}")
+        logger.info(f"Saving results to {output_path}")
         with open(output_path, "w", encoding="utf-8") as f:
             json.dump(payload, f, indent=2, ensure_ascii=False)
 

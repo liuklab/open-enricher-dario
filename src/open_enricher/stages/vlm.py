@@ -12,22 +12,25 @@ import re
 from dataclasses import replace
 from typing import Any, Dict
 
+from open_enricher import storage
+from open_enricher.logging_setup import get_logger
 from open_enricher.stages.pipeline_spec import load_pipeline_spec
 from open_enricher.stages.vlm_core.config import build_configs
 from open_enricher.stages.vlm_core.enrichment import build_vlm_context
-from open_enricher.stages.vlm_core.segments import (
-    SEGMENT_MAX_FRAMES,
-    SEGMENT_MAX_NEW_TOKENS,
-    run_segmented,
-)
 from open_enricher.stages.vlm_core.model import (
     extract_metadata,
     load_model,
     unload_model,
 )
+from open_enricher.stages.vlm_core.segments import (
+    SEGMENT_MAX_FRAMES,
+    SEGMENT_MAX_NEW_TOKENS,
+    run_segmented,
+)
 from open_enricher.stages.vlm_core.video import probe_duration_seconds
-from open_enricher import storage
 from open_enricher.timings import TimingRecorder
+
+logger = get_logger(__name__)
 
 
 def _clock(seconds: float) -> str:
@@ -96,7 +99,7 @@ class VLMStage:
 
         spec = load_pipeline_spec()
         timing = TimingRecorder(self.name)
-        print(f"[INFO] Starting VLM stage for {video_filename} ({spec.experiment_id})")
+        logger.info(f"Starting VLM stage for {video_filename} ({spec.experiment_id})")
         model_cfg, meta_cfg = build_configs()
         duration = probe_duration_seconds(video_path)
         # Summarize audio and colors before the VLM is loaded. The text model
@@ -107,7 +110,7 @@ class VLMStage:
         context_path.write_text(context, encoding="utf-8")
         summary_path = output_dir / f"{video_filename}_dialogue_summary.txt"
         summary_path.write_text(dialogue_summary, encoding="utf-8")
-        print(f"[INFO] Wrote VLM context ({len(context)} chars) to {context_path.name}")
+        logger.info(f"Wrote VLM context ({len(context)} chars) to {context_path.name}")
 
         # Segmented path is the default for this round.
         use_segments = True
@@ -128,18 +131,19 @@ class VLMStage:
                 meta_cfg,
                 prompt=f"{meta_cfg.prompt}\n\n{_timeline_instruction(duration)}\n\n{context}",
             )
-            print(f"[INFO] Loading VLM: {model_cfg.model_id} (4-bit={model_cfg.load_in_4bit})...")
+            logger.info(f"Loading VLM: {model_cfg.model_id} (4-bit={model_cfg.load_in_4bit})...")
             with timing.span("vlm_load", model_id=model_cfg.model_id):
                 model, processor = load_model(model_cfg)
             try:
-                print(
-                    f"[INFO] Extracting VLM metadata "
-                    f"(video_seconds={meta_cfg.video_seconds!r}, fps={meta_cfg.fps})..."
+                logger.info(
+                    "Extracting VLM metadata (video_seconds=%r, fps=%s)...",
+                    meta_cfg.video_seconds,
+                    meta_cfg.fps,
                 )
                 with timing.span("vlm_generate", model_id=model_cfg.model_id):
                     raw_text = extract_metadata(model, processor, video_path, meta_cfg)
             finally:
-                print("[INFO] Unloading VLM and freeing VRAM...")
+                logger.info("Unloading VLM and freeing VRAM...")
                 unload_model(model, processor)
             parsed_payload, is_valid_json = self._parse_json_safely(raw_text)
 
@@ -194,7 +198,7 @@ class VLMStage:
         with open(sidecar_path, "w", encoding="utf-8") as f:
             json.dump(sidecar_payload, f, indent=2, ensure_ascii=False)
 
-        print(f"[INFO] VLM stage completed. Saved to {json_path} (json_valid={is_valid_json})")
+        logger.info(f"VLM stage completed. Saved to {json_path} (json_valid={is_valid_json})")
         return {
             "stage": self.name,
             "status": "success",

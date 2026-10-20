@@ -29,6 +29,9 @@ from open_enricher.experiments.config import (
     REPO_ROOT,
     VARIANTS_DIR,
 )
+from open_enricher.logging_setup import configure_logging, get_logger
+
+logger = get_logger(__name__)
 
 
 def _runner():
@@ -185,10 +188,10 @@ def run_one_experiment(
     """
     experiment_id = _variant_id(variant_path)
     variant = _load_variant(variant_path)
-    print(f"\n======== Experiment {experiment_id} ========\n", flush=True)
+    logger.info("======== Experiment %s ========", experiment_id)
 
     if skip_done and is_done(experiment_id, "archived"):
-        print(f"[INFO] Skipping {experiment_id}: already archived", flush=True)
+        logger.info(f"Skipping {experiment_id}: already archived")
         return {
             "experiment_id": experiment_id,
             "status": "skipped_done",
@@ -202,7 +205,7 @@ def run_one_experiment(
     video_results: list[dict[str, Any]] = []
 
     for video in videos:
-        print(f"[INFO] Pipeline for video {video}", flush=True)
+        logger.info(f"Pipeline for video {video}")
         try:
             summary = runner.run_pipeline(
                 video,
@@ -326,11 +329,10 @@ def run_loop(
     if not variants:
         raise ValueError("No variants selected to run")
 
-    print(
-        "[INFO] Videos: "
-        + ", ".join(selected_videos)
-        + f" | variants: {len(variants)}",
-        flush=True,
+    logger.info(
+        "Videos: %s | variants: %s",
+        ", ".join(selected_videos),
+        len(variants),
     )
 
     summaries: list[dict[str, Any]] = []
@@ -413,10 +415,12 @@ def main(argv: list[str] | None = None) -> None:
     parser = build_parser()
     args = parser.parse_args(argv)
     if args.list:
+        # Plain stdout for scripting (not CSV log lines).
         for path in list_variants(VARIANTS_DIR):
             print(_variant_id(path), path.name)
         return
 
+    configure_logging()
     stages = tuple(args.stages) if args.stages else PIPELINE_STAGES
     run_loop(
         only=args.only,

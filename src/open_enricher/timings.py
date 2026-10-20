@@ -13,6 +13,10 @@ from contextlib import contextmanager
 from pathlib import Path
 from typing import Any, Dict, Generator, List
 
+from open_enricher.logging_setup import get_logger
+
+logger = get_logger(__name__)
+
 
 class TimingRecorder:
     """
@@ -57,7 +61,7 @@ class TimingRecorder:
             }
             row.update(extra)
             self.entries.append(row)
-            print(f"[TIMING] {self.stage}.{name}={elapsed:.3f}s")
+            logger.info(f"TIMING {self.stage}.{name}={elapsed:.3f}s")
 
     def document(self) -> Dict[str, Any]:
         """

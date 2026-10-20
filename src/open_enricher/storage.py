@@ -13,6 +13,11 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
+
+from open_enricher.logging_setup import get_logger
+
+logger = get_logger(__name__)
+
 _STAGE_DIRS: dict[str, str] = {
     "audio": "audio_results",
     "color": "color_results",
@@ -124,7 +129,7 @@ def setup_dataset() -> None:
     ``OPEN_ENRICHER_VIDEO_INPUTS`` points at a missing directory.
     """
     root = dataset_root()
-    print(f"[INFO] Initializing shared dataset at {root}...")
+    logger.info(f"Initializing shared dataset at {root}...")
 
     cache = models_cache()
     hf_cache = cache / "huggingface"
@@ -145,7 +150,7 @@ def setup_dataset() -> None:
     for stage_name in _STAGE_DIRS:
         get_output_dir(stage_name).mkdir(parents=True, exist_ok=True)
 
-    print("[INFO] Dataset structure verified.")
+    logger.info("Dataset structure verified.")
 
 
 def configure_environment() -> None:
