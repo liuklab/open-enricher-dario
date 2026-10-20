@@ -1,7 +1,0 @@
-{
-  "machine": "colab",
-  "video": "Stranger_Things.S01E03.mkv",
-  "experiment_id": "05-scenes-vlm",
-  "status": "error",
-  "error": "('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
-}
