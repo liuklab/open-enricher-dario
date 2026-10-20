@@ -125,12 +125,37 @@ def condense_transcript(lines: Any, max_chars: int = TRANSCRIPT_CHAR_BUDGET) -> 
     budget = max_chars - reserved
     if budget < 400 or not middle:
         clipped = "\n".join(head + [marker_head] + tail)
-        return clipped[:max_chars]
+        result = clipped[:max_chars]
+        logger.warning(
+            "Transcript sampling (head/tail only): original_lines=%s original_chars=%s "
+            "max_chars=%s head_lines=%s tail_lines=%s middle_dropped=%s result_chars=%s",
+            len(formatted),
+            len(blob),
+            max_chars,
+            len(head),
+            len(tail),
+            len(middle),
+            len(result),
+        )
+        return result
 
     sampled = list(middle)
     while len(sampled) > 1 and len("\n".join(sampled)) > budget:
         sampled = sampled[::2]
-    return "\n".join(head + [marker_head] + sampled + [marker_tail] + tail)
+    result = "\n".join(head + [marker_head] + sampled + [marker_tail] + tail)
+    logger.warning(
+        "Transcript sampling (even middle): original_lines=%s original_chars=%s "
+        "max_chars=%s head_lines=%s middle_kept=%s/%s tail_lines=%s result_chars=%s",
+        len(formatted),
+        len(blob),
+        max_chars,
+        len(head),
+        len(sampled),
+        len(middle),
+        len(tail),
+        len(result),
+    )
+    return result
 
 
 def _strip_think(text: str) -> str:
