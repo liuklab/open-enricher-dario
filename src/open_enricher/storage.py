@@ -1,13 +1,11 @@
-"""Local dataset layout for Open-Enricher.
+"""Shared local dataset paths for Open-Enricher.
 
-Owns the on-disk layout used by every pipeline stage: source videos,
-downloaded model weights, and per-stage JSON or frame outputs.
+One dataset serves every experiment: source videos, model caches, and live
+stage outputs. Per-experiment archives live under ``runs/``, not here.
 
 Default root is ``<repository>/dataset``. Override with
 ``OPEN_ENRICHER_DATASET_ROOT`` or point videos elsewhere with
-``OPEN_ENRICHER_VIDEO_INPUTS``. When ``OPEN_ENRICHER_EXPERIMENT_ID`` is set,
-stage outputs go under ``outputs/<prefix>/<experiment_id>/`` so sequential
-experiment runs do not overwrite each other.
+``OPEN_ENRICHER_VIDEO_INPUTS``.
 """
 
 from __future__ import annotations
@@ -15,195 +13,150 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
+_STAGE_DIRS: dict[str, str] = {
+    "audio": "audio_results",
+    "color": "color_results",
+    "vlm": "vlms_results",
+    "llm": "llms_results",
+    "evaluator": "evaluator_results",
+}
+
 
 def _repo_root() -> Path:
     """
     Resolve the repository root from this package file.
 
     ``storage.py`` lives at ``src/open_enricher/storage.py``, so two parents
-    up from the package directory lands on the checkout root. Used only when
-    building the default dataset path.
+    up from the package directory lands on the checkout root.
     """
     return Path(__file__).resolve().parents[2]
 
 
 def dataset_root() -> Path:
     """
-    Return the persistent dataset root for this process.
+    Return the shared dataset root for this process.
 
     Preference order:
     1. ``OPEN_ENRICHER_DATASET_ROOT`` if set
-    2. ``OPEN_ENRICHER_DATASET_ROOT`` if set (legacy alias)
-    3. ``<repo>/dataset`` next to the package source tree
+    2. ``OPEN_ENRICHER_DATA_ROOT`` if set (legacy alias)
+    3. ``<repo>/dataset``
 
     Returns:
-        Absolute or relative Path to the dataset directory.
+        Path to the dataset directory.
     """
     override = (
         os.environ.get("OPEN_ENRICHER_DATASET_ROOT")
-        or os.environ.get("OPEN_ENRICHER_DATASET_ROOT")
+        or os.environ.get("OPEN_ENRICHER_DATA_ROOT")
     )
     if override:
         return Path(override)
     return _repo_root() / "dataset"
 
 
-def video_input_dir(root: Path) -> Path:
+def video_inputs() -> Path:
     """
     Return the directory that holds source video files.
 
-    Args:
-        root: Dataset root from ``dataset_root()``.
-
     Returns:
-        ``OPEN_ENRICHER_VIDEO_INPUTS`` when set, otherwise ``root/video_inputs``.
+        ``OPEN_ENRICHER_VIDEO_INPUTS`` when set, otherwise
+        ``dataset_root()/video_inputs``.
     """
     override = os.environ.get("OPEN_ENRICHER_VIDEO_INPUTS")
     if override:
         return Path(override)
-    return root / "video_inputs"
+    return dataset_root() / "video_inputs"
 
 
-def experiment_prefix() -> str:
+def outputs_dir() -> Path:
     """
-    Return the round prefix used under ``outputs/``.
+    Return the shared live outputs directory.
 
-    Defaults to ``local`` so archived runs line up with ``runs/local/``.
-    Override with ``OPEN_ENRICHER_EXPERIMENT_PREFIX``.
+    Returns:
+        ``dataset_root()/outputs``.
     """
-    return os.environ.get("OPEN_ENRICHER_EXPERIMENT_PREFIX", "local").strip() or "local"
+    return dataset_root() / "outputs"
 
 
-def experiment_id() -> str:
+def models_cache() -> Path:
     """
-    Return the active experiment id, or empty for the shared outputs tree.
+    Return the model weight cache directory.
 
-    When empty, stage folders sit directly under ``outputs/``. When set, they
-    sit under ``outputs/<prefix>/<id>/``.
+    Returns:
+        ``dataset_root()/models_cache``.
     """
-    return os.environ.get("OPEN_ENRICHER_EXPERIMENT_ID", "").strip()
+    return dataset_root() / "models_cache"
 
 
-class DatasetManager:
+def experiment_log() -> Path:
     """
-    Directory registry for videos, caches, and stage output folders.
+    Return the path of the shared worker log under outputs.
 
-    Constructed once as the module-level ``db`` singleton. Call
-    ``setup_dataset()`` before running stages and ``configure_environment()``
-    before importing heavy ML libraries so Hugging Face and Torch caches land
-    inside the dataset tree.
+    Returns:
+        ``outputs_dir()/worker.log``.
     """
-
-    def __init__(self) -> None:
-        """
-        Bind paths from the current environment.
-
-        Does not create directories. Call ``setup_dataset()`` for that.
-        Re-read environment variables by constructing a new instance or by
-        calling ``refresh()`` after changing ``OPEN_ENRICHER_*`` vars.
-        """
-        self.refresh()
-
-    def refresh(self) -> None:
-        """
-        Re-read environment-backed paths into this instance.
-
-        Call after the experiment loop changes ``OPEN_ENRICHER_EXPERIMENT_ID``
-        or ``OPEN_ENRICHER_PIPELINE_SPEC`` so stage folders point at the new
-        experiment namespace.
-        """
-        self.root = dataset_root()
-        self.models_cache = self.root / "models_cache"
-        self.video_inputs = video_input_dir(self.root)
-        self.outputs = self.root / "outputs"
-        self.hf_cache = self.models_cache / "huggingface"
-        self.torch_cache = self.models_cache / "torch"
-        self._rebuild_stage_folders()
-
-    def _rebuild_stage_folders(self) -> None:
-        """
-        Point stage folders at the namespaced experiment directory when set.
-
-        Side effect: updates ``self.stage_folders`` and ``self.experiment_log``.
-        """
-        exp = experiment_id()
-        if exp:
-            base = self.outputs / experiment_prefix() / exp
-        else:
-            base = self.outputs
-        self.stage_folders = {
-            "audio": base / "audio_results",
-            "color": base / "color_results",
-            "vlm": base / "vlms_results",
-            "llm": base / "llms_results",
-            "evaluator": base / "evaluator_results",
-        }
-        self.experiment_log = base / "worker.log" if exp else self.outputs / "worker.log"
-
-    def setup_dataset(self) -> None:
-        """
-        Create the required folder structure if it does not exist.
-
-        Ensures model caches, video inputs (when using the default location),
-        and every stage output folder exist. Raises ``FileNotFoundError`` when
-        ``OPEN_ENRICHER_VIDEO_INPUTS`` points at a missing directory.
-        """
-        self.refresh()
-        print(f"[INFO] Initializing dataset at {self.root}...")
-        if experiment_id():
-            print(
-                f"[INFO] Experiment outputs under "
-                f"{experiment_prefix()}/{experiment_id()}"
-            )
-
-        self.models_cache.mkdir(parents=True, exist_ok=True)
-        self.hf_cache.mkdir(exist_ok=True)
-        self.torch_cache.mkdir(exist_ok=True)
-        self.outputs.mkdir(parents=True, exist_ok=True)
-        if self.video_inputs == self.root / "video_inputs":
-            self.video_inputs.mkdir(parents=True, exist_ok=True)
-        elif not self.video_inputs.is_dir():
-            raise FileNotFoundError(
-                f"Video input directory does not exist: {self.video_inputs}"
-            )
-
-        for folder in self.stage_folders.values():
-            folder.mkdir(parents=True, exist_ok=True)
-        if self.experiment_log.parent != self.outputs or experiment_id():
-            self.experiment_log.parent.mkdir(parents=True, exist_ok=True)
-
-        print("[INFO] Dataset structure verified.")
-
-    def configure_environment(self) -> None:
-        """
-        Route Hugging Face and PyTorch caches into the dataset tree.
-
-        Sets ``HF_HOME``, ``TORCH_HOME``, disables hub symlinks, and enables
-        expandable CUDA allocator segments. Call before importing transformers
-        or torch when possible.
-        """
-        os.environ["HF_HOME"] = str(self.hf_cache)
-        os.environ["TORCH_HOME"] = str(self.torch_cache)
-        os.environ["HF_HUB_DISABLE_SYMLINKS"] = "1"
-        os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
-
-    def get_output_dir(self, stage_name: str) -> Path:
-        """
-        Return the output directory for a named stage.
-
-        Args:
-            stage_name: One of audio, color, vlm, llm, evaluator.
-
-        Returns:
-            Path to that stage folder under the active experiment namespace.
-
-        Raises:
-            ValueError: If ``stage_name`` is not a known stage key.
-        """
-        if stage_name not in self.stage_folders:
-            raise ValueError(f"Unknown stage '{stage_name}'.")
-        return self.stage_folders[stage_name]
+    return outputs_dir() / "worker.log"
 
 
-# Process-wide singleton used by every stage module.
-db = DatasetManager()
+def get_output_dir(stage_name: str) -> Path:
+    """
+    Return the shared output directory for a named stage.
+
+    Args:
+        stage_name: One of audio, color, vlm, llm, evaluator.
+
+    Returns:
+        Path under ``dataset/outputs/<stage>_results``.
+
+    Raises:
+        ValueError: If ``stage_name`` is not a known stage key.
+    """
+    if stage_name not in _STAGE_DIRS:
+        raise ValueError(f"Unknown stage '{stage_name}'.")
+    return outputs_dir() / _STAGE_DIRS[stage_name]
+
+
+def setup_dataset() -> None:
+    """
+    Create the shared folder structure if it does not exist.
+
+    Ensures model caches, default ``video_inputs``, and every stage output
+    folder exist. Raises ``FileNotFoundError`` when
+    ``OPEN_ENRICHER_VIDEO_INPUTS`` points at a missing directory.
+    """
+    root = dataset_root()
+    print(f"[INFO] Initializing shared dataset at {root}...")
+
+    cache = models_cache()
+    hf_cache = cache / "huggingface"
+    torch_cache = cache / "torch"
+    cache.mkdir(parents=True, exist_ok=True)
+    hf_cache.mkdir(exist_ok=True)
+    torch_cache.mkdir(exist_ok=True)
+
+    out = outputs_dir()
+    out.mkdir(parents=True, exist_ok=True)
+
+    inputs = video_inputs()
+    if inputs == root / "video_inputs":
+        inputs.mkdir(parents=True, exist_ok=True)
+    elif not inputs.is_dir():
+        raise FileNotFoundError(f"Video input directory does not exist: {inputs}")
+
+    for stage_name in _STAGE_DIRS:
+        get_output_dir(stage_name).mkdir(parents=True, exist_ok=True)
+
+    print("[INFO] Dataset structure verified.")
+
+
+def configure_environment() -> None:
+    """
+    Route Hugging Face and PyTorch caches into the shared dataset.
+
+    Sets ``HF_HOME``, ``TORCH_HOME``, disables hub symlinks, and enables
+    expandable CUDA allocator segments.
+    """
+    cache = models_cache()
+    os.environ["HF_HOME"] = str(cache / "huggingface")
+    os.environ["TORCH_HOME"] = str(cache / "torch")
+    os.environ["HF_HUB_DISABLE_SYMLINKS"] = "1"
+    os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"

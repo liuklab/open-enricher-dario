@@ -15,7 +15,7 @@ from pathlib import Path
 from typing import Any
 
 from open_enricher.stages.pipeline_spec import load_pipeline_spec
-from open_enricher.storage import db
+from open_enricher import storage
 from open_enricher.timings import TimingRecorder
 
 try:
@@ -228,8 +228,8 @@ def build_vlm_context(
     timing: TimingRecorder | None = None,
 ) -> tuple[str, str]:
     """Return (evidence block for non-segmented path, dialogue summary text)."""
-    color_path = db.get_output_dir("color") / f"{video_filename}_color.json"
-    audio_path = db.get_output_dir("audio") / f"{video_filename}_audio.json"
+    color_path = storage.get_output_dir("color") / f"{video_filename}_color.json"
+    audio_path = storage.get_output_dir("audio") / f"{video_filename}_audio.json"
     print(f"[INFO] Building VLM context from {color_path.name} and {audio_path.name}")
 
     colors = color_digest(_load_json(color_path))

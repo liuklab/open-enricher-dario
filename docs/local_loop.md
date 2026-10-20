@@ -32,10 +32,13 @@ python -m open_enricher --video Stranger_Things.S01E03.mkv Suits.S01E02.mkv
 
 ## What happens per variant
 
-1. Set `OPEN_ENRICHER_PIPELINE_SPEC` to the variant file and namespace outputs under `outputs/local/<experiment_id>/`.
+1. Set `OPEN_ENRICHER_PIPELINE_SPEC` to the variant file. The dataset under
+   `dataset/` is shared by every experiment.
 2. For each video, run `audio -> color -> vlm -> llm -> evaluator` via `open_enricher.runner`.
-3. Restore audio/color from `runs/local/_cache/<video>/` when present; refresh the cache after a fresh run.
-4. Copy artifacts into `runs/local/<experiment_id>/<video>/`, write `score.json` from the evaluator report, and append `progress.jsonl`.
+3. Reuse audio/color already present in the shared dataset (or restore from
+   `runs/local/_cache/<video>/`); refresh the cache after a fresh run.
+4. Copy artifacts into `runs/local/<experiment_id>/<video>/`, write `score.json`
+   from the evaluator report, and append `progress.jsonl`.
 5. On stage failure, record the error and continue to the next variant.
 
 ## Archive layout

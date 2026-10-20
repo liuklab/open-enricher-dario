@@ -15,7 +15,7 @@ from PIL import Image
 from scenedetect import ContentDetector, detect
 from sklearn.cluster import KMeans
 
-from open_enricher.storage import db
+from open_enricher import storage
 from open_enricher.timings import TimingRecorder
 
 
@@ -68,7 +68,7 @@ class ColorStage:
         Raises:
             FileNotFoundError: When the video is missing from the dataset.
         """
-        video_path = db.video_inputs / video_filename
+        video_path = storage.video_inputs() / video_filename
         if not video_path.exists():
             raise FileNotFoundError(f"Video not found in dataset: {video_path}")
 
@@ -117,7 +117,7 @@ class ColorStage:
 
             print(f"[INFO] Sampling complete. Extracting {len(final_frames)} semantic frames.")
 
-            output_dir = db.get_output_dir(self.name)
+            output_dir = storage.get_output_dir(self.name)
             frames_dir = output_dir / f"{video_filename}_frames"
 
             if frames_dir.exists():

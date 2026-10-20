@@ -13,7 +13,7 @@ import pytest
 
 from open_enricher.experiments.loop import build_parser, main
 from open_enricher.runner import list_videos, primary_artifact_path, run_pipeline
-from open_enricher.storage import db
+from open_enricher import storage
 
 
 def test_cli_list_variants(capsys: pytest.CaptureFixture[str]) -> None:
@@ -41,8 +41,6 @@ def test_list_videos_missing_file(tmp_path: Path, monkeypatch: pytest.MonkeyPatc
     (video_dir / "present.mkv").write_bytes(b"fake")
     monkeypatch.setenv("OPEN_ENRICHER_DATASET_ROOT", str(tmp_path))
     monkeypatch.setenv("OPEN_ENRICHER_VIDEO_INPUTS", str(video_dir))
-    monkeypatch.delenv("OPEN_ENRICHER_EXPERIMENT_ID", raising=False)
-    db.refresh()
 
     with pytest.raises(FileNotFoundError) as exc:
         list_videos(["absent.mkv"])
@@ -58,25 +56,17 @@ def test_run_pipeline_rejects_missing_video(
     video_dir.mkdir()
     monkeypatch.setenv("OPEN_ENRICHER_DATASET_ROOT", str(tmp_path))
     monkeypatch.setenv("OPEN_ENRICHER_VIDEO_INPUTS", str(video_dir))
-    monkeypatch.delenv("OPEN_ENRICHER_EXPERIMENT_ID", raising=False)
-    db.refresh()
-    db.setup_dataset()
+    storage.setup_dataset()
 
     with pytest.raises(FileNotFoundError) as exc:
         run_pipeline("missing.mkv", use_cache=False)
     assert "missing.mkv" in str(exc.value)
 
 
-def test_primary_artifact_path_uses_experiment_namespace(
+def test_primary_artifact_path_uses_shared_outputs(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    """Artifact paths land under outputs/<prefix>/<experiment_id>/."""
+    """Artifact paths land under the shared dataset outputs/ tree."""
     monkeypatch.setenv("OPEN_ENRICHER_DATASET_ROOT", str(tmp_path))
-    monkeypatch.setenv("OPEN_ENRICHER_EXPERIMENT_PREFIX", "local")
-    monkeypatch.setenv("OPEN_ENRICHER_EXPERIMENT_ID", "01-interval-llm")
-    db.refresh()
     path = primary_artifact_path("llm", "episode.mkv")
-    assert "outputs" in path.parts
-    assert "local" in path.parts
-    assert "01-interval-llm" in path.parts
-    assert path.name == "episode.mkv_llm.json"
+    assert path == tmp_path / "outputs" / "llms_results" / "episode.mkv_llm.json"

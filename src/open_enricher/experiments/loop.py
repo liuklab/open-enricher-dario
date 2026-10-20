@@ -25,12 +25,10 @@ from open_enricher.experiments.archive import (
 )
 from open_enricher.experiments.config import (
     CACHE_ROOT,
-    EXPERIMENT_PREFIX,
     PIPELINE_STAGES,
     REPO_ROOT,
     VARIANTS_DIR,
 )
-from open_enricher.storage import db
 
 
 def _runner():
@@ -149,23 +147,19 @@ def _collect_scores(exp_dir: Path, videos: list[str]) -> dict[str, Any]:
     return scores
 
 
-def _activate_variant(variant_path: Path, experiment_id: str) -> None:
+def _activate_variant(variant_path: Path) -> None:
     """
-    Point the process at one variant and experiment output namespace.
+    Point the process at one variant JSON for the shared dataset pipeline.
 
     Args:
         variant_path: Absolute path to the variant JSON file.
-        experiment_id: Id used under ``outputs/<prefix>/<id>/``.
 
     Side effects:
-        Sets ``OPEN_ENRICHER_PIPELINE_SPEC``, ``OPEN_ENRICHER_EXPERIMENT_ID``,
-        and ``OPEN_ENRICHER_EXPERIMENT_PREFIX``, then refreshes ``db``.
+        Sets ``OPEN_ENRICHER_PIPELINE_SPEC``. The dataset layout is shared
+        across experiments; only the archived copy under ``runs/local/`` is
+        per experiment.
     """
     os.environ["OPEN_ENRICHER_PIPELINE_SPEC"] = str(variant_path.resolve())
-    os.environ["OPEN_ENRICHER_EXPERIMENT_ID"] = experiment_id
-    os.environ["OPEN_ENRICHER_EXPERIMENT_PREFIX"] = EXPERIMENT_PREFIX
-    db.refresh()
-    db.setup_dataset()
 
 
 def run_one_experiment(
@@ -202,7 +196,7 @@ def run_one_experiment(
             "runs_dir": str(experiment_dir(experiment_id)),
         }
 
-    _activate_variant(variant_path, experiment_id)
+    _activate_variant(variant_path)
     runner = _runner()
     registry = runner.build_stages()
     video_results: list[dict[str, Any]] = []

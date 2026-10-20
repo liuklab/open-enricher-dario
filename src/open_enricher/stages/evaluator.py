@@ -22,7 +22,7 @@ from open_enricher.stages.evaluator_core import (
     title_from_filename,
 )
 from open_enricher.stages.evaluator_core.prompt import system_prompt, user_prompt
-from open_enricher.storage import db
+from open_enricher import storage
 from open_enricher.timings import TimingRecorder
 
 
@@ -147,8 +147,8 @@ class EvaluatorStage:
         title = title_from_filename(video_filename)
         print(f"[INFO] Evaluator title from filename: {title!r}")
 
-        profile_path = db.get_output_dir("llm") / f"{video_filename}_llm.json"
-        output_dir = db.get_output_dir(self.name)
+        profile_path = storage.get_output_dir("llm") / f"{video_filename}_llm.json"
+        output_dir = storage.get_output_dir(self.name)
         output_path = output_dir / f"{video_filename}_evaluator.json"
         timings_path = output_dir / f"{video_filename}_evaluator_timings.json"
 

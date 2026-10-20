@@ -18,7 +18,7 @@ from typing import Any, Iterable, Sequence
 
 from dotenv import load_dotenv
 
-from open_enricher.storage import db
+from open_enricher import storage
 
 # Default stage order for a full local enricher pass.
 # Stage classes are imported lazily inside ``build_stages`` so CLI helpers
@@ -92,7 +92,7 @@ def bootstrap_runtime(*, env_file: Path | None = None, tee_log: bool = True) -> 
     Args:
         env_file: Optional ``.env`` path. Defaults to ``<repo>/.env`` when
             present, otherwise relies on the process environment alone.
-        tee_log: When True, mirror stdout and stderr into ``db.experiment_log``.
+        tee_log: When True, mirror stdout and stderr into ``storage.experiment_log()``.
 
     Side effects:
         Sets Hugging Face and Torch cache environment variables, creates
@@ -105,8 +105,8 @@ def bootstrap_runtime(*, env_file: Path | None = None, tee_log: bool = True) -> 
     if env_file is not None and env_file.is_file():
         load_dotenv(env_file)
 
-    db.configure_environment()
-    db.setup_dataset()
+    storage.configure_environment()
+    storage.setup_dataset()
 
     hf_token = os.getenv("HF_TOKEN", "").strip()
     if hf_token:
@@ -119,7 +119,7 @@ def bootstrap_runtime(*, env_file: Path | None = None, tee_log: bool = True) -> 
             print(f"[WARNING] Hugging Face login failed: {exc}")
 
     if tee_log:
-        log_path = db.experiment_log
+        log_path = storage.experiment_log()
         sys.stdout = _TeeStream(sys.__stdout__, log_path)
         sys.stderr = _TeeStream(sys.__stderr__, log_path)
         print(f"[INFO] Worker log mirroring to {log_path}")
@@ -167,7 +167,7 @@ def primary_artifact_path(stage: str, video_filename: str) -> Path:
         Path under the active experiment output folder.
     """
     pattern = STAGE_PRIMARY_ARTIFACT[stage]
-    return db.get_output_dir(stage) / pattern.format(video=video_filename)
+    return storage.get_output_dir(stage) / pattern.format(video=video_filename)
 
 
 def stage_output_exists(stage: str, video_filename: str) -> bool:
@@ -251,7 +251,7 @@ def restore_cached_stage(
     source_dir = cache_root / video_filename / stage
     if not source_dir.is_dir():
         return False
-    dest_dir = db.get_output_dir(stage)
+    dest_dir = storage.get_output_dir(stage)
     dest_dir.mkdir(parents=True, exist_ok=True)
     copied = 0
     for path in source_dir.iterdir():
@@ -288,7 +288,7 @@ def save_stage_to_cache(
         return
     dest_dir = cache_root / video_filename / stage
     dest_dir.mkdir(parents=True, exist_ok=True)
-    source_dir = db.get_output_dir(stage)
+    source_dir = storage.get_output_dir(stage)
     for pattern in _artifact_globs(stage, video_filename):
         for path in source_dir.glob(pattern):
             if path.is_file():
@@ -301,7 +301,7 @@ def list_videos(video_names: Sequence[str] | None = None) -> list[str]:
 
     Args:
         video_names: Explicit filenames. When None or empty, every regular
-            file in ``db.video_inputs`` is used (sorted).
+            file in ``storage.video_inputs()`` is used (sorted).
 
     Returns:
         Sorted list of video filenames that exist under ``video_inputs``.
@@ -310,7 +310,7 @@ def list_videos(video_names: Sequence[str] | None = None) -> list[str]:
         FileNotFoundError: When the input directory is missing, no videos
             are found, or a requested name is absent.
     """
-    inputs = db.video_inputs
+    inputs = storage.video_inputs()
     if not inputs.is_dir():
         raise FileNotFoundError(f"Video input directory does not exist: {inputs}")
 
@@ -355,7 +355,7 @@ def run_pipeline(
         Summary dict with per-stage status, overall status, and video name.
         Overall status is ``failed`` if any stage fails or raises.
     """
-    video_path = db.video_inputs / video_filename
+    video_path = storage.video_inputs() / video_filename
     if not video_path.is_file():
         raise FileNotFoundError(f"Video not found in dataset: {video_path}")
 
@@ -427,7 +427,7 @@ def collect_artifacts(video_filename: str, stages: Iterable[str] = PIPELINE_STAG
     """
     found: list[Path] = []
     for stage in stages:
-        folder = db.get_output_dir(stage)
+        folder = storage.get_output_dir(stage)
         for pattern in _artifact_globs(stage, video_filename):
             for path in folder.glob(pattern):
                 if path.is_file():
@@ -469,7 +469,7 @@ def archive_artifacts(
             continue
         shutil.copy2(path, dest_dir / path.name)
         copied.append(path.name)
-    log_path = db.experiment_log
+    log_path = storage.experiment_log()
     if log_path.is_file():
         shutil.copy2(log_path, dest_dir / "worker.log")
         copied.append("worker.log")

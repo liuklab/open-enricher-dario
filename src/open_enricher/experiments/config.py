@@ -24,9 +24,6 @@ CACHE_ROOT = RUNS_ROOT / "_cache"
 # Append-only resume log for the experiment loop.
 PROGRESS_PATH = RUNS_ROOT / "progress.jsonl"
 
-# Round prefix written into the dataset under outputs/.
-EXPERIMENT_PREFIX = "local"
-
 # Stages executed for each local experiment (includes empty-context LLM evaluator).
 # Kept here (not imported from runner) so CLI --list stays free of torch/whisperx.
 PIPELINE_STAGES: tuple[str, ...] = ("audio", "color", "vlm", "llm", "evaluator")

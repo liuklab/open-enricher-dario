@@ -26,7 +26,7 @@ from open_enricher.stages.vlm_core.model import (
     unload_model,
 )
 from open_enricher.stages.vlm_core.video import probe_duration_seconds
-from open_enricher.storage import db
+from open_enricher import storage
 from open_enricher.timings import TimingRecorder
 
 
@@ -90,7 +90,7 @@ class VLMStage:
         Raises:
             FileNotFoundError: When the video is missing from the dataset.
         """
-        video_path = db.video_inputs / video_filename
+        video_path = storage.video_inputs() / video_filename
         if not video_path.exists():
             raise FileNotFoundError(f"Video not found in dataset: {video_path}")
 
@@ -102,7 +102,7 @@ class VLMStage:
         # Summarize audio and colors before the VLM is loaded. The text model
         # releases the GPU inside build_vlm_context.
         context, dialogue_summary = build_vlm_context(video_filename, timing=timing)
-        output_dir = db.get_output_dir(self.name)
+        output_dir = storage.get_output_dir(self.name)
         context_path = output_dir / f"{video_filename}_vlm_context.txt"
         context_path.write_text(context, encoding="utf-8")
         summary_path = output_dir / f"{video_filename}_dialogue_summary.txt"

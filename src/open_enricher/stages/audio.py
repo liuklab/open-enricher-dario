@@ -15,7 +15,7 @@ import torch
 import whisperx
 from whisperx.diarize import DiarizationPipeline, assign_word_speakers
 
-from open_enricher.storage import db
+from open_enricher import storage
 from open_enricher.timings import TimingRecorder
 
 
@@ -67,7 +67,7 @@ class AudioStage:
         Raises:
             FileNotFoundError: When the video is missing from the dataset.
         """
-        video_path = db.video_inputs / video_filename
+        video_path = storage.video_inputs() / video_filename
         if not video_path.exists():
             raise FileNotFoundError(f"Video not found in dataset: {video_path}")
 
@@ -145,7 +145,7 @@ class AudioStage:
                 )
 
         payload = [asdict(d) for d in dialogues]
-        output_dir = db.get_output_dir(self.name)
+        output_dir = storage.get_output_dir(self.name)
         output_path = output_dir / f"{video_filename}_audio.json"
         timings_path = output_dir / f"{video_filename}_audio_timings.json"
         timing.save(timings_path)

@@ -14,7 +14,7 @@ from open_enricher.stages.pipeline_spec import PipelineSpec, load_pipeline_spec
 from open_enricher.stages.vlm_core.config import MetadataConfig, ModelConfig
 from open_enricher.stages.vlm_core.model import extract_metadata, load_model, unload_model
 from open_enricher.stages.vlm_core.video import clip_video_range
-from open_enricher.storage import db
+from open_enricher import storage
 from open_enricher.timings import TimingRecorder
 
 SEGMENT_MAX_FRAMES = 8
@@ -114,7 +114,7 @@ def _parse_object(raw_text: str) -> dict[str, Any] | None:
 
 
 def _lines_in_window(video_filename: str, start: float, end: float) -> str:
-    path = db.get_output_dir("audio") / f"{video_filename}_audio.json"
+    path = storage.get_output_dir("audio") / f"{video_filename}_audio.json"
     if not path.is_file():
         return ""
     try:
@@ -142,7 +142,7 @@ def _lines_in_window(video_filename: str, start: float, end: float) -> str:
 
 
 def _colors_in_window(video_filename: str, start: float, end: float) -> str:
-    path = db.get_output_dir("color") / f"{video_filename}_color.json"
+    path = storage.get_output_dir("color") / f"{video_filename}_color.json"
     if not path.is_file():
         return ""
     try:

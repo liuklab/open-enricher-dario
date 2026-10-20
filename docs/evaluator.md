@@ -33,5 +33,6 @@ Editable templates live in
 
 ## Outputs
 
-- `dataset/outputs/local/<id>/evaluator_results/<video>_evaluator.json`
+- `dataset/outputs/evaluator_results/<video>_evaluator.json` (shared live output)
+- Archived under `runs/local/<id>/<video>/score.json`
 - Archived copy under `runs/local/<id>/<video>/score.json`

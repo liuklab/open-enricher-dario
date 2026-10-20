@@ -30,19 +30,19 @@ The token is used only for gated model weights (WhisperX / pyannote). If diariza
 Default layout under `dataset/` (override with `OPEN_ENRICHER_DATASET_ROOT`):
 
 ```text
-dataset/
+dataset/                   # shared by every experiment
 ├── models_cache/
 ├── video_inputs/          # put source videos here
 └── outputs/
-    └── local/<experiment_id>/
-        ├── audio_results/
-        ├── color_results/
-        ├── vlms_results/
-        ├── llms_results/
-        └── evaluator_results/
+    ├── audio_results/
+    ├── color_results/
+    ├── vlms_results/
+    ├── llms_results/
+    └── evaluator_results/
 ```
 
-Put episode files in `dataset/video_inputs/` before running.
+Put episode files in `dataset/video_inputs/` before running. Per-experiment
+copies of stage outputs are archived under `runs/local/<experiment_id>/`.
 
 ## Run one video through all stages
 

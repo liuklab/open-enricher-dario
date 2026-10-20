@@ -16,7 +16,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 from open_enricher.stages.pipeline_spec import load_pipeline_spec
 from open_enricher.stages.video_profile import VideoProfile
-from open_enricher.storage import db
+from open_enricher import storage
 from open_enricher.timings import TimingRecorder
 
 
@@ -35,9 +35,9 @@ class LLMStage:
         enriched_script: Dict[str, Any] = {"experiment_id": spec.experiment_id}
 
         expected_files = {
-            "audio": db.get_output_dir("audio") / f"{video_filename}_audio.json",
-            "color": db.get_output_dir("color") / f"{video_filename}_color.json",
-            "vlm": db.get_output_dir("vlm") / f"{video_filename}_vlm.json",
+            "audio": storage.get_output_dir("audio") / f"{video_filename}_audio.json",
+            "color": storage.get_output_dir("color") / f"{video_filename}_color.json",
+            "vlm": storage.get_output_dir("vlm") / f"{video_filename}_vlm.json",
         }
 
         for stage_name, file_path in expected_files.items():
@@ -54,7 +54,7 @@ class LLMStage:
         if spec.inject_dialogue_color_into_llm:
             # Per-scene dialogue/colors may already sit on the VLM timeline.
             # Also attach a capped prior brief when present.
-            context_path = db.get_output_dir("vlm") / f"{video_filename}_vlm_context.txt"
+            context_path = storage.get_output_dir("vlm") / f"{video_filename}_vlm_context.txt"
             if context_path.is_file():
                 brief = context_path.read_text(encoding="utf-8")
                 enriched_script["prior_context"] = brief[:6000]
@@ -71,7 +71,7 @@ class LLMStage:
             if isinstance(color, list):
                 enriched_script["color_frame_count"] = len(color)
                 enriched_script.pop("color", None)
-            context_path = db.get_output_dir("vlm") / f"{video_filename}_vlm_context.txt"
+            context_path = storage.get_output_dir("vlm") / f"{video_filename}_vlm_context.txt"
             if context_path.is_file() and not spec.dialogue_summary_to_vlm:
                 # Keep a short brief only when the VLM did not already consume the summary.
                 brief = context_path.read_text(encoding="utf-8")
@@ -127,8 +127,8 @@ class LLMStage:
         timing: TimingRecorder,
     ) -> Dict[str, Any]:
         """Rewrite unsupported claims using timeline + pipeline dialogue summary only."""
-        vlm_path = db.get_output_dir("vlm") / f"{video_filename}_vlm.json"
-        summary_path = db.get_output_dir("vlm") / f"{video_filename}_dialogue_summary.txt"
+        vlm_path = storage.get_output_dir("vlm") / f"{video_filename}_vlm.json"
+        summary_path = storage.get_output_dir("vlm") / f"{video_filename}_dialogue_summary.txt"
         evidence: Dict[str, Any] = {"profile": profile}
         if vlm_path.is_file():
             evidence["vlm"] = json.loads(vlm_path.read_text(encoding="utf-8"))
@@ -295,7 +295,7 @@ class LLMStage:
             if torch.cuda.is_available():
                 torch.cuda.empty_cache()
 
-        output_dir = db.get_output_dir(self.name)
+        output_dir = storage.get_output_dir(self.name)
         timings_path = output_dir / f"{video_filename}_llm_timings.json"
         timing.save(timings_path)
 
