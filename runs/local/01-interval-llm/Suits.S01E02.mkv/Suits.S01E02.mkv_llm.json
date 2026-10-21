@@ -1,0 +1,44 @@
+{
+  "recsys_metadata": {
+    "primary_genre": "Crime",
+    "sub_genres": [
+      "Legal drama",
+      "Business intrigue",
+      "Office politics"
+    ],
+    "pacing": "Moderate",
+    "mood": [
+      "Tense",
+      "Competitive",
+      "High stakes"
+    ]
+  },
+  "search_and_discovery": {
+    "semantic_tags": [
+      "Patent dispute",
+      "Corporate espionage",
+      "Power dynamics",
+      "Negotiation",
+      "Ethical dilemmas",
+      "Office rivalry"
+    ],
+    "main_topics": [
+      "Legal battle",
+      "Business strategy",
+      "Personal conflict"
+    ]
+  },
+  "audience_profiling": {
+    "target_age_group": "Adults",
+    "viewer_interests": [
+      "Lawyers",
+      "Entrepreneurs",
+      "Office workers",
+      "Conflict resolution"
+    ]
+  },
+  "content_summary": {
+    "visual_style": "Bright, neutral-toned interiors with soft lighting, emphasizing corporate environments and introspective close-ups.",
+    "narrative_hook": "Two lawyers navigate a high-stakes patent dispute, balancing professional obligations with personal betrayals."
+  }
+}
