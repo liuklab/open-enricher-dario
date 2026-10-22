@@ -1,0 +1,62 @@
+2026-10-20 23:26:25.531;INFO;open_enricher.storage;Initializing shared dataset at /SLURM_shared/st_mdp26/open-enricher/dataset...
+2026-10-20 23:26:25.537;INFO;open_enricher.storage;Dataset structure verified.
+2026-10-20 23:26:26.620;INFO;open_enricher.runner;Hugging Face login succeeded.
+2026-10-20 23:26:26.632;INFO;open_enricher.experiments.loop;Videos: Suits.S01E02.mkv | variants: 1
+2026-10-20 23:26:26.634;INFO;open_enricher.experiments.loop;======== Experiment 01-interval-llm ========
+2026-10-20 23:27:35.812;INFO;open_enricher.experiments.loop;Pipeline for video Suits.S01E02.mkv
+2026-10-20 23:27:35.814;INFO;open_enricher.runner;Skipping audio for Suits.S01E02.mkv (cached)
+2026-10-20 23:27:35.815;INFO;open_enricher.runner;Skipping color for Suits.S01E02.mkv (cached)
+2026-10-20 23:27:35.815;INFO;open_enricher.runner;Running stage 'vlm' on Suits.S01E02.mkv
+2026-10-20 23:27:35.815;INFO;open_enricher.stages.vlm;Starting VLM stage for Suits.S01E02.mkv (01-interval-llm)
+2026-10-20 23:27:37.460;INFO;open_enricher.stages.vlm_core.enrichment;Building VLM context from Suits.S01E02.mkv_color.json and Suits.S01E02.mkv_audio.json
+2026-10-20 23:27:37.484;WARNING;open_enricher.stages.vlm_core.enrichment;Transcript sampling (even middle): original_lines=824 original_chars=46986 max_chars=12000 head_lines=25 middle_kept=97/774 tail_lines=25 result_chars=8843
+2026-10-20 23:27:37.485;INFO;open_enricher.stages.vlm_core.enrichment;Condensed transcript is 8843 characters
+2026-10-20 23:27:37.488;INFO;open_enricher.stages.vlm_core.enrichment;Loading Qwen/Qwen3-8B to summarize the Whisper transcript...
+2026-10-20 23:30:42.055;INFO;open_enricher.timings;TIMING vlm.summary_load=184.567s
+2026-10-20 23:30:51.269;INFO;open_enricher.timings;TIMING vlm.summary_generate=9.149s
+2026-10-20 23:30:51.269;INFO;open_enricher.stages.vlm_core.enrichment;Unloading transcript summary model and freeing VRAM...
+2026-10-20 23:30:51.730;INFO;open_enricher.stages.vlm;Wrote VLM context (2346 chars) to Suits.S01E02.mkv_vlm_context.txt
+2026-10-20 23:30:51.730;INFO;open_enricher.stages.vlm_core.segments;Segmenting 2575s into 9 windows (mode=interval, experiment=01-interval-llm)
+2026-10-20 23:30:51.730;INFO;open_enricher.stages.vlm_core.segments;Loading VLM: Qwen/Qwen3-VL-8B-Instruct (4-bit=True)...
+2026-10-20 23:37:02.008;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_load=370.279s
+2026-10-20 23:37:02.009;INFO;open_enricher.stages.vlm_core.segments;VLM window 1/9 00:00:00-00:05:00
+2026-10-20 23:37:36.444;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 643 tokens
+2026-10-20 23:37:47.599;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window1=45.546s
+2026-10-20 23:37:47.599;INFO;open_enricher.stages.vlm_core.segments;VLM window 2/9 00:05:00-00:10:00
+2026-10-20 23:38:15.790;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 643 tokens
+2026-10-20 23:38:17.583;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window2=29.981s
+2026-10-20 23:38:17.583;INFO;open_enricher.stages.vlm_core.segments;VLM window 3/9 00:10:00-00:15:00
+2026-10-20 23:38:46.810;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 643 tokens
+2026-10-20 23:38:49.628;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window3=32.04s
+2026-10-20 23:38:49.628;INFO;open_enricher.stages.vlm_core.segments;VLM window 4/9 00:15:00-00:20:00
+2026-10-20 23:39:20.749;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 643 tokens
+2026-10-20 23:39:22.751;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window4=33.121s
+2026-10-20 23:39:22.751;INFO;open_enricher.stages.vlm_core.segments;VLM window 5/9 00:20:00-00:25:00
+2026-10-20 23:39:51.506;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 643 tokens
+2026-10-20 23:39:53.287;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window5=30.53s
+2026-10-20 23:39:53.287;INFO;open_enricher.stages.vlm_core.segments;VLM window 6/9 00:25:00-00:30:00
+2026-10-20 23:40:21.829;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 643 tokens
+2026-10-20 23:40:23.579;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window6=30.29s
+2026-10-20 23:40:23.579;INFO;open_enricher.stages.vlm_core.segments;VLM window 7/9 00:30:00-00:35:00
+2026-10-20 23:40:52.897;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 643 tokens
+2026-10-20 23:40:55.064;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window7=31.479s
+2026-10-20 23:40:55.064;INFO;open_enricher.stages.vlm_core.segments;VLM window 8/9 00:35:00-00:40:00
+2026-10-20 23:41:23.264;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 643 tokens
+2026-10-20 23:41:25.222;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window8=30.155s
+2026-10-20 23:41:25.222;INFO;open_enricher.stages.vlm_core.segments;VLM window 9/9 00:40:00-00:42:55
+2026-10-20 23:41:41.098;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 642 tokens
+2026-10-20 23:41:43.147;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window9=17.92s
+2026-10-20 23:41:43.147;INFO;open_enricher.stages.vlm_core.segments;Unloading VLM and freeing VRAM...
+2026-10-20 23:41:44.368;INFO;open_enricher.stages.vlm;VLM stage completed. Saved to /SLURM_shared/st_mdp26/open-enricher/dataset/outputs/vlms_results/Suits.S01E02.mkv_vlm.json (json_valid=True)
+2026-10-20 23:41:44.368;INFO;open_enricher.runner;Running stage 'llm' on Suits.S01E02.mkv
+2026-10-20 23:41:44.368;INFO;open_enricher.stages.llm;Starting RecSys LLM profiling for Suits.S01E02.mkv
+2026-10-20 23:41:44.371;INFO;open_enricher.stages.llm;Found metadata for stage: audio
+2026-10-20 23:41:44.374;INFO;open_enricher.stages.llm;Found metadata for stage: color
+2026-10-20 23:41:44.375;INFO;open_enricher.stages.llm;Found metadata for stage: vlm
+2026-10-20 23:41:44.394;INFO;open_enricher.stages.llm;Loading textual LLM: Qwen/Qwen3-8B in 4-bit...
+2026-10-20 23:44:07.364;INFO;open_enricher.timings;TIMING llm.llm_load=142.969s
+2026-10-20 23:44:07.370;INFO;open_enricher.stages.llm;Generating structured JSON profile (Attempt 1/2)...
+2026-10-20 23:44:14.671;INFO;open_enricher.timings;TIMING llm.llm_generate=7.301s
+2026-10-20 23:44:14.741;INFO;open_enricher.stages.llm;Pydantic schema validation succeeded!
+2026-10-20 23:44:14.741;INFO;open_enricher.stages.llm;Unloading LLM and freeing VRAM...
+2026-10-20 23:44:15.244;INFO;open_enricher.stages.llm;Saving structured profile to /SLURM_shared/st_mdp26/open-enricher/dataset/outputs/llms_results/Suits.S01E02.mkv_llm.json
