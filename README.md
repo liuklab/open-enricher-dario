@@ -81,7 +81,7 @@ python -m open_enricher.evaluation --experiment 01-scene-context --with-synopsis
 
 ## Sequential experiments
 
-The single variant lives in `src/open_enricher/experiments/variants/01-scene-context.json`. A run sets `OPEN_ENRICHER_PIPELINE_SPEC` to that JSON, executes `audio -> dialogue -> vlm -> llm` in process, and archives under `runs/local/<experiment_id>/`. Audio output is cached under `runs/local/_cache/` because it does not depend on the interval length.
+Variants live in `src/open_enricher/experiments/variants/`. Each run sets `OPEN_ENRICHER_PIPELINE_SPEC` to that JSON, executes `audio -> dialogue -> vlm -> llm` in process, and archives under `runs/local/<experiment_id>/`. Audio output is cached under `runs/local/_cache/` because it does not depend on the variant knobs. `01-scene-context` passes every earlier scene to the VLM. `02-memory-2` passes the last 2, and `03-memory-4` passes the last 4. `05-visual-only` keeps every earlier scene but hides dialogue text from the VLM; the final LLM joins speech and frames.
 
 ```bash
 python -m open_enricher --list
@@ -99,7 +99,7 @@ See [docs/local_loop.md](docs/local_loop.md) and [docs/evaluator.md](docs/evalua
 | :--- | :--- |
 | `audio` | Timestamped transcript with speaker labels when diarization succeeds |
 | `dialogue` | High-level plot from every line, then a detailed dialogue description per 5-minute interval |
-| `vlm` | Visual metadata per interval. Each call also receives the dialogue description and the metadata of earlier intervals |
+| `vlm` | Visual metadata per interval. Each call also receives the dialogue description and the metadata of earlier intervals, limited by `vlm_memory_scenes` |
 | `llm` | `VideoProfile` enriched from the plot summary and the accumulated scene metadata |
 
 ## External evaluator

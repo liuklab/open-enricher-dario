@@ -67,4 +67,4 @@ runs/local/
 
 ## Variants
 
-The spec lives in [`src/open_enricher/experiments/variants/01-scene-context.json`](../src/open_enricher/experiments/variants/01-scene-context.json). `interval_seconds` is the fixed scene length (300).
+Specs live in [`src/open_enricher/experiments/variants/`](../src/open_enricher/experiments/variants/). `interval_seconds` is the fixed scene length (300). `vlm_memory_scenes` is null in `01-scene-context` (every earlier scene), 2 in `02-memory-2`, and 4 in `03-memory-4`. `05-visual-only` sets `visual_only` so the VLM does not read dialogue descriptions.

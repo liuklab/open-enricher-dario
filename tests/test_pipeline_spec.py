@@ -21,6 +21,8 @@ def test_default_pipeline_spec_loads() -> None:
     spec = load_pipeline_spec()
     assert spec.experiment_id == "01-scene-context"
     assert spec.interval_seconds == 300
+    assert spec.vlm_memory_scenes is None
+    assert spec.visual_only is False
 
 
 def test_variants_are_valid() -> None:
@@ -36,6 +38,9 @@ def test_variants_are_valid() -> None:
             spec = load_pipeline_spec(tmp)
             assert spec.experiment_id
             assert spec.title
+            if spec.vlm_memory_scenes is not None:
+                assert spec.vlm_memory_scenes > 0
+            assert isinstance(spec.visual_only, bool)
         finally:
             if tmp.exists():
                 tmp.unlink()

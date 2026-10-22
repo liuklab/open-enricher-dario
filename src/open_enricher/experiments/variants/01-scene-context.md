@@ -4,7 +4,7 @@ One experiment. Stages run in process, in this order:
 
 `audio` → `dialogue` → `vlm` → `llm`
 
-Color is not computed. Audio stays cached under `runs/local/_cache` because it does not depend on `interval_seconds`. The executable spec is `01-scene-context.json`: the only knob is the window length, 300 seconds.
+Color is not computed. Audio stays cached under `runs/local/_cache` because it does not depend on `interval_seconds`. The executable spec is `01-scene-context.json`. The window length is 300 seconds. `vlm_memory_scenes` is null, so each VLM call receives every earlier scene.
 
 ## 1. Audio
 
@@ -34,7 +34,7 @@ Output: `<video>_dialogue.json`, with `plot_summary` and the list of scenes.
 
 Qwen3-VL-8B-Instruct in 4-bit, loaded once. For each window it clips the video and samples at most 8 frames.
 
-The prompt contains the dialogue description of that window and the metadata already written for earlier windows. Qwen does not keep context between `generate` calls: the memory is only that JSON, passed again in every prompt. Past 8,000 characters it is compacted to a timestamp plus a short description, and an `ALERT` is logged.
+The prompt contains the dialogue description of that window and the metadata already written for every earlier window. Qwen does not keep context between `generate` calls: the memory is only that JSON, passed again in every prompt. Past 8,000 characters it is compacted to a timestamp plus a short description, and an `ALERT` is logged.
 
 The model describes the frames. When a frame contradicts the text, the frame wins. For each window it saves `description`, `subjects_and_objects`, `actions`, `camera_and_shot`, `lighting_and_color`, and `on_screen_text`, and it also keeps `dialogue_description`.
 

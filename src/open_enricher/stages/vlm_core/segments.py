@@ -50,11 +50,69 @@ def _as_list(value: Any) -> list[str]:
     return []
 
 
-def _memory_block(prior: list[dict[str, Any]]) -> tuple[str, bool]:
+def select_prior_scenes(prior: list[dict[str, Any]], limit: int | None) -> list[dict[str, Any]]:
+    """
+    Keep the scenes that will be re-sent as VLM memory.
+
+    Args:
+        prior: Metadata already written, oldest first.
+        limit: How many of the most recent scenes to keep. ``None`` keeps
+            every earlier scene.
+
+    Returns:
+        A new list, still oldest first.
+    """
+    if limit is None or len(prior) <= limit:
+        return list(prior)
+    return list(prior[-limit:])
+
+
+def records_for_vlm_memory(
+    prior: list[dict[str, Any]],
+    *,
+    visual_only: bool,
+) -> list[dict[str, Any]]:
+    """
+    Copy scene records for the VLM memory block.
+
+    Args:
+        prior: Metadata already written.
+        visual_only: When True, drop ``dialogue_description`` so speech from
+            earlier windows does not re-enter the visual prompt.
+
+    Returns:
+        Copies of the records, oldest first.
+    """
+    rows: list[dict[str, Any]] = []
+    for item in prior:
+        row = dict(item)
+        if visual_only:
+            row.pop("dialogue_description", None)
+        rows.append(row)
+    return rows
+
+
+def _memory_block(
+    prior: list[dict[str, Any]],
+    *,
+    limit: int | None,
+    visual_only: bool = False,
+) -> tuple[str, bool]:
     """Return the prompt block of earlier metadata and whether it was compacted."""
-    if not prior:
+    kept = records_for_vlm_memory(
+        select_prior_scenes(prior, limit),
+        visual_only=visual_only,
+    )
+    if not kept:
         return "", False
-    body = json.dumps(prior, ensure_ascii=False, separators=(",", ":"))
+    if limit is None:
+        scope = "Every earlier interval is included."
+    else:
+        scope = (
+            f"Only the {limit} most recent intervals are included. "
+            "Earlier intervals are omitted."
+        )
+    body = json.dumps(kept, ensure_ascii=False, separators=(",", ":"))
     compacted = False
     if len(body) > MEMORY_CHAR_BUDGET:
         compacted = True
@@ -64,26 +122,37 @@ def _memory_block(prior: list[dict[str, Any]]) -> tuple[str, bool]:
                 "end_time": segment.get("end_time"),
                 "description": str(segment.get("description") or "")[:180],
             }
-            for segment in prior
+            for segment in kept
         ]
         body = json.dumps(compact, ensure_ascii=False, separators=(",", ":"))
         logger.warning(
             "ALERT: prior VLM metadata does not fit the memory budget; "
-            "passing compact descriptions (chars=%s budget=%s scenes=%s)",
+            "passing compact descriptions (chars=%s budget=%s scenes=%s kept=%s)",
             len(body),
             MEMORY_CHAR_BUDGET,
             len(prior),
+            len(kept),
         )
-    block = fill_prompt(load_prompt("vlm_scene_memory.md"), {"PRIOR_METADATA": body})
+    block = fill_prompt(
+        load_prompt("vlm_scene_memory.md"),
+        {"SCOPE": scope, "PRIOR_METADATA": body},
+    )
     return "\n" + block + "\n", compacted
 
 
-def _scene_prompt(scene: dict[str, Any], memory: str) -> str:
+def _scene_prompt(scene: dict[str, Any], memory: str, *, visual_only: bool) -> str:
+    start = str(scene.get("start_time") or "")
+    end = str(scene.get("end_time") or "")
+    if visual_only:
+        return fill_prompt(
+            load_prompt("vlm_scene_visual_prompt.md"),
+            {"START": start, "END": end, "MEMORY": memory},
+        )
     return fill_prompt(
         load_prompt("vlm_scene_prompt.md"),
         {
-            "START": str(scene.get("start_time") or ""),
-            "END": str(scene.get("end_time") or ""),
+            "START": start,
+            "END": end,
             "SCENE_DESCRIPTION": str(scene.get("description") or "").strip(),
             "MEMORY": memory,
         },
@@ -99,6 +168,8 @@ def run_segmented(
     *,
     timing: TimingRecorder | None = None,
     experiment_id: str = "",
+    vlm_memory_scenes: int | None = None,
+    visual_only: bool = False,
 ) -> tuple[str, dict[str, Any], bool, int]:
     """
     Run the VLM once per dialogue interval and accumulate the metadata.
@@ -116,6 +187,11 @@ def run_segmented(
             prose ``description``.
         timing: Optional recorder for load and per-window generate spans.
         experiment_id: Active experiment id copied into the payload.
+        vlm_memory_scenes: How many previous scene records to pass. ``None``
+            passes every earlier scene.
+        visual_only: When True, the prompt has frames and prior visual
+            metadata only. The dialogue description is stored on the segment
+            for the final LLM and is not shown to the VLM.
 
     Returns:
         Raw joined text, parsed timeline document, whether every window
@@ -157,9 +233,13 @@ def run_segmented(
                 scene.get("start_time"),
                 scene.get("end_time"),
             )
-            memory, compacted = _memory_block(segments)
+            memory, compacted = _memory_block(
+                segments,
+                limit=vlm_memory_scenes,
+                visual_only=visual_only,
+            )
             memory_compacted = memory_compacted or compacted
-            prompt = _scene_prompt(scene, memory)
+            prompt = _scene_prompt(scene, memory, visual_only=visual_only)
             window_cfg = replace(
                 meta_cfg,
                 prompt=prompt,
@@ -233,6 +313,8 @@ def run_segmented(
         "scene_timeline": segments,
         "segments_parsed": parsed_count,
         "segments_total": len(scenes),
+        "vlm_memory_scenes": vlm_memory_scenes,
+        "visual_only": visual_only,
         "memory_compacted": memory_compacted,
     }
     raw_document = "\n\n".join(raw_parts)

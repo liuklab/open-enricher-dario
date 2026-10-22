@@ -27,6 +27,8 @@ class PipelineSpec:
     experiment_id: str
     title: str
     interval_seconds: int
+    vlm_memory_scenes: int | None
+    visual_only: bool
 
 
 def _require_positive_int(name: str, value: Any) -> int:
@@ -45,6 +47,47 @@ def _require_positive_int(name: str, value: Any) -> int:
     """
     if type(value) is not int or isinstance(value, bool) or value <= 0:
         raise ValueError(f"{name} must be a positive int")
+    return value
+
+
+def _optional_positive_int(name: str, value: Any) -> int | None:
+    """
+    Accept a positive int or JSON null.
+
+    Args:
+        name: Field name for error messages.
+        value: Raw JSON value. ``None`` means the limit is unset.
+
+    Returns:
+        The positive int, or ``None`` when the field is null or absent.
+
+    Raises:
+        ValueError: When the value is present and not a positive int.
+    """
+    if value is None:
+        return None
+    return _require_positive_int(name, value)
+
+
+def _require_bool(name: str, value: Any, *, default: bool = False) -> bool:
+    """
+    Require a JSON boolean, treating null and absence as ``default``.
+
+    Args:
+        name: Field name for error messages.
+        value: Raw JSON value.
+        default: Value used when the field is null or missing.
+
+    Returns:
+        The boolean value.
+
+    Raises:
+        ValueError: When the value is present and not a JSON boolean.
+    """
+    if value is None:
+        return default
+    if type(value) is not bool:
+        raise ValueError(f"{name} must be a bool")
     return value
 
 
@@ -81,4 +124,8 @@ def load_pipeline_spec(path: Path | None = None) -> PipelineSpec:
         interval_seconds=_require_positive_int(
             "interval_seconds", int(data.get("interval_seconds", 300))
         ),
+        vlm_memory_scenes=_optional_positive_int(
+            "vlm_memory_scenes", data.get("vlm_memory_scenes")
+        ),
+        visual_only=_require_bool("visual_only", data.get("visual_only"), default=False),
     )

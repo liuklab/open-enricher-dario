@@ -68,6 +68,8 @@ class VLMStage:
             scenes,
             timing=timing,
             experiment_id=spec.experiment_id,
+            vlm_memory_scenes=spec.vlm_memory_scenes,
+            visual_only=spec.visual_only,
         )
 
         output_dir = storage.get_output_dir(self.name)
@@ -99,6 +101,8 @@ class VLMStage:
             "json_valid": is_valid_json,
             "experiment_id": spec.experiment_id,
             "interval_seconds": spec.interval_seconds,
+            "vlm_memory_scenes": spec.vlm_memory_scenes,
+            "visual_only": spec.visual_only,
             "segment_count": segment_count,
             "memory_compacted": parsed_payload.get("memory_compacted"),
             "dialogue_file": dialogue_path.name,

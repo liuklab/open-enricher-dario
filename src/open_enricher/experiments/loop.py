@@ -101,6 +101,8 @@ def _write_stub_experiment_md(
         "",
         f"- Title: `{variant.get('title')}`",
         f"- Interval seconds: `{variant.get('interval_seconds')}`",
+        f"- VLM memory scenes: `{variant.get('vlm_memory_scenes')}`",
+        f"- Visual only: `{variant.get('visual_only')}`",
         "",
         "## Execution",
         "",
