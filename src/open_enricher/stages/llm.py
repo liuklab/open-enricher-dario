@@ -1,8 +1,7 @@
 """Large Language Model profiling stage for recommender metadata.
 
-Fourth pipeline stage. Fuses audio, color, and VLM JSON (respecting
-``dialogue_color_routing`` and optional claim checking) into a validated
-``VideoProfile`` written as ``<video>_llm.json``.
+Last pipeline stage. Fuses the plot summary and the accumulated VLM scene
+metadata into a validated ``VideoProfile`` written as ``<video>_llm.json``.
 """
 
 import gc
@@ -17,8 +16,6 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 from open_enricher import storage
 from open_enricher.logging_setup import get_logger
 from open_enricher.stages.llm_core.prompt import (
-    claim_check_system_prompt,
-    claim_check_user_prompt,
     profile_repair_user_prompt,
     profile_system_prompt,
     profile_user_prompt,
@@ -40,53 +37,22 @@ class LLMStage:
         self.model_id = "Qwen/Qwen3-8B"
 
     def _gather_metadata(self, video_filename: str) -> Dict[str, Any]:
-        """Collects JSON outputs according to the active pipeline routing."""
+        """Collect the plot summary and the accumulated VLM scene metadata."""
         spec = load_pipeline_spec()
         enriched_script: Dict[str, Any] = {"experiment_id": spec.experiment_id}
 
-        expected_files = {
-            "audio": storage.get_output_dir("audio") / f"{video_filename}_audio.json",
-            "color": storage.get_output_dir("color") / f"{video_filename}_color.json",
-            "vlm": storage.get_output_dir("vlm") / f"{video_filename}_vlm.json",
-        }
-
-        for stage_name, file_path in expected_files.items():
-            if file_path.exists():
-                logger.info(f"Found metadata for stage: {stage_name}")
-                try:
-                    with open(file_path, "r", encoding="utf-8") as f:
-                        enriched_script[stage_name] = json.load(f)
-                except Exception as e:
-                    logger.warning(f"Failed to parse {file_path.name}: {e}")
-            else:
-                logger.info(f"No metadata found for stage: {stage_name}. Skipping.")
-
-        if spec.inject_dialogue_color_into_llm:
-            # Per-scene dialogue/colors may already sit on the VLM timeline.
-            # Also attach a capped prior brief when present.
-            context_path = storage.get_output_dir("vlm") / f"{video_filename}_vlm_context.txt"
-            if context_path.is_file():
-                brief = context_path.read_text(encoding="utf-8")
-                enriched_script["prior_context"] = brief[:6000]
-            # Keep per-window dialogue/colors from the VLM timeline; drop bulk audio/color.
-            enriched_script.pop("audio", None)
-            color = enriched_script.get("color")
-            if isinstance(color, list):
-                enriched_script["color_frame_count"] = len(color)
-                enriched_script.pop("color", None)
+        dialogue_path = storage.get_output_dir("dialogue") / f"{video_filename}_dialogue.json"
+        vlm_path = storage.get_output_dir("vlm") / f"{video_filename}_vlm.json"
+        if dialogue_path.is_file():
+            dialogue = json.loads(dialogue_path.read_text(encoding="utf-8"))
+            enriched_script["plot_summary"] = dialogue.get("plot_summary", "")
         else:
-            # Evidence already went into the VLM; LLM sees the timeline only.
-            enriched_script.pop("audio", None)
-            color = enriched_script.get("color")
-            if isinstance(color, list):
-                enriched_script["color_frame_count"] = len(color)
-                enriched_script.pop("color", None)
-            context_path = storage.get_output_dir("vlm") / f"{video_filename}_vlm_context.txt"
-            if context_path.is_file() and not spec.dialogue_summary_to_vlm:
-                # Keep a short brief only when the VLM did not already consume the summary.
-                brief = context_path.read_text(encoding="utf-8")
-                enriched_script["prior_context"] = brief[:4000]
-
+            logger.info("No dialogue summary found for %s", video_filename)
+        if vlm_path.is_file():
+            vlm = json.loads(vlm_path.read_text(encoding="utf-8"))
+            enriched_script["scene_metadata"] = vlm.get("scene_timeline", [])
+        else:
+            logger.info("No VLM metadata found for %s", video_filename)
         return enriched_script
 
     def _clean_json_candidate(self, raw_text: str) -> str:
@@ -128,37 +94,6 @@ class LLMStage:
         decoded = tokenizer.decode(new_tokens, skip_special_tokens=True)
         return prefill + decoded
 
-    def _claim_check(
-        self,
-        model: AutoModelForCausalLM,
-        tokenizer: AutoTokenizer,
-        profile: Dict[str, Any],
-        video_filename: str,
-        timing: TimingRecorder,
-    ) -> Dict[str, Any]:
-        """Rewrite unsupported claims using timeline + pipeline dialogue summary only."""
-        vlm_path = storage.get_output_dir("vlm") / f"{video_filename}_vlm.json"
-        summary_path = storage.get_output_dir("vlm") / f"{video_filename}_dialogue_summary.txt"
-        evidence: Dict[str, Any] = {"profile": profile}
-        if vlm_path.is_file():
-            evidence["vlm"] = json.loads(vlm_path.read_text(encoding="utf-8"))
-        if summary_path.is_file():
-            evidence["dialogue_summary"] = summary_path.read_text(encoding="utf-8")[:5000]
-
-        messages = [
-            {"role": "system", "content": claim_check_system_prompt()},
-            {"role": "user", "content": claim_check_user_prompt(evidence=evidence)},
-        ]
-        logger.info("Running claim-check pass on the profile...")
-        with timing.span("llm_claim_check", model_id=self.model_id):
-            raw = self._generate_text(model, tokenizer, messages, prefill="{")
-        candidate = self._clean_json_candidate(raw)
-        try:
-            return VideoProfile.model_validate_json(candidate).model_dump()
-        except (ValidationError, ValueError) as err:
-            logger.warning(f"Claim-check validation failed; keeping original profile: {err}")
-            return profile
-
     def run(self, video_filename: str) -> Dict[str, Any]:
         """
         Fuse upstream metadata into a validated VideoProfile JSON file.
@@ -172,10 +107,9 @@ class LLMStage:
         """
         logger.info(f"Starting RecSys LLM profiling for {video_filename}")
         timing = TimingRecorder(self.name)
-        spec = load_pipeline_spec()
 
         metadata = self._gather_metadata(video_filename)
-        if not metadata:
+        if not metadata.get("plot_summary") and not metadata.get("scene_metadata"):
             return {
                 "stage": self.name,
                 "status": "failed",
@@ -258,10 +192,6 @@ class LLMStage:
                         }
                     )
 
-            if final_json is not None and spec.claim_check:
-                final_json = self._claim_check(
-                    model, tokenizer, final_json, video_filename, timing
-                )
         finally:
             logger.info("Unloading LLM and freeing VRAM...")
             del model

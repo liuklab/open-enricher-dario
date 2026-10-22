@@ -67,7 +67,7 @@ python -m open_enricher.evaluation --video Suits.S01E02.mkv
 python -m open_enricher.evaluation --video Suits.S01E02.mkv --with-synopsis
 
 # Score an archived experiment (writes score.json under runs/local/<id>/<video>/)
-python -m open_enricher.evaluation --experiment 01-interval-llm --with-synopsis
+python -m open_enricher.evaluation --experiment 01-scene-context --with-synopsis
 ```
 
 ## Outputs

@@ -1,4 +1,4 @@
-The lines below are a Whisper transcript. Some middle lines may have been sampled out.
+The lines below are a Whisper transcript. {{SAMPLING_NOTE}}
 
 {{TRANSCRIPT}}
 

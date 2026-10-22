@@ -1,4 +1,7 @@
-Analyze the following available video metadata:
+Analyze the following video metadata.
+plot_summary is the high-level plot from the full transcript.
+scene_metadata lists each interval. dialogue_description is what was said there. The other fields are what the frames showed.
+
 {{SCRIPT_TEXT}}
 
 Hard limits, which override any longer list in the metadata:

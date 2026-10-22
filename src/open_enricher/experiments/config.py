@@ -18,7 +18,7 @@ VARIANTS_DIR = Path(__file__).resolve().parent / "variants"
 # Archived outputs for the local sequential round.
 RUNS_ROOT = REPO_ROOT / "runs" / "local"
 
-# Shared audio and color cache reused across variants for the same video.
+# Shared audio cache reused across runs of the same video.
 CACHE_ROOT = RUNS_ROOT / "_cache"
 
 # Append-only resume log for the experiment loop.
@@ -27,7 +27,7 @@ PROGRESS_PATH = RUNS_ROOT / "progress.jsonl"
 # Stages executed for each local experiment (metadata generation only).
 # Kept here (not imported from runner) so CLI --list stays free of torch/whisperx.
 # Scoring lives in ``open_enricher.evaluation`` and is run separately.
-PIPELINE_STAGES: tuple[str, ...] = ("audio", "color", "vlm", "llm")
+PIPELINE_STAGES: tuple[str, ...] = ("audio", "dialogue", "vlm", "llm")
 
 # Host-side evaluator weights (must match evaluation.criteria.DIMENSION_WEIGHTS).
 EVALUATOR_SCORE_WEIGHTS = {

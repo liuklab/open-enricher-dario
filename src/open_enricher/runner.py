@@ -2,8 +2,8 @@
 
 Builds the same stage registry the old FastAPI worker used, then calls
 ``stage.run(video)`` in order without HTTP, tunnels, or remote deploy.
-Audio and color outputs can be restored from a shared cache so sequential
-experiment variants skip work that does not depend on ``pipeline_spec``.
+Audio output can be restored from a shared cache so a later run skips
+transcription that does not depend on the pipeline spec.
 """
 
 from __future__ import annotations
@@ -24,15 +24,15 @@ logger = get_logger(__name__)
 # Default stage order for a full local enricher pass.
 # Stage classes are imported lazily inside ``build_stages`` so CLI helpers
 # and unit tests can import this module without loading torch or whisperx.
-PIPELINE_STAGES: tuple[str, ...] = ("audio", "color", "vlm", "llm")
+PIPELINE_STAGES: tuple[str, ...] = ("audio", "dialogue", "vlm", "llm")
 
 # Stages whose outputs do not depend on the active pipeline_spec knobs.
-CACHEABLE_STAGES: frozenset[str] = frozenset({"audio", "color"})
+CACHEABLE_STAGES: frozenset[str] = frozenset({"audio"})
 
 # Primary JSON artifact written by each stage for a given video filename.
 STAGE_PRIMARY_ARTIFACT: dict[str, str] = {
     "audio": "{video}_audio.json",
-    "color": "{video}_color.json",
+    "dialogue": "{video}_dialogue.json",
     "vlm": "{video}_vlm.json",
     "llm": "{video}_llm.json",
 }
@@ -93,14 +93,14 @@ def build_stages(hf_token: str | None = None) -> dict[str, Any]:
         Mapping from stage name to a ready-to-run stage instance.
     """
     from open_enricher.stages.audio import AudioStage
-    from open_enricher.stages.color import ColorStage
+    from open_enricher.stages.dialogue import DialogueStage
     from open_enricher.stages.llm import LLMStage
     from open_enricher.stages.vlm import VLMStage
 
     token = (hf_token if hf_token is not None else os.getenv("HF_TOKEN", "")).strip()
     return {
         "audio": AudioStage(hf_token=token),
-        "color": ColorStage(max_long_scenes=120, grid_interval_sec=180),
+        "dialogue": DialogueStage(),
         "vlm": VLMStage(),
         "llm": LLMStage(),
     }
@@ -151,6 +151,11 @@ def _artifact_globs(stage: str, video_filename: str) -> list[str]:
         return [
             f"{video_filename}_audio.json",
             f"{video_filename}_audio_timings.json",
+        ]
+    if stage == "dialogue":
+        return [
+            f"{video_filename}_dialogue.json",
+            f"{video_filename}_dialogue_timings.json",
         ]
     if stage == "color":
         return [
@@ -291,7 +296,7 @@ def run_pipeline(
         video_filename: Exact file name under ``video_inputs``.
         stages: Ordered stage names to run.
         stage_registry: Optional pre-built registry. Built on demand otherwise.
-        cache_root: Shared cache for audio and color. When None, caching is
+        cache_root: Shared cache for audio. When None, caching is
             skipped even if ``use_cache`` is True.
         use_cache: When True, restore or skip cacheable stages that already
             have artifacts, and refresh the cache after a successful run.

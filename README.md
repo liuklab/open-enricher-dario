@@ -2,7 +2,7 @@
 
 Local video understanding pipeline. A GPU host runs four stages in process and writes structured metadata for a recommender:
 
-`audio` (WhisperX) -> `color` (scene colors) -> `vlm` (Qwen3-VL) -> `llm` (Qwen3-8B profile)
+`audio` (WhisperX) -> `dialogue` (Qwen3-8B plot, then one description per 5-minute interval) -> `vlm` (Qwen3-VL, with prior scene metadata passed back in the prompt) -> `llm` (Qwen3-8B profile)
 
 Scoring is separate from the pipeline. After profiles are written, run the external evaluator (Cursor SDK / Grok by default):
 
@@ -55,7 +55,7 @@ dataset/                   # shared by every experiment
 ├── video_inputs/          # put source videos here
 └── outputs/
     ├── audio_results/
-    ├── color_results/
+    ├── dialogue_results/
     ├── vlms_results/
     ├── llms_results/
     └── evaluation/        # external evaluator reports
@@ -69,28 +69,27 @@ copies of stage outputs are archived under `runs/local/<experiment_id>/`.
 The experiment loop is the main entrypoint. To process every video once with the default packaged `pipeline_spec.json` knobs via a single variant:
 
 ```bash
-python -m open_enricher --only 01-interval-llm --video Stranger_Things.S01E03.mkv
+python -m open_enricher --only 01-scene-context --video Stranger_Things.S01E03.mkv
 ```
 
 Then score:
 
 ```bash
-python -m open_enricher.evaluation --experiment 01-interval-llm
-python -m open_enricher.evaluation --experiment 01-interval-llm --with-synopsis
+python -m open_enricher.evaluation --experiment 01-scene-context
+python -m open_enricher.evaluation --experiment 01-scene-context --with-synopsis
 ```
 
 ## Sequential experiments
 
-Variants live in `src/open_enricher/experiments/variants/`. Each run sets `OPEN_ENRICHER_PIPELINE_SPEC` to that JSON, executes `audio -> color -> vlm -> llm` in process, archives under `runs/local/<experiment_id>/`, and continues to the next variant. Audio and color outputs are cached under `runs/local/_cache/` because they do not depend on the variant knobs.
+The single variant lives in `src/open_enricher/experiments/variants/01-scene-context.json`. A run sets `OPEN_ENRICHER_PIPELINE_SPEC` to that JSON, executes `audio -> dialogue -> vlm -> llm` in process, and archives under `runs/local/<experiment_id>/`. Audio output is cached under `runs/local/_cache/` because it does not depend on the interval length.
 
 ```bash
 python -m open_enricher --list
-python -m open_enricher --only 01-interval-llm
-python -m open_enricher --from 04-scenes-llm
+python -m open_enricher --only 01-scene-context
 python -m open_enricher
 ```
 
-Resume uses `runs/local/progress.jsonl`. Pass `--force` to re-run experiments already marked done. Pass `--no-cache` to ignore the shared audio/color cache.
+Resume uses `runs/local/progress.jsonl`. Pass `--force` to re-run an experiment already marked done. Pass `--no-cache` to ignore the shared audio cache.
 
 See [docs/local_loop.md](docs/local_loop.md) and [docs/evaluator.md](docs/evaluator.md).
 
@@ -98,10 +97,10 @@ See [docs/local_loop.md](docs/local_loop.md) and [docs/evaluator.md](docs/evalua
 
 | Stage | What it writes |
 | :--- | :--- |
-| `audio` | Timestamped transcript |
-| `color` | Keyframes and dominant hex colors |
-| `vlm` | One description per window or scene, merged into one JSON. A local 8B model summarizes the transcript first when the variant enables that option. |
-| `llm` | `VideoProfile` for search, audience, and a short summary. |
+| `audio` | Timestamped transcript with speaker labels when diarization succeeds |
+| `dialogue` | High-level plot from every line, then a detailed dialogue description per 5-minute interval |
+| `vlm` | Visual metadata per interval. Each call also receives the dialogue description and the metadata of earlier intervals |
+| `llm` | `VideoProfile` enriched from the plot summary and the accumulated scene metadata |
 
 ## External evaluator
 
@@ -115,7 +114,7 @@ See [docs/local_loop.md](docs/local_loop.md) and [docs/evaluator.md](docs/evalua
 src/open_enricher/
   runner.py                 # in-process stage registry and pipeline
   storage.py                # local dataset
-  stages/                   # audio, color, vlm, llm
+  stages/                   # audio, dialogue, vlm, llm
   evaluation/               # external scoring (Cursor / future providers)
   experiments/
     loop.py                 # sequential variants

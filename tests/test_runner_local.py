@@ -20,8 +20,8 @@ def test_cli_list_variants(capsys: pytest.CaptureFixture[str]) -> None:
     """``--list`` prints packaged variant ids without starting the pipeline."""
     main(["--list"])
     out = capsys.readouterr().out
-    assert "01-interval-llm" in out
-    assert "10-claim-check" in out
+    assert "01-scene-context" in out
+    assert "10-claim-check" not in out
 
 
 def test_build_parser_has_local_flags() -> None:

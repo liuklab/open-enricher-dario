@@ -19,8 +19,8 @@ def test_default_pipeline_spec_loads() -> None:
     # Clear override so the packaged default is used.
     os.environ.pop("OPEN_ENRICHER_PIPELINE_SPEC", None)
     spec = load_pipeline_spec()
-    assert spec.segmentation in ("interval", "scenes")
-    assert spec.dialogue_color_routing in ("vlm", "llm")
+    assert spec.experiment_id == "01-scene-context"
+    assert spec.interval_seconds == 300
 
 
 def test_variants_are_valid() -> None:

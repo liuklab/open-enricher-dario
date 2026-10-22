@@ -1,0 +1,399 @@
+"""Two sequential Qwen3-8B passes over the Whisper transcript.
+
+First pass: one high-level plot summary of every dialogue line, then the
+model is unloaded. Second pass: the same weights are loaded again and, for
+each fixed interval, write a detailed description from that interval's lines
+plus the plot summary. The VLM stage reads this file after the text model
+has been released.
+"""
+
+from __future__ import annotations
+
+import gc
+import json
+from typing import Any
+
+from open_enricher import storage
+from open_enricher.logging_setup import get_logger
+from open_enricher.stages.pipeline_spec import load_pipeline_spec
+from open_enricher.stages.prompt_load import fill_prompt, load_prompt
+from open_enricher.stages.vlm_core.enrichment import (
+    SUMMARY_MODEL_ID,
+    _strip_think,
+    fit_dialogue_lines,
+    format_dialogue_lines,
+)
+from open_enricher.stages.vlm_core.video import probe_duration_seconds
+from open_enricher.timings import TimingRecorder
+
+logger = get_logger(__name__)
+
+PLOT_MAX_NEW_TOKENS = 520
+SCENE_MAX_NEW_TOKENS = 380
+_EMPTY_SCENE = "No transcribed dialogue in this interval."
+
+
+def interval_windows(duration: float, interval_seconds: int) -> list[tuple[float, float]]:
+    """
+    Split a duration into contiguous intervals of ``interval_seconds``.
+
+    Args:
+        duration: Video length in seconds.
+        interval_seconds: Window length. The last window is shorter when the
+            file does not divide evenly.
+
+    Returns:
+        ``(start, end)`` pairs in seconds. Empty when ``duration`` is under
+        one second.
+    """
+    windows: list[tuple[float, float]] = []
+    start = 0.0
+    while start < duration - 1:
+        end = min(duration, start + interval_seconds)
+        windows.append((start, end))
+        start = end
+    return windows
+
+
+def lines_in_window(lines: list[dict[str, Any]], start: float, end: float) -> list[dict[str, Any]]:
+    """
+    Return Whisper rows whose start timestamp falls in ``[start, end)``.
+
+    Args:
+        lines: Audio-stage dialogue objects.
+        start: Window start in seconds.
+        end: Window end in seconds.
+    """
+    picked: list[dict[str, Any]] = []
+    for line in lines:
+        if not isinstance(line, dict):
+            continue
+        try:
+            stamp = float(line.get("start_timestamp", -1))
+        except (TypeError, ValueError):
+            continue
+        if start <= stamp < end:
+            picked.append(line)
+    return picked
+
+
+def _clock(seconds: float) -> str:
+    total = max(0, int(round(seconds)))
+    hours, remainder = divmod(total, 3600)
+    minutes, secs = divmod(remainder, 60)
+    return f"{hours:02d}:{minutes:02d}:{secs:02d}"
+
+
+def _sampling_note(sampled: bool) -> str:
+    if sampled:
+        return "Some middle lines were sampled out because the full transcript did not fit the model input."
+    return "Every dialogue line is included, in order."
+
+
+def _plot_messages(transcript: str, *, sampled: bool) -> list[dict[str, str]]:
+    return [
+        {"role": "system", "content": load_prompt("plot_system_prompt.md")},
+        {
+            "role": "user",
+            "content": fill_prompt(
+                load_prompt("plot_user_prompt.md"),
+                {"SAMPLING_NOTE": _sampling_note(sampled), "TRANSCRIPT": transcript},
+            ),
+        },
+    ]
+
+
+def _scene_messages(
+    transcript: str,
+    *,
+    plot_summary: str,
+    start: float,
+    end: float,
+    sampled: bool,
+) -> list[dict[str, str]]:
+    return [
+        {"role": "system", "content": load_prompt("scene_dialogue_system_prompt.md")},
+        {
+            "role": "user",
+            "content": fill_prompt(
+                load_prompt("scene_dialogue_user_prompt.md"),
+                {
+                    "PLOT_SUMMARY": plot_summary,
+                    "START": _clock(start),
+                    "END": _clock(end),
+                    "SAMPLING_NOTE": _sampling_note(sampled),
+                    "TRANSCRIPT": transcript,
+                },
+            ),
+        },
+    ]
+
+
+def _prompt_token_count(tokenizer: Any, messages: list[dict[str, str]]) -> int:
+    prompt_text = tokenizer.apply_chat_template(
+        messages,
+        tokenize=False,
+        add_generation_prompt=True,
+        enable_thinking=False,
+    )
+    encoded = tokenizer([prompt_text], return_tensors="pt")
+    return int(encoded.input_ids.shape[-1])
+
+
+def _load_text_model(timing: TimingRecorder, span_name: str) -> tuple[Any, Any, str]:
+    import torch
+    from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
+
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    quantization_config = None
+    if device == "cuda":
+        quantization_config = BitsAndBytesConfig(
+            load_in_4bit=True,
+            bnb_4bit_compute_dtype=torch.float16,
+        )
+    logger.info("Loading %s (%s)...", SUMMARY_MODEL_ID, span_name)
+    with timing.span(span_name, model_id=SUMMARY_MODEL_ID):
+        tokenizer = AutoTokenizer.from_pretrained(SUMMARY_MODEL_ID, trust_remote_code=True)
+        model = AutoModelForCausalLM.from_pretrained(
+            SUMMARY_MODEL_ID,
+            quantization_config=quantization_config,
+            device_map="auto" if device == "cuda" else None,
+            low_cpu_mem_usage=True,
+            trust_remote_code=True,
+        )
+    return model, tokenizer, device
+
+
+def _unload_text_model(model: Any, tokenizer: Any) -> None:
+    import torch
+
+    logger.info("Unloading %s and freeing VRAM...", SUMMARY_MODEL_ID)
+    del model
+    del tokenizer
+    gc.collect()
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+
+
+def _generate(
+    model: Any,
+    tokenizer: Any,
+    device: str,
+    messages: list[dict[str, str]],
+    *,
+    max_new_tokens: int,
+) -> str:
+    import torch
+
+    prompt_text = tokenizer.apply_chat_template(
+        messages,
+        tokenize=False,
+        add_generation_prompt=True,
+        enable_thinking=False,
+    )
+    model_inputs = tokenizer([prompt_text], return_tensors="pt").to(device)
+    with torch.no_grad():
+        generated_ids = model.generate(
+            **model_inputs,
+            max_new_tokens=max_new_tokens,
+            do_sample=False,
+            repetition_penalty=1.05,
+        )
+    new_tokens = generated_ids[0][len(model_inputs.input_ids[0]) :]
+    text = _strip_think(tokenizer.decode(new_tokens, skip_special_tokens=True))
+    if len(text) < 40:
+        raise RuntimeError(f"Text model output is too short to be useful: {text!r}")
+    return text
+
+
+def _input_budget(model: Any, reserved_tokens: int) -> int:
+    max_position = int(getattr(model.config, "max_position_embeddings", 0) or 0)
+    budget = max_position - reserved_tokens
+    if budget < 1:
+        raise RuntimeError(
+            f"{SUMMARY_MODEL_ID} max_position_embeddings={max_position} "
+            f"does not leave room for {reserved_tokens} generated tokens"
+        )
+    return budget
+
+
+class DialogueStage:
+    """Plot summary, then per-interval dialogue descriptions, on Qwen3-8B."""
+
+    name = "dialogue"
+
+    def run(self, video_filename: str) -> dict[str, Any]:
+        """
+        Write the plot summary and one dialogue description per interval.
+
+        Args:
+            video_filename: Exact file name under ``video_inputs``.
+
+        Returns:
+            Status dict with the output file name and scene count.
+
+        Raises:
+            FileNotFoundError: When the video or the audio JSON is missing.
+        """
+        video_path = storage.video_inputs() / video_filename
+        if not video_path.exists():
+            raise FileNotFoundError(f"Video not found in dataset: {video_path}")
+        audio_path = storage.get_output_dir("audio") / f"{video_filename}_audio.json"
+        if not audio_path.is_file():
+            raise FileNotFoundError(f"Audio transcript not found: {audio_path}")
+
+        spec = load_pipeline_spec()
+        timing = TimingRecorder(self.name)
+        raw_lines = json.loads(audio_path.read_text(encoding="utf-8"))
+        dialogue_lines = format_dialogue_lines(raw_lines)
+        speakers = {
+            str(line.get("speaker") or "UNKNOWN")
+            for line in raw_lines
+            if isinstance(line, dict)
+        }
+        if speakers <= {"UNKNOWN"}:
+            logger.warning(
+                "ALERT: speaker diarization produced no distinct speakers; "
+                "every line is UNKNOWN"
+            )
+        logger.info(
+            "Dialogue stage for %s: %s lines, speakers=%s",
+            video_filename,
+            len(dialogue_lines),
+            sorted(speakers),
+        )
+
+        duration = probe_duration_seconds(video_path)
+        windows = interval_windows(duration, spec.interval_seconds)
+        plot_summary, plot_sampled = self._plot_pass(dialogue_lines, timing)
+        scenes = self._scene_pass(
+            raw_lines,
+            windows,
+            plot_summary,
+            timing,
+        )
+
+        payload = {
+            "experiment_id": spec.experiment_id,
+            "interval_seconds": spec.interval_seconds,
+            "plot_summary": plot_summary,
+            "plot_sampled": plot_sampled,
+            "scenes": scenes,
+        }
+        output_dir = storage.get_output_dir(self.name)
+        output_path = output_dir / f"{video_filename}_dialogue.json"
+        output_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
+        timings_path = output_dir / f"{video_filename}_dialogue_timings.json"
+        timing.save(timings_path)
+        logger.info("Saved dialogue stage to %s (%s scenes)", output_path.name, len(scenes))
+        return {
+            "stage": self.name,
+            "status": "success",
+            "scenes": len(scenes),
+            "plot_sampled": plot_sampled,
+            "timings": timing.document(),
+            "output_file": output_path.name,
+            "timings_file": timings_path.name,
+        }
+
+    def _plot_pass(
+        self,
+        dialogue_lines: list[str],
+        timing: TimingRecorder,
+    ) -> tuple[str, bool]:
+        model, tokenizer, device = _load_text_model(timing, "plot_load")
+        try:
+            budget = _input_budget(model, PLOT_MAX_NEW_TOKENS)
+
+            def prompt_tokens(body: str, sampled: bool) -> int:
+                return _prompt_token_count(tokenizer, _plot_messages(body, sampled=sampled))
+
+            transcript, sampled = fit_dialogue_lines(
+                dialogue_lines,
+                input_budget=budget,
+                prompt_tokens=prompt_tokens,
+            )
+            with timing.span("plot_generate", model_id=SUMMARY_MODEL_ID):
+                summary = _generate(
+                    model,
+                    tokenizer,
+                    device,
+                    _plot_messages(transcript, sampled=sampled),
+                    max_new_tokens=PLOT_MAX_NEW_TOKENS,
+                )
+            return summary, sampled
+        finally:
+            _unload_text_model(model, tokenizer)
+
+    def _scene_pass(
+        self,
+        raw_lines: list[Any],
+        windows: list[tuple[float, float]],
+        plot_summary: str,
+        timing: TimingRecorder,
+    ) -> list[dict[str, Any]]:
+        model, tokenizer, device = _load_text_model(timing, "scene_load")
+        scenes: list[dict[str, Any]] = []
+        try:
+            budget = _input_budget(model, SCENE_MAX_NEW_TOKENS)
+            for index, (start, end) in enumerate(windows, start=1):
+                window_rows = lines_in_window(raw_lines, start, end)
+                logger.info(
+                    "Scene dialogue %s/%s %s-%s (%s lines)",
+                    index,
+                    len(windows),
+                    _clock(start),
+                    _clock(end),
+                    len(window_rows),
+                )
+                if not window_rows:
+                    description = _EMPTY_SCENE
+                    sampled = False
+                else:
+                    formatted = format_dialogue_lines(window_rows)
+
+                    def prompt_tokens(body: str, sampled: bool, *, _start: float = start, _end: float = end) -> int:
+                        return _prompt_token_count(
+                            tokenizer,
+                            _scene_messages(
+                                body,
+                                plot_summary=plot_summary,
+                                start=_start,
+                                end=_end,
+                                sampled=sampled,
+                            ),
+                        )
+
+                    transcript, sampled = fit_dialogue_lines(
+                        formatted,
+                        input_budget=budget,
+                        prompt_tokens=prompt_tokens,
+                    )
+                    with timing.span("scene_generate", model_id=SUMMARY_MODEL_ID, window=index):
+                        description = _generate(
+                            model,
+                            tokenizer,
+                            device,
+                            _scene_messages(
+                                transcript,
+                                plot_summary=plot_summary,
+                                start=start,
+                                end=end,
+                                sampled=sampled,
+                            ),
+                            max_new_tokens=SCENE_MAX_NEW_TOKENS,
+                        )
+                scenes.append(
+                    {
+                        "start_time": _clock(start),
+                        "end_time": _clock(end),
+                        "start_seconds": round(start, 3),
+                        "end_seconds": round(end, 3),
+                        "dialogue_lines": len(window_rows),
+                        "dialogue_sampled": sampled,
+                        "description": description,
+                    }
+                )
+        finally:
+            _unload_text_model(model, tokenizer)
+        return scenes

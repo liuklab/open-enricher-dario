@@ -100,12 +100,7 @@ def _write_stub_experiment_md(
         "## Spec",
         "",
         f"- Title: `{variant.get('title')}`",
-        f"- Segmentation: `{variant.get('segmentation')}`",
-        f"- Dialogue/color routing: `{variant.get('dialogue_color_routing')}`",
-        f"- VLM memory: `{variant.get('vlm_memory')}`",
-        f"- Dialogue summary to VLM: `{variant.get('dialogue_summary_to_vlm')}`",
-        f"- Rolling plot: `{variant.get('rolling_plot')}`",
-        f"- Claim check: `{variant.get('claim_check')}`",
+        f"- Interval seconds: `{variant.get('interval_seconds')}`",
         "",
         "## Execution",
         "",
@@ -361,7 +356,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--only",
         nargs="+",
-        help="Run only these experiment ids or variant stems (e.g. 01-interval-llm).",
+        help="Run only these experiment ids or variant stems (e.g. 01-scene-context).",
     )
     parser.add_argument(
         "--from",

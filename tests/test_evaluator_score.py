@@ -55,7 +55,7 @@ class FakeProvider:
 
 class TestEvaluatorHelpers(unittest.TestCase):
     def test_pipeline_stages_exclude_evaluator(self) -> None:
-        self.assertEqual(PIPELINE_STAGES, ("audio", "color", "vlm", "llm"))
+        self.assertEqual(PIPELINE_STAGES, ("audio", "dialogue", "vlm", "llm"))
         self.assertNotIn("evaluator", PIPELINE_STAGES)
 
     def test_title_from_filename(self) -> None:
