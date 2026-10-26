@@ -10,8 +10,13 @@
 #SBATCH --account=studenti
 #SBATCH --partition=all-nodes
 #SBATCH --gres=gpu:1
+
 cd /SLURM_shared/st_mdp26/open-enricher
+export PATH="/SLURM_shared/st_mdp26/open-enricher/.venv/bin:$PATH"
+
+FFMPEG_ROOT=/SLURM_shared/st_mdp26/ffmpeg-libs
+export LD_LIBRARY_PATH="$FFMPEG_ROOT/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+
 srun --unbuffered --cpu-bind=verbose \
   /SLURM_shared/st_mdp26/open-enricher/.venv/bin/python -m open_enricher \
-  --only 01-interval-llm \
   --video Suits.S01E02.mkv

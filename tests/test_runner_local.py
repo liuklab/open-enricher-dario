@@ -11,7 +11,7 @@ from pathlib import Path
 
 import pytest
 
-from open_enricher.experiments.loop import build_parser, main
+from open_enricher.experiments.loop import build_parser, main, run_one_experiment
 from open_enricher.runner import list_videos, primary_artifact_path, run_pipeline
 from open_enricher import storage
 
@@ -22,6 +22,56 @@ def test_cli_list_variants(capsys: pytest.CaptureFixture[str]) -> None:
     out = capsys.readouterr().out
     assert "01-scene-context" in out
     assert "10-claim-check" not in out
+
+
+def test_run_one_experiment_evaluates_with_cursor(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Each experiment scores archived profiles with the Cursor provider."""
+    variant = tmp_path / "01-scene-context.json"
+    variant.write_text(
+        '{"experiment_id": "01-scene-context", "title": "scene-context"}',
+        encoding="utf-8",
+    )
+    runs = tmp_path / "runs"
+    monkeypatch.setattr("open_enricher.experiments.archive.RUNS_ROOT", runs)
+    monkeypatch.setattr(
+        "open_enricher.experiments.archive.PROGRESS_PATH",
+        runs / "progress.jsonl",
+    )
+
+    class _Runner:
+        def build_stages(self) -> dict:
+            return {}
+
+        def run_pipeline(self, video: str, **kwargs: object) -> dict:
+            return {"video": video, "status": "success", "stages": []}
+
+        def archive_artifacts(self, video: str, dest: Path, stages: object) -> list:
+            return []
+
+    monkeypatch.setattr(
+        "open_enricher.experiments.loop._runner", lambda: _Runner()
+    )
+    seen: dict = {}
+
+    def _evaluate(videos: list[str], **kwargs: object) -> list[dict]:
+        seen["videos"] = videos
+        seen["kwargs"] = kwargs
+        return [{"video": videos[0], "status": "success", "overall": 4.1}]
+
+    monkeypatch.setattr(
+        "open_enricher.evaluation.run.evaluate_videos", _evaluate
+    )
+
+    summary = run_one_experiment(variant, videos=["Suits.S01E02.mkv"])
+
+    assert summary["status"] == "ok"
+    assert seen["videos"] == ["Suits.S01E02.mkv"]
+    assert seen["kwargs"]["provider_name"] == "cursor"
+    assert seen["kwargs"]["experiment_id"] == "01-scene-context"
+    text = (runs / "01-scene-context" / "EXPERIMENT.md").read_text(encoding="utf-8")
+    assert "overall `4.1`" in text
 
 
 def test_build_parser_has_local_flags() -> None:

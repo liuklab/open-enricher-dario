@@ -243,3 +243,7 @@ __pycache__/
 .outputs_backup/
 
 *_frames/
+
+
+.old_runs/
+.old_outputs/

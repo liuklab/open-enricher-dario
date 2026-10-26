@@ -26,7 +26,7 @@ PROGRESS_PATH = RUNS_ROOT / "progress.jsonl"
 
 # Stages executed for each local experiment (metadata generation only).
 # Kept here (not imported from runner) so CLI --list stays free of torch/whisperx.
-# Scoring lives in ``open_enricher.evaluation`` and is run separately.
+# Scoring lives in ``open_enricher.evaluation`` and runs after each experiment.
 PIPELINE_STAGES: tuple[str, ...] = ("audio", "dialogue", "vlm", "llm")
 
 # Host-side evaluator weights (must match evaluation.criteria.DIMENSION_WEIGHTS).

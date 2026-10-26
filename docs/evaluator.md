@@ -1,7 +1,8 @@
 # External metadata evaluator
 
-After `llm` writes a `VideoProfile`, scoring is a **separate** step. It is not
-part of the local GPU pipeline. Run it with:
+After `llm` writes a `VideoProfile`, the experiment loop scores that profile
+before starting the next variant. The provider is Cursor SDK (`cursor-sdk`)
+with Grok 4.7. The same scorer can still be run on its own:
 
 ```bash
 pip install -e ".[evaluation]"
@@ -52,7 +53,7 @@ Modular registry under `src/open_enricher/evaluation/providers/`:
 
 | Key | Backend | Notes |
 | :--- | :--- | :--- |
-| `cursor` | Cursor SDK | Default. Model `grok-4.7-high-fast` (override with `--model` or `OPEN_ENRICHER_EVAL_MODEL`) |
+| `cursor` | Cursor SDK | Default. Model `grok-4.7` (override with `--model` or `OPEN_ENRICHER_EVAL_MODEL`) |
 
 Future providers (Codex, Gemini, ...) register the same way without changing
 weights or report assembly.

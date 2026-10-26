@@ -32,7 +32,7 @@ Create `.env` in the repository root:
 HF_TOKEN=hf_your_token
 CURSOR_API_KEY=cursor_your_key
 # OPEN_ENRICHER_LOG_LEVEL=INFO
-# OPEN_ENRICHER_EVAL_MODEL=grok-4.7-high-fast
+# OPEN_ENRICHER_EVAL_MODEL=grok-4.7
 ```
 
 The Hugging Face token is used only for gated model weights (WhisperX / pyannote). If diarization weights cannot be downloaded, the audio stage still saves the transcript and marks every speaker as `UNKNOWN`. `CURSOR_API_KEY` is used only by the external evaluator.
@@ -72,10 +72,11 @@ The experiment loop is the main entrypoint. To process every video once with the
 python -m open_enricher --only 01-scene-context --video Stranger_Things.S01E03.mkv
 ```
 
-Then score:
+When the variant finishes, the loop scores each profile with the Cursor SDK
+evaluator and writes `runs/local/<experiment_id>/<video>/score.json`. To score
+the same archive again against a synopsis file:
 
 ```bash
-python -m open_enricher.evaluation --experiment 01-scene-context
 python -m open_enricher.evaluation --experiment 01-scene-context --with-synopsis
 ```
 
@@ -106,7 +107,7 @@ See [docs/local_loop.md](docs/local_loop.md) and [docs/evaluator.md](docs/evalua
 
 | Piece | What it does |
 | :--- | :--- |
-| `python -m open_enricher.evaluation` | Scores a profile with a fresh external agent (title from the file name; optional synopsis). Host applies dimension weights. |
+| Cursor SDK (`cursor-sdk`) | Runs automatically at the end of each experiment. Scores a profile with a fresh external agent (title from the file name). Host applies dimension weights. |
 
 ## Layout
 

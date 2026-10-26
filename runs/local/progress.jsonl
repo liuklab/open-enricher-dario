@@ -1,4 +1,0 @@
-{"experiment_id": "01-interval-llm", "video": "Suits.S01E02.mkv", "step": "pipeline", "status": "error", "detail": "failed", "ts": "2026-10-20T13:32:18.343699+00:00"}
-{"experiment_id": "01-interval-llm", "step": "archived", "status": "error", "results": [{"video": "Suits.S01E02.mkv", "status": "failed"}], "ts": "2026-10-20T13:32:18.820843+00:00"}
-{"experiment_id": "01-interval-llm", "video": "Suits.S01E02.mkv", "step": "pipeline", "status": "ok", "detail": "success", "ts": "2026-10-20T21:44:34.823883+00:00"}
-{"experiment_id": "01-interval-llm", "step": "archived", "status": "ok", "results": [{"video": "Suits.S01E02.mkv", "status": "success"}], "ts": "2026-10-20T21:44:35.134599+00:00"}

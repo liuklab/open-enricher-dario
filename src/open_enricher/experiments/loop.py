@@ -2,8 +2,9 @@
 
 For each pipeline variant JSON, point the process at that spec, run the
 in-process enricher on the configured videos, archive artifacts under
-``runs/local/<experiment_id>/``, and continue to the next variant. No
-deploy, HTTP client, Colab, Kaggle, or Google Drive is involved.
+``runs/local/<experiment_id>/``, score the profiles with the Cursor SDK
+evaluator, and continue to the next variant. No deploy, HTTP client, Colab,
+Kaggle, or Google Drive is involved.
 """
 
 from __future__ import annotations
@@ -81,6 +82,8 @@ def _write_stub_experiment_md(
     experiment_id: str,
     variant: dict[str, Any],
     video_results: list[dict[str, Any]],
+    evaluation_results: list[dict[str, Any]] | None = None,
+    evaluation_error: str | None = None,
 ) -> Path:
     """
     Write a short EXPERIMENT.md stub summarizing the local run.
@@ -90,6 +93,8 @@ def _write_stub_experiment_md(
         experiment_id: Stable experiment id.
         variant: Cleaned variant dict.
         video_results: Per-video pipeline summaries.
+        evaluation_results: Per-video Cursor evaluator status dicts.
+        evaluation_error: Error from the evaluator when it could not start.
 
     Returns:
         Path to the written markdown file.
@@ -114,16 +119,21 @@ def _write_stub_experiment_md(
             f"- `{result.get('video')}`: **{status}**"
             + (f" - {err}" if err else "")
         )
-    lines.extend(
-        [
-            "",
-            "## Quality",
-            "",
-            "Run `python -m open_enricher.evaluation --experiment "
-            f"{experiment_id}` to write per-video `score.json` reports.",
-            "",
-        ]
-    )
+    lines.extend(["", "## Quality", ""])
+    if evaluation_error:
+        lines.append(f"Cursor evaluation failed to start: {evaluation_error}")
+    elif evaluation_results:
+        for row in evaluation_results:
+            overall = row.get("overall")
+            score = f" overall `{overall}`" if overall is not None else ""
+            err = row.get("error")
+            lines.append(
+                f"- `{row.get('video')}`: **{row.get('status')}**{score}"
+                + (f" - {err}" if err else "")
+            )
+    else:
+        lines.append("No evaluation results.")
+    lines.append("")
     path = exp_dir / "EXPERIMENT.md"
     path.write_text("\n".join(lines), encoding="utf-8")
     return path
@@ -163,6 +173,56 @@ def _activate_variant(variant_path: Path) -> None:
     os.environ["OPEN_ENRICHER_PIPELINE_SPEC"] = str(variant_path.resolve())
 
 
+def _load_archived_video_results(experiment_id: str) -> list[dict[str, Any]]:
+    """
+    Load per-video pipeline summaries already written for an experiment.
+
+    Args:
+        experiment_id: Stable experiment id.
+
+    Returns:
+        Parsed ``video_results.json`` list, or an empty list when missing.
+    """
+    path = experiment_dir(experiment_id) / "video_results.json"
+    if not path.is_file():
+        return []
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return []
+    return data if isinstance(data, list) else []
+
+
+def _evaluate_experiment(
+    experiment_id: str,
+    videos: list[str],
+) -> list[dict[str, Any]]:
+    """
+    Score archived profiles for one experiment with the Cursor SDK provider.
+
+    Args:
+        experiment_id: Stable experiment id under ``runs/local/``.
+        videos: Video filenames whose ``*_llm.json`` should be scored.
+
+    Returns:
+        Per-video evaluator status dicts. Also writes ``score.json`` and
+        refreshes ``scores.json``.
+    """
+    from open_enricher.evaluation.providers import DEFAULT_PROVIDER
+    from open_enricher.evaluation.run import evaluate_videos
+
+    logger.info(
+        "Evaluating experiment %s with provider=%s",
+        experiment_id,
+        DEFAULT_PROVIDER,
+    )
+    return evaluate_videos(
+        videos,
+        provider_name=DEFAULT_PROVIDER,
+        experiment_id=experiment_id,
+    )
+
+
 def run_one_experiment(
     variant_path: Path,
     *,
@@ -172,99 +232,158 @@ def run_one_experiment(
     skip_done: bool = True,
 ) -> dict[str, Any]:
     """
-    Run the full local pipeline for one variant across the given videos.
+    Run the full local pipeline for one variant, then score it with Cursor.
 
     Args:
         variant_path: Path to the variant JSON file.
         videos: Video filenames under the dataset ``video_inputs``.
         stages: Ordered stage names to execute.
         use_cache: Reuse shared audio/color cache when available.
-        skip_done: Skip the experiment when progress already marks it archived.
+        skip_done: Skip pipeline and evaluation steps already marked done.
 
     Returns:
-        Summary dict with experiment_id, per-video results, and archive path.
+        Summary dict with experiment_id, per-video results, evaluation
+        results, and archive path.
     """
     experiment_id = _variant_id(variant_path)
     variant = _load_variant(variant_path)
     logger.info("======== Experiment %s ========", experiment_id)
 
-    if skip_done and is_done(experiment_id, "archived"):
-        logger.info(f"Skipping {experiment_id}: already archived")
+    pipeline_done = skip_done and is_done(experiment_id, "archived")
+    evaluation_done = skip_done and is_done(experiment_id, "evaluation")
+    if pipeline_done and evaluation_done:
+        logger.info(f"Skipping {experiment_id}: already archived and evaluated")
         return {
             "experiment_id": experiment_id,
             "status": "skipped_done",
             "results": [],
+            "evaluation": [],
             "runs_dir": str(experiment_dir(experiment_id)),
         }
 
-    _activate_variant(variant_path)
-    runner = _runner()
-    registry = runner.build_stages()
     video_results: list[dict[str, Any]] = []
+    if pipeline_done:
+        logger.info(f"Skipping pipeline for {experiment_id}: already archived")
+        video_results = _load_archived_video_results(experiment_id)
+    else:
+        _activate_variant(variant_path)
+        runner = _runner()
+        registry = runner.build_stages()
 
-    for video in videos:
-        logger.info(f"Pipeline for video {video}")
-        try:
-            summary = runner.run_pipeline(
-                video,
-                stages=stages,
-                stage_registry=registry,
-                cache_root=CACHE_ROOT if use_cache else None,
-                use_cache=use_cache,
+        for video in videos:
+            logger.info(f"Pipeline for video {video}")
+            try:
+                summary = runner.run_pipeline(
+                    video,
+                    stages=stages,
+                    stage_registry=registry,
+                    cache_root=CACHE_ROOT if use_cache else None,
+                    use_cache=use_cache,
+                )
+            except Exception as exc:  # noqa: BLE001 - keep the loop moving
+                summary = {
+                    "video": video,
+                    "status": "error",
+                    "error": str(exc),
+                    "stages": [],
+                }
+
+            dest = video_archive_dir(experiment_id, video)
+            archived = runner.archive_artifacts(video, dest, stages=stages)
+            summary["archived_files"] = archived
+
+            timing_paths = list(dest.glob(f"{video}_*_timings.json"))
+            write_json(dest / "timings.json", merge_timings(timing_paths))
+            write_json(dest / "result.json", summary)
+            video_results.append(summary)
+
+            append_progress(
+                {
+                    "experiment_id": experiment_id,
+                    "video": video,
+                    "step": "pipeline",
+                    "status": "ok" if summary.get("status") == "success" else "error",
+                    "detail": summary.get("status"),
+                }
             )
-        except Exception as exc:  # noqa: BLE001 - keep the loop moving
-            summary = {
-                "video": video,
-                "status": "error",
-                "error": str(exc),
-                "stages": [],
-            }
 
-        dest = video_archive_dir(experiment_id, video)
-        archived = runner.archive_artifacts(video, dest, stages=stages)
-        summary["archived_files"] = archived
-
-        timing_paths = list(dest.glob(f"{video}_*_timings.json"))
-        write_json(dest / "timings.json", merge_timings(timing_paths))
-        write_json(dest / "result.json", summary)
-        video_results.append(summary)
-
+    exp_dir = experiment_dir(experiment_id)
+    if not pipeline_done:
+        write_json(exp_dir / "video_results.json", video_results)
+        write_json(exp_dir / "variant.json", variant)
+        pipeline_ok = all(row.get("status") == "success" for row in video_results)
         append_progress(
             {
                 "experiment_id": experiment_id,
-                "video": video,
-                "step": "pipeline",
-                "status": "ok" if summary.get("status") == "success" else "error",
-                "detail": summary.get("status"),
+                "step": "archived",
+                "status": "ok" if pipeline_ok else "error",
+                "results": [
+                    {"video": row.get("video"), "status": row.get("status")}
+                    for row in video_results
+                ],
             }
         )
 
-    exp_dir = experiment_dir(experiment_id)
-    write_json(exp_dir / "video_results.json", video_results)
-    write_json(exp_dir / "scores.json", _collect_scores(exp_dir, videos))
-    write_json(exp_dir / "variant.json", variant)
-    _write_stub_experiment_md(exp_dir, experiment_id, variant, video_results)
+    evaluation_results: list[dict[str, Any]] = []
+    evaluation_error: str | None = None
+    if evaluation_done:
+        logger.info(f"Skipping evaluation for {experiment_id}: already evaluated")
+    else:
+        try:
+            evaluation_results = _evaluate_experiment(experiment_id, videos)
+        except Exception as exc:  # noqa: BLE001 - keep the loop moving
+            evaluation_error = str(exc)
+            logger.exception("Evaluation failed for %s", experiment_id)
+        write_json(exp_dir / "scores.json", _collect_scores(exp_dir, videos))
+        eval_ok = (
+            evaluation_error is None
+            and bool(evaluation_results)
+            and all(row.get("status") == "success" for row in evaluation_results)
+        )
+        append_progress(
+            {
+                "experiment_id": experiment_id,
+                "step": "evaluation",
+                "status": "ok" if eval_ok else "error",
+                "provider": "cursor",
+                "detail": evaluation_error,
+                "results": [
+                    {
+                        "video": row.get("video"),
+                        "status": row.get("status"),
+                        "overall": row.get("overall"),
+                    }
+                    for row in evaluation_results
+                ],
+            }
+        )
 
-    overall = "ok"
-    if any(row.get("status") != "success" for row in video_results):
-        overall = "error"
-
-    append_progress(
-        {
-            "experiment_id": experiment_id,
-            "step": "archived",
-            "status": overall,
-            "results": [
-                {"video": row.get("video"), "status": row.get("status")}
-                for row in video_results
-            ],
-        }
+    _write_stub_experiment_md(
+        exp_dir,
+        experiment_id,
+        variant,
+        video_results,
+        evaluation_results,
+        evaluation_error,
     )
+
+    pipeline_ok = (
+        all(row.get("status") == "success" for row in video_results)
+        if video_results
+        else pipeline_done
+    )
+    eval_ok = evaluation_done or (
+        evaluation_error is None
+        and bool(evaluation_results)
+        and all(row.get("status") == "success" for row in evaluation_results)
+    )
+    overall = "ok" if pipeline_ok and eval_ok else "error"
 
     return {
         "experiment_id": experiment_id,
         "status": overall,
         "results": video_results,
+        "evaluation": evaluation_results,
         "runs_dir": str(exp_dir),
     }
 

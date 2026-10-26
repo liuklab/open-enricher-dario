@@ -97,7 +97,7 @@ class TestEvaluatorHelpers(unittest.TestCase):
             llm_payload=payload,
             uses_synopsis=True,
             provider="cursor",
-            model="grok-4.7-high-fast",
+            model="grok-4.7",
         )
         self.assertTrue(report["method"]["uses_synopsis"])
         self.assertFalse(report["method"]["uses_pipeline_evidence"])

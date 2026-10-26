@@ -36,13 +36,16 @@ python -m open_enricher --video Stranger_Things.S01E03.mkv Suits.S01E02.mkv
    `runs/local/_cache/<video>/`); refresh the cache after a fresh run.
 4. Copy artifacts into `runs/local/<experiment_id>/<video>/` and append
    `progress.jsonl`.
-5. On stage failure, record the error and continue to the next variant.
+5. Score each archived profile with the Cursor SDK evaluator (`cursor-sdk`,
+   Grok 4.7, `CURSOR_API_KEY`). This writes `score.json` and refreshes
+   `scores.json` before the next variant starts.
+6. On stage or evaluation failure, record the error and continue to the next
+   variant.
 
-After the loop, score profiles separately:
+`pip install -e ".[evaluation]"` is required so `cursor-sdk` is importable.
+The loop does not pass a synopsis. To score again against a synopsis file:
 
 ```bash
-pip install -e ".[evaluation]"
-python -m open_enricher.evaluation --experiment 01-scene-context
 python -m open_enricher.evaluation --experiment 01-scene-context --with-synopsis
 ```
 
@@ -55,12 +58,12 @@ runs/local/
 ├── _cache/<video>/audio/
 └── <experiment_id>/
     ├── variant.json
-    ├── scores.json          # written by the evaluation CLI
+    ├── scores.json          # written at the end of the experiment
     ├── video_results.json
     ├── EXPERIMENT.md
     └── <video>/
         ├── *_audio.json, *_dialogue.json, *_vlm.json, *_llm.json
-        ├── score.json       # written by the evaluation CLI
+        ├── score.json       # written at the end of the experiment
         ├── timings.json
         └── worker.log
 ```

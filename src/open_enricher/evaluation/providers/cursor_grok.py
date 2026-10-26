@@ -13,7 +13,8 @@ from typing import Any
 
 
 # Default model id for Grok 4.7 via Cursor. Override with OPEN_ENRICHER_EVAL_MODEL.
-DEFAULT_MODEL = "grok-4.7-high-fast"
+# Cursor.models.list() accepts "grok-4.7", not IDE slugs such as "grok-4.7-high-fast".
+DEFAULT_MODEL = "grok-4.7"
 
 
 class CursorGrokProvider:
@@ -37,7 +38,7 @@ class CursorGrokProvider:
         Args:
             api_key: Cursor API key. Defaults to ``CURSOR_API_KEY``.
             model: Model id. Defaults to ``OPEN_ENRICHER_EVAL_MODEL`` or
-                ``grok-4.7-high-fast``.
+                ``grok-4.7``.
 
         Raises:
             ValueError: When no API key is available.
