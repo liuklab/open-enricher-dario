@@ -21,7 +21,7 @@ from open_enricher.logging_setup import configure_logging, get_logger
 
 logger = get_logger(__name__)
 
-# Default stage order for a full local enricher pass.
+# Default local pipeline order: audio -> dialogue -> vlm -> llm.
 # Stage classes are imported lazily inside ``build_stages`` so CLI helpers
 # and unit tests can import this module without loading torch or whisperx.
 PIPELINE_STAGES: tuple[str, ...] = ("audio", "dialogue", "vlm", "llm")
@@ -166,6 +166,7 @@ def _artifact_globs(stage: str, video_filename: str) -> list[str]:
         return [
             f"{video_filename}_vlm.json",
             f"{video_filename}_vlm_timings.json",
+            f"{video_filename}_vlm_frames.json",
             f"{video_filename}_vlm_raw.txt",
             f"{video_filename}_vlm_sidecar.json",
             f"{video_filename}_vlm_context.txt",

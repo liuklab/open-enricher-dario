@@ -1,0 +1,41 @@
+{
+  "recsys_metadata": {
+    "primary_genre": "Drama",
+    "sub_genres": [
+      "Legal",
+      "Corporate",
+      "Psychological"
+    ],
+    "pacing": "Moderate",
+    "mood": [
+      "Tense",
+      "Reflective",
+      "Introspective"
+    ]
+  },
+  "search_and_discovery": {
+    "semantic_tags": [
+      "Patent Dispute",
+      "Ethical Dilemma",
+      "Power Dynamics",
+      "Trust Issues"
+    ],
+    "main_topics": [
+      "Legal Conflict",
+      "Personal Relationships",
+      "Professional Ethics"
+    ]
+  },
+  "audience_profiling": {
+    "target_age_group": "Young Adults",
+    "viewer_interests": [
+      "Law",
+      "Business Strategy",
+      "Character Development"
+    ]
+  },
+  "content_summary": {
+    "visual_style": "The visual style features a muted, professional palette with cool tones and sharp contrasts, emphasizing the tension and seriousness of the legal and personal conflicts.",
+    "narrative_hook": "A young lawyer faces moral dilemmas and personal betrayals as he navigates a high-stakes patent dispute and strained relationships with his team."
+  }
+}

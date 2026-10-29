@@ -1,0 +1,358 @@
+2026-10-27 10:53:59.004;INFO;open_enricher.storage;Initializing shared dataset at /SLURM_shared/st_mdp26/open-enricher/dataset...
+2026-10-27 10:53:59.007;INFO;open_enricher.storage;Dataset structure verified.
+2026-10-27 10:54:01.193;INFO;open_enricher.runner;Hugging Face login succeeded.
+2026-10-27 10:54:01.195;INFO;open_enricher.experiments.loop;Videos: Suits.S01E02.mkv | variants: 4
+2026-10-27 10:54:01.196;INFO;open_enricher.experiments.loop;======== Experiment 01-scene-context ========
+2026-10-27 10:55:07.624;INFO;open_enricher.experiments.loop;Pipeline for video Suits.S01E02.mkv
+2026-10-27 10:55:07.626;INFO;open_enricher.runner;Skipping audio for Suits.S01E02.mkv (cached)
+2026-10-27 10:55:07.626;INFO;open_enricher.runner;Running stage 'dialogue' on Suits.S01E02.mkv
+2026-10-27 10:55:07.667;INFO;open_enricher.stages.dialogue;Dialogue stage for Suits.S01E02.mkv: 824 lines, speakers=['SPEAKER_00', 'SPEAKER_01', 'SPEAKER_02', 'SPEAKER_03', 'SPEAKER_04', 'SPEAKER_05', 'SPEAKER_06', 'SPEAKER_07', 'SPEAKER_08', 'SPEAKER_09', 'SPEAKER_10', 'SPEAKER_11', 'SPEAKER_12', 'UNKNOWN']
+2026-10-27 10:55:09.908;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (plot_load)...
+2026-10-27 11:05:10.753;INFO;open_enricher.timings;TIMING dialogue.plot_load=600.845s
+2026-10-27 11:05:11.839;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=21018 input_budget=40440 lines=824), no sampling
+2026-10-27 11:06:10.005;INFO;open_enricher.timings;TIMING dialogue.plot_generate=58.166s
+2026-10-27 11:06:10.005;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-10-27 11:06:10.335;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (scene_load)...
+2026-10-27 11:06:13.883;INFO;open_enricher.timings;TIMING dialogue.scene_load=3.547s
+2026-10-27 11:06:13.883;INFO;open_enricher.stages.dialogue;Scene dialogue 1/9 00:00:00-00:05:00 (114 lines)
+2026-10-27 11:06:13.890;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3301 input_budget=40580 lines=114), no sampling
+2026-10-27 11:06:20.800;INFO;open_enricher.timings;TIMING dialogue.scene_generate=6.910s
+2026-10-27 11:06:20.800;INFO;open_enricher.stages.dialogue;Scene dialogue 2/9 00:05:00-00:10:00 (103 lines)
+2026-10-27 11:06:20.804;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2991 input_budget=40580 lines=103), no sampling
+2026-10-27 11:06:26.428;INFO;open_enricher.timings;TIMING dialogue.scene_generate=5.624s
+2026-10-27 11:06:26.428;INFO;open_enricher.stages.dialogue;Scene dialogue 3/9 00:10:00-00:15:00 (82 lines)
+2026-10-27 11:06:26.432;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2703 input_budget=40580 lines=82), no sampling
+2026-10-27 11:06:32.096;INFO;open_enricher.timings;TIMING dialogue.scene_generate=5.664s
+2026-10-27 11:06:32.096;INFO;open_enricher.stages.dialogue;Scene dialogue 4/9 00:15:00-00:20:00 (119 lines)
+2026-10-27 11:06:32.100;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3450 input_budget=40580 lines=119), no sampling
+2026-10-27 11:06:37.592;INFO;open_enricher.timings;TIMING dialogue.scene_generate=5.492s
+2026-10-27 11:06:37.592;INFO;open_enricher.stages.dialogue;Scene dialogue 5/9 00:20:00-00:25:00 (85 lines)
+2026-10-27 11:06:37.596;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2744 input_budget=40580 lines=85), no sampling
+2026-10-27 11:06:42.455;INFO;open_enricher.timings;TIMING dialogue.scene_generate=4.859s
+2026-10-27 11:06:42.455;INFO;open_enricher.stages.dialogue;Scene dialogue 6/9 00:25:00-00:30:00 (93 lines)
+2026-10-27 11:06:42.459;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2807 input_budget=40580 lines=93), no sampling
+2026-10-27 11:06:47.389;INFO;open_enricher.timings;TIMING dialogue.scene_generate=4.929s
+2026-10-27 11:06:47.389;INFO;open_enricher.stages.dialogue;Scene dialogue 7/9 00:30:00-00:35:00 (107 lines)
+2026-10-27 11:06:47.393;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3374 input_budget=40580 lines=107), no sampling
+2026-10-27 11:06:52.690;INFO;open_enricher.timings;TIMING dialogue.scene_generate=5.297s
+2026-10-27 11:06:52.690;INFO;open_enricher.stages.dialogue;Scene dialogue 8/9 00:35:00-00:40:00 (82 lines)
+2026-10-27 11:06:52.694;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2736 input_budget=40580 lines=82), no sampling
+2026-10-27 11:06:58.528;INFO;open_enricher.timings;TIMING dialogue.scene_generate=5.834s
+2026-10-27 11:06:58.528;INFO;open_enricher.stages.dialogue;Scene dialogue 9/9 00:40:00-00:42:55 (39 lines)
+2026-10-27 11:06:58.530;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=1555 input_budget=40580 lines=39), no sampling
+2026-10-27 11:07:03.882;INFO;open_enricher.timings;TIMING dialogue.scene_generate=5.351s
+2026-10-27 11:07:03.882;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-10-27 11:07:05.911;INFO;open_enricher.stages.dialogue;Saved dialogue stage to Suits.S01E02.mkv_dialogue.json (9 scenes)
+2026-10-27 11:07:05.911;INFO;open_enricher.runner;Running stage 'vlm' on Suits.S01E02.mkv
+2026-10-27 11:07:06.466;INFO;open_enricher.stages.vlm;Starting VLM stage for Suits.S01E02.mkv (01-scene-context)
+2026-10-27 11:07:06.927;INFO;open_enricher.stages.vlm_core.segments;VLM over 9 scenes (experiment=01-scene-context)
+2026-10-27 11:07:06.927;INFO;open_enricher.stages.vlm_core.segments;Loading VLM: Qwen/Qwen3-VL-8B-Instruct (4-bit=True)...
+2026-10-27 11:33:36.943;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_load=1590.015s
+2026-10-27 11:33:36.943;INFO;open_enricher.stages.vlm_core.segments;VLM scene 1/9 00:00:00-00:05:00
+2026-10-27 11:34:49.215;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 917 tokens
+2026-10-27 11:36:05.557;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window1=148.612s
+2026-10-27 11:36:05.557;INFO;open_enricher.stages.vlm_core.segments;VLM scene 2/9 00:05:00-00:10:00
+2026-10-27 11:37:35.833;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 1417 tokens
+2026-10-27 11:37:42.940;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window2=94.462s
+2026-10-27 11:37:42.940;INFO;open_enricher.stages.vlm_core.segments;VLM scene 3/9 00:10:00-00:15:00
+2026-10-27 11:39:17.017;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 1957 tokens
+2026-10-27 11:39:24.937;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window3=101.997s
+2026-10-27 11:39:24.937;INFO;open_enricher.stages.vlm_core.segments;VLM scene 4/9 00:15:00-00:20:00
+2026-10-27 11:40:35.517;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 2501 tokens
+2026-10-27 11:40:42.559;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window4=77.622s
+2026-10-27 11:40:42.559;INFO;open_enricher.stages.vlm_core.segments;VLM scene 5/9 00:20:00-00:25:00
+2026-10-27 11:40:42.559;WARNING;open_enricher.stages.vlm_core.segments;ALERT: prior VLM metadata does not fit the memory budget, passing compact descriptions (chars=981 budget=8000 scenes=4 kept=4)
+2026-10-27 11:41:41.021;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 1190 tokens
+2026-10-27 11:41:47.089;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window5=64.529s
+2026-10-27 11:41:47.089;INFO;open_enricher.stages.vlm_core.segments;VLM scene 6/9 00:25:00-00:30:00
+2026-10-27 11:41:47.089;WARNING;open_enricher.stages.vlm_core.segments;ALERT: prior VLM metadata does not fit the memory budget, passing compact descriptions (chars=1226 budget=8000 scenes=5 kept=5)
+2026-10-27 11:42:34.348;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 1251 tokens
+2026-10-27 11:42:40.887;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window6=53.798s
+2026-10-27 11:42:40.887;INFO;open_enricher.stages.vlm_core.segments;VLM scene 7/9 00:30:00-00:35:00
+2026-10-27 11:42:40.887;WARNING;open_enricher.stages.vlm_core.segments;ALERT: prior VLM metadata does not fit the memory budget, passing compact descriptions (chars=1471 budget=8000 scenes=6 kept=6)
+2026-10-27 11:43:28.973;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 1319 tokens
+2026-10-27 11:43:34.775;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window7=53.887s
+2026-10-27 11:43:34.775;INFO;open_enricher.stages.vlm_core.segments;VLM scene 8/9 00:35:00-00:40:00
+2026-10-27 11:43:34.775;WARNING;open_enricher.stages.vlm_core.segments;ALERT: prior VLM metadata does not fit the memory budget, passing compact descriptions (chars=1716 budget=8000 scenes=7 kept=7)
+2026-10-27 11:45:22.892;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 1414 tokens
+2026-10-27 11:45:28.179;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window8=113.404s
+2026-10-27 11:45:28.179;INFO;open_enricher.stages.vlm_core.segments;VLM scene 9/9 00:40:00-00:42:55
+2026-10-27 11:45:28.179;WARNING;open_enricher.stages.vlm_core.segments;ALERT: prior VLM metadata does not fit the memory budget, passing compact descriptions (chars=1961 budget=8000 scenes=8 kept=8)
+2026-10-27 11:46:22.021;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 1456 tokens
+2026-10-27 11:46:28.255;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window9=60.076s
+2026-10-27 11:46:28.255;INFO;open_enricher.stages.vlm_core.segments;Unloading VLM and freeing VRAM...
+2026-10-27 11:46:30.554;INFO;open_enricher.stages.vlm;VLM stage completed. Saved to Suits.S01E02.mkv_vlm.json (json_valid=True)
+2026-10-27 11:46:30.554;INFO;open_enricher.runner;Running stage 'llm' on Suits.S01E02.mkv
+2026-10-27 11:46:30.554;INFO;open_enricher.stages.llm;Starting RecSys LLM profiling for Suits.S01E02.mkv
+2026-10-27 11:46:31.188;INFO;open_enricher.stages.llm;Loading textual LLM: Qwen/Qwen3-8B in 4-bit...
+2026-10-27 11:46:38.802;INFO;open_enricher.timings;TIMING llm.llm_load=7.614s
+2026-10-27 11:46:39.239;INFO;open_enricher.stages.llm;Generating structured JSON profile (Attempt 1/2)...
+2026-10-27 11:46:47.508;INFO;open_enricher.timings;TIMING llm.llm_generate=8.269s
+2026-10-27 11:46:48.787;INFO;open_enricher.stages.llm;Pydantic schema validation succeeded!
+2026-10-27 11:46:48.787;INFO;open_enricher.stages.llm;Unloading LLM and freeing VRAM...
+2026-10-27 11:46:50.381;INFO;open_enricher.stages.llm;Saving structured profile to /SLURM_shared/st_mdp26/open-enricher/dataset/outputs/llms_results/Suits.S01E02.mkv_llm.json
+2026-10-27 11:47:13.279;INFO;open_enricher.experiments.loop;Evaluating experiment 01-scene-context with provider=cursor
+2026-10-27 11:47:15.327;INFO;open_enricher.evaluation.run;Evaluating Suits.S01E02.mkv with provider=cursor model=grok-4.7 synopsis=False
+2026-10-27 11:48:15.070;INFO;open_enricher.experiments.loop;======== Experiment 02-memory-2 ========
+2026-10-27 11:48:15.214;INFO;open_enricher.experiments.loop;Pipeline for video Suits.S01E02.mkv
+2026-10-27 11:48:15.553;INFO;open_enricher.runner;Skipping audio for Suits.S01E02.mkv (cached)
+2026-10-27 11:48:15.553;INFO;open_enricher.runner;Running stage 'dialogue' on Suits.S01E02.mkv
+2026-10-27 11:48:15.555;INFO;open_enricher.stages.dialogue;Dialogue stage for Suits.S01E02.mkv: 824 lines, speakers=['SPEAKER_00', 'SPEAKER_01', 'SPEAKER_02', 'SPEAKER_03', 'SPEAKER_04', 'SPEAKER_05', 'SPEAKER_06', 'SPEAKER_07', 'SPEAKER_08', 'SPEAKER_09', 'SPEAKER_10', 'SPEAKER_11', 'SPEAKER_12', 'UNKNOWN']
+2026-10-27 11:48:15.894;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (plot_load)...
+2026-10-27 11:48:21.974;INFO;open_enricher.timings;TIMING dialogue.plot_load=6.080s
+2026-10-27 11:48:21.996;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=21018 input_budget=40440 lines=824), no sampling
+2026-10-27 11:48:38.033;INFO;open_enricher.timings;TIMING dialogue.plot_generate=16.037s
+2026-10-27 11:48:38.033;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-10-27 11:48:38.386;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (scene_load)...
+2026-10-27 11:48:42.824;INFO;open_enricher.timings;TIMING dialogue.scene_load=4.439s
+2026-10-27 11:48:42.825;INFO;open_enricher.stages.dialogue;Scene dialogue 1/9 00:00:00-00:05:00 (114 lines)
+2026-10-27 11:48:42.829;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3301 input_budget=40580 lines=114), no sampling
+2026-10-27 11:48:48.648;INFO;open_enricher.timings;TIMING dialogue.scene_generate=5.819s
+2026-10-27 11:48:48.648;INFO;open_enricher.stages.dialogue;Scene dialogue 2/9 00:05:00-00:10:00 (103 lines)
+2026-10-27 11:48:48.652;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2991 input_budget=40580 lines=103), no sampling
+2026-10-27 11:48:54.342;INFO;open_enricher.timings;TIMING dialogue.scene_generate=5.690s
+2026-10-27 11:48:54.342;INFO;open_enricher.stages.dialogue;Scene dialogue 3/9 00:10:00-00:15:00 (82 lines)
+2026-10-27 11:48:54.346;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2703 input_budget=40580 lines=82), no sampling
+2026-10-27 11:49:00.002;INFO;open_enricher.timings;TIMING dialogue.scene_generate=5.656s
+2026-10-27 11:49:00.003;INFO;open_enricher.stages.dialogue;Scene dialogue 4/9 00:15:00-00:20:00 (119 lines)
+2026-10-27 11:49:00.007;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3450 input_budget=40580 lines=119), no sampling
+2026-10-27 11:49:05.618;INFO;open_enricher.timings;TIMING dialogue.scene_generate=5.611s
+2026-10-27 11:49:05.618;INFO;open_enricher.stages.dialogue;Scene dialogue 5/9 00:20:00-00:25:00 (85 lines)
+2026-10-27 11:49:05.622;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2744 input_budget=40580 lines=85), no sampling
+2026-10-27 11:49:10.643;INFO;open_enricher.timings;TIMING dialogue.scene_generate=5.021s
+2026-10-27 11:49:10.643;INFO;open_enricher.stages.dialogue;Scene dialogue 6/9 00:25:00-00:30:00 (93 lines)
+2026-10-27 11:49:10.647;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2807 input_budget=40580 lines=93), no sampling
+2026-10-27 11:49:15.569;INFO;open_enricher.timings;TIMING dialogue.scene_generate=4.922s
+2026-10-27 11:49:15.569;INFO;open_enricher.stages.dialogue;Scene dialogue 7/9 00:30:00-00:35:00 (107 lines)
+2026-10-27 11:49:15.574;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3374 input_budget=40580 lines=107), no sampling
+2026-10-27 11:49:20.977;INFO;open_enricher.timings;TIMING dialogue.scene_generate=5.404s
+2026-10-27 11:49:20.977;INFO;open_enricher.stages.dialogue;Scene dialogue 8/9 00:35:00-00:40:00 (82 lines)
+2026-10-27 11:49:20.981;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2736 input_budget=40580 lines=82), no sampling
+2026-10-27 11:49:26.928;INFO;open_enricher.timings;TIMING dialogue.scene_generate=5.947s
+2026-10-27 11:49:26.928;INFO;open_enricher.stages.dialogue;Scene dialogue 9/9 00:40:00-00:42:55 (39 lines)
+2026-10-27 11:49:26.930;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=1555 input_budget=40580 lines=39), no sampling
+2026-10-27 11:49:32.138;INFO;open_enricher.timings;TIMING dialogue.scene_generate=5.208s
+2026-10-27 11:49:32.138;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-10-27 11:49:34.125;INFO;open_enricher.stages.dialogue;Saved dialogue stage to Suits.S01E02.mkv_dialogue.json (9 scenes)
+2026-10-27 11:49:34.125;INFO;open_enricher.runner;Running stage 'vlm' on Suits.S01E02.mkv
+2026-10-27 11:49:34.751;INFO;open_enricher.stages.vlm;Starting VLM stage for Suits.S01E02.mkv (02-memory-2)
+2026-10-27 11:49:35.393;INFO;open_enricher.stages.vlm_core.segments;VLM over 9 scenes (experiment=02-memory-2)
+2026-10-27 11:49:35.393;INFO;open_enricher.stages.vlm_core.segments;Loading VLM: Qwen/Qwen3-VL-8B-Instruct (4-bit=True)...
+2026-10-27 11:49:48.407;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_load=13.013s
+2026-10-27 11:49:48.407;INFO;open_enricher.stages.vlm_core.segments;VLM scene 1/9 00:00:00-00:05:00
+2026-10-27 11:50:30.090;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 917 tokens
+2026-10-27 11:50:35.703;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window1=47.297s
+2026-10-27 11:50:35.704;INFO;open_enricher.stages.vlm_core.segments;VLM scene 2/9 00:05:00-00:10:00
+2026-10-27 11:51:14.109;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 1431 tokens
+2026-10-27 11:51:21.716;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window2=46.012s
+2026-10-27 11:51:21.716;INFO;open_enricher.stages.vlm_core.segments;VLM scene 3/9 00:10:00-00:15:00
+2026-10-27 11:52:01.817;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 1975 tokens
+2026-10-27 11:52:10.014;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window3=48.299s
+2026-10-27 11:52:10.014;INFO;open_enricher.stages.vlm_core.segments;VLM scene 4/9 00:15:00-00:20:00
+2026-10-27 11:52:49.654;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 2051 tokens
+2026-10-27 11:52:57.088;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window4=47.074s
+2026-10-27 11:52:57.088;INFO;open_enricher.stages.vlm_core.segments;VLM scene 5/9 00:20:00-00:25:00
+2026-10-27 11:53:35.007;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 2017 tokens
+2026-10-27 11:53:42.338;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window5=45.249s
+2026-10-27 11:53:42.338;INFO;open_enricher.stages.vlm_core.segments;VLM scene 6/9 00:25:00-00:30:00
+2026-10-27 11:54:20.385;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 1953 tokens
+2026-10-27 11:54:27.944;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window6=45.607s
+2026-10-27 11:54:27.944;INFO;open_enricher.stages.vlm_core.segments;VLM scene 7/9 00:30:00-00:35:00
+2026-10-27 11:55:05.371;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 1934 tokens
+2026-10-27 11:55:11.708;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window7=43.764s
+2026-10-27 11:55:11.708;INFO;open_enricher.stages.vlm_core.segments;VLM scene 8/9 00:35:00-00:40:00
+2026-10-27 11:55:48.394;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 1938 tokens
+2026-10-27 11:55:56.702;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window8=44.993s
+2026-10-27 11:55:56.702;INFO;open_enricher.stages.vlm_core.segments;VLM scene 9/9 00:40:00-00:42:55
+2026-10-27 11:56:18.064;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 2015 tokens
+2026-10-27 11:56:24.507;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window9=27.805s
+2026-10-27 11:56:24.508;INFO;open_enricher.stages.vlm_core.segments;Unloading VLM and freeing VRAM...
+2026-10-27 11:56:26.015;INFO;open_enricher.stages.vlm;VLM stage completed. Saved to Suits.S01E02.mkv_vlm.json (json_valid=True)
+2026-10-27 11:56:26.015;INFO;open_enricher.runner;Running stage 'llm' on Suits.S01E02.mkv
+2026-10-27 11:56:26.015;INFO;open_enricher.stages.llm;Starting RecSys LLM profiling for Suits.S01E02.mkv
+2026-10-27 11:56:26.060;INFO;open_enricher.stages.llm;Loading textual LLM: Qwen/Qwen3-8B in 4-bit...
+2026-10-27 11:56:31.300;INFO;open_enricher.timings;TIMING llm.llm_load=5.240s
+2026-10-27 11:56:31.300;INFO;open_enricher.stages.llm;Generating structured JSON profile (Attempt 1/2)...
+2026-10-27 11:56:40.175;INFO;open_enricher.timings;TIMING llm.llm_generate=8.875s
+2026-10-27 11:56:40.175;INFO;open_enricher.stages.llm;Pydantic schema validation succeeded!
+2026-10-27 11:56:40.175;INFO;open_enricher.stages.llm;Unloading LLM and freeing VRAM...
+2026-10-27 11:56:41.647;INFO;open_enricher.stages.llm;Saving structured profile to /SLURM_shared/st_mdp26/open-enricher/dataset/outputs/llms_results/Suits.S01E02.mkv_llm.json
+2026-10-27 11:56:53.452;INFO;open_enricher.experiments.loop;Evaluating experiment 02-memory-2 with provider=cursor
+2026-10-27 11:56:53.934;INFO;open_enricher.evaluation.run;Evaluating Suits.S01E02.mkv with provider=cursor model=grok-4.7 synopsis=False
+2026-10-27 12:01:42.633;INFO;open_enricher.experiments.loop;======== Experiment 03-memory-4 ========
+2026-10-27 12:01:42.634;INFO;open_enricher.experiments.loop;Pipeline for video Suits.S01E02.mkv
+2026-10-27 12:01:43.508;INFO;open_enricher.runner;Skipping audio for Suits.S01E02.mkv (cached)
+2026-10-27 12:01:43.508;INFO;open_enricher.runner;Running stage 'dialogue' on Suits.S01E02.mkv
+2026-10-27 12:01:43.700;INFO;open_enricher.stages.dialogue;Dialogue stage for Suits.S01E02.mkv: 824 lines, speakers=['SPEAKER_00', 'SPEAKER_01', 'SPEAKER_02', 'SPEAKER_03', 'SPEAKER_04', 'SPEAKER_05', 'SPEAKER_06', 'SPEAKER_07', 'SPEAKER_08', 'SPEAKER_09', 'SPEAKER_10', 'SPEAKER_11', 'SPEAKER_12', 'UNKNOWN']
+2026-10-27 12:01:44.475;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (plot_load)...
+2026-10-27 12:01:48.361;INFO;open_enricher.timings;TIMING dialogue.plot_load=3.886s
+2026-10-27 12:01:48.382;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=21018 input_budget=40440 lines=824), no sampling
+2026-10-27 12:02:04.360;INFO;open_enricher.timings;TIMING dialogue.plot_generate=15.978s
+2026-10-27 12:02:04.361;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-10-27 12:02:04.709;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (scene_load)...
+2026-10-27 12:02:07.805;INFO;open_enricher.timings;TIMING dialogue.scene_load=3.096s
+2026-10-27 12:02:07.805;INFO;open_enricher.stages.dialogue;Scene dialogue 1/9 00:00:00-00:05:00 (114 lines)
+2026-10-27 12:02:07.810;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3301 input_budget=40580 lines=114), no sampling
+2026-10-27 12:02:13.701;INFO;open_enricher.timings;TIMING dialogue.scene_generate=5.891s
+2026-10-27 12:02:13.701;INFO;open_enricher.stages.dialogue;Scene dialogue 2/9 00:05:00-00:10:00 (103 lines)
+2026-10-27 12:02:13.705;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2991 input_budget=40580 lines=103), no sampling
+2026-10-27 12:02:19.302;INFO;open_enricher.timings;TIMING dialogue.scene_generate=5.596s
+2026-10-27 12:02:19.302;INFO;open_enricher.stages.dialogue;Scene dialogue 3/9 00:10:00-00:15:00 (82 lines)
+2026-10-27 12:02:19.306;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2703 input_budget=40580 lines=82), no sampling
+2026-10-27 12:02:24.982;INFO;open_enricher.timings;TIMING dialogue.scene_generate=5.677s
+2026-10-27 12:02:24.983;INFO;open_enricher.stages.dialogue;Scene dialogue 4/9 00:15:00-00:20:00 (119 lines)
+2026-10-27 12:02:24.987;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3450 input_budget=40580 lines=119), no sampling
+2026-10-27 12:02:30.505;INFO;open_enricher.timings;TIMING dialogue.scene_generate=5.518s
+2026-10-27 12:02:30.506;INFO;open_enricher.stages.dialogue;Scene dialogue 5/9 00:20:00-00:25:00 (85 lines)
+2026-10-27 12:02:30.509;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2744 input_budget=40580 lines=85), no sampling
+2026-10-27 12:02:35.457;INFO;open_enricher.timings;TIMING dialogue.scene_generate=4.948s
+2026-10-27 12:02:35.457;INFO;open_enricher.stages.dialogue;Scene dialogue 6/9 00:25:00-00:30:00 (93 lines)
+2026-10-27 12:02:35.461;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2807 input_budget=40580 lines=93), no sampling
+2026-10-27 12:02:40.419;INFO;open_enricher.timings;TIMING dialogue.scene_generate=4.958s
+2026-10-27 12:02:40.419;INFO;open_enricher.stages.dialogue;Scene dialogue 7/9 00:30:00-00:35:00 (107 lines)
+2026-10-27 12:02:40.424;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3374 input_budget=40580 lines=107), no sampling
+2026-10-27 12:02:45.774;INFO;open_enricher.timings;TIMING dialogue.scene_generate=5.351s
+2026-10-27 12:02:45.775;INFO;open_enricher.stages.dialogue;Scene dialogue 8/9 00:35:00-00:40:00 (82 lines)
+2026-10-27 12:02:45.778;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2736 input_budget=40580 lines=82), no sampling
+2026-10-27 12:02:51.717;INFO;open_enricher.timings;TIMING dialogue.scene_generate=5.938s
+2026-10-27 12:02:51.717;INFO;open_enricher.stages.dialogue;Scene dialogue 9/9 00:40:00-00:42:55 (39 lines)
+2026-10-27 12:02:51.719;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=1555 input_budget=40580 lines=39), no sampling
+2026-10-27 12:02:56.899;INFO;open_enricher.timings;TIMING dialogue.scene_generate=5.180s
+2026-10-27 12:02:56.899;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-10-27 12:02:57.762;INFO;open_enricher.stages.dialogue;Saved dialogue stage to Suits.S01E02.mkv_dialogue.json (9 scenes)
+2026-10-27 12:02:57.762;INFO;open_enricher.runner;Running stage 'vlm' on Suits.S01E02.mkv
+2026-10-27 12:02:57.765;INFO;open_enricher.stages.vlm;Starting VLM stage for Suits.S01E02.mkv (03-memory-4)
+2026-10-27 12:02:57.920;INFO;open_enricher.stages.vlm_core.segments;VLM over 9 scenes (experiment=03-memory-4)
+2026-10-27 12:02:57.920;INFO;open_enricher.stages.vlm_core.segments;Loading VLM: Qwen/Qwen3-VL-8B-Instruct (4-bit=True)...
+2026-10-27 12:03:05.807;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_load=7.887s
+2026-10-27 12:03:05.807;INFO;open_enricher.stages.vlm_core.segments;VLM scene 1/9 00:00:00-00:05:00
+2026-10-27 12:03:46.299;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 917 tokens
+2026-10-27 12:03:47.494;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window1=41.687s
+2026-10-27 12:03:47.494;INFO;open_enricher.stages.vlm_core.segments;VLM scene 2/9 00:05:00-00:10:00
+2026-10-27 12:04:24.948;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 1243 tokens
+2026-10-27 12:04:31.010;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window2=43.516s
+2026-10-27 12:04:31.010;INFO;open_enricher.stages.vlm_core.segments;VLM scene 3/9 00:10:00-00:15:00
+2026-10-27 12:05:09.057;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 1734 tokens
+2026-10-27 12:05:18.034;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window3=47.023s
+2026-10-27 12:05:18.034;INFO;open_enricher.stages.vlm_core.segments;VLM scene 4/9 00:15:00-00:20:00
+2026-10-27 12:05:56.636;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 2287 tokens
+2026-10-27 12:06:03.421;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window4=45.387s
+2026-10-27 12:06:03.421;INFO;open_enricher.stages.vlm_core.segments;VLM scene 5/9 00:20:00-00:25:00
+2026-10-27 12:06:03.421;WARNING;open_enricher.stages.vlm_core.segments;ALERT: prior VLM metadata does not fit the memory budget, passing compact descriptions (chars=816 budget=8000 scenes=4 kept=4)
+2026-10-27 12:06:40.259;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 1164 tokens
+2026-10-27 12:06:46.489;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window5=43.068s
+2026-10-27 12:06:46.489;INFO;open_enricher.stages.vlm_core.segments;VLM scene 6/9 00:25:00-00:30:00
+2026-10-27 12:06:46.489;WARNING;open_enricher.stages.vlm_core.segments;ALERT: prior VLM metadata does not fit the memory budget, passing compact descriptions (chars=981 budget=8000 scenes=5 kept=4)
+2026-10-27 12:07:23.334;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 1194 tokens
+2026-10-27 12:07:28.140;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window6=41.651s
+2026-10-27 12:07:28.140;INFO;open_enricher.stages.vlm_core.segments;VLM scene 7/9 00:30:00-00:35:00
+2026-10-27 12:07:28.140;WARNING;open_enricher.stages.vlm_core.segments;ALERT: prior VLM metadata does not fit the memory budget, passing compact descriptions (chars=981 budget=8000 scenes=6 kept=4)
+2026-10-27 12:08:04.776;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 1201 tokens
+2026-10-27 12:08:09.575;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window7=41.435s
+2026-10-27 12:08:09.575;INFO;open_enricher.stages.vlm_core.segments;VLM scene 8/9 00:35:00-00:40:00
+2026-10-27 12:08:09.576;WARNING;open_enricher.stages.vlm_core.segments;ALERT: prior VLM metadata does not fit the memory budget, passing compact descriptions (chars=981 budget=8000 scenes=7 kept=4)
+2026-10-27 12:08:45.195;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 1237 tokens
+2026-10-27 12:08:49.748;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window8=40.172s
+2026-10-27 12:08:49.748;INFO;open_enricher.stages.vlm_core.segments;VLM scene 9/9 00:40:00-00:42:55
+2026-10-27 12:08:49.748;WARNING;open_enricher.stages.vlm_core.segments;ALERT: prior VLM metadata does not fit the memory budget, passing compact descriptions (chars=981 budget=8000 scenes=8 kept=4)
+2026-10-27 12:09:09.320;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 1213 tokens
+2026-10-27 12:09:14.120;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window9=24.372s
+2026-10-27 12:09:14.120;INFO;open_enricher.stages.vlm_core.segments;Unloading VLM and freeing VRAM...
+2026-10-27 12:09:18.137;INFO;open_enricher.stages.vlm;VLM stage completed. Saved to Suits.S01E02.mkv_vlm.json (json_valid=True)
+2026-10-27 12:09:18.137;INFO;open_enricher.runner;Running stage 'llm' on Suits.S01E02.mkv
+2026-10-27 12:09:18.137;INFO;open_enricher.stages.llm;Starting RecSys LLM profiling for Suits.S01E02.mkv
+2026-10-27 12:09:18.393;INFO;open_enricher.stages.llm;Loading textual LLM: Qwen/Qwen3-8B in 4-bit...
+2026-10-27 12:09:22.528;INFO;open_enricher.timings;TIMING llm.llm_load=4.135s
+2026-10-27 12:09:22.528;INFO;open_enricher.stages.llm;Generating structured JSON profile (Attempt 1/2)...
+2026-10-27 12:09:30.666;INFO;open_enricher.timings;TIMING llm.llm_generate=8.139s
+2026-10-27 12:09:30.666;INFO;open_enricher.stages.llm;Pydantic schema validation succeeded!
+2026-10-27 12:09:30.666;INFO;open_enricher.stages.llm;Unloading LLM and freeing VRAM...
+2026-10-27 12:09:31.435;INFO;open_enricher.stages.llm;Saving structured profile to /SLURM_shared/st_mdp26/open-enricher/dataset/outputs/llms_results/Suits.S01E02.mkv_llm.json
+2026-10-27 12:09:38.941;INFO;open_enricher.experiments.loop;Evaluating experiment 03-memory-4 with provider=cursor
+2026-10-27 12:09:39.228;INFO;open_enricher.evaluation.run;Evaluating Suits.S01E02.mkv with provider=cursor model=grok-4.7 synopsis=False
+2026-10-27 12:13:27.195;INFO;open_enricher.experiments.loop;======== Experiment 05-visual-only ========
+2026-10-27 12:13:27.391;INFO;open_enricher.experiments.loop;Pipeline for video Suits.S01E02.mkv
+2026-10-27 12:13:27.547;INFO;open_enricher.runner;Skipping audio for Suits.S01E02.mkv (cached)
+2026-10-27 12:13:27.547;INFO;open_enricher.runner;Running stage 'dialogue' on Suits.S01E02.mkv
+2026-10-27 12:13:27.559;INFO;open_enricher.stages.dialogue;Dialogue stage for Suits.S01E02.mkv: 824 lines, speakers=['SPEAKER_00', 'SPEAKER_01', 'SPEAKER_02', 'SPEAKER_03', 'SPEAKER_04', 'SPEAKER_05', 'SPEAKER_06', 'SPEAKER_07', 'SPEAKER_08', 'SPEAKER_09', 'SPEAKER_10', 'SPEAKER_11', 'SPEAKER_12', 'UNKNOWN']
+2026-10-27 12:13:27.638;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (plot_load)...
+2026-10-27 12:13:31.455;INFO;open_enricher.timings;TIMING dialogue.plot_load=3.817s
+2026-10-27 12:13:31.476;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=21018 input_budget=40440 lines=824), no sampling
+2026-10-27 12:13:47.460;INFO;open_enricher.timings;TIMING dialogue.plot_generate=15.983s
+2026-10-27 12:13:47.460;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-10-27 12:13:47.796;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (scene_load)...
+2026-10-27 12:13:52.086;INFO;open_enricher.timings;TIMING dialogue.scene_load=4.290s
+2026-10-27 12:13:52.087;INFO;open_enricher.stages.dialogue;Scene dialogue 1/9 00:00:00-00:05:00 (114 lines)
+2026-10-27 12:13:52.091;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3301 input_budget=40580 lines=114), no sampling
+2026-10-27 12:13:57.798;INFO;open_enricher.timings;TIMING dialogue.scene_generate=5.707s
+2026-10-27 12:13:57.798;INFO;open_enricher.stages.dialogue;Scene dialogue 2/9 00:05:00-00:10:00 (103 lines)
+2026-10-27 12:13:57.802;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2991 input_budget=40580 lines=103), no sampling
+2026-10-27 12:14:03.240;INFO;open_enricher.timings;TIMING dialogue.scene_generate=5.438s
+2026-10-27 12:14:03.240;INFO;open_enricher.stages.dialogue;Scene dialogue 3/9 00:10:00-00:15:00 (82 lines)
+2026-10-27 12:14:03.243;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2703 input_budget=40580 lines=82), no sampling
+2026-10-27 12:14:08.748;INFO;open_enricher.timings;TIMING dialogue.scene_generate=5.505s
+2026-10-27 12:14:08.748;INFO;open_enricher.stages.dialogue;Scene dialogue 4/9 00:15:00-00:20:00 (119 lines)
+2026-10-27 12:14:08.752;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3450 input_budget=40580 lines=119), no sampling
+2026-10-27 12:14:14.124;INFO;open_enricher.timings;TIMING dialogue.scene_generate=5.372s
+2026-10-27 12:14:14.124;INFO;open_enricher.stages.dialogue;Scene dialogue 5/9 00:20:00-00:25:00 (85 lines)
+2026-10-27 12:14:14.127;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2744 input_budget=40580 lines=85), no sampling
+2026-10-27 12:14:18.927;INFO;open_enricher.timings;TIMING dialogue.scene_generate=4.800s
+2026-10-27 12:14:18.927;INFO;open_enricher.stages.dialogue;Scene dialogue 6/9 00:25:00-00:30:00 (93 lines)
+2026-10-27 12:14:18.930;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2807 input_budget=40580 lines=93), no sampling
+2026-10-27 12:14:23.747;INFO;open_enricher.timings;TIMING dialogue.scene_generate=4.817s
+2026-10-27 12:14:23.748;INFO;open_enricher.stages.dialogue;Scene dialogue 7/9 00:30:00-00:35:00 (107 lines)
+2026-10-27 12:14:23.751;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3374 input_budget=40580 lines=107), no sampling
+2026-10-27 12:14:28.954;INFO;open_enricher.timings;TIMING dialogue.scene_generate=5.203s
+2026-10-27 12:14:28.954;INFO;open_enricher.stages.dialogue;Scene dialogue 8/9 00:35:00-00:40:00 (82 lines)
+2026-10-27 12:14:28.958;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2736 input_budget=40580 lines=82), no sampling
+2026-10-27 12:14:34.719;INFO;open_enricher.timings;TIMING dialogue.scene_generate=5.761s
+2026-10-27 12:14:34.719;INFO;open_enricher.stages.dialogue;Scene dialogue 9/9 00:40:00-00:42:55 (39 lines)
+2026-10-27 12:14:34.721;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=1555 input_budget=40580 lines=39), no sampling
+2026-10-27 12:14:39.732;INFO;open_enricher.timings;TIMING dialogue.scene_generate=5.011s
+2026-10-27 12:14:39.732;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-10-27 12:14:40.605;INFO;open_enricher.stages.dialogue;Saved dialogue stage to Suits.S01E02.mkv_dialogue.json (9 scenes)
+2026-10-27 12:14:40.605;INFO;open_enricher.runner;Running stage 'vlm' on Suits.S01E02.mkv
+2026-10-27 12:14:40.682;INFO;open_enricher.stages.vlm;Starting VLM stage for Suits.S01E02.mkv (05-visual-only)
+2026-10-27 12:14:40.729;INFO;open_enricher.stages.vlm_core.segments;VLM over 9 scenes (experiment=05-visual-only)
+2026-10-27 12:14:40.729;INFO;open_enricher.stages.vlm_core.segments;Loading VLM: Qwen/Qwen3-VL-8B-Instruct (4-bit=True)...
+2026-10-27 12:14:47.486;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_load=6.757s
+2026-10-27 12:14:47.486;INFO;open_enricher.stages.vlm_core.segments;VLM scene 1/9 00:00:00-00:05:00
+2026-10-27 12:15:27.927;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 674 tokens
+2026-10-27 12:15:31.476;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window1=43.989s
+2026-10-27 12:15:31.476;INFO;open_enricher.stages.vlm_core.segments;VLM scene 2/9 00:05:00-00:10:00
+2026-10-27 12:16:08.826;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 861 tokens
+2026-10-27 12:16:12.517;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window2=41.04s
+2026-10-27 12:16:12.517;INFO;open_enricher.stages.vlm_core.segments;VLM scene 3/9 00:10:00-00:15:00
+2026-10-27 12:16:50.019;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 1008 tokens
+2026-10-27 12:16:52.981;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window3=40.464s
+2026-10-27 12:16:52.981;INFO;open_enricher.stages.vlm_core.segments;VLM scene 4/9 00:15:00-00:20:00
+2026-10-27 12:17:31.504;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 1133 tokens
+2026-10-27 12:17:34.448;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window4=41.467s
+2026-10-27 12:17:34.449;INFO;open_enricher.stages.vlm_core.segments;VLM scene 5/9 00:20:00-00:25:00
+2026-10-27 12:18:11.256;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 1258 tokens
+2026-10-27 12:18:14.124;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window5=39.675s
+2026-10-27 12:18:14.124;INFO;open_enricher.stages.vlm_core.segments;VLM scene 6/9 00:25:00-00:30:00
+2026-10-27 12:18:51.081;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 1381 tokens
+2026-10-27 12:18:53.758;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window6=39.634s
+2026-10-27 12:18:53.758;INFO;open_enricher.stages.vlm_core.segments;VLM scene 7/9 00:30:00-00:35:00
+2026-10-27 12:19:30.561;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 1489 tokens
+2026-10-27 12:19:33.415;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window7=39.657s
+2026-10-27 12:19:33.415;INFO;open_enricher.stages.vlm_core.segments;VLM scene 8/9 00:35:00-00:40:00
+2026-10-27 12:20:09.112;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 1606 tokens
+2026-10-27 12:20:12.011;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window8=38.596s
+2026-10-27 12:20:12.011;INFO;open_enricher.stages.vlm_core.segments;VLM scene 9/9 00:40:00-00:42:55
+2026-10-27 12:20:31.610;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 1723 tokens
+2026-10-27 12:20:35.170;INFO;open_enricher.stages.vlm_core.segments;TIMING vlm.vlm_generate.window9=23.159s
+2026-10-27 12:20:35.170;INFO;open_enricher.stages.vlm_core.segments;Unloading VLM and freeing VRAM...
+2026-10-27 12:20:39.176;INFO;open_enricher.stages.vlm;VLM stage completed. Saved to Suits.S01E02.mkv_vlm.json (json_valid=True)
+2026-10-27 12:20:39.176;INFO;open_enricher.runner;Running stage 'llm' on Suits.S01E02.mkv
+2026-10-27 12:20:39.176;INFO;open_enricher.stages.llm;Starting RecSys LLM profiling for Suits.S01E02.mkv
+2026-10-27 12:20:39.708;INFO;open_enricher.stages.llm;Loading textual LLM: Qwen/Qwen3-8B in 4-bit...
+2026-10-27 12:20:44.876;INFO;open_enricher.timings;TIMING llm.llm_load=5.167s
+2026-10-27 12:20:44.876;INFO;open_enricher.stages.llm;Generating structured JSON profile (Attempt 1/2)...
+2026-10-27 12:20:53.010;INFO;open_enricher.timings;TIMING llm.llm_generate=8.134s
+2026-10-27 12:20:53.010;INFO;open_enricher.stages.llm;Pydantic schema validation succeeded!
+2026-10-27 12:20:53.010;INFO;open_enricher.stages.llm;Unloading LLM and freeing VRAM...
+2026-10-27 12:20:54.370;INFO;open_enricher.stages.llm;Saving structured profile to /SLURM_shared/st_mdp26/open-enricher/dataset/outputs/llms_results/Suits.S01E02.mkv_llm.json
+2026-10-27 12:21:04.565;INFO;open_enricher.experiments.loop;Evaluating experiment 05-visual-only with provider=cursor
+2026-10-27 12:21:04.947;INFO;open_enricher.evaluation.run;Evaluating Suits.S01E02.mkv with provider=cursor model=grok-4.7 synopsis=False

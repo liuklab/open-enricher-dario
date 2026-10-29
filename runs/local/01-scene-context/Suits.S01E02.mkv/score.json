@@ -1,0 +1,61 @@
+{
+  "video": "Suits.S01E02.mkv",
+  "title": "Suits S01E02",
+  "profile_file": "Suits.S01E02.mkv_llm.json",
+  "dimensions": {
+    "completeness": {
+      "score": 1,
+      "note": "Provider failed: Timed out waiting for bridge discovery",
+      "weight": 0.15
+    },
+    "specificity": {
+      "score": 1,
+      "note": "Provider failed: Timed out waiting for bridge discovery",
+      "weight": 0.25
+    },
+    "fidelity": {
+      "score": 1,
+      "note": "Provider failed: Timed out waiting for bridge discovery",
+      "weight": 0.35
+    },
+    "consistency": {
+      "score": 1,
+      "note": "Provider failed: Timed out waiting for bridge discovery",
+      "weight": 0.1
+    },
+    "recsys_usefulness": {
+      "score": 1,
+      "note": "Provider failed: Timed out waiting for bridge discovery",
+      "weight": 0.15
+    }
+  },
+  "overall": 1.0,
+  "overall_normalized": 0.0,
+  "usable": false,
+  "summary": "Provider failed: Timed out waiting for bridge discovery",
+  "weights": {
+    "completeness": 0.15,
+    "specificity": 0.25,
+    "fidelity": 0.35,
+    "consistency": 0.1,
+    "recsys_usefulness": 0.15
+  },
+  "score_scale": {
+    "min": 1,
+    "max": 5
+  },
+  "thresholds": {
+    "usable_overall_min": 3.0,
+    "usable_fidelity_min": 2
+  },
+  "method": {
+    "kind": "external_provider",
+    "provider": "cursor",
+    "model": "grok-4.7",
+    "uses_synopsis": false,
+    "uses_pipeline_evidence": false,
+    "title_source": "video_filename"
+  },
+  "error": "Provider failed: Timed out waiting for bridge discovery",
+  "parse_errors": []
+}

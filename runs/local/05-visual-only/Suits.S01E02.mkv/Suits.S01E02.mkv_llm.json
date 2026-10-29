@@ -1,0 +1,41 @@
+{
+  "recsys_metadata": {
+    "primary_genre": "Drama",
+    "sub_genres": [
+      "Legal",
+      "Corporate",
+      "Psychological"
+    ],
+    "pacing": "Moderate",
+    "mood": [
+      "Tense",
+      "Reflective",
+      "Hopeful"
+    ]
+  },
+  "search_and_discovery": {
+    "semantic_tags": [
+      "Patent Dispute",
+      "Ethical Dilemmas",
+      "Professional Relationships",
+      "Personal Conflict"
+    ],
+    "main_topics": [
+      "Legal Strategy",
+      "Workplace Dynamics",
+      "Moral Integrity"
+    ]
+  },
+  "audience_profiling": {
+    "target_age_group": "Adults",
+    "viewer_interests": [
+      "Lawyers",
+      "Business Ethics",
+      "Character Development"
+    ]
+  },
+  "content_summary": {
+    "visual_style": "The visual style features bright indoor lighting with neutral tones during daytime scenes, transitioning to dim nighttime lighting with artificial streetlights casting shadows in darker moments.",
+    "narrative_hook": "Harvey Specter confronts his assistant Mike Ross about his role in a critical patent filing error, leading to a tense discussion about ethics, professional responsibility, and their intertwined fates."
+  }
+}

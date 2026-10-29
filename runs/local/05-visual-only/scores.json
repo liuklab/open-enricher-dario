@@ -1,0 +1,62 @@
+{
+  "Suits.S01E02.mkv": {
+    "video": "Suits.S01E02.mkv",
+    "title": "Suits S01E02",
+    "profile_file": "Suits.S01E02.mkv_llm.json",
+    "dimensions": {
+      "completeness": {
+        "score": 4,
+        "note": "All RecSys fields are present and non-empty, including genre, pacing, mood, tags, topics, audience, visual style, and narrative hook. Visual style and several tags stay fairly broad.",
+        "weight": 0.15
+      },
+      "specificity": {
+        "score": 3,
+        "note": "The hook names Harvey, Mike, and a patent filing, but many values are generic fillers such as personal conflict, character development, professional relationships, moderate pacing, and adults.",
+        "weight": 0.25
+      },
+      "fidelity": {
+        "score": 2,
+        "note": "Suits S01E02 (Errors and Omissions) is an adult legal drama with Harvey Specter and associate Mike Ross centered on ethics, but Mike is not Harvey's assistant and the episode is not about Mike causing a patent filing error. Patent-dispute framing invents the plot.",
+        "weight": 0.35
+      },
+      "consistency": {
+        "score": 4,
+        "note": "Genre, legal tags, ethics topics, and the confrontation hook align. Hopeful mood and the psychological subgenre sit a bit loosely against the tense error storyline.",
+        "weight": 0.1
+      },
+      "recsys_usefulness": {
+        "score": 3,
+        "note": "Legal-drama, workplace, and adult-ethics signals would reach the right broad audience, but the false patent hook would mismatch episode-level retrieval.",
+        "weight": 0.15
+      }
+    },
+    "overall": 2.9,
+    "overall_normalized": 0.475,
+    "usable": false,
+    "summary": "The metadata correctly places Suits as an adult legal workplace drama with Harvey and Mike, but the episode hook invents a patent-filing error and miscasts Mike as Harvey's assistant, so it only partly matches S01E02.",
+    "weights": {
+      "completeness": 0.15,
+      "specificity": 0.25,
+      "fidelity": 0.35,
+      "consistency": 0.1,
+      "recsys_usefulness": 0.15
+    },
+    "score_scale": {
+      "min": 1,
+      "max": 5
+    },
+    "thresholds": {
+      "usable_overall_min": 3.0,
+      "usable_fidelity_min": 2
+    },
+    "method": {
+      "kind": "external_provider",
+      "provider": "cursor",
+      "model": "grok-4.7",
+      "uses_synopsis": false,
+      "uses_pipeline_evidence": false,
+      "title_source": "video_filename"
+    },
+    "parse_errors": []
+  }
+}

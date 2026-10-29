@@ -60,7 +60,7 @@ class VLMStage:
 
         logger.info("Starting VLM stage for %s (%s)", video_filename, spec.experiment_id)
         model_cfg, meta_cfg = build_configs()
-        raw_text, parsed_payload, is_valid_json, segment_count = run_segmented(
+        raw_text, parsed_payload, is_valid_json, segment_count, frame_spans = run_segmented(
             video_path,
             video_filename,
             model_cfg,
@@ -85,6 +85,24 @@ class VLMStage:
         timings_path = output_dir / f"{video_filename}_vlm_timings.json"
         timing.save(timings_path)
 
+        frames_path = output_dir / f"{video_filename}_vlm_frames.json"
+        frames_wall = round(sum(float(span.get("seconds") or 0) for span in frame_spans), 3)
+        frames_document = {
+            "stage": "vlm_frames",
+            "wall_seconds": frames_wall,
+            "experiment_id": spec.experiment_id,
+            "video": video_filename,
+            "sample_fps": meta_cfg.fps,
+            "min_frames": 2,
+            "max_frames": SEGMENT_MAX_FRAMES,
+            "frame_factor": 2,
+            "spans": frame_spans,
+        }
+        frames_path.write_text(
+            json.dumps(frames_document, indent=2, ensure_ascii=False) + "\n",
+            encoding="utf-8",
+        )
+
         sidecar_path = output_dir / f"{video_filename}_vlm_sidecar.json"
         sidecar_payload = {
             "video": str(video_path),
@@ -107,6 +125,7 @@ class VLMStage:
             "memory_compacted": parsed_payload.get("memory_compacted"),
             "dialogue_file": dialogue_path.name,
             "timings_file": timings_path.name,
+            "frames_file": frames_path.name,
         }
         sidecar_path.write_text(
             json.dumps(sidecar_payload, indent=2, ensure_ascii=False),
@@ -124,4 +143,5 @@ class VLMStage:
             "raw_file": str(raw_path.name),
             "sidecar_file": str(sidecar_path.name),
             "timings_file": str(timings_path.name),
+            "frames_file": str(frames_path.name),
         }

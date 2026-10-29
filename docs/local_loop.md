@@ -56,17 +56,32 @@ runs/local/
 ├── progress.jsonl
 ├── loop_summary.json
 ├── _cache/<video>/audio/
+├── _cache/<video>/frames/<experiment_id>/scene_XX/frame_YY.jpg
 └── <experiment_id>/
     ├── variant.json
     ├── scores.json          # written at the end of the experiment
     ├── video_results.json
     ├── EXPERIMENT.md
     └── <video>/
-        ├── *_audio.json, *_dialogue.json, *_vlm.json, *_llm.json
+        ├── *_audio.json, *_dialogue.json, *_vlm.json, *_vlm_frames.json, *_llm.json
         ├── score.json       # written at the end of the experiment
         ├── timings.json
         └── worker.log
 ```
+
+## VLM frame cache
+
+Each VLM window is a temporary clip. The model samples frames from that file in memory and the clip is deleted. Before that deletion the loop copies the sampled frames to `runs/local/_cache/<video>/frames/<experiment_id>/scene_XX/` and writes `<video>_vlm_frames.json` next to the other VLM artifacts. The JSON uses the same shape as the timing files (`stage`, `wall_seconds`, `spans`). Inference does not read the cache.
+
+The index rule matches the Qwen video processor:
+
+1. Let `N` be the decoded frame count of the window clip and `video_fps` its average frame rate.
+2. The requested count is `N / video_fps * sample_fps` with `sample_fps` from `vlm_params.json` (2).
+3. Clamp that count between `min_frames` (2 on each window) and `max_frames` (8), then round down to a multiple of 2. Qwen packs frames in pairs. A 300-second window asks for hundreds of frames, so the cap of 8 is what remains.
+4. Take that many indices with `linspace` from `0` through `N - 1`, rounded half to even. The first and last frames of the clip are included.
+5. The film timestamp is the window start plus `index / video_fps`.
+
+The JPEG is the full-resolution frame at that index in the re-encoded clip. The model receives a resized copy of the same moment. The absolute time can sit a fraction of a second off the original file because ffmpeg seeks to a nearby keyframe before re-encoding the window.
 
 ## Variants
 

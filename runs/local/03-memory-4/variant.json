@@ -1,0 +1,7 @@
+{
+  "experiment_id": "03-memory-4",
+  "title": "memory-4",
+  "interval_seconds": 300,
+  "vlm_memory_scenes": 4,
+  "visual_only": false
+}

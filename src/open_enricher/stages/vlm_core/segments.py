@@ -13,6 +13,7 @@ from typing import Any
 from open_enricher.logging_setup import get_logger
 from open_enricher.stages.prompt_load import fill_prompt, load_prompt
 from open_enricher.stages.vlm_core.config import MetadataConfig, ModelConfig
+from open_enricher.stages.vlm_core.frames import sample_scene
 from open_enricher.stages.vlm_core.model import extract_metadata, load_model, unload_model
 from open_enricher.stages.vlm_core.video import clip_video_range
 from open_enricher.timings import TimingRecorder
@@ -170,7 +171,7 @@ def run_segmented(
     experiment_id: str = "",
     vlm_memory_scenes: int | None = None,
     visual_only: bool = False,
-) -> tuple[str, dict[str, Any], bool, int]:
+) -> tuple[str, dict[str, Any], bool, int, list[dict[str, Any]]]:
     """
     Run the VLM once per dialogue interval and accumulate the metadata.
 
@@ -195,7 +196,8 @@ def run_segmented(
 
     Returns:
         Raw joined text, parsed timeline document, whether every window
-        parsed as JSON, and the window count.
+        parsed as JSON, the window count, and one frame-sample span per
+        window. Frame files are an explainability copy; inference ignores them.
     """
     if not scenes:
         raise ValueError(f"No dialogue scenes to show the VLM for {video_filename}")
@@ -220,6 +222,7 @@ def run_segmented(
 
     segments: list[dict[str, Any]] = []
     raw_parts: list[str] = []
+    frame_spans: list[dict[str, Any]] = []
     parsed_count = 0
     memory_compacted = False
     try:
@@ -256,6 +259,30 @@ def run_segmented(
                     max(1.0, end - start),
                     Path(tmp) / f"window_{index}.mp4",
                 )
+                frame_started = time.perf_counter()
+                try:
+                    frame_span = sample_scene(
+                        clip,
+                        video_filename=video_filename,
+                        experiment_id=experiment_id,
+                        scene_index=index,
+                        start_seconds=start,
+                        sample_fps=window_cfg.fps,
+                        min_frames=window_cfg.min_frames,
+                        max_frames=window_cfg.max_frames,
+                    )
+                except Exception as exc:  # noqa: BLE001 - frames are not inference
+                    logger.warning("VLM frame cache skipped for window %s: %s", index, exc)
+                    frame_span = {
+                        "name": "vlm_frames",
+                        "window": index,
+                        "error": str(exc),
+                        "frames": [],
+                    }
+                frame_span["seconds"] = round(time.perf_counter() - frame_started, 3)
+                frame_span["start"] = scene.get("start_time")
+                frame_span["end"] = scene.get("end_time")
+                frame_spans.append(frame_span)
                 raw_text = extract_metadata(model, processor, clip, window_cfg)
             if timing is not None:
                 timing.entries.append(
@@ -319,4 +346,4 @@ def run_segmented(
     }
     raw_document = "\n\n".join(raw_parts)
     json_valid = parsed_count == len(scenes) and len(scenes) > 0
-    return raw_document, payload, json_valid, len(scenes)
+    return raw_document, payload, json_valid, len(scenes), frame_spans

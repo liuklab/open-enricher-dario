@@ -1,0 +1,486 @@
+{
+  "video": "Suits.S01E02.mkv",
+  "status": "success",
+  "stages": [
+    {
+      "stage": "audio",
+      "status": "skipped_cache",
+      "output_file": "Suits.S01E02.mkv_audio.json"
+    },
+    {
+      "stage": "dialogue",
+      "status": "success",
+      "scenes": 9,
+      "plot_sampled": false,
+      "timings": {
+        "stage": "dialogue",
+        "wall_seconds": 73.058,
+        "spans": [
+          {
+            "name": "plot_load",
+            "seconds": 3.817,
+            "model_id": "Qwen/Qwen3-8B"
+          },
+          {
+            "name": "plot_generate",
+            "seconds": 15.983,
+            "model_id": "Qwen/Qwen3-8B"
+          },
+          {
+            "name": "scene_load",
+            "seconds": 4.29,
+            "model_id": "Qwen/Qwen3-8B"
+          },
+          {
+            "name": "scene_generate",
+            "seconds": 5.707,
+            "model_id": "Qwen/Qwen3-8B",
+            "window": 1
+          },
+          {
+            "name": "scene_generate",
+            "seconds": 5.438,
+            "model_id": "Qwen/Qwen3-8B",
+            "window": 2
+          },
+          {
+            "name": "scene_generate",
+            "seconds": 5.505,
+            "model_id": "Qwen/Qwen3-8B",
+            "window": 3
+          },
+          {
+            "name": "scene_generate",
+            "seconds": 5.372,
+            "model_id": "Qwen/Qwen3-8B",
+            "window": 4
+          },
+          {
+            "name": "scene_generate",
+            "seconds": 4.8,
+            "model_id": "Qwen/Qwen3-8B",
+            "window": 5
+          },
+          {
+            "name": "scene_generate",
+            "seconds": 4.817,
+            "model_id": "Qwen/Qwen3-8B",
+            "window": 6
+          },
+          {
+            "name": "scene_generate",
+            "seconds": 5.203,
+            "model_id": "Qwen/Qwen3-8B",
+            "window": 7
+          },
+          {
+            "name": "scene_generate",
+            "seconds": 5.761,
+            "model_id": "Qwen/Qwen3-8B",
+            "window": 8
+          },
+          {
+            "name": "scene_generate",
+            "seconds": 5.011,
+            "model_id": "Qwen/Qwen3-8B",
+            "window": 9
+          }
+        ]
+      },
+      "output_file": "Suits.S01E02.mkv_dialogue.json",
+      "timings_file": "Suits.S01E02.mkv_dialogue_timings.json"
+    },
+    {
+      "stage": "vlm",
+      "status": "success",
+      "json_valid": true,
+      "result": {
+        "experiment_id": "05-visual-only",
+        "scene_timeline": [
+          {
+            "start_time": "00:00:00",
+            "end_time": "00:05:00",
+            "dialogue_description": "SPEAKER_04, who is identified as Mike Ross, expresses frustration about being assigned to file a patent instead of participating in a major deal. He reveals he negotiated with Gregory Boone, another associate, to handle the filing in exchange for proofreading Bainbridge briefs. SPEAKER_07, who is Gregory Boone, clarifies that Mike was called a \"sucker\" for agreeing to this arrangement. Mike admits he didn’t fully understand the implications, highlighting his inexperience and tendency to take risks. SPEAKER_08, a third party, comments on the situation with humor, suggesting everyone wants to see how it unfolds. SPEAKER_12, who is Wyatt, acknowledges Mike’s role in the process and mentions he has been proofing documents all night. The exchange underscores the tension between Mike’s ambition and his lack of legal expertise, as well as the pressure he faces from associates like Gregory. While no immediate resolution occurs, the conversation sets up future conflict regarding Mike’s actions and their impact on the patent filing and the larger business deal.",
+            "description": "A man in a suit walks through an office environment, interacts with colleagues, and sits at a table while being approached by a woman.",
+            "subjects_and_objects": [
+              "man",
+              "woman",
+              "office workers",
+              "chess pieces",
+              "water cooler",
+              "desk"
+            ],
+            "actions": [
+              "walking",
+              "sitting",
+              "standing",
+              "drinking coffee",
+              "approaching",
+              "looking around"
+            ],
+            "camera_and_shot": "close-up shots transitioning to medium shots",
+            "lighting_and_color": "bright indoor lighting with neutral tones",
+            "on_screen_text": [
+              "GUEST STARRING CURRIE GRAHAM"
+            ]
+          },
+          {
+            "start_time": "00:05:00",
+            "end_time": "00:10:00",
+            "dialogue_description": "SPEAKER_12, representing Wyatt, expresses concern over the denied patent, revealing that Velocity Data Solutions has claimed a similar invention. SPEAKER_03, Mike Ross, acknowledges he submitted the patent but admits he didn’t file it properly, causing delays. SPEAKER_04, Mike, is questioned by SPEAKER_10, Lewis, who probes about his involvement in filing tasks for Gregory. Mike explains he volunteered to help, showing initiative but also hinting at pressure from Lewis. Lewis praises Mike’s attention to detail and calls him a “pony,” suggesting he sees potential in him. Mike, eager to prove himself, agrees to meet Lewis for lunch, indicating he’s open to further opportunities. Meanwhile, SPEAKER_12’s frustration grows as the patent denial threatens the deal, highlighting the high stakes. The exchange ends with Mike’s commitment to improve, while Lewis remains optimistic about his future. The tension between the patent issue and internal dynamics among the associates underscores the complexity of their situation.",
+            "description": "A man in a suit is seen walking outdoors, then transitions indoors where he interacts with another man in a meeting setting, followed by scenes showing him seated at various desks in different office environments.",
+            "subjects_and_objects": [
+              "man",
+              "other men",
+              "woman",
+              "office chairs",
+              "shelves",
+              "boxes"
+            ],
+            "actions": [
+              "walking",
+              "sitting",
+              "gesturing",
+              "talking",
+              "drinking coffee",
+              "leaning forward"
+            ],
+            "camera_and_shot": "medium shots transitioning to close-ups",
+            "lighting_and_color": "neutral-toned indoor lighting with some natural light filtering in",
+            "on_screen_text": [
+              "GUEST STARRING CURRIE GRAHAM"
+            ]
+          },
+          {
+            "start_time": "00:10:00",
+            "end_time": "00:15:00",
+            "dialogue_description": "SPEAKER_12, Harvey Specter, confronts Mike Ross about filing the patent late, revealing that Mike admitted to the delay. Harvey is frustrated, accusing Mike of lying and undermining the case. Mike, defensive, explains he didn’t know how to file properly and was pressured by Lewis. Harvey, concerned about the consequences, instructs Mike to contact the patent office and find out who filed first. He also tells Donna to locate a judge who can help secure an injunction. Harvey then calls Wyatt, assuring him the patent dispute isn’t a problem since the check has already been cut. Later, in court, Harvey faces Judge Donald, who accuses him of infidelity. Harvey, maintaining his composure, acknowledges the judge’s personal vendetta but insists on proceeding with the injunction. The judge denies the request, and Harvey leaves the courtroom, determined to file an interference claim with the Patent Office. He and Mike agree to work together to resolve the issue, recognizing their shared goal of success. The exchange ends with Harvey and Mike acknowledging their intertwined futures.",
+            "description": "A man in a suit stands in a courtroom, speaks before a judge, and later walks through an art gallery with others.",
+            "subjects_and_objects": [
+              "man",
+              "judge",
+              "courtroom staff",
+              "artworks",
+              "gallery visitors"
+            ],
+            "actions": [
+              "speaking",
+              "listening",
+              "walking",
+              "gesturing",
+              "standing",
+              "looking around"
+            ],
+            "camera_and_shot": "close-ups transitioning to wide shots",
+            "lighting_and_color": "even indoor lighting with warm tones in the courtroom and soft ambient light in the gallery",
+            "on_screen_text": []
+          },
+          {
+            "start_time": "00:15:00",
+            "end_time": "00:20:00",
+            "dialogue_description": "During this tense exchange, Harvey Specter confronts Donald, the judge, about the accusations of infidelity that have strained their relationship. Donald, clearly upset, accuses Harvey of sleeping with his wife, implying that Harvey's actions have damaged Donald's reputation. Harvey, defensive yet composed, acknowledges the situation but insists he has no intention of harming Donald's standing. Instead, he reveals that Donald's own reputation is at stake due to his pending divorce, which has left him vulnerable. Donald, realizing the precariousness of his position, shifts the conversation toward a potential deal. He proposes a quid pro quo: if Harvey agrees to falsely claim he slept with Donald's wife, Donald will grant him the injunction he seeks. Harvey, recognizing the absurdity of the situation, refuses to engage in such manipulation. Their exchange ends with mutual understanding—Donald, aware of his own vulnerability, acknowledges that his marriage is already over, and Harvey, despite the pressure, remains steadfast in his principles.",
+            "description": "A man in a suit walks through an art gallery, interacts with a woman, and later appears in a formal setting with another man.",
+            "subjects_and_objects": [
+              "man",
+              "woman",
+              "artworks",
+              "gallery visitors",
+              "suit",
+              "bricks"
+            ],
+            "actions": [
+              "walking",
+              "interacting",
+              "standing",
+              "looking around",
+              "gesturing"
+            ],
+            "camera_and_shot": "wide shots transitioning to medium shots",
+            "lighting_and_color": "soft ambient light in the gallery, dimmer indoor lighting in the formal setting",
+            "on_screen_text": []
+          },
+          {
+            "start_time": "00:20:00",
+            "end_time": "00:25:00",
+            "dialogue_description": "During this interval, Lewis attempts to manipulate Mike into helping him win Tom Keller as a client by suggesting they bond over shared interests, such as smoking marijuana. Lewis implies that Mike’s failed drug test could be an asset, positioning him as someone who understands Tom’s lifestyle. Mike, visibly uncomfortable, resists the pressure, denying any interest in smoking and refusing to comply with Lewis’s demands. Meanwhile, Harvey, who has been monitoring the conversation, remains silent but attentive. His presence suggests he is aware of the situation and may intervene later. The exchange highlights the tension between Lewis’s manipulative tactics and Mike’s reluctance to engage in unethical behavior. Although Mike initially agrees to help Lewis, he quickly backs away, showing hesitation and discomfort. The conversation ends with Mike asserting his independence, signaling a potential shift in his approach to the case. Harvey’s reaction remains unseen, leaving the outcome of his involvement uncertain.",
+            "description": "A shirtless man exits a bathroom stall, revealing his torso as he turns toward another man standing nearby. The second man reacts with surprise or concern.",
+            "subjects_and_objects": [
+              "shirtless man",
+              "another man",
+              "bathroom stall door",
+              "wooden cabinets"
+            ],
+            "actions": [
+              "exiting",
+              "turning",
+              "reacting",
+              "standing"
+            ],
+            "camera_and_shot": "close-up shot focusing on the interaction between two individuals",
+            "lighting_and_color": "warm indoor lighting with wooden textures visible",
+            "on_screen_text": []
+          },
+          {
+            "start_time": "00:25:00",
+            "end_time": "00:30:00",
+            "dialogue_description": "During this tense exchange, Mike Ross struggles to explain his actions to Harvey Specter. Mike reveals that Lewis pressured him to assist with filing the patent, and he reluctantly agreed, fearing Lewis might take credit. Harvey, already skeptical of Mike's reliability, presses him for details. Mike admits he lied to Harvey, claiming Lewis had instructed him, but he insists he did it to prove himself. Harvey, known for his sharp instincts and high standards, is frustrated by Mike's lack of transparency. He accuses Mike of letting him down, but Mike argues that Harvey didn’t want to hear the truth. Harvey, recognizing Mike’s potential despite his mistakes, acknowledges that he needs to be more open. The conversation ends with Mike promising to be honest, and Harvey, though still wary, gives him a second chance. Their dynamic remains strained, but there’s a glimmer of hope that their partnership could still work.",
+            "description": "A man in a suit walks down a city street, accompanied by a woman, passing pedestrians and storefronts.",
+            "subjects_and_objects": [
+              "man",
+              "woman",
+              "pedestrians",
+              "storefronts",
+              "street signs"
+            ],
+            "actions": [
+              "walking",
+              "passing",
+              "looking ahead",
+              "holding hands"
+            ],
+            "camera_and_shot": "medium tracking shot following the pair",
+            "lighting_and_color": "natural daylight with urban surroundings",
+            "on_screen_text": []
+          },
+          {
+            "start_time": "00:30:00",
+            "end_time": "00:35:00",
+            "dialogue_description": "Harvey Specter is speaking with Mike Ross, who has confessed to assisting Lewis with a questionable task. Mike explains that Lewis threatened to fire him unless he helped secure a new client, Tom Keller, by agreeing to help with a controversial task. Harvey, frustrated by Mike's actions, questions his loyalty and warns that if Lewis asks him to do something against Harvey's instructions, he must come to him first. Mike pleads for Harvey's trust, insisting he acted out of necessity and that he is capable of doing the right thing. He offers to work for free as a form of penance, showing his commitment to proving himself. Harvey, while still skeptical, acknowledges Mike's potential and agrees to give him a second chance. The conversation ends with Mike expressing his desire to earn Harvey's trust through his actions. Harvey, recognizing Mike's determination, accepts his offer and moves forward with the case, hopeful that their partnership can lead to success.",
+            "description": "A man in a suit walks through an office space, approaches a desk, and engages in conversation with another individual.",
+            "subjects_and_objects": [
+              "man",
+              "other people",
+              "office furniture",
+              "bookshelves",
+              "globes"
+            ],
+            "actions": [
+              "walking",
+              "approaching",
+              "sitting",
+              "gesturing",
+              "talking"
+            ],
+            "camera_and_shot": "medium shots transitioning to close-ups",
+            "lighting_and_color": "bright indoor lighting with natural light streaming through large windows",
+            "on_screen_text": []
+          },
+          {
+            "start_time": "00:35:00",
+            "end_time": "00:40:00",
+            "dialogue_description": "During the tense exchange, Harvey Specter, along with his associates, discusses the unfolding legal battle over the satellite phone patent. The conversation reveals that Wyatt, the client, has decided to settle for $400 million, a decision influenced by Harvey's earlier suggestion. Harvey, known for his sharp wit and strategic mind, acknowledges the outcome while subtly deflecting credit, claiming it wasn’t truly his idea. Meanwhile, Mike Ross, Harvey’s assistant, interjects, hinting at his own role in the settlement and questioning whether he’ll retain his job. Harvey, ever the tactician, responds with a metaphor about guns loaded with blanks, suggesting that while his actions may have played a part, the real power lies with Wyatt. The exchange ends with Harvey reviewing a copy of Mike’s drug test results, which he claims show he passed. Though the dialogue lacks direct confrontation, it underscores the shifting dynamics between the characters, with Harvey maintaining control while allowing Mike a moment to assert his presence. The scene closes with a sense of cautious optimism, as the settlement moves forward and the characters navigate their complex relationships.",
+            "description": "Two men in suits stand facing each other in a dimly lit outdoor area; one holds a phone to his ear while they converse.",
+            "subjects_and_objects": [
+              "two men",
+              "phone",
+              "streetlights",
+              "trees",
+              "pavement"
+            ],
+            "actions": [
+              "standing",
+              "conversing",
+              "holding phone",
+              "looking at each other"
+            ],
+            "camera_and_shot": "medium shot capturing both individuals",
+            "lighting_and_color": "dim nighttime lighting with artificial streetlights casting shadows",
+            "on_screen_text": []
+          },
+          {
+            "start_time": "00:40:00",
+            "end_time": "00:42:55",
+            "dialogue_description": "SPEAKER_04, Mike Ross, confronts SPEAKER_10, Lewis, about a scheme involving falsified documents. Mike reveals that Lewis showed him fake paperwork, including a fake drug test, to manipulate him into assisting with a confidential task. Mike admits he lied to protect himself and to prove his worth. Lewis, however, frames the situation as a win-win, claiming that the new client, Tom Keller, will benefit from Mike's involvement. He hints that Mike's actions may have secured his place in the firm's future. Mike, realizing the stakes, acknowledges the deception but also points out that Lewis missed a key detail about the drug policy, which would have prevented the false documentation. This detail undermines Lewis's claim of having manipulated the situation. Mike then informs Lewis that he has spoken to Tom Keller, who is considering pairing Mike with Harvey Specter. The exchange ends with Mike asserting his ability to handle the situation, suggesting that he may yet have a role in the unfolding legal battle.",
+            "description": "A man in a suit walks through a warehouse filled with shelves and boxes, interacts with another man near a cart, and later enters an office where he meets another man in front of a glass wall.",
+            "subjects_and_objects": [
+              "man",
+              "other man",
+              "warehouse shelves",
+              "boxes",
+              "cart",
+              "glass wall"
+            ],
+            "actions": [
+              "walking",
+              "interacting",
+              "entering",
+              "meeting",
+              "standing"
+            ],
+            "camera_and_shot": "tracking shot moving through the warehouse, transitioning to static shots inside the office",
+            "lighting_and_color": "industrial fluorescent lighting in the warehouse, bright modern interior lighting in the office",
+            "on_screen_text": []
+          }
+        ],
+        "segments_parsed": 9,
+        "segments_total": 9,
+        "vlm_memory_scenes": null,
+        "visual_only": true,
+        "memory_compacted": false
+      },
+      "timings": {
+        "stage": "vlm",
+        "wall_seconds": 358.495,
+        "spans": [
+          {
+            "name": "vlm_load",
+            "seconds": 6.757,
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+          },
+          {
+            "name": "vlm_generate",
+            "seconds": 43.989,
+            "window": 1,
+            "start": "00:00:00",
+            "end": "00:05:00",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+          },
+          {
+            "name": "vlm_generate",
+            "seconds": 41.04,
+            "window": 2,
+            "start": "00:05:00",
+            "end": "00:10:00",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+          },
+          {
+            "name": "vlm_generate",
+            "seconds": 40.464,
+            "window": 3,
+            "start": "00:10:00",
+            "end": "00:15:00",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+          },
+          {
+            "name": "vlm_generate",
+            "seconds": 41.467,
+            "window": 4,
+            "start": "00:15:00",
+            "end": "00:20:00",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+          },
+          {
+            "name": "vlm_generate",
+            "seconds": 39.675,
+            "window": 5,
+            "start": "00:20:00",
+            "end": "00:25:00",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+          },
+          {
+            "name": "vlm_generate",
+            "seconds": 39.634,
+            "window": 6,
+            "start": "00:25:00",
+            "end": "00:30:00",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+          },
+          {
+            "name": "vlm_generate",
+            "seconds": 39.657,
+            "window": 7,
+            "start": "00:30:00",
+            "end": "00:35:00",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+          },
+          {
+            "name": "vlm_generate",
+            "seconds": 38.596,
+            "window": 8,
+            "start": "00:35:00",
+            "end": "00:40:00",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+          },
+          {
+            "name": "vlm_generate",
+            "seconds": 23.159,
+            "window": 9,
+            "start": "00:40:00",
+            "end": "00:42:55",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+          }
+        ]
+      },
+      "output_file": "Suits.S01E02.mkv_vlm.json",
+      "raw_file": "Suits.S01E02.mkv_vlm_raw.txt",
+      "sidecar_file": "Suits.S01E02.mkv_vlm_sidecar.json",
+      "timings_file": "Suits.S01E02.mkv_vlm_timings.json"
+    },
+    {
+      "stage": "llm",
+      "status": "success",
+      "result": {
+        "recsys_metadata": {
+          "primary_genre": "Drama",
+          "sub_genres": [
+            "Legal",
+            "Corporate",
+            "Psychological"
+          ],
+          "pacing": "Moderate",
+          "mood": [
+            "Tense",
+            "Reflective",
+            "Hopeful"
+          ]
+        },
+        "search_and_discovery": {
+          "semantic_tags": [
+            "Patent Dispute",
+            "Ethical Dilemmas",
+            "Professional Relationships",
+            "Personal Conflict"
+          ],
+          "main_topics": [
+            "Legal Strategy",
+            "Workplace Dynamics",
+            "Moral Integrity"
+          ]
+        },
+        "audience_profiling": {
+          "target_age_group": "Adults",
+          "viewer_interests": [
+            "Lawyers",
+            "Business Ethics",
+            "Character Development"
+          ]
+        },
+        "content_summary": {
+          "visual_style": "The visual style features bright indoor lighting with neutral tones during daytime scenes, transitioning to dim nighttime lighting with artificial streetlights casting shadows in darker moments.",
+          "narrative_hook": "Harvey Specter confronts his assistant Mike Ross about his role in a critical patent filing error, leading to a tense discussion about ethics, professional responsibility, and their intertwined fates."
+        }
+      },
+      "timings": {
+        "stage": "llm",
+        "wall_seconds": 15.523,
+        "spans": [
+          {
+            "name": "llm_load",
+            "seconds": 5.167,
+            "model_id": "Qwen/Qwen3-8B"
+          },
+          {
+            "name": "llm_generate",
+            "seconds": 8.134,
+            "model_id": "Qwen/Qwen3-8B",
+            "attempt": 1
+          }
+        ]
+      },
+      "output_file": "Suits.S01E02.mkv_llm.json",
+      "timings_file": "Suits.S01E02.mkv_llm_timings.json"
+    }
+  ],
+  "archived_files": [
+    "Suits.S01E02.mkv_audio.json",
+    "Suits.S01E02.mkv_audio_timings.json",
+    "Suits.S01E02.mkv_dialogue.json",
+    "Suits.S01E02.mkv_dialogue_timings.json",
+    "Suits.S01E02.mkv_vlm.json",
+    "Suits.S01E02.mkv_vlm_timings.json",
+    "Suits.S01E02.mkv_vlm_raw.txt",
+    "Suits.S01E02.mkv_vlm_sidecar.json",
+    "Suits.S01E02.mkv_llm.json",
+    "Suits.S01E02.mkv_llm_timings.json"
+  ]
+}

@@ -100,7 +100,7 @@ See [docs/local_loop.md](docs/local_loop.md) and [docs/evaluator.md](docs/evalua
 | :--- | :--- |
 | `audio` | Timestamped transcript with speaker labels when diarization succeeds |
 | `dialogue` | High-level plot from every line, then a detailed dialogue description per 5-minute interval |
-| `vlm` | Visual metadata per interval. Each call also receives the dialogue description and the metadata of earlier intervals, limited by `vlm_memory_scenes` |
+| `vlm` | Visual metadata per interval. Each call also receives the dialogue description and the metadata of earlier intervals, limited by `vlm_memory_scenes`. Sampled frames are copied to `runs/local/_cache/<video>/frames/<experiment_id>/` and their timestamps to `*_vlm_frames.json`. |
 | `llm` | `VideoProfile` enriched from the plot summary and the accumulated scene metadata |
 
 ## External evaluator
