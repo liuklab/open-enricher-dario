@@ -12,12 +12,12 @@ from open_enricher.stages.vlm_core.frames import (
 )
 
 
-def test_long_window_is_capped_at_eight_evenly_spaced_frames() -> None:
-    """A 300 s, 24 fps clip at sample fps 2 keeps 8 frames, first and last."""
+def test_long_window_is_capped_at_forty_evenly_spaced_frames() -> None:
+    """A 300 s, 24 fps clip at sample fps 2 keeps 40 frames, first and last."""
     total = 300 * 24
-    count = sampled_frame_count(total, video_fps=24, sample_fps=2, min_frames=2, max_frames=8)
+    count = sampled_frame_count(total, video_fps=24, sample_fps=2, min_frames=2, max_frames=40)
     indices = frame_indices(total, count)
-    assert count == 8
+    assert count == 40
     assert indices[0] == 0
     assert indices[-1] == total - 1
     assert indices == sorted(set(indices))

@@ -32,7 +32,7 @@ Output: `<video>_dialogue.json`, with `plot_summary` and the list of scenes.
 
 ## 4. VLM
 
-Qwen3-VL-8B-Instruct in 4-bit, loaded once. For each window it clips the video and samples at most 8 frames.
+Qwen3-VL-8B-Instruct in 4-bit, loaded once. For each window it clips the video and samples at most 40 frames.
 
 The prompt contains the dialogue description of that window and the metadata already written for every earlier window. Qwen does not keep context between `generate` calls: the memory is only that JSON, passed again in every prompt. Past 8,000 characters it is compacted to a timestamp plus a short description, and an `ALERT` is logged.
 

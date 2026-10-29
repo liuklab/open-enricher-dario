@@ -54,7 +54,7 @@ def sampled_frame_count(
 
     Returns:
         Frame count actually indexed. A 300 s window at ``sample_fps=2``
-        asks for hundreds of frames and is then capped at ``max_frames``.
+        asks for 600 frames and is then capped at ``max_frames``.
     """
     if total_frames <= 0:
         raise ValueError(f"total_frames must be positive, got {total_frames}")

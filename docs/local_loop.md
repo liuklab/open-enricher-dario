@@ -79,7 +79,7 @@ The index rule matches the Qwen video processor:
 
 1. Let `N` be the decoded frame count of the window clip and `video_fps` its average frame rate.
 2. The requested count is `N / video_fps * sample_fps` with `sample_fps` from `vlm_params.json` (2).
-3. Clamp that count between `min_frames` (2 on each window) and `max_frames` (8), then round down to a multiple of 2. Qwen packs frames in pairs. A 300-second window asks for hundreds of frames, so the cap of 8 is what remains.
+3. Clamp that count between `min_frames` (2 on each window) and `max_frames` (40), then round down to a multiple of 2. Qwen packs frames in pairs. A 300-second window asks for hundreds of frames, so the cap of 40 is what remains.
 4. Take that many indices with `linspace` from `0` through `N - 1`, rounded half to even. The first and last frames of the clip are included.
 5. The film timestamp is the window start plus `index / video_fps`.
 

@@ -20,7 +20,7 @@ from open_enricher.timings import TimingRecorder
 
 logger = get_logger(__name__)
 
-SEGMENT_MAX_FRAMES = 8
+SEGMENT_MAX_FRAMES = 40
 SEGMENT_MAX_NEW_TOKENS = 450
 # Prior scene JSON is re-sent on every call. Past this size, keep a short
 # description per interval so the current frames still fit.
