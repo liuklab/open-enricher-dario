@@ -2,7 +2,9 @@
 
 After `llm` writes a `VideoProfile`, the experiment loop scores that profile
 before starting the next variant. The provider is Cursor SDK (`cursor-sdk`)
-with Grok 4.7. The same scorer can still be run on its own:
+with Grok 4.7. The loop always passes `synopsis/<video>_summary.txt` with the
+profile, and fidelity is judged against that text. The same scorer can still
+be run on its own:
 
 ```bash
 pip install -e ".[evaluation]"

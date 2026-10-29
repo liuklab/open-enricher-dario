@@ -200,6 +200,9 @@ def _evaluate_experiment(
     """
     Score archived profiles for one experiment with the Cursor SDK provider.
 
+    Fidelity is judged against ``synopsis/<video>_summary.txt``. A missing
+    synopsis fails that video; there is no fallback to model memory.
+
     Args:
         experiment_id: Stable experiment id under ``runs/local/``.
         videos: Video filenames whose ``*_llm.json`` should be scored.
@@ -212,7 +215,7 @@ def _evaluate_experiment(
     from open_enricher.evaluation.run import evaluate_videos
 
     logger.info(
-        "Evaluating experiment %s with provider=%s",
+        "Evaluating experiment %s with provider=%s synopsis=yes",
         experiment_id,
         DEFAULT_PROVIDER,
     )
@@ -220,6 +223,7 @@ def _evaluate_experiment(
         videos,
         provider_name=DEFAULT_PROVIDER,
         experiment_id=experiment_id,
+        with_synopsis=True,
     )
 
 
@@ -346,6 +350,7 @@ def run_one_experiment(
                 "step": "evaluation",
                 "status": "ok" if eval_ok else "error",
                 "provider": "cursor",
+                "uses_synopsis": True,
                 "detail": evaluation_error,
                 "results": [
                     {

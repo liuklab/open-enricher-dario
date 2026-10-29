@@ -73,8 +73,9 @@ python -m open_enricher --only 01-scene-context --video Stranger_Things.S01E03.m
 ```
 
 When the variant finishes, the loop scores each profile with the Cursor SDK
-evaluator and writes `runs/local/<experiment_id>/<video>/score.json`. To score
-the same archive again against a synopsis file:
+evaluator. The prompt includes `synopsis/<video>_summary.txt` and the profile
+JSON, and writes `runs/local/<experiment_id>/<video>/score.json`. To score
+the same archive again:
 
 ```bash
 python -m open_enricher.evaluation --experiment 01-scene-context --with-synopsis
@@ -107,7 +108,7 @@ See [docs/local_loop.md](docs/local_loop.md) and [docs/evaluator.md](docs/evalua
 
 | Piece | What it does |
 | :--- | :--- |
-| Cursor SDK (`cursor-sdk`) | Runs automatically at the end of each experiment. Scores a profile with a fresh external agent (title from the file name). Host applies dimension weights. |
+| Cursor SDK (`cursor-sdk`) | Runs automatically at the end of each experiment. Scores a profile with a fresh external agent. The prompt carries the title and `synopsis/<video>_summary.txt`. Host applies dimension weights. |
 
 ## Layout
 

@@ -37,13 +37,15 @@ python -m open_enricher --video Stranger_Things.S01E03.mkv Suits.S01E02.mkv
 4. Copy artifacts into `runs/local/<experiment_id>/<video>/` and append
    `progress.jsonl`.
 5. Score each archived profile with the Cursor SDK evaluator (`cursor-sdk`,
-   Grok 4.7, `CURSOR_API_KEY`). This writes `score.json` and refreshes
-   `scores.json` before the next variant starts.
+   Grok 4.7, `CURSOR_API_KEY`). The prompt includes
+   `synopsis/<video>_summary.txt` together with the profile JSON. Fidelity is
+   judged against that text. A missing synopsis fails that video. This writes
+   `score.json` and refreshes `scores.json` before the next variant starts.
 6. On stage or evaluation failure, record the error and continue to the next
    variant.
 
 `pip install -e ".[evaluation]"` is required so `cursor-sdk` is importable.
-The loop does not pass a synopsis. To score again against a synopsis file:
+To score an archive again:
 
 ```bash
 python -m open_enricher.evaluation --experiment 01-scene-context --with-synopsis
