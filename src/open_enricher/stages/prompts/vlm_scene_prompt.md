@@ -1,8 +1,14 @@
 These frames are only {{START}} to {{END}} of a longer file.
 
-Dialogue description of this same interval. It describes what is said, not what the image shows. Use it to keep names and conflicts consistent with the dialogue. Describe the frames. If a frame contradicts the description, trust the frame and say so in the description.
+Scene summary for this same interval. It is a reading key for the frames, not text to rewrite. It fixes who is involved and which facts this interval is about. It does not describe the image.
 
 {{SCENE_DESCRIPTION}}
+
+Stay with those facts. Use them to recognize the people and the moment, then write what the frames show of that moment and what the spoken words alone cannot give: body actions, objects being handled, facial expressions, posture, and the place around them.
+
+description is a visual account of these frames. Do not retell, quote, or paraphrase the summary. Do not list speech acts such as admitting, explaining, negotiating, or praising. If the summary states a fact the frames do not show, leave it out. If a frame contradicts the summary, trust the frame and say so.
+
+subjects_and_objects lists people and things visible in the frames. Use a name from the summary only for a person the frames show. actions lists movements and expressions you can see, not lines that were only spoken.
 {{MEMORY}}
 Return one JSON object and no other text, with these keys:
 description (string), subjects_and_objects (list of strings), actions (list of strings),

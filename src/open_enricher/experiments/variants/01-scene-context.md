@@ -36,7 +36,7 @@ Qwen3-VL-8B-Instruct in 4-bit, loaded once. For each window it clips the video a
 
 The prompt contains the dialogue description of that window and the metadata already written for every earlier window. Qwen does not keep context between `generate` calls: the memory is only that JSON, passed again in every prompt. Past 8,000 characters it is compacted to a timestamp plus a short description, and an `ALERT` is logged.
 
-The model describes the frames. When a frame contradicts the text, the frame wins. For each window it saves `description`, `subjects_and_objects`, `actions`, `camera_and_shot`, `lighting_and_color`, and `on_screen_text`, and it also keeps `dialogue_description`.
+The model uses the dialogue description as a reading key for who is involved and which facts the interval is about, then writes what the frames show of that moment: actions, objects, expressions, and place. It does not retell the spoken summary. When a frame contradicts the text, the frame wins. For each window it saves `description`, `subjects_and_objects`, `actions`, `camera_and_shot`, `lighting_and_color`, and `on_screen_text`, and it also keeps `dialogue_description`.
 
 The accumulation lives in `scene_timeline` of `<video>_vlm.json`. The VLM is then unloaded.
 
