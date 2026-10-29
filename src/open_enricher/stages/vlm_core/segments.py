@@ -43,9 +43,9 @@ def _parse_object(raw_text: str) -> dict[str, Any] | None:
     return payload
 
 
-def _as_list(value: Any) -> list[str]:
+def _as_list(value: Any, *, limit: int = 6) -> list[str]:
     if isinstance(value, list):
-        return [str(item).strip() for item in value if str(item).strip()][:6]
+        return [str(item).strip() for item in value if str(item).strip()][:limit]
     if isinstance(value, str) and value.strip():
         return [value.strip()]
     return []
@@ -141,9 +141,20 @@ def _memory_block(
     return "\n" + block + "\n", compacted
 
 
-def _scene_prompt(scene: dict[str, Any], memory: str, *, visual_only: bool) -> str:
+def _scene_prompt(
+    scene: dict[str, Any],
+    memory: str,
+    *,
+    visual_only: bool,
+    extract_visual: bool = False,
+) -> str:
     start = str(scene.get("start_time") or "")
     end = str(scene.get("end_time") or "")
+    if extract_visual:
+        return fill_prompt(
+            load_prompt("vlm_scene_extract_prompt.md"),
+            {"START": start, "END": end},
+        )
     if visual_only:
         return fill_prompt(
             load_prompt("vlm_scene_visual_prompt.md"),
@@ -171,6 +182,7 @@ def run_segmented(
     experiment_id: str = "",
     vlm_memory_scenes: int | None = None,
     visual_only: bool = False,
+    extract_visual: bool = False,
 ) -> tuple[str, dict[str, Any], bool, int, list[dict[str, Any]]]:
     """
     Run the VLM once per dialogue interval and accumulate the metadata.
@@ -193,6 +205,9 @@ def run_segmented(
         visual_only: When True, the prompt has frames and prior visual
             metadata only. The dialogue description is stored on the segment
             for the final LLM and is not shown to the VLM.
+        extract_visual: When True, each call sees only the frames of the
+            current window. No dialogue summary and no earlier scenes are
+            passed. The prompt asks for visible objects and actions.
 
     Returns:
         Raw joined text, parsed timeline document, whether every window
@@ -236,13 +251,21 @@ def run_segmented(
                 scene.get("start_time"),
                 scene.get("end_time"),
             )
-            memory, compacted = _memory_block(
-                segments,
-                limit=vlm_memory_scenes,
-                visual_only=visual_only,
-            )
+            if extract_visual:
+                memory, compacted = "", False
+            else:
+                memory, compacted = _memory_block(
+                    segments,
+                    limit=vlm_memory_scenes,
+                    visual_only=visual_only,
+                )
             memory_compacted = memory_compacted or compacted
-            prompt = _scene_prompt(scene, memory, visual_only=visual_only)
+            prompt = _scene_prompt(
+                scene,
+                memory,
+                visual_only=visual_only,
+                extract_visual=extract_visual,
+            )
             window_cfg = replace(
                 meta_cfg,
                 prompt=prompt,
@@ -313,8 +336,9 @@ def run_segmented(
             else:
                 parsed_count += 1
                 description = str(parsed.get("description") or "").strip() or "No description."
-                subjects = _as_list(parsed.get("subjects_and_objects"))
-                actions = _as_list(parsed.get("actions"))
+                list_limit = 12 if extract_visual else 6
+                subjects = _as_list(parsed.get("subjects_and_objects"), limit=list_limit)
+                actions = _as_list(parsed.get("actions"), limit=list_limit)
                 camera = str(parsed.get("camera_and_shot") or "").strip()
                 lighting = str(parsed.get("lighting_and_color") or "").strip()
                 texts = _as_list(parsed.get("on_screen_text"))
@@ -340,8 +364,9 @@ def run_segmented(
         "scene_timeline": segments,
         "segments_parsed": parsed_count,
         "segments_total": len(scenes),
-        "vlm_memory_scenes": vlm_memory_scenes,
-        "visual_only": visual_only,
+        "vlm_memory_scenes": 0 if extract_visual else vlm_memory_scenes,
+        "visual_only": visual_only or extract_visual,
+        "extract_visual": extract_visual,
         "memory_compacted": memory_compacted,
     }
     raw_document = "\n\n".join(raw_parts)

@@ -44,3 +44,20 @@ def test_visual_only_memory_drops_dialogue() -> None:
         memory="",
         visual_only=True,
     )
+
+
+def test_extract_prompt_omits_summary_and_memory() -> None:
+    """The extract pass sees neither the dialogue summary nor prior scenes."""
+    text = _scene_prompt(
+        {
+            "start_time": "00:00:00",
+            "end_time": "00:05:00",
+            "description": "they argue about the patent",
+        },
+        memory="earlier scene about the judge",
+        visual_only=False,
+        extract_visual=True,
+    )
+    assert "patent" not in text
+    assert "judge" not in text
+    assert "actions" in text

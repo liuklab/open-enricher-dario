@@ -87,4 +87,4 @@ The JPEG is the full-resolution frame at that index in the re-encoded clip. The 
 
 ## Variants
 
-Specs live in [`src/open_enricher/experiments/variants/`](../src/open_enricher/experiments/variants/). `interval_seconds` is the fixed scene length (300). `vlm_memory_scenes` is null in `01-scene-context` (every earlier scene), 2 in `02-memory-2`, and 4 in `03-memory-4`. `05-visual-only` sets `visual_only` so the VLM does not read dialogue descriptions.
+Specs live in [`src/open_enricher/experiments/variants/`](../src/open_enricher/experiments/variants/). `interval_seconds` is the fixed scene length: 300, except `07-window-600` which uses 600. `vlm_memory_scenes` is null in `01-scene-context` (every earlier scene), 2 in `02-memory-2` and `06-memory-2`, and 4 in `03-memory-4`. `05-visual-only` sets `visual_only` so the VLM does not read dialogue descriptions. `06-memory-2` repeats the `02-memory-2` knobs for a run with 40 frames per window. `08-narrate-visual` shows the VLM only the current frames and asks a text model to narrate each scene from the dialogue summary, the extracted objects and actions, and the two previous dialogue summaries.

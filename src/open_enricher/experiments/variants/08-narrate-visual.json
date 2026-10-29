@@ -1,0 +1,8 @@
+{
+  "experiment_id": "08-narrate-visual",
+  "title": "narrate-visual",
+  "interval_seconds": 300,
+  "vlm_memory_scenes": null,
+  "visual_only": false,
+  "narrate_from_visual": true
+}

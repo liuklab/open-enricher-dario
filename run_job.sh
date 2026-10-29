@@ -19,4 +19,5 @@ export LD_LIBRARY_PATH="$FFMPEG_ROOT/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 
 srun --unbuffered --cpu-bind=verbose \
   /SLURM_shared/st_mdp26/open-enricher/.venv/bin/python -m open_enricher \
+  --only 06-memory-2 07-window-600 08-narrate-visual \
   --video Suits.S01E02.mkv

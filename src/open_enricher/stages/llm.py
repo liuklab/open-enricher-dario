@@ -15,6 +15,12 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 from open_enricher import storage
 from open_enricher.logging_setup import get_logger
+from open_enricher.stages.llm_core.narrate import (
+    NARRATION_CONTEXT_SCENES,
+    narration_system_prompt,
+    narration_user_prompt,
+    previous_scene_summaries,
+)
 from open_enricher.stages.llm_core.prompt import (
     profile_repair_user_prompt,
     profile_system_prompt,
@@ -25,6 +31,8 @@ from open_enricher.stages.video_profile import VideoProfile
 from open_enricher.timings import TimingRecorder
 
 logger = get_logger(__name__)
+
+_THINK_RE = re.compile(r"<think>.*?</think>", flags=re.DOTALL)
 
 
 class LLMStage:
@@ -94,6 +102,86 @@ class LLMStage:
         decoded = tokenizer.decode(new_tokens, skip_special_tokens=True)
         return prefill + decoded
 
+    def _narrate_scenes(
+        self,
+        model: AutoModelForCausalLM,
+        tokenizer: AutoTokenizer,
+        scenes: List[Dict[str, Any]],
+        timing: TimingRecorder,
+    ) -> List[Dict[str, Any]]:
+        """
+        Rewrite each scene from its dialogue summary and the VLM extracts.
+
+        The two previous dialogue summaries are continuity only. The VLM
+        never received them.
+
+        Args:
+            model: Loaded text model.
+            tokenizer: Matching tokenizer.
+            scenes: VLM timeline records.
+            timing: Recorder for one span per scene.
+
+        Returns:
+            Copies of ``scenes`` whose ``description`` is the narration.
+            The VLM sentence is kept on ``visual_description``.
+        """
+        system = narration_system_prompt()
+        rewritten: List[Dict[str, Any]] = []
+        for index, scene in enumerate(scenes):
+            prior = previous_scene_summaries(
+                scenes, index, limit=NARRATION_CONTEXT_SCENES
+            )
+            messages = [
+                {"role": "system", "content": system},
+                {"role": "user", "content": narration_user_prompt(scene, prior)},
+            ]
+            logger.info(
+                "Narrating scene %s/%s %s-%s",
+                index + 1,
+                len(scenes),
+                scene.get("start_time"),
+                scene.get("end_time"),
+            )
+            with timing.span(
+                "scene_narrate",
+                model_id=self.model_id,
+                window=index + 1,
+            ):
+                raw = self._generate_text(
+                    model,
+                    tokenizer,
+                    messages,
+                    prefill="",
+                    max_new_tokens=420,
+                )
+            prose = _THINK_RE.sub("", raw).strip()
+            prose = re.sub(r"^```(?:\w+)?\s*|\s*```$", "", prose).strip()
+            updated = dict(scene)
+            updated["visual_description"] = str(scene.get("description") or "").strip()
+            updated["description"] = prose or updated["visual_description"] or "No description."
+            rewritten.append(updated)
+        return rewritten
+
+    def _write_narrated_timeline(
+        self,
+        video_filename: str,
+        scenes: List[Dict[str, Any]],
+    ) -> None:
+        """Store the narrated descriptions on the VLM timeline."""
+        vlm_path = storage.get_output_dir("vlm") / f"{video_filename}_vlm.json"
+        if not vlm_path.is_file():
+            return
+        payload = json.loads(vlm_path.read_text(encoding="utf-8"))
+        if not isinstance(payload, dict):
+            return
+        payload["scene_timeline"] = scenes
+        payload["narrate_from_visual"] = True
+        payload["narration_context_scenes"] = NARRATION_CONTEXT_SCENES
+        vlm_path.write_text(
+            json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
+            encoding="utf-8",
+        )
+
     def run(self, video_filename: str) -> Dict[str, Any]:
         """
         Fuse upstream metadata into a validated VideoProfile JSON file.
@@ -116,7 +204,7 @@ class LLMStage:
                 "error": "No input metadata found from previous stages.",
             }
 
-        script_text = json.dumps(metadata, separators=(",", ":"), ensure_ascii=False)
+        spec = load_pipeline_spec()
 
         example_structure = {
             "recsys_metadata": {
@@ -155,21 +243,30 @@ class LLMStage:
                 trust_remote_code=True,
             )
 
-        messages = [
-            {"role": "system", "content": profile_system_prompt()},
-            {
-                "role": "user",
-                "content": profile_user_prompt(
-                    script_text=script_text,
-                    example_structure=example_structure,
-                ),
-            },
-        ]
-
         final_json = None
         last_raw_response = ""
+        messages: List[Dict[str, str]] = []
 
         try:
+            if spec.narrate_from_visual:
+                scenes = metadata.get("scene_metadata") or []
+                if isinstance(scenes, list) and scenes:
+                    narrated = self._narrate_scenes(model, tokenizer, scenes, timing)
+                    metadata["scene_metadata"] = narrated
+                    self._write_narrated_timeline(video_filename, narrated)
+
+            script_text = json.dumps(metadata, separators=(",", ":"), ensure_ascii=False)
+            messages = [
+                {"role": "system", "content": profile_system_prompt()},
+                {
+                    "role": "user",
+                    "content": profile_user_prompt(
+                        script_text=script_text,
+                        example_structure=example_structure,
+                    ),
+                },
+            ]
+
             for attempt in range(1, 3):
                 logger.info(f"Generating structured JSON profile (Attempt {attempt}/2)...")
                 with timing.span("llm_generate", model_id=self.model_id, attempt=attempt):

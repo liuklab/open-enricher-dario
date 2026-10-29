@@ -83,7 +83,7 @@ python -m open_enricher.evaluation --experiment 01-scene-context --with-synopsis
 
 ## Sequential experiments
 
-Variants live in `src/open_enricher/experiments/variants/`. Each run sets `OPEN_ENRICHER_PIPELINE_SPEC` to that JSON, executes `audio -> dialogue -> vlm -> llm` in process, and archives under `runs/local/<experiment_id>/`. Audio output is cached under `runs/local/_cache/` because it does not depend on the variant knobs. `01-scene-context` passes every earlier scene to the VLM. `02-memory-2` passes the last 2, and `03-memory-4` passes the last 4. `05-visual-only` keeps every earlier scene but hides dialogue text from the VLM; the final LLM joins speech and frames.
+Variants live in `src/open_enricher/experiments/variants/`. Each run sets `OPEN_ENRICHER_PIPELINE_SPEC` to that JSON, executes `audio -> dialogue -> vlm -> llm` in process, and archives under `runs/local/<experiment_id>/`. Audio output is cached under `runs/local/_cache/` because it does not depend on the variant knobs. `01-scene-context` passes every earlier scene to the VLM. `02-memory-2` and `06-memory-2` pass the last 2, and `03-memory-4` passes the last 4. `05-visual-only` keeps every earlier scene but hides dialogue text from the VLM; the final LLM joins speech and frames. `07-window-600` matches `06-memory-2` with 600-second windows. `08-narrate-visual` keeps 300-second windows: the VLM lists objects and actions from the frames alone, then the text model narrates each scene from that list, the current dialogue summary, and the two previous summaries.
 
 ```bash
 python -m open_enricher --list

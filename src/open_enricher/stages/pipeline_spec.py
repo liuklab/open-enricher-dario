@@ -29,6 +29,7 @@ class PipelineSpec:
     interval_seconds: int
     vlm_memory_scenes: int | None
     visual_only: bool
+    narrate_from_visual: bool
 
 
 def _require_positive_int(name: str, value: Any) -> int:
@@ -128,4 +129,7 @@ def load_pipeline_spec(path: Path | None = None) -> PipelineSpec:
             "vlm_memory_scenes", data.get("vlm_memory_scenes")
         ),
         visual_only=_require_bool("visual_only", data.get("visual_only"), default=False),
+        narrate_from_visual=_require_bool(
+            "narrate_from_visual", data.get("narrate_from_visual"), default=False
+        ),
     )

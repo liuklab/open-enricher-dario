@@ -23,6 +23,7 @@ def test_default_pipeline_spec_loads() -> None:
     assert spec.interval_seconds == 300
     assert spec.vlm_memory_scenes is None
     assert spec.visual_only is False
+    assert spec.narrate_from_visual is False
 
 
 def test_variants_are_valid() -> None:
@@ -41,6 +42,7 @@ def test_variants_are_valid() -> None:
             if spec.vlm_memory_scenes is not None:
                 assert spec.vlm_memory_scenes > 0
             assert isinstance(spec.visual_only, bool)
+            assert isinstance(spec.narrate_from_visual, bool)
         finally:
             if tmp.exists():
                 tmp.unlink()
