@@ -6,6 +6,7 @@ import json
 import re
 import tempfile
 import time
+from contextlib import nullcontext
 from dataclasses import replace
 from pathlib import Path
 from typing import Any
@@ -19,6 +20,28 @@ from open_enricher.stages.vlm_core.video import clip_video_range
 from open_enricher.timings import TimingRecorder
 
 logger = get_logger(__name__)
+
+
+def _timed(
+    timing: TimingRecorder | None,
+    name: str,
+    **extra: Any,
+) -> Any:
+    """
+    Return a timing span, or a no-op context when no recorder was passed.
+
+    Args:
+        timing: Active recorder, or ``None`` when the caller does not time.
+        name: Span name stored on the recorder.
+        **extra: Fields stored next to the duration and the VRAM peak.
+
+    Returns:
+        A context manager.
+    """
+    if timing is None:
+        return nullcontext()
+    return timing.span(name, **extra)
+
 
 SEGMENT_MAX_FRAMES = 40
 SEGMENT_MAX_NEW_TOKENS = 450
@@ -223,17 +246,8 @@ def run_segmented(
         experiment_id or "default",
     )
     logger.info("Loading VLM: %s (4-bit=%s)...", model_cfg.model_id, model_cfg.load_in_4bit)
-    load_started = time.perf_counter()
-    model, processor = load_model(model_cfg)
-    if timing is not None:
-        timing.entries.append(
-            {
-                "name": "vlm_load",
-                "seconds": round(time.perf_counter() - load_started, 3),
-                "model_id": model_cfg.model_id,
-            }
-        )
-        logger.info("TIMING vlm.vlm_load=%ss", timing.entries[-1]["seconds"])
+    with _timed(timing, "vlm_load", model_id=model_cfg.model_id):
+        model, processor = load_model(model_cfg)
 
     segments: list[dict[str, Any]] = []
     raw_parts: list[str] = []
@@ -274,55 +288,46 @@ def run_segmented(
                 max_new_tokens=SEGMENT_MAX_NEW_TOKENS,
                 video_seconds=None,
             )
-            infer_started = time.perf_counter()
-            with tempfile.TemporaryDirectory(prefix="open-enricher-segment-") as tmp:
-                clip = clip_video_range(
-                    video_path,
-                    start,
-                    max(1.0, end - start),
-                    Path(tmp) / f"window_{index}.mp4",
-                )
-                frame_started = time.perf_counter()
-                try:
-                    frame_span = sample_scene(
-                        clip,
-                        video_filename=video_filename,
-                        experiment_id=experiment_id,
-                        scene_index=index,
-                        start_seconds=start,
-                        sample_fps=window_cfg.fps,
-                        min_frames=window_cfg.min_frames,
-                        max_frames=window_cfg.max_frames,
+            with _timed(
+                timing,
+                "vlm_generate",
+                window=index,
+                start=scene.get("start_time"),
+                end=scene.get("end_time"),
+                model_id=model_cfg.model_id,
+            ):
+                with tempfile.TemporaryDirectory(prefix="open-enricher-segment-") as tmp:
+                    clip = clip_video_range(
+                        video_path,
+                        start,
+                        max(1.0, end - start),
+                        Path(tmp) / f"window_{index}.mp4",
                     )
-                except Exception as exc:  # noqa: BLE001 - frames are not inference
-                    logger.warning("VLM frame cache skipped for window %s: %s", index, exc)
-                    frame_span = {
-                        "name": "vlm_frames",
-                        "window": index,
-                        "error": str(exc),
-                        "frames": [],
-                    }
-                frame_span["seconds"] = round(time.perf_counter() - frame_started, 3)
-                frame_span["start"] = scene.get("start_time")
-                frame_span["end"] = scene.get("end_time")
-                frame_spans.append(frame_span)
-                raw_text = extract_metadata(model, processor, clip, window_cfg)
-            if timing is not None:
-                timing.entries.append(
-                    {
-                        "name": "vlm_generate",
-                        "seconds": round(time.perf_counter() - infer_started, 3),
-                        "window": index,
-                        "start": scene.get("start_time"),
-                        "end": scene.get("end_time"),
-                        "model_id": model_cfg.model_id,
-                    }
-                )
-                logger.info(
-                    "TIMING vlm.vlm_generate.window%s=%ss",
-                    index,
-                    timing.entries[-1]["seconds"],
-                )
+                    frame_started = time.perf_counter()
+                    try:
+                        frame_span = sample_scene(
+                            clip,
+                            video_filename=video_filename,
+                            experiment_id=experiment_id,
+                            scene_index=index,
+                            start_seconds=start,
+                            sample_fps=window_cfg.fps,
+                            min_frames=window_cfg.min_frames,
+                            max_frames=window_cfg.max_frames,
+                        )
+                    except Exception as exc:  # noqa: BLE001 - frames are not inference
+                        logger.warning("VLM frame cache skipped for window %s: %s", index, exc)
+                        frame_span = {
+                            "name": "vlm_frames",
+                            "window": index,
+                            "error": str(exc),
+                            "frames": [],
+                        }
+                    frame_span["seconds"] = round(time.perf_counter() - frame_started, 3)
+                    frame_span["start"] = scene.get("start_time")
+                    frame_span["end"] = scene.get("end_time")
+                    frame_spans.append(frame_span)
+                    raw_text = extract_metadata(model, processor, clip, window_cfg)
 
             raw_parts.append(f"--- {scene.get('start_time')}-{scene.get('end_time')} ---\n{raw_text}")
             parsed = _parse_object(raw_text)

@@ -9,7 +9,7 @@ The integrated terminal of this workspace is already an SSH session on the host:
 Cursor on Windows reads `C:\Users\user\.ssh\config`. In the commands below, `user` is a placeholder: replace it with your Windows account name, the folder under `C:\Users\`. A Linux shell on the same PC, such as WSL, reads `~/.ssh/config` in its own home and does not see that alias. `rsync` then tries to resolve `OpenEnricher-Lab` as a DNS name and fails with `Could not resolve hostname`. Pass the Windows file with `ssh -F`:
 
 ```bash
-rsync -avP --exclude '_cache' \
+rsync -avP \
   -e "ssh -F /mnt/c/Users/user/.ssh/config" \
   st_mdp26@OpenEnricher-Lab:/SLURM_shared/st_mdp26/open-enricher/runs/local/ \
   ./runs/local/
@@ -28,7 +28,7 @@ The line must be `hostname 10.79.23.33`. `hostname openenricher-lab` means `ssh`
 Run the command in PowerShell from the local clone. Windows OpenSSH reads `C:\Users\user\.ssh\config` by itself (`user` is again your Windows account name), so `-F` is not required. Pass that `ssh` to `rsync` explicitly. A `rsync` installed beside Git Bash otherwise calls a different `ssh`, which does not see the Cursor host alias.
 
 ```powershell
-rsync -avP --exclude '_cache' `
+rsync -avP `
   -e "C:\Windows\System32\OpenSSH\ssh.exe" `
   st_mdp26@OpenEnricher-Lab:/SLURM_shared/st_mdp26/open-enricher/runs/local/ `
   ./runs/local/
@@ -47,7 +47,7 @@ The remote path is the source. `./runs/local/` is the destination, relative to y
 - `-a` keeps timestamps and permissions.
 - `-v` lists each transferred file.
 - `-P` shows progress and keeps a partial file, so running the command again resumes an interrupted copy.
-- `--exclude '_cache'` leaves the shared audio/color cache on the host. That cache is regenerable.
+- `runs/local/_cache/` is part of the copy. It holds the shared audio and the scene frames.
 
 `rsync` sends only files that are new or changed. A later run updates `./runs/local/` in place.
 

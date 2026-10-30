@@ -24,6 +24,7 @@ from open_enricher.experiments.archive import (
     video_archive_dir,
     write_json,
 )
+from open_enricher.timings import start_device_vram_series, write_performance_csv, write_vram_series_csv
 from open_enricher.experiments.config import (
     CACHE_ROOT,
     PIPELINE_STAGES,
@@ -277,6 +278,11 @@ def run_one_experiment(
 
         for video in videos:
             logger.info(f"Pipeline for video {video}")
+            vram_series = None
+            try:
+                vram_series = start_device_vram_series()
+            except Exception as exc:  # noqa: BLE001 - metrics must not stop the run
+                logger.warning("Device VRAM series skipped: %s", exc)
             try:
                 summary = runner.run_pipeline(
                     video,
@@ -292,13 +298,31 @@ def run_one_experiment(
                     "error": str(exc),
                     "stages": [],
                 }
+            finally:
+                vram_rows: list[dict[str, Any]] = []
+                if vram_series is not None:
+                    try:
+                        vram_rows = vram_series.stop()
+                    except Exception as exc:  # noqa: BLE001 - metrics must not stop the run
+                        logger.warning("Device VRAM series stop skipped: %s", exc)
+                write_vram_series_csv(
+                    experiment_dir(experiment_id) / "performance" / f"{video}_vram.csv",
+                    vram_rows,
+                )
 
             dest = video_archive_dir(experiment_id, video)
             archived = runner.archive_artifacts(video, dest, stages=stages)
             summary["archived_files"] = archived
 
             timing_paths = list(dest.glob(f"{video}_*_timings.json"))
-            write_json(dest / "timings.json", merge_timings(timing_paths))
+            timing_doc = merge_timings(timing_paths)
+            write_json(dest / "timings.json", timing_doc)
+            write_performance_csv(
+                experiment_dir(experiment_id) / "performance" / f"{video}.csv",
+                timing_doc,
+                experiment=experiment_id,
+                video=video,
+            )
             write_json(dest / "result.json", summary)
             video_results.append(summary)
 
