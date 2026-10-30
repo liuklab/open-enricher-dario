@@ -1,0 +1,43 @@
+{
+  "recsys_metadata": {
+    "primary_genre": "Drama",
+    "sub_genres": [
+      "Legal",
+      "Corporate",
+      "Psychological"
+    ],
+    "pacing": "Moderate",
+    "mood": [
+      "Tense",
+      "Introspective",
+      "Confrontational"
+    ]
+  },
+  "search_and_discovery": {
+    "semantic_tags": [
+      "Patent Dispute",
+      "Ethical Dilemma",
+      "Professional Conflict",
+      "Trust Issues",
+      "Power Dynamics",
+      "Moral Ambiguity"
+    ],
+    "main_topics": [
+      "Legal Strategy",
+      "Personal Integrity",
+      "Workplace Relationships"
+    ]
+  },
+  "audience_profiling": {
+    "target_age_group": "Young Adults",
+    "viewer_interests": [
+      "Lawyers",
+      "Corporate Culture",
+      "Character Development"
+    ]
+  },
+  "content_summary": {
+    "visual_style": "The visual style features bright indoor lighting with neutral tones, contrasting with warm highlights in key scenes, creating a balanced atmosphere that reflects the tension between professionalism and personal struggle.",
+    "narrative_hook": "A young lawyer faces ethical dilemmas and professional conflicts as he navigates a high-stakes patent dispute, testing his loyalty and integrity within a competitive corporate environment."
+  }
+}

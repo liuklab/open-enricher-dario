@@ -191,6 +191,10 @@ def save_scene_frames(
     if not indices:
         return []
 
+    # Same ffmpeg invocation shape as clip_video_range. `-vsync` was removed
+    # in FFmpeg 8, which is the binary on the compute nodes. `setpts` makes
+    # the selected frames contiguous, so the image muxer writes one JPEG per
+    # index without a frame-rate mode flag.
     expression = "+".join(f"eq(n\\,{index})" for index in indices)
     pattern = dest_dir / "frame_%02d.jpg"
     cmd = [
@@ -199,8 +203,8 @@ def save_scene_frames(
         "-hide_banner",
         "-loglevel", "error",
         "-i", str(clip),
-        "-vf", f"select='{expression}'",
-        "-vsync", "vfr",
+        "-vf", f"select='{expression}',setpts=N/FRAME_RATE/TB",
+        "-frames:v", str(len(indices)),
         str(pattern),
     ]
     try:

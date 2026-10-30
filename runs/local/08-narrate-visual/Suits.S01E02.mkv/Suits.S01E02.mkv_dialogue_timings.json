@@ -1,0 +1,75 @@
+{
+  "stage": "dialogue",
+  "wall_seconds": 145.129,
+  "spans": [
+    {
+      "name": "plot_load",
+      "seconds": 6.792,
+      "model_id": "Qwen/Qwen3-8B"
+    },
+    {
+      "name": "plot_generate",
+      "seconds": 29.923,
+      "model_id": "Qwen/Qwen3-8B"
+    },
+    {
+      "name": "scene_load",
+      "seconds": 4.251,
+      "model_id": "Qwen/Qwen3-8B"
+    },
+    {
+      "name": "scene_generate",
+      "seconds": 12.172,
+      "model_id": "Qwen/Qwen3-8B",
+      "window": 1
+    },
+    {
+      "name": "scene_generate",
+      "seconds": 12.926,
+      "model_id": "Qwen/Qwen3-8B",
+      "window": 2
+    },
+    {
+      "name": "scene_generate",
+      "seconds": 10.855,
+      "model_id": "Qwen/Qwen3-8B",
+      "window": 3
+    },
+    {
+      "name": "scene_generate",
+      "seconds": 11.441,
+      "model_id": "Qwen/Qwen3-8B",
+      "window": 4
+    },
+    {
+      "name": "scene_generate",
+      "seconds": 10.557,
+      "model_id": "Qwen/Qwen3-8B",
+      "window": 5
+    },
+    {
+      "name": "scene_generate",
+      "seconds": 12.336,
+      "model_id": "Qwen/Qwen3-8B",
+      "window": 6
+    },
+    {
+      "name": "scene_generate",
+      "seconds": 11.925,
+      "model_id": "Qwen/Qwen3-8B",
+      "window": 7
+    },
+    {
+      "name": "scene_generate",
+      "seconds": 12.533,
+      "model_id": "Qwen/Qwen3-8B",
+      "window": 8
+    },
+    {
+      "name": "scene_generate",
+      "seconds": 8.505,
+      "model_id": "Qwen/Qwen3-8B",
+      "window": 9
+    }
+  ]
+}

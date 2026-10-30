@@ -1,0 +1,80 @@
+--- 00:00:00-00:10:00 ---
+{
+  "description": "Mike Ross sits at a desk in an office environment, surrounded by cubicles and shelves filled with boxes. He appears focused on paperwork, occasionally glancing up. A man in a suit walks past him, gesturing toward something off-screen. Another man in a suit stands nearby, looking down at papers. In another scene, Mike is seated across from a woman in a dark dress; she gestures while speaking. Later, Mike is shown standing near a large window overlooking city buildings, holding a folder. He interacts briefly with someone else before turning away. Throughout, various individuals move through hallways and offices, some walking briskly, others pausing to converse.",
+  "subjects_and_objects": [
+    "Mike Ross",
+    "Gregory Boone",
+    "Lewis",
+    "woman in black dress"
+  ],
+  "actions": [
+    "sitting at a desk",
+    "glancing up",
+    "walking past",
+    "gesturing",
+    "standing near a window",
+    "holding a folder",
+    "turning away"
+  ],
+  "camera_and_shot": "medium shots, close-ups, tracking shots following movement",
+  "lighting_and_color": "bright indoor lighting, neutral tones with occasional warm highlights",
+  "on_screen_text": [
+    "Produced By ERIC LADINFIELD",
+    "Executive Producer SEAN JABLONSKI",
+    "Writer BY SEAN JABLONSKI"
+  ]
+}
+
+--- 00:10:00-00:20:00 ---
+{
+  "description": "Harvey Specter strides confidently through a courthouse hallway, flanked by two men in suits. He pauses briefly, exchanging a glance with one of them before continuing forward. Inside the courtroom, he stands tall beside a wooden bench where a judge presides over proceedings. The judge, seated behind a raised dais, looks sternly at Harvey. Other figures in formal attire sit in rows of benches, observing the interaction. Harvey turns slightly, addressing someone off-camera with a composed expression. Behind him, a door marked 'COURTROOM' looms, framed by classical columns. The setting is formal and imposing, lit by natural light filtering through windows.",
+  "subjects_and_objects": ["Harvey Specter", "judge", "two men in suits"],
+  "actions": ["striding confidently", "pausing briefly", "exchanging a glance", "standing tall", "addressing someone off-camera", "turning slightly"],
+  "camera_and_shot": "tracking shot following Harvey, medium shots capturing interactions",
+  "lighting_and_color": "natural daylight illuminating stone walls and wood paneling, muted earthy tones",
+  "on_screen_text": []
+}
+
+--- 00:20:00-00:30:00 ---
+{
+  "description": "Mike Ross enters a bathroom, shirtless, towel wrapped around his waist, and encounters another man who is also shirtless and drying off. They stand facing each other, exchanging glances and expressions ranging from surprise to discomfort. Mike gestures towards the mirror, seemingly reacting to his own reflection or the presence of the other man. The second man steps aside, allowing Mike to turn and face the camera directly, showing a mix of confusion and resignation. The bathroom features wooden cabinets, tiled floors, and a glass shower enclosure. Mike exits the room, pulling his shirt over his head as he goes.",
+  "subjects_and_objects": ["Mike Ross", "man in bathroom"],
+  "actions": [
+    "entering bathroom",
+    "drying off",
+    "facing each other",
+    "glancing at mirror",
+    "stepping aside",
+    "pulling shirt over head"
+  ],
+  "camera_and_shot": "close-up shots focusing on facial expressions, medium shots capturing full-body movements, handheld camera following Mike as he moves",
+  "lighting_and_color": "warm artificial lighting casting soft shadows, beige and brown tones from wooden fixtures and tiles",
+  "on_screen_text": []
+}
+
+--- 00:30:00-00:40:00 ---
+{
+  "description": "Harvey Specter walks briskly through a dimly lit office lobby, passing by a receptionist and heading toward an elevator. He stops briefly to speak with another man in a suit standing near the entrance, gesturing with his hand while talking. Afterward, he continues walking, looking ahead with determination. The scene transitions to a storage area filled with shelves of boxes; Harvey walks past them, pausing momentarily to look at something on a nearby table. A woman in a white lab coat works at a desk in the background.",
+  "subjects_and_objects": ["Harvey Specter", "man in suit", "receptionist", "woman in lab coat"],
+  "actions": ["walking briskly", "gesturing with hand while talking", "pausing momentarily", "looking ahead with determination", "passing by shelves of boxes"],
+  "camera_and_shot": "following shot tracking Harvey's movement, static wide shot in storage area",
+  "lighting_and_color": "dim indoor lighting with warm tones, contrasted by bright fluorescent lights in the storage area",
+  "on_screen_text": []
+}
+
+--- 00:40:00-00:42:55 ---
+{
+  "description": "Mike Ross stands in front of a large window overlooking a city skyline, holding a green canister. He turns slightly, engaging in conversation with Harvey Specter, who is seated across from him. Harvey gestures with his hands as he speaks, occasionally leaning forward. Mike listens intently, nodding subtly. The setting appears to be a modern high-rise office with sleek furniture and framed certificates on the wall. In the background, another individual sits at a desk, focused on paperwork.",
+  "subjects_and_objects": ["Mike Ross", "Harvey Specter", "individual at desk"],
+  "actions": [
+    "holding a green canister",
+    "turning slightly",
+    "gesturing with hands",
+    "leaning forward",
+    "nodding subtly",
+    "sitting at desk"
+  ],
+  "camera_and_shot": "medium close-up framing faces, occasional wider shot including background elements",
+  "lighting_and_color": "soft natural light from windows illuminating the space, neutral tones of office decor with dark wood accents",
+  "on_screen_text": []
+}

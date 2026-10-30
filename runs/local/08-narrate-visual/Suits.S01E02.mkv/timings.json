@@ -1,0 +1,265 @@
+{
+  "stages": [
+    {
+      "stage": "llm",
+      "wall_seconds": 359.945,
+      "spans": [
+        {
+          "name": "llm_load",
+          "seconds": 224.342,
+          "model_id": "Qwen/Qwen3-8B"
+        },
+        {
+          "name": "scene_narrate",
+          "seconds": 10.894,
+          "model_id": "Qwen/Qwen3-8B",
+          "window": 1
+        },
+        {
+          "name": "scene_narrate",
+          "seconds": 11.632,
+          "model_id": "Qwen/Qwen3-8B",
+          "window": 2
+        },
+        {
+          "name": "scene_narrate",
+          "seconds": 12.751,
+          "model_id": "Qwen/Qwen3-8B",
+          "window": 3
+        },
+        {
+          "name": "scene_narrate",
+          "seconds": 11.932,
+          "model_id": "Qwen/Qwen3-8B",
+          "window": 4
+        },
+        {
+          "name": "scene_narrate",
+          "seconds": 11.688,
+          "model_id": "Qwen/Qwen3-8B",
+          "window": 5
+        },
+        {
+          "name": "scene_narrate",
+          "seconds": 12.874,
+          "model_id": "Qwen/Qwen3-8B",
+          "window": 6
+        },
+        {
+          "name": "scene_narrate",
+          "seconds": 13.938,
+          "model_id": "Qwen/Qwen3-8B",
+          "window": 7
+        },
+        {
+          "name": "scene_narrate",
+          "seconds": 11.981,
+          "model_id": "Qwen/Qwen3-8B",
+          "window": 8
+        },
+        {
+          "name": "scene_narrate",
+          "seconds": 11.51,
+          "model_id": "Qwen/Qwen3-8B",
+          "window": 9
+        },
+        {
+          "name": "llm_generate",
+          "seconds": 25.709,
+          "model_id": "Qwen/Qwen3-8B",
+          "attempt": 1
+        }
+      ]
+    },
+    {
+      "stage": "vlm",
+      "wall_seconds": 972.819,
+      "spans": [
+        {
+          "name": "vlm_load",
+          "seconds": 225.674,
+          "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+        },
+        {
+          "name": "vlm_generate",
+          "seconds": 97.935,
+          "window": 1,
+          "start": "00:00:00",
+          "end": "00:05:00",
+          "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+        },
+        {
+          "name": "vlm_generate",
+          "seconds": 88.13,
+          "window": 2,
+          "start": "00:05:00",
+          "end": "00:10:00",
+          "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+        },
+        {
+          "name": "vlm_generate",
+          "seconds": 89.349,
+          "window": 3,
+          "start": "00:10:00",
+          "end": "00:15:00",
+          "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+        },
+        {
+          "name": "vlm_generate",
+          "seconds": 90.813,
+          "window": 4,
+          "start": "00:15:00",
+          "end": "00:20:00",
+          "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+        },
+        {
+          "name": "vlm_generate",
+          "seconds": 82.562,
+          "window": 5,
+          "start": "00:20:00",
+          "end": "00:25:00",
+          "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+        },
+        {
+          "name": "vlm_generate",
+          "seconds": 83.977,
+          "window": 6,
+          "start": "00:25:00",
+          "end": "00:30:00",
+          "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+        },
+        {
+          "name": "vlm_generate",
+          "seconds": 82.856,
+          "window": 7,
+          "start": "00:30:00",
+          "end": "00:35:00",
+          "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+        },
+        {
+          "name": "vlm_generate",
+          "seconds": 82.213,
+          "window": 8,
+          "start": "00:35:00",
+          "end": "00:40:00",
+          "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+        },
+        {
+          "name": "vlm_generate",
+          "seconds": 48.87,
+          "window": 9,
+          "start": "00:40:00",
+          "end": "00:42:55",
+          "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+        }
+      ]
+    },
+    {
+      "stage": "dialogue",
+      "wall_seconds": 145.129,
+      "spans": [
+        {
+          "name": "plot_load",
+          "seconds": 6.792,
+          "model_id": "Qwen/Qwen3-8B"
+        },
+        {
+          "name": "plot_generate",
+          "seconds": 29.923,
+          "model_id": "Qwen/Qwen3-8B"
+        },
+        {
+          "name": "scene_load",
+          "seconds": 4.251,
+          "model_id": "Qwen/Qwen3-8B"
+        },
+        {
+          "name": "scene_generate",
+          "seconds": 12.172,
+          "model_id": "Qwen/Qwen3-8B",
+          "window": 1
+        },
+        {
+          "name": "scene_generate",
+          "seconds": 12.926,
+          "model_id": "Qwen/Qwen3-8B",
+          "window": 2
+        },
+        {
+          "name": "scene_generate",
+          "seconds": 10.855,
+          "model_id": "Qwen/Qwen3-8B",
+          "window": 3
+        },
+        {
+          "name": "scene_generate",
+          "seconds": 11.441,
+          "model_id": "Qwen/Qwen3-8B",
+          "window": 4
+        },
+        {
+          "name": "scene_generate",
+          "seconds": 10.557,
+          "model_id": "Qwen/Qwen3-8B",
+          "window": 5
+        },
+        {
+          "name": "scene_generate",
+          "seconds": 12.336,
+          "model_id": "Qwen/Qwen3-8B",
+          "window": 6
+        },
+        {
+          "name": "scene_generate",
+          "seconds": 11.925,
+          "model_id": "Qwen/Qwen3-8B",
+          "window": 7
+        },
+        {
+          "name": "scene_generate",
+          "seconds": 12.533,
+          "model_id": "Qwen/Qwen3-8B",
+          "window": 8
+        },
+        {
+          "name": "scene_generate",
+          "seconds": 8.505,
+          "model_id": "Qwen/Qwen3-8B",
+          "window": 9
+        }
+      ]
+    },
+    {
+      "stage": "audio",
+      "wall_seconds": 156.517,
+      "spans": [
+        {
+          "name": "whisperx_load",
+          "seconds": 34.136,
+          "model_id": "large-v2"
+        },
+        {
+          "name": "whisperx_transcribe",
+          "seconds": 41.72,
+          "model_id": "large-v2"
+        },
+        {
+          "name": "whisperx_align_load",
+          "seconds": 6.446
+        },
+        {
+          "name": "whisperx_align",
+          "seconds": 12.007
+        },
+        {
+          "name": "diarization_load",
+          "seconds": 7.804
+        },
+        {
+          "name": "diarization_infer",
+          "seconds": 32.387
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "recsys_metadata": {
+    "primary_genre": "Drama",
+    "sub_genres": [
+      "Legal",
+      "Corporate",
+      "Psychological"
+    ],
+    "pacing": "Moderate",
+    "mood": [
+      "Tense",
+      "Introspective",
+      "High Stakes"
+    ]
+  },
+  "search_and_discovery": {
+    "semantic_tags": [
+      "Patent Dispute",
+      "Ethical Dilemma",
+      "Professional Conflict",
+      "Trust Issues"
+    ],
+    "main_topics": [
+      "Legal Strategy",
+      "Workplace Dynamics",
+      "Moral Integrity"
+    ]
+  },
+  "audience_profiling": {
+    "target_age_group": "Young Adults",
+    "viewer_interests": [
+      "Law",
+      "Business Ethics",
+      "Character Development"
+    ]
+  },
+  "content_summary": {
+    "visual_style": "The visual style features bright indoor lighting with neutral tones, contrasting with moments of dimly lit interiors and natural daylight, creating a palette dominated by cool, muted hues.",
+    "narrative_hook": "A seasoned corporate lawyer confronts his protégé about a series of ethical breaches, testing their bond and the integrity of their legal case."
+  }
+}

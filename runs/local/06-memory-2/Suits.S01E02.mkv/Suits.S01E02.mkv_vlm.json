@@ -1,0 +1,212 @@
+{
+  "experiment_id": "06-memory-2",
+  "scene_timeline": [
+    {
+      "start_time": "00:00:00",
+      "end_time": "00:05:00",
+      "dialogue_description": "In this scene, Mike Ross is struggling with the task of filing a patent for Wyatt's satellite phone, a critical component of securing a major investment deal. He confides in Gregory Boone, revealing he has arranged for someone else to handle the patent filing in exchange for proofreading Bainbridge briefs. Gregory, however, seems skeptical, noting the sheer volume of paperwork involved—over 4,000 pages—and questioning Mike's decision to outsource such an important task. Mike, defensive, insists he made the deal and accepts the responsibility, calling himself a \"sucker\" as he acknowledges the absurdity of the situation. Meanwhile, Harvey Specter, who has been absent from the conversation, reappears, having spent the night proofing documents. His presence underscores the high stakes of the situation, as the patent filing directly impacts the outcome of the deal. The exchange ends with Mike reluctantly accepting the reality of his predicament, while Gregory continues to mock the arrangement, highlighting the tension between ambition and the chaotic nature of corporate law.",
+      "description": "Mike Ross sits at a desk, looking down at papers, surrounded by office equipment including a computer monitor and a coffee mug. He stands up, walks toward a doorway, and interacts briefly with another man in a suit holding a card. Later, Mike enters a modern kitchenette area where a woman is working at a counter; he pauses near her before walking away. In another shot, Mike is seen standing beside a large window overlooking city buildings, appearing thoughtful. A woman approaches him in an office setting, handing over a document. Mike later appears seated again, looking at papers, while a woman passes behind him carrying boxes.",
+      "subjects_and_objects": [
+        "Mike Ross",
+        "Gregory Boone",
+        "Harvey Specter",
+        "woman"
+      ],
+      "actions": [
+        "Mike Ross sitting at a desk",
+        "Mike Ross standing up and walking",
+        "Mike Ross interacting with Gregory Boone",
+        "Mike Ross entering a kitchenette",
+        "a woman approaching Mike Ross",
+        "Mike Ross looking at papers"
+      ],
+      "camera_and_shot": "Close-up shots alternating with medium shots, tracking movement through office spaces and corridors.",
+      "lighting_and_color": "Bright, even indoor lighting with neutral tones; outdoor scenes feature blue-tinted urban views.",
+      "on_screen_text": [
+        "GUEST STARRING CURRIE GRAHAM"
+      ]
+    },
+    {
+      "start_time": "00:05:00",
+      "end_time": "00:10:00",
+      "dialogue_description": "SPEAKER_12, representing Wyatt, expresses concern over the denied patent, revealing that Velocity Data Solutions has claimed a similar invention first. This news threatens the investment deal, creating urgency. SPEAKER_03, Mike Ross, admits to not having filed the patent yet, explaining he gave it to Harvey earlier but hasn’t received confirmation. He pleads for more time, promising to complete the filings if Harvey provides the patent confirmation. SPEAKER_04, Harvey Specter, is present and appears to be reviewing Mike’s work, showing interest in his attention to detail. SPEAKER_10, Lewis, acknowledges Mike’s skill, noting his ability to catch discrepancies in the Bainbridge briefs, which had a significant financial impact. He praises Mike’s talent, suggesting Harvey’s high regard for him. Despite the tension from the denied patent and Mike’s past actions, Lewis offers support, indicating a level of trust. The conversation ends with Lewis proposing a meeting for lunch, signaling a tentative alliance. The exchange highlights the stakes of the patent dispute and the potential for Mike to prove his value despite previous missteps.",
+      "description": "Mike Ross walks through a warehouse-like storage room filled with tall shelves of labeled boxes, glancing at files while moving forward. He stops beside a table where another man in a suit stands, gesturing toward stacked folders. Mike turns slightly, listening intently as the man speaks. Behind them, rows of metal shelving stretch into the distance, illuminated by overhead fluorescent lights. Mike then moves toward a glass partition, pausing as a woman in a dark blazer steps forward, holding a tablet displaying data. She hands something to Mike as she looks at him, then turns back to her screen. Mike follows her gaze toward the digital display, nodding subtly. The camera pans upward to reveal towering skyscrapers outside a large window, reflecting sunlight off their glass facades.",
+      "subjects_and_objects": [
+        "Mike Ross",
+        "man in suit",
+        "woman"
+      ],
+      "actions": [
+        "Mike Ross walking through storage aisle",
+        "Mike Ross stopping beside table",
+        "man in suit gesturing toward folders",
+        "woman stepping forward holding tablet",
+        "woman handing item to Mike",
+        "Mike Ross turning head toward digital display"
+      ],
+      "camera_and_shot": "Tracking shot following Mike through warehouse space, cutting to close-ups during interaction, ending with wide-angle view of city skyline through window.",
+      "lighting_and_color": "Cool-toned artificial lighting inside storage area, transitioning to bright natural daylight streaming through windows in final shot.",
+      "on_screen_text": [
+        "Co-Executive Producer JON GORDON",
+        "Executive Producers DAVID BARKER BEAN DIAKINSON",
+        "Produced By STEVE WAKEFIELD",
+        "Producer GENE KLEIN"
+      ]
+    },
+    {
+      "start_time": "00:10:00",
+      "end_time": "00:15:00",
+      "dialogue_description": "Harvey Specter confronts Mike Ross about the late filing of the patent, revealing that Mike had lied about completing the task. Harvey demands that Mike take immediate action to investigate who filed first and suggests contacting a judge to block the competitor's launch. Mike agrees to comply, showing his willingness to follow Harvey's instructions despite the tension. Harvey then shifts focus to the courtroom, where he is facing a judge who criticizes his lack of preparation and rudeness. The judge, clearly frustrated, fines Harvey and dismisses his request for an injunction. Harvey, maintaining his composure, acknowledges the judge's authority while hinting at a personal conflict, suggesting a past affair that may have caused the judge's hostility. Harvey and the judge agree to meet later to file an interference claim with the Patent Office, a process that could determine the patent's validity. The exchange ends with Harvey determined to pursue the case, confident in his arguments despite the obstacles.",
+      "description": "Harvey Specter strides confidently through a courthouse entrance, flanked by Mike Ross, both dressed sharply in suits. They walk side-by-side under the grand columns of the building, passing pedestrians and yellow taxis. Inside, they enter a courtroom where a judge presides, surrounded by legal personnel. Harvey gestures emphatically as he addresses the court, while Mike listens attentively, occasionally glancing at his phone. The judge, seated at the bench, reviews documents with a stern expression. Afterward, Harvey exits the courtroom, followed closely by Mike, who adjusts his tie as they descend stairs. Back in Harvey’s dimly lit office, he stands before a wooden desk cluttered with books and papers, exchanging serious glances with Mike. The two men share a tense moment, their postures rigid, before Harvey turns to face the door, ready to depart.",
+      "subjects_and_objects": [
+        "Harvey Specter",
+        "Mike Ross",
+        "judge",
+        "legal personnel"
+      ],
+      "actions": [
+        "Harvey Specter walking through courthouse entrance",
+        "Mike Ross walking alongside Harvey Specter",
+        "Harvey Specter gesturing while speaking in courtroom",
+        "Mike Ross glancing at phone",
+        "judge reviewing documents",
+        "Harvey Specter exiting courtroom"
+      ],
+      "camera_and_shot": "Wide establishing shots of courthouse exterior, medium shots inside courtroom capturing dialogue, close-ups on faces during intense moments, tracking shot following characters’ exit from courtroom.",
+      "lighting_and_color": "Natural daylight illuminating courthouse exterior, warm wood tones and soft shadows within courtroom, cool ambient light in Harvey’s office with rich brown furnishings.",
+      "on_screen_text": []
+    },
+    {
+      "start_time": "00:15:00",
+      "end_time": "00:20:00",
+      "dialogue_description": "Harvey Specter confronts Mike Ross about his past actions, specifically the fabricated drug test result that led to his involvement with Lewis. Mike explains that he was coerced into smoking marijuana to secure a new client for their firm, revealing the truth behind his actions. Harvey, frustrated and skeptical, demands that Mike confess to the affair with his wife, which led to the current legal dispute. Mike, realizing the gravity of the situation, admits he cannot reveal the truth due to the potential consequences for Harvey's reputation. Harvey, in turn, threatens to expose Mike's actions unless he agrees to sign an injunction. Mike, however, remains defiant, asserting that he will not betray Harvey. The conversation takes a dramatic turn when another party, likely a judge or legal representative, enters the scene, shifting the focus to a patent interference claim. The exchange ends with Harvey and Mike locked in a tense standoff, their relationship hanging by a thread as the legal battle intensifies.",
+      "description": "A man in a dark suit walks briskly down a hallway lined with framed artwork, passing a black leather bench. A woman in a black dress follows closely, smiling faintly as she glances at the art. In the background, two other figures in formal attire stand near a wall, observing the pieces. As they move forward, the camera focuses on their synchronized stride, highlighting the polished floor beneath them.",
+      "subjects_and_objects": [
+        "man",
+        "woman",
+        "two other figures"
+      ],
+      "actions": [
+        "man walking briskly",
+        "woman following closely",
+        "woman glancing at artwork",
+        "two other figures standing near wall"
+      ],
+      "camera_and_shot": "Tracking shot following the main pair down the hallway, cutting to wider angles to include background observers.",
+      "lighting_and_color": "Soft, diffused indoor lighting casting gentle shadows; neutral gray walls contrast with vibrant blue artworks.",
+      "on_screen_text": []
+    },
+    {
+      "start_time": "00:20:00",
+      "end_time": "00:25:00",
+      "dialogue_description": "Lewis approaches Mike, trying to convince him to use his failed drug test as leverage to win over Tom, a potential client. Lewis suggests that Mike's negative test result could be used to connect with Tom, implying they share similar habits. Mike resists, denying he smokes and expressing discomfort with Lewis's tactics. Lewis, however, insists that the situation could be turned into an advantage, hinting at a strategy that involves exploiting Mike's past actions. Mike remains defiant, refusing to comply with Lewis's request to engage in drug-related activities to impress Tom. Their conversation highlights the tension between Mike's personal values and Lewis's manipulative approach. Despite Lewis's attempts to frame the situation as an opportunity, Mike firmly rejects the idea, asserting his own principles. The exchange ends with Mike walking away, having refused to participate in what he sees as unethical behavior, reinforcing his commitment to integrity despite the pressures around him.",
+      "description": "In a locker room setting, a shirtless man with a hairy chest stands with arms crossed, looking directly at another man wearing a white polo shirt. The second man sits on a bench, appearing uncomfortable and defensive. The shirtless man gestures toward himself while speaking, then turns and walks away, leaving the other man staring after him. The environment features wooden lockers, shelves with towels and toiletries, and a mirror reflecting part of the scene.",
+      "subjects_and_objects": [
+        "shirtless man",
+        "man in white polo shirt"
+      ],
+      "actions": [
+        "shirtless man crossing arms",
+        "shirtless man gesturing toward self",
+        "shirtless man turning and walking away",
+        "man in white polo shirt sitting on bench",
+        "man in white polo shirt looking up at shirtless man",
+        "man in white polo shirt reacting with discomfort"
+      ],
+      "camera_and_shot": "Medium close-up framing interactions, slight panning to follow movement, static shots emphasizing reactions and body language.",
+      "lighting_and_color": "Warm artificial lighting casts even illumination across the space; natural wood tones dominate the color palette with muted beige and brown hues.",
+      "on_screen_text": []
+    },
+    {
+      "start_time": "00:25:00",
+      "end_time": "00:30:00",
+      "dialogue_description": "Mike Ross enters the office, visibly upset. He approaches Harvey, who is on the phone, and asks about the confirmation of the interference claim. Harvey, already stressed, questions Mike about his sudden rush to file the patent. Mike explains that Lewis pressured him into smoking marijuana during a tennis match, implying that Lewis manipulated him to secure a client for the firm. Harvey reacts with anger, accusing Lewis of trying to undermine him. Mike insists he didn’t mean to betray Harvey, but Harvey accuses him of being reckless. Mike pleads for understanding, saying he only wanted to prove himself. Harvey, frustrated, tells him to leave. Later, another employee, Donna, finds Mike in the ladies’ room and asks him to keep their conversation private. Mike agrees, revealing he’s worried about how Harvey will react to the truth. Donna suggests he tell Harvey directly, but Mike hesitates, knowing Harvey might not listen. The exchange ends with Mike leaving, still uncertain about how to reconcile with Harvey. The tension between them remains unresolved, highlighting their strained relationship and the weight of the situation.",
+      "description": "A man in a dark suit stands in front of a large window overlooking a cityscape, holding a basketball. He gestures emphatically while speaking to another man seated nearby, who listens intently. The man in the suit moves closer, placing his hand on the shoulder of the seated man, conveying urgency. Behind them, a third man watches from afar, partially obscured by the window frame.",
+      "subjects_and_objects": [
+        "man in dark suit",
+        "seated man",
+        "third man"
+      ],
+      "actions": [
+        "man in dark suit holding basketball",
+        "man in dark suit gesturing while speaking",
+        "man in dark suit moving closer to seated man",
+        "man in dark suit placing hand on seated man's shoulder",
+        "seated man listening intently",
+        "third man watching from distance"
+      ],
+      "camera_and_shot": "Wide-angle establishing shot capturing both men interacting, followed by medium close-ups focusing on facial expressions and gestures.",
+      "lighting_and_color": "Bright daylight streaming through tall windows illuminates the modern office interior; cool blue tones from the skyline contrast with warm indoor lighting.",
+      "on_screen_text": []
+    },
+    {
+      "start_time": "00:30:00",
+      "end_time": "00:35:00",
+      "dialogue_description": "Harvey and Mike engage in a tense conversation about the recent conflict involving the patent and Lewis's coercion. Mike explains that he was forced to smoke marijuana to secure a new client for Lewis, revealing the extent of his predicament. Harvey, frustrated and concerned, questions Mike's loyalty and judgment, emphasizing the need for self-reliance and accountability. Mike, defensive yet earnest, insists he acted under duress and offers to work for free to prove his commitment. Harvey, while skeptical, acknowledges Mike's willingness to make amends. Their exchange highlights the fragile nature of their partnership and the ethical dilemmas they face. Harvey's frustration stems from the broader implications of Mike's actions on the patent case, which could jeopardize their client's future. Despite the tension, both recognize the importance of trust and mutual respect. The dialogue ends with Harvey agreeing to meet with Wyatt, signaling a tentative step toward resolving the conflict. The exchange underscores the complexity of their dynamic and the high stakes involved in their professional relationship.",
+      "description": "In a sleek, modern office with floor-to-ceiling windows showcasing a bustling cityscape, a man in a dark suit walks briskly toward a desk where another man is seated. The standing man pauses briefly, glancing at the seated man before continuing forward. A woman in a striped dress steps into view beside the seated man, her expression serious as she observes the interaction. The standing man stops near a globe and a row of decorative spheres atop a shelf, turning slightly to address someone off-camera. The seated man looks up, his posture shifting as he responds. The camera lingers on the standing man’s profile as he speaks, then cuts to a wider angle showing the entire setup — including the globe, bookshelves, and the expansive urban backdrop.",
+      "subjects_and_objects": [
+        "man in dark suit",
+        "seated man",
+        "woman in striped dress"
+      ],
+      "actions": [
+        "man in dark suit walking briskly",
+        "man in dark suit pausing briefly",
+        "man in dark suit turning to speak",
+        "woman in striped dress stepping into view",
+        "woman in striped dress observing interaction",
+        "seated man looking up"
+      ],
+      "camera_and_shot": "Tracking shot following the man in dark suit, cutting to medium close-ups of faces and upper bodies, wide-angle establishing shot to capture spatial context.",
+      "lighting_and_color": "Natural daylight floods the room through large windows, casting soft shadows; neutral tones of gray and beige dominate the interior, accented by the vibrant blues and grays of the distant city skyline.",
+      "on_screen_text": []
+    },
+    {
+      "start_time": "00:35:00",
+      "end_time": "00:40:00",
+      "dialogue_description": "During this tense interval, Harvey Specter and his team grapple with the fallout of a leaked confidential document. Harvey, known for his sharp legal mind and unyielding demeanor, confronts Mike Ross about the implications of the drug test results. The document, which Mike claims shows he passed the test, becomes a focal point of their discussion. Harvey, skeptical of Mike's intentions, questions his loyalty and the potential consequences of his actions. Mike, however, asserts his commitment to the team, emphasizing that the leak was not his doing and that he remains dedicated to the case. Their exchange highlights the fragile trust between them, with Harvey struggling to reconcile his expectations with Mike's apparent defiance. As the conversation unfolds, Harvey's frustration peaks, revealing his concern over the potential damage to their reputation and the case itself. Despite the tension, Mike's unwavering stance and the promise of a significant settlement hint at a possible resolution, leaving the outcome of their dynamic uncertain. The scene closes with a lingering sense of unresolved conflict, underscoring the complexity of their relationship and the high stakes of their legal battle.",
+      "description": "Two men stand facing each other in an outdoor setting at night, surrounded by trees and dim streetlights. One man holds a folder and speaks while the other listens attentively, occasionally nodding. They walk together along a paved path, exchanging glances and maintaining close proximity. The second man turns away abruptly after a brief pause, suggesting a shift in mood or decision.",
+      "subjects_and_objects": [
+        "man holding folder",
+        "second man"
+      ],
+      "actions": [
+        "man holding folder speaking",
+        "second man listening attentively",
+        "second man nodding",
+        "both men walking along path",
+        "second man turning away abruptly"
+      ],
+      "camera_and_shot": "Medium tracking shots follow the two men as they move, alternating with static close-ups capturing their facial expressions and interactions.",
+      "lighting_and_color": "Dim ambient lighting from street lamps casts soft shadows across wet pavement; muted greens and browns of foliage contrast with the dark silhouettes of the men against the nighttime background.",
+      "on_screen_text": []
+    },
+    {
+      "start_time": "00:40:00",
+      "end_time": "00:42:55",
+      "dialogue_description": "Mike confronts Harvey about the fabricated drug test result that Lewis used to pressure him into smoking marijuana. Mike reveals that he discovered the test was fake and explains that he had read about the Pearson-Hardman drug policy, which states that one must wait three months before requesting another test. This knowledge gives Mike leverage in the situation. He also informs Harvey that Tom Keller, their potential client, has expressed interest in working with both Mike and Harvey. Harvey, initially skeptical, acknowledges Mike's point about the policy and agrees that the situation is a win-win. Despite the tension, the exchange ends with mutual understanding, as both recognize the value of their partnership. The conversation highlights Mike's growing confidence and his ability to navigate the legal system effectively, reinforcing his place within the team.",
+      "description": "Inside a modern glass-walled office overlooking a city at night, a man in a dark suit stands facing another man seated behind a desk. The seated man gestures with a small cylindrical container while speaking, then places it down. The standing man watches intently, his posture rigid. The seated man leans back slightly, appearing thoughtful, then stands and moves toward a door marked 'STUDIO'. The standing man follows, passing framed certificates on the wall. Both men exit through the doorway.",
+      "subjects_and_objects": [
+        "man in dark suit",
+        "seated man"
+      ],
+      "actions": [
+        "seated man gesturing with cylindrical container",
+        "seated man placing container down",
+        "standing man watching intently",
+        "seated man leaning back",
+        "seated man standing and moving toward door",
+        "standing man following"
+      ],
+      "camera_and_shot": "Close-up shots focus on hands and facial expressions during dialogue, followed by medium shots capturing movement through the office space and transition to the hallway.",
+      "lighting_and_color": "Warm artificial light illuminates the interior office, contrasting with the cool blue glow of the city lights outside. Neutral tones of wood and steel dominate the indoor environment.",
+      "on_screen_text": []
+    }
+  ],
+  "segments_parsed": 9,
+  "segments_total": 9,
+  "vlm_memory_scenes": 2,
+  "visual_only": false,
+  "extract_visual": false,
+  "memory_compacted": false
+}

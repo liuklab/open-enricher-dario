@@ -10,3 +10,12 @@
 {"experiment_id": "05-visual-only", "video": "Suits.S01E02.mkv", "step": "pipeline", "status": "ok", "detail": "success", "ts": "2026-10-27T11:21:03.879429+00:00"}
 {"experiment_id": "05-visual-only", "step": "archived", "status": "ok", "results": [{"video": "Suits.S01E02.mkv", "status": "success"}], "ts": "2026-10-27T11:21:04.469116+00:00"}
 {"experiment_id": "05-visual-only", "step": "evaluation", "status": "ok", "provider": "cursor", "detail": null, "results": [{"video": "Suits.S01E02.mkv", "status": "success", "overall": 2.9}], "ts": "2026-10-27T11:26:39.822638+00:00"}
+{"experiment_id": "06-memory-2", "video": "Suits.S01E02.mkv", "step": "pipeline", "status": "ok", "detail": "success", "ts": "2026-10-30T04:11:15.929599+00:00"}
+{"experiment_id": "06-memory-2", "step": "archived", "status": "ok", "results": [{"video": "Suits.S01E02.mkv", "status": "success"}], "ts": "2026-10-30T04:11:16.195470+00:00"}
+{"experiment_id": "06-memory-2", "step": "evaluation", "status": "ok", "provider": "cursor", "uses_synopsis": true, "detail": null, "results": [{"video": "Suits.S01E02.mkv", "status": "success", "overall": 3.9}], "ts": "2026-10-30T04:13:24.118636+00:00"}
+{"experiment_id": "07-window-600", "video": "Suits.S01E02.mkv", "step": "pipeline", "status": "ok", "detail": "success", "ts": "2026-10-30T04:38:03.205781+00:00"}
+{"experiment_id": "07-window-600", "step": "archived", "status": "ok", "results": [{"video": "Suits.S01E02.mkv", "status": "success"}], "ts": "2026-10-30T04:38:03.361034+00:00"}
+{"experiment_id": "07-window-600", "step": "evaluation", "status": "ok", "provider": "cursor", "uses_synopsis": true, "detail": null, "results": [{"video": "Suits.S01E02.mkv", "status": "success", "overall": 3.75}], "ts": "2026-10-30T04:41:36.936585+00:00"}
+{"experiment_id": "08-narrate-visual", "video": "Suits.S01E02.mkv", "step": "pipeline", "status": "ok", "detail": "success", "ts": "2026-10-30T05:06:19.791371+00:00"}
+{"experiment_id": "08-narrate-visual", "step": "archived", "status": "ok", "results": [{"video": "Suits.S01E02.mkv", "status": "success"}], "ts": "2026-10-30T05:06:21.586771+00:00"}
+{"experiment_id": "08-narrate-visual", "step": "evaluation", "status": "ok", "provider": "cursor", "uses_synopsis": true, "detail": null, "results": [{"video": "Suits.S01E02.mkv", "status": "success", "overall": 4.0}], "ts": "2026-10-30T05:08:29.796473+00:00"}

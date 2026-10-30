@@ -1,0 +1,60 @@
+{
+  "video": "Suits.S01E02.mkv",
+  "title": "Suits S01E02",
+  "profile_file": "Suits.S01E02.mkv_llm.json",
+  "dimensions": {
+    "completeness": {
+      "score": 4,
+      "note": "All required fields are present and non-empty. Visual style is atmospheric rather than a concrete style label, and audience is only a broad age band.",
+      "weight": 0.15
+    },
+    "specificity": {
+      "score": 3,
+      "note": "Patent dispute and the loyalty hook are episode-relevant, but mood, topics, and most tags are reusable legal-drama themes; visual style stays at generic lighting language.",
+      "weight": 0.25
+    },
+    "fidelity": {
+      "score": 4,
+      "note": "Drama, corporate law, the patent fight, ethical pressure, and loyalty tests match the synopsis. Psychological and introspective overstate a sharp workplace plot; warm-highlight visuals are unsupported.",
+      "weight": 0.35
+    },
+    "consistency": {
+      "score": 4,
+      "note": "Legal, corporate, confrontational, and patent fields agree. Introspective/psychological mood sits loosely beside the external high-stakes conflict without a hard contradiction.",
+      "weight": 0.1
+    },
+    "recsys_usefulness": {
+      "score": 4,
+      "note": "Genre plus the patent tag and hook would route legal-drama viewers and partly isolate this episode. Broad themes and no character or case names limit catalog precision.",
+      "weight": 0.15
+    }
+  },
+  "overall": 3.75,
+  "overall_normalized": 0.6875,
+  "usable": true,
+  "summary": "The metadata correctly frames this hour as a corporate patent dispute that tests a young lawyer’s loyalty, and the fields mostly agree. It is less useful than it could be because many labels are generic Suits themes and the introspective/psychological slant is stronger than the episode.",
+  "weights": {
+    "completeness": 0.15,
+    "specificity": 0.25,
+    "fidelity": 0.35,
+    "consistency": 0.1,
+    "recsys_usefulness": 0.15
+  },
+  "score_scale": {
+    "min": 1,
+    "max": 5
+  },
+  "thresholds": {
+    "usable_overall_min": 3.0,
+    "usable_fidelity_min": 2
+  },
+  "method": {
+    "kind": "external_provider",
+    "provider": "cursor",
+    "model": "grok-4.7",
+    "uses_synopsis": true,
+    "uses_pipeline_evidence": false,
+    "title_source": "video_filename"
+  },
+  "parse_errors": []
+}

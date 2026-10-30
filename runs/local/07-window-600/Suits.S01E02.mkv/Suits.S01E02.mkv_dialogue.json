@@ -1,0 +1,53 @@
+{
+  "experiment_id": "07-window-600",
+  "interval_seconds": 600,
+  "plot_summary": "In this scene, Harvey Specter, a seasoned corporate lawyer, is dealing with a complex legal dispute involving his client, Wyatt, and a competing company, Velocity Data Solutions. The conflict centers around a patent for a revolutionary satellite phone, which Wyatt developed with the help of his assistant, Mike Ross. The patent is crucial for securing a major investment deal, but it faces challenges from Velocity, which claims to have filed a similar patent first. \n\nHarvey is frustrated by the situation, especially after learning that Mike, who has been working closely with him, may have inadvertently compromised the case by filing the patent late. Meanwhile, Mike is caught in a web of complications, including a fabricated drug test result that Lewis, his colleague, used to pressure him into smoking marijuana to secure a new client for their firm. This act, which Mike reveals was coerced, leads to tension with Harvey, who questions Mike’s loyalty and judgment.\n\nAs the situation escalates, Harvey confronts Mike about his actions, leading to a confrontation that tests their relationship. However, the resolution comes when Mike demonstrates his ability to navigate the legal system effectively, proving his worthiness to be part of the team. The case ultimately ends with a settlement, highlighting the importance of trust, loyalty, and the complexities of navigating corporate law. The resolution underscores the themes of personal integrity and professional growth, showcasing how each character navigates their respective challenges.",
+  "plot_sampled": false,
+  "scenes": [
+    {
+      "start_time": "00:00:00",
+      "end_time": "00:10:00",
+      "start_seconds": 0.0,
+      "end_seconds": 600.0,
+      "dialogue_lines": 217,
+      "dialogue_sampled": false,
+      "description": "During this tense interval, Mike Ross finds himself caught in a precarious situation. He is tasked with filing a patent for Wyatt's revolutionary satellite phone, a critical component of securing a major investment deal. However, he has not yet completed the necessary paperwork, and his lack of experience with patent filings raises concerns. Gregory Boone, one of Mike's colleagues, has taken advantage of the situation, delegating his work to Mike while he avoids responsibility. When confronted by Lewis, who suspects Gregory of manipulating Mike, Mike admits to volunteering for the task, revealing his eagerness to prove himself. Lewis, recognizing Mike's exceptional attention to detail, commends him for catching discrepancies in financial documents, highlighting Mike's potential. Despite the complications, Mike remains committed to his role, demonstrating his dedication and capability. His efforts, though still incomplete, signal his growing importance within the firm. The conversation ends on a hopeful note, with Lewis expressing confidence in Mike's abilities and suggesting a future meeting to further develop his skills. Mike's actions underscore his determination to earn his place in the legal world, despite the challenges he faces."
+    },
+    {
+      "start_time": "00:10:00",
+      "end_time": "00:20:00",
+      "start_seconds": 600.0,
+      "end_seconds": 1200.0,
+      "dialogue_lines": 201,
+      "dialogue_sampled": false,
+      "description": "During the tense exchange, Harvey confronts Mike about the delayed patent filing, revealing that Mike's actions have jeopardized the case. Mike admits he didn’t know how to file the patent properly, and Harvey accuses him of lying about following through. Mike expresses concern about the consequences, asking what will happen now. Harvey outlines a plan to investigate who filed first and to seek an injunction to block the competitor’s product launch. He also mentions needing to call Wyatt to calm him down, indicating the stakes are high for the client. As the hearing unfolds, Harvey faces a judge who criticizes him for arriving late and not preparing properly, leading to fines and a denied request. The judge, who appears personally offended by Harvey, hints at a past affair with Harvey’s wife, suggesting a deeper conflict. Harvey, realizing the judge’s bias, shifts focus to the patent dispute, emphasizing the need for an injunction. The judge, however, threatens to dismiss the case unless Harvey signs a document admitting to sleeping with his wife, hinting at a potential blackmail scenario. Harvey remains defiant, aware that the judge’s personal vendetta could derail the case. The exchange ends with the judge threatening to overturn his previous ruling, leaving the future of the case uncertain."
+    },
+    {
+      "start_time": "00:20:00",
+      "end_time": "00:30:00",
+      "start_seconds": 1200.0,
+      "end_seconds": 1800.0,
+      "dialogue_lines": 178,
+      "dialogue_sampled": false,
+      "description": "Lewis confronts Mike about his involvement with Harvey, revealing that he pressured Mike to take a drug test and smoke marijuana to win a client. Mike, defensive and upset, explains that he was coerced into the situation and that he lied to Harvey about it. Lewis, however, seems unfazed, suggesting that Mike’s actions could still be leveraged for their benefit. Mike, visibly shaken, admits he feels guilty for misleading Harvey and expresses concern about the consequences of his actions. Harvey, who has been on the phone during much of the exchange, remains silent until the end, when he finally speaks, acknowledging that Mike has let him down. Despite Mike’s attempts to explain, Harvey’s response suggests he is unwilling to listen or forgive, highlighting the tension between them. The conversation ends with Mike expressing regret over his actions and a sense of betrayal from Harvey, leaving their relationship strained and uncertain. The exchange underscores the complexity of their dynamic and the potential fallout from Mike’s past decisions."
+    },
+    {
+      "start_time": "00:30:00",
+      "end_time": "00:40:00",
+      "start_seconds": 1800.0,
+      "end_seconds": 2400.0,
+      "dialogue_lines": 189,
+      "dialogue_sampled": false,
+      "description": "Harvey Specter and Mike Ross confront each other in a tense exchange. Mike explains that he was forced by Lewis to fail a drug test and smoke marijuana, revealing the coercion behind his actions. Harvey, frustrated and skeptical, questions Mike's judgment and loyalty, accusing him of making poor decisions. Mike defends himself, asserting that he acted in self-preservation and that he is capable of handling difficult situations. Harvey challenges Mike's ability to think independently, suggesting that if someone threatens him with a gun, he should fight back or find another way out. Mike counters by stating he knows how to navigate tough scenarios and reiterates his commitment to the team. Harvey acknowledges Mike's willingness to work hard and offers him a chance to prove himself. The conversation shifts as Mike shares that he has a copy of Harvey's drug test results, hinting at potential consequences for Harvey's past actions. The exchange ends with Harvey acknowledging the complexity of their situation and agreeing to discuss Mike's future role in the firm."
+    },
+    {
+      "start_time": "00:40:00",
+      "end_time": "00:42:55",
+      "start_seconds": 2400.0,
+      "end_seconds": 2574.655,
+      "dialogue_lines": 39,
+      "dialogue_sampled": false,
+      "description": "Mike confronts Harvey about the fabricated drug test result that Lewis used to pressure him into smoking marijuana. Mike reveals that he discovered the test was fake and explains that he had read about the Pearson-Hardman drug policy, which states that one must wait three months before requesting another test. This knowledge gives Mike leverage in the situation. He also informs Harvey that Tom Keller, their potential client, has expressed interest in working with both Mike and Harvey. Harvey, initially skeptical, acknowledges Mike's point about the policy and agrees that the situation is a win-win. Despite the tension, the exchange ends with mutual understanding, as both recognize the value of their partnership. The conversation highlights Mike's growing confidence and his ability to navigate the legal system effectively, reinforcing his place within the team."
+    }
+  ]
+}

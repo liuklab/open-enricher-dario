@@ -1,0 +1,62 @@
+{
+  "Suits.S01E02.mkv": {
+    "video": "Suits.S01E02.mkv",
+    "title": "Suits S01E02",
+    "profile_file": "Suits.S01E02.mkv_llm.json",
+    "dimensions": {
+      "completeness": {
+        "score": 5,
+        "note": "Genre, pacing, mood, tags, topics, audience, visual style, and narrative hook are all present and substantive.",
+        "weight": 0.15
+      },
+      "specificity": {
+        "score": 3,
+        "note": "Patent Dispute is episode-specific, but pacing, mood, topics, audience, and the hook stay generic series-level legal-drama language and omit the satellite-phone case, Louis, and the drug-test blackmail.",
+        "weight": 0.25
+      },
+      "fidelity": {
+        "score": 4,
+        "note": "Drama, corporate law, the patent fight, ethical conflict, and the mentor loyalty clash match the synopsis. Psychological and Introspective overstate the tone, and unintentionally softens Mike's deliberate lie about the filing.",
+        "weight": 0.35
+      },
+      "consistency": {
+        "score": 4,
+        "note": "Legal, corporate, tense, and high-stakes fields align with the patent deal and ethics tags. Psychological/introspective sit awkwardly beside that procedural frame, and the hook's unintentional threat slightly clashes with trust and ethical-conflict tags.",
+        "weight": 0.1
+      },
+      "recsys_usefulness": {
+        "score": 4,
+        "note": "Patent, legal, and ethics signals would retrieve the right adult legal-drama audience, though broad labels and the psychological tag would also match many other Suits episodes and some unlike titles.",
+        "weight": 0.15
+      }
+    },
+    "overall": 3.9,
+    "overall_normalized": 0.725,
+    "usable": true,
+    "summary": "The metadata is complete and largely faithful to this episode's patent dispute and Harvey-Mike loyalty conflict, and it would support sensible legal-drama retrieval. It is only moderately specific, and the psychological, introspective, and unintentional wording dilute an otherwise consistent profile.",
+    "weights": {
+      "completeness": 0.15,
+      "specificity": 0.25,
+      "fidelity": 0.35,
+      "consistency": 0.1,
+      "recsys_usefulness": 0.15
+    },
+    "score_scale": {
+      "min": 1,
+      "max": 5
+    },
+    "thresholds": {
+      "usable_overall_min": 3.0,
+      "usable_fidelity_min": 2
+    },
+    "method": {
+      "kind": "external_provider",
+      "provider": "cursor",
+      "model": "grok-4.7",
+      "uses_synopsis": true,
+      "uses_pipeline_evidence": false,
+      "title_source": "video_filename"
+    },
+    "parse_errors": []
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "stage": "llm",
+  "wall_seconds": 240.104,
+  "spans": [
+    {
+      "name": "llm_load",
+      "seconds": 220.71,
+      "model_id": "Qwen/Qwen3-8B"
+    },
+    {
+      "name": "llm_generate",
+      "seconds": 18.805,
+      "model_id": "Qwen/Qwen3-8B",
+      "attempt": 1
+    }
+  ]
+}

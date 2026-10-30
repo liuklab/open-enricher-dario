@@ -1,0 +1,60 @@
+{
+  "video": "Suits.S01E02.mkv",
+  "title": "Suits S01E02",
+  "profile_file": "Suits.S01E02.mkv_llm.json",
+  "dimensions": {
+    "completeness": {
+      "score": 5,
+      "note": "Genre, pacing, mood, tags, topics, audience, visual style, and narrative hook are all present and non-empty.",
+      "weight": 0.15
+    },
+    "specificity": {
+      "score": 3,
+      "note": "Patent Dispute is episode-specific, but the hook, topics, mood, and visual style stay generic mentor-and-ethics language that could fit most of the series.",
+      "weight": 0.25
+    },
+    "fidelity": {
+      "score": 4,
+      "note": "Legal/corporate drama, the patent fight, and the Harvey–Mike trust conflict match the synopsis. Psychological and introspective overstate the slick, plot-driven tone, and the hook flattens the case, Louis’s blackmail, and the judge subplot into a vague ethical-breach confrontation.",
+      "weight": 0.35
+    },
+    "consistency": {
+      "score": 5,
+      "note": "Genre, tags, topics, audience, and hook agree on a tense legal workplace story about ethics, trust, and case strategy.",
+      "weight": 0.1
+    },
+    "recsys_usefulness": {
+      "score": 4,
+      "note": "Patent dispute plus law and ethics tags would route this to workplace-legal viewers, though the thin episode detail would also match many other Suits hours.",
+      "weight": 0.15
+    }
+  },
+  "overall": 4.0,
+  "overall_normalized": 0.75,
+  "usable": true,
+  "summary": "The profile correctly frames Suits S01E02 as a legal workplace drama about a patent fight and mentor-protégé trust, but it stays generic and slightly misreads the tone as psychological and introspective.",
+  "weights": {
+    "completeness": 0.15,
+    "specificity": 0.25,
+    "fidelity": 0.35,
+    "consistency": 0.1,
+    "recsys_usefulness": 0.15
+  },
+  "score_scale": {
+    "min": 1,
+    "max": 5
+  },
+  "thresholds": {
+    "usable_overall_min": 3.0,
+    "usable_fidelity_min": 2
+  },
+  "method": {
+    "kind": "external_provider",
+    "provider": "cursor",
+    "model": "grok-4.7",
+    "uses_synopsis": true,
+    "uses_pipeline_evidence": false,
+    "title_source": "video_filename"
+  },
+  "parse_errors": []
+}
