@@ -1,0 +1,130 @@
+--- 00:00:00-00:05:00 ---
+{
+  "description": "A group of people are gathered in various indoor settings including a living room, bar, and store.",
+  "subjects_and_objects": [
+    "people",
+    "sofa",
+    "laptop",
+    "bar stools",
+    "bottles",
+    "glasses",
+    "couches",
+    "shelves",
+    "cluttered desk",
+    "crane machine",
+    "store shelves"
+  ],
+  "actions": [
+    "sitting",
+    "talking",
+    "smiling",
+    "laughing",
+    "looking at laptop",
+    "walking through store",
+    "holding microphone"
+  ],
+  "camera_and_shot": "close-up shots transitioning to wider views",
+  "lighting_and_color": "warm interior lighting with dim ambiance",
+  "on_screen_text": [
+    "the year 2030",
+    "with ralph patel & higiris"
+  ]
+}
+
+--- 00:05:00-00:10:00 ---
+{
+  "description": "A man walks through a toy store while two men in yellow raincoats work behind him; later, he interacts with a woman in a grocery aisle.",
+  "subjects_and_objects": [
+    "man",
+    "woman",
+    "men in yellow raincoats",
+    "toys",
+    "grocery shelves",
+    "cans",
+    "refrigerator"
+  ],
+  "actions": [
+    "walking",
+    "smiling",
+    "looking around",
+    "talking",
+    "kneeling"
+  ],
+  "camera_and_shot": "medium shot",
+  "lighting_and_color": "bright indoor lighting, colorful toys and products",
+  "on_screen_text": []
+}
+
+--- 00:10:00-00:15:00 ---
+{
+  "description": "A group of people are gathered in a cluttered living room, interacting socially while some sit on couches and others stand around.",
+  "subjects_and_objects": [
+    "people",
+    "couches",
+    "red cups",
+    "lamp",
+    "bookshelves",
+    "door",
+    "decorative items"
+  ],
+  "actions": [
+    "standing",
+    "sitting",
+    "holding drinks",
+    "talking",
+    "smiling",
+    "gesturing",
+    "walking through doorway"
+  ],
+  "camera_and_shot": "medium shot",
+  "lighting_and_color": "warm indoor lighting with neutral tones",
+  "on_screen_text": []
+}
+
+--- 00:15:00-00:20:00 ---
+{
+  "description": "A man and woman stand close together on a rooftop at night, surrounded by string lights and city buildings.",
+  "subjects_and_objects": [
+    "man",
+    "woman",
+    "rooftop",
+    "string lights",
+    "city skyline",
+    "brick wall",
+    "tree"
+  ],
+  "actions": [
+    "standing",
+    "looking at each other",
+    "leaning toward each other",
+    "talking",
+    "smiling",
+    "moving hands slightly"
+  ],
+  "camera_and_shot": "medium shot, panning slightly between them",
+  "lighting_and_color": "dim ambient light from string lights, warm tones against dark background",
+  "on_screen_text": []
+}
+
+--- 00:20:00-00:22:06 ---
+{
+  "description": "A group of people are seated at tables in a dimly lit bar, engaging in conversation while holding drinks.",
+  "subjects_and_objects": [
+    "people",
+    "drinks",
+    "bar stools",
+    "tables",
+    "neon signs",
+    "bartenders"
+  ],
+  "actions": [
+    "sitting",
+    "talking",
+    "gesturing",
+    "smiling",
+    "holding glasses"
+  ],
+  "camera_and_shot": "medium shot",
+  "lighting_and_color": "dim, warm ambient lighting with neon accents",
+  "on_screen_text": []
+}

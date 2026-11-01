@@ -1,0 +1,60 @@
+{
+  "video": "How_I_Met_Your_Mother.S01E02.mkv",
+  "title": "How I Met Your Mother S01E02",
+  "profile_file": "How_I_Met_Your_Mother.S01E02.mkv_llm.json",
+  "dimensions": {
+    "completeness": {
+      "score": 4,
+      "note": "All required fields are present and non-empty, including genre, pacing, mood, tags, topics, audience, visual style, and narrative hook. Several values are broad category labels rather than richly informative episode detail.",
+      "weight": 0.15
+    },
+    "specificity": {
+      "score": 2,
+      "note": "Aside from naming Ted and Robin, tags and topics rely on generic fillers such as social interactions, character development, emotional growth, self-discovery, and social situations. Distinctive beats—the casual-dating mismatch, three parties, roof, Marshall’s paper, Barney’s hookup, and the friends ending—are absent.",
+      "weight": 0.25
+    },
+    "fidelity": {
+      "score": 4,
+      "note": "Comedy, romance, sitcom, young-adult tone, and Ted’s awkward, misguided pursuit of Robin match the synopsis. Drama, self-discovery, and social commentary overreach, and the colorful-toys visual style inflates a brief bodega news bit rather than the episode’s bar, apartment, and rooftop look.",
+      "weight": 0.35
+    },
+    "consistency": {
+      "score": 4,
+      "note": "Genre, humorous-sentimental mood, relationship tags, and the hook all point to a light romantic sitcom. Social commentary and Drama sit awkwardly beside light-hearted humor but do not create a hard contradiction.",
+      "weight": 0.1
+    },
+    "recsys_usefulness": {
+      "score": 3,
+      "note": "Coarse signals would send this to viewers who want young-adult romantic sitcoms about friendship and dating. The generic tags would not separate this episode from other HIMYM episodes or similar ensemble romcom sitcoms.",
+      "weight": 0.15
+    }
+  },
+  "overall": 3.35,
+  "overall_normalized": 0.5875,
+  "usable": true,
+  "summary": "The metadata correctly frames the episode as a young-adult romantic sitcom about Ted’s awkward pursuit of Robin, and the fields mostly agree. It is too generic for episode-level retrieval and slightly overclaims drama, social commentary, and a toy-shop visual style.",
+  "weights": {
+    "completeness": 0.15,
+    "specificity": 0.25,
+    "fidelity": 0.35,
+    "consistency": 0.1,
+    "recsys_usefulness": 0.15
+  },
+  "score_scale": {
+    "min": 1,
+    "max": 5
+  },
+  "thresholds": {
+    "usable_overall_min": 3.0,
+    "usable_fidelity_min": 2
+  },
+  "method": {
+    "kind": "external_provider",
+    "provider": "cursor",
+    "model": "grok-4.7",
+    "uses_synopsis": true,
+    "uses_pipeline_evidence": false,
+    "title_source": "video_filename"
+  },
+  "parse_errors": []
+}

@@ -1,39 +1,159 @@
 {
-  "Suits.S01E02.mkv": {
-    "video": "Suits.S01E02.mkv",
-    "title": "Suits S01E02",
-    "profile_file": "Suits.S01E02.mkv_llm.json",
+  "How_I_Met_Your_Mother.S01E02.mkv": {
+    "video": "How_I_Met_Your_Mother.S01E02.mkv",
+    "title": "How I Met Your Mother S01E02",
+    "profile_file": "How_I_Met_Your_Mother.S01E02.mkv_llm.json",
     "dimensions": {
       "completeness": {
-        "score": 5,
-        "note": "Genre, pacing, mood, tags, topics, audience, visual style, and narrative hook are all present and substantive.",
+        "score": 4,
+        "note": "All required fields are present and non-empty, including genre, pacing, mood, tags, topics, audience, visual style, and hook. Visual style and a few topics are thin stock phrases rather than informative detail.",
         "weight": 0.15
       },
       "specificity": {
-        "score": 3,
-        "note": "Patent Dispute is episode-specific, but pacing, mood, topics, audience, and the hook stay generic series-level legal-drama language and omit the satellite-phone case, Louis, and the drug-test blackmail.",
+        "score": 2,
+        "note": "Most values are series-level fillers (moderate pacing, friendship, personal growth, social humor) that fit many episodes. Only the hook names Ted and Robin; nothing captures the parties, roof, law paper, or crane-machine subplot.",
         "weight": 0.25
       },
       "fidelity": {
         "score": 4,
-        "note": "Drama, corporate law, the patent fight, ethical conflict, and the mentor loyalty clash match the synopsis. Psychological and Introspective overstate the tone, and unintentionally softens Mike's deliberate lie about the filing.",
+        "note": "Comedy, romance, sitcom, young-adult tone, and Ted’s misguided pursuit of Robin match the synopsis, including the heartfelt friends ending. Social satire is unsupported, drama is overstated, misunderstood intentions misreads Robin (she sees his feelings clearly), and the color-emotion visual style is not in the synopsis.",
         "weight": 0.35
       },
       "consistency": {
         "score": 4,
-        "note": "Legal, corporate, tense, and high-stakes fields align with the patent deal and ethics tags. Psychological/introspective sit awkwardly beside that procedural frame, and the hook's unintentional threat slightly clashes with trust and ethical-conflict tags.",
+        "note": "Genre, humorous/sentimental mood, relationship topics, audience, and the Ted–Robin hook agree. Social satire and drama sit awkwardly beside the light romantic-comedy frame without a hard contradiction.",
+        "weight": 0.1
+      },
+      "recsys_usefulness": {
+        "score": 3,
+        "note": "Coarse filters would reach young-adult rom-com sitcom viewers, and the hook is a usable query. Low episode distinctiveness plus the satire tag would mix this with other early episodes and the wrong neighbors.",
+        "weight": 0.15
+      }
+    },
+    "overall": 3.35,
+    "overall_normalized": 0.5875,
+    "usable": true,
+    "summary": "The record is complete and broadly true to this episode’s romantic sitcom premise, but it stays generic and adds a few unsupported labels. It would help coarse recommendation more than precise retrieval of S01E02.",
+    "weights": {
+      "completeness": 0.15,
+      "specificity": 0.25,
+      "fidelity": 0.35,
+      "consistency": 0.1,
+      "recsys_usefulness": 0.15
+    },
+    "score_scale": {
+      "min": 1,
+      "max": 5
+    },
+    "thresholds": {
+      "usable_overall_min": 3.0,
+      "usable_fidelity_min": 2
+    },
+    "method": {
+      "kind": "external_provider",
+      "provider": "cursor",
+      "model": "grok-4.7",
+      "uses_synopsis": true,
+      "uses_pipeline_evidence": false,
+      "title_source": "video_filename"
+    },
+    "parse_errors": []
+  },
+  "Silicon_Valley.S06E01.mkv": {
+    "video": "Silicon_Valley.S06E01.mkv",
+    "title": "Silicon Valley S06E01",
+    "profile_file": "Silicon_Valley.S06E01.mkv_llm.json",
+    "dimensions": {
+      "completeness": {
+        "score": 4,
+        "note": "All required fields are present and non-empty, including genre, pacing, mood, tags, topics, audience, visual style, and hook. Several entries are thin theme labels rather than sharp descriptors.",
+        "weight": 0.15
+      },
+      "specificity": {
+        "score": 2,
+        "note": "Tags stay at series-level abstractions (data privacy, ethics, power dynamics) and never name episode-specific beats such as the congressional testimony, Colin’s data grab, the Gilfoyle/Dinesh AIs, Gwart, or Hooli.",
+        "weight": 0.25
+      },
+      "fidelity": {
+        "score": 2,
+        "note": "The data-ethics clash is in the right neighborhood, but Silicon Valley is a comedy mislabeled as drama, with a tense/reflective tone. Decentralization, surveillance, personal betrayals, and the orange-blue palette are not supported by the synopsis.",
+        "weight": 0.35
+      },
+      "consistency": {
+        "score": 4,
+        "note": "Genre, mood, ethics tags, and the ethical-crisis hook form a coherent serious-drama package. Decentralization sits loosely beside the privacy-and-greed story but does not contradict it.",
+        "weight": 0.1
+      },
+      "recsys_usefulness": {
+        "score": 2,
+        "note": "Privacy and tech-industry tags could retrieve some adjacent viewers, but a drama label and missing satire would steer the episode away from comedy audiences and toward the wrong tone.",
+        "weight": 0.15
+      }
+    },
+    "overall": 2.5,
+    "overall_normalized": 0.375,
+    "usable": false,
+    "summary": "The metadata is complete and internally coherent as a tech-ethics drama, but it misses that this is a comedy and replaces the episode’s concrete plots with generic or unsupported claims. It would not reliably recommend Silicon Valley S06E01 to the right viewers.",
+    "weights": {
+      "completeness": 0.15,
+      "specificity": 0.25,
+      "fidelity": 0.35,
+      "consistency": 0.1,
+      "recsys_usefulness": 0.15
+    },
+    "score_scale": {
+      "min": 1,
+      "max": 5
+    },
+    "thresholds": {
+      "usable_overall_min": 3.0,
+      "usable_fidelity_min": 2
+    },
+    "method": {
+      "kind": "external_provider",
+      "provider": "cursor",
+      "model": "grok-4.7",
+      "uses_synopsis": true,
+      "uses_pipeline_evidence": false,
+      "title_source": "video_filename"
+    },
+    "parse_errors": []
+  },
+  "The_Kingdom.S01E02.mkv": {
+    "video": "The_Kingdom.S01E02.mkv",
+    "title": "The Kingdom S01E02",
+    "profile_file": "The_Kingdom.S01E02.mkv_llm.json",
+    "dimensions": {
+      "completeness": {
+        "score": 5,
+        "note": "Genre, subgenres, pacing, mood, tags, topics, audience, visual style, and narrative hook are all present and non-empty.",
+        "weight": 0.15
+      },
+      "specificity": {
+        "score": 4,
+        "note": "Pastor, church, murder confession, and political-religious framing are concrete, but topics stay abstract and the hook omits episode beats such as the rally, guns, succession, and CCTV investigation.",
+        "weight": 0.25
+      },
+      "fidelity": {
+        "score": 3,
+        "note": "Drama, political intrigue, church setting, tension, and a murder admission match the synopsis. The hook overstates a closest associate and Emilio confronting an institutional conspiracy, Faith Crisis is weakly supported, and the dim-blue/warm-light visual style is not in the synopsis.",
+        "weight": 0.35
+      },
+      "consistency": {
+        "score": 5,
+        "note": "Genre, mood, tags, topics, audience, and hook agree as an adult tense religious-political drama without internal contradictions.",
         "weight": 0.1
       },
       "recsys_usefulness": {
         "score": 4,
-        "note": "Patent, legal, and ethics signals would retrieve the right adult legal-drama audience, though broad labels and the psychological tag would also match many other Suits episodes and some unlike titles.",
+        "note": "Would retrieve adult political and religious drama viewers, but missing assassination, investigation, and family-succession cues would blur matches toward generic church-conspiracy titles.",
         "weight": 0.15
       }
     },
     "overall": 3.9,
     "overall_normalized": 0.725,
     "usable": true,
-    "summary": "The metadata is complete and largely faithful to this episode's patent dispute and Harvey-Mike loyalty conflict, and it would support sensible legal-drama retrieval. It is only moderately specific, and the psychological, introspective, and unintentional wording dilute an otherwise consistent profile.",
+    "summary": "The record is complete, internally consistent, and broadly aimed at the right adult political-religious audience. Fidelity is only partial because the hook and some tags reshape the episode and the stated visual style is unsupported by the synopsis.",
     "weights": {
       "completeness": 0.15,
       "specificity": 0.25,

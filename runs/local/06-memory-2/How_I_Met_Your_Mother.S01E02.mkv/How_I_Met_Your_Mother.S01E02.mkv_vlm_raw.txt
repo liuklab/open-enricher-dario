@@ -1,0 +1,94 @@
+--- 00:00:00-00:05:00 ---
+{
+  "description": "The scene takes place inside a dimly lit bar where several individuals are seated at tables. A man in a brown jacket sits across from a woman in a floral dress; they appear to be conversing while holding drinks. Another man in a suit stands nearby, looking toward them. In the background, patrons sit at booths and near the bar counter, some drinking and others talking. The walls feature framed pictures and neon signs, contributing to the cozy ambiance. At one point, a man in a striped shirt gestures animatedly while speaking to someone off-screen. The camera pans slightly among the groups, capturing interactions and reactions.",
+  "subjects_and_objects": [
+    "Ted",
+    "Robin",
+    "Marshall",
+    "Lily",
+    "Barney"
+  ],
+  "actions": [
+    "sitting at table",
+    "holding drink",
+    "gesturing with hands",
+    "leaning forward",
+    "looking away",
+    "smiling",
+    "nodding head",
+    "standing beside booth",
+    "talking to companion",
+    "pacing behind bar area"
+  ],
+  "camera_and_shot": "medium shot, slight panning movement",
+  "lighting_and_color": "warm ambient lighting with dark shadows, rich browns and reds from furniture and decor",
+  "on_screen_text": [
+    "the year 2030",
+    "with ralph patrick higginis"
+  ]
+}
+
+--- 00:05:00-00:10:00 ---
+{
+  "description": "Inside a cluttered toy store, Ted walks through aisles filled with colorful toys and merchandise. Two men in yellow raincoats are crouched near a display, appearing to organize or retrieve items. As Ted passes, one of the men looks up at him briefly before returning focus to the task. Behind them, shelves overflow with action figures, board games, and branded products like 'HBO' and 'Play Lottos'. Ted glances upward, seemingly distracted or lost in thought, while another customer browses nearby. The space feels cramped yet vibrant, with bright packaging contrasting against darker shelving units.",
+  "subjects_and_objects": ["Ted", "two men in yellow raincoats"],
+  "actions": [
+    "walking through aisle",
+    "crouching down",
+    "glancing upward",
+    "browsing shelf"
+  ],
+  "camera_and_shot": "wide shot following subject movement",
+  "lighting_and_color": "bright artificial lighting casting vivid colors from product packaging, warm tones from wooden fixtures",
+  "on_screen_text": []
+}
+
+--- 00:10:00-00:15:00 ---
+{
+  "description": "In a crowded, warmly lit living room filled with eclectic decorations and scattered furniture, Ted, dressed in a robe, enters and interacts with guests. He moves through the crowd, gesturing and engaging with various people, including a woman in a white top sitting on a couch. Others stand or sit around, holding drinks and chatting. A man in a suit holds a beer bottle while conversing with a blonde woman in leather attire. The room features bookshelves, lamps, and posters on the wall, creating a lived-in atmosphere. Ted occasionally pauses to sip from a red cup or lean back on a chair, observing the social dynamics.",
+  "subjects_and_objects": ["Ted", "a woman in a white top", "a man in a suit", "a blonde woman in leather", "guests"],
+  "actions": ["entering the room", "gesturing with hand", "sipping from cup", "leaning back on chair", "holding drink", "chatting with others", "moving through crowd"],
+  "camera_and_shot": "medium shots tracking movement, occasional close-ups",
+  "lighting_and_color": "warm ambient lighting with soft shadows, earthy tones from furniture and decor, pops of color from clothing and accessories",
+  "on_screen_text": []
+}
+
+--- 00:15:00-00:20:00 ---
+{
+  "description": "On a rooftop terrace at night, string lights illuminate potted plants and brick walls, with city buildings glowing in the background. A woman in a light-colored jacket stands facing a man in a brown corduroy jacket; she gestures toward him while speaking. He listens intently, shifting his weight slightly, then steps closer as she turns away momentarily before turning back to face him. She touches his chest lightly as they converse, and later, she leans forward, resting her hands on his shoulders while looking directly at him. He watches her closely, his expression thoughtful, and then reaches out to gently hold her wrist.",
+  "subjects_and_objects": ["Robin", "Ted"],
+  "actions": [
+    "standing",
+    "gesturing with hand",
+    "turning away briefly",
+    "turning back to face",
+    "touching chest",
+    "leaning forward",
+    "resting hands on shoulders",
+    "watching closely",
+    "reaching out to hold wrist"
+  ],
+  "camera_and_shot": "close-up framing interactions, medium shots showing surroundings",
+  "lighting_and_color": "soft ambient glow from string lights, deep blue night sky contrasted with warm illumination, muted earth tones from brick and foliage",
+  "on_screen_text": []
+}
+
+--- 00:20:00-00:22:06 ---
+{
+  "description": "Inside a dimly lit bar with green walls adorned with vintage signs and neon beer logos, several patrons are seated at tables. A man in a dark suit sips from a glass mug while talking animatedly to a woman beside him, who listens attentively. Across the table, another pair—a man in a brown jacket and a woman in teal—are engaged in lively conversation, smiling and gesturing. Behind them, bartenders move briskly behind the counter, serving drinks under hanging pendant lights. In the foreground, a woman in a white blouse stands near a man in a brown jacket, leaning slightly toward him as they speak intensely. Her hands rest on her hips at times, while he gestures with his free hand. The camera pans across the scene, capturing different angles of the conversations and the bustling bar environment.",
+  "subjects_and_objects": ["a man in a dark suit", "a woman in a white blouse", "a man in a brown jacket", "a woman in teal", "bartenders"],
+  "actions": ["sipping from mug", "talking animatedly", "listening attentively", "smiling", "gesturing with hand", "leaning slightly", "resting hands on hips", "pacing across scene", "panning camera angle"],
+  "camera_and_shot": "wide shot encompassing multiple groups, medium close-ups focusing on individual interactions",
+  "lighting_and_color": "dim ambiance with warm glows from overhead fixtures, rich greens and browns from interior decor, contrasting against darker shadows and vibrant neon accents",
+  "on_screen_text": [
+    "associate producer stewart halpern-fingerhut",
+    "guest starring lyndsy fonseca",
+    "executive producer david gilligan",
+    "co-starring lindsay schoneweis",
+    "meghan brannan, c.s.a.",
+    "joe head",
+    "dylan hawker",
+    "copyright © 2006 twentieth century fox corporation",
+    "produced by misy alexander",
+    "talent coordinator india ferrell",
+    "the events and characters depicted in this television series are fictitious and are not

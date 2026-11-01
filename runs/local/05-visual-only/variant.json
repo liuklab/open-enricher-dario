@@ -1,7 +1,0 @@
-{
-  "experiment_id": "05-visual-only",
-  "title": "visual-only",
-  "interval_seconds": 300,
-  "vlm_memory_scenes": null,
-  "visual_only": true
-}

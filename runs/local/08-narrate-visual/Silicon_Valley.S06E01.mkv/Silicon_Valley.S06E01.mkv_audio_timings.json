@@ -1,0 +1,44 @@
+{
+  "stage": "audio",
+  "wall_seconds": 148.193,
+  "spans": [
+    {
+      "name": "whisperx_load",
+      "seconds": 5.66,
+      "model_id": "large-v2",
+      "vram_reserved_mib": 26.0,
+      "vram_allocated_mib": 18.8
+    },
+    {
+      "name": "whisperx_transcribe",
+      "seconds": 59.588,
+      "model_id": "large-v2",
+      "vram_reserved_mib": 266.0,
+      "vram_allocated_mib": 247.3
+    },
+    {
+      "name": "whisperx_align_load",
+      "seconds": 0.875,
+      "vram_reserved_mib": 382.0,
+      "vram_allocated_mib": 368.2
+    },
+    {
+      "name": "whisperx_align",
+      "seconds": 19.249,
+      "vram_reserved_mib": 770.0,
+      "vram_allocated_mib": 743.8
+    },
+    {
+      "name": "diarization_load",
+      "seconds": 0.927,
+      "vram_reserved_mib": 50.0,
+      "vram_allocated_mib": 39.1
+    },
+    {
+      "name": "diarization_infer",
+      "seconds": 47.793,
+      "vram_reserved_mib": 1672.0,
+      "vram_allocated_mib": 1627.9
+    }
+  ]
+}

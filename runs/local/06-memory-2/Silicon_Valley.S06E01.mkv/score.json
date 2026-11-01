@@ -1,0 +1,60 @@
+{
+  "video": "Silicon_Valley.S06E01.mkv",
+  "title": "Silicon Valley S06E01",
+  "profile_file": "Silicon_Valley.S06E01.mkv_llm.json",
+  "dimensions": {
+    "completeness": {
+      "score": 4,
+      "note": "All required fields are present and non-empty, including genre, pacing, mood, tags, topics, audience, visual style, and hook. Several entries are thin theme labels rather than sharp descriptors.",
+      "weight": 0.15
+    },
+    "specificity": {
+      "score": 2,
+      "note": "Tags stay at series-level abstractions (data privacy, ethics, power dynamics) and never name episode-specific beats such as the congressional testimony, Colin’s data grab, the Gilfoyle/Dinesh AIs, Gwart, or Hooli.",
+      "weight": 0.25
+    },
+    "fidelity": {
+      "score": 2,
+      "note": "The data-ethics clash is in the right neighborhood, but Silicon Valley is a comedy mislabeled as drama, with a tense/reflective tone. Decentralization, surveillance, personal betrayals, and the orange-blue palette are not supported by the synopsis.",
+      "weight": 0.35
+    },
+    "consistency": {
+      "score": 4,
+      "note": "Genre, mood, ethics tags, and the ethical-crisis hook form a coherent serious-drama package. Decentralization sits loosely beside the privacy-and-greed story but does not contradict it.",
+      "weight": 0.1
+    },
+    "recsys_usefulness": {
+      "score": 2,
+      "note": "Privacy and tech-industry tags could retrieve some adjacent viewers, but a drama label and missing satire would steer the episode away from comedy audiences and toward the wrong tone.",
+      "weight": 0.15
+    }
+  },
+  "overall": 2.5,
+  "overall_normalized": 0.375,
+  "usable": false,
+  "summary": "The metadata is complete and internally coherent as a tech-ethics drama, but it misses that this is a comedy and replaces the episode’s concrete plots with generic or unsupported claims. It would not reliably recommend Silicon Valley S06E01 to the right viewers.",
+  "weights": {
+    "completeness": 0.15,
+    "specificity": 0.25,
+    "fidelity": 0.35,
+    "consistency": 0.1,
+    "recsys_usefulness": 0.15
+  },
+  "score_scale": {
+    "min": 1,
+    "max": 5
+  },
+  "thresholds": {
+    "usable_overall_min": 3.0,
+    "usable_fidelity_min": 2
+  },
+  "method": {
+    "kind": "external_provider",
+    "provider": "cursor",
+    "model": "grok-4.7",
+    "uses_synopsis": true,
+    "uses_pipeline_evidence": false,
+    "title_source": "video_filename"
+  },
+  "parse_errors": []
+}

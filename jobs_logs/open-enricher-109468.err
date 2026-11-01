@@ -1,0 +1,2 @@
+cpu-bind=MASK - katherinejohnson, task  0  0 [1576023]: mask 0xc480c48 set
+Note: Environment variable`HF_TOKEN` is set and is the current active token independently from the token you've just configured.

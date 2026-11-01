@@ -1,0 +1,91 @@
+--- 00:00:00-00:10:00 ---
+{
+  "description": "Richard Hendricks stands at a podium during a formal congressional hearing, gesturing emphatically while speaking into a microphone. Behind him, members of the committee sit at a long table, some listening intently, others looking away. A large screen behind him displays graphs and charts related to Pied Piper. In another scene, Richard walks through an office space filled with employees, smiling and interacting casually with coworkers. He later meets with a colleague named Colin outside, where they share a laugh and discuss recent events. They walk together toward a parking lot, passing cars and trees under bright sunlight.",
+  "subjects_and_objects": [
+    "Richard Hendricks",
+    "Colin",
+    "congressional committee members",
+    "employees",
+    "microphone",
+    "podium",
+    "screens",
+    "graphs",
+    "office chairs",
+    "parking lot"
+  ],
+  "actions": [
+    "Richard gestures with both hands while speaking",
+    "committee members look down at notes or away from speaker",
+    "Richard smiles and laughs with Colin",
+    "Richard walks alongside Colin",
+    "Richard looks up at sky briefly",
+    "Colin points forward while talking",
+    "Richard adjusts his suit jacket",
+    "Richard raises hand slightly while walking"
+  ],
+  "camera_and_shot": "medium close-up shots alternating with wide-angle views showing room layout and crowd movement",
+  "lighting_and_color": "bright indoor fluorescent lighting; natural daylight outdoors",
+  "on_screen_text": []
+}
+
+--- 00:10:00-00:20:00 ---
+{
+  "description": "In a dimly lit conference room, Richard Hendricks sits across a glass table from Colin, who leans back in his chair with arms crossed. Richard taps his pen nervously while speaking, his expression serious. Colin listens, occasionally nodding slightly, but maintains a guarded posture. Behind them, a large screen displays the 'Hooli' logo prominently. Other executives sit around the table, some taking notes, others watching the interaction closely. The atmosphere feels tense, underscored by the stark lighting and the weighty presence of corporate logos.",
+  "subjects_and_objects": [
+    "Richard Hendricks",
+    "Colin",
+    "executives",
+    "glass table",
+    "large screen"
+  ],
+  "actions": [
+    "Richard taps pen while speaking",
+    "Colin crosses arms and leans back",
+    "executives take notes or watch interaction",
+    "Richard glances at screen displaying Hooli logo"
+  ],
+  "camera_and_shot": "static medium shot focusing on Richard and Colin seated opposite each other",
+  "lighting_and_color": "cool-toned artificial lighting casting shadows across faces, dark wood-paneled walls contrast with reflective glass surface",
+  "on_screen_text": []
+}
+
+--- 00:20:00-00:30:00 ---
+{
+  "description": "Richard Hendricks stands in front of a large screen displaying a complex graph with red dots labeled 'Bad behavior,' pointing at specific nodes while speaking intensely. He turns sharply to face someone off-screen, his expression urgent. The camera cuts to a different angle showing Richard sitting stiffly in a chair, eyes fixed straight ahead with a somber demeanor. Another shot shows him standing near a door, hand resting on the handle, gazing outward with a thoughtful, almost troubled expression. The environment appears to be a modern office setting with sleek furniture and ambient lighting.",
+  "subjects_and_objects": [
+    "Richard Hendricks",
+    "graph display",
+    "door"
+  ],
+  "actions": [
+    "Richard points at nodes on the graph",
+    "Richard turns to face off-screen",
+    "Richard sits upright with focused gaze",
+    "Richard places hand on door handle"
+  ],
+  "camera_and_shot": "close-ups of Richard gesturing and reacting, interspersed with wider shots capturing his surroundings",
+  "lighting_and_color": "even, cool-toned interior lighting with neutral color palette",
+  "on_screen_text": []
+}
+
+--- 00:30:00-00:32:52 ---
+{
+  "description": "Richard Hendricks stands before his team, holding a resignation letter. He gestures slightly with his free hand as he speaks, his posture rigid and resolute. Erlich Bachman leans forward aggressively, hands clasped tightly, his expression furious. Monica stands beside him, arms folded, her face a mix of amusement and disbelief. The room is filled with other employees, some looking downcast, others staring intently at Richard. A large screen behind them displays the company logo, glowing faintly under the overhead lights.",
+  "subjects_and_objects": [
+    "Richard Hendricks",
+    "Erlich Bachman",
+    "Monica",
+    "employees",
+    "resignation letter",
+    "large screen"
+  ],
+  "actions": [
+    "Richard holds resignation letter and gestures while speaking",
+    "Erlich leans forward with clenched fists",
+    "Monica folds her arms and stares",
+    "Employees look toward Richard or away in reaction"
+  ],
+  "camera_and_shot": "medium wide shot capturing Richard, Erlich, and Monica centered with surrounding staff",
+  "lighting_and_color": "warm indoor lighting with wooden paneling and soft shadows cast by overhead fixtures",
+  "on_screen_text": []
+}

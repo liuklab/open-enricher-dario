@@ -1,0 +1,113 @@
+{
+  "experiment_id": "06-memory-2",
+  "scene_timeline": [
+    {
+      "start_time": "00:00:00",
+      "end_time": "00:05:00",
+      "dialogue_description": "SPEAKER_00, Ted, recounts his past attempts to connect with Robin, expressing his belief that he was in love with her after one date. He admits to making a foolish confession, which led to a lack of response from Robin. SPEAKER_03, Marshall, challenges Ted's sincerity, suggesting his feelings were more about the idea of marriage than Robin herself. SPEAKER_05, Barney, tries to encourage Ted to move on, calling his pursuit a relapse. Meanwhile, SPEAKER_02, Lily, shares her own experience of being overly affectionate since getting engaged, highlighting the contrast between Ted's romantic ideals and reality. The group discusses their own relationships, with Lily joking about not wearing underwear, adding a humorous tone to the conversation. Ted, however, remains determined to win Robin's affection, planning to invite her to a party next Friday as a way to create a chance encounter. Despite the mockery from his friends, Ted insists he needs to act casually to make it work. The exchange ends with Ted's determination to pursue Robin, even as his friends question his approach.",
+      "description": "The scene takes place inside a dimly lit bar where several individuals are seated at tables. A man in a brown jacket sits across from a woman in a floral dress; they appear to be conversing while holding drinks. Another man in a suit stands nearby, looking toward them. In the background, patrons sit at booths and near the bar counter, some drinking and others talking. The walls feature framed pictures and neon signs, contributing to the cozy ambiance. At one point, a man in a striped shirt gestures animatedly while speaking to someone off-screen. The camera pans slightly among the groups, capturing interactions and reactions.",
+      "subjects_and_objects": [
+        "Ted",
+        "Robin",
+        "Marshall",
+        "Lily",
+        "Barney"
+      ],
+      "actions": [
+        "sitting at table",
+        "holding drink",
+        "gesturing with hands",
+        "leaning forward",
+        "looking away",
+        "smiling"
+      ],
+      "camera_and_shot": "medium shot, slight panning movement",
+      "lighting_and_color": "warm ambient lighting with dark shadows, rich browns and reds from furniture and decor",
+      "on_screen_text": [
+        "the year 2030",
+        "with ralph patrick higginis"
+      ]
+    },
+    {
+      "start_time": "00:05:00",
+      "end_time": "00:10:00",
+      "dialogue_description": "Ted is trying to impress Robin by hosting a party, but their interaction is awkward and full of misunderstandings. Robin arrives at Ted’s party, but it seems she never actually attended, as Ted admits he missed her. Their conversation reveals that Ted had planned to meet her at the party, but she was stuck at work and missed it. Ted tries to salvage the situation by offering to extend the party’s duration, hoping to reconnect with Robin. Meanwhile, his friends, including Marshall and others, mock his elaborate plans and suggest he is chasing an unattainable goal. They highlight the futility of his pursuit, emphasizing that real connections require authenticity rather than orchestrated scenarios. Ted’s friends continue to challenge his methods, pointing out that he is wasting his time on a strategy that is unlikely to succeed. Despite his failures, Ted remains hopeful, believing that his sincerity will eventually win over Robin. The exchange ends with Ted expressing his determination to keep trying, even as his friends remain skeptical of his chances.",
+      "description": "Inside a cluttered toy store, Ted walks through aisles filled with colorful toys and merchandise. Two men in yellow raincoats are crouched near a display, appearing to organize or retrieve items. As Ted passes, one of the men looks up at him briefly before returning focus to the task. Behind them, shelves overflow with action figures, board games, and branded products like 'HBO' and 'Play Lottos'. Ted glances upward, seemingly distracted or lost in thought, while another customer browses nearby. The space feels cramped yet vibrant, with bright packaging contrasting against darker shelving units.",
+      "subjects_and_objects": [
+        "Ted",
+        "two men in yellow raincoats"
+      ],
+      "actions": [
+        "walking through aisle",
+        "crouching down",
+        "glancing upward",
+        "browsing shelf"
+      ],
+      "camera_and_shot": "wide shot following subject movement",
+      "lighting_and_color": "bright artificial lighting casting vivid colors from product packaging, warm tones from wooden fixtures",
+      "on_screen_text": []
+    },
+    {
+      "start_time": "00:10:00",
+      "end_time": "00:15:00",
+      "dialogue_description": "During this interval, Ted's friends confront him about his relentless efforts to win Robin's affection. They reveal that Ted has thrown multiple parties in hopes of connecting with Robin, a woman he met briefly. However, Robin has consistently avoided these gatherings, often missing them entirely. One of Ted's friends, Marshall, expresses frustration, pointing out that Ted's approach is misguided and that he should stop chasing an unattainable goal. Another friend, Lily, adds that Ted's obsession with orchestrating romantic scenarios is not only ineffective but also humorous. Meanwhile, Ted's friend, who is likely Marshall, mentions that he had previously introduced Robin to someone else named Carlos, suggesting that Ted's attempts to create a connection have been based on false assumptions. The conversation highlights the absurdity of Ted's plan and the irony that he has invested so much effort into a relationship that may never materialize. Ultimately, the group's mockery underscores the futility of Ted's pursuit, leaving him in a state of confusion and embarrassment as he realizes his efforts have been in vain.",
+      "description": "In a crowded, warmly lit living room filled with eclectic decorations and scattered furniture, Ted, dressed in a robe, enters and interacts with guests. He moves through the crowd, gesturing and engaging with various people, including a woman in a white top sitting on a couch. Others stand or sit around, holding drinks and chatting. A man in a suit holds a beer bottle while conversing with a blonde woman in leather attire. The room features bookshelves, lamps, and posters on the wall, creating a lived-in atmosphere. Ted occasionally pauses to sip from a red cup or lean back on a chair, observing the social dynamics.",
+      "subjects_and_objects": [
+        "Ted",
+        "a woman in a white top",
+        "a man in a suit",
+        "a blonde woman in leather",
+        "guests"
+      ],
+      "actions": [
+        "entering the room",
+        "gesturing with hand",
+        "sipping from cup",
+        "leaning back on chair",
+        "holding drink",
+        "chatting with others"
+      ],
+      "camera_and_shot": "medium shots tracking movement, occasional close-ups",
+      "lighting_and_color": "warm ambient lighting with soft shadows, earthy tones from furniture and decor, pops of color from clothing and accessories",
+      "on_screen_text": []
+    },
+    {
+      "start_time": "00:15:00",
+      "end_time": "00:20:00",
+      "dialogue_description": "Ted, still fixated on Robin, insists he's not done with his pursuit, claiming the game isn't over. Marshall, trying to ground Ted, points out that Robin isn't the type of woman Ted is looking for—she's not part of the \"million women\" in New York seeking him. Ted counters by saying she's special, the one. When Ted tries to explain his party strategy, Marshall and Robin both question his motives, noting they barely know each other and Ted's sudden romantic gestures feel forced. Robin calls out Ted's exaggerated plans, calling him out for being a \"jackass.\" Ted, caught between his earnestness and the absurdity of his actions, admits he's made a fool of himself. He suggests they start over, as friends, and even proposes meeting immediately for a beer. Robin, though initially hesitant, agrees, saying she'd like that. Ted, relieved, says his friends will love her, and Robin, with a hint of warmth, responds with a dry joke about Ted being a \"jackass.\" The exchange ends with mutual understanding, leaving room for a more genuine connection.",
+      "description": "On a rooftop terrace at night, string lights illuminate potted plants and brick walls, with city buildings glowing in the background. A woman in a light-colored jacket stands facing a man in a brown corduroy jacket; she gestures toward him while speaking. He listens intently, shifting his weight slightly, then steps closer as she turns away momentarily before turning back to face him. She touches his chest lightly as they converse, and later, she leans forward, resting her hands on his shoulders while looking directly at him. He watches her closely, his expression thoughtful, and then reaches out to gently hold her wrist.",
+      "subjects_and_objects": [
+        "Robin",
+        "Ted"
+      ],
+      "actions": [
+        "standing",
+        "gesturing with hand",
+        "turning away briefly",
+        "turning back to face",
+        "touching chest",
+        "leaning forward"
+      ],
+      "camera_and_shot": "close-up framing interactions, medium shots showing surroundings",
+      "lighting_and_color": "soft ambient glow from string lights, deep blue night sky contrasted with warm illumination, muted earth tones from brick and foliage",
+      "on_screen_text": []
+    },
+    {
+      "start_time": "00:20:00",
+      "end_time": "00:22:06",
+      "dialogue_description": "SPEAKER_05 expresses disbelief and concern about a situation, suggesting it will lead to disaster. They question why someone would work with another person, implying jealousy or conflict. SPEAKER_01 interrupts with a comment about a date, referencing a scene that has already occurred, indicating they are replaying or rethinking past events. SPEAKER_05 then says they are unsure about someone, likely referring to Robin, and questions their feelings for her. SPEAKER_04, who identifies as Rufus, talks about completing a paper and confidently claims he will get an A, showing his determination and self-assurance. SPEAKER_00 acknowledges Rufus's effort, noting he received a B- but still did well. SPEAKER_03 offers to buy drinks, showing support for Ted, who is trying to find love. SPEAKER_01 reassures Ted that he is a catch and will make someone happy, offering help in finding his future partner. SPEAKER_03 jokes about the difficulty of finding love in a large city, questioning how anyone can find their soulmate. The conversation ends with SPEAKER_01 asking if Ted has met Robin, hinting at a potential connection between them. The exchange highlights Ted's struggle to find love and the support from his friends, while also underscoring the challenges of forming meaningful relationships.",
+      "description": "{\n  \"description\": \"Inside a dimly lit bar with green walls adorned with vintage signs and neon beer logos, several patrons are seated at tables. A man in a dark suit sips from a glass mug while talking animatedly to a woman beside him, who listens attentively. Across the table, another pair—a man in a brown jacket and a woman in teal—are engaged in lively conversation, smiling and gesturing. Behind them, bartenders move briskly behind the counter, serving drinks under hanging pendant lights. In",
+      "subjects_and_objects": [],
+      "actions": [],
+      "camera_and_shot": "",
+      "lighting_and_color": "",
+      "on_screen_text": []
+    }
+  ],
+  "segments_parsed": 4,
+  "segments_total": 5,
+  "vlm_memory_scenes": 2,
+  "visual_only": false,
+  "extract_visual": false,
+  "memory_compacted": false
+}

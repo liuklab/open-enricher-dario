@@ -1,0 +1,149 @@
+--- 00:00:00-00:05:00 ---
+{
+  "description": "A man with gray hair is shown in close-up, then seated at an office desk talking to a woman in a suit.",
+  "subjects_and_objects": [
+    "man",
+    "woman",
+    "office desk",
+    "computer monitor",
+    "bookshelves",
+    "mugs"
+  ],
+  "actions": [
+    "looking directly at camera",
+    "speaking",
+    "nodding head",
+    "sitting",
+    "gesturing hands"
+  ],
+  "camera_and_shot": "close-up shot transitioning to medium shot",
+  "lighting_and_color": "dimly lit indoor setting with cool blue tones",
+  "on_screen_text": [
+    "UNA SERIE DE NETFLIX"
+  ]
+}
+
+--- 00:05:00-00:10:00 ---
+{
+  "description": "A man and woman stand close together indoors, looking at each other intently.",
+  "subjects_and_objects": [
+    "man",
+    "woman"
+  ],
+  "actions": [
+    "standing",
+    "looking at each other"
+  ],
+  "camera_and_shot": "close-up shot",
+  "lighting_and_color": "warm indoor lighting",
+  "on_screen_text": []
+}
+
+--- 00:10:00-00:15:00 ---
+{
+  "description": "A woman walks through an elevator, then enters a room where she interacts with two men; later, she stands before a group of seated individuals in a church-like setting.",
+  "subjects_and_objects": [
+    "woman",
+    "men",
+    "elevator",
+    "church interior",
+    "seated people"
+  ],
+  "actions": [
+    "walking",
+    "entering",
+    "standing",
+    "looking around",
+    "gesturing"
+  ],
+  "camera_and_shot": "medium shot transitioning to close-up",
+  "lighting_and_color": "dim indoor lighting with natural light from windows",
+  "on_screen_text": []
+}
+
+--- 00:15:00-00:20:00 ---
+{
+  "description": "A man with long hair and beard holds another man close outdoors; later, two men sit together in a garden-like setting.",
+  "subjects_and_objects": [
+    "man with long hair",
+    "bearded man",
+    "young man",
+    "trees",
+    "flowers"
+  ],
+  "actions": [
+    "holding",
+    "sitting",
+    "looking at each other",
+    "talking",
+    "smiling slightly"
+  ],
+  "camera_and_shot": "close-up shots transitioning to medium shot",
+  "lighting_and_color": "natural daylight, green foliage background",
+  "on_screen_text": []
+}
+
+--- 00:20:00-00:25:00 ---
+{
+  "description": "A man stands beside a car near a wooden gate surrounded by trees.",
+  "subjects_and_objects": [
+    "man",
+    "car",
+    "wooden gate",
+    "trees"
+  ],
+  "actions": [
+    "standing",
+    "looking around",
+    "talking"
+  ],
+  "camera_and_shot": "close-up shot",
+  "lighting_and_color": "natural daylight",
+  "on_screen_text": []
+}
+
+--- 00:25:00-00:30:00 ---
+{
+  "description": "A woman and man sit at a table in an office setting; later, they walk through hallways and enter rooms where others are present.",
+  "subjects_and_objects": [
+    "woman",
+    "man",
+    "office",
+    "hallway",
+    "door",
+    "desk",
+    "chair",
+    "window",
+    "cityscape",
+    "flag"
+  ],
+  "actions": [
+    "sitting",
+    "leaning forward",
+    "hugging",
+    "walking",
+    "standing",
+    "looking around",
+    "entering room",
+    "talking"
+  ],
+  "camera_and_shot": "close-up shots transitioning to medium shots",
+  "lighting_and_color": "warm indoor lighting with natural daylight from windows",
+  "on_screen_text": []
+}
+
+--- 00:30:00-00:34:31 ---
+{
+  "description": "A man stands alone in an empty church holding a book, facing forward.",
+  "subjects_and_objects": [
+    "man",
+    "book"
+  ],
+  "actions": [
+    "standing still",
+    "holding book"
+  ],
+  "camera_and_shot": "static shot",
+  "lighting_and_color": "soft natural light from windows, cool color tone",
+  "on_screen_text": []
+}

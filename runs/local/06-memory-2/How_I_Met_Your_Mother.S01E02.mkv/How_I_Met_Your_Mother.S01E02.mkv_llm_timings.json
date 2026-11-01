@@ -1,0 +1,21 @@
+{
+  "stage": "llm",
+  "wall_seconds": 38.82,
+  "spans": [
+    {
+      "name": "llm_load",
+      "seconds": 17.135,
+      "model_id": "Qwen/Qwen3-8B",
+      "vram_reserved_mib": 9924.0,
+      "vram_allocated_mib": 9882.0
+    },
+    {
+      "name": "llm_generate",
+      "seconds": 21.205,
+      "model_id": "Qwen/Qwen3-8B",
+      "attempt": 1,
+      "vram_reserved_mib": 10688.0,
+      "vram_allocated_mib": 10602.1
+    }
+  ]
+}

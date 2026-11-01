@@ -1,0 +1,235 @@
+{
+  "stages": [
+    {
+      "stage": "llm",
+      "wall_seconds": 28.568,
+      "spans": [
+        {
+          "name": "llm_load",
+          "seconds": 4.598,
+          "model_id": "Qwen/Qwen3-8B",
+          "vram_reserved_mib": 9924.0,
+          "vram_allocated_mib": 9882.0
+        },
+        {
+          "name": "llm_generate",
+          "seconds": 23.539,
+          "model_id": "Qwen/Qwen3-8B",
+          "attempt": 1,
+          "vram_reserved_mib": 10868.0,
+          "vram_allocated_mib": 10802.6
+        }
+      ]
+    },
+    {
+      "stage": "vlm",
+      "wall_seconds": 627.837,
+      "spans": [
+        {
+          "name": "vlm_load",
+          "seconds": 53.994,
+          "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+          "vram_reserved_mib": 9884.0,
+          "vram_allocated_mib": 9847.1
+        },
+        {
+          "name": "vlm_generate",
+          "seconds": 90.084,
+          "window": 1,
+          "start": "00:00:00",
+          "end": "00:05:00",
+          "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+          "vram_reserved_mib": 10558.0,
+          "vram_allocated_mib": 10486.9
+        },
+        {
+          "name": "vlm_generate",
+          "seconds": 100.189,
+          "window": 2,
+          "start": "00:05:00",
+          "end": "00:10:00",
+          "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+          "vram_reserved_mib": 10698.0,
+          "vram_allocated_mib": 10609.0
+        },
+        {
+          "name": "vlm_generate",
+          "seconds": 88.572,
+          "window": 3,
+          "start": "00:10:00",
+          "end": "00:15:00",
+          "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+          "vram_reserved_mib": 10798.0,
+          "vram_allocated_mib": 10706.4
+        },
+        {
+          "name": "vlm_generate",
+          "seconds": 75.252,
+          "window": 4,
+          "start": "00:15:00",
+          "end": "00:20:00",
+          "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+          "vram_reserved_mib": 10798.0,
+          "vram_allocated_mib": 10696.7
+        },
+        {
+          "name": "vlm_generate",
+          "seconds": 81.829,
+          "window": 5,
+          "start": "00:20:00",
+          "end": "00:25:00",
+          "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+          "vram_reserved_mib": 10778.0,
+          "vram_allocated_mib": 10690.8
+        },
+        {
+          "name": "vlm_generate",
+          "seconds": 85.738,
+          "window": 6,
+          "start": "00:25:00",
+          "end": "00:30:00",
+          "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+          "vram_reserved_mib": 10798.0,
+          "vram_allocated_mib": 10699.4
+        },
+        {
+          "name": "vlm_generate",
+          "seconds": 51.756,
+          "window": 7,
+          "start": "00:30:00",
+          "end": "00:32:52",
+          "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+          "vram_reserved_mib": 10798.0,
+          "vram_allocated_mib": 10715.8
+        }
+      ]
+    },
+    {
+      "stage": "audio",
+      "wall_seconds": 148.193,
+      "spans": [
+        {
+          "name": "whisperx_load",
+          "seconds": 5.66,
+          "model_id": "large-v2",
+          "vram_reserved_mib": 26.0,
+          "vram_allocated_mib": 18.8
+        },
+        {
+          "name": "whisperx_transcribe",
+          "seconds": 59.588,
+          "model_id": "large-v2",
+          "vram_reserved_mib": 266.0,
+          "vram_allocated_mib": 247.3
+        },
+        {
+          "name": "whisperx_align_load",
+          "seconds": 0.875,
+          "vram_reserved_mib": 382.0,
+          "vram_allocated_mib": 368.2
+        },
+        {
+          "name": "whisperx_align",
+          "seconds": 19.249,
+          "vram_reserved_mib": 770.0,
+          "vram_allocated_mib": 743.8
+        },
+        {
+          "name": "diarization_load",
+          "seconds": 0.927,
+          "vram_reserved_mib": 50.0,
+          "vram_allocated_mib": 39.1
+        },
+        {
+          "name": "diarization_infer",
+          "seconds": 47.793,
+          "vram_reserved_mib": 1672.0,
+          "vram_allocated_mib": 1627.9
+        }
+      ]
+    },
+    {
+      "stage": "dialogue",
+      "wall_seconds": 143.71,
+      "spans": [
+        {
+          "name": "plot_load",
+          "seconds": 4.671,
+          "model_id": "Qwen/Qwen3-8B",
+          "vram_reserved_mib": 6232.0,
+          "vram_allocated_mib": 6182.3
+        },
+        {
+          "name": "plot_generate",
+          "seconds": 26.545,
+          "model_id": "Qwen/Qwen3-8B",
+          "vram_reserved_mib": 10456.0,
+          "vram_allocated_mib": 10199.3
+        },
+        {
+          "name": "scene_load",
+          "seconds": 4.656,
+          "model_id": "Qwen/Qwen3-8B",
+          "vram_reserved_mib": 9962.0,
+          "vram_allocated_mib": 9908.5
+        },
+        {
+          "name": "scene_generate",
+          "seconds": 13.175,
+          "model_id": "Qwen/Qwen3-8B",
+          "window": 1,
+          "vram_reserved_mib": 10606.0,
+          "vram_allocated_mib": 10543.6
+        },
+        {
+          "name": "scene_generate",
+          "seconds": 14.529,
+          "model_id": "Qwen/Qwen3-8B",
+          "window": 2,
+          "vram_reserved_mib": 10686.0,
+          "vram_allocated_mib": 10611.1
+        },
+        {
+          "name": "scene_generate",
+          "seconds": 15.246,
+          "model_id": "Qwen/Qwen3-8B",
+          "window": 3,
+          "vram_reserved_mib": 10806.0,
+          "vram_allocated_mib": 10741.2
+        },
+        {
+          "name": "scene_generate",
+          "seconds": 15.105,
+          "model_id": "Qwen/Qwen3-8B",
+          "window": 4,
+          "vram_reserved_mib": 10806.0,
+          "vram_allocated_mib": 10510.3
+        },
+        {
+          "name": "scene_generate",
+          "seconds": 16.169,
+          "model_id": "Qwen/Qwen3-8B",
+          "window": 5,
+          "vram_reserved_mib": 10806.0,
+          "vram_allocated_mib": 10627.7
+        },
+        {
+          "name": "scene_generate",
+          "seconds": 16.462,
+          "model_id": "Qwen/Qwen3-8B",
+          "window": 6,
+          "vram_reserved_mib": 10806.0,
+          "vram_allocated_mib": 10663.3
+        },
+        {
+          "name": "scene_generate",
+          "seconds": 16.369,
+          "model_id": "Qwen/Qwen3-8B",
+          "window": 7,
+          "vram_reserved_mib": 10806.0,
+          "vram_allocated_mib": 10240.5
+        }
+      ]
+    }
+  ]
+}

@@ -1,71 +1,71 @@
 [
   {
-    "video": "Suits.S01E02.mkv",
+    "video": "How_I_Met_Your_Mother.S01E02.mkv",
     "status": "success",
     "stages": [
       {
         "stage": "audio",
         "status": "skipped_cache",
-        "output_file": "Suits.S01E02.mkv_audio.json"
+        "output_file": "How_I_Met_Your_Mother.S01E02.mkv_audio.json"
       },
       {
         "stage": "dialogue",
         "status": "success",
-        "scenes": 5,
+        "scenes": 3,
         "plot_sampled": false,
         "timings": {
           "stage": "dialogue",
-          "wall_seconds": 102.429,
+          "wall_seconds": 87.262,
           "spans": [
             {
               "name": "plot_load",
-              "seconds": 4.389,
-              "model_id": "Qwen/Qwen3-8B"
+              "seconds": 4.594,
+              "model_id": "Qwen/Qwen3-8B",
+              "vram_reserved_mib": 6232.0,
+              "vram_allocated_mib": 6182.3
             },
             {
               "name": "plot_generate",
-              "seconds": 29.926,
-              "model_id": "Qwen/Qwen3-8B"
+              "seconds": 24.113,
+              "model_id": "Qwen/Qwen3-8B",
+              "vram_reserved_mib": 9296.0,
+              "vram_allocated_mib": 9136.9
             },
             {
               "name": "scene_load",
-              "seconds": 4.28,
-              "model_id": "Qwen/Qwen3-8B"
+              "seconds": 4.555,
+              "model_id": "Qwen/Qwen3-8B",
+              "vram_reserved_mib": 9962.0,
+              "vram_allocated_mib": 9908.5
             },
             {
               "name": "scene_generate",
-              "seconds": 13.92,
+              "seconds": 18.434,
               "model_id": "Qwen/Qwen3-8B",
-              "window": 1
+              "window": 1,
+              "vram_reserved_mib": 11766.0,
+              "vram_allocated_mib": 11576.1
             },
             {
               "name": "scene_generate",
-              "seconds": 15.341,
+              "seconds": 15.33,
               "model_id": "Qwen/Qwen3-8B",
-              "window": 2
+              "window": 2,
+              "vram_reserved_mib": 11766.0,
+              "vram_allocated_mib": 11099.9
             },
             {
               "name": "scene_generate",
-              "seconds": 12.317,
+              "seconds": 19.424,
               "model_id": "Qwen/Qwen3-8B",
-              "window": 3
-            },
-            {
-              "name": "scene_generate",
-              "seconds": 12.809,
-              "model_id": "Qwen/Qwen3-8B",
-              "window": 4
-            },
-            {
-              "name": "scene_generate",
-              "seconds": 8.505,
-              "model_id": "Qwen/Qwen3-8B",
-              "window": 5
+              "window": 3,
+              "vram_reserved_mib": 11766.0,
+              "vram_allocated_mib": 10243.0
             }
           ]
         },
-        "output_file": "Suits.S01E02.mkv_dialogue.json",
-        "timings_file": "Suits.S01E02.mkv_dialogue_timings.json"
+        "output_file": "How_I_Met_Your_Mother.S01E02.mkv_dialogue.json",
+        "timings_file": "How_I_Met_Your_Mother.S01E02.mkv_dialogue_timings.json"
       },
       {
         "stage": "vlm",
@@ -77,120 +77,78 @@
             {
               "start_time": "00:00:00",
               "end_time": "00:10:00",
-              "dialogue_description": "During this tense interval, Mike Ross finds himself caught in a precarious situation. He is tasked with filing a patent for Wyatt's revolutionary satellite phone, a critical component of securing a major investment deal. However, he has not yet completed the necessary paperwork, and his lack of experience with patent filings raises concerns. Gregory Boone, one of Mike's colleagues, has taken advantage of the situation, delegating his work to Mike while he avoids responsibility. When confronted by Lewis, who suspects Gregory of manipulating Mike, Mike admits to volunteering for the task, revealing his eagerness to prove himself. Lewis, recognizing Mike's exceptional attention to detail, commends him for catching discrepancies in financial documents, highlighting Mike's potential. Despite the complications, Mike remains committed to his role, demonstrating his dedication and capability. His efforts, though still incomplete, signal his growing importance within the firm. The conversation ends on a hopeful note, with Lewis expressing confidence in Mike's abilities and suggesting a future meeting to further develop his skills. Mike's actions underscore his determination to earn his place in the legal world, despite the challenges he faces.",
-              "description": "Mike Ross sits at a desk in an office environment, surrounded by cubicles and shelves filled with boxes. He appears focused on paperwork, occasionally glancing up. A man in a suit walks past him, gesturing toward something off-screen. Another man in a suit stands nearby, looking down at papers. In another scene, Mike is seated across from a woman in a dark dress; she gestures while speaking. Later, Mike is shown standing near a large window overlooking city buildings, holding a folder. He interacts briefly with someone else before turning away. Throughout, various individuals move through hallways and offices, some walking briskly, others pausing to converse.",
+              "dialogue_description": "Ted recounts his attempts to connect with Robin, revealing his initial attraction and decision to host a party to meet her. His friends, Marshall, Lily, and others, mock his elaborate plans, suggesting he is chasing an unattainable goal. Ted's motivation stems from a desire to find love and commitment, inspired by his friends' engagements. However, his approach is overly dramatic and misguided, leading to comedic mishaps. Robin, meanwhile, remains elusive, often missing his parties and appearing indifferent to his advances. Ted's friends, particularly Marshall, encourage him to move on, highlighting the futility of his pursuit. \n\nDuring the scene, Ted's friends challenge his methods, emphasizing that real connections require authenticity rather than orchestrated scenarios. Despite his failures, Ted's sincerity eventually wins over Robin, who acknowledges his genuine nature. The scene concludes with a tentative agreement to meet again, signaling a shift from Ted's misguided games to a more realistic approach to relationships. The dialogue reveals Ted's determination to win Robin's affection through a series of elaborate plans, while his friends question the effectiveness of his strategies.",
+              "description": "In a cluttered living room, Ted sits on a couch wearing a striped shirt, gesturing animatedly while talking. He stands up and walks toward the camera, adjusting his clothing. In another shot, Ted leans against a wall holding a drink, looking upward thoughtfully. Later, Ted and Robin stand together in a store aisle; she holds a bag of chips, and he gestures at products behind her. They walk past shelves filled with snacks and drinks. A woman in a green turtleneck talks to someone off-screen near a counter. Another scene shows Ted sitting at a table surrounded by friends, including Marshall and Lily, all engaged in conversation. One man in a suit stands nearby, listening intently. Ted later appears in a kitchen area, standing beside a refrigerator, looking down at something. Back in the living room, Ted lies on the floor under a blanket, smiling at the ceiling. He gets up and walks away, still smiling. In a different setting, Ted and Robin sit side-by-side on a couch, both looking relaxed. Ted adjusts his glasses while speaking. Robin turns slightly to look at him. The group gathers around a coffee table where various items like cups, bowls, and bottles are scattered.",
               "subjects_and_objects": [
-                "Mike Ross",
-                "Gregory Boone",
-                "Lewis",
-                "woman in black dress"
+                "Ted",
+                "Robin",
+                "Marshall",
+                "Lily"
               ],
               "actions": [
-                "sitting at a desk",
-                "glancing up",
-                "walking past",
-                "gesturing",
-                "standing near a window",
-                "holding a folder"
+                "gesturing with hands",
+                "adjusting clothing",
+                "leaning against a wall",
+                "holding a drink",
+                "walking through a store aisle",
+                "standing next to each other"
               ],
-              "camera_and_shot": "medium shots, close-ups, tracking shots following movement",
-              "lighting_and_color": "bright indoor lighting, neutral tones with occasional warm highlights",
+              "camera_and_shot": "medium shots, close-ups, wide-angle views",
+              "lighting_and_color": "warm indoor lighting, natural tones, occasional dimmer scenes",
               "on_screen_text": [
-                "Produced By ERIC LADINFIELD",
-                "Executive Producer SEAN JABLONSKI",
-                "Writer BY SEAN JABLONSKI"
+                "the year 2030",
+                "with neil patrick harris"
               ]
             },
             {
               "start_time": "00:10:00",
               "end_time": "00:20:00",
-              "dialogue_description": "During the tense exchange, Harvey confronts Mike about the delayed patent filing, revealing that Mike's actions have jeopardized the case. Mike admits he didn’t know how to file the patent properly, and Harvey accuses him of lying about following through. Mike expresses concern about the consequences, asking what will happen now. Harvey outlines a plan to investigate who filed first and to seek an injunction to block the competitor’s product launch. He also mentions needing to call Wyatt to calm him down, indicating the stakes are high for the client. As the hearing unfolds, Harvey faces a judge who criticizes him for arriving late and not preparing properly, leading to fines and a denied request. The judge, who appears personally offended by Harvey, hints at a past affair with Harvey’s wife, suggesting a deeper conflict. Harvey, realizing the judge’s bias, shifts focus to the patent dispute, emphasizing the need for an injunction. The judge, however, threatens to dismiss the case unless Harvey signs a document admitting to sleeping with his wife, hinting at a potential blackmail scenario. Harvey remains defiant, aware that the judge’s personal vendetta could derail the case. The exchange ends with the judge threatening to overturn his previous ruling, leaving the future of the case uncertain.",
-              "description": "Harvey Specter strides confidently through a courthouse hallway, flanked by two men in suits. He pauses briefly, exchanging a glance with one of them before continuing forward. Inside the courtroom, he stands tall beside a wooden bench where a judge presides over proceedings. The judge, seated behind a raised dais, looks sternly at Harvey. Other figures in formal attire sit in rows of benches, observing the interaction. Harvey turns slightly, addressing someone off-camera with a composed expression. Behind him, a door marked 'COURTROOM' looms, framed by classical columns. The setting is formal and imposing, lit by natural light filtering through windows.",
+              "dialogue_description": "During this interval, Ted, along with his friends Marshall, Lily, and others, engage in a chaotic conversation about their failed attempts to connect with Robin. Ted’s friends mock his elaborate plans to win Robin’s affection, highlighting the absurdity of his approach. Marshall, in particular, expresses frustration with Ted’s misguided efforts, noting how Ted has thrown multiple parties in an attempt to create opportunities for Robin to attend. Meanwhile, Robin appears confused and disinterested in Ted’s advances, having missed several of his parties and showing no clear indication of being interested in a relationship. Ted, however, remains persistent, insisting that his actions were genuine and that he genuinely wants to connect with Robin. Despite the comedic mishaps and the friends’ skepticism, Ted’s sincerity begins to resonate with Robin, who acknowledges his genuine nature. The exchange ends with both agreeing to meet again, signaling a shift from Ted’s previous games to a more authentic approach to relationships.",
+              "description": "The scene opens in a cozy, cluttered apartment where Ted, dressed in a robe, walks across the room carrying a red cup. He moves toward a doorway, passing by furniture and shelves filled with books and knickknacks. The camera follows him into a crowded social gathering where he interacts with friends—Marshall in a brown jacket and Lily seated nearby. Ted sips from his cup while conversing, occasionally glancing around the room. A woman in a white top sits on a couch, watching the interaction unfold. As the scene shifts outdoors, Ted and Robin stand close together near a brick wall adorned with string lights and potted plants. She wears a light-colored coat over a dress, and they appear to be in deep conversation. Ted gestures subtly while speaking, and Robin listens attentively, nodding slightly. Behind them, city lights twinkle in the distance, creating a warm, intimate atmosphere.",
               "subjects_and_objects": [
-                "Harvey Specter",
-                "judge",
-                "two men in suits"
+                "Ted",
+                "Robin",
+                "Marshall",
+                "Lily"
               ],
               "actions": [
-                "striding confidently",
-                "pausing briefly",
-                "exchanging a glance",
-                "standing tall",
-                "addressing someone off-camera",
-                "turning slightly"
+                "carrying a red cup",
+                "walking across the room",
+                "sipping from a cup",
+                "gesturing while talking",
+                "nodding during conversation",
+                "standing close together"
               ],
-              "camera_and_shot": "tracking shot following Harvey, medium shots capturing interactions",
-              "lighting_and_color": "natural daylight illuminating stone walls and wood paneling, muted earthy tones",
+              "camera_and_shot": "close-ups, medium shots, tracking shots following movement",
+              "lighting_and_color": "warm indoor lighting transitioning to soft evening outdoor glow with city lights in background",
               "on_screen_text": []
             },
             {
               "start_time": "00:20:00",
-              "end_time": "00:30:00",
-              "dialogue_description": "Lewis confronts Mike about his involvement with Harvey, revealing that he pressured Mike to take a drug test and smoke marijuana to win a client. Mike, defensive and upset, explains that he was coerced into the situation and that he lied to Harvey about it. Lewis, however, seems unfazed, suggesting that Mike’s actions could still be leveraged for their benefit. Mike, visibly shaken, admits he feels guilty for misleading Harvey and expresses concern about the consequences of his actions. Harvey, who has been on the phone during much of the exchange, remains silent until the end, when he finally speaks, acknowledging that Mike has let him down. Despite Mike’s attempts to explain, Harvey’s response suggests he is unwilling to listen or forgive, highlighting the tension between them. The conversation ends with Mike expressing regret over his actions and a sense of betrayal from Harvey, leaving their relationship strained and uncertain. The exchange underscores the complexity of their dynamic and the potential fallout from Mike’s past decisions.",
-              "description": "Mike Ross enters a bathroom, shirtless, towel wrapped around his waist, and encounters another man who is also shirtless and drying off. They stand facing each other, exchanging glances and expressions ranging from surprise to discomfort. Mike gestures towards the mirror, seemingly reacting to his own reflection or the presence of the other man. The second man steps aside, allowing Mike to turn and face the camera directly, showing a mix of confusion and resignation. The bathroom features wooden cabinets, tiled floors, and a glass shower enclosure. Mike exits the room, pulling his shirt over his head as he goes.",
+              "end_time": "00:22:06",
+              "dialogue_description": "SPEAKER_05 expresses disbelief and concern about a situation, suggesting it will lead to disaster. They question why someone would work with another person, implying jealousy or conflict. SPEAKER_01 interrupts with a comment about a date, referencing a scene that has already occurred, indicating they are replaying or rethinking past events. SPEAKER_05 then says they are unsure about someone, likely referring to Robin, and questions their feelings for her. SPEAKER_04, who identifies as Rufus, talks about completing a paper and confidently claims he will get an A, showing his determination and self-assurance. SPEAKER_00 acknowledges Rufus's effort, noting he received a B- but still did well. SPEAKER_03 offers to buy drinks, showing support for Ted, who is trying to find love. SPEAKER_01 reassures Ted that he is a catch and will make someone happy, offering help in finding his future partner. SPEAKER_03 jokes about the difficulty of finding love in a large city, questioning how anyone can find their soulmate. The conversation ends with SPEAKER_01 asking if Ted has met Robin, hinting at a potential connection between them. The exchange highlights Ted's struggle to find love and the support from his friends, while also underscoring the challenges of forming meaningful relationships.",
+              "description": "Inside a dimly lit bar with neon signs and wooden decor, Ted sits at a booth with two women, laughing and gesturing animatedly. He raises his hand mid-conversation, engaging with them. Across the table, a man in a suit smiles while holding a beer mug, reacting to the discussion. The camera pans to reveal Robin standing near the bar, arms crossed, facing Ted with a skeptical expression. She turns slightly, her gaze shifting as she speaks. Behind them, patrons mingle near the bar, bartenders serve drinks, and framed posters adorn the walls. The scene transitions to a wider view of the bar, capturing the lively crowd and ambient lighting before cutting to credits.",
               "subjects_and_objects": [
-                "Mike Ross",
-                "man in bathroom"
+                "Ted",
+                "Robin",
+                "a man in a suit",
+                "two women at the booth"
               ],
               "actions": [
-                "entering bathroom",
-                "drying off",
-                "facing each other",
-                "glancing at mirror",
-                "stepping aside",
-                "pulling shirt over head"
-              ],
-              "camera_and_shot": "close-up shots focusing on facial expressions, medium shots capturing full-body movements, handheld camera following Mike as he moves",
-              "lighting_and_color": "warm artificial lighting casting soft shadows, beige and brown tones from wooden fixtures and tiles",
-              "on_screen_text": []
-            },
-            {
-              "start_time": "00:30:00",
-              "end_time": "00:40:00",
-              "dialogue_description": "Harvey Specter and Mike Ross confront each other in a tense exchange. Mike explains that he was forced by Lewis to fail a drug test and smoke marijuana, revealing the coercion behind his actions. Harvey, frustrated and skeptical, questions Mike's judgment and loyalty, accusing him of making poor decisions. Mike defends himself, asserting that he acted in self-preservation and that he is capable of handling difficult situations. Harvey challenges Mike's ability to think independently, suggesting that if someone threatens him with a gun, he should fight back or find another way out. Mike counters by stating he knows how to navigate tough scenarios and reiterates his commitment to the team. Harvey acknowledges Mike's willingness to work hard and offers him a chance to prove himself. The conversation shifts as Mike shares that he has a copy of Harvey's drug test results, hinting at potential consequences for Harvey's past actions. The exchange ends with Harvey acknowledging the complexity of their situation and agreeing to discuss Mike's future role in the firm.",
-              "description": "Harvey Specter walks briskly through a dimly lit office lobby, passing by a receptionist and heading toward an elevator. He stops briefly to speak with another man in a suit standing near the entrance, gesturing with his hand while talking. Afterward, he continues walking, looking ahead with determination. The scene transitions to a storage area filled with shelves of boxes; Harvey walks past them, pausing momentarily to look at something on a nearby table. A woman in a white lab coat works at a desk in the background.",
-              "subjects_and_objects": [
-                "Harvey Specter",
-                "man in suit",
-                "receptionist",
-                "woman in lab coat"
-              ],
-              "actions": [
-                "walking briskly",
-                "gesturing with hand while talking",
-                "pausing momentarily",
-                "looking ahead with determination",
-                "passing by shelves of boxes"
-              ],
-              "camera_and_shot": "following shot tracking Harvey's movement, static wide shot in storage area",
-              "lighting_and_color": "dim indoor lighting with warm tones, contrasted by bright fluorescent lights in the storage area",
-              "on_screen_text": []
-            },
-            {
-              "start_time": "00:40:00",
-              "end_time": "00:42:55",
-              "dialogue_description": "Mike confronts Harvey about the fabricated drug test result that Lewis used to pressure him into smoking marijuana. Mike reveals that he discovered the test was fake and explains that he had read about the Pearson-Hardman drug policy, which states that one must wait three months before requesting another test. This knowledge gives Mike leverage in the situation. He also informs Harvey that Tom Keller, their potential client, has expressed interest in working with both Mike and Harvey. Harvey, initially skeptical, acknowledges Mike's point about the policy and agrees that the situation is a win-win. Despite the tension, the exchange ends with mutual understanding, as both recognize the value of their partnership. The conversation highlights Mike's growing confidence and his ability to navigate the legal system effectively, reinforcing his place within the team.",
-              "description": "Mike Ross stands in front of a large window overlooking a city skyline, holding a green canister. He turns slightly, engaging in conversation with Harvey Specter, who is seated across from him. Harvey gestures with his hands as he speaks, occasionally leaning forward. Mike listens intently, nodding subtly. The setting appears to be a modern high-rise office with sleek furniture and framed certificates on the wall. In the background, another individual sits at a desk, focused on paperwork.",
-              "subjects_and_objects": [
-                "Mike Ross",
-                "Harvey Specter",
-                "individual at desk"
-              ],
-              "actions": [
-                "holding a green canister",
-                "turning slightly",
+                "laughing",
                 "gesturing with hands",
-                "leaning forward",
-                "nodding subtly",
-                "sitting at desk"
+                "raising a hand mid-sentence",
+                "smiling",
+                "crossing arms",
+                "turning head to speak"
               ],
-              "camera_and_shot": "medium close-up framing faces, occasional wider shot including background elements",
-              "lighting_and_color": "soft natural light from windows illuminating the space, neutral tones of office decor with dark wood accents",
+              "camera_and_shot": "close-up shots, medium shots, slow pan across the bar",
+              "lighting_and_color": "dim interior lighting with warm amber hues, accentuated by neon signage and glowing lamps",
               "on_screen_text": []
             }
           ],
-          "segments_parsed": 5,
-          "segments_total": 5,
+          "segments_parsed": 3,
+          "segments_total": 3,
           "vlm_memory_scenes": 2,
           "visual_only": false,
           "extract_visual": false,
@@ -198,60 +156,375 @@
         },
         "timings": {
           "stage": "vlm",
-          "wall_seconds": 1246.177,
+          "wall_seconds": 382.7,
           "spans": [
             {
               "name": "vlm_load",
-              "seconds": 493.704,
-              "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+              "seconds": 10.382,
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 9884.0,
+              "vram_allocated_mib": 9847.1
             },
             {
               "name": "vlm_generate",
-              "seconds": 181.877,
+              "seconds": 166.107,
               "window": 1,
               "start": "00:00:00",
               "end": "00:10:00",
-              "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 10578.0,
+              "vram_allocated_mib": 10498.1
             },
             {
               "name": "vlm_generate",
-              "seconds": 173.362,
+              "seconds": 159.314,
               "window": 2,
               "start": "00:10:00",
               "end": "00:20:00",
-              "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 10738.0,
+              "vram_allocated_mib": 10636.0
             },
             {
               "name": "vlm_generate",
-              "seconds": 169.942,
+              "seconds": 46.277,
               "window": 3,
               "start": "00:20:00",
-              "end": "00:30:00",
-              "model_id": "Qwen/Qwen3-VL-8B-Instruct"
-            },
-            {
-              "name": "vlm_generate",
-              "seconds": 168.975,
-              "window": 4,
-              "start": "00:30:00",
-              "end": "00:40:00",
-              "model_id": "Qwen/Qwen3-VL-8B-Instruct"
-            },
-            {
-              "name": "vlm_generate",
-              "seconds": 54.479,
-              "window": 5,
-              "start": "00:40:00",
-              "end": "00:42:55",
-              "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+              "end": "00:22:06",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 10858.0,
+              "vram_allocated_mib": 10759.9
             }
           ]
         },
-        "output_file": "Suits.S01E02.mkv_vlm.json",
-        "raw_file": "Suits.S01E02.mkv_vlm_raw.txt",
-        "sidecar_file": "Suits.S01E02.mkv_vlm_sidecar.json",
-        "timings_file": "Suits.S01E02.mkv_vlm_timings.json",
-        "frames_file": "Suits.S01E02.mkv_vlm_frames.json"
+        "output_file": "How_I_Met_Your_Mother.S01E02.mkv_vlm.json",
+        "raw_file": "How_I_Met_Your_Mother.S01E02.mkv_vlm_raw.txt",
+        "sidecar_file": "How_I_Met_Your_Mother.S01E02.mkv_vlm_sidecar.json",
+        "timings_file": "How_I_Met_Your_Mother.S01E02.mkv_vlm_timings.json",
+        "frames_file": "How_I_Met_Your_Mother.S01E02.mkv_vlm_frames.json"
+      },
+      {
+        "stage": "llm",
+        "status": "success",
+        "result": {
+          "recsys_metadata": {
+            "primary_genre": "Comedy",
+            "sub_genres": [
+              "Romance",
+              "Sitcom",
+              "Drama"
+            ],
+            "pacing": "Moderate",
+            "mood": [
+              "Humorous",
+              "Reflective",
+              "Sentimental"
+            ]
+          },
+          "search_and_discovery": {
+            "semantic_tags": [
+              "Relationship struggles",
+              "Friendship dynamics",
+              "Social experiments",
+              "Emotional growth"
+            ],
+            "main_topics": [
+              "Love and relationships",
+              "Personal development",
+              "Social interactions"
+            ]
+          },
+          "audience_profiling": {
+            "target_age_group": "Young Adults",
+            "viewer_interests": [
+              "Character-driven stories",
+              "Comedic moments",
+              "Relatable situations"
+            ]
+          },
+          "content_summary": {
+            "visual_style": "Warm indoor lighting with natural tones and occasional dimmer scenes, featuring medium shots, close-ups, and wide-angle views.",
+            "narrative_hook": "A character's desperate attempts to win a woman's affection through elaborate plans clash with his friends' skepticism, leading to humorous and heartfelt moments."
+          }
+        },
+        "timings": {
+          "stage": "llm",
+          "wall_seconds": 26.683,
+          "spans": [
+            {
+              "name": "llm_load",
+              "seconds": 4.619,
+              "model_id": "Qwen/Qwen3-8B",
+              "vram_reserved_mib": 9924.0,
+              "vram_allocated_mib": 9882.0
+            },
+            {
+              "name": "llm_generate",
+              "seconds": 21.515,
+              "model_id": "Qwen/Qwen3-8B",
+              "attempt": 1,
+              "vram_reserved_mib": 10528.0,
+              "vram_allocated_mib": 10454.3
+            }
+          ]
+        },
+        "output_file": "How_I_Met_Your_Mother.S01E02.mkv_llm.json",
+        "timings_file": "How_I_Met_Your_Mother.S01E02.mkv_llm_timings.json"
+      }
+    ],
+    "archived_files": [
+      "How_I_Met_Your_Mother.S01E02.mkv_audio.json",
+      "How_I_Met_Your_Mother.S01E02.mkv_audio_timings.json",
+      "How_I_Met_Your_Mother.S01E02.mkv_dialogue.json",
+      "How_I_Met_Your_Mother.S01E02.mkv_dialogue_timings.json",
+      "How_I_Met_Your_Mother.S01E02.mkv_vlm.json",
+      "How_I_Met_Your_Mother.S01E02.mkv_vlm_timings.json",
+      "How_I_Met_Your_Mother.S01E02.mkv_vlm_frames.json",
+      "How_I_Met_Your_Mother.S01E02.mkv_vlm_raw.txt",
+      "How_I_Met_Your_Mother.S01E02.mkv_vlm_sidecar.json",
+      "How_I_Met_Your_Mother.S01E02.mkv_llm.json",
+      "How_I_Met_Your_Mother.S01E02.mkv_llm_timings.json"
+    ]
+  },
+  {
+    "video": "Silicon_Valley.S06E01.mkv",
+    "status": "success",
+    "stages": [
+      {
+        "stage": "audio",
+        "status": "skipped_cache",
+        "output_file": "Silicon_Valley.S06E01.mkv_audio.json"
+      },
+      {
+        "stage": "dialogue",
+        "status": "success",
+        "scenes": 4,
+        "plot_sampled": false,
+        "timings": {
+          "stage": "dialogue",
+          "wall_seconds": 98.764,
+          "spans": [
+            {
+              "name": "plot_load",
+              "seconds": 4.523,
+              "model_id": "Qwen/Qwen3-8B",
+              "vram_reserved_mib": 6232.0,
+              "vram_allocated_mib": 6182.3
+            },
+            {
+              "name": "plot_generate",
+              "seconds": 26.176,
+              "model_id": "Qwen/Qwen3-8B",
+              "vram_reserved_mib": 10456.0,
+              "vram_allocated_mib": 10199.3
+            },
+            {
+              "name": "scene_load",
+              "seconds": 4.571,
+              "model_id": "Qwen/Qwen3-8B",
+              "vram_reserved_mib": 9962.0,
+              "vram_allocated_mib": 9908.5
+            },
+            {
+              "name": "scene_generate",
+              "seconds": 14.98,
+              "model_id": "Qwen/Qwen3-8B",
+              "window": 1,
+              "vram_reserved_mib": 11346.0,
+              "vram_allocated_mib": 11143.9
+            },
+            {
+              "name": "scene_generate",
+              "seconds": 16.32,
+              "model_id": "Qwen/Qwen3-8B",
+              "window": 2,
+              "vram_reserved_mib": 11446.0,
+              "vram_allocated_mib": 11250.7
+            },
+            {
+              "name": "scene_generate",
+              "seconds": 15.351,
+              "model_id": "Qwen/Qwen3-8B",
+              "window": 3,
+              "vram_reserved_mib": 11486.0,
+              "vram_allocated_mib": 11294.3
+            },
+            {
+              "name": "scene_generate",
+              "seconds": 16.013,
+              "model_id": "Qwen/Qwen3-8B",
+              "window": 4,
+              "vram_reserved_mib": 11486.0,
+              "vram_allocated_mib": 10240.5
+            }
+          ]
+        },
+        "output_file": "Silicon_Valley.S06E01.mkv_dialogue.json",
+        "timings_file": "Silicon_Valley.S06E01.mkv_dialogue_timings.json"
+      },
+      {
+        "stage": "vlm",
+        "status": "success",
+        "json_valid": true,
+        "result": {
+          "experiment_id": "07-window-600",
+          "scene_timeline": [
+            {
+              "start_time": "00:00:00",
+              "end_time": "00:10:00",
+              "dialogue_description": "During a congressional hearing, Richard Hendricks addresses a panel about Pied Piper's mission to create a democratic, decentralized internet. He contrasts the monopolistic power of tech giants like Amazon, Facebook, and Google, arguing that these companies track and exploit user data. Richard asserts that Pied Piper aims to empower users with sovereignty over their information, positioning the company as a revolutionary force against digital tyranny. His speech draws applause, particularly from colleagues who view his remarks as a bold challenge to Big Tech. Later, in a break between panels, Richard’s colleague Colin approaches him, expressing pride in his role in a recent successful attack on a rival network, which boosted user numbers. Colin’s actions highlight the tension between the company’s ideals and its willingness to engage in aggressive tactics. Richard, though pleased with the outcome, remains conflicted about the ethical implications of such strategies. The exchange underscores the internal struggle within Pied Piper between innovation and integrity.",
+              "description": "Richard Hendricks stands at a podium during a formal congressional hearing, gesturing emphatically while speaking into a microphone. Behind him, members of the committee sit at a long table, some listening intently, others looking away. A large screen behind him displays graphs and charts related to Pied Piper. In another scene, Richard walks through an office space filled with employees, smiling and interacting casually with coworkers. He later meets with a colleague named Colin outside, where they share a laugh and discuss recent events. They walk together toward a parking lot, passing cars and trees under bright sunlight.",
+              "subjects_and_objects": [
+                "Richard Hendricks",
+                "Colin",
+                "congressional committee members",
+                "employees",
+                "microphone",
+                "podium"
+              ],
+              "actions": [
+                "Richard gestures with both hands while speaking",
+                "committee members look down at notes or away from speaker",
+                "Richard smiles and laughs with Colin",
+                "Richard walks alongside Colin",
+                "Richard looks up at sky briefly",
+                "Colin points forward while talking"
+              ],
+              "camera_and_shot": "medium close-up shots alternating with wide-angle views showing room layout and crowd movement",
+              "lighting_and_color": "bright indoor fluorescent lighting; natural daylight outdoors",
+              "on_screen_text": []
+            },
+            {
+              "start_time": "00:10:00",
+              "end_time": "00:20:00",
+              "dialogue_description": "During a tense meeting, Colin reveals he has been secretly collecting user data for personal gain, specifically to enhance his gaming experience. Richard confronts him, expressing concern over the ethical implications of the company's practices. Colin insists he isn't selling ads, only optimizing his game. Richard dismisses this, arguing that even if the intent is benign, the act itself violates the company's core principles. Their disagreement escalates as Richard accuses Colin of betraying their trust, while Colin defends his actions as necessary for his own benefit. Meanwhile, the group discusses the potential acquisition by Amazon, which threatens to erase the company's identity. Richard's colleague, Gavin, expresses frustration over the rebranding demands, highlighting the tension between maintaining their values and the pressure to conform. The conversation underscores the internal conflict between innovation and ethics, as well as the looming threat of external forces seeking to compromise their mission. The exchange ends with a sense of unresolved tension, as the team grapples with the difficult choices ahead.",
+              "description": "In a dimly lit conference room, Richard Hendricks sits across a glass table from Colin, who leans back in his chair with arms crossed. Richard taps his pen nervously while speaking, his expression serious. Colin listens, occasionally nodding slightly, but maintains a guarded posture. Behind them, a large screen displays the 'Hooli' logo prominently. Other executives sit around the table, some taking notes, others watching the interaction closely. The atmosphere feels tense, underscored by the stark lighting and the weighty presence of corporate logos.",
+              "subjects_and_objects": [
+                "Richard Hendricks",
+                "Colin",
+                "executives",
+                "glass table",
+                "large screen"
+              ],
+              "actions": [
+                "Richard taps pen while speaking",
+                "Colin crosses arms and leans back",
+                "executives take notes or watch interaction",
+                "Richard glances at screen displaying Hooli logo"
+              ],
+              "camera_and_shot": "static medium shot focusing on Richard and Colin seated opposite each other",
+              "lighting_and_color": "cool-toned artificial lighting casting shadows across faces, dark wood-paneled walls contrast with reflective glass surface",
+              "on_screen_text": []
+            },
+            {
+              "start_time": "00:20:00",
+              "end_time": "00:30:00",
+              "dialogue_description": "Colin reveals that he has been using the network to store private conversations, including his own, across multiple devices. He explains that the AI, Son of Anton, indexed and categorized all this data, creating a detailed graph of Colin’s misdeeds. Richard reacts with shock and anger, realizing the extent of the data breach. Richard questions whether their actions are justified, even if they serve a greater good. They discuss the ethical implications of their work, with Richard suggesting they take drastic action against Colin. Meanwhile, other characters mention the company’s financial struggles and the looming threat of Amazon’s acquisition. Richard’s colleague, Jared, expresses concern about the company’s future, while others joke about the absurdity of their situation. The conversation highlights the tension between innovation and ethics, as well as the personal and professional stakes involved. The exchange ends with Richard reaffirming his commitment to the company, despite the chaos and moral compromises.",
+              "description": "Richard Hendricks stands in front of a large screen displaying a complex graph with red dots labeled 'Bad behavior,' pointing at specific nodes while speaking intensely. He turns sharply to face someone off-screen, his expression urgent. The camera cuts to a different angle showing Richard sitting stiffly in a chair, eyes fixed straight ahead with a somber demeanor. Another shot shows him standing near a door, hand resting on the handle, gazing outward with a thoughtful, almost troubled expression. The environment appears to be a modern office setting with sleek furniture and ambient lighting.",
+              "subjects_and_objects": [
+                "Richard Hendricks",
+                "graph display",
+                "door"
+              ],
+              "actions": [
+                "Richard points at nodes on the graph",
+                "Richard turns to face off-screen",
+                "Richard sits upright with focused gaze",
+                "Richard places hand on door handle"
+              ],
+              "camera_and_shot": "close-ups of Richard gesturing and reacting, interspersed with wider shots capturing his surroundings",
+              "lighting_and_color": "even, cool-toned interior lighting with neutral color palette",
+              "on_screen_text": []
+            },
+            {
+              "start_time": "00:30:00",
+              "end_time": "00:32:52",
+              "dialogue_description": "SPEAKER_15, Richard Hendricks, stands before his team, holding a resignation letter. He declares that Pied Piper is no longer the company he joined, stating it has \"different needs now.\" His words carry weight, revealing his disillusionment with the company’s ethical compromises. SPEAKER_04, Erlich Bachman, reacts with anger, calling Richard a \"buddy fucker,\" highlighting their once-close friendship now strained by ideological differences. The tension between them reflects the broader conflict within the company—between idealism and compromise. SPEAKER_15’s declaration of resignation signals his decision to leave, a move that underscores his belief that the company has strayed from its original mission. Meanwhile, SPEAKER_03, Monica, adds a humorous yet pointed remark about \"Russ Fest,\" a reference to the company’s controversial name change and the growing cynicism around its identity. The exchange ends with Richard questioning whether his actions are illegal, a nod to the ethical dilemmas that have plagued the company. His final line, \"Fuck the police,\" encapsulates his frustration with systemic issues both inside and outside the company.",
+              "description": "Richard Hendricks stands before his team, holding a resignation letter. He gestures slightly with his free hand as he speaks, his posture rigid and resolute. Erlich Bachman leans forward aggressively, hands clasped tightly, his expression furious. Monica stands beside him, arms folded, her face a mix of amusement and disbelief. The room is filled with other employees, some looking downcast, others staring intently at Richard. A large screen behind them displays the company logo, glowing faintly under the overhead lights.",
+              "subjects_and_objects": [
+                "Richard Hendricks",
+                "Erlich Bachman",
+                "Monica",
+                "employees",
+                "resignation letter",
+                "large screen"
+              ],
+              "actions": [
+                "Richard holds resignation letter and gestures while speaking",
+                "Erlich leans forward with clenched fists",
+                "Monica folds her arms and stares",
+                "Employees look toward Richard or away in reaction"
+              ],
+              "camera_and_shot": "medium wide shot capturing Richard, Erlich, and Monica centered with surrounding staff",
+              "lighting_and_color": "warm indoor lighting with wooden paneling and soft shadows cast by overhead fixtures",
+              "on_screen_text": []
+            }
+          ],
+          "segments_parsed": 4,
+          "segments_total": 4,
+          "vlm_memory_scenes": 2,
+          "visual_only": false,
+          "extract_visual": false,
+          "memory_compacted": false
+        },
+        "timings": {
+          "stage": "vlm",
+          "wall_seconds": 519.131,
+          "spans": [
+            {
+              "name": "vlm_load",
+              "seconds": 10.08,
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 9884.0,
+              "vram_allocated_mib": 9847.1
+            },
+            {
+              "name": "vlm_generate",
+              "seconds": 167.489,
+              "window": 1,
+              "start": "00:00:00",
+              "end": "00:10:00",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 10578.0,
+              "vram_allocated_mib": 10490.4
+            },
+            {
+              "name": "vlm_generate",
+              "seconds": 147.874,
+              "window": 2,
+              "start": "00:10:00",
+              "end": "00:20:00",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 10698.0,
+              "vram_allocated_mib": 10605.1
+            },
+            {
+              "name": "vlm_generate",
+              "seconds": 144.72,
+              "window": 3,
+              "start": "00:20:00",
+              "end": "00:30:00",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 10798.0,
+              "vram_allocated_mib": 10699.6
+            },
+            {
+              "name": "vlm_generate",
+              "seconds": 48.35,
+              "window": 4,
+              "start": "00:30:00",
+              "end": "00:32:52",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 10798.0,
+              "vram_allocated_mib": 10701.6
+            }
+          ]
+        },
+        "output_file": "Silicon_Valley.S06E01.mkv_vlm.json",
+        "raw_file": "Silicon_Valley.S06E01.mkv_vlm_raw.txt",
+        "sidecar_file": "Silicon_Valley.S06E01.mkv_vlm_sidecar.json",
+        "timings_file": "Silicon_Valley.S06E01.mkv_vlm_timings.json",
+        "frames_file": "Silicon_Valley.S06E01.mkv_vlm_frames.json"
       },
       {
         "stage": "llm",
@@ -260,78 +533,407 @@
           "recsys_metadata": {
             "primary_genre": "Drama",
             "sub_genres": [
-              "Legal",
-              "Corporate",
-              "Psychological"
+              "Tech Thriller",
+              "Corporate Espionage",
+              "Ethical Dilemma"
             ],
             "pacing": "Moderate",
             "mood": [
               "Tense",
-              "Introspective",
-              "Confrontational"
+              "Reflective",
+              "Controversial"
             ]
           },
           "search_and_discovery": {
             "semantic_tags": [
-              "Patent Dispute",
-              "Ethical Dilemma",
-              "Professional Conflict",
-              "Trust Issues",
-              "Power Dynamics",
-              "Moral Ambiguity"
+              "Data Privacy",
+              "Corporate Ethics",
+              "Technological Innovation",
+              "Internal Conflict"
             ],
             "main_topics": [
-              "Legal Strategy",
-              "Personal Integrity",
-              "Workplace Relationships"
+              "Ethics in Technology",
+              "Power Dynamics",
+              "Identity Crisis"
             ]
           },
           "audience_profiling": {
             "target_age_group": "Young Adults",
             "viewer_interests": [
-              "Lawyers",
-              "Corporate Culture",
-              "Character Development"
+              "Technology",
+              "Politics",
+              "Social Issues"
             ]
           },
           "content_summary": {
-            "visual_style": "The visual style features bright indoor lighting with neutral tones, contrasting with warm highlights in key scenes, creating a balanced atmosphere that reflects the tension between professionalism and personal struggle.",
-            "narrative_hook": "A young lawyer faces ethical dilemmas and professional conflicts as he navigates a high-stakes patent dispute, testing his loyalty and integrity within a competitive corporate environment."
+            "visual_style": "The visual style features a blend of bright, sterile environments with cold tones and warm, intimate scenes with natural light.",
+            "narrative_hook": "A tech CEO confronts the ethical implications of his company's data practices after discovering a senior employee's secret misuse of the system."
           }
         },
         "timings": {
           "stage": "llm",
-          "wall_seconds": 125.185,
+          "wall_seconds": 26.919,
           "spans": [
             {
               "name": "llm_load",
-              "seconds": 105.596,
-              "model_id": "Qwen/Qwen3-8B"
+              "seconds": 4.612,
+              "model_id": "Qwen/Qwen3-8B",
+              "vram_reserved_mib": 9924.0,
+              "vram_allocated_mib": 9882.0
             },
             {
               "name": "llm_generate",
-              "seconds": 18.973,
+              "seconds": 21.745,
               "model_id": "Qwen/Qwen3-8B",
-              "attempt": 1
+              "attempt": 1,
+              "vram_reserved_mib": 10568.0,
+              "vram_allocated_mib": 10487.0
             }
           ]
         },
-        "output_file": "Suits.S01E02.mkv_llm.json",
-        "timings_file": "Suits.S01E02.mkv_llm_timings.json"
+        "output_file": "Silicon_Valley.S06E01.mkv_llm.json",
+        "timings_file": "Silicon_Valley.S06E01.mkv_llm_timings.json"
       }
     ],
     "archived_files": [
-      "Suits.S01E02.mkv_audio.json",
-      "Suits.S01E02.mkv_audio_timings.json",
-      "Suits.S01E02.mkv_dialogue.json",
-      "Suits.S01E02.mkv_dialogue_timings.json",
-      "Suits.S01E02.mkv_vlm.json",
-      "Suits.S01E02.mkv_vlm_timings.json",
-      "Suits.S01E02.mkv_vlm_frames.json",
-      "Suits.S01E02.mkv_vlm_raw.txt",
-      "Suits.S01E02.mkv_vlm_sidecar.json",
-      "Suits.S01E02.mkv_llm.json",
-      "Suits.S01E02.mkv_llm_timings.json"
+      "Silicon_Valley.S06E01.mkv_audio.json",
+      "Silicon_Valley.S06E01.mkv_audio_timings.json",
+      "Silicon_Valley.S06E01.mkv_dialogue.json",
+      "Silicon_Valley.S06E01.mkv_dialogue_timings.json",
+      "Silicon_Valley.S06E01.mkv_vlm.json",
+      "Silicon_Valley.S06E01.mkv_vlm_timings.json",
+      "Silicon_Valley.S06E01.mkv_vlm_frames.json",
+      "Silicon_Valley.S06E01.mkv_vlm_raw.txt",
+      "Silicon_Valley.S06E01.mkv_vlm_sidecar.json",
+      "Silicon_Valley.S06E01.mkv_llm.json",
+      "Silicon_Valley.S06E01.mkv_llm_timings.json"
+    ]
+  },
+  {
+    "video": "The_Kingdom.S01E02.mkv",
+    "status": "success",
+    "stages": [
+      {
+        "stage": "audio",
+        "status": "skipped_cache",
+        "output_file": "The_Kingdom.S01E02.mkv_audio.json"
+      },
+      {
+        "stage": "dialogue",
+        "status": "success",
+        "scenes": 4,
+        "plot_sampled": false,
+        "timings": {
+          "stage": "dialogue",
+          "wall_seconds": 113.704,
+          "spans": [
+            {
+              "name": "plot_load",
+              "seconds": 4.531,
+              "model_id": "Qwen/Qwen3-8B",
+              "vram_reserved_mib": 6232.0,
+              "vram_allocated_mib": 6182.3
+            },
+            {
+              "name": "plot_generate",
+              "seconds": 29.057,
+              "model_id": "Qwen/Qwen3-8B",
+              "vram_reserved_mib": 9856.0,
+              "vram_allocated_mib": 9604.1
+            },
+            {
+              "name": "scene_load",
+              "seconds": 4.584,
+              "model_id": "Qwen/Qwen3-8B",
+              "vram_reserved_mib": 9962.0,
+              "vram_allocated_mib": 9908.5
+            },
+            {
+              "name": "scene_generate",
+              "seconds": 19.2,
+              "model_id": "Qwen/Qwen3-8B",
+              "window": 1,
+              "vram_reserved_mib": 11126.0,
+              "vram_allocated_mib": 10945.8
+            },
+            {
+              "name": "scene_generate",
+              "seconds": 20.379,
+              "model_id": "Qwen/Qwen3-8B",
+              "window": 2,
+              "vram_reserved_mib": 11186.0,
+              "vram_allocated_mib": 10994.1
+            },
+            {
+              "name": "scene_generate",
+              "seconds": 20.881,
+              "model_id": "Qwen/Qwen3-8B",
+              "window": 3,
+              "vram_reserved_mib": 11426.0,
+              "vram_allocated_mib": 11223.1
+            },
+            {
+              "name": "scene_generate",
+              "seconds": 14.263,
+              "model_id": "Qwen/Qwen3-8B",
+              "window": 4,
+              "vram_reserved_mib": 11426.0,
+              "vram_allocated_mib": 10233.9
+            }
+          ]
+        },
+        "output_file": "The_Kingdom.S01E02.mkv_dialogue.json",
+        "timings_file": "The_Kingdom.S01E02.mkv_dialogue_timings.json"
+      },
+      {
+        "stage": "vlm",
+        "status": "success",
+        "json_valid": true,
+        "result": {
+          "experiment_id": "07-window-600",
+          "scene_timeline": [
+            {
+              "start_time": "00:00:00",
+              "end_time": "00:10:00",
+              "dialogue_description": "SPEAKER_08, Pastor Emilio Vazquez, is confronted by SPEAKER_12, a journalist, who reveals that Remigio Cardenas has confessed to the murder of Armando Badajoz. Emilio struggles to comprehend the accusation, insisting that Remigio, who works at the church's home for children, is not capable of such violence. Emilio questions how Remigio could commit the act, especially since he has always been loyal to the church. SPEAKER_02, Emilio's son, supports his father, emphasizing that Remigio would never betray the church's finances, which he considers sacred. Emilio expresses deep distress, fearing the impact on the church's reputation. He insists on keeping quiet, warning his son not to inform their mother. Later, SPEAKER_03, another relative, repeatedly asks Emilio if he cares about the consequences of the situation, highlighting the emotional toll of the revelation. Emilio's response is fragmented, showing his internal conflict and the weight of the accusations against Remigio, whom he still believes is innocent despite the confession. The exchange ends with Emilio's frustration and helplessness as the truth threatens to unravel everything he stands for.",
+              "description": "A man with gray hair and intense eyes stares directly into the camera under dim, cool-toned lighting, conveying deep concern. The scene shifts to an office where he sits across a desk from a woman in a suit; she holds papers while looking at him intently. In another shot, he leans forward slightly, appearing troubled. A close-up shows his face illuminated by soft light, revealing furrowed brows and a tense expression. The setting transitions to a cluttered room with books and a lamp, where he bends over a table, seemingly overwhelmed. Another scene depicts him standing near a staircase, gazing downward with a somber look. The environment includes wooden paneling, bookshelves, and modern furniture, suggesting formal or institutional spaces.",
+              "subjects_and_objects": [
+                "Emilio",
+                "woman in suit",
+                "Remigio"
+              ],
+              "actions": [
+                "staring intensely",
+                "leaning forward",
+                "bending over a table",
+                "gazing downward",
+                "holding documents",
+                "standing near staircase"
+              ],
+              "camera_and_shot": "Close-ups alternating with medium shots, including overhead angles during moments of contemplation.",
+              "lighting_and_color": "Cool blue tones dominate indoor scenes, contrasted with warmer ambient lighting in domestic settings.",
+              "on_screen_text": [
+                "EL REINO",
+                "Un Hombre de Dios",
+                "CAM 48",
+                "NICO COTTON",
+                "MERCEDES MORAN"
+              ]
+            },
+            {
+              "start_time": "00:10:00",
+              "end_time": "00:20:00",
+              "dialogue_description": "During this tense exchange, SPEAKER_03 confronts SPEAKER_07 about Remigio's involvement in the murder of Badajoz. SPEAKER_03 suspects Remigio was manipulated, asking if he could be \"bought\" and implying someone else orchestrated the crime. SPEAKER_07, who appears to be a lawyer, responds with a cryptic reference to the parable of the sower, suggesting Remigio was planted in a harmful environment. Despite SPEAKER_03's demand for direct answers, SPEAKER_07 avoids providing concrete information, instead urging SPEAKER_03 to question Remigio directly. \n\nLater, SPEAKER_04, likely a family member or associate, engages with SPEAKER_11, who seems to be an accountant. SPEAKER_11 expresses frustration with being forced into financial cover-ups, hinting at the broader corruption within their circle. SPEAKER_04 reassures her that everything is \"protected,\" though the conversation underscores the fragile alliances and moral compromises at play. The exchange ends with SPEAKER_11 continuing her work, aware she could face legal consequences, while SPEAKER_04 dismisses concerns as routine. The dialogue reveals the extent of the conspiracy and the personal costs of maintaining power.",
+              "description": "A woman with short dark hair walks through a modern hallway, holding a yellow folder. She pauses before entering a room where another woman with long brown hair is seated at a desk surrounded by stacks of paper. The second woman looks up, smiling briefly before resuming her task. The first woman enters fully, placing the folder down beside a computer monitor displaying spreadsheets. Both women stand facing each other, exchanging glances that suggest tension or urgency. Behind them, posters with Spanish text are visible on the wall.",
+              "subjects_and_objects": [
+                "woman with short dark hair",
+                "woman with long brown hair"
+              ],
+              "actions": [
+                "walking through hallway",
+                "pausing before doorway",
+                "entering room",
+                "placing folder down",
+                "looking up",
+                "exchanging glances"
+              ],
+              "camera_and_shot": "Medium tracking shot following the first woman’s movement, transitioning to static framing as both women stand facing each other.",
+              "lighting_and_color": "Neutral indoor lighting with warm tones from overhead fixtures, casting even illumination across the space.",
+              "on_screen_text": [
+                "CASA DE LA EMPRESA",
+                "DEPARTAMENTO DE CONTABILIDAD Y FINANZAS"
+              ]
+            },
+            {
+              "start_time": "00:20:00",
+              "end_time": "00:30:00",
+              "dialogue_description": "During this tense exchange, Speaker_17 confronts Julio about his lack of cooperation and demands clarity on his plans. Speaker_17 accuses Julio of withholding information and insists on knowing his strategy, emphasizing the high stakes involved. Meanwhile, Speaker_03 theorizes that Speaker_06 (likely Emilio Vazquez) may have been involved in the riots and the murder of Armando Badajoz, linking them to a broader conspiracy. Speaker_03 suggests that Speaker_06's father, possibly a political figure, orchestrated these events. Speaker_06, however, denies any involvement, insisting that Speaker_03's claims are unfounded. Speaker_04, likely a close associate of Speaker_06, reassures Speaker_08 (possibly a political rival) that Speaker_06 is not responsible for the violence and urges him to return to the church. Speaker_08, expressing deep personal conflict, seeks support from Speaker_04, hinting at a potential shift in allegiance. Speaker_04 reaffirms loyalty, suggesting Speaker_08's return to the church is both a spiritual and practical necessity. The conversation ends with Speaker_08 expressing hope for redemption, while Speaker_04 offers unwavering support, signaling a fragile but hopeful alliance.",
+              "description": "A man in a suit stands in front of a mirror, adjusting his tie while a woman in a patterned blouse watches him closely. He turns toward her, his expression serious, as she places a hand on his shoulder. The scene shifts to a cityscape viewed through large windows, where the man walks confidently past a reception area. Later, he is seen walking down a corridor flanked by glass doors, followed by the woman. They stop outside a door marked 'Casa del Pueblo,' where they engage in a tense conversation. The final shot shows the man sitting at a desk, staring blankly ahead.",
+              "subjects_and_objects": [
+                "man in suit",
+                "woman in patterned blouse"
+              ],
+              "actions": [
+                "adjusting tie",
+                "turning toward woman",
+                "placing hand on shoulder",
+                "walking confidently",
+                "engaging in conversation",
+                "staring blankly"
+              ],
+              "camera_and_shot": "Close-up shots focusing on faces and gestures, transitioning to wide-angle views capturing movement through corridors and cityscapes.",
+              "lighting_and_color": "Warm interior lighting contrasts with bright natural daylight streaming through expansive windows, creating sharp shadows and highlights.",
+              "on_screen_text": []
+            },
+            {
+              "start_time": "00:30:00",
+              "end_time": "00:34:31",
+              "dialogue_description": "During this intense exchange, Remigio Cardenas, accused of the murder, confronts his interrogator, asserting that he did not kill Armando Badajoz but instead confessed to killing Pastor Emilio. His statements reveal a shocking twist: he claims to have stabbed the church's banner and later attacked Emilio, implying a symbolic and literal attack on the pastor. Remigio’s confusion about the victim’s identity highlights his disorientation and possible manipulation. When asked about his lawyer, he insists he has been wrongly represented, demanding to speak with Julio Clámez, signaling his desperation and desire for legal clarity. \n\nMeanwhile, Speaker 08, likely a figure of faith, delivers a powerful monologue, invoking Jesus’ cry of abandonment. This speech reflects a deep spiritual struggle, as Speaker 08 acknowledges being forsaken yet commits to faith and obedience. The exchange ends with repeated declarations of faith and a final plea for divine guidance, underscoring the tension between despair and hope.",
+              "description": "A man in a black clerical robe stands in a vast, empty chapel, holding a book. He slowly raises the book, looking upward with a solemn expression. The camera moves closer, capturing his focused gaze and the weight of the moment. Sunlight streams through tall windows behind him, illuminating dust motes in the air. He lowers the book slightly, his eyes closing momentarily as if in prayer or reflection.",
+              "subjects_and_objects": [
+                "man in black clerical robe"
+              ],
+              "actions": [
+                "holding book",
+                "raising book",
+                "looking upward",
+                "closing eyes",
+                "standing still"
+              ],
+              "camera_and_shot": "Slow push-in shot starting from mid-range, moving closer to capture facial expressions and upper body details.",
+              "lighting_and_color": "Soft, diffused natural light filtering through stained-glass windows casts gentle hues across the stone floor and walls; overall tone is serene and contemplative.",
+              "on_screen_text": []
+            }
+          ],
+          "segments_parsed": 4,
+          "segments_total": 4,
+          "vlm_memory_scenes": 2,
+          "visual_only": false,
+          "extract_visual": false,
+          "memory_compacted": false
+        },
+        "timings": {
+          "stage": "vlm",
+          "wall_seconds": 280.57,
+          "spans": [
+            {
+              "name": "vlm_load",
+              "seconds": 9.717,
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 9884.0,
+              "vram_allocated_mib": 9847.1
+            },
+            {
+              "name": "vlm_generate",
+              "seconds": 82.981,
+              "window": 1,
+              "start": "00:00:00",
+              "end": "00:10:00",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 10578.0,
+              "vram_allocated_mib": 10504.6
+            },
+            {
+              "name": "vlm_generate",
+              "seconds": 82.602,
+              "window": 2,
+              "start": "00:10:00",
+              "end": "00:20:00",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 10738.0,
+              "vram_allocated_mib": 10641.7
+            },
+            {
+              "name": "vlm_generate",
+              "seconds": 72.807,
+              "window": 3,
+              "start": "00:20:00",
+              "end": "00:30:00",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 10858.0,
+              "vram_allocated_mib": 10755.7
+            },
+            {
+              "name": "vlm_generate",
+              "seconds": 31.841,
+              "window": 4,
+              "start": "00:30:00",
+              "end": "00:34:31",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 10818.0,
+              "vram_allocated_mib": 10735.1
+            }
+          ]
+        },
+        "output_file": "The_Kingdom.S01E02.mkv_vlm.json",
+        "raw_file": "The_Kingdom.S01E02.mkv_vlm_raw.txt",
+        "sidecar_file": "The_Kingdom.S01E02.mkv_vlm_sidecar.json",
+        "timings_file": "The_Kingdom.S01E02.mkv_vlm_timings.json",
+        "frames_file": "The_Kingdom.S01E02.mkv_vlm_frames.json"
+      },
+      {
+        "stage": "llm",
+        "status": "success",
+        "result": {
+          "recsys_metadata": {
+            "primary_genre": "Drama",
+            "sub_genres": [
+              "Political Thriller",
+              "Religious Drama",
+              "Mystery"
+            ],
+            "pacing": "Moderate",
+            "mood": [
+              "Tense",
+              "Reflective",
+              "Morally Ambiguous"
+            ]
+          },
+          "search_and_discovery": {
+            "semantic_tags": [
+              "Church Conspiracy",
+              "Faith Crisis",
+              "Power Struggles",
+              "Betrayal",
+              "Political Corruption",
+              "Spiritual Conflict"
+            ],
+            "main_topics": [
+              "Religious Leadership",
+              "Political Intrigue",
+              "Ethical Dilemmas"
+            ]
+          },
+          "audience_profiling": {
+            "target_age_group": "Adults",
+            "viewer_interests": [
+              "Political Commentary",
+              "Character-driven Stories",
+              "Religious Themes"
+            ]
+          },
+          "content_summary": {
+            "visual_style": "The visual style features a muted palette dominated by cool blues and warm neutrals, contrasting institutional settings with intimate, emotionally charged scenes.",
+            "narrative_hook": "A revered religious leader faces a moral crisis when one of his trusted associates confesses to murder, forcing him to confront the hidden conspiracies within his community."
+          }
+        },
+        "timings": {
+          "stage": "llm",
+          "wall_seconds": 28.687,
+          "spans": [
+            {
+              "name": "llm_load",
+              "seconds": 4.583,
+              "model_id": "Qwen/Qwen3-8B",
+              "vram_reserved_mib": 9924.0,
+              "vram_allocated_mib": 9882.0
+            },
+            {
+              "name": "llm_generate",
+              "seconds": 23.555,
+              "model_id": "Qwen/Qwen3-8B",
+              "attempt": 1,
+              "vram_reserved_mib": 10648.0,
+              "vram_allocated_mib": 10550.3
+            }
+          ]
+        },
+        "output_file": "The_Kingdom.S01E02.mkv_llm.json",
+        "timings_file": "The_Kingdom.S01E02.mkv_llm_timings.json"
+      }
+    ],
+    "archived_files": [
+      "The_Kingdom.S01E02.mkv_audio.json",
+      "The_Kingdom.S01E02.mkv_audio_timings.json",
+      "The_Kingdom.S01E02.mkv_dialogue.json",
+      "The_Kingdom.S01E02.mkv_dialogue_timings.json",
+      "The_Kingdom.S01E02.mkv_vlm.json",
+      "The_Kingdom.S01E02.mkv_vlm_timings.json",
+      "The_Kingdom.S01E02.mkv_vlm_frames.json",
+      "The_Kingdom.S01E02.mkv_vlm_raw.txt",
+      "The_Kingdom.S01E02.mkv_vlm_sidecar.json",
+      "The_Kingdom.S01E02.mkv_llm.json",
+      "The_Kingdom.S01E02.mkv_llm_timings.json"
     ]
   }
 ]

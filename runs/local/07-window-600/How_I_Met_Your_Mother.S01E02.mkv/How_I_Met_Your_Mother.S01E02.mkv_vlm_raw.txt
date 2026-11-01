@@ -1,0 +1,67 @@
+--- 00:00:00-00:10:00 ---
+{
+  "description": "In a cluttered living room, Ted sits on a couch wearing a striped shirt, gesturing animatedly while talking. He stands up and walks toward the camera, adjusting his clothing. In another shot, Ted leans against a wall holding a drink, looking upward thoughtfully. Later, Ted and Robin stand together in a store aisle; she holds a bag of chips, and he gestures at products behind her. They walk past shelves filled with snacks and drinks. A woman in a green turtleneck talks to someone off-screen near a counter. Another scene shows Ted sitting at a table surrounded by friends, including Marshall and Lily, all engaged in conversation. One man in a suit stands nearby, listening intently. Ted later appears in a kitchen area, standing beside a refrigerator, looking down at something. Back in the living room, Ted lies on the floor under a blanket, smiling at the ceiling. He gets up and walks away, still smiling. In a different setting, Ted and Robin sit side-by-side on a couch, both looking relaxed. Ted adjusts his glasses while speaking. Robin turns slightly to look at him. The group gathers around a coffee table where various items like cups, bowls, and bottles are scattered.",
+  "subjects_and_objects": [
+    "Ted",
+    "Robin",
+    "Marshall",
+    "Lily"
+  ],
+  "actions": [
+    "gesturing with hands",
+    "adjusting clothing",
+    "leaning against a wall",
+    "holding a drink",
+    "walking through a store aisle",
+    "standing next to each other",
+    "sitting at a table",
+    "lying on the floor",
+    "smiling",
+    "getting up and walking away",
+    "turning head to look at someone",
+    "adjusting glasses"
+  ],
+  "camera_and_shot": "medium shots, close-ups, wide-angle views",
+  "lighting_and_color": "warm indoor lighting, natural tones, occasional dimmer scenes",
+  "on_screen_text": [
+    "the year 2030",
+    "with neil patrick harris"
+  ]
+}
+
+--- 00:10:00-00:20:00 ---
+{
+  "description": "The scene opens in a cozy, cluttered apartment where Ted, dressed in a robe, walks across the room carrying a red cup. He moves toward a doorway, passing by furniture and shelves filled with books and knickknacks. The camera follows him into a crowded social gathering where he interacts with friends—Marshall in a brown jacket and Lily seated nearby. Ted sips from his cup while conversing, occasionally glancing around the room. A woman in a white top sits on a couch, watching the interaction unfold. As the scene shifts outdoors, Ted and Robin stand close together near a brick wall adorned with string lights and potted plants. She wears a light-colored coat over a dress, and they appear to be in deep conversation. Ted gestures subtly while speaking, and Robin listens attentively, nodding slightly. Behind them, city lights twinkle in the distance, creating a warm, intimate atmosphere.",
+  "subjects_and_objects": ["Ted", "Robin", "Marshall", "Lily"],
+  "actions": [
+    "carrying a red cup",
+    "walking across the room",
+    "sipping from a cup",
+    "gesturing while talking",
+    "nodding during conversation",
+    "standing close together",
+    "looking around the room"
+  ],
+  "camera_and_shot": "close-ups, medium shots, tracking shots following movement",
+  "lighting_and_color": "warm indoor lighting transitioning to soft evening outdoor glow with city lights in background",
+  "on_screen_text": []
+}
+
+--- 00:20:00-00:22:06 ---
+{
+  "description": "Inside a dimly lit bar with neon signs and wooden decor, Ted sits at a booth with two women, laughing and gesturing animatedly. He raises his hand mid-conversation, engaging with them. Across the table, a man in a suit smiles while holding a beer mug, reacting to the discussion. The camera pans to reveal Robin standing near the bar, arms crossed, facing Ted with a skeptical expression. She turns slightly, her gaze shifting as she speaks. Behind them, patrons mingle near the bar, bartenders serve drinks, and framed posters adorn the walls. The scene transitions to a wider view of the bar, capturing the lively crowd and ambient lighting before cutting to credits.",
+  "subjects_and_objects": ["Ted", "Robin", "a man in a suit", "two women at the booth"],
+  "actions": [
+    "laughing",
+    "gesturing with hands",
+    "raising a hand mid-sentence",
+    "smiling",
+    "crossing arms",
+    "turning head to speak",
+    "sitting at a booth",
+    "milling around the bar"
+  ],
+  "camera_and_shot": "close-up shots, medium shots, slow pan across the bar",
+  "lighting_and_color": "dim interior lighting with warm amber hues, accentuated by neon signage and glowing lamps",
+  "on_screen_text": []
+}

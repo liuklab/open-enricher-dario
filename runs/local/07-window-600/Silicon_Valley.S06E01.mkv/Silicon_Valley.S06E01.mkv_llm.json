@@ -1,0 +1,41 @@
+{
+  "recsys_metadata": {
+    "primary_genre": "Drama",
+    "sub_genres": [
+      "Tech Thriller",
+      "Corporate Espionage",
+      "Ethical Dilemma"
+    ],
+    "pacing": "Moderate",
+    "mood": [
+      "Tense",
+      "Reflective",
+      "Controversial"
+    ]
+  },
+  "search_and_discovery": {
+    "semantic_tags": [
+      "Data Privacy",
+      "Corporate Ethics",
+      "Technological Innovation",
+      "Internal Conflict"
+    ],
+    "main_topics": [
+      "Ethics in Technology",
+      "Power Dynamics",
+      "Identity Crisis"
+    ]
+  },
+  "audience_profiling": {
+    "target_age_group": "Young Adults",
+    "viewer_interests": [
+      "Technology",
+      "Politics",
+      "Social Issues"
+    ]
+  },
+  "content_summary": {
+    "visual_style": "The visual style features a blend of bright, sterile environments with cold tones and warm, intimate scenes with natural light.",
+    "narrative_hook": "A tech CEO confronts the ethical implications of his company's data practices after discovering a senior employee's secret misuse of the system."
+  }
+}

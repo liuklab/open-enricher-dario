@@ -1,0 +1,163 @@
+--- 00:00:00-00:05:00 ---
+{
+  "description": "A group of people in various indoor settings including an office, classroom, and formal hearing room.",
+  "subjects_and_objects": [
+    "people",
+    "students",
+    "teacher",
+    "desk",
+    "computer",
+    "whiteboard",
+    "chairs",
+    "microphones",
+    "nameplates",
+    "bottles",
+    "projector"
+  ],
+  "actions": [
+    "sitting",
+    "standing",
+    "writing",
+    "speaking",
+    "listening",
+    "raising hands",
+    "walking",
+    "looking at screen",
+    "gesturing"
+  ],
+  "camera_and_shot": "static shots from multiple angles",
+  "lighting_and_color": "evenly lit indoor environments with neutral tones",
+  "on_screen_text": []
+}
+
+--- 00:05:00-00:10:00 ---
+{
+  "description": "A man in a suit stands at a podium speaking into a microphone while others sit behind him.",
+  "subjects_and_objects": [
+    "man",
+    "podium",
+    "microphone",
+    "people"
+  ],
+  "actions": [
+    "speaking",
+    "gesturing",
+    "sitting"
+  ],
+  "camera_and_shot": "medium shot",
+  "lighting_and_color": "even indoor lighting",
+  "on_screen_text": [
+    "MR. FAIRHAWK",
+    "PENDING REQUEST",
+    "MR. HUBBARD",
+    "DEPARTMENT",
+    "MS. TEMPLE",
+    "MR. KLECO",
+    "RICHARD NEWMAN",
+    "First Paper Networks CEO",
+    "COPANZ",
+    "SECURITY OF CLOUD DATA"
+  ]
+}
+
+--- 00:10:00-00:15:00 ---
+{
+  "description": "A man in a plaid shirt stands in a busy office space surrounded by colleagues.",
+  "subjects_and_objects": [
+    "man",
+    "colleagues",
+    "office"
+  ],
+  "actions": [
+    "standing",
+    "talking",
+    "gesturing",
+    "looking around"
+  ],
+  "camera_and_shot": "medium shot",
+  "lighting_and_color": "bright indoor lighting",
+  "on_screen_text": []
+}
+
+--- 00:15:00-00:20:00 ---
+{
+  "description": "A man in a suit sits at a conference table surrounded by others in a meeting room.",
+  "subjects_and_objects": [
+    "man",
+    "suit",
+    "conference_table",
+    "other_people"
+  ],
+  "actions": [
+    "sitting",
+    "looking_at_documents",
+    "speaking",
+    "gesturing_with_hand"
+  ],
+  "camera_and_shot": "close-up shot",
+  "lighting_and_color": "even indoor lighting",
+  "on_screen_text": []
+}
+
+--- 00:20:00-00:25:00 ---
+{
+  "description": "A man in a checkered shirt sits at a table in an office setting while another person gestures toward him; later, he stands near a large screen displaying data.",
+  "subjects_and_objects": [
+    "man",
+    "person",
+    "table",
+    "screen",
+    "chairs",
+    "plant",
+    "monitor",
+    "gaming setup",
+    "workstation"
+  ],
+  "actions": [
+    "sitting",
+    "gesturing",
+    "pointing",
+    "standing",
+    "looking around",
+    "talking",
+    "typing",
+    "nodding"
+  ],
+  "camera_and_shot": "close-up shots transitioning to medium shots",
+  "lighting_and_color": "even indoor lighting with blue tones in gaming area",
+  "on_screen_text": []
+}
+
+--- 00:25:00-00:30:00 ---
+{
+  "description": "A man in a light blue shirt sits at a desk in an office while another person stands behind him.",
+  "subjects_and_objects": [
+    "man",
+    "person"
+  ],
+  "actions": [
+    "sitting",
+    "standing"
+  ],
+  "camera_and_shot": "close-up shot",
+  "lighting_and_color": "dimly lit indoor setting",
+  "on_screen_text": []
+}
+
+--- 00:30:00-00:32:52 ---
+{
+  "description": "A man wearing glasses sits at a desk in an office environment.",
+  "subjects_and_objects": [
+    "man",
+    "glasses",
+    "desk",
+    "computer monitor"
+  ],
+  "actions": [
+    "sitting",
+    "looking forward"
+  ],
+  "camera_and_shot": "close-up shot",
+  "lighting_and_color": "warm indoor lighting",
+  "on_screen_text": []
+}

@@ -1,0 +1,60 @@
+{
+  "video": "How_I_Met_Your_Mother.S01E02.mkv",
+  "title": "How I Met Your Mother S01E02",
+  "profile_file": "How_I_Met_Your_Mother.S01E02.mkv_llm.json",
+  "dimensions": {
+    "completeness": {
+      "score": 4,
+      "note": "All required fields are present and non-empty, including genre, pacing, mood, tags, topics, audience, visual style, and hook. Visual style and a few topics are thin stock phrases rather than informative detail.",
+      "weight": 0.15
+    },
+    "specificity": {
+      "score": 2,
+      "note": "Most values are series-level fillers (moderate pacing, friendship, personal growth, social humor) that fit many episodes. Only the hook names Ted and Robin; nothing captures the parties, roof, law paper, or crane-machine subplot.",
+      "weight": 0.25
+    },
+    "fidelity": {
+      "score": 4,
+      "note": "Comedy, romance, sitcom, young-adult tone, and Ted’s misguided pursuit of Robin match the synopsis, including the heartfelt friends ending. Social satire is unsupported, drama is overstated, misunderstood intentions misreads Robin (she sees his feelings clearly), and the color-emotion visual style is not in the synopsis.",
+      "weight": 0.35
+    },
+    "consistency": {
+      "score": 4,
+      "note": "Genre, humorous/sentimental mood, relationship topics, audience, and the Ted–Robin hook agree. Social satire and drama sit awkwardly beside the light romantic-comedy frame without a hard contradiction.",
+      "weight": 0.1
+    },
+    "recsys_usefulness": {
+      "score": 3,
+      "note": "Coarse filters would reach young-adult rom-com sitcom viewers, and the hook is a usable query. Low episode distinctiveness plus the satire tag would mix this with other early episodes and the wrong neighbors.",
+      "weight": 0.15
+    }
+  },
+  "overall": 3.35,
+  "overall_normalized": 0.5875,
+  "usable": true,
+  "summary": "The record is complete and broadly true to this episode’s romantic sitcom premise, but it stays generic and adds a few unsupported labels. It would help coarse recommendation more than precise retrieval of S01E02.",
+  "weights": {
+    "completeness": 0.15,
+    "specificity": 0.25,
+    "fidelity": 0.35,
+    "consistency": 0.1,
+    "recsys_usefulness": 0.15
+  },
+  "score_scale": {
+    "min": 1,
+    "max": 5
+  },
+  "thresholds": {
+    "usable_overall_min": 3.0,
+    "usable_fidelity_min": 2
+  },
+  "method": {
+    "kind": "external_provider",
+    "provider": "cursor",
+    "model": "grok-4.7",
+    "uses_synopsis": true,
+    "uses_pipeline_evidence": false,
+    "title_source": "video_filename"
+  },
+  "parse_errors": []
+}

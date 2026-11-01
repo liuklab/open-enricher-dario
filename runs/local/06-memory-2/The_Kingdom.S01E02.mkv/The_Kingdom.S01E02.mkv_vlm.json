@@ -1,0 +1,152 @@
+{
+  "experiment_id": "06-memory-2",
+  "scene_timeline": [
+    {
+      "start_time": "00:00:00",
+      "end_time": "00:05:00",
+      "dialogue_description": "SPEAKER_08, Pastor Emilio Vazquez, speaks in a deeply personal and emotional tone, revealing his involvement in the murder of Armando Badajoz. He describes being present during the crime, standing \"by his side\" as the killer acted. Emilio expresses profound guilt and fear, struggling with the reality of his proximity to the violence. When asked about his relationship with Remigio Cardenas, Emilio confirms that Remigio works at the church's home for children, but he resists any suggestion that Remigio's past or his role at the church implicates him in the murder. Emilio insists that Remigio is merely an employee, and he refuses to acknowledge any connection between the murder and the church's activities. \n\nSPEAKER_12, a journalist or investigator, reveals that Remigio has confessed to the murder. Emilio reacts with disbelief, questioning whether it is a mistake or a setup. The exchange ends with Emilio refusing to cooperate further, insisting on his innocence and demanding privacy. The tension between them highlights Emilio's internal conflict and the growing suspicion surrounding the church's involvement in the tragedy.",
+      "description": "A man with gray hair sits in a dimly lit room, looking directly into the camera with a serious expression. His face shows signs of distress and deep emotion. As the scene progresses, he turns slightly away, appearing troubled. Later, he is seated across a desk from a woman in professional attire; she holds papers and gestures while speaking. The setting appears to be an office or legal environment, with bookshelves filled with law books behind her. The man remains still, listening intently, occasionally shifting his gaze.",
+      "subjects_and_objects": [
+        "Emilio",
+        "woman"
+      ],
+      "actions": [
+        "Emilio looks at the camera with a distressed expression",
+        "Emilio turns his head slightly away",
+        "The woman gestures with her hands while holding documents",
+        "Emilio listens intently, maintaining eye contact"
+      ],
+      "camera_and_shot": "Close-up shot focusing on Emilio’s face, transitioning to medium shots showing both characters in the office setting",
+      "lighting_and_color": "Dim blue-toned lighting casting shadows on Emilio’s face, creating a somber mood",
+      "on_screen_text": []
+    },
+    {
+      "start_time": "00:05:00",
+      "end_time": "00:10:00",
+      "dialogue_description": "SPEAKER_03, a concerned relative of Ana Badajoz, calls SPEAKER_04, who is close to Pastor Emilio Vazquez. SPEAKER_03 reveals that Ana saw Remigio Cardenas at the scene of the murder, suggesting he was involved. SPEAKER_04 confirms that Emilio has already gone to the DA's office and refuses to talk to anyone. SPEAKER_03 insists on meeting Emilio urgently, emphasizing the importance of their conversation. \n\nLater, SPEAKER_16, a staff member, informs SPEAKER_08 that Micho, a relative, is the one who killed Badajoz. SPEAKER_08 reacts in disbelief, questioning how Remigio could have acted against the church's interests. SPEAKER_02, another relative, defends Remigio, stating that he has always been loyal to the church and would never betray its financial interests. \n\nDespite the confusion, SPEAKER_08 insists on calling their mother to prepare for the coming storm. The exchange ends with a sense of urgency and fear, as the family prepares to face the consequences of Remigio's actions. The repeated question to Emilio underscores the mounting pressure and the need for clarity amidst the chaos.",
+      "description": "A man with curly dark hair stands in front of a window, wearing a light blue shirt, looking downcast and overwhelmed. He walks through a hallway, passing by a door where a woman with long dark hair waits anxiously. In a kitchen, a woman with short brown hair pours water into a kettle, glancing toward the doorway where the man enters. She turns to face him, her expression tense. The man approaches, visibly stressed, and they stand facing each other near the counter. A second woman, also with short dark hair, watches them from inside the kitchen, her expression unreadable.",
+      "subjects_and_objects": [
+        "man",
+        "woman_with_long_hair",
+        "woman_with_short_brown_hair",
+        "second_woman"
+      ],
+      "actions": [
+        "Man looks downcast and walks through a hallway",
+        "Woman with long hair waits anxiously by a door",
+        "Woman with short brown hair pours water into a kettle",
+        "Man enters the kitchen and stops near the counter",
+        "Second woman observes from inside the kitchen"
+      ],
+      "camera_and_shot": "Medium shots capturing interactions within indoor settings, including hallway and kitchen scenes",
+      "lighting_and_color": "Warm interior lighting with natural tones, contrasting with cooler blue hues seen in prior scenes",
+      "on_screen_text": []
+    },
+    {
+      "start_time": "00:10:00",
+      "end_time": "00:15:00",
+      "dialogue_description": "In this tense exchange, Speaker 04, identified as Helena, confronts her daughters, Magdalena and Oscar, about their behavior. She reprimands them for their lack of obedience and reminds them of their role in supporting her. Magdalena, known for her creativity, and Oscar, who often challenges Helena’s authority, resist her commands. Helena insists they follow her instructions without question, emphasizing the need for unity and discipline. She warns them not to engage with external pressures, such as the DA or media, and stresses their responsibility to the church’s future. Magdalena, frustrated, questions why they must live under Helena’s control, implying they deserve more respect. Helena dismisses their complaints, redirecting their focus to the upcoming temple project, which she believes will prove their worth. Despite their resistance, both agree to comply, though their underlying tensions remain. The conversation ends with a fragile agreement, as Helena’s demands are accepted, but the dynamic between mother and daughters remains strained.",
+      "description": "Helena stands before her daughters, Magdalena and Oscar, in a large, ornate church sanctuary. Her posture is rigid and commanding as she addresses them, gesturing emphatically with her right hand. Magdalena, dressed in a patterned blouse, leans forward slightly, her arms crossed defensively, while Oscar, in a green suit, stands stiffly beside her. Behind them, rows of wooden pews stretch into the distance, illuminated by soft, diffused daylight filtering through tall windows. The marble walls reflect the solemn atmosphere. Helena moves closer to Oscar, placing her left hand on his shoulder as if asserting dominance. Magdalena steps back, her expression tense and resistant. Oscar shifts uncomfortably, avoiding direct eye contact. Helena’s voice carries weight as she emphasizes obedience, her stance unyielding.",
+      "subjects_and_objects": [
+        "Helena",
+        "Magdalena",
+        "Oscar"
+      ],
+      "actions": [
+        "Helena gestures sharply with her right hand",
+        "Magdalena crosses her arms defensively",
+        "Oscar stands stiffly, avoiding eye contact",
+        "Helena places her left hand on Oscar’s shoulder",
+        "Magdalena steps backward",
+        "Helena advances toward Oscar"
+      ],
+      "camera_and_shot": "Wide-angle establishing shot of the church sanctuary, followed by medium close-ups focusing on Helena’s stern expression and the girls’ reactions",
+      "lighting_and_color": "Soft, natural daylight streaming through high windows casts gentle illumination over the marble floor and pews, contrasted with darker shadows in the corners",
+      "on_screen_text": []
+    },
+    {
+      "start_time": "00:15:00",
+      "end_time": "00:20:00",
+      "dialogue_description": "SPEAKER_03, a close associate of Emilio Vazquez, confronts SPEAKER_07, another key figure in the church, about Remigio Cardenas's alleged involvement in the murder of Armando Badajoz. SPEAKER_03 presses SPEAKER_07 for information, suggesting that Remigio may have been manipulated or bribed. SPEAKER_07 responds with a metaphor from the parable of the sower, implying that Remigio, like the seeds, was planted in poor soil and failed to grow. SPEAKER_03, frustrated by the religious analogy, insists on direct action, urging SPEAKER_07 to question Remigio himself. SPEAKER_07 acknowledges the difficulty of reaching Remigio, noting he only speaks to his lawyer. The conversation shifts to SPEAKER_04 and SPEAKER_11, who discuss financial matters, hinting at a broader network of corruption tied to the church and political power. SPEAKER_11 expresses concern about potential legal consequences, while SPEAKER_04 reassures her, suggesting the situation is under control. The exchange reveals a complex web of alliances and betrayals, with both religious and political stakes at play. The dialogue ends with a sense of unresolved tension, underscoring the moral ambiguity and danger surrounding the central conflict.",
+      "description": "Two men sit outdoors among lush greenery; one wears a plaid shirt and has a beard, while the other wears a light blue button-up shirt. They appear engaged in an intense discussion, leaning toward each other. The bearded man gestures with his hands as he speaks, his expression serious. The younger man listens intently, nodding occasionally, his gaze fixed on the other. Behind them, trees sway gently in the breeze, casting dappled sunlight across the grassy area. A third person briefly passes in the background, walking away from the pair.",
+      "subjects_and_objects": [
+        "bearded_man",
+        "younger_man"
+      ],
+      "actions": [
+        "Bearded man gestures with hands while speaking",
+        "Younger man nods while listening",
+        "Both men lean toward each other during conversation"
+      ],
+      "camera_and_shot": "Close-up shots alternating between the two men, framed against a backdrop of dense foliage and dappled sunlight",
+      "lighting_and_color": "Natural outdoor lighting with warm golden tones filtered through tree leaves, creating patches of bright sun and shadow on the ground",
+      "on_screen_text": []
+    },
+    {
+      "start_time": "00:20:00",
+      "end_time": "00:25:00",
+      "dialogue_description": "SPEAKER_17, a figure closely tied to Pastor Emilio Vazquez, confronts Julio about his lack of cooperation. Julio, who has been unresponsive to calls, is pressed for his \"game plan,\" implying he has a strategy to navigate the unfolding crisis. Julio resists, refusing to engage, and when asked where his father holds private meetings, he hesitates, revealing he hasn’t spoken to his father in years. SPEAKER_03, Julio’s father, interjects, expressing concern about the riots and the murder of Armando Badajoz, suggesting his father may have been involved. SPEAKER_04, likely a member of the church, reassures SPEAKER_08, who is connected to the political sphere, that he is not responsible for the violence and that his actions are not bound by political obligations. The conversation shifts to faith, with SPEAKER_04 quoting scripture, emphasizing self-denial and sacrifice as part of following Christ. SPEAKER_08, grappling with his role, acknowledges the weight of his responsibilities, hinting at a deeper conflict between duty and personal conviction. The exchange ends with a sense of unresolved tension, underscoring the moral and spiritual stakes at play.",
+      "description": "Julio stands outside near a car parked beside a metal fence surrounded by trees, facing a man in a dark suit. The suited man gestures with his hand while speaking, and Julio turns his head slightly, looking downcast. Julio reaches into his pocket and pulls out a smartphone, holding it up as if checking something. He then looks up, meeting the suited man’s gaze with a somber expression. The suited man continues talking, his face showing urgency.",
+      "subjects_and_objects": [
+        "Julio",
+        "man_in_dark_suit"
+      ],
+      "actions": [
+        "Man in dark suit gestures with hand while speaking",
+        "Julio turns his head slightly",
+        "Julio reaches into pocket and pulls out smartphone",
+        "Julio holds smartphone up",
+        "Julio looks up at man in dark suit"
+      ],
+      "camera_and_shot": "Medium shot capturing both individuals standing side-by-side, transitioning to close-ups of their faces and hands as they interact",
+      "lighting_and_color": "Dappled sunlight filters through overhead trees, casting soft shadows on the ground and highlighting the characters' expressions against a backdrop of green foliage and rustic fencing",
+      "on_screen_text": []
+    },
+    {
+      "start_time": "00:25:00",
+      "end_time": "00:30:00",
+      "dialogue_description": "During this tense exchange, SPEAKER_16 presents a compelling argument that the chaos during the church event was orchestrated to divert attention from Remigio Cardenas. He claims the riots were carefully planned to create confusion and allow Cardenas to act without interference. SPEAKER_12, initially skeptical, listens intently before asking for a slower explanation. SPEAKER_16 methodically outlines the sequence of events captured on security footage, emphasizing the coordination required to stage such a complex scenario. SPEAKER_12, though unconvinced, acknowledges the complexity of the situation and agrees to review the footage again. Meanwhile, SPEAKER_09, the public defender, interjects, asserting that his client is unstable and unfit for trial. He insists that Cardenas did not commit the murder and refuses to take responsibility for the chaos. The exchange ends with a stalemate—SPEAKER_16's theory remains unproven, and SPEAKER_09's defense highlights the instability of his client. The tension between them underscores the broader conflict over Cardenas' fate and the potential for a larger conspiracy within the church.",
+      "description": "A woman with shoulder-length brown hair wearing a patterned blouse sits in a dimly lit room with orange and white striped wallpaper. She appears distressed, her eyes wide and mouth slightly open as she stares off-screen. The camera cuts to a wider view showing her embracing a man seated at a table, pressing her forehead against his temple. Her grip tightens as he leans back, closing his eyes with a pained expression. In the background, three others stand behind glass doors, watching silently.",
+      "subjects_and_objects": [
+        "woman",
+        "man_seated_at_table"
+      ],
+      "actions": [
+        "Woman stares off-screen with wide eyes",
+        "Woman embraces man seated at table",
+        "Woman presses forehead against man's temple",
+        "Man closes his eyes and leans back",
+        "Woman grips man's shoulders tightly"
+      ],
+      "camera_and_shot": "Close-up on woman's face, followed by medium shot showing her hugging the man, then cutting to reveal observers in the background",
+      "lighting_and_color": "Warm indoor lighting with strong orange and white stripes in the background, casting soft shadows on the characters’ faces",
+      "on_screen_text": []
+    },
+    {
+      "start_time": "00:30:00",
+      "end_time": "00:34:31",
+      "dialogue_description": "During this intense exchange, Remigio Cardenas, accused of the murder, confronts his interrogator, asserting that he did not kill Armando Badajoz but instead confessed to killing Pastor Emilio. His statements reveal a shocking twist: he claims to have stabbed the church's banner and later attacked Emilio, implying a symbolic and literal attack on the pastor. Remigio’s confusion about the victim’s identity highlights his disorientation and possible manipulation. When asked about his lawyer, he insists he has been wrongly represented, demanding to speak with Julio Clámez, signaling his desperation and desire for legal clarity. \n\nMeanwhile, Speaker 08, likely a figure of faith, delivers a powerful monologue, invoking Jesus’ cry of abandonment. This speech reflects a deep spiritual struggle, as Speaker 08 acknowledges being forsaken yet commits to faith and obedience. The exchange ends with repeated declarations of faith and a final plea for divine guidance, underscoring the tension between despair and hope.",
+      "description": "Remigio Cardenas stands in front of a large cross inside a spacious, dimly lit church, his posture rigid and his expression troubled. Behind him, rows of wooden chairs stretch toward tall windows letting in muted daylight. A man in a black shirt, possibly a priest or religious leader, walks slowly toward the altar, clutching an old book. As the scene progresses, the camera focuses on Remigio’s face, capturing his anxious glances upward and slight tremors in his hands. The atmosphere feels heavy and sacred, underscored by the quiet echo of footsteps and distant whispers.",
+      "subjects_and_objects": [
+        "Remigio Cardenas",
+        "man_in_black_shirt"
+      ],
+      "actions": [
+        "Remigio Cardenas stands still facing the cross",
+        "Man in black shirt walks toward altar",
+        "Man in black shirt clutches an old book",
+        "Remigio Cardenas glances upward nervously",
+        "Remigio Cardenas shows subtle hand tremors"
+      ],
+      "camera_and_shot": "Wide establishing shot focusing on Remigio and the church interior, transitioning to medium close-ups of his face and upper body as he reacts emotionally",
+      "lighting_and_color": "Soft natural light filtering through high windows casts long shadows across polished floors; cool blue tones dominate the space, contrasting with warm amber hues from stained-glass accents",
+      "on_screen_text": []
+    }
+  ],
+  "segments_parsed": 7,
+  "segments_total": 7,
+  "vlm_memory_scenes": 2,
+  "visual_only": false,
+  "extract_visual": false,
+  "memory_compacted": false
+}

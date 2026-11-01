@@ -1,0 +1,60 @@
+{
+  "video": "How_I_Met_Your_Mother.S01E02.mkv",
+  "title": "How I Met Your Mother S01E02",
+  "profile_file": "How_I_Met_Your_Mother.S01E02.mkv_llm.json",
+  "dimensions": {
+    "completeness": {
+      "score": 4,
+      "note": "All required fields are present and non-empty, including genre, pacing, mood, tags, topics, audience, visual style, and narrative hook. Several values stay broad rather than richly informative.",
+      "weight": 0.15
+    },
+    "specificity": {
+      "score": 2,
+      "note": "Almost no episode-level detail: no three-night party scheme, roof, casual-versus-serious conflict, Marshall's paper, or named characters. Tags and topics are generic relationship and friendship fillers.",
+      "weight": 0.25
+    },
+    "fidelity": {
+      "score": 4,
+      "note": "Comedy-romance sitcom framing, young-adult audience, and the hook about desperate plans to win a woman match Ted's pursuit of Robin and the heartfelt ending. 'Social experiments' is unsupported, and 'Drama' plus friends' skepticism slightly misstate Marshall's paper stress and Barney's role.",
+      "weight": 0.35
+    },
+    "consistency": {
+      "score": 4,
+      "note": "Genre, humorous-sentimental mood, relationship topics, and the pursuit hook agree. 'Social experiments' does not fit the rest of the profile.",
+      "weight": 0.1
+    },
+    "recsys_usefulness": {
+      "score": 3,
+      "note": "Comedy, romance, sitcom, and young-adult filters would retrieve the right broad audience, but generic tags would not distinguish this episode from other relationship sitcoms.",
+      "weight": 0.15
+    }
+  },
+  "overall": 3.35,
+  "overall_normalized": 0.5875,
+  "usable": true,
+  "summary": "The profile is complete and broadly faithful to this romantic sitcom episode, but most discovery fields are generic and a few labels overreach. It would support coarse recommendations more than precise episode matching.",
+  "weights": {
+    "completeness": 0.15,
+    "specificity": 0.25,
+    "fidelity": 0.35,
+    "consistency": 0.1,
+    "recsys_usefulness": 0.15
+  },
+  "score_scale": {
+    "min": 1,
+    "max": 5
+  },
+  "thresholds": {
+    "usable_overall_min": 3.0,
+    "usable_fidelity_min": 2
+  },
+  "method": {
+    "kind": "external_provider",
+    "provider": "cursor",
+    "model": "grok-4.7",
+    "uses_synopsis": true,
+    "uses_pipeline_evidence": false,
+    "title_source": "video_filename"
+  },
+  "parse_errors": []
+}
