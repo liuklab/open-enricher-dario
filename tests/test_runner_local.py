@@ -7,6 +7,7 @@ Heavy stage imports are deferred until ``build_stages`` runs.
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import pytest
@@ -63,6 +64,17 @@ def test_run_one_experiment_evaluates_with_cursor(
     monkeypatch.setattr(
         "open_enricher.evaluation.run.evaluate_videos", _evaluate
     )
+    device = {"recorded_at": "2026-11-02T17:00:00+00:00", "devices": []}
+    calls = {"n": 0}
+
+    def _device() -> dict:
+        calls["n"] += 1
+        return device
+
+    monkeypatch.setattr(
+        "open_enricher.experiments.loop.inference_device_document",
+        _device,
+    )
 
     summary = run_one_experiment(variant, videos=["Suits.S01E02.mkv"])
 
@@ -73,6 +85,9 @@ def test_run_one_experiment_evaluates_with_cursor(
     assert seen["kwargs"]["with_synopsis"] is True
     text = (runs / "01-scene-context" / "EXPERIMENT.md").read_text(encoding="utf-8")
     assert "overall `4.1`" in text
+    assert calls["n"] == 1
+    device_path = runs / "01-scene-context" / "performance" / "device.json"
+    assert json.loads(device_path.read_text(encoding="utf-8")) == device
 
 
 def test_build_parser_has_local_flags() -> None:

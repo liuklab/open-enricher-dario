@@ -24,7 +24,12 @@ from open_enricher.experiments.archive import (
     video_archive_dir,
     write_json,
 )
-from open_enricher.timings import start_device_vram_series, write_performance_csv, write_vram_series_csv
+from open_enricher.timings import (
+    inference_device_document,
+    start_device_vram_series,
+    write_performance_csv,
+    write_vram_series_csv,
+)
 from open_enricher.experiments.config import (
     CACHE_ROOT,
     PIPELINE_STAGES,
@@ -275,6 +280,13 @@ def run_one_experiment(
         _activate_variant(variant_path)
         runner = _runner()
         registry = runner.build_stages()
+        try:
+            write_json(
+                experiment_dir(experiment_id) / "performance" / "device.json",
+                inference_device_document(),
+            )
+        except Exception as exc:  # noqa: BLE001 - metrics must not stop the run
+            logger.warning("Inference device snapshot skipped: %s", exc)
 
         for video in videos:
             logger.info(f"Pipeline for video {video}")

@@ -2,21 +2,26 @@
 
 Each stage constructs a ``TimingRecorder``, wraps heavy work in named
 ``span`` contexts, and writes a JSON timing document next to its artifacts.
-When CUDA is visible, each span records the PyTorch VRAM peak. The
-experiment process also samples, every five seconds, the driver-reported
-VRAM, the process resident memory, and the average CPU cores in use.
-The archive merges the JSON into ``timings.json`` and writes both CSVs
-under ``runs/local/<experiment_id>/performance/`` for external charts.
+Spans carry UTC ISO 8601 ``started_at`` and ``ended_at``. When CUDA is
+visible, each span records the PyTorch VRAM peak. The experiment process
+also samples, every five seconds, the driver-reported VRAM, the process
+resident memory, and the average CPU cores in use. Each sample has a UTC
+ISO 8601 ``timestamp``. The archive merges the JSON into ``timings.json``
+and writes both CSVs under ``runs/local/<experiment_id>/performance/``
+for external charts. One ``device.json`` in that folder records the GPUs
+and the host at the start of the experiment.
 """
 
 from __future__ import annotations
 
 import csv
 import json
+import os
 import resource
 import threading
 import time
 from contextlib import contextmanager
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Generator, List
 
@@ -33,15 +38,19 @@ PERFORMANCE_FIELDS: tuple[str, ...] = (
     "stage",
     "span",
     "window",
+    "started_at",
+    "ended_at",
     "seconds",
     "vram_reserved_mib",
     "vram_allocated_mib",
 )
 
-# One row every five seconds. vram_device_mib is the driver view, ram_mib is
-# the process resident set, cpu_cores is the average cores busy since the
-# previous sample (blank on the first row).
+# One row every five seconds. timestamp is the wall clock of the sample.
+# vram_device_mib is the driver view, ram_mib is the process resident set,
+# cpu_cores is the average cores busy since the previous sample (blank on
+# the first row).
 VRAM_SERIES_FIELDS: tuple[str, ...] = (
+    "timestamp",
     "t_seconds",
     "vram_device_mib",
     "ram_mib",
@@ -52,14 +61,26 @@ _MIB = 1024 * 1024
 _DEVICE_VRAM_INTERVAL_S = 5.0
 
 
+def utc_now_iso() -> str:
+    """
+    Return the current UTC time as an ISO 8601 string.
+
+    Returns:
+        ``datetime`` ISO format with a ``+00:00`` offset, the same shape
+        written on progress events.
+    """
+    return datetime.now(timezone.utc).isoformat()
+
+
 class TimingRecorder:
     """
     Accumulate named timing spans for one stage run.
 
     The wall clock starts at construction. Each ``span`` records elapsed
-    seconds, the PyTorch VRAM peak, and optional metadata keys that are
-    useful in later analysis. Driver-reported VRAM over time is recorded
-    separately, once every five seconds, for the whole video run.
+    seconds, UTC ISO 8601 start and end, the PyTorch VRAM peak, and
+    optional metadata keys that are useful in later analysis.
+    Driver-reported VRAM over time is recorded separately, once every five
+    seconds, for the whole video run.
     """
 
     def __init__(self, stage: str) -> None:
@@ -72,6 +93,7 @@ class TimingRecorder:
         self.stage = stage
         self.entries: List[Dict[str, Any]] = []
         self._wall_start = time.perf_counter()
+        self._started_at = utc_now_iso()
 
     @contextmanager
     def span(self, name: str, **extra: Any) -> Generator[None, None, None]:
@@ -91,13 +113,17 @@ class TimingRecorder:
             _reset_vram_peaks()
         except Exception as exc:  # noqa: BLE001 - metrics must not stop the stage
             logger.warning("VRAM peak reset skipped: %s", exc)
+        started_at = utc_now_iso()
         started = time.perf_counter()
         try:
             yield
         finally:
+            ended_at = utc_now_iso()
             elapsed = time.perf_counter() - started
             row: Dict[str, Any] = {
                 "name": name,
+                "started_at": started_at,
+                "ended_at": ended_at,
                 "seconds": round(elapsed, 3),
             }
             row.update(extra)
@@ -122,10 +148,13 @@ class TimingRecorder:
         Build the serializable timing document for this stage run.
 
         Returns:
-            Dict with stage name, total wall seconds, and the span list.
+            Dict with stage name, UTC start and end, total wall seconds,
+            and the span list.
         """
         return {
             "stage": self.stage,
+            "started_at": self._started_at,
+            "ended_at": utc_now_iso(),
             "wall_seconds": round(time.perf_counter() - self._wall_start, 3),
             "spans": list(self.entries),
         }
@@ -275,10 +304,11 @@ class DeviceVramSeries:
     Record driver VRAM, process RAM, and CPU every five seconds.
 
     The first sample is taken when the series starts. Later samples land on
-    that grid (5, 10, 15, ...). Each reading is kept. ``cpu_cores`` is the
-    CPU time since the previous sample divided by the seconds between them.
-    The clock is the time since ``start``, which the experiment loop aligns
-    with one video run.
+    that grid (5, 10, 15, ...). Each reading is kept, with a UTC ISO 8601
+    ``timestamp`` taken at the read. ``cpu_cores`` is the CPU time since the
+    previous sample divided by the seconds between them. ``t_seconds`` is
+    the time since ``start``, which the experiment loop aligns with one
+    video run.
     """
 
     def __init__(self) -> None:
@@ -304,6 +334,7 @@ class DeviceVramSeries:
         self._prev_cpu_seconds = cpu_now
         self._prev_t = t_seconds
         row: dict[str, Any] = {
+            "timestamp": utc_now_iso(),
             "t_seconds": t_seconds,
             "vram_device_mib": vram,
             "ram_mib": "" if ram is None else ram,
@@ -339,8 +370,8 @@ class DeviceVramSeries:
         Stop polling and return every sample taken.
 
         Returns:
-            Rows of ``t_seconds``, ``vram_device_mib``, ``ram_mib``, and
-            ``cpu_cores``, in time order.
+            Rows of ``timestamp``, ``t_seconds``, ``vram_device_mib``,
+            ``ram_mib``, and ``cpu_cores``, in time order.
         """
         self._stop.set()
         if self._thread is not None:
@@ -375,6 +406,173 @@ def _safe_vram_peaks() -> dict[str, float] | None:
     except Exception as exc:  # noqa: BLE001 - metrics must not stop the stage
         logger.warning("VRAM peak read skipped: %s", exc)
         return None
+
+
+def _load_torch() -> Any | None:
+    """
+    Import torch, or report that it is not installed.
+
+    Returns:
+        The torch module, or ``None`` on ``ImportError``.
+    """
+    try:
+        import torch
+    except ImportError:
+        return None
+    return torch
+
+
+def _read_text(path: Path) -> str | None:
+    """
+    Read a text file, treating a missing path as no data.
+
+    Args:
+        path: File to read.
+
+    Returns:
+        File text, or ``None`` when the path cannot be read.
+    """
+    try:
+        return path.read_text(encoding="utf-8")
+    except OSError:
+        return None
+
+
+def _optional_text(props: Any, name: str) -> str:
+    """
+    Read an optional device-property string.
+
+    Args:
+        props: Object returned by ``torch.cuda.get_device_properties``.
+        name: Attribute name (``uuid``, ``pci_bus_id``).
+
+    Returns:
+        The attribute as text, or an empty string when it is absent.
+    """
+    value = getattr(props, name, None)
+    if not value:
+        return ""
+    if isinstance(value, bytes):
+        return value.decode("utf-8", errors="replace")
+    return str(value)
+
+
+def _device_row(index: int, props: Any, total_bytes: int) -> dict[str, Any]:
+    """
+    Build one GPU record from driver properties and ``mem_get_info``.
+
+    Args:
+        index: CUDA device index.
+        props: Object returned by ``torch.cuda.get_device_properties``.
+        total_bytes: Total device memory from ``mem_get_info``.
+
+    Returns:
+        JSON-serializable device fields. ``uuid`` and ``pci_bus_id`` are
+        included only when this PyTorch build exposes them.
+    """
+    row: dict[str, Any] = {
+        "index": index,
+        "name": str(props.name),
+        "total_memory_mib": round(int(total_bytes) / _MIB, 1),
+        "compute_capability": f"{int(props.major)}.{int(props.minor)}",
+        "multi_processor_count": int(props.multi_processor_count),
+    }
+    uuid = _optional_text(props, "uuid")
+    if uuid:
+        row["uuid"] = uuid
+    pci_bus_id = _optional_text(props, "pci_bus_id")
+    if pci_bus_id:
+        row["pci_bus_id"] = pci_bus_id
+    return row
+
+
+def _visible_cuda_devices() -> tuple[bool, str, list[dict[str, Any]]]:
+    """
+    Describe every CUDA device visible to this process.
+
+    Returns:
+        ``(cuda_available, cuda_version, devices)``. ``devices`` is empty
+        when CUDA is not available. Raises when a CUDA query fails.
+    """
+    torch = _load_torch()
+    if torch is None:
+        return False, "", []
+    version = str(torch.version.cuda or "")
+    if not torch.cuda.is_available():
+        return False, version, []
+    devices: list[dict[str, Any]] = []
+    for index in range(int(torch.cuda.device_count())):
+        props = torch.cuda.get_device_properties(index)
+        _free_bytes, total_bytes = torch.cuda.mem_get_info(index)
+        devices.append(_device_row(index, props, int(total_bytes)))
+    return True, version, devices
+
+
+def _host_machine() -> dict[str, Any]:
+    """
+    Read the CPU model, logical CPU count, and total RAM.
+
+    Returns:
+        ``cpu_model``, ``cpu_count``, and ``ram_total_mib``. Model and RAM
+        stay blank when ``/proc`` cannot be read. ``cpu_count`` falls back
+        to ``os.cpu_count`` when ``/proc/cpuinfo`` has no processor lines.
+    """
+    cpu_model = ""
+    cpu_count: int | str = ""
+    ram_total_mib: float | str = ""
+    cpuinfo = _read_text(Path("/proc/cpuinfo"))
+    if cpuinfo:
+        processors = 0
+        for line in cpuinfo.splitlines():
+            if line.startswith("model name") and not cpu_model:
+                cpu_model = line.split(":", 1)[1].strip()
+            elif line.startswith("processor"):
+                processors += 1
+        if processors:
+            cpu_count = processors
+    if cpu_count == "":
+        fallback = os.cpu_count()
+        if fallback:
+            cpu_count = fallback
+    meminfo = _read_text(Path("/proc/meminfo"))
+    if meminfo:
+        for line in meminfo.splitlines():
+            if line.startswith("MemTotal:"):
+                ram_total_mib = round(int(line.split()[1]) / 1024, 1)
+                break
+    return {
+        "cpu_model": cpu_model,
+        "cpu_count": cpu_count,
+        "ram_total_mib": ram_total_mib,
+    }
+
+
+def inference_device_document() -> dict[str, Any]:
+    """
+    Snapshot the GPUs used for inference and the host machine.
+
+    The experiment loop calls this once, before the first video. A CUDA
+    error does not propagate: ``devices`` is empty and a warning is logged.
+
+    Returns:
+        JSON-serializable dict with ``recorded_at``, CUDA availability and
+        version, one record per visible GPU, and the host CPU and RAM.
+    """
+    recorded_at = utc_now_iso()
+    cuda_available = False
+    cuda_version = ""
+    devices: list[dict[str, Any]] = []
+    try:
+        cuda_available, cuda_version, devices = _visible_cuda_devices()
+    except Exception as exc:  # noqa: BLE001 - metrics must not stop the run
+        logger.warning("Inference device read skipped: %s", exc)
+    return {
+        "recorded_at": recorded_at,
+        "cuda_available": cuda_available,
+        "cuda_version": cuda_version,
+        "devices": devices,
+        "host": _host_machine(),
+    }
 
 
 def write_performance_csv(
@@ -413,6 +611,8 @@ def write_performance_csv(
                     "stage": stage,
                     "span": span.get("name", ""),
                     "window": "" if window is None else window,
+                    "started_at": span.get("started_at", ""),
+                    "ended_at": span.get("ended_at", ""),
                     "seconds": span.get("seconds", ""),
                     "vram_reserved_mib": span.get("vram_reserved_mib", ""),
                     "vram_allocated_mib": span.get("vram_allocated_mib", ""),
