@@ -272,6 +272,47 @@ def retrieve(
     return chosen
 
 
+def temporal_history(
+    entries: list[dict[str, Any]],
+    scene_start: float,
+    *,
+    limit: int,
+) -> list[dict[str, Any]]:
+    """
+    Pick earlier entries without token scores.
+
+    The most recent entry before ``scene_start`` is kept, then older
+    entries spread across the prefix. Nothing at or after ``scene_start``
+    is visible.
+    """
+    prior = [
+        row
+        for row in entries
+        if isinstance(row, dict) and float(row.get("timestamp") or 0) < scene_start
+    ]
+    if not prior or limit <= 0:
+        return []
+    prior.sort(key=lambda row: float(row.get("timestamp") or 0))
+    chosen = [prior[-1]]
+    if limit > 1 and len(prior) > 1:
+        step = max(1, (len(prior) - 1) // limit)
+        for index in range(0, len(prior) - 1, step):
+            if len(chosen) >= limit:
+                break
+            row = prior[index]
+            if row.get("frame_id") not in {item.get("frame_id") for item in chosen}:
+                chosen.append(row)
+    chosen.sort(key=lambda row: float(row.get("timestamp") or 0))
+    return [
+        {
+            "frame_id": row.get("frame_id"),
+            "timestamp": row.get("timestamp"),
+            "reason": "temporal",
+        }
+        for row in chosen[:limit]
+    ]
+
+
 def dedupe_frame_ids(short_ids: list[str], long_ids: list[str]) -> list[str]:
     """Keep short-term ids first, then long-term ids that are not already included."""
     seen: set[str] = set()
