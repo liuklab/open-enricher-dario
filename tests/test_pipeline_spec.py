@@ -48,6 +48,15 @@ def test_variants_are_valid() -> None:
                 tmp.unlink()
 
 
+def test_absent_feature_flags_keep_the_legacy_path() -> None:
+    """Variants 01-08 do not opt into BaSSL, the graph, or visual memory."""
+    os.environ.pop("OPEN_ENRICHER_PIPELINE_SPEC", None)
+    spec = load_pipeline_spec()
+    assert spec.features.any_enabled is False
+    assert spec.allocation_mode() is None
+    assert spec.history_fraction() == 0.0
+
+
 def test_list_variants_sorted() -> None:
     """Variant listing is deterministic and non-empty."""
     names = [path.name for path in list_variants(VARIANTS_DIR)]
