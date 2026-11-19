@@ -1,0 +1,18 @@
+{
+  "experiment_id": "10-character-graph",
+  "title": "character-graph",
+  "interval_seconds": 300,
+  "vlm_memory_scenes": 2,
+  "visual_only": false,
+  "features": {
+    "bassl": false,
+    "adaptive_frames": false,
+    "character_graph": true,
+    "visual_memory": false
+  },
+  "budgets": {
+    "max_qwen_frames": 40,
+    "history_frame_fraction": 0.0,
+    "face_sample_fps": 5
+  }
+}
