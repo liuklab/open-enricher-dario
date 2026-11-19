@@ -15,7 +15,12 @@ from open_enricher.logging_setup import get_logger
 from open_enricher.stages.prompt_load import fill_prompt, load_prompt
 from open_enricher.stages.vlm_core.config import MetadataConfig, ModelConfig
 from open_enricher.stages.vlm_core.frames import sample_scene
-from open_enricher.stages.vlm_core.model import extract_metadata, load_model, unload_model
+from open_enricher.stages.vlm_core.model import (
+    extract_metadata,
+    extract_metadata_from_images,
+    load_model,
+    unload_model,
+)
 from open_enricher.stages.vlm_core.video import clip_video_range
 from open_enricher.timings import TimingRecorder
 
@@ -174,24 +179,80 @@ def _scene_prompt(
     start = str(scene.get("start_time") or "")
     end = str(scene.get("end_time") or "")
     if extract_visual:
-        return fill_prompt(
+        prompt = fill_prompt(
             load_prompt("vlm_scene_extract_prompt.md"),
             {"START": start, "END": end},
         )
-    if visual_only:
-        return fill_prompt(
+    elif visual_only:
+        prompt = fill_prompt(
             load_prompt("vlm_scene_visual_prompt.md"),
             {"START": start, "END": end, "MEMORY": memory},
         )
-    return fill_prompt(
-        load_prompt("vlm_scene_prompt.md"),
-        {
-            "START": start,
-            "END": end,
-            "SCENE_DESCRIPTION": str(scene.get("description") or "").strip(),
-            "MEMORY": memory,
-        },
-    )
+    else:
+        prompt = fill_prompt(
+            load_prompt("vlm_scene_prompt.md"),
+            {
+                "START": start,
+                "END": end,
+                "SCENE_DESCRIPTION": str(scene.get("description") or "").strip(),
+                "MEMORY": memory,
+            },
+        )
+    extra = str(scene.get("prompt_extra") or "").strip()
+    if extra:
+        prompt = f"{prompt.rstrip()}\n\n{extra}\n"
+    return prompt
+
+
+def _clip_generation(
+    video_path: Path,
+    start: float,
+    end: float,
+    model: Any,
+    processor: Any,
+    window_cfg: MetadataConfig,
+    *,
+    frame_spans: list[dict[str, Any]] | None = None,
+    video_filename: str = "",
+    experiment_id: str = "",
+    scene_index: int = 0,
+    scene: dict[str, Any] | None = None,
+) -> str:
+    """Clip one window and run the legacy video sampler on it."""
+    scene = scene or {}
+    with tempfile.TemporaryDirectory(prefix="open-enricher-segment-") as tmp:
+        clip = clip_video_range(
+            video_path,
+            start,
+            max(1.0, end - start),
+            Path(tmp) / f"window_{scene_index}.mp4",
+        )
+        if frame_spans is not None:
+            frame_started = time.perf_counter()
+            try:
+                frame_span = sample_scene(
+                    clip,
+                    video_filename=video_filename,
+                    experiment_id=experiment_id,
+                    scene_index=scene_index,
+                    start_seconds=start,
+                    sample_fps=window_cfg.fps,
+                    min_frames=window_cfg.min_frames,
+                    max_frames=window_cfg.max_frames,
+                )
+            except Exception as exc:  # noqa: BLE001 - frames are not inference
+                logger.warning("VLM frame cache skipped for window %s: %s", scene_index, exc)
+                frame_span = {
+                    "name": "vlm_frames",
+                    "window": scene_index,
+                    "error": str(exc),
+                    "frames": [],
+                }
+            frame_span["seconds"] = round(time.perf_counter() - frame_started, 3)
+            frame_span["start"] = scene.get("start_time")
+            frame_span["end"] = scene.get("end_time")
+            frame_spans.append(frame_span)
+        return extract_metadata(model, processor, clip, window_cfg)
 
 
 def run_segmented(
@@ -206,6 +267,7 @@ def run_segmented(
     vlm_memory_scenes: int | None = None,
     visual_only: bool = False,
     extract_visual: bool = False,
+    continue_on_error: bool = False,
 ) -> tuple[str, dict[str, Any], bool, int, list[dict[str, Any]]]:
     """
     Run the VLM once per dialogue interval and accumulate the metadata.
@@ -284,10 +346,43 @@ def run_segmented(
                 meta_cfg,
                 prompt=prompt,
                 min_frames=2,
-                max_frames=SEGMENT_MAX_FRAMES,
+                max_frames=int(scene.get("max_frames") or SEGMENT_MAX_FRAMES),
                 max_new_tokens=SEGMENT_MAX_NEW_TOKENS,
                 video_seconds=None,
             )
+            if scene.get("no_frame"):
+                raw_parts.append(
+                    f"--- {scene.get('start_time')}-{scene.get('end_time')} ---\n"
+                    "No frame was sampled for this scene."
+                )
+                segments.append(
+                    {
+                        "start_time": scene.get("start_time"),
+                        "end_time": scene.get("end_time"),
+                        "dialogue_description": str(scene.get("description") or "").strip(),
+                        "description": "No frame was sampled for this scene.",
+                        "subjects_and_objects": [],
+                        "actions": [],
+                        "camera_and_shot": "",
+                        "lighting_and_color": "",
+                        "on_screen_text": [],
+                    }
+                )
+                frame_spans.append(
+                    {
+                        "name": "vlm_frames",
+                        "window": index,
+                        "seconds": 0,
+                        "frames": [],
+                        "no_frame": True,
+                        "start": scene.get("start_time"),
+                        "end": scene.get("end_time"),
+                    }
+                )
+                continue
+            image_paths = [
+                path for path in (scene.get("image_paths") or []) if Path(path).is_file()
+            ]
             with _timed(
                 timing,
                 "vlm_generate",
@@ -296,38 +391,54 @@ def run_segmented(
                 end=scene.get("end_time"),
                 model_id=model_cfg.model_id,
             ):
-                with tempfile.TemporaryDirectory(prefix="open-enricher-segment-") as tmp:
-                    clip = clip_video_range(
-                        video_path,
-                        start,
-                        max(1.0, end - start),
-                        Path(tmp) / f"window_{index}.mp4",
-                    )
-                    frame_started = time.perf_counter()
-                    try:
-                        frame_span = sample_scene(
-                            clip,
-                            video_filename=video_filename,
-                            experiment_id=experiment_id,
-                            scene_index=index,
-                            start_seconds=start,
-                            sample_fps=window_cfg.fps,
-                            min_frames=window_cfg.min_frames,
-                            max_frames=window_cfg.max_frames,
-                        )
-                    except Exception as exc:  # noqa: BLE001 - frames are not inference
-                        logger.warning("VLM frame cache skipped for window %s: %s", index, exc)
+                try:
+                    if image_paths:
+                        frame_started = time.perf_counter()
                         frame_span = {
                             "name": "vlm_frames",
                             "window": index,
-                            "error": str(exc),
-                            "frames": [],
+                            "sampled_frames": len(image_paths),
+                            "frames": [
+                                {"file": path, "source": "explicit"} for path in image_paths
+                            ],
+                            "seconds": round(time.perf_counter() - frame_started, 3),
                         }
-                    frame_span["seconds"] = round(time.perf_counter() - frame_started, 3)
-                    frame_span["start"] = scene.get("start_time")
-                    frame_span["end"] = scene.get("end_time")
-                    frame_spans.append(frame_span)
-                    raw_text = extract_metadata(model, processor, clip, window_cfg)
+                        frame_span["start"] = scene.get("start_time")
+                        frame_span["end"] = scene.get("end_time")
+                        frame_spans.append(frame_span)
+                        try:
+                            raw_text = extract_metadata_from_images(
+                                model, processor, image_paths, window_cfg
+                            )
+                        except Exception:
+                            if not continue_on_error:
+                                raise
+                            logger.warning(
+                                "Explicit frames failed for window %s; using the clip",
+                                index,
+                            )
+                            raw_text = _clip_generation(
+                                video_path, start, end, model, processor, window_cfg
+                            )
+                    else:
+                        raw_text = _clip_generation(
+                            video_path,
+                            start,
+                            end,
+                            model,
+                            processor,
+                            window_cfg,
+                            frame_spans=frame_spans,
+                            video_filename=video_filename,
+                            experiment_id=experiment_id,
+                            scene_index=index,
+                            scene=scene,
+                        )
+                except Exception:
+                    if not continue_on_error:
+                        raise
+                    logger.warning("VLM scene %s failed; keeping the dialogue record", index)
+                    raw_text = ""
 
             raw_parts.append(f"--- {scene.get('start_time')}-{scene.get('end_time')} ---\n{raw_text}")
             parsed = _parse_object(raw_text)

@@ -61,6 +61,20 @@ class LLMStage:
             enriched_script["scene_metadata"] = vlm.get("scene_timeline", [])
         else:
             logger.info("No VLM metadata found for %s", video_filename)
+        from open_enricher.manifest import matching_artifact
+
+        graph = matching_artifact(
+            storage.get_output_dir("character_graph") / f"{video_filename}_graph.json"
+        )
+        if graph and graph.get("account"):
+            enriched_script["character_account"] = graph["account"]
+        memory = matching_artifact(
+            storage.get_output_dir("visual_memory") / f"{video_filename}_memory.json"
+        )
+        if memory and memory.get("status") == "success":
+            enriched_script["visual_memory_note"] = (
+                f"Visual memory kept {len(memory.get('entries') or [])} consolidated entries."
+            )
         return enriched_script
 
     def _clean_json_candidate(self, raw_text: str) -> str:

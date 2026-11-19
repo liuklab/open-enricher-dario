@@ -13,8 +13,10 @@ from typing import Any, Dict
 
 from open_enricher import storage
 from open_enricher.logging_setup import get_logger
+from open_enricher.fingerprint import current_stamp
 from open_enricher.stages.pipeline_spec import load_pipeline_spec
 from open_enricher.stages.vlm_core.config import build_configs
+from open_enricher.stages.vlm_core.planned import prepare_scenes
 from open_enricher.stages.vlm_core.segments import (
     SEGMENT_MAX_FRAMES,
     SEGMENT_MAX_NEW_TOKENS,
@@ -56,22 +58,47 @@ class VLMStage:
         dialogue = json.loads(dialogue_path.read_text(encoding="utf-8"))
         scenes = dialogue.get("scenes")
         if not isinstance(scenes, list) or not scenes:
+            if not spec.features.any_enabled:
+                raise ValueError(f"Dialogue file has no scenes: {dialogue_path}")
+            scenes = []
+
+        frame_plan: dict[str, Any] = {"mode": None}
+        if spec.features.any_enabled and scenes:
+            try:
+                scenes, frame_plan = prepare_scenes(
+                    video_path,
+                    video_filename,
+                    scenes,
+                    spec,
+                    sample_fps=2,
+                )
+            except Exception as exc:  # noqa: BLE001 - keep the dialogue windows
+                logger.warning("Frame plan failed for %s: %s", video_filename, exc)
+                frame_plan = {"mode": "duration", "scoring_failed": True, "reason": str(exc)}
+        if not scenes:
             raise ValueError(f"Dialogue file has no scenes: {dialogue_path}")
 
         logger.info("Starting VLM stage for %s (%s)", video_filename, spec.experiment_id)
         model_cfg, meta_cfg = build_configs()
-        raw_text, parsed_payload, is_valid_json, segment_count, frame_spans = run_segmented(
-            video_path,
-            video_filename,
-            model_cfg,
-            meta_cfg,
-            scenes,
-            timing=timing,
-            experiment_id=spec.experiment_id,
-            vlm_memory_scenes=spec.vlm_memory_scenes,
-            visual_only=spec.visual_only,
-            extract_visual=spec.narrate_from_visual,
-        )
+        try:
+            raw_text, parsed_payload, is_valid_json, segment_count, frame_spans = run_segmented(
+                video_path,
+                video_filename,
+                model_cfg,
+                meta_cfg,
+                scenes,
+                timing=timing,
+                experiment_id=spec.experiment_id,
+                vlm_memory_scenes=spec.vlm_memory_scenes,
+                visual_only=spec.visual_only,
+                extract_visual=spec.narrate_from_visual,
+                continue_on_error=spec.features.any_enabled,
+            )
+        except Exception as exc:
+            if not spec.features.any_enabled:
+                raise
+            logger.warning("VLM failed for %s and will be skipped: %s", video_filename, exc)
+            return _degraded_vlm(self.name, video_filename, spec.experiment_id, str(exc), timing)
 
         output_dir = storage.get_output_dir(self.name)
         raw_path = output_dir / f"{video_filename}_vlm_raw.txt"
@@ -101,6 +128,14 @@ class VLMStage:
         }
         frames_path.write_text(
             json.dumps(frames_document, indent=2, ensure_ascii=False) + "\n",
+            encoding="utf-8",
+        )
+        plan_path = output_dir / f"{video_filename}_frame_plan.json"
+        plan_document = dict(frame_plan)
+        plan_document.update(current_stamp())
+        plan_document["video"] = video_filename
+        plan_path.write_text(
+            json.dumps(plan_document, indent=2, ensure_ascii=False) + "\n",
             encoding="utf-8",
         )
 
@@ -134,10 +169,15 @@ class VLMStage:
             encoding="utf-8",
         )
 
+        stage_status = "success"
+        if spec.features.any_enabled and (
+            not is_valid_json or frame_plan.get("scoring_failed") or frame_plan.get("history_returned")
+        ):
+            stage_status = "degraded"
         logger.info("VLM stage completed. Saved to %s (json_valid=%s)", json_path.name, is_valid_json)
         return {
             "stage": self.name,
-            "status": "success",
+            "status": stage_status,
             "json_valid": is_valid_json,
             "result": parsed_payload,
             "timings": timing.document(),
@@ -147,3 +187,34 @@ class VLMStage:
             "timings_file": str(timings_path.name),
             "frames_file": str(frames_path.name),
         }
+
+
+def _degraded_vlm(
+    stage: str,
+    video_filename: str,
+    experiment_id: str,
+    reason: str,
+    timing: TimingRecorder,
+) -> dict[str, Any]:
+    """Write an empty visual timeline so a stale file cannot reach the writer."""
+    output_dir = storage.get_output_dir(stage)
+    json_path = output_dir / f"{video_filename}_vlm.json"
+    payload = {
+        "experiment_id": experiment_id,
+        "scene_timeline": [],
+        "segments_parsed": 0,
+        "segments_total": 0,
+        "degraded_reason": reason,
+    }
+    payload.update(current_stamp())
+    json_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    timings_path = output_dir / f"{video_filename}_vlm_timings.json"
+    timing.save(timings_path)
+    return {
+        "stage": stage,
+        "status": "degraded",
+        "json_valid": False,
+        "error": reason,
+        "output_file": json_path.name,
+        "timings_file": timings_path.name,
+    }

@@ -14,7 +14,10 @@ import json
 from typing import Any
 
 from open_enricher import storage
+from open_enricher.fingerprint import current_stamp
 from open_enricher.logging_setup import get_logger
+from open_enricher.manifest import matching_artifact
+from open_enricher.narrative import cue_from_lines, parse_label
 from open_enricher.stages.pipeline_spec import load_pipeline_spec
 from open_enricher.stages.prompt_load import fill_prompt, load_prompt
 from open_enricher.stages.vlm_core.enrichment import (
@@ -24,6 +27,7 @@ from open_enricher.stages.vlm_core.enrichment import (
     format_dialogue_lines,
 )
 from open_enricher.stages.vlm_core.video import probe_duration_seconds
+from open_enricher.timeline import Interval, assign_utterances, fixed_windows
 from open_enricher.timings import TimingRecorder
 
 logger = get_logger(__name__)
@@ -239,12 +243,16 @@ class DialogueStage:
         if not video_path.exists():
             raise FileNotFoundError(f"Video not found in dataset: {video_path}")
         audio_path = storage.get_output_dir("audio") / f"{video_filename}_audio.json"
-        if not audio_path.is_file():
-            raise FileNotFoundError(f"Audio transcript not found: {audio_path}")
-
         spec = load_pipeline_spec()
         timing = TimingRecorder(self.name)
+        if not audio_path.is_file():
+            if spec.features.any_enabled:
+                return self._write_without_audio(video_filename, video_path, spec, timing)
+            raise FileNotFoundError(f"Audio transcript not found: {audio_path}")
+
         raw_lines = json.loads(audio_path.read_text(encoding="utf-8"))
+        if not isinstance(raw_lines, list):
+            raw_lines = []
         dialogue_lines = format_dialogue_lines(raw_lines)
         speakers = {
             str(line.get("speaker") or "UNKNOWN")
@@ -264,14 +272,36 @@ class DialogueStage:
         )
 
         duration = probe_duration_seconds(video_path)
-        windows = interval_windows(duration, spec.interval_seconds)
-        plot_summary, plot_sampled = self._plot_pass(dialogue_lines, timing)
-        scenes = self._scene_pass(
-            raw_lines,
-            windows,
-            plot_summary,
-            timing,
-        )
+        buckets = None
+        scene_ids = None
+        if spec.features.any_enabled:
+            intervals = _intervals_for(video_filename, duration, spec.interval_seconds)
+            buckets = assign_utterances(raw_lines, intervals)
+            scene_ids = [item.id for item in intervals]
+            windows = [(item.start, item.end) for item in intervals]
+        else:
+            windows = interval_windows(duration, spec.interval_seconds)
+        try:
+            plot_summary, plot_sampled = self._plot_pass(dialogue_lines, timing)
+            scenes = self._scene_pass(
+                raw_lines,
+                windows,
+                plot_summary,
+                timing,
+                buckets=buckets,
+                scene_ids=scene_ids,
+                score_narrative=spec.features.adaptive_frames,
+            )
+            status = "success"
+            error = None
+        except Exception as exc:
+            if not spec.features.any_enabled:
+                raise
+            logger.warning("Dialogue model failed for %s: %s", video_filename, exc)
+            plot_summary, plot_sampled = "", False
+            scenes = _empty_scenes(windows, scene_ids, buckets, raw_lines)
+            status = "degraded"
+            error = str(exc)
 
         payload = {
             "experiment_id": spec.experiment_id,
@@ -280,21 +310,27 @@ class DialogueStage:
             "plot_sampled": plot_sampled,
             "scenes": scenes,
         }
+        if spec.features.any_enabled:
+            payload.update(current_stamp())
+            payload["status"] = status
         output_dir = storage.get_output_dir(self.name)
         output_path = output_dir / f"{video_filename}_dialogue.json"
         output_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
         timings_path = output_dir / f"{video_filename}_dialogue_timings.json"
         timing.save(timings_path)
         logger.info("Saved dialogue stage to %s (%s scenes)", output_path.name, len(scenes))
-        return {
+        result = {
             "stage": self.name,
-            "status": "success",
+            "status": status,
             "scenes": len(scenes),
             "plot_sampled": plot_sampled,
             "timings": timing.document(),
             "output_file": output_path.name,
             "timings_file": timings_path.name,
         }
+        if error:
+            result["error"] = error
+        return result
 
     def _plot_pass(
         self,
@@ -331,13 +367,22 @@ class DialogueStage:
         windows: list[tuple[float, float]],
         plot_summary: str,
         timing: TimingRecorder,
+        *,
+        buckets: dict[str, list[dict[str, Any]]] | None = None,
+        scene_ids: list[str] | None = None,
+        score_narrative: bool = False,
     ) -> list[dict[str, Any]]:
         model, tokenizer, device = _load_text_model(timing, "scene_load")
         scenes: list[dict[str, Any]] = []
         try:
             budget = _input_budget(model, SCENE_MAX_NEW_TOKENS)
             for index, (start, end) in enumerate(windows, start=1):
-                window_rows = lines_in_window(raw_lines, start, end)
+                if buckets is None or scene_ids is None:
+                    window_rows = lines_in_window(raw_lines, start, end)
+                    scene_id = None
+                else:
+                    scene_id = scene_ids[index - 1]
+                    window_rows = buckets.get(scene_id, [])
                 logger.info(
                     "Scene dialogue %s/%s %s-%s (%s lines)",
                     index,
@@ -392,8 +437,158 @@ class DialogueStage:
                         "dialogue_lines": len(window_rows),
                         "dialogue_sampled": sampled,
                         "description": description,
+                        **({"scene_id": scene_id} if scene_id else {}),
+                        **(
+                            _narrative_fields(model, tokenizer, device, window_rows)
+                            if score_narrative
+                            else {}
+                        ),
                     }
                 )
         finally:
             _unload_text_model(model, tokenizer)
         return scenes
+
+    def _write_without_audio(
+        self,
+        video_filename: str,
+        video_path: Path,
+        spec: Any,
+        timing: TimingRecorder,
+    ) -> dict[str, Any]:
+        """Keep the timeline when the transcript is missing."""
+        duration = probe_duration_seconds(video_path)
+        intervals = _intervals_for(video_filename, duration, spec.interval_seconds)
+        windows = [(item.start, item.end) for item in intervals]
+        scenes = _empty_scenes(windows, [item.id for item in intervals], None, [])
+        payload = {
+            "experiment_id": spec.experiment_id,
+            "interval_seconds": spec.interval_seconds,
+            "plot_summary": "",
+            "plot_sampled": False,
+            "scenes": scenes,
+            "status": "degraded",
+        }
+        payload.update(current_stamp())
+        output_dir = storage.get_output_dir(self.name)
+        output_path = output_dir / f"{video_filename}_dialogue.json"
+        output_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
+        timings_path = output_dir / f"{video_filename}_dialogue_timings.json"
+        timing.save(timings_path)
+        return {
+            "stage": self.name,
+            "status": "degraded",
+            "scenes": len(scenes),
+            "error": "audio transcript missing",
+            "output_file": output_path.name,
+            "timings_file": timings_path.name,
+        }
+
+
+def _intervals_for(video_filename: str, duration: float, interval_seconds: int) -> list[Interval]:
+    document = matching_artifact(
+        storage.get_output_dir("timeline") / f"{video_filename}_timeline.json"
+    )
+    bassl = matching_artifact(storage.get_output_dir("bassl") / f"{video_filename}_bassl.json")
+    source = bassl or document
+    intervals: list[Interval] = []
+    for row in (source or {}).get("intervals") or []:
+        if not isinstance(row, dict):
+            continue
+        try:
+            intervals.append(
+                Interval(
+                    id=str(row["id"]),
+                    start=float(row["start"]),
+                    end=float(row["end"]),
+                    kind=str(row.get("kind") or "window"),
+                    source=str(row.get("source") or "fixed"),
+                    repaired=bool(row.get("repaired")),
+                )
+            )
+        except (KeyError, TypeError, ValueError):
+            continue
+    return intervals or fixed_windows(duration, interval_seconds)
+
+
+def _empty_scenes(
+    windows: list[tuple[float, float]],
+    scene_ids: list[str] | None,
+    buckets: dict[str, list[dict[str, Any]]] | None,
+    raw_lines: list[Any],
+) -> list[dict[str, Any]]:
+    scenes: list[dict[str, Any]] = []
+    for index, (start, end) in enumerate(windows, start=1):
+        if buckets is not None and scene_ids is not None:
+            rows = buckets.get(scene_ids[index - 1], [])
+            scene_id = scene_ids[index - 1]
+        else:
+            rows = lines_in_window(raw_lines, start, end)
+            scene_id = None
+        row = {
+            "start_time": _clock(start),
+            "end_time": _clock(end),
+            "start_seconds": round(start, 3),
+            "end_seconds": round(end, 3),
+            "dialogue_lines": len(rows),
+            "dialogue_sampled": False,
+            "description": _EMPTY_SCENE,
+        }
+        if scene_id:
+            row["scene_id"] = scene_id
+        scenes.append(row)
+    return scenes
+
+
+def _narrative_fields(
+    model: Any,
+    tokenizer: Any,
+    device: str,
+    rows: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """Ask the loaded text model, then fall back to cue words."""
+    score, line_ids = cue_from_lines(rows)
+    method = "heuristic"
+    if rows:
+        transcript = "\n".join(
+            f"{line.get('id', index)}: {line.get('text', '')}" for index, line in enumerate(rows)
+        )
+        messages = [
+            {
+                "role": "system",
+                "content": (
+                    "Classify the lines. Reply with JSON only: "
+                    '{"label": "decision|revelation|reversal|none", "line_ids": []}.'
+                ),
+            },
+            {"role": "user", "content": transcript},
+        ]
+        try:
+            import torch
+
+            prompt_text = tokenizer.apply_chat_template(
+                messages,
+                tokenize=False,
+                add_generation_prompt=True,
+                enable_thinking=False,
+            )
+            model_inputs = tokenizer([prompt_text], return_tensors="pt").to(device)
+            with torch.no_grad():
+                generated = model.generate(
+                    **model_inputs,
+                    max_new_tokens=80,
+                    do_sample=False,
+                )
+            new_tokens = generated[0][len(model_inputs.input_ids[0]) :]
+            text = tokenizer.decode(new_tokens, skip_special_tokens=True)
+            parsed = parse_label(text)
+            if parsed is not None:
+                score, line_ids = parsed
+                method = "qwen"
+        except Exception as exc:  # noqa: BLE001 - cues remain available
+            logger.warning("Narrative label fell back to cues: %s", exc)
+    return {
+        "narrative_score": score,
+        "narrative_line_ids": line_ids,
+        "narrative_method": method,
+    }
