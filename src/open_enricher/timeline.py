@@ -12,8 +12,6 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from open_enricher.stages.dialogue import interval_windows
-
 
 @dataclass(frozen=True)
 class Interval:
@@ -93,6 +91,9 @@ def fixed_windows(
 
 def control_windows(duration: float, interval_seconds: int) -> list[tuple[float, float]]:
     """Return the windows variant 06 would actually build for this duration."""
+    # Lazy import: the dialogue stage imports this module at load time.
+    from open_enricher.stages.dialogue import interval_windows
+
     return interval_windows(duration, interval_seconds)
 
 
