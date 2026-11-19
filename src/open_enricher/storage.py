@@ -11,6 +11,7 @@ Default root is ``<repository>/dataset``. Override with
 from __future__ import annotations
 
 import os
+import tempfile
 from pathlib import Path
 
 
@@ -24,6 +25,11 @@ _STAGE_DIRS: dict[str, str] = {
     "dialogue": "dialogue_results",
     "vlm": "vlms_results",
     "llm": "llms_results",
+    "timeline": "timeline_results",
+    "bassl": "bassl_results",
+    "character_graph": "graph_results",
+    "visual_memory": "memory_results",
+    "evidence": "evidence_results",
 }
 
 
@@ -151,6 +157,29 @@ def setup_dataset() -> None:
         get_output_dir(stage_name).mkdir(parents=True, exist_ok=True)
 
     logger.info("Dataset structure verified.")
+
+
+def atomic_write_text(path: Path, text: str) -> None:
+    """
+    Write ``text`` by replacing ``path`` only after the temp file is flushed.
+
+    A crash while the temp file is open leaves the previous destination in
+    place.
+    """
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fd, tmp_name = tempfile.mkstemp(prefix=f".{path.name}.", dir=str(path.parent))
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as handle:
+            handle.write(text)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(tmp_name, path)
+    except Exception:
+        try:
+            os.unlink(tmp_name)
+        except OSError:
+            pass
+        raise
 
 
 def configure_environment() -> None:
