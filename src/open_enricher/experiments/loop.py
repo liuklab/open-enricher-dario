@@ -36,6 +36,7 @@ from open_enricher.experiments.config import (
     REPO_ROOT,
     VARIANTS_DIR,
 )
+from open_enricher.experiments.stages import STAGE_CHOICES
 from open_enricher.logging_setup import configure_logging, get_logger
 
 logger = get_logger(__name__)
@@ -323,7 +324,8 @@ def run_one_experiment(
                 )
 
             dest = video_archive_dir(experiment_id, video)
-            archived = runner.archive_artifacts(video, dest, stages=stages)
+            archive_stages = summary.get("stages_ran") or stages
+            archived = runner.archive_artifacts(video, dest, stages=archive_stages)
             summary["archived_files"] = archived
 
             timing_paths = list(dest.glob(f"{video}_*_timings.json"))
@@ -352,7 +354,9 @@ def run_one_experiment(
     if not pipeline_done:
         write_json(exp_dir / "video_results.json", video_results)
         write_json(exp_dir / "variant.json", variant)
-        pipeline_ok = all(row.get("status") == "success" for row in video_results)
+        pipeline_ok = all(
+            row.get("status") in {"success", "degraded"} for row in video_results
+        )
         append_progress(
             {
                 "experiment_id": experiment_id,
@@ -379,7 +383,7 @@ def run_one_experiment(
         eval_ok = (
             evaluation_error is None
             and bool(evaluation_results)
-            and all(row.get("status") == "success" for row in evaluation_results)
+            and all(row.get("status") in {"success", "degraded"} for row in evaluation_results)
         )
         append_progress(
             {
@@ -410,14 +414,14 @@ def run_one_experiment(
     )
 
     pipeline_ok = (
-        all(row.get("status") == "success" for row in video_results)
+        all(row.get("status") in {"success", "degraded"} for row in video_results)
         if video_results
         else pipeline_done
     )
     eval_ok = evaluation_done or (
         evaluation_error is None
         and bool(evaluation_results)
-        and all(row.get("status") == "success" for row in evaluation_results)
+        and all(row.get("status") in {"success", "degraded"} for row in evaluation_results)
     )
     overall = "ok" if pipeline_ok and eval_ok else "error"
 
@@ -535,8 +539,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--stages",
         nargs="+",
-        choices=list(PIPELINE_STAGES),
-        help="Subset of stages to run. Default: audio color vlm llm.",
+        choices=list(STAGE_CHOICES),
+        help="Subset of stages to run. Default: audio dialogue vlm llm.",
     )
     parser.add_argument(
         "--no-cache",

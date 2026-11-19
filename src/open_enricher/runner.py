@@ -11,6 +11,8 @@ from __future__ import annotations
 import json
 import os
 import shutil
+import uuid
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable, Sequence
 
@@ -35,6 +37,11 @@ STAGE_PRIMARY_ARTIFACT: dict[str, str] = {
     "dialogue": "{video}_dialogue.json",
     "vlm": "{video}_vlm.json",
     "llm": "{video}_llm.json",
+    "timeline": "{video}_timeline.json",
+    "bassl": "{video}_bassl.json",
+    "character_graph": "{video}_graph.json",
+    "visual_memory": "{video}_memory.json",
+    "evidence": "{video}_manifest.json",
 }
 
 
@@ -95,12 +102,22 @@ def build_stages(hf_token: str | None = None) -> dict[str, Any]:
     from open_enricher.stages.audio import AudioStage
     from open_enricher.stages.dialogue import DialogueStage
     from open_enricher.stages.llm import LLMStage
+    from open_enricher.stages.optional import (
+        BasslStage,
+        CharacterGraphStage,
+        TimelineStage,
+        VisualMemoryStage,
+    )
     from open_enricher.stages.vlm import VLMStage
 
     token = (hf_token if hf_token is not None else os.getenv("HF_TOKEN", "")).strip()
     return {
         "audio": AudioStage(hf_token=token),
+        "timeline": TimelineStage(),
+        "bassl": BasslStage(),
         "dialogue": DialogueStage(),
+        "character_graph": CharacterGraphStage(),
+        "visual_memory": VisualMemoryStage(),
         "vlm": VLMStage(),
         "llm": LLMStage(),
     }
@@ -171,11 +188,26 @@ def _artifact_globs(stage: str, video_filename: str) -> list[str]:
             f"{video_filename}_vlm_sidecar.json",
             f"{video_filename}_vlm_context.txt",
             f"{video_filename}_dialogue_summary.txt",
+            f"{video_filename}_frame_plan.json",
         ]
     if stage == "llm":
         return [
             f"{video_filename}_llm.json",
             f"{video_filename}_llm_timings.json",
+            f"{video_filename}_llm_raw.txt",
+        ]
+    if stage == "timeline":
+        return [f"{video_filename}_timeline.json"]
+    if stage == "bassl":
+        return [f"{video_filename}_bassl.json"]
+    if stage == "character_graph":
+        return [f"{video_filename}_graph.json"]
+    if stage == "visual_memory":
+        return [f"{video_filename}_memory.json"]
+    if stage == "evidence":
+        return [
+            f"{video_filename}_manifest.json",
+            f"{video_filename}_evidence.json",
         ]
     return []
 
@@ -311,57 +343,95 @@ def run_pipeline(
         raise FileNotFoundError(f"Video not found in dataset: {video_path}")
 
     registry = stage_registry if stage_registry is not None else build_stages()
+    spec = _load_spec()
+    experimental = bool(spec is not None and spec.features.any_enabled)
+    from open_enricher.experiments.stages import stages_for_spec
+
+    stage_names = stages_for_spec(stages, spec)
     results: list[dict[str, Any]] = []
     overall = "success"
+    previous_env: dict[str, str | None] = {}
+    if experimental and spec is not None:
+        previous_env = _begin_attempt(video_path, spec)
 
-    for name in stages:
-        if name not in registry:
-            row = {
-                "stage": name,
-                "status": "failed",
-                "error": f"Unknown stage '{name}'",
-            }
-            results.append(row)
-            overall = "failed"
-            break
+    try:
+        for name in stage_names:
+            if name not in registry:
+                row = {
+                    "stage": name,
+                    "status": "failed",
+                    "error": f"Unknown stage '{name}'",
+                }
+                results.append(row)
+                overall = "failed"
+                break
 
-        if use_cache and cache_root is not None and name in CACHEABLE_STAGES:
-            if not stage_output_exists(name, video_filename):
-                restore_cached_stage(name, video_filename, cache_root)
-            if stage_output_exists(name, video_filename):
-                logger.info("Skipping %s for %s (cached)", name, video_filename)
-                results.append(
-                    {
-                        "stage": name,
-                        "status": "skipped_cache",
-                        "output_file": primary_artifact_path(name, video_filename).name,
-                    }
-                )
+            if use_cache and cache_root is not None and name in CACHEABLE_STAGES:
+                if not stage_output_exists(name, video_filename):
+                    restore_cached_stage(name, video_filename, cache_root)
+                if stage_output_exists(name, video_filename):
+                    logger.info("Skipping %s for %s (cached)", name, video_filename)
+                    results.append(
+                        {
+                            "stage": name,
+                            "status": "skipped_cache",
+                            "output_file": primary_artifact_path(name, video_filename).name,
+                        }
+                    )
+                    continue
+
+            logger.info("Running stage '%s' on %s", name, video_filename)
+            try:
+                outcome = registry[name].run(video_filename)
+            except Exception as exc:  # noqa: BLE001 - surface stage failures to the loop
+                outcome = {
+                    "stage": name,
+                    "status": "failed",
+                    "error": str(exc),
+                }
+            if not isinstance(outcome, dict):
+                outcome = {"stage": name, "status": "failed", "error": "stage returned no document"}
+            outcome.setdefault("stage", name)
+            results.append(outcome)
+            status = str(outcome.get("status") or "failed")
+            if experimental:
+                if name == "timeline" and status == "failed":
+                    overall = "failed"
+                    break
+                if name == "llm" and status not in {"success", "degraded"}:
+                    overall = "failed"
+                    break
                 continue
+            if status != "success":
+                overall = "failed"
+                logger.error("Stage '%s' failed: %s", name, outcome.get("error"))
+                break
 
-        logger.info("Running stage '%s' on %s", name, video_filename)
+            if use_cache and cache_root is not None and name in CACHEABLE_STAGES:
+                save_stage_to_cache(name, video_filename, cache_root)
+    finally:
         try:
-            outcome = registry[name].run(video_filename)
-        except Exception as exc:  # noqa: BLE001 - surface stage failures to the loop
-            outcome = {
-                "stage": name,
-                "status": "failed",
-                "error": str(exc),
-            }
-        results.append(outcome)
-        status = str(outcome.get("status") or "failed")
-        if status != "success":
-            overall = "failed"
-            logger.error("Stage '%s' failed: %s", name, outcome.get("error"))
-            break
-
-        if use_cache and cache_root is not None and name in CACHEABLE_STAGES:
-            save_stage_to_cache(name, video_filename, cache_root)
+            if experimental and spec is not None:
+                if use_cache and cache_root is not None and stage_output_exists(
+                    "audio", video_filename
+                ):
+                    save_stage_to_cache("audio", video_filename, cache_root)
+                manifest = _publish(video_filename, spec, results)
+                published = str(manifest.get("profile_kind") or "none")
+                if published == "full":
+                    overall = "success"
+                elif published == "degraded":
+                    overall = "degraded"
+                else:
+                    overall = "failed"
+        finally:
+            _end_attempt(previous_env)
 
     return {
         "video": video_filename,
         "status": overall,
         "stages": results,
+        "stages_ran": list(stage_names) + (["evidence"] if experimental else []),
     }
 
 
@@ -424,3 +494,118 @@ def archive_artifacts(
         shutil.copy2(log_path, dest_dir / "worker.log")
         copied.append("worker.log")
     return copied
+
+
+def _load_spec() -> Any:
+    """Load the active spec. A missing file keeps the legacy stage list."""
+    try:
+        from open_enricher.stages.pipeline_spec import load_pipeline_spec
+
+        return load_pipeline_spec()
+    except Exception as exc:  # noqa: BLE001 - the control path must still start
+        logger.warning("Pipeline spec unavailable: %s", exc)
+        return None
+
+
+def _begin_attempt(video_path: Path, spec: Any) -> dict[str, str | None]:
+    """Publish the attempt id for optional stages and return the previous env."""
+    from open_enricher.fingerprint import (
+        ATTEMPT_ID,
+        SETTINGS_HASH,
+        SOURCE_FINGERPRINT,
+        settings_hash,
+        source_fingerprint,
+    )
+
+    keys = (ATTEMPT_ID, SOURCE_FINGERPRINT, SETTINGS_HASH)
+    previous = {key: os.environ.get(key) for key in keys}
+    os.environ[ATTEMPT_ID] = (
+        datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + uuid.uuid4().hex[:8]
+    )
+    os.environ[SOURCE_FINGERPRINT] = source_fingerprint(video_path)
+    os.environ[SETTINGS_HASH] = settings_hash(spec)
+    return previous
+
+
+def _end_attempt(previous: dict[str, str | None]) -> None:
+    for key, value in previous.items():
+        if value is None:
+            os.environ.pop(key, None)
+        else:
+            os.environ[key] = value
+
+
+def _publish(video_filename: str, spec: Any, results: list[dict[str, Any]]) -> dict[str, Any]:
+    """Write the evidence note and the manifest for this attempt."""
+    from open_enricher.fingerprint import current_stamp
+    from open_enricher.manifest import publish_manifest
+
+    kind, reason = _profile_kind(spec, results)
+    evidence_path = storage.get_output_dir("evidence") / f"{video_filename}_evidence.json"
+    note = {
+        "video": video_filename,
+        "profile_kind": kind,
+        "terminal_reason": reason,
+        "outcomes": results,
+    }
+    note.update(current_stamp())
+    storage.atomic_write_text(
+        evidence_path,
+        json.dumps(note, indent=2, ensure_ascii=False) + "\n",
+    )
+    paths: list[Path] = [evidence_path]
+    for stage in (
+        "timeline",
+        "audio",
+        "bassl",
+        "dialogue",
+        "character_graph",
+        "visual_memory",
+        "vlm",
+        "llm",
+    ):
+        folder = storage.get_output_dir(stage)
+        for pattern in _artifact_globs(stage, video_filename):
+            paths.extend(path for path in folder.glob(pattern) if path.is_file())
+    stamp = current_stamp()
+    return publish_manifest(
+        video_filename,
+        attempt_id=stamp["attempt_id"],
+        source_fingerprint=stamp["source_fingerprint"],
+        settings_hash=stamp["settings_hash"],
+        profile_kind=kind,
+        outcomes=results,
+        artifact_paths=paths,
+        terminal_reason=reason,
+        features={
+            "bassl": spec.features.bassl,
+            "adaptive_frames": spec.features.adaptive_frames,
+            "character_graph": spec.features.character_graph,
+            "visual_memory": spec.features.visual_memory,
+        },
+    )
+
+
+def _profile_kind(spec: Any, results: list[dict[str, Any]]) -> tuple[str, str | None]:
+    """Map stage outcomes to full, degraded, or none."""
+    by_name = {str(row.get("stage")): row for row in results}
+    degraded = False
+    for name, enabled in (
+        ("bassl", spec.features.bassl),
+        ("character_graph", spec.features.character_graph),
+        ("visual_memory", spec.features.visual_memory),
+    ):
+        if not enabled:
+            continue
+        status = str((by_name.get(name) or {}).get("status") or "failed")
+        if status in {"fallback", "failed", "degraded"}:
+            degraded = True
+    vlm_status = str((by_name.get("vlm") or {}).get("status") or "failed")
+    if vlm_status == "degraded" or (spec.features.adaptive_frames and vlm_status != "success"):
+        degraded = True
+    llm = by_name.get("llm") or {}
+    if llm.get("status") == "success" and not degraded:
+        return "full", None
+    if llm.get("status") == "success":
+        return "degraded", None
+    return "none", str(llm.get("error") or "no validated profile")
