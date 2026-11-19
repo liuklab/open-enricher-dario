@@ -1,0 +1,171 @@
+"""InsightFace tracks and TalkNet active-speaker scores.
+
+Both adapters load weights only inside a child process. A missing
+package or a failed constructor is a fallback document, not an exception
+for the parent pipeline.
+"""
+
+from __future__ import annotations
+
+from pathlib import Path
+from typing import Any
+
+from open_enricher import storage
+from open_enricher.adapters.isolate import call_in_child
+from open_enricher.stages.pipeline_spec import PipelineSpec
+
+
+def insightface_root(spec: PipelineSpec) -> Path:
+    """InsightFace root. The pack lives in ``root/models/buffalo_l``."""
+    if spec.checkpoints.insightface:
+        return Path(spec.checkpoints.insightface)
+    return storage.models_cache() / "external" / "insightface"
+
+
+def talknet_weights(spec: PipelineSpec) -> Path:
+    """Path of ``pretrain_TalkSet.model``."""
+    if spec.checkpoints.talknet:
+        return Path(spec.checkpoints.talknet)
+    return storage.models_cache() / "external" / "talknet" / "pretrain_TalkSet.model"
+
+
+def detect_tracks(
+    video: Path,
+    spec: PipelineSpec,
+    *,
+    sample_fps: float,
+) -> dict[str, Any]:
+    """Detect faces. The parent does not import InsightFace."""
+    root = insightface_root(spec)
+    pack = root / "models" / "buffalo_l"
+    if not pack.is_dir():
+        return {"status": "fallback", "reason": f"buffalo_l missing under {root}", "tracks": []}
+    return call_in_child(
+        "open_enricher.adapters.face_speech",
+        "run_insightface_payload",
+        {
+            "video": str(video),
+            "root": str(root),
+            "sample_fps": sample_fps,
+        },
+    )
+
+
+def active_speakers(
+    video: Path,
+    spec: PipelineSpec,
+    tracks: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """Score tracks with TalkNet. Without a loaded net this is a fallback."""
+    weights = talknet_weights(spec)
+    if not weights.is_file():
+        return {"status": "fallback", "reason": f"TalkNet weights missing: {weights}", "scores": []}
+    if not tracks:
+        return {"status": "fallback", "reason": "no face tracks to score", "scores": []}
+    return call_in_child(
+        "open_enricher.adapters.face_speech",
+        "run_talknet_payload",
+        {"video": str(video), "weights": str(weights), "tracks": tracks},
+    )
+
+
+def run_insightface_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    """Child entry for ``buffalo_l``. CUDA is preferred and CPU is the fallback."""
+    try:
+        import cv2
+        from insightface.app import FaceAnalysis
+    except Exception as exc:  # noqa: BLE001 - optional dependency
+        return {"status": "fallback", "reason": f"insightface import failed: {exc}", "tracks": []}
+    try:
+        app = FaceAnalysis(name="buffalo_l", root=payload["root"])
+        try:
+            app.prepare(ctx_id=0, det_size=(640, 640))
+            provider = "cuda"
+        except Exception:
+            app.prepare(ctx_id=-1, det_size=(640, 640))
+            provider = "cpu"
+        tracks = _sample_tracks(
+            app,
+            payload["video"],
+            sample_fps=float(payload["sample_fps"]),
+            cv2=cv2,
+        )
+    except Exception as exc:  # noqa: BLE001 - recorded fallback
+        return {"status": "fallback", "reason": str(exc), "tracks": []}
+    return {"status": "success", "provider": provider, "tracks": tracks}
+
+
+def run_talknet_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    """
+    Child entry for TalkNet.
+
+    The checkpoint is loaded only to record that the weights are readable.
+    Lip-motion scoring needs the vendored TalkNet definition; until that
+    forward pass is bound, the parent keeps speaker links unresolved.
+    """
+    try:
+        import torch
+    except Exception as exc:  # noqa: BLE001 - optional dependency
+        return {"status": "fallback", "reason": f"torch import failed: {exc}", "scores": []}
+    try:
+        blob = torch.load(payload["weights"], map_location="cpu")
+    except Exception as exc:  # noqa: BLE001 - recorded fallback
+        return {"status": "fallback", "reason": str(exc), "scores": []}
+    keys = list(blob)[:8] if isinstance(blob, dict) else []
+    return {
+        "status": "fallback",
+        "reason": "TalkNet forward is not bound; speaker links stay unresolved",
+        "checkpoint_present": True,
+        "state_keys": [str(key) for key in keys],
+        "scores": [],
+    }
+
+
+def _sample_tracks(app: Any, video: str, *, sample_fps: float, cv2: Any) -> list[dict[str, Any]]:
+    """Pool one embedding per detected face across sampled frames."""
+    capture = cv2.VideoCapture(video)
+    if not capture.isOpened():
+        raise RuntimeError(f"could not open video {video}")
+    native_fps = float(capture.get(cv2.CAP_PROP_FPS) or 0) or 25.0
+    step = max(1, int(round(native_fps / max(sample_fps, 0.1))))
+    grouped: dict[str, dict[str, Any]] = {}
+    index = 0
+    try:
+        while True:
+            ok, frame = capture.read()
+            if not ok:
+                break
+            if index % step:
+                index += 1
+                continue
+            stamp = index / native_fps
+            faces = app.get(frame) or []
+            ids_here: list[str] = []
+            for face_index, face in enumerate(faces):
+                embedding = getattr(face, "embedding", None)
+                if embedding is None:
+                    continue
+                norm = float((embedding ** 2).sum()) ** 0.5
+                if norm <= 0:
+                    continue
+                vector = [float(value) / norm for value in embedding.tolist()]
+                bbox = [float(value) for value in getattr(face, "bbox", [])]
+                track_id = f"f{index:06d}_{face_index}"
+                ids_here.append(track_id)
+                grouped[track_id] = {
+                    "track_id": track_id,
+                    "embedding": vector,
+                    "start": round(stamp, 3),
+                    "end": round(stamp + 1.0 / max(sample_fps, 0.1), 3),
+                    "shot_id": "frame",
+                    "bbox": bbox,
+                    "co_visible": [],
+                }
+            for track_id in ids_here:
+                grouped[track_id]["co_visible"] = [
+                    other for other in ids_here if other != track_id
+                ]
+            index += 1
+    finally:
+        capture.release()
+    return list(grouped.values())
