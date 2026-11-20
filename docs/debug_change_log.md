@@ -4,6 +4,10 @@ Running log of commits pushed to `origin/debug` for the GitHub↔cluster loop. N
 
 ## 2026-11-20
 
+### commands: checkpoint path check
+
+- Added `commands/check_model_checkpoints.sh` (login node, 15 min, no GPU) to verify `dataset/models_cache/external/{bassl,insightface/buffalo_l,talknet,lavis}` and print non-CUDA import/version lines.
+
 ### next_run: EVA/Q-Former HIMYM smoke
 
 - Added `next_run/smoke_eva_himym.sh` (GPU sbatch) for HIMYM visual encode probe via `test_scripts/eva_encode.py`.
