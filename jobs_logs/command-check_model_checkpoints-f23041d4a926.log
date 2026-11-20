@@ -1,0 +1,27 @@
+script: commands/check_model_checkpoints.sh
+commit: f23041d4a926b3c5e4da4f544367591a968de50d
+started: 2026-11-20 14:06:40
+----
+=== checkpoint paths under dataset/models_cache/external ===
+OK  dir  bassl  dataset/models_cache/external/bassl
+OK  file bassl/pytorch_model.pt  dataset/models_cache/external/bassl/pytorch_model.pt
+OK  file bassl/configuration.json  dataset/models_cache/external/bassl/configuration.json
+OK  dir  insightface/buffalo_l  dataset/models_cache/external/insightface/models/buffalo_l
+OK  file talknet  dataset/models_cache/external/talknet/pretrain_TalkSet.model
+OK  file lavis/eva_vit_g.pth  dataset/models_cache/external/lavis/eva_vit_g.pth
+OK  file lavis/blip2_pretrained_flant5xxl.pth  dataset/models_cache/external/lavis/blip2_pretrained_flant5xxl.pth
+
+=== non-GPU imports / versions ===
+python 3.12.3
+OK   import torch  2.8.0+cu128
+OK   import cv2  5.0.0
+OK   import insightface  2.1
+OK   import modelscope  1.40.3
+OK   import decord  0.6.0
+OK   import onnxruntime  1.32.0
+torch.cuda.is_available (login node, expect False/True): False
+
+checkpoint check OK
+----
+exit: 0
+finished: 2026-11-20 14:10:03
