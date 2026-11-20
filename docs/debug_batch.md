@@ -29,9 +29,11 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 * * * * * /SLURM_shared/st_mdp26/open-enricher/next_run/sync_debug.sh >> /SLURM_shared/st_mdp26/actions-runner/sync-debug.log 2>&1
 ```
 
-`next_run/sync_debug.sh` fetches `origin/debug` and fast-forwards this checkout when `HEAD` is an ancestor of that tip. It then looks at the commits since `/SLURM_shared/st_mdp26/actions-runner/sync-debug.sha`. For every added or modified `next_run/*.sh` other than `sync_debug.sh`, it runs `sbatch` on that file. The SLURM job id is appended to `/SLURM_shared/st_mdp26/actions-runner/sync-debug.log`.
+`next_run/sync_debug.sh` fetches `origin/debug` and fast-forwards this checkout when `HEAD` is an ancestor of that tip. It compares that tip with `/SLURM_shared/st_mdp26/actions-runner/sync-debug.sha`. Added or modified files directly in `next_run/` whose name ends in `.sh` are submitted with `sbatch`, except `sync_debug.sh`. The same pass then executes added or modified `commands/*.sh` files. A rename counts as a change. A deletion does not run the removed file. The SLURM job id and the command exit code are appended to `/SLURM_shared/st_mdp26/actions-runner/sync-debug.log`.
 
-Two passes cannot overlap: the script takes `/SLURM_shared/st_mdp26/actions-runner/sync-debug.lock`. If `sbatch` fails, the saved tip stays put and the next minute retries the scripts from that fetch. A retry submits them again, including any that already succeeded.
+It does not matter which clone created the commit. A script committed on this checkout runs once that commit is on `origin/debug` and the saved tip is still behind it.
+
+Two passes cannot overlap: the script takes `/SLURM_shared/st_mdp26/actions-runner/sync-debug.lock`. Commands run only after every `sbatch` in that pass has succeeded. If `sbatch` fails, the saved tip stays put, the commands wait, and the next minute retries the whole pass. Batch scripts that already queued are submitted again.
 
 If `requirements.txt` or `pyproject.toml` changed in the same range, the pass runs `pip install -r requirements.txt` and `pip install -e .` in `.venv` before `sbatch`.
 
@@ -39,9 +41,9 @@ Pushes that only publish `jobs_logs/`, `runs/`, or `dataset/`, including those f
 
 ## Commands
 
-`commands/` is for a shell command whose output should come back on `debug`. Commit `commands/<name>.sh` as a bash script. It is not a SLURM job: it has no `#SBATCH` header and it runs on the login node, in `/SLURM_shared/st_mdp26/open-enricher`, with `.venv/bin` on `PATH`. GPU experiments stay in `next_run/`.
+`commands/` is for a shell command whose output should come back on `debug`. Commit `commands/<name>.sh` as a bash script, directly in that directory. It is not a SLURM job: it has no `#SBATCH` header and it runs on the login node, in `/SLURM_shared/st_mdp26/open-enricher`, with `.venv/bin` on `PATH` and the ffmpeg libraries on `LD_LIBRARY_PATH`. GPU experiments stay in `next_run/`.
 
-The watcher runs each added or changed `commands/*.sh` once, after the `sbatch` calls from the same fetch. Standard output and standard error go to `jobs_logs/command-<name>-<commit>.log`. The commit in the file name is the one that brought the script. The transcript starts with `script`, `commit`, and `started`, and ends with `exit` and `finished`. Exit 124 means the command was stopped after 15 minutes. A non-zero exit is still published; the command is not run again unless a later commit changes the script.
+The watcher runs each added or changed `commands/*.sh` once, after the `sbatch` calls from the same fetch have succeeded. Standard output and standard error go to `jobs_logs/command-<name>-<12-char-commit>.log`. The commit in the file name is the one that brought the script. The transcript starts with `script`, `commit`, and `started`, and ends with `exit` and `finished`. Exit 124 means the command was stopped after 15 minutes. A non-zero exit is still published; the command is not run again unless a later commit changes the script.
 
 `scripts/push_debug_logs.py` is already running on this login node. It treats that transcript like any other file under `jobs_logs/` and pushes it to `origin/debug`. While a SLURM job from `jobs_logs/` is queued or running, the push waits up to 10 minutes. Otherwise the next poll, about 30 seconds, pushes it. The agent reads the transcript on `debug` after that push.
 
@@ -49,6 +51,4 @@ A command must not edit files under `commands/` or `next_run/`. The following fe
 
 ## When the fast-forward does not happen
 
-The merge is `--ff-only`. If this checkout has commits that are not on `origin/debug`, or local edits overlap files in the incoming commit, the pass logs a skip and retries on the next minute. It does not reset or stash.
-
-A push made from this same checkout is already applied when cron wakes up, so it does not submit the scripts that commit just added. The submit happens when the commits arrive from GitHub and this checkout is still behind.
+The merge is `--ff-only`. If this checkout has commits that are not on `origin/debug`, or local edits overlap files in the incoming commit, the pass logs a skip and retries on the next minute. It does not reset or stash. The saved tip stays where it is, so the scripts in the incoming commits are still pending.
