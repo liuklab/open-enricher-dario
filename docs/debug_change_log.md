@@ -4,6 +4,10 @@ Running log of commits pushed to `origin/debug` for the GitHub↔cluster loop. N
 
 ## 2026-11-20
 
+### gitignore: track command transcripts under jobs_logs
+
+- Root cause: global `*.log` hid `jobs_logs/command-*.log`, so `push_debug_logs` never saw porcelain changes and skipped publishing login-node command transcripts (SLURM `.out`/`.err` were fine). Added `!jobs_logs/command-*.log`; noted in `docs/debug_batch.md` / `docs/debug_sync.md`.
+
 ### commands: re-trigger checkpoint path check
 
 - Comment-only touch of `commands/check_model_checkpoints.sh` so it runs once under the new watcher order (saved tip was already at `f23041d`).
