@@ -51,7 +51,11 @@ for path in "${changed[@]}"; do
 done
 
 if [[ "$code" -eq 0 ]]; then
-  log "fast-forwarded logs or archives only ($remote)"
+  if [[ ${#changed[@]} -eq 0 ]]; then
+    log "origin/debug already applied ($remote)"
+  else
+    log "fast-forwarded logs or archives only ($remote)"
+  fi
   exit 0
 fi
 
