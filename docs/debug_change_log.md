@@ -4,6 +4,10 @@ Running log of commits pushed to `origin/debug` for the GitHub↔cluster loop. N
 
 ## 2026-11-20
 
+### commands: probe_sync login-node sync check
+
+- Added `commands/probe_sync.sh` (login node, no `#SBATCH`, <30s) to print date, hostname, `git rev-parse HEAD`, a short `squeue -u $USER`, and `jobs_logs/command-*.log` basenames. Used to verify automatic command → `jobs_logs` → GitHub sync on `origin/debug`.
+
 ### push_debug_logs: stage porcelain paths only
 
 - Root cause: `git add -A -- . ':(exclude).env' ...` still errors when an ignored `.env` exists on the cluster ("paths are ignored by one of your .gitignore files"). Staging now uses only the non-excluded paths from `changed_paths()` (`git add -- <paths>`), so ignored secrets are never named in a pathspec. After ff-merge, `python3 scripts/push_debug_logs.py --once` can finish already-staged command logs.
