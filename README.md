@@ -93,7 +93,7 @@ python -m open_enricher
 
 Resume uses `runs/local/progress.jsonl`. Pass `--force` to re-run an experiment already marked done. Pass `--no-cache` to ignore the shared audio cache.
 
-See [docs/local_loop.md](docs/local_loop.md), [docs/evaluator.md](docs/evaluator.md), and [docs/debug_sync.md](docs/debug_sync.md). The last one is the login-node process that publishes `jobs_logs/` and `runs/` to the `debug` branch. A push to `debug` that changes code also submits every variant on the cluster: see [docs/debug_batch.md](docs/debug_batch.md).
+See [docs/local_loop.md](docs/local_loop.md), [docs/evaluator.md](docs/evaluator.md), and [docs/debug_sync.md](docs/debug_sync.md). The last one is the login-node process that publishes `jobs_logs/` and `runs/` to the `debug` branch. Planned runs are shell scripts in `next_run/`; a fetch of `debug` submits each new or changed script: see [docs/debug_batch.md](docs/debug_batch.md).
 
 ## Stages
 
