@@ -1,6 +1,7 @@
 #!/bin/bash
 # Login-node check: expected external checkpoints exist; non-GPU imports/versions.
 # No #SBATCH. No CUDA. GPU probes stay in next_run/.
+# Re-triggered after watcher reorder (commands before sbatch).
 
 set -euo pipefail
 

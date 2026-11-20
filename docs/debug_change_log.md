@@ -4,6 +4,10 @@ Running log of commits pushed to `origin/debug` for the GitHub↔cluster loop. N
 
 ## 2026-11-20
 
+### commands: re-trigger checkpoint path check
+
+- Comment-only touch of `commands/check_model_checkpoints.sh` so it runs once under the new watcher order (saved tip was already at `f23041d`).
+
 ### watcher: commands before sbatch
 
 - Reordered `next_run/sync_debug.sh` so changed `commands/*.sh` run on the login node right after fetch/ff-merge (and deps), before any `sbatch` of `next_run/*.sh`. Tip advances only after all sbatch calls succeed; on sbatch failure tip stays put and existing `jobs_logs/command-*-<HEAD>.log` transcripts skip re-runs. Documented in `docs/debug_batch.md`.
