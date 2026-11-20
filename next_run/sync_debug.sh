@@ -1,9 +1,10 @@
 #!/bin/bash
 # Fast-forward this checkout to origin/debug.
 # Added or changed next_run/*.sh files, except this watcher, are submitted
-# with sbatch. Added or changed commands/*.sh files are executed here, and
-# their output is written under jobs_logs/ so scripts/push_debug_logs.py
-# can publish it. A code change that touches neither directory does nothing.
+# with sbatch. Added or changed commands/*.sh files are executed here first
+# (before any sbatch), and their output is written under jobs_logs/ so
+# scripts/push_debug_logs.py can publish it. A code change that touches
+# neither directory does nothing.
 
 set -euo pipefail
 
@@ -85,32 +86,21 @@ if [[ ${#scripts[@]} -eq 0 && ${#commands[@]} -eq 0 ]]; then
   exit 0
 fi
 
-failed=0
-for script in "${scripts[@]}"; do
-  if [[ ! -f "$repo/$script" ]]; then
-    log "missing $script"
-    failed=1
-    continue
-  fi
-  if job=$(/usr/bin/sbatch --parsable "$repo/$script"); then
-    log "submitted SLURM job $job for $script"
-  else
-    log "sbatch failed for $script"
-    failed=1
-  fi
-done
-
-if [[ "$failed" -ne 0 ]]; then
-  log "leaving saved tip at ${previous:-none} so the next pass retries"
-  exit 1
-fi
-
+# Tip policy: run commands before sbatch. Advance the saved tip only after
+# every sbatch in this pass succeeds. On sbatch failure, exit 1 with the tip
+# unchanged so next_run retries; skip any command whose transcript for this
+# HEAD commit already exists (so a failed sbatch does not re-run unchanged
+# commands). Command failures do not block tip advance or sbatch.
 run_command() {
   local script=$1
   local stem short outfile rc
   stem=$(basename "$script" .sh)
   short=$(git rev-parse --short=12 HEAD)
   outfile="$repo/jobs_logs/command-${stem}-${short}.log"
+  if [[ -f "$outfile" ]]; then
+    log "skip $script; transcript already exists for $(git rev-parse HEAD) -> ${outfile#"$repo"/}"
+    return 0
+  fi
   {
     printf 'script: %s\n' "$script"
     printf 'commit: %s\n' "$(git rev-parse HEAD)"
@@ -138,5 +128,25 @@ run_command() {
 for script in "${commands[@]}"; do
   run_command "$script"
 done
+
+failed=0
+for script in "${scripts[@]}"; do
+  if [[ ! -f "$repo/$script" ]]; then
+    log "missing $script"
+    failed=1
+    continue
+  fi
+  if job=$(/usr/bin/sbatch --parsable "$repo/$script"); then
+    log "submitted SLURM job $job for $script"
+  else
+    log "sbatch failed for $script"
+    failed=1
+  fi
+done
+
+if [[ "$failed" -ne 0 ]]; then
+  log "leaving saved tip at ${previous:-none} so the next pass retries"
+  exit 1
+fi
 
 printf '%s\n' "$remote" > "$state"

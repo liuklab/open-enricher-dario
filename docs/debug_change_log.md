@@ -4,6 +4,10 @@ Running log of commits pushed to `origin/debug` for the GitHub↔cluster loop. N
 
 ## 2026-11-20
 
+### watcher: commands before sbatch
+
+- Reordered `next_run/sync_debug.sh` so changed `commands/*.sh` run on the login node right after fetch/ff-merge (and deps), before any `sbatch` of `next_run/*.sh`. Tip advances only after all sbatch calls succeed; on sbatch failure tip stays put and existing `jobs_logs/command-*-<HEAD>.log` transcripts skip re-runs. Documented in `docs/debug_batch.md`.
+
 ### commands: checkpoint path check
 
 - Added `commands/check_model_checkpoints.sh` (login node, 15 min, no GPU) to verify `dataset/models_cache/external/{bassl,insightface/buffalo_l,talknet,lavis}` and print non-CUDA import/version lines.
