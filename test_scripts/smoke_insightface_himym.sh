@@ -24,9 +24,14 @@ SITE=/SLURM_shared/st_mdp26/open-enricher/.venv/lib/python3.12/site-packages/nvi
 export LD_LIBRARY_PATH="$SITE/cudnn/lib:$SITE/cublas/lib:$SITE/cuda_runtime/lib:$SITE/cufft/lib:$SITE/curand/lib:$SITE/cusolver/lib:$SITE/cusparse/lib:$SITE/cuda_nvrtc/lib:$SITE/nvjitlink/lib:$FFMPEG_ROOT/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 
 VIDEO="How_I_Met_Your_Mother.S01E02.mkv"
+ARGS=(--video "dataset/video_inputs/${VIDEO}" --sample-fps 1)
+# MAX_FRAMES limits the sampled frames so a CUDA check can finish quickly.
+# Unset, the smoke reads the whole episode.
+if [ -n "${MAX_FRAMES:-}" ]; then
+  ARGS+=(--max-frames "${MAX_FRAMES}")
+fi
 
 srun --unbuffered \
   /SLURM_shared/st_mdp26/open-enricher/.venv/bin/python \
   test_scripts/insightface_faces.py \
-  --video "dataset/video_inputs/${VIDEO}" \
-  --sample-fps 1
+  "${ARGS[@]}"

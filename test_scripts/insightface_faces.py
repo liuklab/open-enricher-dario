@@ -53,14 +53,45 @@ def _spans(stamps: list[float], gap: float) -> list[tuple[float, float]]:
     return spans
 
 
+def _cuda_provider_ready() -> str | None:
+    """Error text when this process cannot see the CUDA execution provider."""
+    try:
+        import onnxruntime as ort
+    except Exception as exc:  # noqa: BLE001 - reported to the job log
+        return f"onnxruntime import failed: {exc}"
+    providers = list(ort.get_available_providers())
+    if "CUDAExecutionProvider" not in providers:
+        preload = getattr(ort, "preload_dlls", None)
+        if callable(preload):
+            try:
+                preload()
+            except Exception as exc:  # noqa: BLE001 - the provider list is the result
+                print(f"onnxruntime preload_dlls failed: {exc}", file=sys.stderr)
+            providers = list(ort.get_available_providers())
+    location = getattr(ort, "__file__", "unknown")
+    print(f"onnxruntime {ort.__version__} providers {providers} at {location}", flush=True)
+    if "CUDAExecutionProvider" not in providers:
+        return (
+            "CUDAExecutionProvider is not available "
+            f"(onnxruntime {ort.__version__}). "
+            "The CPU wheel and the GPU wheel both own this import; "
+            "only onnxruntime-gpu 1.26 is valid on this CUDA 12 stack."
+        )
+    return None
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="InsightFace reappearance map for one video.")
     parser.add_argument("--video", type=Path, default=DEFAULT_VIDEO)
     parser.add_argument("--sample-fps", type=float, default=1.0)
+    parser.add_argument("--max-frames", type=int, default=None)
     parser.add_argument("--output", type=Path, default=None)
     args = parser.parse_args()
     if args.sample_fps <= 0:
         print("sample fps must be positive", file=sys.stderr)
+        return 1
+    if args.max_frames is not None and args.max_frames <= 0:
+        print("max frames must be positive", file=sys.stderr)
         return 1
     video = args.video if args.video.is_absolute() else REPO / args.video
     if not video.is_file():
@@ -81,7 +112,16 @@ def main() -> int:
         narrate_from_visual=False,
     )
     print(f"video {video.name} sample_fps {args.sample_fps}", flush=True)
-    detected = detect_tracks(video, spec, sample_fps=args.sample_fps)
+    cuda_error = _cuda_provider_ready()
+    if cuda_error:
+        print(cuda_error, file=sys.stderr)
+        return 1
+    detected = detect_tracks(
+        video,
+        spec,
+        sample_fps=args.sample_fps,
+        max_frames=args.max_frames,
+    )
     if detected.get("status") != "success":
         print(f"InsightFace failed: {detected.get('reason') or detected.get('status')}", file=sys.stderr)
         return 1

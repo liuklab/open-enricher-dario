@@ -34,20 +34,28 @@ def detect_tracks(
     spec: PipelineSpec,
     *,
     sample_fps: float,
+    max_frames: int | None = None,
 ) -> dict[str, Any]:
-    """Detect faces. The parent does not import InsightFace."""
+    """Detect faces. The parent does not import InsightFace.
+
+    ``max_frames`` caps how many sampled frames are scored. ``None`` reads
+    the whole file. The pipeline leaves it unset.
+    """
     root = insightface_root(spec)
     pack = root / "models" / "buffalo_l"
     if not pack.is_dir():
         return {"status": "fallback", "reason": f"buffalo_l missing under {root}", "tracks": []}
+    payload: dict[str, Any] = {
+        "video": str(video),
+        "root": str(root),
+        "sample_fps": sample_fps,
+    }
+    if max_frames is not None:
+        payload["max_frames"] = max_frames
     return call_in_child(
         "open_enricher.adapters.face_speech",
         "run_insightface_payload",
-        {
-            "video": str(video),
-            "root": str(root),
-            "sample_fps": sample_fps,
-        },
+        payload,
     )
 
 
@@ -99,11 +107,13 @@ def run_insightface_payload(payload: dict[str, Any]) -> dict[str, Any]:
         # prepare(ctx_id=0) does not raise when ORT drops CUDA and keeps CPU.
         active = _session_providers(app)
         provider = "cuda" if "CUDAExecutionProvider" in active else "cpu"
+        limit = payload.get("max_frames")
         tracks = _sample_tracks(
             app,
             payload["video"],
             sample_fps=float(payload["sample_fps"]),
             cv2=cv2,
+            max_frames=None if limit is None else int(limit),
         )
     except Exception as exc:  # noqa: BLE001 - recorded fallback
         return {"status": "fallback", "reason": str(exc), "tracks": []}
@@ -141,7 +151,14 @@ def run_talknet_payload(payload: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def _sample_tracks(app: Any, video: str, *, sample_fps: float, cv2: Any) -> list[dict[str, Any]]:
+def _sample_tracks(
+    app: Any,
+    video: str,
+    *,
+    sample_fps: float,
+    cv2: Any,
+    max_frames: int | None = None,
+) -> list[dict[str, Any]]:
     """Pool one embedding per detected face across sampled frames."""
     capture = cv2.VideoCapture(video)
     if not capture.isOpened():
@@ -150,6 +167,7 @@ def _sample_tracks(app: Any, video: str, *, sample_fps: float, cv2: Any) -> list
     step = max(1, int(round(native_fps / max(sample_fps, 0.1))))
     grouped: dict[str, dict[str, Any]] = {}
     index = 0
+    sampled = 0
     try:
         while True:
             ok, frame = capture.read()
@@ -186,6 +204,9 @@ def _sample_tracks(app: Any, video: str, *, sample_fps: float, cv2: Any) -> list
                     other for other in ids_here if other != track_id
                 ]
             index += 1
+            sampled += 1
+            if max_frames is not None and sampled >= max_frames:
+                break
     finally:
         capture.release()
     return list(grouped.values())
