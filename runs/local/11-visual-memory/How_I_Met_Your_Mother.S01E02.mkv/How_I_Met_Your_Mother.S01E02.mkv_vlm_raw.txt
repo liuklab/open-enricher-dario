@@ -1,0 +1,171 @@
+--- 00:00:00-00:02:30 ---
+{
+  "description": "The scene takes place inside a dimly lit bar where several characters interact. A man in a brown jacket stands near the bar counter, gesturing while speaking. Another man in a suit sits nearby holding a drink, smiling and listening. Two women sit together at a booth; one leans forward toward the other, both appearing engaged in conversation. In another shot, two men stand close together, one looking down thoughtfully while the other looks ahead. The setting includes wooden shelves stocked with bottles, neon signs, and patrons seated throughout the space.",
+  "subjects_and_objects": [
+    "Ted",
+    "Marshall",
+    "Lily",
+    "Barney",
+    "Robin"
+  ],
+  "actions": [
+    "gesturing with hands",
+    "leaning forward",
+    "smiling",
+    "holding a glass",
+    "standing close together",
+    "looking down thoughtfully",
+    "listening intently"
+  ],
+  "camera_and_shot": "medium shots and close-ups focusing on individuals within the bar environment",
+  "lighting_and_color": "warm ambient lighting with shadows cast by interior decor and neon signage",
+  "on_screen_text": [
+    "created by carter bays & craig thomas",
+    "jason segel",
+    "executive producers eileen heisler & deann heline",
+    "co-executive producer pancha mylan",
+    "producer suzy mcmillan",
+    "director chris grice"
+  ]
+}
+
+--- 00:02:30-00:05:00 ---
+{
+  "description": "The scene shifts to an indoor office-like setting cluttered with papers, books, and personal items. A woman in a purple top sits across a desk from a man in a striped shirt, leaning slightly forward as she speaks. Behind them, another man in a blue shirt walks through the room carrying a box, glancing back over his shoulder. The camera pans to reveal a third man sitting at a table, adjusting his glasses while looking at documents.",
+  "subjects_and_objects": [
+    "Ted",
+    "Marshall",
+    "Lily",
+    "Barney",
+    "Robin"
+  ],
+  "actions": [
+    "leaning forward",
+    "adjusting glasses",
+    "walking through the room",
+    "carrying a box",
+    "glancing back",
+    "sitting at a table",
+    "looking at documents"
+  ],
+  "camera_and_shot": "medium shots capturing interactions at desks and walking through rooms",
+  "lighting_and_color": "even indoor lighting with warm tones from overhead fixtures and natural light filtering through windows",
+  "on_screen_text": []
+}
+
+--- 00:05:00-00:07:30 ---
+{
+  "description": "The scene is set in a brightly lit convenience store filled with colorful product displays and arcade machines. A man in a brown jacket walks through the aisle, interacting with a woman in a dark blazer. She gestures animatedly while talking to him. Behind them, another man in a yellow raincoat bends over a red arcade machine, seemingly struggling with something inside it. Shelves lined with snacks, cleaning supplies, and soda cans fill the background, creating a busy retail atmosphere.",
+  "subjects_and_objects": ["Ted", "Robin", "another man"],
+  "actions": [
+    "walking through aisles",
+    "gesturing with hands",
+    "bending over",
+    "interacting with arcade machine"
+  ],
+  "camera_and_shot": "wide shots showing movement through aisles and close-ups during conversations",
+  "lighting_and_color": "bright fluorescent lighting casting vivid colors from product packaging and signage",
+  "on_screen_text": []
+}
+
+--- 00:07:30-00:10:00 ---
+{
+  "description": "The scene takes place in a cozy, lived-in apartment decorated with eclectic furniture and memorabilia. A woman stands holding a cup, smiling down at a seated man who looks up at her with a surprised expression. As the camera pans, several guests mingle in the background near a bar area; some hold drinks, while others converse animatedly. One man in a suit turns toward another guest, gesturing with his hand. In another shot, two men sit on a couch, both laughing and looking upward, surrounded by scattered cups and snack bowls. Later, a different man stands beside a fireplace, holding a phone to his ear while speaking, with a dog resting on his lap. Another man in a robe stands nearby, arms crossed, watching the scene unfold.",
+  "subjects_and_objects": ["Ted", "Robin", "Marshall", "Barney", "Lily"],
+  "actions": [
+    "standing",
+    "smiling",
+    "looking up",
+    "holding a cup",
+    "gesturing with hand",
+    "miming drinking",
+    "laughing",
+    "speaking into phone",
+    "crossing arms",
+    "resting a dog on lap"
+  ],
+  "camera_and_shot": "close-up shots focusing on individuals' faces and upper bodies, medium shots capturing group interactions, panning to follow movement among guests",
+  "lighting_and_color": "warm interior lighting with soft shadows cast by lamps and ambient sources; rich earthy tones dominate the decor, accented by pops of color from framed art and decorative items",
+  "on_screen_text": []
+}
+
+--- 00:10:00-00:12:30 ---
+{
+  "description": "The setting is a cluttered, warmly lit living room where Ted, dressed in striped pajamas, moves quickly across the space. He passes behind a woman in a light blue top who is reaching for something on a shelf. The room contains various personal items like books, a lamp, and scattered cups. Ted exits through a door, followed closely by the woman. Moments later, Ted re-enters wearing a suit, engaging in conversation with a blonde woman while standing amidst a crowd of guests. He holds a red cup and gestures slightly as they talk. The camera shifts to show him sitting on a couch next to a woman in white, both appearing startled as they look upward. Ted stands again, now leaning against a wall, still holding his cup, while the woman sits beside him, looking concerned. The environment is chaotic yet intimate, filled with laughter and movement.",
+  "subjects_and_objects": ["Ted", "a woman in a light blue top", "a blonde woman", "a woman in white"],
+  "actions": [
+    "moving quickly",
+    "reaching for something",
+    "exiting through a door",
+    "entering through a door",
+    "gesturing with hand",
+    "leaning against a wall",
+    "sitting on a couch",
+    "looking upward",
+    "holding a cup"
+  ],
+  "camera_and_shot": "medium shots tracking movement, close-ups on facial expressions, wide shots revealing the crowded room",
+  "lighting_and_color": "warm indoor lighting with golden hues from lamps, contrasting with darker wooden furniture and vibrant pop-art decorations",
+  "on_screen_text": []
+}
+
+--- 00:12:30-00:15:00 ---
+{
+  "description": "In a dimly lit, cluttered living room, a man in a brown jacket walks past a woman in a teal shirt who is adjusting her hair. He stops abruptly, turning to face her with a serious expression. Behind them, another man in a suit stands near a doorway, holding a beer bottle and looking toward the pair. The room features vintage decor, including a large bookshelf, a red armchair, and a lamp casting warm light. A woman in a leather jacket sits on a couch, sipping from a glass while observing the scene. The man in the suit steps forward, gesturing with his free hand as if making a point. The woman in the leather jacket leans back slightly, her gaze shifting between the two men. The man in the brown jacket raises his hands in exasperation before lowering them, his mouth open as if reacting to something said. The woman in the leather jacket stands up, placing her hand on her hip, while the man in the suit continues talking, his posture relaxed.",
+  "subjects_and_objects": ["a man in a brown jacket", "a woman in a teal shirt", "a man in a suit", "a woman in a leather jacket"],
+  "actions": ["walking past", "adjusting hair", "turning to face", "holding a beer bottle", "gesturing with hand", "leaning back", "placing hand on hip", "reacting with open mouth", "continuing to talk"],
+  "camera_and_shot": "medium shots focused on interactions between characters, slight pans following movement",
+  "lighting_and_color": "dim indoor lighting with warm amber tones from lamps, contrasted by dark wood furniture and colorful posters on walls",
+  "on_screen_text": []
+}
+
+--- 00:15:00-00:17:30 ---
+{
+  "description": "On a rooftop patio decorated with string lights and potted plants, a woman in a cream cardigan and lace-trimmed dress turns away from a man in a dark coat. She speaks animatedly, gesturing with her right hand, while he watches her intently. As she turns back, their faces come closer; she looks down momentarily, then meets his gaze directly. Her expression softens slightly as she listens to him speak. He remains stationary, listening attentively, his posture upright and facing her fully.",
+  "subjects_and_objects": ["Robin", "Ted"],
+  "actions": [
+    "turning away",
+    "speaking animatedly",
+    "gesturing with hand",
+    "looking down",
+    "meeting gaze",
+    "listening attentively"
+  ],
+  "camera_and_shot": "close-up framing focusing on upper bodies and facial expressions during interaction",
+  "lighting_and_color": "soft ambient evening lighting enhanced by twinkling string lights, creating a warm glow against brick walls and greenery",
+  "on_screen_text": []
+}
+
+--- 00:17:30-00:20:00 ---
+{
+  "description": "On a rooftop patio adorned with string lights and potted plants, a woman in a cream cardigan and lace-trimmed dress turns away from a man in a dark coat. She speaks animatedly, gesturing with her right hand, while he watches her intently. As she turns back, their faces come closer; she looks down momentarily, then meets his gaze directly. Her expression softens slightly as she listens to him speak. He remains stationary, listening attentively, his posture upright and facing her fully.",
+  "subjects_and_objects": ["Robin", "Ted"],
+  "actions": [
+    "turning away",
+    "speaking animatedly",
+    "gesturing with hand",
+    "looking down",
+    "meeting gaze",
+    "listening attentively"
+  ],
+  "camera_and_shot": "close-up framing focusing on upper bodies and facial expressions during interaction",
+  "lighting_and_color": "soft ambient evening lighting enhanced by twinkling string lights, creating a warm glow against brick walls and greenery",
+  "on_screen_text": []
+}
+
+--- 00:20:00-00:22:06 ---
+{
+  "description": "In a dimly lit bar with neon signs and wooden decor, a group of men sit at a table surrounded by mugs and glasses. One man in a brown jacket laughs heartily while leaning forward, engaging with two women seated beside him. Another man in a suit holds a glass mug and gestures with his free hand as he speaks. Behind them, a waitress moves through the crowd carrying trays. The camera pans across the lively atmosphere, capturing patrons chatting and drinking.",
+  "subjects_and_objects": ["Ted", "Marshall", "Robin", "waitress"],
+  "actions": [
+    "laughing heartily",
+    "leaning forward",
+    "gesturing with hand",
+    "holding a glass mug",
+    "moving through crowd",
+    "carrying trays"
+  ],
+  "camera_and_shot": "panning shot moving across the bar area, shifting focus among seated patrons",
+  "lighting_and_color": "warm, low-key lighting with glowing neon signs casting colorful reflections on wood-paneled walls and tables",
+  "on_screen_text": []
+}

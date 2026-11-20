@@ -1,0 +1,41 @@
+{
+  "recsys_metadata": {
+    "primary_genre": "Drama",
+    "sub_genres": [
+      "Corporate Espionage",
+      "Ethical Conflict",
+      "Technological Ethics"
+    ],
+    "pacing": "Moderate",
+    "mood": [
+      "Tense",
+      "Reflective",
+      "Morally Ambiguous"
+    ]
+  },
+  "search_and_discovery": {
+    "semantic_tags": [
+      "Decentralized Internet",
+      "Data Privacy",
+      "Corporate Integrity",
+      "AI Implications"
+    ],
+    "main_topics": [
+      "Ethics in Technology",
+      "Corporate Accountability",
+      "Privacy Concerns"
+    ]
+  },
+  "audience_profiling": {
+    "target_age_group": "Young Adults",
+    "viewer_interests": [
+      "Technology",
+      "Business Ethics",
+      "Social Issues"
+    ]
+  },
+  "content_summary": {
+    "visual_style": "The visual style features a blend of sleek, modern interiors with vibrant color palettes, complemented by stark, minimalist settings that highlight the tension between innovation and ethical ambiguity.",
+    "narrative_hook": "Richard Hendricks, a visionary leader, grapples with the moral implications of his company's actions as it faces internal betrayals and external threats from a corporate giant."
+  }
+}

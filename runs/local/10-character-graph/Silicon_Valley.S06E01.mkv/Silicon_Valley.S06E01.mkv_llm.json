@@ -1,0 +1,41 @@
+{
+  "recsys_metadata": {
+    "primary_genre": "Drama",
+    "sub_genres": [
+      "Tech Thriller",
+      "Corporate Espionage",
+      "Ethical Dilemma"
+    ],
+    "pacing": "Moderate",
+    "mood": [
+      "Tense",
+      "Reflective",
+      "Controversial"
+    ]
+  },
+  "search_and_discovery": {
+    "semantic_tags": [
+      "Data Privacy",
+      "Corporate Ethics",
+      "Technological Innovation",
+      "Internal Conflict"
+    ],
+    "main_topics": [
+      "Ethics in Technology",
+      "Decentralization vs. Control",
+      "Identity and Integrity"
+    ]
+  },
+  "audience_profiling": {
+    "target_age_group": "Young Adults",
+    "viewer_interests": [
+      "Technology",
+      "Business Strategy",
+      "Ethics"
+    ]
+  },
+  "content_summary": {
+    "visual_style": "The visual style features a blend of sleek, modern tech aesthetics with stark, minimalist interiors and dynamic lighting contrasts, often utilizing a cold-toned palette with pops of vibrant color.",
+    "narrative_hook": "A tech visionary faces an ethical crisis as his company's mission clashes with personal betrayals and a looming corporate takeover."
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "recsys_metadata": {
+    "primary_genre": "Drama",
+    "sub_genres": [
+      "Corporate Espionage",
+      "Ethical Conflict",
+      "Technological Ethics"
+    ],
+    "pacing": "Moderate",
+    "mood": [
+      "Tense",
+      "Reflective",
+      "Controversial"
+    ]
+  },
+  "search_and_discovery": {
+    "semantic_tags": [
+      "Data Privacy",
+      "Corporate Integrity",
+      "AI Consequences",
+      "Ethical Dilemma"
+    ],
+    "main_topics": [
+      "Technology",
+      "Business Ethics",
+      "Identity Crisis"
+    ]
+  },
+  "audience_profiling": {
+    "target_age_group": "Young Adults",
+    "viewer_interests": [
+      "Tech Industry",
+      "Ethics",
+      "Corporate Culture"
+    ]
+  },
+  "content_summary": {
+    "visual_style": "The visual style features bright, formal settings with neutral tones, complemented by vibrant colors from decorations and tech equipment, creating a balanced mix of professionalism and festivity.",
+    "narrative_hook": "Richard Hendricks, a visionary leader, faces a critical ethical dilemma when his company's data practices clash with its founding principles, forcing him to choose between corporate survival and moral integrity."
+  }
+}

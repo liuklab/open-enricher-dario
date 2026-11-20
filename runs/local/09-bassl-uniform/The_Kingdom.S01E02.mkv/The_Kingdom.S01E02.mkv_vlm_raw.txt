@@ -1,0 +1,125 @@
+--- 00:00:00-00:02:30 ---
+{
+  "description": "The scene opens with a close-up of Pastor Emilio Vazquez’s face, illuminated by dim blue light, showing intense emotion as he speaks. As the camera pulls back slightly, he sits upright at a cluttered desk in an office filled with legal books, gesturing subtly while talking. A woman, seated across from him, listens intently, holding a pen and occasionally looking down at papers. Her expression shifts between focused listening and mild concern. The setting appears formal yet tense, with the pastor’s serious demeanor contrasting against the mundane office environment.",
+  "subjects_and_objects": [
+    "Emilio",
+    "SPEAKER_12"
+  ],
+  "actions": [
+    "Emilio looks directly ahead with a solemn expression",
+    "Emilio gestures with his hand while speaking",
+    "SPEAKER_12 holds a pen and writes notes",
+    "SPEAKER_12 leans forward slightly while listening",
+    "SPEAKER_12 glances down at documents"
+  ],
+  "camera_and_shot": "Close-up shot transitions into medium shot",
+  "lighting_and_color": "Dim, cool-toned lighting casting shadows; muted colors dominate the room",
+  "on_screen_text": []
+}
+
+--- 00:02:30-00:05:00 ---
+{
+  "description": "A man with dark hair and a gray suit stands facing a woman with brown hair wearing glasses and a blazer over a red shirt. They are positioned closely together in front of shelves lined with law books. The man turns his head toward the woman, maintaining eye contact, while she looks up at him with a concerned expression. The background includes wooden furniture and a clock on a shelf.",
+  "subjects_and_objects": ["Emilio", "SPEAKER_12"],
+  "actions": [
+    "Emilio stares intensely at SPEAKER_12",
+    "SPEAKER_12 gazes upward at Emilio with a worried look"
+  ],
+  "camera_and_shot": "Medium close-up shot focusing on both individuals",
+  "lighting_and_color": "Cool, dim lighting with soft shadows cast across their faces; warm tones from ambient sources contrast with cooler hues",
+  "on_screen_text": []
+}
+
+--- 00:05:00-00:10:00 ---
+{
+  "description": "In a dimly lit hallway, two men walk side-by-side, engaged in a tense conversation. One man, dressed in a dark suit, walks slightly ahead, his gaze directed forward with a serious expression. Behind him, another man in a blue turtleneck follows closely, his eyes scanning the surroundings cautiously. Their steps echo softly against the tiled floor, and they pass through a doorway leading into a brightly lit area where other figures are visible.",
+  "subjects_and_objects": ["Man in suit", "Man in blue turtleneck"],
+  "actions": [
+    "Man in suit walks steadily ahead",
+    "Man in blue turtleneck follows closely behind",
+    "Man in suit glances sideways briefly",
+    "Man in blue turtleneck keeps his head turned slightly towards the man in suit"
+  ],
+  "camera_and_shot": "Tracking shot following the two men as they move down the corridor",
+  "lighting_and_color": "Contrast between dim, shadowy hallway and bright, fluorescent-lit area ahead",
+  "on_screen_text": []
+}
+
+--- 00:10:00-00:15:00 ---
+{
+  "description": "Helena stands before her daughters, Magdalena and Oscar, in a large room with marble walls and rows of pews. She gestures emphatically with her hands as she speaks, her expression stern and commanding. Magdalena, seated nearby, listens intently with a mix of frustration and resignation, occasionally looking away. Oscar stands beside her, arms crossed, displaying defiance. As Helena continues speaking, Magdalena leans back slightly, appearing weary yet resolute. Oscar shifts his stance, turning his head toward Helena as if preparing to respond. The camera captures their interactions from various angles, including close-ups of their faces showing tension and unresolved emotions.",
+  "subjects_and_objects": ["Helena", "Magdalena", "Oscar"],
+  "actions": [
+    "Helena gestures widely while speaking",
+    "Magdalena sits upright, listening with a tired expression",
+    "Oscar stands with arms folded, shifting his weight",
+    "Magdalena glances away from Helena",
+    "Oscar turns his head toward Helena"
+  ],
+  "camera_and_shot": "The camera alternates between wide shots capturing all three figures and medium close-ups focused on individual reactions, particularly their facial expressions and hand gestures.",
+  "lighting_and_color": "Soft, natural light filters through tall windows, casting gentle highlights on the marble surfaces. Shadows linger near the edges of the room, creating depth and enhancing the solemn atmosphere.",
+  "on_screen_text": []
+}
+
+--- 00:15:00-00:20:00 ---
+{
+  "description": "Two men sit facing each other in a lush garden, surrounded by dense foliage and vibrant flowers. The man with long hair and a beard wears a plaid shirt over a gray tee; he leans forward slightly, gesturing with his right hand as he speaks. His companion, wearing a light blue button-down shirt, listens intently, nodding subtly while maintaining eye contact. In the background, another person walks past, partially obscured by trees. The setting feels secluded and tranquil, contrasting with the intensity of their interaction.",
+  "subjects_and_objects": ["Man with long hair", "Man in blue shirt"],
+  "actions": [
+    "Man with long hair leans forward while talking",
+    "Man in blue shirt nods attentively",
+    "Man with long hair gestures with his right hand",
+    "Man in blue shirt looks downward momentarily"
+  ],
+  "camera_and_shot": "Medium close-up framing both individuals, with slight handheld movement tracking subtle shifts in posture",
+  "lighting_and_color": "Natural daylight filtering through leaves creates dappled shadows across greenery and skin tones; warm hues dominate the outdoor environment",
+  "on_screen_text": []
+}
+
+--- 00:20:00-00:25:00 ---
+{
+  "description": "A man in a suit steps out of a car parked near a wooden gate surrounded by dense greenery. He approaches another man dressed in a light blue shirt standing by the vehicle. They face each other, exchanging intense glances. The suited man gestures with his left hand while speaking, then pulls out a smartphone and shows something to the other man. The man in blue reacts with a look of surprise or concern, stepping backward slightly. The suited man maintains a serious demeanor, holding the phone steady as if presenting crucial evidence.",
+  "subjects_and_objects": ["Julio", "Pastor Emilio Vazquez"],
+  "actions": [
+    "Julio exits the car",
+    "Julio approaches Pastor Emilio Vazquez",
+    "Pastor Emilio Vazquez gestures with his left hand",
+    "Pastor Emilio Vazquez pulls out a smartphone",
+    "Julio steps backward",
+    "Pastor Emilio Vazquez holds the phone steady"
+  ],
+  "camera_and_shot": "Close-up shots alternate between the two men, focusing on their facial expressions and upper bodies. The camera tracks their movements as they step closer or retreat, maintaining tight framing during their confrontation.",
+  "lighting_and_color": "Dappled sunlight filters through the canopy of trees, casting soft shadows on the ground. The scene is framed in earthy greens and browns, with the dark fabric of the suits contrasting against the lighter clothing and natural surroundings.",
+  "on_screen_text": []
+}
+
+--- 00:25:00-00:30:00 ---
+{
+  "description": "In an office with large windows overlooking a cityscape, a woman in a patterned blouse stands beside a seated man in a suit. She gestures toward him while speaking, her expression earnest. The man listens intently, occasionally looking up at her. Behind them, a tall glass door reflects the interior lights and the city skyline. A small potted plant sits on a shelf nearby.",
+  "subjects_and_objects": ["Woman", "Man in suit"],
+  "actions": [
+    "Woman gestures while speaking",
+    "Man in suit listens intently",
+    "Man in suit looks upward briefly"
+  ],
+  "camera_and_shot": "Wide shot capturing both characters and the office environment, with medium close-ups alternating between them to emphasize their interaction.",
+  "lighting_and_color": "Soft, diffused indoor lighting contrasts with bright daylight streaming through the windows, highlighting modern architectural elements and creating sharp reflections on glass surfaces. Neutral tones dominate, accented by the woman’s patterned blouse and the man’s formal attire.",
+  "on_screen_text": []
+}
+
+--- 00:30:00-00:34:31 ---
+{
+  "description": "Inside a dimly lit, confined space resembling a prison cell or interrogation room, a bald man in a black t-shirt sits slumped on a chair, head bowed. Another man in a gray t-shirt stands over him, hands clasped tightly together. A third individual, wearing a white button-down shirt, walks briskly past them, turning sharply to face the seated man. The standing man raises his voice, gesturing emphatically with his right hand towards the walking man. The seated man lifts his head slightly, eyes fixed forward, showing signs of distress.",
+  "subjects_and_objects": ["Remigio Cardenas", "Armando Badajoz", "Julio Clámez"],
+  "actions": [
+    "Remigio Cardenas sits slumped",
+    "Armando Badajoz stands over Remigio Cardenas",
+    "Julio Clámez walks briskly past",
+    "Julio Clámez turns sharply to face Remigio Cardenas",
+    "Armando Badajoz raises his right hand and gestures",
+    "Remigio Cardenas lifts his head slightly"
+  ],
+  "camera_and_shot": "The camera stays stationary throughout, positioned at eye level to capture the three individuals within the cramped confines of the room. Close-ups focus on the faces and upper torsos of each character to convey emotional intensity and spatial confinement.",
+  "lighting_and_color": "Harsh, artificial overhead lighting casts stark shadows across the concrete floor and walls. The color palette is dominated by muted grays and blacks, punctuated by the dull red of the wall-mounted equipment and the faint glow of fluorescent fixtures.",
+  "on_screen_text": []
+}

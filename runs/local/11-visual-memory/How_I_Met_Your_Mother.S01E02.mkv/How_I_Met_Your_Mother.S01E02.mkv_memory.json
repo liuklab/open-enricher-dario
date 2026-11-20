@@ -1,0 +1,12 @@
+{
+  "video": "How_I_Met_Your_Mother.S01E02.mkv",
+  "attempt_id": "20261120T072353Z-b37beab0",
+  "source_fingerprint": "bc836d6fb3ae20bcce94df881a0a9c4c97305297d1a12d1715e3404707142c61",
+  "settings_hash": "8b75adcac81ee20d4426ab1b3c6a2be9ca3a9de95d81b339c23b67f4e8e54e5f",
+  "stage": "visual_memory",
+  "status": "fallback",
+  "reason": "EVA/Q-Former forward is not bound; history budget returns to the current clip",
+  "entries": [],
+  "retrievals": [],
+  "checkpoint_present": true
+}

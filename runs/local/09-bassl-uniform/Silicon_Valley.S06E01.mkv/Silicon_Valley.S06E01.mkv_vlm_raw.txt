@@ -1,0 +1,314 @@
+--- 00:00:00-00:02:30 ---
+{
+  "description": "Richard Hendricks stands before a congressional committee, flanked by two others, addressing microphones while surrounded by reporters holding cameras. Behind him, an American flag hangs beside a seal. In another scene, a man walks through a large, modern office space with high ceilings and glass walls. A woman sits at a desk reviewing documents, her expression focused. Another shot shows a group gathered around a table where someone gestures toward a computer screen displaying graphs. Later, Richard is seen standing near a podium labeled 'Mr. Richard Hendricks,' looking directly forward as the camera captures his face. Other individuals appear seated or standing nearby, some listening intently, others taking notes.",
+  "subjects_and_objects": [
+    "Richard Hendricks",
+    "a woman",
+    "a man wearing a suit",
+    "reporters",
+    "cameras",
+    "American flag",
+    "seal",
+    "computer monitor",
+    "graphs",
+    "podium"
+  ],
+  "actions": [
+    "Richard Hendricks speaks into microphones",
+    "reporters hold up cameras",
+    "a woman looks down at papers",
+    "a man gestures toward a computer screen",
+    "Richard Hendricks stares straight ahead",
+    "people sit or stand around a table"
+  ],
+  "camera_and_shot": "The camera focuses closely on Richard Hendricks during testimony, pans across a wide office interior, cuts to close-ups of individuals working or observing, and tracks movement through corridors and meeting rooms.",
+  "lighting_and_color": "Brightly lit indoor environments with neutral tones; formal settings illuminated evenly under overhead lights.",
+  "on_screen_text": [
+    "Mr. Richard Hendricks"
+  ]
+}
+
+--- 00:02:30-00:05:00 ---
+{
+  "description": "Richard Hendricks stands at a wooden witness stand, speaking into a microphone while gesturing with his right hand. Behind him, several members of the committee sit at desks with nameplates, including Mr. Golden, Ms. Shizago, and Mr. Biazani. The room has dark wood paneling and ornate architectural details. A large screen behind him displays graphics related to Pied Piper’s technology. To his left, a woman named Ms. Vickers listens attentively. In another view, Richard turns slightly to his side while continuing to speak, maintaining eye contact with the audience. The camera occasionally shifts to capture reactions from the attendees, showing varied expressions ranging from attentive listening to mild surprise.",
+  "subjects_and_objects": [
+    "Richard Hendricks",
+    "Ms. Vickers",
+    "Mr. Golden",
+    "Ms. Shizago",
+    "Mr. Biazani"
+  ],
+  "actions": [
+    "Richard Hendricks speaks into a microphone",
+    "Richard Hendricks gestures with his right hand",
+    "Richard Hendricks turns slightly to his side",
+    "Ms. Vickers listens attentively",
+    "committee members look towards Richard Hendricks"
+  ],
+  "camera_and_shot": "Close-up shots of Richard Hendricks speaking, medium shots capturing the entire witness stand setup, occasional cuts to reactions of committee members, and slight panning to follow his gestures.",
+  "lighting_and_color": "Even, bright indoor lighting with warm tones highlighting the polished wood surfaces and formal attire of participants.",
+  "on_screen_text": []
+}
+
+--- 00:05:00-00:07:30 ---
+{
+  "description": "Richard Hendricks stands at a podium outdoors, gesturing emphatically with both hands as he speaks. Behind him, a crowd of formally dressed people watches attentively. Some individuals in the background adjust their clothing or shift positions. The setting appears to be a parking lot bordered by trees and parked cars under daylight. Richard maintains direct eye contact with unseen listeners, occasionally turning his head slightly. At one point, he raises his right hand higher while continuing to address the group.",
+  "subjects_and_objects": [
+    "Richard Hendricks",
+    "a crowd of people",
+    "cars",
+    "trees"
+  ],
+  "actions": [
+    "Richard Hendricks speaks while gesturing with both hands",
+    "Richard Hendricks raises his right hand",
+    "Richard Hendricks turns his head slightly",
+    "members of the crowd watch attentively",
+    "some individuals adjust their clothing or shift positions"
+  ],
+  "camera_and_shot": "Medium shots focusing on Richard Hendricks as he speaks, cutting to wider views showing the surrounding crowd and environment, tracking subtle movements among the audience.",
+  "lighting_and_color": "Natural daylight illuminating the outdoor setting, casting soft shadows. Colors include muted greens from foliage, gray asphalt from the parking lot, and various shades of suits worn by the crowd.",
+  "on_screen_text": []
+}
+
+--- 00:07:30-00:10:00 ---
+{
+  "description": "Richard Hendricks walks through an office party decorated with tropical-themed decorations, holding a beer bottle. He moves past coworkers gathered near tables laden with snacks and drinks, some wearing orange 'Pied Piper' t-shirts. As he navigates the crowded space, he interacts briefly with others, smiling and nodding. The atmosphere is lively, filled with laughter and chatter, with balloons shaped like palm trees and a sign reading 'WELCOME HOME RICHARD!' hanging above. Richard pauses momentarily near a workstation where employees are working, before continuing toward the center of the celebration.",
+  "subjects_and_objects": [
+    "Richard Hendricks",
+    "coworkers",
+    "balloons",
+    "snack table",
+    "workstation",
+    "sign"
+  ],
+  "actions": [
+    "Richard Hendricks walks through the office party",
+    "Richard Hendricks holds a beer bottle",
+    "Richard Hendricks smiles and nods",
+    "coworkers gather around snack tables",
+    "people laugh and chat",
+    "employees work at their computers",
+    "Richard Hendricks pauses near a workstation"
+  ],
+  "camera_and_shot": "Tracking shot following Richard Hendricks as he moves through the party, alternating between close-ups of interactions and wide shots capturing the festive office environment.",
+  "lighting_and_color": "Bright, natural-looking indoor lighting with vibrant colors from decorations, including green palm tree balloons and orange t-shirts. Warm tones dominate due to the celebratory atmosphere.",
+  "on_screen_text": [
+    "WELCOME HOME RICHARD!"
+  ]
+}
+
+--- 00:10:00-00:12:30 ---
+{
+  "description": "A man in a plaid shirt and grey hoodie gestures animatedly while talking to another man wearing a baseball cap and a 'Gates Galileo' t-shirt. They stand in a bustling, brightly lit warehouse-like space filled with people mingling, colorful decorations, and tech equipment. The man in the hoodie looks upward and then back down, emphasizing points with his hands. The second man listens intently, occasionally reacting with surprise or shifting his gaze away. In the background, people move around, some conversing, others walking past, creating a dynamic, social atmosphere.",
+  "subjects_and_objects": [
+    "man in plaid shirt",
+    "man in baseball cap",
+    "crowd",
+    "colorful decorations",
+    "tech equipment"
+  ],
+  "actions": [
+    "man in plaid shirt gestures with hands",
+    "man in plaid shirt looks upward",
+    "man in plaid shirt glances sideways",
+    "man in baseball cap listens",
+    "man in baseball cap reacts with expression",
+    "people walk around in background",
+    "people converse in background"
+  ],
+  "camera_and_shot": "Close-up shots focusing on the two men interacting, interspersed with medium shots revealing the busy surroundings and movement within the space.",
+  "lighting_and_color": "Bright, artificial overhead lighting casts even illumination across the scene. Vibrant colors from decorations contrast with neutral tones of the industrial-style interior.",
+  "on_screen_text": []
+}
+
+--- 00:12:30-00:15:00 ---
+{
+  "description": "In a modern conference room, three individuals sit around a glass table. A man in a suit sits centrally, gesturing emphatically with both hands while speaking. To his right, a woman in a dark blazer leans slightly forward, her hand resting on the table. Across from him, another man in a suit listens attentively, his head tilted downward. Behind them, large framed artwork hangs on the wall, and blue mics rest on the table. The setting appears formal and professional.",
+  "subjects_and_objects": [
+    "man in suit",
+    "woman in dark blazer",
+    "other man in suit",
+    "glass table",
+    "blue mics",
+    "framed artwork"
+  ],
+  "actions": [
+    "man in suit gestures with both hands",
+    "woman in dark blazer leans forward",
+    "other man in suit tilts head downward",
+    "man in suit speaks"
+  ],
+  "camera_and_shot": "Static mid-shot framing all three seated individuals around the table, showing upper bodies and surrounding decor.",
+  "lighting_and_color": "Even, soft ambient lighting illuminating the room; warm tones from wood paneling and muted colors of clothing create a subdued, serious atmosphere.",
+  "on_screen_text": []
+}
+
+--- 00:15:00-00:17:30 ---
+{
+  "description": "In a dimly lit office, a man in a gray suit and red tie sits at a desk, looking up sharply as if responding to someone off-camera. Another man stands behind him, arms crossed, observing. The camera pans to reveal more of the room, including a wooden-paneled wall and a glowing logo in the background. The man at the desk gestures with his left hand while holding a pen in his right. A woman in a black blazer sits beside him, listening intently. The standing man turns toward the seated man, appearing to speak directly to him.",
+  "subjects_and_objects": [
+    "man in gray suit",
+    "man standing",
+    "woman in black blazer",
+    "wooden-paneled wall",
+    "glowing logo",
+    "desk"
+  ],
+  "actions": [
+    "man in gray suit looks up sharply",
+    "man in gray suit gestures with left hand",
+    "man in gray suit holds pen in right hand",
+    "man standing crosses arms",
+    "man standing turns toward seated man",
+    "woman in black blazer listens intently"
+  ],
+  "camera_and_shot": "The shot begins close on the seated man, then slowly pulls back to include the standing man and the woman, capturing the interaction and environment.",
+  "lighting_and_color": "Warm, low-key lighting highlights the characters against darker backgrounds. Rich browns from the wood panels contrast with cooler tones from the illuminated logo and subtle shadows cast by the figures.",
+  "on_screen_text": []
+}
+
+--- 00:17:30-00:20:00 ---
+{
+  "description": "A man in a green-and-white polo shirt walks through an open-plan office space, passing by desks where colleagues work. He stops near a trash bin, glances down at his phone, and continues walking past a row of computer monitors displaying code. He approaches a group of people gathered around a table, interacts briefly with one individual, and then moves toward a doorway leading into a hallway.",
+  "subjects_and_objects": [
+    "man in green-and-white polo",
+    "colleagues at desks",
+    "trash bin",
+    "computer monitors",
+    "table with group",
+    "doorway"
+  ],
+  "actions": [
+    "man in green-and-white polo walks through office",
+    "man glances down at phone",
+    "man continues walking past monitors",
+    "man approaches group at table",
+    "man interacts with individual at table",
+    "man moves toward doorway"
+  ],
+  "camera_and_shot": "Follows the man in motion, starting with a medium shot as he walks, transitioning to a wider view as he passes the trash bin, then tightening again as he approaches the group before ending with a shot focused on the doorway ahead.",
+  "lighting_and_color": "Bright, even natural light filters through windows, casting soft shadows across the workspace. Neutral tones dominate — beige walls, gray flooring, and colorful accents from tech equipment and personal items on desks.",
+  "on_screen_text": []
+}
+
+--- 00:20:00-00:22:30 ---
+{
+  "description": "A man in a checkered button-down shirt sits facing another person whose back is to the camera. He speaks animatedly, gesturing with both hands while seated at a white table. Behind him, large screens display complex graphs and data points. He leans forward slightly, then straightens up, maintaining eye contact. At one point, he raises his right hand to gesture emphatically. The setting appears modern and professional, with glass partitions, potted plants, and ambient lighting.",
+  "subjects_and_objects": [
+    "man in checkered shirt",
+    "person with back to camera",
+    "white table",
+    "large screens",
+    "glass partitions",
+    "potted plants"
+  ],
+  "actions": [
+    "man in checkered shirt speaks animatedly",
+    "man in checkered shirt gestures with both hands",
+    "man in checkered shirt leans forward slightly",
+    "man in checkered shirt straightens up",
+    "man in checkered shirt raises right hand to gesture"
+  ],
+  "camera_and_shot": "Medium close-up focusing on the man speaking, occasionally shifting angle to capture his gestures and facial expressions. The camera remains steady throughout, keeping the subject centered.",
+  "lighting_and_color": "Soft, diffused indoor lighting with neutral color tones. The scene is evenly lit without harsh shadows, giving a calm yet serious atmosphere appropriate for a business or technical discussion.",
+  "on_screen_text": []
+}
+
+--- 00:22:30-00:25:00 ---
+{
+  "description": "Three men stand in a dimly lit room filled with tech equipment; two face each other while the third stands beside them looking downward. One man holds a smartphone and looks at its screen, then turns to speak to the second man. The second man responds, turning his head away momentarily before returning his gaze. The third man lifts his head, eyes widening slightly as he listens. A red-lit fan spins behind them, and posters adorn the wall.",
+  "subjects_and_objects": [
+    "three men",
+    "smartphone",
+    "red-lit fan",
+    "posters"
+  ],
+  "actions": [
+    "one man holds smartphone and looks at screen",
+    "one man turns to speak to second man",
+    "second man turns head away then returns gaze",
+    "third man lifts head, eyes widen slightly"
+  ],
+  "camera_and_shot": "Static wide-angle shot capturing all three men and surrounding environment, slight shift in focus as attention moves among individuals.",
+  "lighting_and_color": "Cool blue-toned artificial lighting casts deep shadows, accentuating metallic surfaces and glowing screens. Red highlights from the spinning fan contrast against the dominant blues and dark background.",
+  "on_screen_text": []
+}
+
+--- 00:25:00-00:27:30 ---
+{
+  "description": "A man in a teal t-shirt walks through a dimly lit corridor, glancing sideways toward someone off-screen. He pauses briefly, then continues walking with purpose. In the background, another man in a suit follows closely, appearing concerned. They pass under a doorway where bright lights illuminate a sign displaying 'Pied Piper'. The man in the suit stops short, staring ahead with a look of surprise or realization.",
+  "subjects_and_objects": [
+    "man in teal t-shirt",
+    "man in suit",
+    "doorway",
+    "sign with 'Pied Piper'",
+    "bright lights"
+  ],
+  "actions": [
+    "man in teal t-shirt walks through corridor",
+    "man in teal t-shirt glances sideways",
+    "man in teal t-shirt pauses briefly",
+    "man in teal t-shirt continues walking with purpose",
+    "man in suit follows closely",
+    "man in suit stops short",
+    "man in suit stares ahead"
+  ],
+  "camera_and_shot": "Following shot tracking the man in teal t-shirt as he walks down the corridor, transitioning to a static medium shot as he passes under the doorway. Camera stays level, maintaining focus on the movement and reactions of the two men.",
+  "lighting_and_color": "Dim interior lighting with cool blue undertones, punctuated by sudden bursts of warm, intense light emanating from the doorway. Shadows cast long and dramatic, emphasizing the transition into brighter surroundings.",
+  "on_screen_text": []
+}
+
+--- 00:27:30-00:30:00 ---
+{
+  "description": "A man in a checkered shirt exits a car parked near bushes at night, stepping onto the pavement with a thoughtful expression. He adjusts his collar and looks upward, seemingly reflecting. Behind him, the car's door remains open, revealing the interior. The scene transitions indoors to a living room where a young boy sits on a couch holding a video game controller, focused intently. Another child stands nearby, watching. An adult male enters the room, pausing mid-step as he observes the children. The setting includes a stone fireplace, shelves with various items, and soft ambient lighting.",
+  "subjects_and_objects": [
+    "man in checkered shirt",
+    "car",
+    "bushes",
+    "young boy",
+    "video game controller",
+    "child",
+    "adult male",
+    "stone fireplace",
+    "shelves",
+    "couch"
+  ],
+  "actions": [
+    "man steps out of car",
+    "man adjusts collar",
+    "man looks upward",
+    "boy sits on couch holding controller",
+    "boy watches",
+    "adult male enters room",
+    "adult male pauses mid-step"
+  ],
+  "camera_and_shot": "Initial close-up on the man exiting the car, followed by a wider shot showing the outdoor setting. Transition to indoor medium shot focusing on the living room scene with the children and the entering adult.",
+  "lighting_and_color": "Outdoor nighttime scene illuminated by faint ambient light, casting shadows. Indoor scene bathed in warm, soft lighting with neutral tones, creating a cozy atmosphere.",
+  "on_screen_text": []
+}
+
+--- 00:30:00-00:32:52 ---
+{
+  "description": "Richard Hendricks stands in front of his team, holding a resignation letter. He gestures slightly while speaking, his expression serious and resolute. Erlich Bachman leans forward aggressively, arms crossed, reacting with visible anger. Monica stands beside him, smiling faintly while looking at Richard. The office environment features modern furniture, including glass desks and chairs, with posters and tech equipment visible in the background.",
+  "subjects_and_objects": [
+    "Richard Hendricks",
+    "Erlich Bachman",
+    "Monica",
+    "resignation letter",
+    "glass desk",
+    "chairs",
+    "posters"
+  ],
+  "actions": [
+    "Richard holds resignation letter",
+    "Richard gestures while speaking",
+    "Erlich leans forward aggressively",
+    "Erlich crosses arms",
+    "Monica smiles faintly",
+    "Monica looks at Richard"
+  ],
+  "camera_and_shot": "Static medium shot centered on Richard facing his team, capturing upper bodies and facial expressions. The camera angle remains steady throughout the interaction.",
+  "lighting_and_color": "Warm, even indoor lighting with natural color tones. The office appears well-lit, with no harsh shadows or extreme contrasts.",
+  "on_screen_text": []
+}

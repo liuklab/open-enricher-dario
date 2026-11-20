@@ -1,0 +1,82 @@
+{
+  "experiment_id": "10-character-graph",
+  "interval_seconds": 300,
+  "plot_summary": "In this tense drama, Pastor Emilio Vazquez, a prominent religious leader, faces a devastating crisis when one of his closest associates, Remigio Cardenas, is arrested for the murder of Armando Badajoz, a key political rival. Emilio, who had been unaware of Remigio’s involvement, is now under intense scrutiny from authorities and his own congregation. As the investigation unfolds, it becomes clear that Remigio’s confession—along with evidence of orchestrated chaos during a recent church event—points to a deeper conspiracy involving the church’s leadership and its ties to political power.\n\nEmilio’s family and allies, including his son and a network of loyalists, grapple with the fallout. They attempt to protect the church’s reputation while navigating a web of guilt, betrayal, and moral ambiguity. Meanwhile, political figures and journalists probe for answers, suggesting that the murder may have been part of a larger scheme to destabilize Emilio’s influence and secure control over the church’s growing power.\n\nAs the pressure mounts, Emilio confronts his faith and identity. He wrestles with the idea that his own institution might be complicit in the violence, questioning whether he has strayed from his spiritual purpose. In a climactic moment, Emilio publicly declares his commitment to truth and redemption, acknowledging that while he may have been abandoned by God, he remains devoted to his mission. The film closes with a sense of unresolved tension, leaving the audience to ponder the cost of power, the nature of faith, and the possibility of renewal amid profound loss.",
+  "plot_sampled": false,
+  "scenes": [
+    {
+      "start_time": "00:00:00",
+      "end_time": "00:05:00",
+      "start_seconds": 0.0,
+      "end_seconds": 300.0,
+      "dialogue_lines": 71,
+      "dialogue_sampled": false,
+      "description": "Pastor Emilio Vazquez speaks in a deeply personal and emotional tone, revealing his involvement in the murder of Armando Badajoz. He describes being present during the crime, standing \"by his side\" as the killer acted. His words betray deep guilt and fear, as he admits to feeling the victim's blood on his body. When questioned about his relationship with Remigio Cardenas, Emilio confirms that the accused works at the church's home for children. He challenges the investigator's assumption that Remigio's criminal past connects him to the murder, asserting that many of his collaborators have similar histories. The investigator, SPEAKER_12, insists that Remigio has confessed to the crime. Emilio reacts with disbelief, questioning whether this is a mistake. The investigator clarifies that Remigio has formally pled guilty. Emilio remains defiant, refusing to be discreet or acknowledge any wrongdoing. The exchange ends with the investigator requesting discretion, but Emilio's refusal to comply underscores his internal conflict and the gravity of the situation.",
+      "scene_id": "w0001"
+    },
+    {
+      "start_time": "00:05:00",
+      "end_time": "00:10:00",
+      "start_seconds": 300.0,
+      "end_seconds": 600.0,
+      "dialogue_lines": 86,
+      "dialogue_sampled": false,
+      "description": "During this tense exchange, multiple characters discuss the murder of Armando Badajoz and its connection to Remigio Cardenas, a close associate of Pastor Emilio Vazquez. Speaker 03, likely a family member or ally of Emilio, reveals that Remigio was seen at the scene and appears to be the killer. Speaker 11, possibly another relative or confidant, expresses shock and concern, emphasizing the need for coordination in their responses to the media and authorities. Speaker 08, who seems to be a family member, insists on finding out why Remigio acted as he did, highlighting the emotional and reputational stakes for the church. Speaker 02, likely a trusted figure within the church, defends Remigio, suggesting he would never betray the church's finances, which he views as sacred. Despite this, Speaker 08 pushes for clarity, fearing the damage to the church's image. The repeated question—\"Pastor Emilio, does it bother you at all that it doesn't matter what happens?\"—suggests an internal struggle among those close to Emilio, hinting at the broader conflict between personal loyalty and institutional integrity. The conversation ends with uncertainty, underscoring the deepening crisis and the weight of moral ambiguity.",
+      "scene_id": "w0002"
+    },
+    {
+      "start_time": "00:10:00",
+      "end_time": "00:15:00",
+      "start_seconds": 600.0,
+      "end_seconds": 900.0,
+      "dialogue_lines": 90,
+      "dialogue_sampled": false,
+      "description": "In this tense exchange, Speaker 04, identified as Helena, confronts her daughters, Magdalena and Oscar, about their behavior. She reprimands them for their lack of obedience and reminds them of their role in supporting her. Magdalena, known for her creativity, and Oscar, who often challenges Helena’s authority, resist her commands. Helena insists they follow her instructions without question, emphasizing the need for unity and discipline. She warns them not to engage with external pressures, such as the DA or media, and stresses their responsibility to the church’s future. Magdalena, frustrated, questions why they must live under Helena’s control, implying they deserve more respect. Helena dismisses their complaints, redirecting their focus to the upcoming temple project, which she believes will prove their worth. Despite their resistance, both agree to comply, though their underlying tensions remain. The conversation ends with a fragile agreement, as Helena’s demands are accepted, but the dynamic between mother and daughters remains strained.",
+      "scene_id": "w0003"
+    },
+    {
+      "start_time": "00:15:00",
+      "end_time": "00:20:00",
+      "start_seconds": 900.0,
+      "end_seconds": 1200.0,
+      "dialogue_lines": 78,
+      "dialogue_sampled": false,
+      "description": "SPEAKER_03, a close associate of Emilio Vazquez, confronts SPEAKER_07, another key figure in the church, about Remigio Cardenas's alleged involvement in the murder of Armando Badajoz. SPEAKER_03 presses SPEAKER_07 for information, suggesting that Remigio may have been manipulated or bribed. SPEAKER_07 responds with a metaphor from the parable of the sower, implying that Remigio, like the seeds, was planted in poor soil and failed to grow. SPEAKER_03, frustrated by the religious analogy, insists on direct action, urging SPEAKER_07 to question Remigio himself. SPEAKER_07 acknowledges the difficulty of reaching Remigio, noting he only speaks to his lawyer. The conversation shifts to SPEAKER_04 and SPEAKER_11, who discuss financial matters, hinting at a broader network of corruption tied to the church and political power. SPEAKER_11 expresses concern about potential legal consequences, while SPEAKER_04 reassures her, suggesting the situation is under control. The exchange reveals a complex web of alliances and betrayals, with both religious and political stakes at play. The dialogue ends with a sense of unresolved tension, underscoring the moral ambiguity and danger surrounding the central conflict.",
+      "scene_id": "w0004"
+    },
+    {
+      "start_time": "00:20:00",
+      "end_time": "00:25:00",
+      "start_seconds": 1200.0,
+      "end_seconds": 1500.0,
+      "dialogue_lines": 90,
+      "dialogue_sampled": false,
+      "description": "SPEAKER_17, a figure closely tied to Pastor Emilio Vazquez, confronts Julio about his lack of cooperation. Julio, who has been unresponsive to calls, is pressed for his \"game plan,\" implying he has a strategy to navigate the unfolding crisis. Julio resists, refusing to engage, and when asked where his father holds private meetings, he hesitates, revealing he hasn’t spoken to his father in years. SPEAKER_03, Julio’s father, interjects, expressing concern about the riots and the murder of Armando Badajoz, suggesting his father may have been involved. SPEAKER_04, likely a member of the church, reassures SPEAKER_08, who is connected to the political sphere, that he is not responsible for the violence and that his actions are not bound by political obligations. The conversation shifts to faith, with SPEAKER_04 quoting scripture, emphasizing self-denial and sacrifice as part of following Christ. SPEAKER_08, grappling with his role, acknowledges the weight of his responsibilities, hinting at a deeper conflict between duty and personal conviction. The exchange ends with a sense of unresolved tension, underscoring the moral and spiritual stakes at play.",
+      "scene_id": "w0005"
+    },
+    {
+      "start_time": "00:25:00",
+      "end_time": "00:30:00",
+      "start_seconds": 1500.0,
+      "end_seconds": 1800.0,
+      "dialogue_lines": 118,
+      "dialogue_sampled": false,
+      "description": "During this tense exchange, SPEAKER_16 presents a detailed account of the chaos during the church event, claiming it was orchestrated to divert security and allow Remigio Cardenas to act freely. SPEAKER_16 insists the coordination was too elaborate for Cardenas to manage alone, suggesting a broader conspiracy. SPEAKER_12, initially skeptical, listens intently before asking for a slower explanation. When SPEAKER_16 recounts the sequence of events, SPEAKER_12 grows increasingly uneasy, acknowledging the complexity but expressing doubt about the full picture. SPEAKER_12 also notes that the accused, SPEAKER_09, has a history of violent behavior, adding to the suspicion around Cardenas' actions. SPEAKER_09, the public defender, denies involvement in the murder and asserts his right to represent Cardenas despite his past. The conversation ends with mutual uncertainty—SPEAKER_16 remains convinced of a larger plot, while SPEAKER_12 is left questioning the truth behind the chaos. The exchange highlights the growing tension between the church and external forces, as well as the personal stakes for those involved.",
+      "scene_id": "w0006"
+    },
+    {
+      "start_time": "00:30:00",
+      "end_time": "00:34:31",
+      "start_seconds": 1800.0,
+      "end_seconds": 2070.613,
+      "dialogue_lines": 31,
+      "dialogue_sampled": false,
+      "description": "During this intense exchange, Remigio Cardenas, accused of murdering Armando Badajoz, confesses to the crime during his interrogation. When confronted about his guilt, he claims he did not kill Badajoz but instead confessed to stabbing Pastor Emilio, revealing his deep involvement in the chaos surrounding the church. His admission shocks those present, as it directly implicates the pastor in the violence. Remigio’s insistence on his lawyer, Julio Clámez, highlights his desperation and the potential for legal maneuvering. Meanwhile, Speaker 08, likely Emilio, delivers a powerful monologue reflecting on faith and abandonment, drawing parallels between his current suffering and Jesus’ crucifixion. He expresses his belief that through faithfulness, he will rise again, symbolizing both personal and spiritual renewal. His declaration of loyalty to God, despite feeling forsaken, underscores his internal struggle and resolve. The exchange ends with multiple voices chanting \"Amen,\" signifying a shared recognition of the gravity of the moment and the hope for redemption.",
+      "scene_id": "w0007"
+    }
+  ],
+  "attempt_id": "20261120T064548Z-8993981f",
+  "source_fingerprint": "ba12d2c3c9334d40cfb61493e8667f06da533486a53b554ed2565763ca0efb6f",
+  "settings_hash": "813dd20db0d25b184677a584b11dddb7402bacf3500bd7788dc4dec5525d40fe",
+  "status": "success"
+}

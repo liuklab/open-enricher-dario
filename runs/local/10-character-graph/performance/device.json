@@ -1,0 +1,21 @@
+{
+  "recorded_at": "2026-11-20T05:26:13.315939+00:00",
+  "cuda_available": true,
+  "cuda_version": "12.8",
+  "devices": [
+    {
+      "index": 0,
+      "name": "NVIDIA GeForce RTX 4060 Ti",
+      "total_memory_mib": 15957.4,
+      "compute_capability": "8.9",
+      "multi_processor_count": 34,
+      "uuid": "fdab8a85-4ec6-83f0-c8ad-fa35063fc9d1",
+      "pci_bus_id": "1"
+    }
+  ],
+  "host": {
+    "cpu_model": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+    "cpu_count": 16,
+    "ram_total_mib": 64215.0
+  }
+}

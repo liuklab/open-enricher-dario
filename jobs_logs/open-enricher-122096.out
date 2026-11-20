@@ -1,0 +1,872 @@
+2026-11-20 01:03:26.189;INFO;open_enricher.storage;Initializing shared dataset at /SLURM_shared/st_mdp26/open-enricher/dataset...
+2026-11-20 01:03:26.557;INFO;open_enricher.storage;Dataset structure verified.
+2026-11-20 01:03:33.732;INFO;open_enricher.runner;Hugging Face login succeeded.
+2026-11-20 01:03:33.936;INFO;open_enricher.experiments.loop;Videos: How_I_Met_Your_Mother.S01E02.mkv, Silicon_Valley.S06E01.mkv, The_Kingdom.S01E02.mkv | variants: 5
+2026-11-20 01:03:33.995;INFO;open_enricher.experiments.loop;======== Experiment 09-bassl-adaptive ========
+2026-11-20 01:20:15.649;INFO;open_enricher.experiments.loop;Pipeline for video How_I_Met_Your_Mother.S01E02.mkv
+2026-11-20 01:20:16.426;INFO;open_enricher.runner;Running stage 'timeline' on How_I_Met_Your_Mother.S01E02.mkv
+2026-11-20 01:20:24.003;INFO;open_enricher.runner;Skipping audio for How_I_Met_Your_Mother.S01E02.mkv (cached)
+2026-11-20 01:20:24.003;INFO;open_enricher.runner;Running stage 'bassl' on How_I_Met_Your_Mother.S01E02.mkv
+2026-11-20 01:20:28.385;INFO;open_enricher.runner;Running stage 'dialogue' on How_I_Met_Your_Mother.S01E02.mkv
+2026-11-20 01:20:28.687;INFO;open_enricher.stages.dialogue;Dialogue stage for How_I_Met_Your_Mother.S01E02.mkv: 503 lines, speakers=['SPEAKER_00', 'SPEAKER_01', 'SPEAKER_02', 'SPEAKER_03', 'SPEAKER_04', 'SPEAKER_05', 'UNKNOWN']
+2026-11-20 01:20:29.452;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (plot_load)...
+2026-11-20 01:50:05.651;INFO;open_enricher.timings;TIMING dialogue.plot_load=1776.199s vram_reserved_mib=6232.0 vram_allocated_mib=6174.2
+2026-11-20 01:50:07.846;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=12087 input_budget=40440 lines=503), no sampling
+2026-11-20 01:51:04.710;INFO;open_enricher.timings;TIMING dialogue.plot_generate=56.863s vram_reserved_mib=9336.0 vram_allocated_mib=9136.9
+2026-11-20 01:51:04.710;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-11-20 01:51:04.968;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (scene_load)...
+2026-11-20 01:51:12.251;INFO;open_enricher.timings;TIMING dialogue.scene_load=7.283s vram_reserved_mib=10002.0 vram_allocated_mib=9908.5
+2026-11-20 01:51:12.252;INFO;open_enricher.stages.dialogue;Scene dialogue 1/5 00:00:00-00:05:00 (127 lines)
+2026-11-20 01:51:12.841;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3492 input_budget=40580 lines=127), no sampling
+2026-11-20 01:51:30.235;INFO;open_enricher.timings;TIMING dialogue.scene_generate=17.394s vram_reserved_mib=10786.0 vram_allocated_mib=10723.9
+2026-11-20 01:51:36.415;INFO;open_enricher.stages.dialogue;Scene dialogue 2/5 00:05:00-00:10:00 (147 lines)
+2026-11-20 01:51:36.423;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3932 input_budget=40580 lines=147), no sampling
+2026-11-20 01:51:52.254;INFO;open_enricher.timings;TIMING dialogue.scene_generate=15.830s vram_reserved_mib=10886.0 vram_allocated_mib=10823.9
+2026-11-20 01:51:58.472;INFO;open_enricher.stages.dialogue;Scene dialogue 3/5 00:10:00-00:15:00 (111 lines)
+2026-11-20 01:51:58.479;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3077 input_budget=40580 lines=111), no sampling
+2026-11-20 01:52:14.638;INFO;open_enricher.timings;TIMING dialogue.scene_generate=16.159s vram_reserved_mib=10886.0 vram_allocated_mib=10629.7
+2026-11-20 01:52:19.477;INFO;open_enricher.stages.dialogue;Scene dialogue 4/5 00:15:00-00:20:00 (80 lines)
+2026-11-20 01:52:19.482;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2446 input_budget=40580 lines=80), no sampling
+2026-11-20 01:52:36.324;INFO;open_enricher.timings;TIMING dialogue.scene_generate=16.841s vram_reserved_mib=10886.0 vram_allocated_mib=10486.4
+2026-11-20 01:52:42.246;INFO;open_enricher.stages.dialogue;Scene dialogue 5/5 00:20:00-00:22:06 (38 lines)
+2026-11-20 01:52:42.249;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=1374 input_budget=40580 lines=38), no sampling
+2026-11-20 01:53:02.152;INFO;open_enricher.timings;TIMING dialogue.scene_generate=19.903s vram_reserved_mib=10886.0 vram_allocated_mib=10243.0
+2026-11-20 01:53:03.783;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-11-20 01:53:04.749;INFO;open_enricher.stages.dialogue;Saved dialogue stage to How_I_Met_Your_Mother.S01E02.mkv_dialogue.json (5 scenes)
+2026-11-20 01:53:04.749;INFO;open_enricher.runner;Running stage 'vlm' on How_I_Met_Your_Mother.S01E02.mkv
+2026-11-20 01:58:13.276;INFO;open_enricher.stages.vlm;Starting VLM stage for How_I_Met_Your_Mother.S01E02.mkv (09-bassl-adaptive)
+2026-11-20 01:58:13.726;INFO;open_enricher.stages.vlm_core.segments;VLM over 7 scenes (experiment=09-bassl-adaptive)
+2026-11-20 01:58:13.726;INFO;open_enricher.stages.vlm_core.segments;Loading VLM: Qwen/Qwen3-VL-8B-Instruct (4-bit=True)...
+2026-11-20 02:13:06.568;INFO;open_enricher.timings;TIMING vlm.vlm_load=892.842s vram_reserved_mib=9884.0 vram_allocated_mib=9847.1
+2026-11-20 02:13:06.568;INFO;open_enricher.stages.vlm_core.segments;VLM scene 1/7 00:00:00-00:02:30
+2026-11-20 02:13:42.459;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 1, using the clip
+2026-11-20 02:14:26.352;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 2329 tokens
+2026-11-20 02:15:01.195;INFO;open_enricher.timings;TIMING vlm.vlm_generate=114.190s vram_reserved_mib=14110.0 vram_allocated_mib=14028.7
+2026-11-20 02:15:01.195;INFO;open_enricher.stages.vlm_core.segments;VLM scene 2/7 00:02:30-00:05:00
+2026-11-20 02:15:08.331;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 2, using the clip
+2026-11-20 02:15:41.276;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 2990 tokens
+2026-11-20 02:15:58.319;INFO;open_enricher.timings;TIMING vlm.vlm_generate=56.781s vram_reserved_mib=14110.0 vram_allocated_mib=14028.7
+2026-11-20 02:15:58.319;INFO;open_enricher.stages.vlm_core.segments;VLM scene 3/7 00:05:00-00:10:00
+2026-11-20 02:16:06.751;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 3, using the clip
+2026-11-20 02:17:13.567;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3412 tokens
+2026-11-20 02:17:31.745;INFO;open_enricher.timings;TIMING vlm.vlm_generate=93.415s vram_reserved_mib=14750.0 vram_allocated_mib=14676.6
+2026-11-20 02:17:31.745;INFO;open_enricher.stages.vlm_core.segments;VLM scene 4/7 00:10:00-00:12:30
+2026-11-20 02:17:51.718;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 4, using the clip
+2026-11-20 02:18:29.304;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3353 tokens
+2026-11-20 02:18:49.630;INFO;open_enricher.timings;TIMING vlm.vlm_generate=77.874s vram_reserved_mib=14110.0 vram_allocated_mib=14028.7
+2026-11-20 02:18:49.631;INFO;open_enricher.stages.vlm_core.segments;VLM scene 5/7 00:12:30-00:15:00
+2026-11-20 02:18:59.544;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 5, using the clip
+2026-11-20 02:19:36.763;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3366 tokens
+2026-11-20 02:19:56.913;INFO;open_enricher.timings;TIMING vlm.vlm_generate=67.264s vram_reserved_mib=14110.0 vram_allocated_mib=14028.7
+2026-11-20 02:19:56.913;INFO;open_enricher.stages.vlm_core.segments;VLM scene 6/7 00:15:00-00:20:00
+2026-11-20 02:20:05.652;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 6, using the clip
+2026-11-20 02:21:07.393;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3583 tokens
+2026-11-20 02:21:26.929;INFO;open_enricher.timings;TIMING vlm.vlm_generate=89.983s vram_reserved_mib=14430.0 vram_allocated_mib=14352.7
+2026-11-20 02:21:26.929;INFO;open_enricher.stages.vlm_core.segments;VLM scene 7/7 00:20:00-00:22:06
+2026-11-20 02:21:35.997;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 7, using the clip
+2026-11-20 02:22:04.384;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3589 tokens
+2026-11-20 02:22:20.502;INFO;open_enricher.timings;TIMING vlm.vlm_generate=53.559s vram_reserved_mib=15746.0 vram_allocated_mib=15678.6
+2026-11-20 02:22:20.502;INFO;open_enricher.stages.vlm_core.segments;Unloading VLM and freeing VRAM...
+2026-11-20 02:22:23.718;INFO;open_enricher.stages.vlm;VLM stage completed. Saved to How_I_Met_Your_Mother.S01E02.mkv_vlm.json (json_valid=True)
+2026-11-20 02:22:23.719;INFO;open_enricher.runner;Running stage 'llm' on How_I_Met_Your_Mother.S01E02.mkv
+2026-11-20 02:22:23.719;INFO;open_enricher.stages.llm;Starting RecSys LLM profiling for How_I_Met_Your_Mother.S01E02.mkv
+2026-11-20 02:22:24.246;INFO;open_enricher.stages.llm;Loading textual LLM: Qwen/Qwen3-8B in 4-bit...
+2026-11-20 02:34:37.363;INFO;open_enricher.timings;TIMING llm.llm_load=733.117s vram_reserved_mib=9924.0 vram_allocated_mib=9882.0
+2026-11-20 02:34:37.766;INFO;open_enricher.stages.llm;Generating structured JSON profile (Attempt 1/2)...
+2026-11-20 02:35:02.293;INFO;open_enricher.timings;TIMING llm.llm_generate=24.527s vram_reserved_mib=11108.0 vram_allocated_mib=10903.3
+2026-11-20 02:35:02.528;INFO;open_enricher.stages.llm;Pydantic schema validation succeeded!
+2026-11-20 02:35:02.528;INFO;open_enricher.stages.llm;Unloading LLM and freeing VRAM...
+2026-11-20 02:35:04.058;INFO;open_enricher.stages.llm;Saving structured profile to /SLURM_shared/st_mdp26/open-enricher/dataset/outputs/llms_results/How_I_Met_Your_Mother.S01E02.mkv_llm.json
+2026-11-20 02:35:39.832;INFO;open_enricher.experiments.loop;Pipeline for video Silicon_Valley.S06E01.mkv
+2026-11-20 02:35:40.366;INFO;open_enricher.runner;Running stage 'timeline' on Silicon_Valley.S06E01.mkv
+2026-11-20 02:35:48.652;INFO;open_enricher.runner;Skipping audio for Silicon_Valley.S06E01.mkv (cached)
+2026-11-20 02:35:48.652;INFO;open_enricher.runner;Running stage 'bassl' on Silicon_Valley.S06E01.mkv
+2026-11-20 02:35:53.262;INFO;open_enricher.runner;Running stage 'dialogue' on Silicon_Valley.S06E01.mkv
+2026-11-20 02:35:53.492;INFO;open_enricher.stages.dialogue;Dialogue stage for Silicon_Valley.S06E01.mkv: 656 lines, speakers=['SPEAKER_00', 'SPEAKER_01', 'SPEAKER_02', 'SPEAKER_03', 'SPEAKER_04', 'SPEAKER_05', 'SPEAKER_06', 'SPEAKER_07', 'SPEAKER_08', 'SPEAKER_09', 'SPEAKER_10', 'SPEAKER_11', 'SPEAKER_12', 'SPEAKER_13', 'SPEAKER_14', 'SPEAKER_15', 'UNKNOWN']
+2026-11-20 02:35:53.994;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (plot_load)...
+2026-11-20 02:36:01.532;INFO;open_enricher.timings;TIMING dialogue.plot_load=7.537s vram_reserved_mib=6232.0 vram_allocated_mib=6182.3
+2026-11-20 02:36:01.565;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=16328 input_budget=40440 lines=656), no sampling
+2026-11-20 02:36:28.299;INFO;open_enricher.timings;TIMING dialogue.plot_generate=26.733s vram_reserved_mib=10456.0 vram_allocated_mib=10199.3
+2026-11-20 02:36:28.299;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-11-20 02:36:28.584;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (scene_load)...
+2026-11-20 02:36:34.876;INFO;open_enricher.timings;TIMING dialogue.scene_load=6.291s vram_reserved_mib=10002.0 vram_allocated_mib=9908.5
+2026-11-20 02:36:34.876;INFO;open_enricher.stages.dialogue;Scene dialogue 1/7 00:00:00-00:05:00 (90 lines)
+2026-11-20 02:36:34.883;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2698 input_budget=40580 lines=90), no sampling
+2026-11-20 02:36:48.262;INFO;open_enricher.timings;TIMING dialogue.scene_generate=13.378s vram_reserved_mib=10606.0 vram_allocated_mib=10543.6
+2026-11-20 02:36:54.272;INFO;open_enricher.stages.dialogue;Scene dialogue 2/7 00:05:00-00:10:00 (106 lines)
+2026-11-20 02:36:54.278;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2995 input_budget=40580 lines=106), no sampling
+2026-11-20 02:37:08.987;INFO;open_enricher.timings;TIMING dialogue.scene_generate=14.708s vram_reserved_mib=10666.0 vram_allocated_mib=10611.1
+2026-11-20 02:37:15.015;INFO;open_enricher.stages.dialogue;Scene dialogue 3/7 00:10:00-00:15:00 (121 lines)
+2026-11-20 02:37:15.023;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3537 input_budget=40580 lines=121), no sampling
+2026-11-20 02:37:28.453;INFO;open_enricher.timings;TIMING dialogue.scene_generate=13.429s vram_reserved_mib=10806.0 vram_allocated_mib=10734.2
+2026-11-20 02:37:34.691;INFO;open_enricher.stages.dialogue;Scene dialogue 4/7 00:15:00-00:20:00 (85 lines)
+2026-11-20 02:37:34.697;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2582 input_budget=40580 lines=85), no sampling
+2026-11-20 02:37:50.763;INFO;open_enricher.timings;TIMING dialogue.scene_generate=16.065s vram_reserved_mib=10806.0 vram_allocated_mib=10517.3
+2026-11-20 02:37:56.721;INFO;open_enricher.stages.dialogue;Scene dialogue 5/7 00:20:00-00:25:00 (102 lines)
+2026-11-20 02:37:56.728;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3068 input_budget=40580 lines=102), no sampling
+2026-11-20 02:38:13.245;INFO;open_enricher.timings;TIMING dialogue.scene_generate=16.517s vram_reserved_mib=10806.0 vram_allocated_mib=10627.7
+2026-11-20 02:38:19.432;INFO;open_enricher.stages.dialogue;Scene dialogue 6/7 00:25:00-00:30:00 (115 lines)
+2026-11-20 02:38:19.439;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3225 input_budget=40580 lines=115), no sampling
+2026-11-20 02:38:36.284;INFO;open_enricher.timings;TIMING dialogue.scene_generate=16.845s vram_reserved_mib=10806.0 vram_allocated_mib=10663.3
+2026-11-20 02:38:42.379;INFO;open_enricher.stages.dialogue;Scene dialogue 7/7 00:30:00-00:32:52 (37 lines)
+2026-11-20 02:38:42.383;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=1363 input_budget=40580 lines=37), no sampling
+2026-11-20 02:38:58.865;INFO;open_enricher.timings;TIMING dialogue.scene_generate=16.482s vram_reserved_mib=10806.0 vram_allocated_mib=10240.5
+2026-11-20 02:39:04.668;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-11-20 02:39:05.769;INFO;open_enricher.stages.dialogue;Saved dialogue stage to Silicon_Valley.S06E01.mkv_dialogue.json (7 scenes)
+2026-11-20 02:39:05.770;INFO;open_enricher.runner;Running stage 'vlm' on Silicon_Valley.S06E01.mkv
+2026-11-20 02:43:31.349;INFO;open_enricher.stages.vlm;Starting VLM stage for Silicon_Valley.S06E01.mkv (09-bassl-adaptive)
+2026-11-20 02:43:31.674;INFO;open_enricher.stages.vlm_core.segments;VLM over 10 scenes (experiment=09-bassl-adaptive)
+2026-11-20 02:43:31.674;INFO;open_enricher.stages.vlm_core.segments;Loading VLM: Qwen/Qwen3-VL-8B-Instruct (4-bit=True)...
+2026-11-20 02:55:29.010;INFO;open_enricher.timings;TIMING vlm.vlm_load=717.334s vram_reserved_mib=9904.0 vram_allocated_mib=9847.1
+2026-11-20 02:55:29.010;INFO;open_enricher.stages.vlm_core.segments;VLM scene 1/10 00:00:00-00:05:00
+2026-11-20 02:55:49.696;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 1, using the clip
+2026-11-20 02:56:58.398;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 2428 tokens
+2026-11-20 02:57:23.771;INFO;open_enricher.timings;TIMING vlm.vlm_generate=114.555s vram_reserved_mib=14450.0 vram_allocated_mib=14352.6
+2026-11-20 02:57:23.772;INFO;open_enricher.stages.vlm_core.segments;VLM scene 2/10 00:05:00-00:10:00
+2026-11-20 02:57:31.564;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 2, using the clip
+2026-11-20 02:58:48.739;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3040 tokens
+2026-11-20 02:59:06.600;INFO;open_enricher.timings;TIMING vlm.vlm_generate=102.810s vram_reserved_mib=14450.0 vram_allocated_mib=14352.6
+2026-11-20 02:59:06.600;INFO;open_enricher.stages.vlm_core.segments;VLM scene 3/10 00:10:00-00:15:00
+2026-11-20 02:59:13.967;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 3, using the clip
+2026-11-20 03:00:22.651;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3449 tokens
+2026-11-20 03:00:43.579;INFO;open_enricher.timings;TIMING vlm.vlm_generate=96.938s vram_reserved_mib=14450.0 vram_allocated_mib=14352.7
+2026-11-20 03:00:43.579;INFO;open_enricher.stages.vlm_core.segments;VLM scene 4/10 00:15:00-00:16:15
+2026-11-20 03:00:50.019;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 4, using the clip
+2026-11-20 03:01:06.526;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3358 tokens
+2026-11-20 03:01:25.748;INFO;open_enricher.timings;TIMING vlm.vlm_generate=42.156s vram_reserved_mib=15090.0 vram_allocated_mib=15000.6
+2026-11-20 03:01:25.748;INFO;open_enricher.stages.vlm_core.segments;VLM scene 5/10 00:16:15-00:17:30
+2026-11-20 03:01:31.878;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 5, using the clip
+2026-11-20 03:01:47.035;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3430 tokens
+2026-11-20 03:02:07.582;INFO;open_enricher.timings;TIMING vlm.vlm_generate=41.822s vram_reserved_mib=15090.0 vram_allocated_mib=15000.6
+2026-11-20 03:02:07.582;INFO;open_enricher.stages.vlm_core.segments;VLM scene 6/10 00:17:30-00:18:45
+2026-11-20 03:02:14.192;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 6, using the clip
+2026-11-20 03:02:29.857;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3497 tokens
+2026-11-20 03:02:49.185;INFO;open_enricher.timings;TIMING vlm.vlm_generate=41.573s vram_reserved_mib=15090.0 vram_allocated_mib=15000.6
+2026-11-20 03:02:49.185;INFO;open_enricher.stages.vlm_core.segments;VLM scene 7/10 00:18:45-00:20:00
+2026-11-20 03:02:54.685;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 7, using the clip
+2026-11-20 03:03:11.171;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3384 tokens
+2026-11-20 03:03:28.102;INFO;open_enricher.timings;TIMING vlm.vlm_generate=38.906s vram_reserved_mib=14770.0 vram_allocated_mib=14676.6
+2026-11-20 03:03:28.102;INFO;open_enricher.stages.vlm_core.segments;VLM scene 8/10 00:20:00-00:25:00
+2026-11-20 03:03:33.092;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 8, using the clip
+2026-11-20 03:04:33.032;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3506 tokens
+2026-11-20 03:04:46.832;INFO;open_enricher.timings;TIMING vlm.vlm_generate=78.719s vram_reserved_mib=14450.0 vram_allocated_mib=14352.7
+2026-11-20 03:04:46.832;INFO;open_enricher.stages.vlm_core.segments;VLM scene 9/10 00:25:00-00:30:00
+2026-11-20 03:04:52.260;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 9, using the clip
+2026-11-20 03:05:55.747;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3285 tokens
+2026-11-20 03:06:09.458;INFO;open_enricher.timings;TIMING vlm.vlm_generate=82.615s vram_reserved_mib=14110.0 vram_allocated_mib=14028.7
+2026-11-20 03:06:09.458;INFO;open_enricher.stages.vlm_core.segments;VLM scene 10/10 00:30:00-00:32:52
+2026-11-20 03:06:12.832;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 10, using the clip
+2026-11-20 03:06:41.731;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 2620 tokens
+2026-11-20 03:06:59.094;INFO;open_enricher.timings;TIMING vlm.vlm_generate=49.627s vram_reserved_mib=15382.0 vram_allocated_mib=15062.6
+2026-11-20 03:06:59.094;INFO;open_enricher.stages.vlm_core.segments;Unloading VLM and freeing VRAM...
+2026-11-20 03:07:01.264;INFO;open_enricher.stages.vlm;VLM stage completed. Saved to Silicon_Valley.S06E01.mkv_vlm.json (json_valid=True)
+2026-11-20 03:07:01.264;INFO;open_enricher.runner;Running stage 'llm' on Silicon_Valley.S06E01.mkv
+2026-11-20 03:07:01.264;INFO;open_enricher.stages.llm;Starting RecSys LLM profiling for Silicon_Valley.S06E01.mkv
+2026-11-20 03:07:01.730;INFO;open_enricher.stages.llm;Loading textual LLM: Qwen/Qwen3-8B in 4-bit...
+2026-11-20 03:24:07.013;INFO;open_enricher.timings;TIMING llm.llm_load=1025.283s vram_reserved_mib=9924.0 vram_allocated_mib=9882.0
+2026-11-20 03:24:07.013;INFO;open_enricher.stages.llm;Generating structured JSON profile (Attempt 1/2)...
+2026-11-20 03:24:32.918;INFO;open_enricher.timings;TIMING llm.llm_generate=25.905s vram_reserved_mib=11348.0 vram_allocated_mib=11157.1
+2026-11-20 03:24:32.919;INFO;open_enricher.stages.llm;Pydantic schema validation succeeded!
+2026-11-20 03:24:32.919;INFO;open_enricher.stages.llm;Unloading LLM and freeing VRAM...
+2026-11-20 03:24:33.562;INFO;open_enricher.stages.llm;Saving structured profile to /SLURM_shared/st_mdp26/open-enricher/dataset/outputs/llms_results/Silicon_Valley.S06E01.mkv_llm.json
+2026-11-20 03:24:59.282;INFO;open_enricher.experiments.loop;Pipeline for video The_Kingdom.S01E02.mkv
+2026-11-20 03:24:59.783;INFO;open_enricher.runner;Running stage 'timeline' on The_Kingdom.S01E02.mkv
+2026-11-20 03:25:10.395;INFO;open_enricher.runner;Skipping audio for The_Kingdom.S01E02.mkv (cached)
+2026-11-20 03:25:10.395;INFO;open_enricher.runner;Running stage 'bassl' on The_Kingdom.S01E02.mkv
+2026-11-20 03:25:21.874;INFO;open_enricher.runner;Running stage 'dialogue' on The_Kingdom.S01E02.mkv
+2026-11-20 03:25:22.311;INFO;open_enricher.stages.dialogue;Dialogue stage for The_Kingdom.S01E02.mkv: 564 lines, speakers=['SPEAKER_00', 'SPEAKER_01', 'SPEAKER_02', 'SPEAKER_03', 'SPEAKER_04', 'SPEAKER_05', 'SPEAKER_06', 'SPEAKER_07', 'SPEAKER_08', 'SPEAKER_09', 'SPEAKER_10', 'SPEAKER_11', 'SPEAKER_12', 'SPEAKER_13', 'SPEAKER_14', 'SPEAKER_15', 'SPEAKER_16', 'SPEAKER_17', 'UNKNOWN']
+2026-11-20 03:25:22.957;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (plot_load)...
+2026-11-20 03:26:32.420;INFO;open_enricher.timings;TIMING dialogue.plot_load=69.463s vram_reserved_mib=6232.0 vram_allocated_mib=6182.3
+2026-11-20 03:26:32.482;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=13952 input_budget=40440 lines=564), no sampling
+2026-11-20 03:27:01.322;INFO;open_enricher.timings;TIMING dialogue.plot_generate=28.840s vram_reserved_mib=9856.0 vram_allocated_mib=9604.1
+2026-11-20 03:27:01.322;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-11-20 03:27:01.583;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (scene_load)...
+2026-11-20 03:27:07.937;INFO;open_enricher.timings;TIMING dialogue.scene_load=6.353s vram_reserved_mib=10002.0 vram_allocated_mib=9908.5
+2026-11-20 03:27:07.937;INFO;open_enricher.stages.dialogue;Scene dialogue 1/7 00:00:00-00:05:00 (71 lines)
+2026-11-20 03:27:07.943;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2251 input_budget=40580 lines=71), no sampling
+2026-11-20 03:27:23.629;INFO;open_enricher.timings;TIMING dialogue.scene_generate=15.685s vram_reserved_mib=10506.0 vram_allocated_mib=10442.1
+2026-11-20 03:27:26.802;INFO;open_enricher.stages.dialogue;Scene dialogue 2/7 00:05:00-00:10:00 (86 lines)
+2026-11-20 03:27:26.809;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2713 input_budget=40580 lines=86), no sampling
+2026-11-20 03:27:46.157;INFO;open_enricher.timings;TIMING dialogue.scene_generate=19.348s vram_reserved_mib=10606.0 vram_allocated_mib=10547.1
+2026-11-20 03:27:47.788;INFO;open_enricher.stages.dialogue;Scene dialogue 3/7 00:10:00-00:15:00 (90 lines)
+2026-11-20 03:27:47.795;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2697 input_budget=40580 lines=90), no sampling
+2026-11-20 03:28:02.866;INFO;open_enricher.timings;TIMING dialogue.scene_generate=15.071s vram_reserved_mib=10606.0 vram_allocated_mib=10543.4
+2026-11-20 03:28:08.663;INFO;open_enricher.stages.dialogue;Scene dialogue 4/7 00:15:00-00:20:00 (78 lines)
+2026-11-20 03:28:08.669;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2460 input_budget=40580 lines=78), no sampling
+2026-11-20 03:28:28.432;INFO;open_enricher.timings;TIMING dialogue.scene_generate=19.763s vram_reserved_mib=10606.0 vram_allocated_mib=10489.6
+2026-11-20 03:28:34.163;INFO;open_enricher.stages.dialogue;Scene dialogue 5/7 00:20:00-00:25:00 (90 lines)
+2026-11-20 03:28:34.169;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2676 input_budget=40580 lines=90), no sampling
+2026-11-20 03:28:52.362;INFO;open_enricher.timings;TIMING dialogue.scene_generate=18.192s vram_reserved_mib=10606.0 vram_allocated_mib=10538.7
+2026-11-20 03:28:58.093;INFO;open_enricher.stages.dialogue;Scene dialogue 6/7 00:25:00-00:30:00 (118 lines)
+2026-11-20 03:28:58.101;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3368 input_budget=40580 lines=118), no sampling
+2026-11-20 03:29:15.367;INFO;open_enricher.timings;TIMING dialogue.scene_generate=17.266s vram_reserved_mib=10766.0 vram_allocated_mib=10695.8
+2026-11-20 03:29:21.302;INFO;open_enricher.stages.dialogue;Scene dialogue 7/7 00:30:00-00:34:31 (31 lines)
+2026-11-20 03:29:21.306;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=1361 input_budget=40580 lines=31), no sampling
+2026-11-20 03:29:35.921;INFO;open_enricher.timings;TIMING dialogue.scene_generate=14.615s vram_reserved_mib=10766.0 vram_allocated_mib=10240.0
+2026-11-20 03:29:41.432;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-11-20 03:29:42.315;INFO;open_enricher.stages.dialogue;Saved dialogue stage to The_Kingdom.S01E02.mkv_dialogue.json (7 scenes)
+2026-11-20 03:29:42.315;INFO;open_enricher.runner;Running stage 'vlm' on The_Kingdom.S01E02.mkv
+2026-11-20 03:33:08.074;INFO;open_enricher.stages.vlm;Starting VLM stage for The_Kingdom.S01E02.mkv (09-bassl-adaptive)
+2026-11-20 03:33:08.967;INFO;open_enricher.stages.vlm_core.segments;VLM over 11 scenes (experiment=09-bassl-adaptive)
+2026-11-20 03:33:08.967;INFO;open_enricher.stages.vlm_core.segments;Loading VLM: Qwen/Qwen3-VL-8B-Instruct (4-bit=True)...
+2026-11-20 03:38:30.213;INFO;open_enricher.timings;TIMING vlm.vlm_load=321.246s vram_reserved_mib=9904.0 vram_allocated_mib=9847.1
+2026-11-20 03:38:30.213;INFO;open_enricher.stages.vlm_core.segments;VLM scene 1/11 00:00:00-00:02:30
+2026-11-20 03:38:52.543;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 1, using the clip
+2026-11-20 03:39:20.417;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 2316 tokens
+2026-11-20 03:39:43.134;INFO;open_enricher.timings;TIMING vlm.vlm_generate=72.387s vram_reserved_mib=15688.0 vram_allocated_mib=15511.2
+2026-11-20 03:39:43.134;INFO;open_enricher.stages.vlm_core.segments;VLM scene 2/11 00:02:30-00:05:00
+2026-11-20 03:39:57.547;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 2, using the clip
+2026-11-20 03:40:11.442;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 2912 tokens
+2026-11-20 03:40:27.679;INFO;open_enricher.timings;TIMING vlm.vlm_generate=44.529s vram_reserved_mib=15758.0 vram_allocated_mib=15315.6
+2026-11-20 03:40:27.679;INFO;open_enricher.stages.vlm_core.segments;VLM scene 3/11 00:05:00-00:07:30
+2026-11-20 03:40:45.924;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 3, using the clip
+2026-11-20 03:41:04.134;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3416 tokens
+2026-11-20 03:41:21.286;INFO;open_enricher.timings;TIMING vlm.vlm_generate=53.598s vram_reserved_mib=15708.0 vram_allocated_mib=15481.6
+2026-11-20 03:41:21.287;INFO;open_enricher.stages.vlm_core.segments;VLM scene 4/11 00:07:30-00:10:00
+2026-11-20 03:41:38.186;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 4, using the clip
+2026-11-20 03:41:56.300;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3424 tokens
+2026-11-20 03:42:14.773;INFO;open_enricher.timings;TIMING vlm.vlm_generate=53.475s vram_reserved_mib=15708.0 vram_allocated_mib=15482.7
+2026-11-20 03:42:14.773;INFO;open_enricher.stages.vlm_core.segments;VLM scene 5/11 00:10:00-00:12:30
+2026-11-20 03:42:29.238;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 5, using the clip
+2026-11-20 03:42:44.569;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3447 tokens
+2026-11-20 03:43:04.373;INFO;open_enricher.timings;TIMING vlm.vlm_generate=49.590s vram_reserved_mib=15748.0 vram_allocated_mib=15389.1
+2026-11-20 03:43:04.373;INFO;open_enricher.stages.vlm_core.segments;VLM scene 6/11 00:12:30-00:15:00
+2026-11-20 03:43:19.815;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 6, using the clip
+2026-11-20 03:43:35.659;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3386 tokens
+2026-11-20 03:43:56.471;INFO;open_enricher.timings;TIMING vlm.vlm_generate=52.088s vram_reserved_mib=15748.0 vram_allocated_mib=15244.8
+2026-11-20 03:43:56.471;INFO;open_enricher.stages.vlm_core.segments;VLM scene 7/11 00:15:00-00:17:30
+2026-11-20 03:44:11.233;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 7, using the clip
+2026-11-20 03:44:27.664;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3471 tokens
+2026-11-20 03:44:48.202;INFO;open_enricher.timings;TIMING vlm.vlm_generate=51.722s vram_reserved_mib=15748.0 vram_allocated_mib=15392.4
+2026-11-20 03:44:48.202;INFO;open_enricher.stages.vlm_core.segments;VLM scene 8/11 00:17:30-00:20:00
+2026-11-20 03:45:03.745;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 8, using the clip
+2026-11-20 03:45:23.128;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3529 tokens
+2026-11-20 03:45:40.775;INFO;open_enricher.timings;TIMING vlm.vlm_generate=52.562s vram_reserved_mib=15736.0 vram_allocated_mib=15356.5
+2026-11-20 03:45:40.776;INFO;open_enricher.stages.vlm_core.segments;VLM scene 9/11 00:20:00-00:25:00
+2026-11-20 03:45:56.707;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 9, using the clip
+2026-11-20 03:46:21.944;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3606 tokens
+2026-11-20 03:46:35.576;INFO;open_enricher.timings;TIMING vlm.vlm_generate=54.792s vram_reserved_mib=15748.0 vram_allocated_mib=15507.7
+2026-11-20 03:46:35.576;INFO;open_enricher.stages.vlm_core.segments;VLM scene 10/11 00:25:00-00:30:00
+2026-11-20 03:46:51.261;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 10, using the clip
+2026-11-20 03:47:19.638;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3454 tokens
+2026-11-20 03:47:36.475;INFO;open_enricher.timings;TIMING vlm.vlm_generate=60.889s vram_reserved_mib=15758.0 vram_allocated_mib=15486.2
+2026-11-20 03:47:36.476;INFO;open_enricher.stages.vlm_core.segments;VLM scene 11/11 00:30:00-00:34:31
+2026-11-20 03:47:51.802;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 11, using the clip
+2026-11-20 03:48:08.335;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3320 tokens
+2026-11-20 03:48:25.712;INFO;open_enricher.timings;TIMING vlm.vlm_generate=49.226s vram_reserved_mib=15728.0 vram_allocated_mib=15413.7
+2026-11-20 03:48:25.713;INFO;open_enricher.stages.vlm_core.segments;Unloading VLM and freeing VRAM...
+2026-11-20 03:48:29.054;INFO;open_enricher.stages.vlm;VLM stage completed. Saved to The_Kingdom.S01E02.mkv_vlm.json (json_valid=True)
+2026-11-20 03:48:29.054;INFO;open_enricher.runner;Running stage 'llm' on The_Kingdom.S01E02.mkv
+2026-11-20 03:48:29.054;INFO;open_enricher.stages.llm;Starting RecSys LLM profiling for The_Kingdom.S01E02.mkv
+2026-11-20 03:48:29.728;INFO;open_enricher.stages.llm;Loading textual LLM: Qwen/Qwen3-8B in 4-bit...
+2026-11-20 03:58:56.353;INFO;open_enricher.timings;TIMING llm.llm_load=626.625s vram_reserved_mib=9924.0 vram_allocated_mib=9882.0
+2026-11-20 03:58:56.354;INFO;open_enricher.stages.llm;Generating structured JSON profile (Attempt 1/2)...
+2026-11-20 03:59:22.568;INFO;open_enricher.timings;TIMING llm.llm_generate=26.214s vram_reserved_mib=11648.0 vram_allocated_mib=11412.6
+2026-11-20 03:59:22.568;INFO;open_enricher.stages.llm;Pydantic schema validation succeeded!
+2026-11-20 03:59:22.568;INFO;open_enricher.stages.llm;Unloading LLM and freeing VRAM...
+2026-11-20 03:59:23.330;INFO;open_enricher.stages.llm;Saving structured profile to /SLURM_shared/st_mdp26/open-enricher/dataset/outputs/llms_results/The_Kingdom.S01E02.mkv_llm.json
+2026-11-20 03:59:47.221;INFO;open_enricher.experiments.loop;Evaluating experiment 09-bassl-adaptive with provider=cursor synopsis=yes
+2026-11-20 03:59:50.496;INFO;open_enricher.experiments.loop;======== Experiment 09-bassl-uniform ========
+2026-11-20 03:59:51.570;INFO;open_enricher.experiments.loop;Pipeline for video How_I_Met_Your_Mother.S01E02.mkv
+2026-11-20 03:59:51.960;INFO;open_enricher.runner;Running stage 'timeline' on How_I_Met_Your_Mother.S01E02.mkv
+2026-11-20 04:00:03.635;INFO;open_enricher.runner;Skipping audio for How_I_Met_Your_Mother.S01E02.mkv (cached)
+2026-11-20 04:00:03.636;INFO;open_enricher.runner;Running stage 'bassl' on How_I_Met_Your_Mother.S01E02.mkv
+2026-11-20 04:00:07.950;INFO;open_enricher.runner;Running stage 'dialogue' on How_I_Met_Your_Mother.S01E02.mkv
+2026-11-20 04:00:08.188;INFO;open_enricher.stages.dialogue;Dialogue stage for How_I_Met_Your_Mother.S01E02.mkv: 503 lines, speakers=['SPEAKER_00', 'SPEAKER_01', 'SPEAKER_02', 'SPEAKER_03', 'SPEAKER_04', 'SPEAKER_05', 'UNKNOWN']
+2026-11-20 04:00:08.749;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (plot_load)...
+2026-11-20 04:02:29.388;INFO;open_enricher.timings;TIMING dialogue.plot_load=140.638s vram_reserved_mib=6232.0 vram_allocated_mib=6182.3
+2026-11-20 04:02:29.412;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=12087 input_budget=40440 lines=503), no sampling
+2026-11-20 04:02:53.788;INFO;open_enricher.timings;TIMING dialogue.plot_generate=24.376s vram_reserved_mib=9356.0 vram_allocated_mib=9136.9
+2026-11-20 04:02:53.788;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-11-20 04:02:54.049;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (scene_load)...
+2026-11-20 04:03:18.457;INFO;open_enricher.timings;TIMING dialogue.scene_load=24.407s vram_reserved_mib=10002.0 vram_allocated_mib=9908.5
+2026-11-20 04:03:18.457;INFO;open_enricher.stages.dialogue;Scene dialogue 1/5 00:00:00-00:05:00 (127 lines)
+2026-11-20 04:03:18.465;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3492 input_budget=40580 lines=127), no sampling
+2026-11-20 04:03:35.294;INFO;open_enricher.timings;TIMING dialogue.scene_generate=16.828s vram_reserved_mib=10786.0 vram_allocated_mib=10723.9
+2026-11-20 04:03:35.294;INFO;open_enricher.stages.dialogue;Scene dialogue 2/5 00:05:00-00:10:00 (147 lines)
+2026-11-20 04:03:35.303;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3932 input_budget=40580 lines=147), no sampling
+2026-11-20 04:03:50.651;INFO;open_enricher.timings;TIMING dialogue.scene_generate=15.348s vram_reserved_mib=10886.0 vram_allocated_mib=10823.9
+2026-11-20 04:03:50.651;INFO;open_enricher.stages.dialogue;Scene dialogue 3/5 00:10:00-00:15:00 (111 lines)
+2026-11-20 04:03:50.658;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3077 input_budget=40580 lines=111), no sampling
+2026-11-20 04:04:06.973;INFO;open_enricher.timings;TIMING dialogue.scene_generate=16.314s vram_reserved_mib=10886.0 vram_allocated_mib=10629.7
+2026-11-20 04:04:06.973;INFO;open_enricher.stages.dialogue;Scene dialogue 4/5 00:15:00-00:20:00 (80 lines)
+2026-11-20 04:04:06.979;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2446 input_budget=40580 lines=80), no sampling
+2026-11-20 04:04:24.043;INFO;open_enricher.timings;TIMING dialogue.scene_generate=17.064s vram_reserved_mib=10886.0 vram_allocated_mib=10486.4
+2026-11-20 04:04:24.043;INFO;open_enricher.stages.dialogue;Scene dialogue 5/5 00:20:00-00:22:06 (38 lines)
+2026-11-20 04:04:24.046;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=1374 input_budget=40580 lines=38), no sampling
+2026-11-20 04:04:43.913;INFO;open_enricher.timings;TIMING dialogue.scene_generate=19.866s vram_reserved_mib=10886.0 vram_allocated_mib=10243.0
+2026-11-20 04:04:43.913;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-11-20 04:04:49.231;INFO;open_enricher.stages.dialogue;Saved dialogue stage to How_I_Met_Your_Mother.S01E02.mkv_dialogue.json (5 scenes)
+2026-11-20 04:04:49.231;INFO;open_enricher.runner;Running stage 'vlm' on How_I_Met_Your_Mother.S01E02.mkv
+2026-11-20 04:08:48.186;INFO;open_enricher.stages.vlm;Starting VLM stage for How_I_Met_Your_Mother.S01E02.mkv (09-bassl-uniform)
+2026-11-20 04:08:50.061;INFO;open_enricher.stages.vlm_core.segments;VLM over 9 scenes (experiment=09-bassl-uniform)
+2026-11-20 04:08:50.061;INFO;open_enricher.stages.vlm_core.segments;Loading VLM: Qwen/Qwen3-VL-8B-Instruct (4-bit=True)...
+2026-11-20 04:20:31.202;INFO;open_enricher.timings;TIMING vlm.vlm_load=701.141s vram_reserved_mib=9904.0 vram_allocated_mib=9847.1
+2026-11-20 04:20:31.202;INFO;open_enricher.stages.vlm_core.segments;VLM scene 1/9 00:00:00-00:02:30
+2026-11-20 04:20:41.688;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 1, using the clip
+2026-11-20 04:21:20.644;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 2289 tokens
+2026-11-20 04:21:43.735;INFO;open_enricher.timings;TIMING vlm.vlm_generate=72.524s vram_reserved_mib=13788.0 vram_allocated_mib=13704.7
+2026-11-20 04:21:43.735;INFO;open_enricher.stages.vlm_core.segments;VLM scene 2/9 00:02:30-00:05:00
+2026-11-20 04:21:48.285;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 2, using the clip
+2026-11-20 04:22:29.912;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 2765 tokens
+2026-11-20 04:22:46.237;INFO;open_enricher.timings;TIMING vlm.vlm_generate=62.492s vram_reserved_mib=13468.0 vram_allocated_mib=13380.8
+2026-11-20 04:22:46.237;INFO;open_enricher.stages.vlm_core.segments;VLM scene 3/9 00:05:00-00:07:30
+2026-11-20 04:23:13.396;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 3, using the clip
+2026-11-20 04:24:02.188;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3349 tokens
+2026-11-20 04:24:21.321;INFO;open_enricher.timings;TIMING vlm.vlm_generate=94.881s vram_reserved_mib=13788.0 vram_allocated_mib=13704.8
+2026-11-20 04:24:21.321;INFO;open_enricher.stages.vlm_core.segments;VLM scene 4/9 00:07:30-00:10:00
+2026-11-20 04:24:27.968;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 4, using the clip
+2026-11-20 04:25:03.468;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3149 tokens
+2026-11-20 04:25:25.816;INFO;open_enricher.timings;TIMING vlm.vlm_generate=64.485s vram_reserved_mib=13468.0 vram_allocated_mib=13380.8
+2026-11-20 04:25:25.816;INFO;open_enricher.stages.vlm_core.segments;VLM scene 5/9 00:10:00-00:12:30
+2026-11-20 04:25:31.097;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 5, using the clip
+2026-11-20 04:26:12.449;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3231 tokens
+2026-11-20 04:26:35.423;INFO;open_enricher.timings;TIMING vlm.vlm_generate=69.597s vram_reserved_mib=13468.0 vram_allocated_mib=13380.8
+2026-11-20 04:26:35.423;INFO;open_enricher.stages.vlm_core.segments;VLM scene 6/9 00:12:30-00:15:00
+2026-11-20 04:26:39.884;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 6, using the clip
+2026-11-20 04:27:18.846;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3298 tokens
+2026-11-20 04:27:38.921;INFO;open_enricher.timings;TIMING vlm.vlm_generate=63.487s vram_reserved_mib=13468.0 vram_allocated_mib=13380.8
+2026-11-20 04:27:38.921;INFO;open_enricher.stages.vlm_core.segments;VLM scene 7/9 00:15:00-00:17:30
+2026-11-20 04:27:46.191;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 7, using the clip
+2026-11-20 04:28:22.174;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3300 tokens
+2026-11-20 04:28:38.701;INFO;open_enricher.timings;TIMING vlm.vlm_generate=59.756s vram_reserved_mib=13468.0 vram_allocated_mib=13380.8
+2026-11-20 04:28:38.701;INFO;open_enricher.stages.vlm_core.segments;VLM scene 8/9 00:17:30-00:20:00
+2026-11-20 04:28:44.094;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 8, using the clip
+2026-11-20 04:29:14.402;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3242 tokens
+2026-11-20 04:29:34.514;INFO;open_enricher.timings;TIMING vlm.vlm_generate=55.804s vram_reserved_mib=13468.0 vram_allocated_mib=13380.8
+2026-11-20 04:29:34.514;INFO;open_enricher.stages.vlm_core.segments;VLM scene 9/9 00:20:00-00:22:06
+2026-11-20 04:29:38.564;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 9, using the clip
+2026-11-20 04:30:05.246;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3164 tokens
+2026-11-20 04:30:23.238;INFO;open_enricher.timings;TIMING vlm.vlm_generate=48.708s vram_reserved_mib=13150.0 vram_allocated_mib=13056.9
+2026-11-20 04:30:23.238;INFO;open_enricher.stages.vlm_core.segments;Unloading VLM and freeing VRAM...
+2026-11-20 04:30:27.046;INFO;open_enricher.stages.vlm;VLM stage completed. Saved to How_I_Met_Your_Mother.S01E02.mkv_vlm.json (json_valid=True)
+2026-11-20 04:30:27.046;INFO;open_enricher.runner;Running stage 'llm' on How_I_Met_Your_Mother.S01E02.mkv
+2026-11-20 04:30:27.046;INFO;open_enricher.stages.llm;Starting RecSys LLM profiling for How_I_Met_Your_Mother.S01E02.mkv
+2026-11-20 04:30:27.531;INFO;open_enricher.stages.llm;Loading textual LLM: Qwen/Qwen3-8B in 4-bit...
+2026-11-20 04:42:41.446;INFO;open_enricher.timings;TIMING llm.llm_load=733.915s vram_reserved_mib=9924.0 vram_allocated_mib=9882.0
+2026-11-20 04:42:41.447;INFO;open_enricher.stages.llm;Generating structured JSON profile (Attempt 1/2)...
+2026-11-20 04:43:05.457;INFO;open_enricher.timings;TIMING llm.llm_generate=24.010s vram_reserved_mib=11368.0 vram_allocated_mib=11170.6
+2026-11-20 04:43:05.458;INFO;open_enricher.stages.llm;Pydantic schema validation succeeded!
+2026-11-20 04:43:05.458;INFO;open_enricher.stages.llm;Unloading LLM and freeing VRAM...
+2026-11-20 04:43:06.179;INFO;open_enricher.stages.llm;Saving structured profile to /SLURM_shared/st_mdp26/open-enricher/dataset/outputs/llms_results/How_I_Met_Your_Mother.S01E02.mkv_llm.json
+2026-11-20 04:43:28.923;INFO;open_enricher.experiments.loop;Pipeline for video Silicon_Valley.S06E01.mkv
+2026-11-20 04:43:29.335;INFO;open_enricher.runner;Running stage 'timeline' on Silicon_Valley.S06E01.mkv
+2026-11-20 04:43:32.125;INFO;open_enricher.runner;Skipping audio for Silicon_Valley.S06E01.mkv (cached)
+2026-11-20 04:43:32.126;INFO;open_enricher.runner;Running stage 'bassl' on Silicon_Valley.S06E01.mkv
+2026-11-20 04:43:37.102;INFO;open_enricher.runner;Running stage 'dialogue' on Silicon_Valley.S06E01.mkv
+2026-11-20 04:43:37.401;INFO;open_enricher.stages.dialogue;Dialogue stage for Silicon_Valley.S06E01.mkv: 656 lines, speakers=['SPEAKER_00', 'SPEAKER_01', 'SPEAKER_02', 'SPEAKER_03', 'SPEAKER_04', 'SPEAKER_05', 'SPEAKER_06', 'SPEAKER_07', 'SPEAKER_08', 'SPEAKER_09', 'SPEAKER_10', 'SPEAKER_11', 'SPEAKER_12', 'SPEAKER_13', 'SPEAKER_14', 'SPEAKER_15', 'UNKNOWN']
+2026-11-20 04:43:37.966;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (plot_load)...
+2026-11-20 04:43:45.652;INFO;open_enricher.timings;TIMING dialogue.plot_load=7.685s vram_reserved_mib=6232.0 vram_allocated_mib=6182.3
+2026-11-20 04:43:45.687;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=16328 input_budget=40440 lines=656), no sampling
+2026-11-20 04:44:12.744;INFO;open_enricher.timings;TIMING dialogue.plot_generate=27.056s vram_reserved_mib=10456.0 vram_allocated_mib=10199.3
+2026-11-20 04:44:12.744;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-11-20 04:44:13.020;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (scene_load)...
+2026-11-20 04:44:21.761;INFO;open_enricher.timings;TIMING dialogue.scene_load=8.740s vram_reserved_mib=10002.0 vram_allocated_mib=9908.5
+2026-11-20 04:44:21.762;INFO;open_enricher.stages.dialogue;Scene dialogue 1/7 00:00:00-00:05:00 (90 lines)
+2026-11-20 04:44:21.769;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2698 input_budget=40580 lines=90), no sampling
+2026-11-20 04:44:35.154;INFO;open_enricher.timings;TIMING dialogue.scene_generate=13.385s vram_reserved_mib=10606.0 vram_allocated_mib=10543.6
+2026-11-20 04:44:35.154;INFO;open_enricher.stages.dialogue;Scene dialogue 2/7 00:05:00-00:10:00 (106 lines)
+2026-11-20 04:44:35.162;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2995 input_budget=40580 lines=106), no sampling
+2026-11-20 04:44:49.920;INFO;open_enricher.timings;TIMING dialogue.scene_generate=14.758s vram_reserved_mib=10666.0 vram_allocated_mib=10611.1
+2026-11-20 04:44:49.920;INFO;open_enricher.stages.dialogue;Scene dialogue 3/7 00:10:00-00:15:00 (121 lines)
+2026-11-20 04:44:49.929;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3537 input_budget=40580 lines=121), no sampling
+2026-11-20 04:45:03.394;INFO;open_enricher.timings;TIMING dialogue.scene_generate=13.465s vram_reserved_mib=10806.0 vram_allocated_mib=10734.2
+2026-11-20 04:45:03.395;INFO;open_enricher.stages.dialogue;Scene dialogue 4/7 00:15:00-00:20:00 (85 lines)
+2026-11-20 04:45:03.401;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2582 input_budget=40580 lines=85), no sampling
+2026-11-20 04:45:19.700;INFO;open_enricher.timings;TIMING dialogue.scene_generate=16.299s vram_reserved_mib=10806.0 vram_allocated_mib=10517.3
+2026-11-20 04:45:19.700;INFO;open_enricher.stages.dialogue;Scene dialogue 5/7 00:20:00-00:25:00 (102 lines)
+2026-11-20 04:45:19.708;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3068 input_budget=40580 lines=102), no sampling
+2026-11-20 04:45:36.192;INFO;open_enricher.timings;TIMING dialogue.scene_generate=16.483s vram_reserved_mib=10806.0 vram_allocated_mib=10627.7
+2026-11-20 04:45:36.192;INFO;open_enricher.stages.dialogue;Scene dialogue 6/7 00:25:00-00:30:00 (115 lines)
+2026-11-20 04:45:36.199;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3225 input_budget=40580 lines=115), no sampling
+2026-11-20 04:45:53.284;INFO;open_enricher.timings;TIMING dialogue.scene_generate=17.084s vram_reserved_mib=10806.0 vram_allocated_mib=10663.3
+2026-11-20 04:45:53.284;INFO;open_enricher.stages.dialogue;Scene dialogue 7/7 00:30:00-00:32:52 (37 lines)
+2026-11-20 04:45:53.288;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=1363 input_budget=40580 lines=37), no sampling
+2026-11-20 04:46:10.267;INFO;open_enricher.timings;TIMING dialogue.scene_generate=16.979s vram_reserved_mib=10806.0 vram_allocated_mib=10240.5
+2026-11-20 04:46:10.267;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-11-20 04:46:11.059;INFO;open_enricher.stages.dialogue;Saved dialogue stage to Silicon_Valley.S06E01.mkv_dialogue.json (7 scenes)
+2026-11-20 04:46:11.059;INFO;open_enricher.runner;Running stage 'vlm' on Silicon_Valley.S06E01.mkv
+2026-11-20 04:52:10.757;INFO;open_enricher.stages.vlm;Starting VLM stage for Silicon_Valley.S06E01.mkv (09-bassl-uniform)
+2026-11-20 04:52:10.970;INFO;open_enricher.stages.vlm_core.segments;VLM over 13 scenes (experiment=09-bassl-uniform)
+2026-11-20 04:52:10.970;INFO;open_enricher.stages.vlm_core.segments;Loading VLM: Qwen/Qwen3-VL-8B-Instruct (4-bit=True)...
+2026-11-20 05:03:44.149;INFO;open_enricher.timings;TIMING vlm.vlm_load=693.179s vram_reserved_mib=9904.0 vram_allocated_mib=9847.1
+2026-11-20 05:03:44.149;INFO;open_enricher.stages.vlm_core.segments;VLM scene 1/13 00:00:00-00:02:30
+2026-11-20 05:03:52.439;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 1, using the clip
+2026-11-20 05:04:31.202;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 2094 tokens
+2026-11-20 05:04:53.344;INFO;open_enricher.timings;TIMING vlm.vlm_generate=69.186s vram_reserved_mib=13468.0 vram_allocated_mib=13380.8
+2026-11-20 05:04:53.344;INFO;open_enricher.stages.vlm_core.segments;VLM scene 2/13 00:02:30-00:05:00
+2026-11-20 05:04:57.807;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 2, using the clip
+2026-11-20 05:05:32.983;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 2656 tokens
+2026-11-20 05:05:53.986;INFO;open_enricher.timings;TIMING vlm.vlm_generate=60.632s vram_reserved_mib=13468.0 vram_allocated_mib=13380.8
+2026-11-20 05:05:53.986;INFO;open_enricher.stages.vlm_core.segments;VLM scene 3/13 00:05:00-00:07:30
+2026-11-20 05:05:58.529;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 3, using the clip
+2026-11-20 05:06:37.946;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3160 tokens
+2026-11-20 05:06:56.262;INFO;open_enricher.timings;TIMING vlm.vlm_generate=62.264s vram_reserved_mib=13468.0 vram_allocated_mib=13380.8
+2026-11-20 05:06:56.262;INFO;open_enricher.stages.vlm_core.segments;VLM scene 4/13 00:07:30-00:10:00
+2026-11-20 05:07:00.218;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 4, using the clip
+2026-11-20 05:07:41.616;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 2994 tokens
+2026-11-20 05:08:02.836;INFO;open_enricher.timings;TIMING vlm.vlm_generate=66.564s vram_reserved_mib=13150.0 vram_allocated_mib=13056.9
+2026-11-20 05:08:02.836;INFO;open_enricher.stages.vlm_core.segments;VLM scene 5/13 00:10:00-00:12:30
+2026-11-20 05:08:08.319;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 5, using the clip
+2026-11-20 05:08:46.030;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3122 tokens
+2026-11-20 05:09:06.190;INFO;open_enricher.timings;TIMING vlm.vlm_generate=63.343s vram_reserved_mib=13468.0 vram_allocated_mib=13380.8
+2026-11-20 05:09:06.190;INFO;open_enricher.stages.vlm_core.segments;VLM scene 6/13 00:12:30-00:15:00
+2026-11-20 05:09:26.953;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 6, using the clip
+2026-11-20 05:10:02.210;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 2968 tokens
+2026-11-20 05:10:19.555;INFO;open_enricher.timings;TIMING vlm.vlm_generate=72.978s vram_reserved_mib=13150.0 vram_allocated_mib=13056.9
+2026-11-20 05:10:19.555;INFO;open_enricher.stages.vlm_core.segments;VLM scene 7/13 00:15:00-00:17:30
+2026-11-20 05:10:26.451;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 7, using the clip
+2026-11-20 05:10:56.305;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3097 tokens
+2026-11-20 05:11:17.240;INFO;open_enricher.timings;TIMING vlm.vlm_generate=57.200s vram_reserved_mib=13468.0 vram_allocated_mib=13380.8
+2026-11-20 05:11:17.240;INFO;open_enricher.stages.vlm_core.segments;VLM scene 8/13 00:17:30-00:20:00
+2026-11-20 05:11:34.344;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 8, using the clip
+2026-11-20 05:12:12.091;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3028 tokens
+2026-11-20 05:12:30.779;INFO;open_enricher.timings;TIMING vlm.vlm_generate=73.426s vram_reserved_mib=13150.0 vram_allocated_mib=13056.9
+2026-11-20 05:12:30.779;INFO;open_enricher.stages.vlm_core.segments;VLM scene 9/13 00:20:00-00:22:30
+2026-11-20 05:13:14.844;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 9, using the clip
+2026-11-20 05:13:48.317;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3251 tokens
+2026-11-20 05:14:08.146;INFO;open_enricher.timings;TIMING vlm.vlm_generate=96.556s vram_reserved_mib=13468.0 vram_allocated_mib=13380.8
+2026-11-20 05:14:08.146;INFO;open_enricher.stages.vlm_core.segments;VLM scene 10/13 00:22:30-00:25:00
+2026-11-20 05:14:31.918;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 10, using the clip
+2026-11-20 05:15:04.828;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3085 tokens
+2026-11-20 05:15:21.644;INFO;open_enricher.timings;TIMING vlm.vlm_generate=73.472s vram_reserved_mib=13150.0 vram_allocated_mib=13056.9
+2026-11-20 05:15:21.645;INFO;open_enricher.stages.vlm_core.segments;VLM scene 11/13 00:25:00-00:27:30
+2026-11-20 05:17:02.515;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 11, using the clip
+2026-11-20 05:17:36.849;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3202 tokens
+2026-11-20 05:17:57.204;INFO;open_enricher.timings;TIMING vlm.vlm_generate=155.240s vram_reserved_mib=13468.0 vram_allocated_mib=13380.8
+2026-11-20 05:17:57.204;INFO;open_enricher.stages.vlm_core.segments;VLM scene 12/13 00:27:30-00:30:00
+2026-11-20 05:18:35.107;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 12, using the clip
+2026-11-20 05:19:17.754;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3060 tokens
+2026-11-20 05:19:39.285;INFO;open_enricher.timings;TIMING vlm.vlm_generate=101.813s vram_reserved_mib=13150.0 vram_allocated_mib=13056.9
+2026-11-20 05:19:39.285;INFO;open_enricher.stages.vlm_core.segments;VLM scene 13/13 00:30:00-00:32:52
+2026-11-20 05:19:59.292;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 13, using the clip
+2026-11-20 05:20:35.778;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3454 tokens
+2026-11-20 05:20:53.038;INFO;open_enricher.timings;TIMING vlm.vlm_generate=73.325s vram_reserved_mib=14110.0 vram_allocated_mib=14028.7
+2026-11-20 05:20:53.038;INFO;open_enricher.stages.vlm_core.segments;Unloading VLM and freeing VRAM...
+2026-11-20 05:21:06.273;INFO;open_enricher.stages.vlm;VLM stage completed. Saved to Silicon_Valley.S06E01.mkv_vlm.json (json_valid=True)
+2026-11-20 05:21:06.273;INFO;open_enricher.runner;Running stage 'llm' on Silicon_Valley.S06E01.mkv
+2026-11-20 05:21:06.273;INFO;open_enricher.stages.llm;Starting RecSys LLM profiling for Silicon_Valley.S06E01.mkv
+2026-11-20 05:21:07.717;INFO;open_enricher.stages.llm;Loading textual LLM: Qwen/Qwen3-8B in 4-bit...
+2026-11-20 05:39:58.017;INFO;open_enricher.timings;TIMING llm.llm_load=1130.299s vram_reserved_mib=9924.0 vram_allocated_mib=9882.0
+2026-11-20 05:39:58.017;INFO;open_enricher.stages.llm;Generating structured JSON profile (Attempt 1/2)...
+2026-11-20 05:40:24.736;INFO;open_enricher.timings;TIMING llm.llm_generate=26.718s vram_reserved_mib=11828.0 vram_allocated_mib=11571.2
+2026-11-20 05:40:24.828;INFO;open_enricher.stages.llm;Pydantic schema validation succeeded!
+2026-11-20 05:40:24.828;INFO;open_enricher.stages.llm;Unloading LLM and freeing VRAM...
+2026-11-20 05:40:25.756;INFO;open_enricher.stages.llm;Saving structured profile to /SLURM_shared/st_mdp26/open-enricher/dataset/outputs/llms_results/Silicon_Valley.S06E01.mkv_llm.json
+2026-11-20 05:40:46.600;INFO;open_enricher.experiments.loop;Pipeline for video The_Kingdom.S01E02.mkv
+2026-11-20 05:40:48.042;INFO;open_enricher.runner;Running stage 'timeline' on The_Kingdom.S01E02.mkv
+2026-11-20 05:41:01.847;INFO;open_enricher.runner;Skipping audio for The_Kingdom.S01E02.mkv (cached)
+2026-11-20 05:41:01.847;INFO;open_enricher.runner;Running stage 'bassl' on The_Kingdom.S01E02.mkv
+2026-11-20 05:41:12.346;INFO;open_enricher.runner;Running stage 'dialogue' on The_Kingdom.S01E02.mkv
+2026-11-20 05:41:12.933;INFO;open_enricher.stages.dialogue;Dialogue stage for The_Kingdom.S01E02.mkv: 564 lines, speakers=['SPEAKER_00', 'SPEAKER_01', 'SPEAKER_02', 'SPEAKER_03', 'SPEAKER_04', 'SPEAKER_05', 'SPEAKER_06', 'SPEAKER_07', 'SPEAKER_08', 'SPEAKER_09', 'SPEAKER_10', 'SPEAKER_11', 'SPEAKER_12', 'SPEAKER_13', 'SPEAKER_14', 'SPEAKER_15', 'SPEAKER_16', 'SPEAKER_17', 'UNKNOWN']
+2026-11-20 05:41:13.518;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (plot_load)...
+2026-11-20 05:42:57.451;INFO;open_enricher.timings;TIMING dialogue.plot_load=103.933s vram_reserved_mib=6232.0 vram_allocated_mib=6182.3
+2026-11-20 05:42:57.533;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=13952 input_budget=40440 lines=564), no sampling
+2026-11-20 05:43:27.094;INFO;open_enricher.timings;TIMING dialogue.plot_generate=29.561s vram_reserved_mib=9856.0 vram_allocated_mib=9604.1
+2026-11-20 05:43:27.094;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-11-20 05:43:27.362;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (scene_load)...
+2026-11-20 05:43:37.999;INFO;open_enricher.timings;TIMING dialogue.scene_load=10.637s vram_reserved_mib=10002.0 vram_allocated_mib=9908.5
+2026-11-20 05:43:38.000;INFO;open_enricher.stages.dialogue;Scene dialogue 1/7 00:00:00-00:05:00 (71 lines)
+2026-11-20 05:43:38.006;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2251 input_budget=40580 lines=71), no sampling
+2026-11-20 05:43:53.806;INFO;open_enricher.timings;TIMING dialogue.scene_generate=15.800s vram_reserved_mib=10506.0 vram_allocated_mib=10442.1
+2026-11-20 05:43:53.806;INFO;open_enricher.stages.dialogue;Scene dialogue 2/7 00:05:00-00:10:00 (86 lines)
+2026-11-20 05:43:53.813;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2713 input_budget=40580 lines=86), no sampling
+2026-11-20 05:44:13.233;INFO;open_enricher.timings;TIMING dialogue.scene_generate=19.419s vram_reserved_mib=10606.0 vram_allocated_mib=10547.1
+2026-11-20 05:44:13.233;INFO;open_enricher.stages.dialogue;Scene dialogue 3/7 00:10:00-00:15:00 (90 lines)
+2026-11-20 05:44:13.239;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2697 input_budget=40580 lines=90), no sampling
+2026-11-20 05:44:28.534;INFO;open_enricher.timings;TIMING dialogue.scene_generate=15.295s vram_reserved_mib=10606.0 vram_allocated_mib=10543.4
+2026-11-20 05:44:28.534;INFO;open_enricher.stages.dialogue;Scene dialogue 4/7 00:15:00-00:20:00 (78 lines)
+2026-11-20 05:44:28.540;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2460 input_budget=40580 lines=78), no sampling
+2026-11-20 05:44:49.045;INFO;open_enricher.timings;TIMING dialogue.scene_generate=20.505s vram_reserved_mib=10606.0 vram_allocated_mib=10489.6
+2026-11-20 05:44:49.045;INFO;open_enricher.stages.dialogue;Scene dialogue 5/7 00:20:00-00:25:00 (90 lines)
+2026-11-20 05:44:49.052;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2676 input_budget=40580 lines=90), no sampling
+2026-11-20 05:45:07.818;INFO;open_enricher.timings;TIMING dialogue.scene_generate=18.766s vram_reserved_mib=10606.0 vram_allocated_mib=10538.7
+2026-11-20 05:45:07.818;INFO;open_enricher.stages.dialogue;Scene dialogue 6/7 00:25:00-00:30:00 (118 lines)
+2026-11-20 05:45:07.826;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3368 input_budget=40580 lines=118), no sampling
+2026-11-20 05:45:25.651;INFO;open_enricher.timings;TIMING dialogue.scene_generate=17.825s vram_reserved_mib=10766.0 vram_allocated_mib=10695.8
+2026-11-20 05:45:25.651;INFO;open_enricher.stages.dialogue;Scene dialogue 7/7 00:30:00-00:34:31 (31 lines)
+2026-11-20 05:45:25.655;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=1361 input_budget=40580 lines=31), no sampling
+2026-11-20 05:45:40.870;INFO;open_enricher.timings;TIMING dialogue.scene_generate=15.214s vram_reserved_mib=10766.0 vram_allocated_mib=10240.0
+2026-11-20 05:45:40.870;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-11-20 05:45:43.663;INFO;open_enricher.stages.dialogue;Saved dialogue stage to The_Kingdom.S01E02.mkv_dialogue.json (7 scenes)
+2026-11-20 05:45:43.664;INFO;open_enricher.runner;Running stage 'vlm' on The_Kingdom.S01E02.mkv
+2026-11-20 05:50:44.496;INFO;open_enricher.stages.vlm;Starting VLM stage for The_Kingdom.S01E02.mkv (09-bassl-uniform)
+2026-11-20 05:50:44.829;INFO;open_enricher.stages.vlm_core.segments;VLM over 8 scenes (experiment=09-bassl-uniform)
+2026-11-20 05:50:44.829;INFO;open_enricher.stages.vlm_core.segments;Loading VLM: Qwen/Qwen3-VL-8B-Instruct (4-bit=True)...
+2026-11-20 06:03:42.062;INFO;open_enricher.timings;TIMING vlm.vlm_load=777.233s vram_reserved_mib=9904.0 vram_allocated_mib=9847.1
+2026-11-20 06:03:42.062;INFO;open_enricher.stages.vlm_core.segments;VLM scene 1/8 00:00:00-00:02:30
+2026-11-20 06:04:03.506;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 1, using the clip
+2026-11-20 06:04:19.117;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 2133 tokens
+2026-11-20 06:04:35.687;INFO;open_enricher.timings;TIMING vlm.vlm_generate=53.446s vram_reserved_mib=15756.0 vram_allocated_mib=15512.0
+2026-11-20 06:04:35.688;INFO;open_enricher.stages.vlm_core.segments;VLM scene 2/8 00:02:30-00:05:00
+2026-11-20 06:04:51.183;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 2, using the clip
+2026-11-20 06:05:06.167;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 2530 tokens
+2026-11-20 06:05:19.878;INFO;open_enricher.timings;TIMING vlm.vlm_generate=44.182s vram_reserved_mib=15708.0 vram_allocated_mib=15402.8
+2026-11-20 06:05:19.878;INFO;open_enricher.stages.vlm_core.segments;VLM scene 3/8 00:05:00-00:10:00
+2026-11-20 06:05:33.161;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 3, using the clip
+2026-11-20 06:06:13.369;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3368 tokens
+2026-11-20 06:06:28.098;INFO;open_enricher.timings;TIMING vlm.vlm_generate=67.832s vram_reserved_mib=15680.0 vram_allocated_mib=15511.5
+2026-11-20 06:06:28.098;INFO;open_enricher.stages.vlm_core.segments;VLM scene 4/8 00:10:00-00:15:00
+2026-11-20 06:06:40.244;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 4, using the clip
+2026-11-20 06:07:10.958;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3333 tokens
+2026-11-20 06:07:32.088;INFO;open_enricher.timings;TIMING vlm.vlm_generate=63.975s vram_reserved_mib=15708.0 vram_allocated_mib=15503.8
+2026-11-20 06:07:32.088;INFO;open_enricher.stages.vlm_core.segments;VLM scene 5/8 00:15:00-00:20:00
+2026-11-20 06:07:56.473;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 5, using the clip
+2026-11-20 06:08:31.498;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3530 tokens
+2026-11-20 06:08:47.247;INFO;open_enricher.timings;TIMING vlm.vlm_generate=75.145s vram_reserved_mib=15680.0 vram_allocated_mib=15547.0
+2026-11-20 06:08:47.247;INFO;open_enricher.stages.vlm_core.segments;VLM scene 6/8 00:20:00-00:25:00
+2026-11-20 06:09:00.325;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 6, using the clip
+2026-11-20 06:09:26.731;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3550 tokens
+2026-11-20 06:09:46.550;INFO;open_enricher.timings;TIMING vlm.vlm_generate=59.288s vram_reserved_mib=15700.0 vram_allocated_mib=15551.4
+2026-11-20 06:09:46.551;INFO;open_enricher.stages.vlm_core.segments;VLM scene 7/8 00:25:00-00:30:00
+2026-11-20 06:10:11.371;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 7, using the clip
+2026-11-20 06:10:40.371;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3588 tokens
+2026-11-20 06:10:54.669;INFO;open_enricher.timings;TIMING vlm.vlm_generate=67.914s vram_reserved_mib=15720.0 vram_allocated_mib=15559.7
+2026-11-20 06:10:54.669;INFO;open_enricher.stages.vlm_core.segments;VLM scene 8/8 00:30:00-00:34:31
+2026-11-20 06:11:06.740;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 8, using the clip
+2026-11-20 06:11:23.715;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3521 tokens
+2026-11-20 06:11:45.297;INFO;open_enricher.timings;TIMING vlm.vlm_generate=50.545s vram_reserved_mib=15648.0 vram_allocated_mib=15313.2
+2026-11-20 06:11:45.298;INFO;open_enricher.stages.vlm_core.segments;Unloading VLM and freeing VRAM...
+2026-11-20 06:11:50.441;INFO;open_enricher.stages.vlm;VLM stage completed. Saved to The_Kingdom.S01E02.mkv_vlm.json (json_valid=True)
+2026-11-20 06:11:50.441;INFO;open_enricher.runner;Running stage 'llm' on The_Kingdom.S01E02.mkv
+2026-11-20 06:11:50.441;INFO;open_enricher.stages.llm;Starting RecSys LLM profiling for The_Kingdom.S01E02.mkv
+2026-11-20 06:11:51.227;INFO;open_enricher.stages.llm;Loading textual LLM: Qwen/Qwen3-8B in 4-bit...
+2026-11-20 06:25:16.407;INFO;open_enricher.timings;TIMING llm.llm_load=805.179s vram_reserved_mib=9924.0 vram_allocated_mib=9882.0
+2026-11-20 06:25:16.408;INFO;open_enricher.stages.llm;Generating structured JSON profile (Attempt 1/2)...
+2026-11-20 06:25:39.333;INFO;open_enricher.timings;TIMING llm.llm_generate=22.924s vram_reserved_mib=11208.0 vram_allocated_mib=11010.5
+2026-11-20 06:25:39.333;INFO;open_enricher.stages.llm;Pydantic schema validation succeeded!
+2026-11-20 06:25:39.333;INFO;open_enricher.stages.llm;Unloading LLM and freeing VRAM...
+2026-11-20 06:25:40.011;INFO;open_enricher.stages.llm;Saving structured profile to /SLURM_shared/st_mdp26/open-enricher/dataset/outputs/llms_results/The_Kingdom.S01E02.mkv_llm.json
+2026-11-20 06:26:08.630;INFO;open_enricher.experiments.loop;Evaluating experiment 09-bassl-uniform with provider=cursor synopsis=yes
+2026-11-20 06:26:12.815;INFO;open_enricher.experiments.loop;======== Experiment 10-character-graph ========
+2026-11-20 06:26:13.817;INFO;open_enricher.experiments.loop;Pipeline for video How_I_Met_Your_Mother.S01E02.mkv
+2026-11-20 06:26:14.187;INFO;open_enricher.runner;Running stage 'timeline' on How_I_Met_Your_Mother.S01E02.mkv
+2026-11-20 06:26:18.975;INFO;open_enricher.runner;Skipping audio for How_I_Met_Your_Mother.S01E02.mkv (cached)
+2026-11-20 06:26:18.976;INFO;open_enricher.runner;Running stage 'dialogue' on How_I_Met_Your_Mother.S01E02.mkv
+2026-11-20 06:26:19.161;INFO;open_enricher.stages.dialogue;Dialogue stage for How_I_Met_Your_Mother.S01E02.mkv: 503 lines, speakers=['SPEAKER_00', 'SPEAKER_01', 'SPEAKER_02', 'SPEAKER_03', 'SPEAKER_04', 'SPEAKER_05', 'UNKNOWN']
+2026-11-20 06:26:20.466;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (plot_load)...
+2026-11-20 06:26:27.186;INFO;open_enricher.timings;TIMING dialogue.plot_load=6.719s vram_reserved_mib=6232.0 vram_allocated_mib=6182.3
+2026-11-20 06:26:27.212;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=12087 input_budget=40440 lines=503), no sampling
+2026-11-20 06:26:51.007;INFO;open_enricher.timings;TIMING dialogue.plot_generate=23.795s vram_reserved_mib=9356.0 vram_allocated_mib=9136.9
+2026-11-20 06:26:51.007;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-11-20 06:26:51.267;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (scene_load)...
+2026-11-20 06:26:57.982;INFO;open_enricher.timings;TIMING dialogue.scene_load=6.715s vram_reserved_mib=10002.0 vram_allocated_mib=9908.5
+2026-11-20 06:26:57.983;INFO;open_enricher.stages.dialogue;Scene dialogue 1/5 00:00:00-00:05:00 (127 lines)
+2026-11-20 06:26:57.991;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3492 input_budget=40580 lines=127), no sampling
+2026-11-20 06:27:14.705;INFO;open_enricher.timings;TIMING dialogue.scene_generate=16.713s vram_reserved_mib=10786.0 vram_allocated_mib=10723.9
+2026-11-20 06:27:14.705;INFO;open_enricher.stages.dialogue;Scene dialogue 2/5 00:05:00-00:10:00 (147 lines)
+2026-11-20 06:27:14.714;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3932 input_budget=40580 lines=147), no sampling
+2026-11-20 06:27:29.998;INFO;open_enricher.timings;TIMING dialogue.scene_generate=15.284s vram_reserved_mib=10886.0 vram_allocated_mib=10823.9
+2026-11-20 06:27:29.998;INFO;open_enricher.stages.dialogue;Scene dialogue 3/5 00:10:00-00:15:00 (111 lines)
+2026-11-20 06:27:30.005;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3077 input_budget=40580 lines=111), no sampling
+2026-11-20 06:27:45.635;INFO;open_enricher.timings;TIMING dialogue.scene_generate=15.629s vram_reserved_mib=10886.0 vram_allocated_mib=10629.7
+2026-11-20 06:27:45.635;INFO;open_enricher.stages.dialogue;Scene dialogue 4/5 00:15:00-00:20:00 (80 lines)
+2026-11-20 06:27:45.641;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2446 input_budget=40580 lines=80), no sampling
+2026-11-20 06:28:01.951;INFO;open_enricher.timings;TIMING dialogue.scene_generate=16.310s vram_reserved_mib=10886.0 vram_allocated_mib=10486.4
+2026-11-20 06:28:01.951;INFO;open_enricher.stages.dialogue;Scene dialogue 5/5 00:20:00-00:22:06 (38 lines)
+2026-11-20 06:28:01.955;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=1374 input_budget=40580 lines=38), no sampling
+2026-11-20 06:28:21.410;INFO;open_enricher.timings;TIMING dialogue.scene_generate=19.455s vram_reserved_mib=10886.0 vram_allocated_mib=10243.0
+2026-11-20 06:28:21.411;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-11-20 06:28:26.154;INFO;open_enricher.stages.dialogue;Saved dialogue stage to How_I_Met_Your_Mother.S01E02.mkv_dialogue.json (5 scenes)
+2026-11-20 06:28:26.154;INFO;open_enricher.runner;Running stage 'character_graph' on How_I_Met_Your_Mother.S01E02.mkv
+2026-11-20 06:29:17.747;INFO;open_enricher.runner;Running stage 'vlm' on How_I_Met_Your_Mother.S01E02.mkv
+2026-11-20 06:29:17.953;INFO;open_enricher.stages.vlm;Starting VLM stage for How_I_Met_Your_Mother.S01E02.mkv (10-character-graph)
+2026-11-20 06:29:18.211;INFO;open_enricher.stages.vlm_core.segments;VLM over 5 scenes (experiment=10-character-graph)
+2026-11-20 06:29:18.211;INFO;open_enricher.stages.vlm_core.segments;Loading VLM: Qwen/Qwen3-VL-8B-Instruct (4-bit=True)...
+2026-11-20 06:35:52.881;INFO;open_enricher.timings;TIMING vlm.vlm_load=394.669s vram_reserved_mib=9904.0 vram_allocated_mib=9847.1
+2026-11-20 06:35:52.881;INFO;open_enricher.stages.vlm_core.segments;VLM scene 1/5 00:00:00-00:05:00
+2026-11-20 06:37:31.145;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 2070 tokens
+2026-11-20 06:37:50.006;INFO;open_enricher.timings;TIMING vlm.vlm_generate=117.124s vram_reserved_mib=10598.0 vram_allocated_mib=10498.3
+2026-11-20 06:37:50.006;INFO;open_enricher.stages.vlm_core.segments;VLM scene 2/5 00:05:00-00:10:00
+2026-11-20 06:39:27.177;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 2610 tokens
+2026-11-20 06:39:46.590;INFO;open_enricher.timings;TIMING vlm.vlm_generate=116.584s vram_reserved_mib=10718.0 vram_allocated_mib=10616.7
+2026-11-20 06:39:46.590;INFO;open_enricher.stages.vlm_core.segments;VLM scene 3/5 00:10:00-00:15:00
+2026-11-20 06:41:29.732;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3081 tokens
+2026-11-20 06:41:48.349;INFO;open_enricher.timings;TIMING vlm.vlm_generate=121.758s vram_reserved_mib=10818.0 vram_allocated_mib=10720.0
+2026-11-20 06:41:48.349;INFO;open_enricher.stages.vlm_core.segments;VLM scene 4/5 00:15:00-00:20:00
+2026-11-20 06:43:06.306;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3081 tokens
+2026-11-20 06:43:26.453;INFO;open_enricher.timings;TIMING vlm.vlm_generate=98.104s vram_reserved_mib=10818.0 vram_allocated_mib=10720.0
+2026-11-20 06:43:26.453;INFO;open_enricher.stages.vlm_core.segments;VLM scene 5/5 00:20:00-00:22:06
+2026-11-20 06:44:07.242;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3195 tokens
+2026-11-20 06:44:29.755;INFO;open_enricher.timings;TIMING vlm.vlm_generate=63.301s vram_reserved_mib=10838.0 vram_allocated_mib=10745.0
+2026-11-20 06:44:29.755;INFO;open_enricher.stages.vlm_core.segments;Unloading VLM and freeing VRAM...
+2026-11-20 06:44:31.943;INFO;open_enricher.stages.vlm;VLM stage completed. Saved to How_I_Met_Your_Mother.S01E02.mkv_vlm.json (json_valid=True)
+2026-11-20 06:44:31.943;INFO;open_enricher.runner;Running stage 'llm' on How_I_Met_Your_Mother.S01E02.mkv
+2026-11-20 06:44:31.943;INFO;open_enricher.stages.llm;Starting RecSys LLM profiling for How_I_Met_Your_Mother.S01E02.mkv
+2026-11-20 06:44:32.458;INFO;open_enricher.stages.llm;Loading textual LLM: Qwen/Qwen3-8B in 4-bit...
+2026-11-20 06:53:01.564;INFO;open_enricher.timings;TIMING llm.llm_load=509.105s vram_reserved_mib=9924.0 vram_allocated_mib=9882.0
+2026-11-20 06:53:01.564;INFO;open_enricher.stages.llm;Generating structured JSON profile (Attempt 1/2)...
+2026-11-20 06:53:25.452;INFO;open_enricher.timings;TIMING llm.llm_generate=23.887s vram_reserved_mib=10868.0 vram_allocated_mib=10720.2
+2026-11-20 06:53:25.452;INFO;open_enricher.stages.llm;Pydantic schema validation succeeded!
+2026-11-20 06:53:25.452;INFO;open_enricher.stages.llm;Unloading LLM and freeing VRAM...
+2026-11-20 06:53:26.319;INFO;open_enricher.stages.llm;Saving structured profile to /SLURM_shared/st_mdp26/open-enricher/dataset/outputs/llms_results/How_I_Met_Your_Mother.S01E02.mkv_llm.json
+2026-11-20 06:53:45.779;INFO;open_enricher.experiments.loop;Pipeline for video Silicon_Valley.S06E01.mkv
+2026-11-20 06:53:46.590;INFO;open_enricher.runner;Running stage 'timeline' on Silicon_Valley.S06E01.mkv
+2026-11-20 06:53:48.230;INFO;open_enricher.runner;Skipping audio for Silicon_Valley.S06E01.mkv (cached)
+2026-11-20 06:53:48.230;INFO;open_enricher.runner;Running stage 'dialogue' on Silicon_Valley.S06E01.mkv
+2026-11-20 06:53:48.419;INFO;open_enricher.stages.dialogue;Dialogue stage for Silicon_Valley.S06E01.mkv: 656 lines, speakers=['SPEAKER_00', 'SPEAKER_01', 'SPEAKER_02', 'SPEAKER_03', 'SPEAKER_04', 'SPEAKER_05', 'SPEAKER_06', 'SPEAKER_07', 'SPEAKER_08', 'SPEAKER_09', 'SPEAKER_10', 'SPEAKER_11', 'SPEAKER_12', 'SPEAKER_13', 'SPEAKER_14', 'SPEAKER_15', 'UNKNOWN']
+2026-11-20 06:53:48.922;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (plot_load)...
+2026-11-20 06:53:55.685;INFO;open_enricher.timings;TIMING dialogue.plot_load=6.762s vram_reserved_mib=6232.0 vram_allocated_mib=6182.3
+2026-11-20 06:53:55.722;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=16328 input_budget=40440 lines=656), no sampling
+2026-11-20 06:54:22.562;INFO;open_enricher.timings;TIMING dialogue.plot_generate=26.839s vram_reserved_mib=10456.0 vram_allocated_mib=10199.3
+2026-11-20 06:54:22.562;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-11-20 06:54:22.857;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (scene_load)...
+2026-11-20 06:54:29.148;INFO;open_enricher.timings;TIMING dialogue.scene_load=6.289s vram_reserved_mib=10002.0 vram_allocated_mib=9908.5
+2026-11-20 06:54:29.148;INFO;open_enricher.stages.dialogue;Scene dialogue 1/7 00:00:00-00:05:00 (90 lines)
+2026-11-20 06:54:29.155;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2698 input_budget=40580 lines=90), no sampling
+2026-11-20 06:54:42.592;INFO;open_enricher.timings;TIMING dialogue.scene_generate=13.436s vram_reserved_mib=10606.0 vram_allocated_mib=10543.6
+2026-11-20 06:54:42.592;INFO;open_enricher.stages.dialogue;Scene dialogue 2/7 00:05:00-00:10:00 (106 lines)
+2026-11-20 06:54:42.599;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2995 input_budget=40580 lines=106), no sampling
+2026-11-20 06:54:57.342;INFO;open_enricher.timings;TIMING dialogue.scene_generate=14.743s vram_reserved_mib=10666.0 vram_allocated_mib=10611.1
+2026-11-20 06:54:57.343;INFO;open_enricher.stages.dialogue;Scene dialogue 3/7 00:10:00-00:15:00 (121 lines)
+2026-11-20 06:54:57.351;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3537 input_budget=40580 lines=121), no sampling
+2026-11-20 06:55:10.631;INFO;open_enricher.timings;TIMING dialogue.scene_generate=13.279s vram_reserved_mib=10806.0 vram_allocated_mib=10734.2
+2026-11-20 06:55:10.631;INFO;open_enricher.stages.dialogue;Scene dialogue 4/7 00:15:00-00:20:00 (85 lines)
+2026-11-20 06:55:10.637;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2582 input_budget=40580 lines=85), no sampling
+2026-11-20 06:55:26.659;INFO;open_enricher.timings;TIMING dialogue.scene_generate=16.021s vram_reserved_mib=10806.0 vram_allocated_mib=10517.3
+2026-11-20 06:55:26.659;INFO;open_enricher.stages.dialogue;Scene dialogue 5/7 00:20:00-00:25:00 (102 lines)
+2026-11-20 06:55:26.667;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3068 input_budget=40580 lines=102), no sampling
+2026-11-20 06:55:43.109;INFO;open_enricher.timings;TIMING dialogue.scene_generate=16.441s vram_reserved_mib=10806.0 vram_allocated_mib=10627.7
+2026-11-20 06:55:43.109;INFO;open_enricher.stages.dialogue;Scene dialogue 6/7 00:25:00-00:30:00 (115 lines)
+2026-11-20 06:55:43.116;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3225 input_budget=40580 lines=115), no sampling
+2026-11-20 06:55:59.714;INFO;open_enricher.timings;TIMING dialogue.scene_generate=16.597s vram_reserved_mib=10806.0 vram_allocated_mib=10663.3
+2026-11-20 06:55:59.714;INFO;open_enricher.stages.dialogue;Scene dialogue 7/7 00:30:00-00:32:52 (37 lines)
+2026-11-20 06:55:59.718;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=1363 input_budget=40580 lines=37), no sampling
+2026-11-20 06:56:16.185;INFO;open_enricher.timings;TIMING dialogue.scene_generate=16.466s vram_reserved_mib=10806.0 vram_allocated_mib=10240.5
+2026-11-20 06:56:16.185;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-11-20 06:56:17.600;INFO;open_enricher.stages.dialogue;Saved dialogue stage to Silicon_Valley.S06E01.mkv_dialogue.json (7 scenes)
+2026-11-20 06:56:17.600;INFO;open_enricher.runner;Running stage 'character_graph' on Silicon_Valley.S06E01.mkv
+2026-11-20 06:56:49.706;INFO;open_enricher.runner;Running stage 'vlm' on Silicon_Valley.S06E01.mkv
+2026-11-20 06:56:49.931;INFO;open_enricher.stages.vlm;Starting VLM stage for Silicon_Valley.S06E01.mkv (10-character-graph)
+2026-11-20 06:56:50.157;INFO;open_enricher.stages.vlm_core.segments;VLM over 7 scenes (experiment=10-character-graph)
+2026-11-20 06:56:50.157;INFO;open_enricher.stages.vlm_core.segments;Loading VLM: Qwen/Qwen3-VL-8B-Instruct (4-bit=True)...
+2026-11-20 07:12:39.869;INFO;open_enricher.timings;TIMING vlm.vlm_load=949.712s vram_reserved_mib=9904.0 vram_allocated_mib=9847.1
+2026-11-20 07:12:39.869;INFO;open_enricher.stages.vlm_core.segments;VLM scene 1/7 00:00:00-00:05:00
+2026-11-20 07:14:49.444;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 2018 tokens
+2026-11-20 07:15:14.795;INFO;open_enricher.timings;TIMING vlm.vlm_generate=154.925s vram_reserved_mib=10578.0 vram_allocated_mib=10486.9
+2026-11-20 07:15:14.795;INFO;open_enricher.stages.vlm_core.segments;VLM scene 2/7 00:05:00-00:10:00
+2026-11-20 07:16:45.428;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 2568 tokens
+2026-11-20 07:17:05.506;INFO;open_enricher.timings;TIMING vlm.vlm_generate=110.711s vram_reserved_mib=10718.0 vram_allocated_mib=10607.5
+2026-11-20 07:17:05.506;INFO;open_enricher.stages.vlm_core.segments;VLM scene 3/7 00:10:00-00:15:00
+2026-11-20 07:18:33.653;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3022 tokens
+2026-11-20 07:18:52.048;INFO;open_enricher.timings;TIMING vlm.vlm_generate=106.541s vram_reserved_mib=10818.0 vram_allocated_mib=10707.1
+2026-11-20 07:18:52.048;INFO;open_enricher.stages.vlm_core.segments;VLM scene 4/7 00:15:00-00:20:00
+2026-11-20 07:20:01.617;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3046 tokens
+2026-11-20 07:20:19.451;INFO;open_enricher.timings;TIMING vlm.vlm_generate=87.403s vram_reserved_mib=10818.0 vram_allocated_mib=10712.3
+2026-11-20 07:20:19.451;INFO;open_enricher.stages.vlm_core.segments;VLM scene 5/7 00:20:00-00:25:00
+2026-11-20 07:21:38.976;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3051 tokens
+2026-11-20 07:21:52.362;INFO;open_enricher.timings;TIMING vlm.vlm_generate=92.910s vram_reserved_mib=10818.0 vram_allocated_mib=10713.4
+2026-11-20 07:21:52.362;INFO;open_enricher.stages.vlm_core.segments;VLM scene 6/7 00:25:00-00:30:00
+2026-11-20 07:23:14.827;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3025 tokens
+2026-11-20 07:23:31.274;INFO;open_enricher.timings;TIMING vlm.vlm_generate=98.911s vram_reserved_mib=10818.0 vram_allocated_mib=10707.7
+2026-11-20 07:23:31.274;INFO;open_enricher.stages.vlm_core.segments;VLM scene 7/7 00:30:00-00:32:52
+2026-11-20 07:24:14.322;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3023 tokens
+2026-11-20 07:24:30.985;INFO;open_enricher.timings;TIMING vlm.vlm_generate=59.711s vram_reserved_mib=10818.0 vram_allocated_mib=10707.3
+2026-11-20 07:24:30.985;INFO;open_enricher.stages.vlm_core.segments;Unloading VLM and freeing VRAM...
+2026-11-20 07:24:34.137;INFO;open_enricher.stages.vlm;VLM stage completed. Saved to Silicon_Valley.S06E01.mkv_vlm.json (json_valid=True)
+2026-11-20 07:24:34.137;INFO;open_enricher.runner;Running stage 'llm' on Silicon_Valley.S06E01.mkv
+2026-11-20 07:24:34.137;INFO;open_enricher.stages.llm;Starting RecSys LLM profiling for Silicon_Valley.S06E01.mkv
+2026-11-20 07:24:35.281;INFO;open_enricher.stages.llm;Loading textual LLM: Qwen/Qwen3-8B in 4-bit...
+2026-11-20 07:44:38.540;INFO;open_enricher.timings;TIMING llm.llm_load=1203.259s vram_reserved_mib=9924.0 vram_allocated_mib=9882.0
+2026-11-20 07:44:38.540;INFO;open_enricher.stages.llm;Generating structured JSON profile (Attempt 1/2)...
+2026-11-20 07:45:03.346;INFO;open_enricher.timings;TIMING llm.llm_generate=24.806s vram_reserved_mib=11068.0 vram_allocated_mib=10873.0
+2026-11-20 07:45:03.347;INFO;open_enricher.stages.llm;Pydantic schema validation succeeded!
+2026-11-20 07:45:03.347;INFO;open_enricher.stages.llm;Unloading LLM and freeing VRAM...
+2026-11-20 07:45:04.025;INFO;open_enricher.stages.llm;Saving structured profile to /SLURM_shared/st_mdp26/open-enricher/dataset/outputs/llms_results/Silicon_Valley.S06E01.mkv_llm.json
+2026-11-20 07:45:47.508;INFO;open_enricher.experiments.loop;Pipeline for video The_Kingdom.S01E02.mkv
+2026-11-20 07:45:48.693;INFO;open_enricher.runner;Running stage 'timeline' on The_Kingdom.S01E02.mkv
+2026-11-20 07:45:53.099;INFO;open_enricher.runner;Skipping audio for The_Kingdom.S01E02.mkv (cached)
+2026-11-20 07:45:53.099;INFO;open_enricher.runner;Running stage 'dialogue' on The_Kingdom.S01E02.mkv
+2026-11-20 07:45:53.330;INFO;open_enricher.stages.dialogue;Dialogue stage for The_Kingdom.S01E02.mkv: 564 lines, speakers=['SPEAKER_00', 'SPEAKER_01', 'SPEAKER_02', 'SPEAKER_03', 'SPEAKER_04', 'SPEAKER_05', 'SPEAKER_06', 'SPEAKER_07', 'SPEAKER_08', 'SPEAKER_09', 'SPEAKER_10', 'SPEAKER_11', 'SPEAKER_12', 'SPEAKER_13', 'SPEAKER_14', 'SPEAKER_15', 'SPEAKER_16', 'SPEAKER_17', 'UNKNOWN']
+2026-11-20 07:45:56.209;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (plot_load)...
+2026-11-20 07:46:06.649;INFO;open_enricher.timings;TIMING dialogue.plot_load=10.439s vram_reserved_mib=6232.0 vram_allocated_mib=6182.3
+2026-11-20 07:46:06.745;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=13952 input_budget=40440 lines=564), no sampling
+2026-11-20 07:46:36.858;INFO;open_enricher.timings;TIMING dialogue.plot_generate=30.113s vram_reserved_mib=9856.0 vram_allocated_mib=9604.1
+2026-11-20 07:46:36.858;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-11-20 07:46:37.130;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (scene_load)...
+2026-11-20 07:46:44.860;INFO;open_enricher.timings;TIMING dialogue.scene_load=7.729s vram_reserved_mib=10002.0 vram_allocated_mib=9908.5
+2026-11-20 07:46:44.860;INFO;open_enricher.stages.dialogue;Scene dialogue 1/7 00:00:00-00:05:00 (71 lines)
+2026-11-20 07:46:44.867;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2251 input_budget=40580 lines=71), no sampling
+2026-11-20 07:47:00.638;INFO;open_enricher.timings;TIMING dialogue.scene_generate=15.771s vram_reserved_mib=10506.0 vram_allocated_mib=10442.1
+2026-11-20 07:47:00.638;INFO;open_enricher.stages.dialogue;Scene dialogue 2/7 00:05:00-00:10:00 (86 lines)
+2026-11-20 07:47:00.645;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2713 input_budget=40580 lines=86), no sampling
+2026-11-20 07:47:20.010;INFO;open_enricher.timings;TIMING dialogue.scene_generate=19.364s vram_reserved_mib=10606.0 vram_allocated_mib=10547.1
+2026-11-20 07:47:20.010;INFO;open_enricher.stages.dialogue;Scene dialogue 3/7 00:10:00-00:15:00 (90 lines)
+2026-11-20 07:47:20.016;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2697 input_budget=40580 lines=90), no sampling
+2026-11-20 07:47:35.297;INFO;open_enricher.timings;TIMING dialogue.scene_generate=15.281s vram_reserved_mib=10606.0 vram_allocated_mib=10543.4
+2026-11-20 07:47:35.298;INFO;open_enricher.stages.dialogue;Scene dialogue 4/7 00:15:00-00:20:00 (78 lines)
+2026-11-20 07:47:35.304;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2460 input_budget=40580 lines=78), no sampling
+2026-11-20 07:47:55.731;INFO;open_enricher.timings;TIMING dialogue.scene_generate=20.427s vram_reserved_mib=10606.0 vram_allocated_mib=10489.6
+2026-11-20 07:47:55.731;INFO;open_enricher.stages.dialogue;Scene dialogue 5/7 00:20:00-00:25:00 (90 lines)
+2026-11-20 07:47:55.738;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2676 input_budget=40580 lines=90), no sampling
+2026-11-20 07:48:14.594;INFO;open_enricher.timings;TIMING dialogue.scene_generate=18.856s vram_reserved_mib=10606.0 vram_allocated_mib=10538.7
+2026-11-20 07:48:14.594;INFO;open_enricher.stages.dialogue;Scene dialogue 6/7 00:25:00-00:30:00 (118 lines)
+2026-11-20 07:48:14.602;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3368 input_budget=40580 lines=118), no sampling
+2026-11-20 07:48:32.412;INFO;open_enricher.timings;TIMING dialogue.scene_generate=17.809s vram_reserved_mib=10766.0 vram_allocated_mib=10695.8
+2026-11-20 07:48:32.412;INFO;open_enricher.stages.dialogue;Scene dialogue 7/7 00:30:00-00:34:31 (31 lines)
+2026-11-20 07:48:32.416;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=1361 input_budget=40580 lines=31), no sampling
+2026-11-20 07:48:47.605;INFO;open_enricher.timings;TIMING dialogue.scene_generate=15.188s vram_reserved_mib=10766.0 vram_allocated_mib=10240.0
+2026-11-20 07:48:47.605;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-11-20 07:48:48.582;INFO;open_enricher.stages.dialogue;Saved dialogue stage to The_Kingdom.S01E02.mkv_dialogue.json (7 scenes)
+2026-11-20 07:48:48.582;INFO;open_enricher.runner;Running stage 'character_graph' on The_Kingdom.S01E02.mkv
+2026-11-20 07:49:49.774;INFO;open_enricher.runner;Running stage 'vlm' on The_Kingdom.S01E02.mkv
+2026-11-20 07:49:50.131;INFO;open_enricher.stages.vlm;Starting VLM stage for The_Kingdom.S01E02.mkv (10-character-graph)
+2026-11-20 07:49:50.356;INFO;open_enricher.stages.vlm_core.segments;VLM over 7 scenes (experiment=10-character-graph)
+2026-11-20 07:49:50.356;INFO;open_enricher.stages.vlm_core.segments;Loading VLM: Qwen/Qwen3-VL-8B-Instruct (4-bit=True)...
+2026-11-20 08:00:54.933;INFO;open_enricher.timings;TIMING vlm.vlm_load=664.576s vram_reserved_mib=9904.0 vram_allocated_mib=9847.1
+2026-11-20 08:00:54.933;INFO;open_enricher.stages.vlm_core.segments;VLM scene 1/7 00:00:00-00:05:00
+2026-11-20 08:01:57.556;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 2057 tokens
+2026-11-20 08:02:13.195;INFO;open_enricher.timings;TIMING vlm.vlm_generate=78.262s vram_reserved_mib=10598.0 vram_allocated_mib=10495.4
+2026-11-20 08:02:13.195;INFO;open_enricher.stages.vlm_core.segments;VLM scene 2/7 00:05:00-00:10:00
+2026-11-20 08:03:51.522;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 2602 tokens
+2026-11-20 08:04:15.266;INFO;open_enricher.timings;TIMING vlm.vlm_generate=122.070s vram_reserved_mib=10718.0 vram_allocated_mib=10614.9
+2026-11-20 08:04:15.266;INFO;open_enricher.stages.vlm_core.segments;VLM scene 3/7 00:10:00-00:15:00
+2026-11-20 08:05:15.702;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3159 tokens
+2026-11-20 08:05:34.948;INFO;open_enricher.timings;TIMING vlm.vlm_generate=79.681s vram_reserved_mib=10838.0 vram_allocated_mib=10737.1
+2026-11-20 08:05:34.948;INFO;open_enricher.stages.vlm_core.segments;VLM scene 4/7 00:15:00-00:20:00
+2026-11-20 08:06:36.165;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3290 tokens
+2026-11-20 08:06:59.399;INFO;open_enricher.timings;TIMING vlm.vlm_generate=84.451s vram_reserved_mib=10878.0 vram_allocated_mib=10765.8
+2026-11-20 08:06:59.399;INFO;open_enricher.stages.vlm_core.segments;VLM scene 5/7 00:20:00-00:25:00
+2026-11-20 08:07:37.744;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3248 tokens
+2026-11-20 08:08:05.114;INFO;open_enricher.timings;TIMING vlm.vlm_generate=65.714s vram_reserved_mib=10858.0 vram_allocated_mib=10756.6
+2026-11-20 08:08:05.114;INFO;open_enricher.stages.vlm_core.segments;VLM scene 6/7 00:25:00-00:30:00
+2026-11-20 08:08:47.930;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3380 tokens
+2026-11-20 08:09:09.497;INFO;open_enricher.timings;TIMING vlm.vlm_generate=64.383s vram_reserved_mib=10898.0 vram_allocated_mib=10785.6
+2026-11-20 08:09:09.497;INFO;open_enricher.stages.vlm_core.segments;VLM scene 7/7 00:30:00-00:34:31
+2026-11-20 08:09:38.164;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3306 tokens
+2026-11-20 08:10:05.368;INFO;open_enricher.timings;TIMING vlm.vlm_generate=55.870s vram_reserved_mib=10878.0 vram_allocated_mib=10769.3
+2026-11-20 08:10:05.368;INFO;open_enricher.stages.vlm_core.segments;Unloading VLM and freeing VRAM...
+2026-11-20 08:10:07.560;INFO;open_enricher.stages.vlm;VLM stage completed. Saved to The_Kingdom.S01E02.mkv_vlm.json (json_valid=True)
+2026-11-20 08:10:07.561;INFO;open_enricher.runner;Running stage 'llm' on The_Kingdom.S01E02.mkv
+2026-11-20 08:10:07.561;INFO;open_enricher.stages.llm;Starting RecSys LLM profiling for The_Kingdom.S01E02.mkv
+2026-11-20 08:10:09.877;INFO;open_enricher.stages.llm;Loading textual LLM: Qwen/Qwen3-8B in 4-bit...
+2026-11-20 08:23:02.413;INFO;open_enricher.timings;TIMING llm.llm_load=772.536s vram_reserved_mib=9924.0 vram_allocated_mib=9882.0
+2026-11-20 08:23:02.413;INFO;open_enricher.stages.llm;Generating structured JSON profile (Attempt 1/2)...
+2026-11-20 08:23:26.649;INFO;open_enricher.timings;TIMING llm.llm_generate=24.235s vram_reserved_mib=11268.0 vram_allocated_mib=11064.4
+2026-11-20 08:23:26.649;INFO;open_enricher.stages.llm;Pydantic schema validation succeeded!
+2026-11-20 08:23:26.649;INFO;open_enricher.stages.llm;Unloading LLM and freeing VRAM...
+2026-11-20 08:23:27.317;INFO;open_enricher.stages.llm;Saving structured profile to /SLURM_shared/st_mdp26/open-enricher/dataset/outputs/llms_results/The_Kingdom.S01E02.mkv_llm.json
+2026-11-20 08:23:48.112;INFO;open_enricher.experiments.loop;Evaluating experiment 10-character-graph with provider=cursor synopsis=yes
+2026-11-20 08:23:51.742;INFO;open_enricher.experiments.loop;======== Experiment 11-visual-memory ========
+2026-11-20 08:23:53.453;INFO;open_enricher.experiments.loop;Pipeline for video How_I_Met_Your_Mother.S01E02.mkv
+2026-11-20 08:23:54.145;INFO;open_enricher.runner;Running stage 'timeline' on How_I_Met_Your_Mother.S01E02.mkv
+2026-11-20 08:23:59.120;INFO;open_enricher.runner;Skipping audio for How_I_Met_Your_Mother.S01E02.mkv (cached)
+2026-11-20 08:23:59.120;INFO;open_enricher.runner;Running stage 'dialogue' on How_I_Met_Your_Mother.S01E02.mkv
+2026-11-20 08:23:59.378;INFO;open_enricher.stages.dialogue;Dialogue stage for How_I_Met_Your_Mother.S01E02.mkv: 503 lines, speakers=['SPEAKER_00', 'SPEAKER_01', 'SPEAKER_02', 'SPEAKER_03', 'SPEAKER_04', 'SPEAKER_05', 'UNKNOWN']
+2026-11-20 08:24:01.740;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (plot_load)...
+2026-11-20 08:24:08.553;INFO;open_enricher.timings;TIMING dialogue.plot_load=6.812s vram_reserved_mib=6232.0 vram_allocated_mib=6182.3
+2026-11-20 08:24:08.579;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=12087 input_budget=40440 lines=503), no sampling
+2026-11-20 08:24:32.990;INFO;open_enricher.timings;TIMING dialogue.plot_generate=24.410s vram_reserved_mib=9356.0 vram_allocated_mib=9136.9
+2026-11-20 08:24:32.990;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-11-20 08:24:33.250;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (scene_load)...
+2026-11-20 08:24:42.330;INFO;open_enricher.timings;TIMING dialogue.scene_load=9.079s vram_reserved_mib=10002.0 vram_allocated_mib=9908.5
+2026-11-20 08:24:42.330;INFO;open_enricher.stages.dialogue;Scene dialogue 1/5 00:00:00-00:05:00 (127 lines)
+2026-11-20 08:24:42.339;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3492 input_budget=40580 lines=127), no sampling
+2026-11-20 08:24:59.587;INFO;open_enricher.timings;TIMING dialogue.scene_generate=17.248s vram_reserved_mib=10786.0 vram_allocated_mib=10723.9
+2026-11-20 08:24:59.588;INFO;open_enricher.stages.dialogue;Scene dialogue 2/5 00:05:00-00:10:00 (147 lines)
+2026-11-20 08:24:59.597;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3932 input_budget=40580 lines=147), no sampling
+2026-11-20 08:25:15.191;INFO;open_enricher.timings;TIMING dialogue.scene_generate=15.594s vram_reserved_mib=10886.0 vram_allocated_mib=10823.9
+2026-11-20 08:25:15.191;INFO;open_enricher.stages.dialogue;Scene dialogue 3/5 00:10:00-00:15:00 (111 lines)
+2026-11-20 08:25:15.198;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3077 input_budget=40580 lines=111), no sampling
+2026-11-20 08:25:31.164;INFO;open_enricher.timings;TIMING dialogue.scene_generate=15.965s vram_reserved_mib=10886.0 vram_allocated_mib=10629.7
+2026-11-20 08:25:31.164;INFO;open_enricher.stages.dialogue;Scene dialogue 4/5 00:15:00-00:20:00 (80 lines)
+2026-11-20 08:25:31.170;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2446 input_budget=40580 lines=80), no sampling
+2026-11-20 08:25:47.812;INFO;open_enricher.timings;TIMING dialogue.scene_generate=16.641s vram_reserved_mib=10886.0 vram_allocated_mib=10486.4
+2026-11-20 08:25:47.812;INFO;open_enricher.stages.dialogue;Scene dialogue 5/5 00:20:00-00:22:06 (38 lines)
+2026-11-20 08:25:47.816;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=1374 input_budget=40580 lines=38), no sampling
+2026-11-20 08:26:07.166;INFO;open_enricher.timings;TIMING dialogue.scene_generate=19.350s vram_reserved_mib=10886.0 vram_allocated_mib=10243.0
+2026-11-20 08:26:07.166;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-11-20 08:26:08.471;INFO;open_enricher.stages.dialogue;Saved dialogue stage to How_I_Met_Your_Mother.S01E02.mkv_dialogue.json (5 scenes)
+2026-11-20 08:26:08.471;INFO;open_enricher.runner;Running stage 'visual_memory' on How_I_Met_Your_Mother.S01E02.mkv
+2026-11-20 08:34:11.983;INFO;open_enricher.runner;Running stage 'vlm' on How_I_Met_Your_Mother.S01E02.mkv
+2026-11-20 08:37:04.807;INFO;open_enricher.stages.vlm;Starting VLM stage for How_I_Met_Your_Mother.S01E02.mkv (11-visual-memory)
+2026-11-20 08:37:05.075;INFO;open_enricher.stages.vlm_core.segments;VLM over 9 scenes (experiment=11-visual-memory)
+2026-11-20 08:37:05.075;INFO;open_enricher.stages.vlm_core.segments;Loading VLM: Qwen/Qwen3-VL-8B-Instruct (4-bit=True)...
+2026-11-20 08:51:55.930;INFO;open_enricher.timings;TIMING vlm.vlm_load=890.855s vram_reserved_mib=9904.0 vram_allocated_mib=9847.1
+2026-11-20 08:51:55.930;INFO;open_enricher.stages.vlm_core.segments;VLM scene 1/9 00:00:00-00:02:30
+2026-11-20 08:53:59.886;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 1, using the clip
+2026-11-20 08:54:51.092;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 2289 tokens
+2026-11-20 08:55:07.925;INFO;open_enricher.timings;TIMING vlm.vlm_generate=191.640s vram_reserved_mib=13788.0 vram_allocated_mib=13704.7
+2026-11-20 08:55:07.926;INFO;open_enricher.stages.vlm_core.segments;VLM scene 2/9 00:02:30-00:05:00
+2026-11-20 08:55:12.926;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 2, using the clip
+2026-11-20 08:55:45.659;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 2727 tokens
+2026-11-20 08:56:00.520;INFO;open_enricher.timings;TIMING vlm.vlm_generate=52.584s vram_reserved_mib=13468.0 vram_allocated_mib=13380.8
+2026-11-20 08:56:00.520;INFO;open_enricher.stages.vlm_core.segments;VLM scene 3/9 00:05:00-00:07:30
+2026-11-20 08:56:04.511;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 3, using the clip
+2026-11-20 08:56:38.405;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3281 tokens
+2026-11-20 08:56:51.978;INFO;open_enricher.timings;TIMING vlm.vlm_generate=51.450s vram_reserved_mib=13788.0 vram_allocated_mib=13704.8
+2026-11-20 08:56:51.979;INFO;open_enricher.stages.vlm_core.segments;VLM scene 4/9 00:07:30-00:10:00
+2026-11-20 08:56:55.468;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 4, using the clip
+2026-11-20 08:57:29.185;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3034 tokens
+2026-11-20 08:57:50.155;INFO;open_enricher.timings;TIMING vlm.vlm_generate=58.166s vram_reserved_mib=13468.0 vram_allocated_mib=13380.8
+2026-11-20 08:57:50.155;INFO;open_enricher.stages.vlm_core.segments;VLM scene 5/9 00:10:00-00:12:30
+2026-11-20 08:57:53.789;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 5, using the clip
+2026-11-20 08:58:29.680;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3110 tokens
+2026-11-20 08:58:51.396;INFO;open_enricher.timings;TIMING vlm.vlm_generate=61.233s vram_reserved_mib=13468.0 vram_allocated_mib=13380.8
+2026-11-20 08:58:51.397;INFO;open_enricher.stages.vlm_core.segments;VLM scene 6/9 00:12:30-00:15:00
+2026-11-20 08:58:56.530;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 6, using the clip
+2026-11-20 08:59:33.773;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3236 tokens
+2026-11-20 08:59:56.891;INFO;open_enricher.timings;TIMING vlm.vlm_generate=65.487s vram_reserved_mib=13468.0 vram_allocated_mib=13380.8
+2026-11-20 08:59:56.892;INFO;open_enricher.stages.vlm_core.segments;VLM scene 7/9 00:15:00-00:17:30
+2026-11-20 09:00:02.574;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 7, using the clip
+2026-11-20 09:00:36.029;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3316 tokens
+2026-11-20 09:00:50.661;INFO;open_enricher.timings;TIMING vlm.vlm_generate=53.759s vram_reserved_mib=13468.0 vram_allocated_mib=13380.8
+2026-11-20 09:00:50.661;INFO;open_enricher.stages.vlm_core.segments;VLM scene 8/9 00:17:30-00:20:00
+2026-11-20 09:00:56.137;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 8, using the clip
+2026-11-20 09:01:26.781;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3251 tokens
+2026-11-20 09:01:41.306;INFO;open_enricher.timings;TIMING vlm.vlm_generate=50.637s vram_reserved_mib=13468.0 vram_allocated_mib=13380.8
+2026-11-20 09:01:41.306;INFO;open_enricher.stages.vlm_core.segments;VLM scene 9/9 00:20:00-00:22:06
+2026-11-20 09:01:45.345;WARNING;open_enricher.stages.vlm_core.segments;Explicit frames failed for window 9, using the clip
+2026-11-20 09:02:10.715;INFO;open_enricher.stages.vlm_core.model;VLM prepared input sequence length: 3041 tokens
+2026-11-20 09:02:25.070;INFO;open_enricher.timings;TIMING vlm.vlm_generate=43.754s vram_reserved_mib=13150.0 vram_allocated_mib=13056.9
+2026-11-20 09:02:25.070;INFO;open_enricher.stages.vlm_core.segments;Unloading VLM and freeing VRAM...
+2026-11-20 09:02:27.269;INFO;open_enricher.stages.vlm;VLM stage completed. Saved to How_I_Met_Your_Mother.S01E02.mkv_vlm.json (json_valid=True)
+2026-11-20 09:02:27.269;INFO;open_enricher.runner;Running stage 'llm' on How_I_Met_Your_Mother.S01E02.mkv
+2026-11-20 09:02:27.269;INFO;open_enricher.stages.llm;Starting RecSys LLM profiling for How_I_Met_Your_Mother.S01E02.mkv
+2026-11-20 09:02:28.356;INFO;open_enricher.stages.llm;Loading textual LLM: Qwen/Qwen3-8B in 4-bit...
+2026-11-20 09:17:15.035;INFO;open_enricher.timings;TIMING llm.llm_load=886.678s vram_reserved_mib=9924.0 vram_allocated_mib=9882.0
+2026-11-20 09:17:15.036;INFO;open_enricher.stages.llm;Generating structured JSON profile (Attempt 1/2)...
+2026-11-20 09:17:37.104;INFO;open_enricher.timings;TIMING llm.llm_generate=22.068s vram_reserved_mib=11288.0 vram_allocated_mib=11082.9
+2026-11-20 09:17:37.104;INFO;open_enricher.stages.llm;Pydantic schema validation succeeded!
+2026-11-20 09:17:37.104;INFO;open_enricher.stages.llm;Unloading LLM and freeing VRAM...
+2026-11-20 09:17:38.063;INFO;open_enricher.stages.llm;Saving structured profile to /SLURM_shared/st_mdp26/open-enricher/dataset/outputs/llms_results/How_I_Met_Your_Mother.S01E02.mkv_llm.json
+2026-11-20 09:18:07.933;INFO;open_enricher.experiments.loop;Pipeline for video Silicon_Valley.S06E01.mkv
+2026-11-20 09:18:08.501;INFO;open_enricher.runner;Running stage 'timeline' on Silicon_Valley.S06E01.mkv
+2026-11-20 09:18:22.089;INFO;open_enricher.runner;Skipping audio for Silicon_Valley.S06E01.mkv (cached)
+2026-11-20 09:18:22.089;INFO;open_enricher.runner;Running stage 'dialogue' on Silicon_Valley.S06E01.mkv
+2026-11-20 09:18:22.330;INFO;open_enricher.stages.dialogue;Dialogue stage for Silicon_Valley.S06E01.mkv: 656 lines, speakers=['SPEAKER_00', 'SPEAKER_01', 'SPEAKER_02', 'SPEAKER_03', 'SPEAKER_04', 'SPEAKER_05', 'SPEAKER_06', 'SPEAKER_07', 'SPEAKER_08', 'SPEAKER_09', 'SPEAKER_10', 'SPEAKER_11', 'SPEAKER_12', 'SPEAKER_13', 'SPEAKER_14', 'SPEAKER_15', 'UNKNOWN']
+2026-11-20 09:18:23.510;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (plot_load)...
+2026-11-20 09:22:47.769;INFO;open_enricher.timings;TIMING dialogue.plot_load=264.259s vram_reserved_mib=6232.0 vram_allocated_mib=6182.3
+2026-11-20 09:22:47.810;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=16328 input_budget=40440 lines=656), no sampling
+2026-11-20 09:23:13.840;INFO;open_enricher.timings;TIMING dialogue.plot_generate=26.029s vram_reserved_mib=10456.0 vram_allocated_mib=10199.3
+2026-11-20 09:23:13.840;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-11-20 09:23:14.128;INFO;open_enricher.stages.dialogue;Loading Qwen/Qwen3-8B (scene_load)...
+2026-11-20 09:23:22.561;INFO;open_enricher.timings;TIMING dialogue.scene_load=8.432s vram_reserved_mib=10002.0 vram_allocated_mib=9908.5
+2026-11-20 09:23:22.561;INFO;open_enricher.stages.dialogue;Scene dialogue 1/7 00:00:00-00:05:00 (90 lines)
+2026-11-20 09:23:22.569;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2698 input_budget=40580 lines=90), no sampling
+2026-11-20 09:23:35.913;INFO;open_enricher.timings;TIMING dialogue.scene_generate=13.344s vram_reserved_mib=10606.0 vram_allocated_mib=10543.6
+2026-11-20 09:23:35.913;INFO;open_enricher.stages.dialogue;Scene dialogue 2/7 00:05:00-00:10:00 (106 lines)
+2026-11-20 09:23:35.921;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2995 input_budget=40580 lines=106), no sampling
+2026-11-20 09:23:51.247;INFO;open_enricher.timings;TIMING dialogue.scene_generate=15.326s vram_reserved_mib=10666.0 vram_allocated_mib=10611.1
+2026-11-20 09:23:51.247;INFO;open_enricher.stages.dialogue;Scene dialogue 3/7 00:10:00-00:15:00 (121 lines)
+2026-11-20 09:23:51.256;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3537 input_budget=40580 lines=121), no sampling
+2026-11-20 09:24:05.199;INFO;open_enricher.timings;TIMING dialogue.scene_generate=13.942s vram_reserved_mib=10806.0 vram_allocated_mib=10734.2
+2026-11-20 09:24:05.199;INFO;open_enricher.stages.dialogue;Scene dialogue 4/7 00:15:00-00:20:00 (85 lines)
+2026-11-20 09:24:05.207;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=2582 input_budget=40580 lines=85), no sampling
+2026-11-20 09:24:20.938;INFO;open_enricher.timings;TIMING dialogue.scene_generate=15.731s vram_reserved_mib=10806.0 vram_allocated_mib=10517.3
+2026-11-20 09:24:20.938;INFO;open_enricher.stages.dialogue;Scene dialogue 5/7 00:20:00-00:25:00 (102 lines)
+2026-11-20 09:24:20.946;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3068 input_budget=40580 lines=102), no sampling
+2026-11-20 09:24:36.617;INFO;open_enricher.timings;TIMING dialogue.scene_generate=15.671s vram_reserved_mib=10806.0 vram_allocated_mib=10627.7
+2026-11-20 09:24:36.617;INFO;open_enricher.stages.dialogue;Scene dialogue 6/7 00:25:00-00:30:00 (115 lines)
+2026-11-20 09:24:36.625;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=3225 input_budget=40580 lines=115), no sampling
+2026-11-20 09:24:52.542;INFO;open_enricher.timings;TIMING dialogue.scene_generate=15.917s vram_reserved_mib=10806.0 vram_allocated_mib=10663.3
+2026-11-20 09:24:52.542;INFO;open_enricher.stages.dialogue;Scene dialogue 7/7 00:30:00-00:32:52 (37 lines)
+2026-11-20 09:24:52.546;INFO;open_enricher.stages.vlm_core.enrichment;Whisper dialogue fits the model input (prompt_tokens=1363 input_budget=40580 lines=37), no sampling
+2026-11-20 09:25:08.323;INFO;open_enricher.timings;TIMING dialogue.scene_generate=15.777s vram_reserved_mib=10806.0 vram_allocated_mib=10240.5
+2026-11-20 09:25:08.323;INFO;open_enricher.stages.dialogue;Unloading Qwen/Qwen3-8B and freeing VRAM...
+2026-11-20 09:25:09.488;INFO;open_enricher.stages.dialogue;Saved dialogue stage to Silicon_Valley.S06E01.mkv_dialogue.json (7 scenes)
+2026-11-20 09:25:09.488;INFO;open_enricher.runner;Running stage 'visual_memory' on Silicon_Valley.S06E01.mkv
+2026-11-20 09:30:40.760;INFO;open_enricher.runner;Running stage 'vlm' on Silicon_Valley.S06E01.mkv
+2026-11-20 09:34:47.649;INFO;open_enricher.stages.vlm;Starting VLM stage for Silicon_Valley.S06E01.mkv (11-visual-memory)
+2026-11-20 09:34:48.129;INFO;open_enricher.stages.vlm_core.segments;VLM over 13 scenes (experiment=11-visual-memory)
+2026-11-20 09:34:48.129;INFO;open_enricher.stages.vlm_core.segments;Loading VLM: Qwen/Qwen3-VL-8B-Instruct (4-bit=True)...

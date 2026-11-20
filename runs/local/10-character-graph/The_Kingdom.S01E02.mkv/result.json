@@ -1,0 +1,529 @@
+{
+  "video": "The_Kingdom.S01E02.mkv",
+  "status": "degraded",
+  "stages": [
+    {
+      "stage": "timeline",
+      "status": "success",
+      "output_file": "The_Kingdom.S01E02.mkv_timeline.json"
+    },
+    {
+      "stage": "audio",
+      "status": "skipped_cache",
+      "output_file": "The_Kingdom.S01E02.mkv_audio.json"
+    },
+    {
+      "stage": "dialogue",
+      "status": "success",
+      "scenes": 7,
+      "plot_sampled": false,
+      "timings": {
+        "stage": "dialogue",
+        "started_at": "2026-11-20T06:45:53.206875+00:00",
+        "ended_at": "2026-11-20T06:48:48.582439+00:00",
+        "wall_seconds": 175.376,
+        "spans": [
+          {
+            "name": "plot_load",
+            "started_at": "2026-11-20T06:45:56.209512+00:00",
+            "ended_at": "2026-11-20T06:46:06.648853+00:00",
+            "seconds": 10.439,
+            "model_id": "Qwen/Qwen3-8B",
+            "vram_reserved_mib": 6232.0,
+            "vram_allocated_mib": 6182.3
+          },
+          {
+            "name": "plot_generate",
+            "started_at": "2026-11-20T06:46:06.745359+00:00",
+            "ended_at": "2026-11-20T06:46:36.858207+00:00",
+            "seconds": 30.113,
+            "model_id": "Qwen/Qwen3-8B",
+            "vram_reserved_mib": 9856.0,
+            "vram_allocated_mib": 9604.1
+          },
+          {
+            "name": "scene_load",
+            "started_at": "2026-11-20T06:46:37.131641+00:00",
+            "ended_at": "2026-11-20T06:46:44.860335+00:00",
+            "seconds": 7.729,
+            "model_id": "Qwen/Qwen3-8B",
+            "vram_reserved_mib": 10002.0,
+            "vram_allocated_mib": 9908.5
+          },
+          {
+            "name": "scene_generate",
+            "started_at": "2026-11-20T06:46:44.867269+00:00",
+            "ended_at": "2026-11-20T06:47:00.637978+00:00",
+            "seconds": 15.771,
+            "model_id": "Qwen/Qwen3-8B",
+            "window": 1,
+            "vram_reserved_mib": 10506.0,
+            "vram_allocated_mib": 10442.1
+          },
+          {
+            "name": "scene_generate",
+            "started_at": "2026-11-20T06:47:00.645422+00:00",
+            "ended_at": "2026-11-20T06:47:20.009738+00:00",
+            "seconds": 19.364,
+            "model_id": "Qwen/Qwen3-8B",
+            "window": 2,
+            "vram_reserved_mib": 10606.0,
+            "vram_allocated_mib": 10547.1
+          },
+          {
+            "name": "scene_generate",
+            "started_at": "2026-11-20T06:47:20.017007+00:00",
+            "ended_at": "2026-11-20T06:47:35.297611+00:00",
+            "seconds": 15.281,
+            "model_id": "Qwen/Qwen3-8B",
+            "window": 3,
+            "vram_reserved_mib": 10606.0,
+            "vram_allocated_mib": 10543.4
+          },
+          {
+            "name": "scene_generate",
+            "started_at": "2026-11-20T06:47:35.304145+00:00",
+            "ended_at": "2026-11-20T06:47:55.731476+00:00",
+            "seconds": 20.427,
+            "model_id": "Qwen/Qwen3-8B",
+            "window": 4,
+            "vram_reserved_mib": 10606.0,
+            "vram_allocated_mib": 10489.6
+          },
+          {
+            "name": "scene_generate",
+            "started_at": "2026-11-20T06:47:55.738508+00:00",
+            "ended_at": "2026-11-20T06:48:14.594357+00:00",
+            "seconds": 18.856,
+            "model_id": "Qwen/Qwen3-8B",
+            "window": 5,
+            "vram_reserved_mib": 10606.0,
+            "vram_allocated_mib": 10538.7
+          },
+          {
+            "name": "scene_generate",
+            "started_at": "2026-11-20T06:48:14.602964+00:00",
+            "ended_at": "2026-11-20T06:48:32.412057+00:00",
+            "seconds": 17.809,
+            "model_id": "Qwen/Qwen3-8B",
+            "window": 6,
+            "vram_reserved_mib": 10766.0,
+            "vram_allocated_mib": 10695.8
+          },
+          {
+            "name": "scene_generate",
+            "started_at": "2026-11-20T06:48:32.416426+00:00",
+            "ended_at": "2026-11-20T06:48:47.604647+00:00",
+            "seconds": 15.188,
+            "model_id": "Qwen/Qwen3-8B",
+            "window": 7,
+            "vram_reserved_mib": 10766.0,
+            "vram_allocated_mib": 10240.0
+          }
+        ]
+      },
+      "output_file": "The_Kingdom.S01E02.mkv_dialogue.json",
+      "timings_file": "The_Kingdom.S01E02.mkv_dialogue_timings.json"
+    },
+    {
+      "stage": "character_graph",
+      "status": "degraded",
+      "output_file": "The_Kingdom.S01E02.mkv_graph.json",
+      "reasons": [
+        "insightface import failed: No module named 'insightface'",
+        "no face tracks to score"
+      ]
+    },
+    {
+      "stage": "vlm",
+      "status": "success",
+      "json_valid": true,
+      "result": {
+        "experiment_id": "10-character-graph",
+        "scene_timeline": [
+          {
+            "start_time": "00:00:00",
+            "end_time": "00:05:00",
+            "dialogue_description": "Pastor Emilio Vazquez speaks in a deeply personal and emotional tone, revealing his involvement in the murder of Armando Badajoz. He describes being present during the crime, standing \"by his side\" as the killer acted. His words betray deep guilt and fear, as he admits to feeling the victim's blood on his body. When questioned about his relationship with Remigio Cardenas, Emilio confirms that the accused works at the church's home for children. He challenges the investigator's assumption that Remigio's criminal past connects him to the murder, asserting that many of his collaborators have similar histories. The investigator, SPEAKER_12, insists that Remigio has confessed to the crime. Emilio reacts with disbelief, questioning whether this is a mistake. The investigator clarifies that Remigio has formally pled guilty. Emilio remains defiant, refusing to be discreet or acknowledge any wrongdoing. The exchange ends with the investigator requesting discretion, but Emilio's refusal to comply underscores his internal conflict and the gravity of the situation.",
+            "description": "A man with gray hair sits in a dimly lit room, looking directly into the camera with an intense expression. As the scene progresses, he shifts slightly, lowering his gaze before raising it again, appearing troubled. The setting transitions to an office where he interacts with a woman seated across a desk; she holds documents while speaking. Behind her, shelves filled with legal volumes line the wall. In another shot, the man stands up abruptly, gesturing toward the woman as if responding to something urgent.",
+            "subjects_and_objects": [
+              "Emilio",
+              "SPEAKER_12",
+              "documents"
+            ],
+            "actions": [
+              "looking intently at the camera",
+              "lowering gaze",
+              "raising head",
+              "gesturing with hand",
+              "holding papers",
+              "sitting upright"
+            ],
+            "camera_and_shot": "Close-up shots transition to medium shots showing interactions between characters.",
+            "lighting_and_color": "Cool blue tones dominate the initial close-ups, shifting to warmer ambient lighting in the office scenes.",
+            "on_screen_text": []
+          },
+          {
+            "start_time": "00:05:00",
+            "end_time": "00:10:00",
+            "dialogue_description": "During this tense exchange, multiple characters discuss the murder of Armando Badajoz and its connection to Remigio Cardenas, a close associate of Pastor Emilio Vazquez. Speaker 03, likely a family member or ally of Emilio, reveals that Remigio was seen at the scene and appears to be the killer. Speaker 11, possibly another relative or confidant, expresses shock and concern, emphasizing the need for coordination in their responses to the media and authorities. Speaker 08, who seems to be a family member, insists on finding out why Remigio acted as he did, highlighting the emotional and reputational stakes for the church. Speaker 02, likely a trusted figure within the church, defends Remigio, suggesting he would never betray the church's finances, which he views as sacred. Despite this, Speaker 08 pushes for clarity, fearing the damage to the church's image. The repeated question—\"Pastor Emilio, does it bother you at all that it doesn't matter what happens?\"—suggests an internal struggle among those close to Emilio, hinting at the broader conflict between personal loyalty and institutional integrity. The conversation ends with uncertainty, underscoring the deepening crisis and the weight of moral ambiguity.",
+            "description": "The scene opens with a close-up of hands clasped together over a table, fingers interlaced tightly. A tattoo resembling a curved hook is visible on one wrist. The view shifts to a blurred background featuring tall buildings under daylight, overlaid with digital surveillance-style graphics displaying timestamps and camera identifiers. Text overlays appear sequentially, crediting 'NICO COTTON' as original music composer and 'DANIEL GIMELBERG' as director. The sequence continues with a wide-angle shot capturing a group of people gathered indoors, some holding microphones, others raising their hands in unison. The focus narrows to a man in a light-colored shirt leaning forward, seemingly engaged in a serious discussion with someone off-screen. Another individual, wearing a dark suit, stands beside him, listening intently. The environment suggests a formal meeting or press conference, indicated by the presence of microphones and attentive participants.",
+            "subjects_and_objects": [
+              "Diego Peretti",
+              "microphones",
+              "people"
+            ],
+            "actions": [
+              "hands clasped together",
+              "fingers interlaced",
+              "leaning forward",
+              "listening intently",
+              "raising hands"
+            ],
+            "camera_and_shot": "Close-up transitions to wide-angle, followed by medium shots focusing on individuals interacting.",
+            "lighting_and_color": "Warm indoor lighting contrasts with cool outdoor daylight in the background shots.",
+            "on_screen_text": [
+              "DIEGO PERETTI",
+              "MÚSICA ORIGINAL NICOLAS COTTON",
+              "DIRECTOR DE LA PELÍCULA DANIEL GIMELBERG",
+              "CAM 48",
+              "EL REINO",
+              "PRODUCTOR EJECUTIVO MARCELO PINeyRO"
+            ]
+          },
+          {
+            "start_time": "00:10:00",
+            "end_time": "00:15:00",
+            "dialogue_description": "In this tense exchange, Speaker 04, identified as Helena, confronts her daughters, Magdalena and Oscar, about their behavior. She reprimands them for their lack of obedience and reminds them of their role in supporting her. Magdalena, known for her creativity, and Oscar, who often challenges Helena’s authority, resist her commands. Helena insists they follow her instructions without question, emphasizing the need for unity and discipline. She warns them not to engage with external pressures, such as the DA or media, and stresses their responsibility to the church’s future. Magdalena, frustrated, questions why they must live under Helena’s control, implying they deserve more respect. Helena dismisses their complaints, redirecting their focus to the upcoming temple project, which she believes will prove their worth. Despite their resistance, both agree to comply, though their underlying tensions remain. The conversation ends with a fragile agreement, as Helena’s demands are accepted, but the dynamic between mother and daughters remains strained.",
+            "description": "Helena walks through a hallway with red indicator lights glowing above doors, moving toward a staircase bathed in natural light filtering through large windows. She ascends the stairs, pausing briefly to look down at the lower level before continuing upward. At the top, she enters a room where two men stand near a doorway. One turns to face her, his expression unreadable. She gestures toward the door behind them, indicating something beyond it. The second man steps aside, allowing her passage. Inside, she approaches a woman sitting at a wooden table, surrounded by various items including bottles and containers arranged neatly on shelves. The woman looks up, startled, as Helena leans against the counter, arms crossed, staring back with a stern expression.",
+            "subjects_and_objects": [
+              "Helena",
+              "two men",
+              "a woman"
+            ],
+            "actions": [
+              "walking",
+              "ascending stairs",
+              "pausing",
+              "gesturing",
+              "stepping aside",
+              "leaning against counter"
+            ],
+            "camera_and_shot": "Tracking shot follows Helena ascending stairs, cuts to static medium shot inside room, then close-up on interaction between Helena and the woman at the table.",
+            "lighting_and_color": "Natural daylight streams through windows, casting soft shadows. Interior spaces are dimmer, illuminated primarily by artificial sources, creating contrast between upper and lower levels.",
+            "on_screen_text": []
+          },
+          {
+            "start_time": "00:15:00",
+            "end_time": "00:20:00",
+            "dialogue_description": "SPEAKER_03, a close associate of Emilio Vazquez, confronts SPEAKER_07, another key figure in the church, about Remigio Cardenas's alleged involvement in the murder of Armando Badajoz. SPEAKER_03 presses SPEAKER_07 for information, suggesting that Remigio may have been manipulated or bribed. SPEAKER_07 responds with a metaphor from the parable of the sower, implying that Remigio, like the seeds, was planted in poor soil and failed to grow. SPEAKER_03, frustrated by the religious analogy, insists on direct action, urging SPEAKER_07 to question Remigio himself. SPEAKER_07 acknowledges the difficulty of reaching Remigio, noting he only speaks to his lawyer. The conversation shifts to SPEAKER_04 and SPEAKER_11, who discuss financial matters, hinting at a broader network of corruption tied to the church and political power. SPEAKER_11 expresses concern about potential legal consequences, while SPEAKER_04 reassures her, suggesting the situation is under control. The exchange reveals a complex web of alliances and betrayals, with both religious and political stakes at play. The dialogue ends with a sense of unresolved tension, underscoring the moral ambiguity and danger surrounding the central conflict.",
+            "description": "A man with long hair and a beard sits outdoors amidst greenery, looking concerned as he interacts with another man in a light blue shirt. The second man, appearing troubled, glances away and then back at the first man, his expression shifting between worry and contemplation. They sit side-by-side on grassy ground, surrounded by trees and foliage, with sunlight dappling through leaves. In the background, another person walks past carrying papers. The scene transitions to an interior setting where a woman in a patterned blouse walks purposefully through a modern office space, passing by desks and glass partitions. She stops at a filing cabinet labeled \"ARCHIVOS DEL DPTO. DE ASUNTOS LEGALES,\" retrieves documents, and exchanges a glance with another woman standing nearby. The second woman, dressed in a floral blouse, smiles faintly while gesturing toward the files.",
+            "subjects_and_objects": [
+              "man with long hair",
+              "man in light blue shirt",
+              "woman in patterned blouse",
+              "woman in floral blouse",
+              "filing cabinet"
+            ],
+            "actions": [
+              "sitting on grass",
+              "glancing away",
+              "looking concerned",
+              "walking through office",
+              "retrieving documents",
+              "smiling faintly"
+            ],
+            "camera_and_shot": "Medium close-ups alternating with wider environmental shots; tracking shot following the woman walking through the office",
+            "lighting_and_color": "Soft natural sunlight filters through trees in the outdoor scenes; bright, even artificial lighting illuminates the modern office interiors",
+            "on_screen_text": []
+          },
+          {
+            "start_time": "00:20:00",
+            "end_time": "00:25:00",
+            "dialogue_description": "SPEAKER_17, a figure closely tied to Pastor Emilio Vazquez, confronts Julio about his lack of cooperation. Julio, who has been unresponsive to calls, is pressed for his \"game plan,\" implying he has a strategy to navigate the unfolding crisis. Julio resists, refusing to engage, and when asked where his father holds private meetings, he hesitates, revealing he hasn’t spoken to his father in years. SPEAKER_03, Julio’s father, interjects, expressing concern about the riots and the murder of Armando Badajoz, suggesting his father may have been involved. SPEAKER_04, likely a member of the church, reassures SPEAKER_08, who is connected to the political sphere, that he is not responsible for the violence and that his actions are not bound by political obligations. The conversation shifts to faith, with SPEAKER_04 quoting scripture, emphasizing self-denial and sacrifice as part of following Christ. SPEAKER_08, grappling with his role, acknowledges the weight of his responsibilities, hinting at a deeper conflict between duty and personal conviction. The exchange ends with a sense of unresolved tension, underscoring the moral and spiritual stakes at play.",
+            "description": "Julio stands beside a car parked outside a gated area surrounded by dense greenery, engaging in a serious conversation with a man in a suit. The suited man gestures emphatically while speaking, his hand raised slightly as if making a point. Julio listens intently, turning his head slowly to meet the other man’s gaze. He then reaches into his pocket, pulling out a smartphone, and taps its screen with focused attention. The camera zooms in on his hands holding the phone, highlighting the device’s sleek design. The scene shifts abruptly to an aerial view of a cityscape dominated by towering skyscrapers, capturing the urban expanse below. The perspective changes again to a dimly lit bathroom mirror reflecting Julio’s weary face as he stares at his reflection. A woman with short dark hair, wearing a patterned blouse, appears in the background, seated at a vanity. She watches him with a concerned expression, her eyes fixed on him as he moves closer to the mirror. Julio turns his head toward her, his brow furrowed in thought, while she remains still, her gaze unwavering.",
+            "subjects_and_objects": [
+              "Julio",
+              "man in suit",
+              "woman with short dark hair",
+              "smartphone"
+            ],
+            "actions": [
+              "standing beside car",
+              "gesturing emphatically",
+              "listening intently",
+              "turning head",
+              "reaching into pocket",
+              "pulling out smartphone"
+            ],
+            "camera_and_shot": "Close-up on hands holding smartphone, aerial wide shot of cityscape, medium shot transitioning to over-the-shoulder mirror reflection, slow push-in on Julio’s face",
+            "lighting_and_color": "Dappled sunlight filtering through trees in outdoor scenes; cool, muted tones indoors with warm ambient lighting in the bathroom; high contrast between shadowy corners and brightly lit areas",
+            "on_screen_text": []
+          },
+          {
+            "start_time": "00:25:00",
+            "end_time": "00:30:00",
+            "dialogue_description": "During this tense exchange, SPEAKER_16 presents a detailed account of the chaos during the church event, claiming it was orchestrated to divert security and allow Remigio Cardenas to act freely. SPEAKER_16 insists the coordination was too elaborate for Cardenas to manage alone, suggesting a broader conspiracy. SPEAKER_12, initially skeptical, listens intently before asking for a slower explanation. When SPEAKER_16 recounts the sequence of events, SPEAKER_12 grows increasingly uneasy, acknowledging the complexity but expressing doubt about the full picture. SPEAKER_12 also notes that the accused, SPEAKER_09, has a history of violent behavior, adding to the suspicion around Cardenas' actions. SPEAKER_09, the public defender, denies involvement in the murder and asserts his right to represent Cardenas despite his past. The conversation ends with mutual uncertainty—SPEAKER_16 remains convinced of a larger plot, while SPEAKER_12 is left questioning the truth behind the chaos. The exchange highlights the growing tension between the church and external forces, as well as the personal stakes for those involved.",
+            "description": "A woman with shoulder-length brown hair, wearing a dark blazer over a red top, walks briskly down a hallway lined with wooden doors and framed photos. She pauses briefly near a doorway, glancing sideways as a man in a striped shirt passes her. The camera follows her movement as she enters a room filled with bookshelves and a large window showing a city skyline. She approaches a desk cluttered with papers and a computer monitor displaying a document. Another woman, dressed in a white blouse and skirt, stands nearby holding a tablet. The woman in the blazer leans forward, pointing at something on the tablet screen, while the other woman looks up, her expression thoughtful. The scene cuts to a close-up of the woman in the blazer as she turns to speak, her mouth moving as if addressing someone off-camera.",
+            "subjects_and_objects": [
+              "woman with shoulder-length brown hair",
+              "man in striped shirt",
+              "woman in white blouse and skirt",
+              "computer monitor",
+              "tablet"
+            ],
+            "actions": [
+              "walking briskly",
+              "pausing near doorway",
+              "glancing sideways",
+              "entering room",
+              "approaching desk",
+              "leaning forward"
+            ],
+            "camera_and_shot": "Tracking shot following the woman walking down the hallway, cut to medium shot at the desk, close-up on her face as she speaks",
+            "lighting_and_color": "Warm indoor lighting with soft shadows cast by overhead fixtures; neutral color palette dominated by wood tones and beige walls",
+            "on_screen_text": []
+          },
+          {
+            "start_time": "00:30:00",
+            "end_time": "00:34:31",
+            "dialogue_description": "During this intense exchange, Remigio Cardenas, accused of murdering Armando Badajoz, confesses to the crime during his interrogation. When confronted about his guilt, he claims he did not kill Badajoz but instead confessed to stabbing Pastor Emilio, revealing his deep involvement in the chaos surrounding the church. His admission shocks those present, as it directly implicates the pastor in the violence. Remigio’s insistence on his lawyer, Julio Clámez, highlights his desperation and the potential for legal maneuvering. Meanwhile, Speaker 08, likely Emilio, delivers a powerful monologue reflecting on faith and abandonment, drawing parallels between his current suffering and Jesus’ crucifixion. He expresses his belief that through faithfulness, he will rise again, symbolizing both personal and spiritual renewal. His declaration of loyalty to God, despite feeling forsaken, underscores his internal struggle and resolve. The exchange ends with multiple voices chanting \"Amen,\" signifying a shared recognition of the gravity of the moment and the hope for redemption.",
+            "description": "Remigio Cardenas sits slumped in a chair inside a stark, metallic interrogation room, flanked by two men in dark uniforms. One uniformed man stands rigidly with arms crossed, while another leans against the wall, observing. Remigio's head hangs low, shoulders hunched, conveying defeat. As the scene progresses, a woman in a light-colored blouse steps forward, her expression stern and focused, gesturing sharply with her right hand as if issuing instructions. Behind her, the two men shift their positions slightly, maintaining watchful stances. The camera pans upward to reveal a bald man standing tall, his face set in grim determination, looking directly ahead. The setting transitions to a vast, empty church interior bathed in natural light streaming through tall windows. A man in black clerical attire stands center stage, clutching a small booklet tightly. He raises his head, eyes closed momentarily, then opens them wide as if preparing to deliver a message. His fingers grip the edges of the booklet, knuckles whitened under the bright illumination.",
+            "subjects_and_objects": [
+              "Remigio Cardenas",
+              "two men in dark uniforms",
+              "woman in light-colored blouse",
+              "bald man",
+              "man in black clerical attire",
+              "booklet"
+            ],
+            "actions": [
+              "sitting slumped",
+              "hanging head low",
+              "hunching shoulders",
+              "stepping forward",
+              "gesturing sharply",
+              "raising head"
+            ],
+            "camera_and_shot": "Medium shot focusing on Remigio and the guards, pan upward to reveal the bald man, transition to wide establishing shot of the church interior, close-up on the man in clerical attire",
+            "lighting_and_color": "Harsh fluorescent lighting in the interrogation room casting sharp shadows; cold metallic tones dominate; bright, diffused natural light flooding the church with cool blue and gray hues; strong contrast between shadowed interrogation space and sunlit sanctuary",
+            "on_screen_text": []
+          }
+        ],
+        "segments_parsed": 7,
+        "segments_total": 7,
+        "vlm_memory_scenes": 2,
+        "visual_only": false,
+        "extract_visual": false,
+        "memory_compacted": false
+      },
+      "timings": {
+        "stage": "vlm",
+        "started_at": "2026-11-20T06:49:50.023643+00:00",
+        "ended_at": "2026-11-20T07:10:07.561027+00:00",
+        "wall_seconds": 1217.537,
+        "spans": [
+          {
+            "name": "vlm_load",
+            "started_at": "2026-11-20T06:49:50.356670+00:00",
+            "ended_at": "2026-11-20T07:00:54.933156+00:00",
+            "seconds": 664.576,
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 9904.0,
+            "vram_allocated_mib": 9847.1
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T07:00:54.933483+00:00",
+            "ended_at": "2026-11-20T07:02:13.195089+00:00",
+            "seconds": 78.262,
+            "window": 1,
+            "start": "00:00:00",
+            "end": "00:05:00",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 10598.0,
+            "vram_allocated_mib": 10495.4
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T07:02:13.195763+00:00",
+            "ended_at": "2026-11-20T07:04:15.265855+00:00",
+            "seconds": 122.07,
+            "window": 2,
+            "start": "00:05:00",
+            "end": "00:10:00",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 10718.0,
+            "vram_allocated_mib": 10614.9
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T07:04:15.266486+00:00",
+            "ended_at": "2026-11-20T07:05:34.947940+00:00",
+            "seconds": 79.681,
+            "window": 3,
+            "start": "00:10:00",
+            "end": "00:15:00",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 10838.0,
+            "vram_allocated_mib": 10737.1
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T07:05:34.948519+00:00",
+            "ended_at": "2026-11-20T07:06:59.399330+00:00",
+            "seconds": 84.451,
+            "window": 4,
+            "start": "00:15:00",
+            "end": "00:20:00",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 10878.0,
+            "vram_allocated_mib": 10765.8
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T07:06:59.399990+00:00",
+            "ended_at": "2026-11-20T07:08:05.114217+00:00",
+            "seconds": 65.714,
+            "window": 5,
+            "start": "00:20:00",
+            "end": "00:25:00",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 10858.0,
+            "vram_allocated_mib": 10756.6
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T07:08:05.114811+00:00",
+            "ended_at": "2026-11-20T07:09:09.497328+00:00",
+            "seconds": 64.383,
+            "window": 6,
+            "start": "00:25:00",
+            "end": "00:30:00",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 10898.0,
+            "vram_allocated_mib": 10785.6
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T07:09:09.497972+00:00",
+            "ended_at": "2026-11-20T07:10:05.368335+00:00",
+            "seconds": 55.87,
+            "window": 7,
+            "start": "00:30:00",
+            "end": "00:34:31",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 10878.0,
+            "vram_allocated_mib": 10769.3
+          }
+        ]
+      },
+      "output_file": "The_Kingdom.S01E02.mkv_vlm.json",
+      "raw_file": "The_Kingdom.S01E02.mkv_vlm_raw.txt",
+      "sidecar_file": "The_Kingdom.S01E02.mkv_vlm_sidecar.json",
+      "timings_file": "The_Kingdom.S01E02.mkv_vlm_timings.json",
+      "frames_file": "The_Kingdom.S01E02.mkv_vlm_frames.json"
+    },
+    {
+      "stage": "llm",
+      "status": "success",
+      "result": {
+        "recsys_metadata": {
+          "primary_genre": "Drama",
+          "sub_genres": [
+            "Political Thriller",
+            "Religious Drama",
+            "Moral Conflict"
+          ],
+          "pacing": "Moderate",
+          "mood": [
+            "Tense",
+            "Reflective",
+            "Morally Ambiguous"
+          ]
+        },
+        "search_and_discovery": {
+          "semantic_tags": [
+            "Church Corruption",
+            "Political Conspiracy",
+            "Faith Crisis",
+            "Betrayal"
+          ],
+          "main_topics": [
+            "Power Dynamics",
+            "Spiritual Leadership",
+            "Ethical Dilemmas"
+          ]
+        },
+        "audience_profiling": {
+          "target_age_group": "Adults",
+          "viewer_interests": [
+            "Political Commentary",
+            "Religious Themes",
+            "Character Psychology"
+          ]
+        },
+        "content_summary": {
+          "visual_style": "Dominant palette includes cool blues and warm amber tones, contrasting dark, moody interiors with bright, sterile environments.",
+          "narrative_hook": "A revered religious leader is forced to confront his complicity in a politically motivated murder, unraveling a web of conspiracies that challenge his faith and leadership."
+        }
+      },
+      "timings": {
+        "stage": "llm",
+        "started_at": "2026-11-20T07:10:07.561268+00:00",
+        "ended_at": "2026-11-20T07:23:27.573687+00:00",
+        "wall_seconds": 800.012,
+        "spans": [
+          {
+            "name": "llm_load",
+            "started_at": "2026-11-20T07:10:09.877776+00:00",
+            "ended_at": "2026-11-20T07:23:02.413295+00:00",
+            "seconds": 772.536,
+            "model_id": "Qwen/Qwen3-8B",
+            "vram_reserved_mib": 9924.0,
+            "vram_allocated_mib": 9882.0
+          },
+          {
+            "name": "llm_generate",
+            "started_at": "2026-11-20T07:23:02.413980+00:00",
+            "ended_at": "2026-11-20T07:23:26.649363+00:00",
+            "seconds": 24.235,
+            "model_id": "Qwen/Qwen3-8B",
+            "attempt": 1,
+            "vram_reserved_mib": 11268.0,
+            "vram_allocated_mib": 11064.4
+          }
+        ]
+      },
+      "output_file": "The_Kingdom.S01E02.mkv_llm.json",
+      "timings_file": "The_Kingdom.S01E02.mkv_llm_timings.json"
+    }
+  ],
+  "stages_ran": [
+    "timeline",
+    "audio",
+    "dialogue",
+    "character_graph",
+    "vlm",
+    "llm",
+    "evidence"
+  ],
+  "archived_files": [
+    "The_Kingdom.S01E02.mkv_timeline.json",
+    "The_Kingdom.S01E02.mkv_audio.json",
+    "The_Kingdom.S01E02.mkv_audio_timings.json",
+    "The_Kingdom.S01E02.mkv_dialogue.json",
+    "The_Kingdom.S01E02.mkv_dialogue_timings.json",
+    "The_Kingdom.S01E02.mkv_graph.json",
+    "The_Kingdom.S01E02.mkv_vlm.json",
+    "The_Kingdom.S01E02.mkv_vlm_timings.json",
+    "The_Kingdom.S01E02.mkv_vlm_frames.json",
+    "The_Kingdom.S01E02.mkv_vlm_raw.txt",
+    "The_Kingdom.S01E02.mkv_vlm_sidecar.json",
+    "The_Kingdom.S01E02.mkv_frame_plan.json",
+    "The_Kingdom.S01E02.mkv_llm.json",
+    "The_Kingdom.S01E02.mkv_llm_timings.json",
+    "The_Kingdom.S01E02.mkv_manifest.json",
+    "The_Kingdom.S01E02.mkv_evidence.json"
+  ]
+}

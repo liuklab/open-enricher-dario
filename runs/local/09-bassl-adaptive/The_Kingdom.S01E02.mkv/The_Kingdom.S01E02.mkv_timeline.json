@@ -1,0 +1,87 @@
+{
+  "video": "The_Kingdom.S01E02.mkv",
+  "attempt_id": "20261120T022459Z-a19c0da8",
+  "source_fingerprint": "ba12d2c3c9334d40cfb61493e8667f06da533486a53b554ed2565763ca0efb6f",
+  "settings_hash": "4430ac2612065bf6714bdeedc814887ef5c926afc8a957d39df0b37b0c0b9e28",
+  "stage": "timeline",
+  "status": "success",
+  "duration": 2070.613,
+  "interval_seconds": 300,
+  "intervals": [
+    {
+      "id": "w0001",
+      "start": 0.0,
+      "end": 300.0,
+      "kind": "window",
+      "source": "fixed",
+      "parent_id": null,
+      "scene_ids": [],
+      "repaired": false
+    },
+    {
+      "id": "w0002",
+      "start": 300.0,
+      "end": 600.0,
+      "kind": "window",
+      "source": "fixed",
+      "parent_id": null,
+      "scene_ids": [],
+      "repaired": false
+    },
+    {
+      "id": "w0003",
+      "start": 600.0,
+      "end": 900.0,
+      "kind": "window",
+      "source": "fixed",
+      "parent_id": null,
+      "scene_ids": [],
+      "repaired": false
+    },
+    {
+      "id": "w0004",
+      "start": 900.0,
+      "end": 1200.0,
+      "kind": "window",
+      "source": "fixed",
+      "parent_id": null,
+      "scene_ids": [],
+      "repaired": false
+    },
+    {
+      "id": "w0005",
+      "start": 1200.0,
+      "end": 1500.0,
+      "kind": "window",
+      "source": "fixed",
+      "parent_id": null,
+      "scene_ids": [],
+      "repaired": false
+    },
+    {
+      "id": "w0006",
+      "start": 1500.0,
+      "end": 1800.0,
+      "kind": "window",
+      "source": "fixed",
+      "parent_id": null,
+      "scene_ids": [],
+      "repaired": false
+    },
+    {
+      "id": "w0007",
+      "start": 1800.0,
+      "end": 2070.613,
+      "kind": "window",
+      "source": "fixed",
+      "parent_id": null,
+      "scene_ids": [],
+      "repaired": false
+    }
+  ],
+  "notes": [
+    "boundaries rejected; restored fixed windows",
+    "modelscope import failed: No module named 'modelscope'"
+  ],
+  "source_stage": "bassl"
+}

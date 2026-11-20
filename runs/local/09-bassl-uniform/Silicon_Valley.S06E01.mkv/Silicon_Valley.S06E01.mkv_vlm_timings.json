@@ -1,0 +1,173 @@
+{
+  "stage": "vlm",
+  "started_at": "2026-11-20T03:46:11.171120+00:00",
+  "ended_at": "2026-11-20T04:20:59.546344+00:00",
+  "wall_seconds": 2088.375,
+  "spans": [
+    {
+      "name": "vlm_load",
+      "started_at": "2026-11-20T03:52:10.970830+00:00",
+      "ended_at": "2026-11-20T04:03:44.149427+00:00",
+      "seconds": 693.179,
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+      "vram_reserved_mib": 9904.0,
+      "vram_allocated_mib": 9847.1
+    },
+    {
+      "name": "vlm_generate",
+      "started_at": "2026-11-20T04:03:44.157904+00:00",
+      "ended_at": "2026-11-20T04:04:53.343836+00:00",
+      "seconds": 69.186,
+      "window": 1,
+      "start": "00:00:00",
+      "end": "00:02:30",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+      "vram_reserved_mib": 13468.0,
+      "vram_allocated_mib": 13380.8
+    },
+    {
+      "name": "vlm_generate",
+      "started_at": "2026-11-20T04:04:53.354167+00:00",
+      "ended_at": "2026-11-20T04:05:53.986356+00:00",
+      "seconds": 60.632,
+      "window": 2,
+      "start": "00:02:30",
+      "end": "00:05:00",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+      "vram_reserved_mib": 13468.0,
+      "vram_allocated_mib": 13380.8
+    },
+    {
+      "name": "vlm_generate",
+      "started_at": "2026-11-20T04:05:53.997355+00:00",
+      "ended_at": "2026-11-20T04:06:56.261718+00:00",
+      "seconds": 62.264,
+      "window": 3,
+      "start": "00:05:00",
+      "end": "00:07:30",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+      "vram_reserved_mib": 13468.0,
+      "vram_allocated_mib": 13380.8
+    },
+    {
+      "name": "vlm_generate",
+      "started_at": "2026-11-20T04:06:56.271846+00:00",
+      "ended_at": "2026-11-20T04:08:02.836205+00:00",
+      "seconds": 66.564,
+      "window": 4,
+      "start": "00:07:30",
+      "end": "00:10:00",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+      "vram_reserved_mib": 13150.0,
+      "vram_allocated_mib": 13056.9
+    },
+    {
+      "name": "vlm_generate",
+      "started_at": "2026-11-20T04:08:02.847049+00:00",
+      "ended_at": "2026-11-20T04:09:06.190308+00:00",
+      "seconds": 63.343,
+      "window": 5,
+      "start": "00:10:00",
+      "end": "00:12:30",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+      "vram_reserved_mib": 13468.0,
+      "vram_allocated_mib": 13380.8
+    },
+    {
+      "name": "vlm_generate",
+      "started_at": "2026-11-20T04:09:06.576554+00:00",
+      "ended_at": "2026-11-20T04:10:19.554844+00:00",
+      "seconds": 72.978,
+      "window": 6,
+      "start": "00:12:30",
+      "end": "00:15:00",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+      "vram_reserved_mib": 13150.0,
+      "vram_allocated_mib": 13056.9
+    },
+    {
+      "name": "vlm_generate",
+      "started_at": "2026-11-20T04:10:20.039833+00:00",
+      "ended_at": "2026-11-20T04:11:17.240130+00:00",
+      "seconds": 57.2,
+      "window": 7,
+      "start": "00:15:00",
+      "end": "00:17:30",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+      "vram_reserved_mib": 13468.0,
+      "vram_allocated_mib": 13380.8
+    },
+    {
+      "name": "vlm_generate",
+      "started_at": "2026-11-20T04:11:17.353008+00:00",
+      "ended_at": "2026-11-20T04:12:30.778787+00:00",
+      "seconds": 73.426,
+      "window": 8,
+      "start": "00:17:30",
+      "end": "00:20:00",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+      "vram_reserved_mib": 13150.0,
+      "vram_allocated_mib": 13056.9
+    },
+    {
+      "name": "vlm_generate",
+      "started_at": "2026-11-20T04:12:31.589933+00:00",
+      "ended_at": "2026-11-20T04:14:08.146405+00:00",
+      "seconds": 96.556,
+      "window": 9,
+      "start": "00:20:00",
+      "end": "00:22:30",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+      "vram_reserved_mib": 13468.0,
+      "vram_allocated_mib": 13380.8
+    },
+    {
+      "name": "vlm_generate",
+      "started_at": "2026-11-20T04:14:08.172302+00:00",
+      "ended_at": "2026-11-20T04:15:21.644662+00:00",
+      "seconds": 73.472,
+      "window": 10,
+      "start": "00:22:30",
+      "end": "00:25:00",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+      "vram_reserved_mib": 13150.0,
+      "vram_allocated_mib": 13056.9
+    },
+    {
+      "name": "vlm_generate",
+      "started_at": "2026-11-20T04:15:21.964744+00:00",
+      "ended_at": "2026-11-20T04:17:57.204483+00:00",
+      "seconds": 155.24,
+      "window": 11,
+      "start": "00:25:00",
+      "end": "00:27:30",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+      "vram_reserved_mib": 13468.0,
+      "vram_allocated_mib": 13380.8
+    },
+    {
+      "name": "vlm_generate",
+      "started_at": "2026-11-20T04:17:57.472262+00:00",
+      "ended_at": "2026-11-20T04:19:39.284858+00:00",
+      "seconds": 101.813,
+      "window": 12,
+      "start": "00:27:30",
+      "end": "00:30:00",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+      "vram_reserved_mib": 13150.0,
+      "vram_allocated_mib": 13056.9
+    },
+    {
+      "name": "vlm_generate",
+      "started_at": "2026-11-20T04:19:39.713588+00:00",
+      "ended_at": "2026-11-20T04:20:53.038358+00:00",
+      "seconds": 73.325,
+      "window": 13,
+      "start": "00:30:00",
+      "end": "00:32:52",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+      "vram_reserved_mib": 14110.0,
+      "vram_allocated_mib": 14028.7
+    }
+  ]
+}

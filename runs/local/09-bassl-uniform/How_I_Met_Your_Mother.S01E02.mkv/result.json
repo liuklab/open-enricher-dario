@@ -1,0 +1,572 @@
+{
+  "video": "How_I_Met_Your_Mother.S01E02.mkv",
+  "status": "degraded",
+  "stages": [
+    {
+      "stage": "timeline",
+      "status": "success",
+      "output_file": "How_I_Met_Your_Mother.S01E02.mkv_timeline.json"
+    },
+    {
+      "stage": "audio",
+      "status": "skipped_cache",
+      "output_file": "How_I_Met_Your_Mother.S01E02.mkv_audio.json"
+    },
+    {
+      "stage": "bassl",
+      "status": "fallback",
+      "output_file": "How_I_Met_Your_Mother.S01E02.mkv_bassl.json",
+      "reason": "modelscope import failed: No module named 'modelscope'"
+    },
+    {
+      "stage": "dialogue",
+      "status": "success",
+      "scenes": 5,
+      "plot_sampled": false,
+      "timings": {
+        "stage": "dialogue",
+        "started_at": "2026-11-20T03:00:08.051164+00:00",
+        "ended_at": "2026-11-20T03:04:49.231214+00:00",
+        "wall_seconds": 281.18,
+        "spans": [
+          {
+            "name": "plot_load",
+            "started_at": "2026-11-20T03:00:08.750055+00:00",
+            "ended_at": "2026-11-20T03:02:29.388336+00:00",
+            "seconds": 140.638,
+            "model_id": "Qwen/Qwen3-8B",
+            "vram_reserved_mib": 6232.0,
+            "vram_allocated_mib": 6182.3
+          },
+          {
+            "name": "plot_generate",
+            "started_at": "2026-11-20T03:02:29.412542+00:00",
+            "ended_at": "2026-11-20T03:02:53.788571+00:00",
+            "seconds": 24.376,
+            "model_id": "Qwen/Qwen3-8B",
+            "vram_reserved_mib": 9356.0,
+            "vram_allocated_mib": 9136.9
+          },
+          {
+            "name": "scene_load",
+            "started_at": "2026-11-20T03:02:54.050396+00:00",
+            "ended_at": "2026-11-20T03:03:18.457020+00:00",
+            "seconds": 24.407,
+            "model_id": "Qwen/Qwen3-8B",
+            "vram_reserved_mib": 10002.0,
+            "vram_allocated_mib": 9908.5
+          },
+          {
+            "name": "scene_generate",
+            "started_at": "2026-11-20T03:03:18.465903+00:00",
+            "ended_at": "2026-11-20T03:03:35.294302+00:00",
+            "seconds": 16.828,
+            "model_id": "Qwen/Qwen3-8B",
+            "window": 1,
+            "vram_reserved_mib": 10786.0,
+            "vram_allocated_mib": 10723.9
+          },
+          {
+            "name": "scene_generate",
+            "started_at": "2026-11-20T03:03:35.303211+00:00",
+            "ended_at": "2026-11-20T03:03:50.651521+00:00",
+            "seconds": 15.348,
+            "model_id": "Qwen/Qwen3-8B",
+            "window": 2,
+            "vram_reserved_mib": 10886.0,
+            "vram_allocated_mib": 10823.9
+          },
+          {
+            "name": "scene_generate",
+            "started_at": "2026-11-20T03:03:50.658821+00:00",
+            "ended_at": "2026-11-20T03:04:06.973122+00:00",
+            "seconds": 16.314,
+            "model_id": "Qwen/Qwen3-8B",
+            "window": 3,
+            "vram_reserved_mib": 10886.0,
+            "vram_allocated_mib": 10629.7
+          },
+          {
+            "name": "scene_generate",
+            "started_at": "2026-11-20T03:04:06.979218+00:00",
+            "ended_at": "2026-11-20T03:04:24.043006+00:00",
+            "seconds": 17.064,
+            "model_id": "Qwen/Qwen3-8B",
+            "window": 4,
+            "vram_reserved_mib": 10886.0,
+            "vram_allocated_mib": 10486.4
+          },
+          {
+            "name": "scene_generate",
+            "started_at": "2026-11-20T03:04:24.046975+00:00",
+            "ended_at": "2026-11-20T03:04:43.913302+00:00",
+            "seconds": 19.866,
+            "model_id": "Qwen/Qwen3-8B",
+            "window": 5,
+            "vram_reserved_mib": 10886.0,
+            "vram_allocated_mib": 10243.0
+          }
+        ]
+      },
+      "output_file": "How_I_Met_Your_Mother.S01E02.mkv_dialogue.json",
+      "timings_file": "How_I_Met_Your_Mother.S01E02.mkv_dialogue_timings.json"
+    },
+    {
+      "stage": "vlm",
+      "status": "success",
+      "json_valid": true,
+      "result": {
+        "experiment_id": "09-bassl-uniform",
+        "scene_timeline": [
+          {
+            "start_time": "00:00:00",
+            "end_time": "00:02:30",
+            "dialogue_description": "SPEAKER_00, Ted, recounts his past attempts to connect with Robin, expressing his belief that he was in love with her after one date. He admits to making a foolish confession, which led to a lack of response from Robin. SPEAKER_03, Marshall, challenges Ted's sincerity, suggesting his feelings were more about the idea of marriage than Robin herself. SPEAKER_05, Barney, tries to encourage Ted to move on, calling his pursuit a relapse. Meanwhile, SPEAKER_02, Lily, shares her own experience of being overly affectionate since getting engaged, highlighting the contrast between Ted's romantic ideals and reality. The group discusses their own relationships, with Lily joking about not wearing underwear, adding a humorous tone to the conversation. Ted, however, remains determined to win Robin's affection, planning to invite her to a party next Friday as a way to create a chance encounter. Despite the mockery from his friends, Ted insists he needs to act casually to make it work. The exchange ends with Ted's determination to pursue Robin, even as his friends question his approach.",
+            "description": "The scene takes place inside a dimly lit bar with wooden booths and shelves stocked with bottles. A man in a brown jacket stands near the bar, gesturing while speaking. Another man in a suit sits nearby holding a drink, smiling and listening. Two women sit across from him; one leans forward with an amused expression, while the other looks toward the speaker. In another shot, two men stand side by side, both looking off-screen with serious expressions. Later, a woman in a black top sits at a booth, leaning back slightly with a thoughtful look. The camera pans across different angles showing interactions among the group seated at the table.",
+            "subjects_and_objects": [
+              "Ted",
+              "Marshall",
+              "Lily",
+              "Barney",
+              "Robin"
+            ],
+            "actions": [
+              "gesturing with hands",
+              "leaning forward",
+              "smiling",
+              "looking off-screen",
+              "sitting upright",
+              "leaning back"
+            ],
+            "camera_and_shot": "Close-up shots alternating with medium shots capturing conversations at a bar table and wider views showing multiple characters interacting.",
+            "lighting_and_color": "Warm ambient lighting with shadows cast by overhead fixtures, creating a cozy yet intimate atmosphere typical of a late-night bar setting.",
+            "on_screen_text": [
+              "created by carter bays & craig thomas",
+              "jason segel",
+              "executive producers eileen heisler & deann heline",
+              "co-executive producer pancha mylan",
+              "producer suzy mcmillan",
+              "director chris grice"
+            ]
+          },
+          {
+            "start_time": "00:02:30",
+            "end_time": "00:05:00",
+            "dialogue_description": "SPEAKER_00, Ted, recounts his past attempts to connect with Robin, expressing his belief that he was in love with her after one date. He admits to making a foolish confession, which led to a lack of response from Robin. SPEAKER_03, Marshall, challenges Ted's sincerity, suggesting his feelings were more about the idea of marriage than Robin herself. SPEAKER_05, Barney, tries to encourage Ted to move on, calling his pursuit a relapse. Meanwhile, SPEAKER_02, Lily, shares her own experience of being overly affectionate since getting engaged, highlighting the contrast between Ted's romantic ideals and reality. The group discusses their own relationships, with Lily joking about not wearing underwear, adding a humorous tone to the conversation. Ted, however, remains determined to win Robin's affection, planning to invite her to a party next Friday as a way to create a chance encounter. Despite the mockery from his friends, Ted insists he needs to act casually to make it work. The exchange ends with Ted's determination to pursue Robin, even as his friends question his approach.",
+            "description": "A man in a striped shirt sits at a cluttered desk surrounded by books and papers, talking animatedly while gesturing with his hand. Across from him, a woman in a purple blouse listens intently, occasionally nodding and reacting with expressive facial gestures. Behind them, another man in a blue shirt walks through the room carrying a box, glancing briefly before continuing. The background reveals a messy but lived-in space filled with household items, including a red couch, a bookshelf, and various knick-knacks.",
+            "subjects_and_objects": [
+              "Ted",
+              "Lily",
+              "Marshall"
+            ],
+            "actions": [
+              "gesturing with hand",
+              "nodding",
+              "reacting with facial expressions",
+              "walking through the room",
+              "carrying a box"
+            ],
+            "camera_and_shot": "Medium close-ups focusing on individuals during conversation, interspersed with wider shots revealing the cluttered interior environment.",
+            "lighting_and_color": "Soft indoor lighting casting warm tones over the room, with natural light filtering in from windows, illuminating dust particles floating in the air.",
+            "on_screen_text": []
+          },
+          {
+            "start_time": "00:05:00",
+            "end_time": "00:07:30",
+            "dialogue_description": "Ted is trying to impress Robin by hosting a party, but their interaction is awkward and full of misunderstandings. Robin arrives at Ted’s party, but it seems she never actually attended, as Ted admits he missed her. Their conversation reveals that Ted had planned to meet her at the party, but she was stuck at work and missed it. Ted tries to salvage the situation by offering to extend the party’s duration, hoping to reconnect with Robin. Meanwhile, his friends, including Marshall and others, mock his elaborate plans and suggest he is chasing an unattainable goal. They highlight the futility of his pursuit, emphasizing that real connections require authenticity rather than orchestrated scenarios. Ted’s friends continue to challenge his methods, pointing out that he is wasting his time on a strategy that is unlikely to succeed. Despite his failures, Ted remains hopeful, believing that his sincerity will eventually win over Robin. The exchange ends with Ted expressing his determination to keep trying, even as his friends remain skeptical of his chances.",
+            "description": "The scene shifts to a brightly lit convenience store with aisles stocked with snacks, beverages, and cleaning supplies. A man in a brown jacket walks through the aisle, pausing to interact with a woman in a dark blazer. She responds with a surprised expression, turning to face him fully. Behind them, employees in yellow raincoats are busy organizing merchandise near a claw machine display. One employee bends down to adjust something under the machine, while another stands nearby holding a clipboard. Shelves behind them hold boxes labeled 'BEER' and 'SODA', and promotional signs advertise discounts like '$1.99'. The pair continues walking together, passing racks of canned goods and snack bags.",
+            "subjects_and_objects": [
+              "Ted",
+              "Robin",
+              "employee",
+              "claw machine"
+            ],
+            "actions": [
+              "walking",
+              "pausing",
+              "interacting",
+              "responding with surprise",
+              "bending down",
+              "holding a clipboard"
+            ],
+            "camera_and_shot": "Tracking shot following the main characters as they walk through the store, cutting to close-ups of their faces during dialogue, and wide-angle shots showing the store layout and staff activity.",
+            "lighting_and_color": "Bright fluorescent lighting casts sharp shadows, accentuating the vivid colors of product packaging and signage against neutral-toned shelving units.",
+            "on_screen_text": []
+          },
+          {
+            "start_time": "00:07:30",
+            "end_time": "00:10:00",
+            "dialogue_description": "Ted is trying to impress Robin by hosting a party, but their interaction is awkward and full of misunderstandings. Robin arrives at Ted’s party, but it seems she never actually attended, as Ted admits he missed her. Their conversation reveals that Ted had planned to meet her at the party, but she was stuck at work and missed it. Ted tries to salvage the situation by offering to extend the party’s duration, hoping to reconnect with Robin. Meanwhile, his friends, including Marshall and others, mock his elaborate plans and suggest he is chasing an unattainable goal. They highlight the futility of his pursuit, emphasizing that real connections require authenticity rather than orchestrated scenarios. Ted’s friends continue to challenge his methods, pointing out that he is wasting his time on a strategy that is unlikely to succeed. Despite his failures, Ted remains hopeful, believing that his sincerity will eventually win over Robin. The exchange ends with Ted expressing his determination to keep trying, even as his friends remain skeptical of his chances.",
+            "description": "In a crowded, warmly lit living room filled with guests, a man in a suit and tie stands beside a woman in a maroon top, both smiling and conversing amidst the crowd. Another man in a gray hoodie holds a red cup and looks toward them. In the foreground, a woman in a blue top sits on a couch, looking up at two men seated beside her; one wears a striped robe and the other a gray t-shirt. The room has eclectic decor, including framed pictures, a fireplace, and stacks of books. As the camera pans across, a man in a black suit gestures while speaking to someone off-screen, surrounded by mingling guests. Later, the focus shifts to the couple on the couch, where the man in the striped robe leans back comfortably, arms crossed, while the woman in blue rests her head on his shoulder, both appearing relaxed and content.",
+            "subjects_and_objects": [
+              "Ted",
+              "Robin",
+              "Marshall",
+              "Barney",
+              "Lily"
+            ],
+            "actions": [
+              "standing",
+              "smiling",
+              "conversing",
+              "leaning back",
+              "resting head",
+              "crossing arms"
+            ],
+            "camera_and_shot": "Wide shots capturing the lively gathering, medium shots focusing on interactions among the central figures, and panning transitions between different groups within the room.",
+            "lighting_and_color": "Warm ambient lighting with soft shadows cast by lamps and overhead fixtures, creating cozy highlights on wooden furniture and brick walls. Rich earthy tones dominate the color palette, punctuated by pops of red cups and colorful artwork.",
+            "on_screen_text": []
+          },
+          {
+            "start_time": "00:10:00",
+            "end_time": "00:12:30",
+            "dialogue_description": "During this interval, Ted's friends confront him about his relentless efforts to win Robin's affection. They reveal that Ted has thrown multiple parties in hopes of connecting with Robin, a woman he met briefly. However, Robin has consistently avoided these gatherings, often missing them entirely. One of Ted's friends, Marshall, expresses frustration, pointing out that Ted's approach is misguided and that he should stop chasing an unattainable goal. Another friend, Lily, adds that Ted's obsession with orchestrating romantic scenarios is not only ineffective but also humorous. Meanwhile, Ted's friend, who is likely Marshall, mentions that he had previously introduced Robin to someone else named Carlos, suggesting that Ted's attempts to create a connection have been based on false assumptions. The conversation highlights the absurdity of Ted's plan and the irony that he has invested so much effort into a relationship that may never materialize. Ultimately, the group's mockery underscores the futility of Ted's pursuit, leaving him in a state of confusion and embarrassment as he realizes his efforts have been in vain.",
+            "description": "Inside a cluttered apartment, a man in a striped robe stands near a doorway, gesturing animatedly as if talking to someone off-camera. A woman in a light blue shirt runs past him toward a bookshelf, grabbing a bottle before heading away. The room is messy, with scattered items including a lamp, stacked books, and a coffee table covered in red plastic cups and bottles. The man turns and walks toward the door, still gesturing. Cut to a social gathering in the same space, now packed with guests. A man in a suit holds a red cup and speaks to another man in a striped shirt, while a blonde woman listens intently. The camera moves through the crowd, highlighting interactions. Later, the man in the striped robe sits on a couch next to a woman in a white top, both watching something off-screen. He leans forward slightly, adjusting his position. The woman beside him glances at him, then looks ahead again.",
+            "subjects_and_objects": [
+              "Ted",
+              "Robin",
+              "Marshall",
+              "Barney",
+              "Lily"
+            ],
+            "actions": [
+              "gesturing",
+              "running",
+              "grabbing a bottle",
+              "turning",
+              "walking",
+              "speaking"
+            ],
+            "camera_and_shot": "Medium shots tracking movement through the apartment, cuts to close-ups during conversations, and wider angles showing the crowded room and its disorganized interior.",
+            "lighting_and_color": "Warm indoor lighting casting soft shadows, with muted browns and grays dominating the room’s palette, accented by bright red cups and occasional flashes of color from clothing and decorations.",
+            "on_screen_text": []
+          },
+          {
+            "start_time": "00:12:30",
+            "end_time": "00:15:00",
+            "dialogue_description": "During this interval, Ted's friends confront him about his relentless efforts to win Robin's affection. They reveal that Ted has thrown multiple parties in hopes of connecting with Robin, a woman he met briefly. However, Robin has consistently avoided these gatherings, often missing them entirely. One of Ted's friends, Marshall, expresses frustration, pointing out that Ted's approach is misguided and that he should stop chasing an unattainable goal. Another friend, Lily, adds that Ted's obsession with orchestrating romantic scenarios is not only ineffective but also humorous. Meanwhile, Ted's friend, who is likely Marshall, mentions that he had previously introduced Robin to someone else named Carlos, suggesting that Ted's attempts to create a connection have been based on false assumptions. The conversation highlights the absurdity of Ted's plan and the irony that he has invested so much effort into a relationship that may never materialize. Ultimately, the group's mockery underscores the futility of Ted's pursuit, leaving him in a state of confusion and embarrassment as he realizes his efforts have been in vain.",
+            "description": "A man in a brown jacket and jeans dances energetically in a cluttered living room, moving rhythmically with exaggerated arm motions. Behind him, a woman in a teal top watches with a bemused expression, standing near a doorway. The room is filled with various objects, including a wicker chair, a lamp, and shelves lined with books and knickknacks. Other individuals are seated or lounging around — one man in a dark suit sips from a beer bottle while leaning against a wall, and another man in a striped cardigan sits on a couch holding a drink. The atmosphere appears casual yet chaotic, with people interacting informally amid the messiness of the space.",
+            "subjects_and_objects": [
+              "Ted",
+              "Robin",
+              "Marshall",
+              "Barney",
+              "Lily"
+            ],
+            "actions": [
+              "dancing",
+              "moving rhythmically",
+              "watching",
+              "sitting",
+              "leaning",
+              "holding a drink"
+            ],
+            "camera_and_shot": "Dynamic handheld shots following Ted’s dance movements, cutting to static mid-shots of surrounding characters reacting, and wide-angle views revealing the cluttered layout of the room.",
+            "lighting_and_color": "Warm, dim indoor lighting casts soft shadows across wooden floors and furniture. Earth-toned colors dominate — browns, beiges, and muted reds — contrasted by pops of brighter hues like teal tops and red cups scattered throughout.",
+            "on_screen_text": []
+          },
+          {
+            "start_time": "00:15:00",
+            "end_time": "00:17:30",
+            "dialogue_description": "Ted, still fixated on Robin, insists he's not done with his pursuit, claiming the game isn't over. Marshall, trying to ground Ted, points out that Robin isn't the type of woman Ted is looking for—she's not part of the \"million women\" in New York seeking him. Ted counters by saying she's special, the one. When Ted tries to explain his party strategy, Marshall and Robin both question his motives, noting they barely know each other and Ted's sudden romantic gestures feel forced. Robin calls out Ted's exaggerated plans, calling him out for being a \"jackass.\" Ted, caught between his earnestness and the absurdity of his actions, admits he's made a fool of himself. He suggests they start over, as friends, and even proposes meeting immediately for a beer. Robin, though initially hesitant, agrees, saying she'd like that. Ted, relieved, says his friends will love her, and Robin, with a hint of warmth, responds with a dry joke about Ted being a \"jackass.\" The exchange ends with mutual understanding, leaving room for a more genuine connection.",
+            "description": "On a rooftop patio adorned with string lights and potted plants, a woman in a cream-colored cardigan and a man in a dark jacket stand facing each other. She gestures with her hands as she speaks, her expression shifting from amused to serious. He listens attentively, nodding slightly, occasionally tilting his head as if considering her words. Behind them, a brick wall forms the backdrop, illuminated softly by ambient lighting. A small tree decorated with twinkling lights stands nearby, adding to the cozy evening ambiance.",
+            "subjects_and_objects": [
+              "Robin",
+              "Ted"
+            ],
+            "actions": [
+              "gesturing",
+              "speaking",
+              "listening",
+              "nodding",
+              "tilting head"
+            ],
+            "camera_and_shot": "Close-up framing focusing on their upper bodies and faces, capturing subtle shifts in expression and gesture. The shot remains steady, emphasizing their interaction without distraction from surroundings.",
+            "lighting_and_color": "Soft, warm nighttime illumination bathes the scene in golden tones, enhanced by the glow of decorative string lights. Shadows cast by the brick wall and foliage add depth, contrasting with the gentle brightness reflecting off their skin and clothing.",
+            "on_screen_text": []
+          },
+          {
+            "start_time": "00:17:30",
+            "end_time": "00:20:00",
+            "dialogue_description": "Ted, still fixated on Robin, insists he's not done with his pursuit, claiming the game isn't over. Marshall, trying to ground Ted, points out that Robin isn't the type of woman Ted is looking for—she's not part of the \"million women\" in New York seeking him. Ted counters by saying she's special, the one. When Ted tries to explain his party strategy, Marshall and Robin both question his motives, noting they barely know each other and Ted's sudden romantic gestures feel forced. Robin calls out Ted's exaggerated plans, calling him out for being a \"jackass.\" Ted, caught between his earnestness and the absurdity of his actions, admits he's made a fool of himself. He suggests they start over, as friends, and even proposes meeting immediately for a beer. Robin, though initially hesitant, agrees, saying she'd like that. Ted, relieved, says his friends will love her, and Robin, with a hint of warmth, responds with a dry joke about Ted being a \"jackass.\" The exchange ends with mutual understanding, leaving room for a more genuine connection.",
+            "description": "On a rooftop patio under night sky, a woman in a cream cardigan and a man in a dark velvet jacket face each other closely. The woman leans forward slightly, her hand resting on the man’s chest as she speaks, her gaze intense. The man steps back momentarily, then closes the distance again, placing his hands gently on her cheeks before pulling away slightly. He looks upward toward the city skyline beyond, then turns back to her with a thoughtful expression. Around them, string lights drape overhead, illuminating the area with soft glows; overturned chairs and scattered red cups lie on the concrete floor beside them.",
+            "subjects_and_objects": [
+              "Robin",
+              "Ted"
+            ],
+            "actions": [
+              "leaning forward",
+              "resting hand on chest",
+              "stepping back",
+              "closing distance",
+              "placing hands on cheeks",
+              "pulling away"
+            ],
+            "camera_and_shot": "Medium close-up framing focused tightly on the two figures, tracking slight movements as they shift positions. The camera angle adjusts subtly to capture their changing proximity and expressions, keeping the background elements partially visible but secondary.",
+            "lighting_and_color": "Nighttime urban setting lit by distant building lights and foreground string lights casting warm, diffused illumination. Cool blue tones from the cityscape contrast with the warmer amber glow of the decorations, creating pockets of light and shadow across their faces and clothing. Brick walls and greenery provide textured, earthy undertones.",
+            "on_screen_text": []
+          },
+          {
+            "start_time": "00:20:00",
+            "end_time": "00:22:06",
+            "dialogue_description": "SPEAKER_05 expresses disbelief and concern about a situation, suggesting it will lead to disaster. They question why someone would work with another person, implying jealousy or conflict. SPEAKER_01 interrupts with a comment about a date, referencing a scene that has already occurred, indicating they are replaying or rethinking past events. SPEAKER_05 then says they are unsure about someone, likely referring to Robin, and questions their feelings for her. SPEAKER_04, who identifies as Rufus, talks about completing a paper and confidently claims he will get an A, showing his determination and self-assurance. SPEAKER_00 acknowledges Rufus's effort, noting he received a B- but still did well. SPEAKER_03 offers to buy drinks, showing support for Ted, who is trying to find love. SPEAKER_01 reassures Ted that he is a catch and will make someone happy, offering help in finding his future partner. SPEAKER_03 jokes about the difficulty of finding love in a large city, questioning how anyone can find their soulmate. The conversation ends with SPEAKER_01 asking if Ted has met Robin, hinting at a potential connection between them. The exchange highlights Ted's struggle to find love and the support from his friends, while also underscoring the challenges of forming meaningful relationships.",
+            "description": "In a dimly lit bar with neon signs and wooden decor, a group of men sit at a table surrounded by mugs and glasses. One man in a brown jacket laughs heartily while gesturing with his hands, engaging in animated conversation. Another man in a suit holds a glass mug, listening intently with a slight smile. A woman in a teal top sits beside the laughing man, smiling warmly as she interacts with him. Behind them, patrons move through the busy establishment, some standing near the bar counter where bottles line shelves under bright signage.",
+            "subjects_and_objects": [
+              "Ted",
+              "Marshall",
+              "Robin"
+            ],
+            "actions": [
+              "laughing",
+              "gesturing",
+              "smiling",
+              "holding a mug",
+              "listening",
+              "interacting"
+            ],
+            "camera_and_shot": "Wide-angle shot encompassing multiple tables and patrons, transitioning into medium shots focusing on individual interactions among the seated group. Camera pans slowly to follow movement within the crowded space.",
+            "lighting_and_color": "Warm interior lighting casts shadows across the wooden surfaces and patrons' faces, complemented by vibrant neon signs glowing against darker backgrounds. The overall color palette features rich browns, deep greens, and pops of orange from drinkware and signage.",
+            "on_screen_text": []
+          }
+        ],
+        "segments_parsed": 9,
+        "segments_total": 9,
+        "vlm_memory_scenes": 2,
+        "visual_only": false,
+        "extract_visual": false,
+        "memory_compacted": false
+      },
+      "timings": {
+        "stage": "vlm",
+        "started_at": "2026-11-20T03:04:50.797911+00:00",
+        "ended_at": "2026-11-20T03:30:27.046622+00:00",
+        "wall_seconds": 1536.249,
+        "spans": [
+          {
+            "name": "vlm_load",
+            "started_at": "2026-11-20T03:08:50.061147+00:00",
+            "ended_at": "2026-11-20T03:20:31.201874+00:00",
+            "seconds": 701.141,
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 9904.0,
+            "vram_allocated_mib": 9847.1
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T03:20:31.211593+00:00",
+            "ended_at": "2026-11-20T03:21:43.735194+00:00",
+            "seconds": 72.524,
+            "window": 1,
+            "start": "00:00:00",
+            "end": "00:02:30",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 13788.0,
+            "vram_allocated_mib": 13704.7
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T03:21:43.745207+00:00",
+            "ended_at": "2026-11-20T03:22:46.237507+00:00",
+            "seconds": 62.492,
+            "window": 2,
+            "start": "00:02:30",
+            "end": "00:05:00",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 13468.0,
+            "vram_allocated_mib": 13380.8
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T03:22:46.440560+00:00",
+            "ended_at": "2026-11-20T03:24:21.321313+00:00",
+            "seconds": 94.881,
+            "window": 3,
+            "start": "00:05:00",
+            "end": "00:07:30",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 13788.0,
+            "vram_allocated_mib": 13704.8
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T03:24:21.331126+00:00",
+            "ended_at": "2026-11-20T03:25:25.816123+00:00",
+            "seconds": 64.485,
+            "window": 4,
+            "start": "00:07:30",
+            "end": "00:10:00",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 13468.0,
+            "vram_allocated_mib": 13380.8
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T03:25:25.826770+00:00",
+            "ended_at": "2026-11-20T03:26:35.423535+00:00",
+            "seconds": 69.597,
+            "window": 5,
+            "start": "00:10:00",
+            "end": "00:12:30",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 13468.0,
+            "vram_allocated_mib": 13380.8
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T03:26:35.433921+00:00",
+            "ended_at": "2026-11-20T03:27:38.920752+00:00",
+            "seconds": 63.487,
+            "window": 6,
+            "start": "00:12:30",
+            "end": "00:15:00",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 13468.0,
+            "vram_allocated_mib": 13380.8
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T03:27:38.945740+00:00",
+            "ended_at": "2026-11-20T03:28:38.701375+00:00",
+            "seconds": 59.756,
+            "window": 7,
+            "start": "00:15:00",
+            "end": "00:17:30",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 13468.0,
+            "vram_allocated_mib": 13380.8
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T03:28:38.709624+00:00",
+            "ended_at": "2026-11-20T03:29:34.513969+00:00",
+            "seconds": 55.804,
+            "window": 8,
+            "start": "00:17:30",
+            "end": "00:20:00",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 13468.0,
+            "vram_allocated_mib": 13380.8
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T03:29:34.530289+00:00",
+            "ended_at": "2026-11-20T03:30:23.238327+00:00",
+            "seconds": 48.708,
+            "window": 9,
+            "start": "00:20:00",
+            "end": "00:22:06",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 13150.0,
+            "vram_allocated_mib": 13056.9
+          }
+        ]
+      },
+      "output_file": "How_I_Met_Your_Mother.S01E02.mkv_vlm.json",
+      "raw_file": "How_I_Met_Your_Mother.S01E02.mkv_vlm_raw.txt",
+      "sidecar_file": "How_I_Met_Your_Mother.S01E02.mkv_vlm_sidecar.json",
+      "timings_file": "How_I_Met_Your_Mother.S01E02.mkv_vlm_timings.json",
+      "frames_file": "How_I_Met_Your_Mother.S01E02.mkv_vlm_frames.json"
+    },
+    {
+      "stage": "llm",
+      "status": "success",
+      "result": {
+        "recsys_metadata": {
+          "primary_genre": "Comedy",
+          "sub_genres": [
+            "Romance",
+            "Sitcom",
+            "Drama"
+          ],
+          "pacing": "Moderate",
+          "mood": [
+            "Humorous",
+            "Reflective",
+            "Sentimental"
+          ]
+        },
+        "search_and_discovery": {
+          "semantic_tags": [
+            "Friendship",
+            "Misunderstandings",
+            "Social Dynamics",
+            "Relationships"
+          ],
+          "main_topics": [
+            "Dating",
+            "Friendship",
+            "Personal Growth"
+          ]
+        },
+        "audience_profiling": {
+          "target_age_group": "Young Adults",
+          "viewer_interests": [
+            "Comedy",
+            "Romance",
+            "Character Development"
+          ]
+        },
+        "content_summary": {
+          "visual_style": "The visual style features warm ambient lighting with soft shadows, rich earthy tones, and vibrant accents of red and teal, creating a cozy and intimate atmosphere.",
+          "narrative_hook": "Ted, a romantic character, struggles to connect with Robin through a series of awkward and misguided attempts, leading to comedic situations and heartfelt moments."
+        }
+      },
+      "timings": {
+        "stage": "llm",
+        "started_at": "2026-11-20T03:30:27.046807+00:00",
+        "ended_at": "2026-11-20T03:43:06.468922+00:00",
+        "wall_seconds": 759.422,
+        "spans": [
+          {
+            "name": "llm_load",
+            "started_at": "2026-11-20T03:30:27.531959+00:00",
+            "ended_at": "2026-11-20T03:42:41.446631+00:00",
+            "seconds": 733.915,
+            "model_id": "Qwen/Qwen3-8B",
+            "vram_reserved_mib": 9924.0,
+            "vram_allocated_mib": 9882.0
+          },
+          {
+            "name": "llm_generate",
+            "started_at": "2026-11-20T03:42:41.447365+00:00",
+            "ended_at": "2026-11-20T03:43:05.457604+00:00",
+            "seconds": 24.01,
+            "model_id": "Qwen/Qwen3-8B",
+            "attempt": 1,
+            "vram_reserved_mib": 11368.0,
+            "vram_allocated_mib": 11170.6
+          }
+        ]
+      },
+      "output_file": "How_I_Met_Your_Mother.S01E02.mkv_llm.json",
+      "timings_file": "How_I_Met_Your_Mother.S01E02.mkv_llm_timings.json"
+    }
+  ],
+  "stages_ran": [
+    "timeline",
+    "audio",
+    "bassl",
+    "dialogue",
+    "vlm",
+    "llm",
+    "evidence"
+  ],
+  "archived_files": [
+    "How_I_Met_Your_Mother.S01E02.mkv_timeline.json",
+    "How_I_Met_Your_Mother.S01E02.mkv_audio.json",
+    "How_I_Met_Your_Mother.S01E02.mkv_audio_timings.json",
+    "How_I_Met_Your_Mother.S01E02.mkv_bassl.json",
+    "How_I_Met_Your_Mother.S01E02.mkv_dialogue.json",
+    "How_I_Met_Your_Mother.S01E02.mkv_dialogue_timings.json",
+    "How_I_Met_Your_Mother.S01E02.mkv_vlm.json",
+    "How_I_Met_Your_Mother.S01E02.mkv_vlm_timings.json",
+    "How_I_Met_Your_Mother.S01E02.mkv_vlm_frames.json",
+    "How_I_Met_Your_Mother.S01E02.mkv_vlm_raw.txt",
+    "How_I_Met_Your_Mother.S01E02.mkv_vlm_sidecar.json",
+    "How_I_Met_Your_Mother.S01E02.mkv_frame_plan.json",
+    "How_I_Met_Your_Mother.S01E02.mkv_llm.json",
+    "How_I_Met_Your_Mother.S01E02.mkv_llm_timings.json",
+    "How_I_Met_Your_Mother.S01E02.mkv_manifest.json",
+    "How_I_Met_Your_Mother.S01E02.mkv_evidence.json"
+  ]
+}

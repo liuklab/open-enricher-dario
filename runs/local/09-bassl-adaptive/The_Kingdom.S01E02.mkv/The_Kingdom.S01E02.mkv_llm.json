@@ -1,0 +1,41 @@
+{
+  "recsys_metadata": {
+    "primary_genre": "Drama",
+    "sub_genres": [
+      "Political Thriller",
+      "Religious Drama",
+      "Moral Conflict"
+    ],
+    "pacing": "Moderate",
+    "mood": [
+      "Tense",
+      "Reflective",
+      "Morally Ambiguous"
+    ]
+  },
+  "search_and_discovery": {
+    "semantic_tags": [
+      "Church politics",
+      "Betrayal",
+      "Faith crisis",
+      "Power dynamics"
+    ],
+    "main_topics": [
+      "Criminal justice",
+      "Spiritual leadership",
+      "Internal conflict"
+    ]
+  },
+  "audience_profiling": {
+    "target_age_group": "Adults",
+    "viewer_interests": [
+      "Political intrigue",
+      "Religious themes",
+      "Character-driven stories"
+    ]
+  },
+  "content_summary": {
+    "visual_style": "Dark, cool-toned lighting with blue hues and muted colors dominates the visual style, creating a somber and introspective mood.",
+    "narrative_hook": "Pastor Emilio Vazquez is forced to confront his role in a murder linked to his church's political connections, unraveling a web of conspiracies and moral dilemmas."
+  }
+}

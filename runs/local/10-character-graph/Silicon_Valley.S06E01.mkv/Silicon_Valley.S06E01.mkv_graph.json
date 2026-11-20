@@ -1,0 +1,7049 @@
+{
+  "video": "Silicon_Valley.S06E01.mkv",
+  "attempt_id": "20261120T055345Z-40bca439",
+  "source_fingerprint": "e9759a058181c736eee89828116ae68a7f72dd71563fc22808b6d383345b8e32",
+  "settings_hash": "813dd20db0d25b184677a584b11dddb7402bacf3500bd7788dc4dec5525d40fe",
+  "stage": "character_graph",
+  "status": "degraded",
+  "reasons": [
+    "insightface import failed: No module named 'insightface'",
+    "no face tracks to score"
+  ],
+  "nodes": [],
+  "edges": [
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Well",
+      "start": 12.39,
+      "end": 16.53,
+      "evidence_ids": [
+        "2"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Gates",
+      "start": 16.55,
+      "end": 19.84,
+      "evidence_ids": [
+        "3"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "We",
+      "start": 20.02,
+      "end": 23.8,
+      "evidence_ids": [
+        "4"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Partnering",
+      "start": 24.42,
+      "end": 28.72,
+      "evidence_ids": [
+        "5"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Knock",
+      "start": 28.74,
+      "end": 29.56,
+      "evidence_ids": [
+        "6"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Um",
+      "start": 35.84,
+      "end": 38.26,
+      "evidence_ids": [
+        "7"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Bye",
+      "start": 39.02,
+      "end": 39.2,
+      "evidence_ids": [
+        "8"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 40.42,
+      "end": 43.29,
+      "evidence_ids": [
+        "9"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Taking",
+      "start": 43.71,
+      "end": 47.01,
+      "evidence_ids": [
+        "10"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "That",
+      "start": 47.07,
+      "end": 47.85,
+      "evidence_ids": [
+        "11"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "So",
+      "start": 48.33,
+      "end": 51.13,
+      "evidence_ids": [
+        "12"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Why",
+      "start": 51.25,
+      "end": 52.59,
+      "evidence_ids": [
+        "13"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "They",
+      "start": 52.73,
+      "end": 54.33,
+      "evidence_ids": [
+        "14"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 54.37,
+      "end": 54.89,
+      "evidence_ids": [
+        "15"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Sorry",
+      "start": 54.91,
+      "end": 55.39,
+      "evidence_ids": [
+        "16"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "We",
+      "start": 62.3,
+      "end": 64.98,
+      "evidence_ids": [
+        "18"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 65.06,
+      "end": 66.78,
+      "evidence_ids": [
+        "19"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "No",
+      "start": 67.44,
+      "end": 67.92,
+      "evidence_ids": [
+        "20"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "How",
+      "start": 70.92,
+      "end": 72.18,
+      "evidence_ids": [
+        "22"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Yes",
+      "start": 75.5,
+      "end": 75.74,
+      "evidence_ids": [
+        "25"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Boom",
+      "start": 77.4,
+      "end": 77.64,
+      "evidence_ids": [
+        "26"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 77.78,
+      "end": 79.14,
+      "evidence_ids": [
+        "27"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Colin",
+      "start": 79.92,
+      "end": 80.82,
+      "evidence_ids": [
+        "28"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 80.84,
+      "end": 81.64,
+      "evidence_ids": [
+        "29"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Guilfoyle",
+      "start": 81.82,
+      "end": 83.78,
+      "evidence_ids": [
+        "30"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Bombs",
+      "start": 83.84,
+      "end": 84.53,
+      "evidence_ids": [
+        "31"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Oh",
+      "start": 87.05,
+      "end": 87.94,
+      "evidence_ids": [
+        "32"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "These",
+      "start": 88.06,
+      "end": 89.35,
+      "evidence_ids": [
+        "33"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "We",
+      "start": 89.61,
+      "end": 90.95,
+      "evidence_ids": [
+        "34"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "What",
+      "start": 92.94,
+      "end": 93.44,
+      "evidence_ids": [
+        "35"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Do",
+      "start": 93.89,
+      "end": 95.05,
+      "evidence_ids": [
+        "36"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "There",
+      "start": 95.07,
+      "end": 95.79,
+      "evidence_ids": [
+        "37"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Okay",
+      "start": 96.55,
+      "end": 96.93,
+      "evidence_ids": [
+        "38"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Whoa",
+      "start": 97.21,
+      "end": 97.71,
+      "evidence_ids": [
+        "39"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 101.91,
+      "end": 102.79,
+      "evidence_ids": [
+        "41"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Here",
+      "start": 102.81,
+      "end": 103.51,
+      "evidence_ids": [
+        "42"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Right",
+      "start": 107.25,
+      "end": 115.16,
+      "evidence_ids": [
+        "43"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Oh",
+      "start": 121.5,
+      "end": 123.1,
+      "evidence_ids": [
+        "45"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Mr",
+      "start": 152.11,
+      "end": 153.81,
+      "evidence_ids": [
+        "47"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "For",
+      "start": 154.25,
+      "end": 160.63,
+      "evidence_ids": [
+        "48"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "And",
+      "start": 160.88,
+      "end": 166.84,
+      "evidence_ids": [
+        "49"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Pooley",
+      "start": 167.44,
+      "end": 169.66,
+      "evidence_ids": [
+        "50"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Yes",
+      "start": 171.0,
+      "end": 171.22,
+      "evidence_ids": [
+        "51"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "As",
+      "start": 172.88,
+      "end": 181.06,
+      "evidence_ids": [
+        "52"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "But",
+      "start": 181.42,
+      "end": 187.42,
+      "evidence_ids": [
+        "53"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Senator",
+      "start": 188.59,
+      "end": 188.94,
+      "evidence_ids": [
+        "54"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Thank",
+      "start": 189.44,
+      "end": 190.27,
+      "evidence_ids": [
+        "55"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Mr",
+      "start": 191.25,
+      "end": 199.45,
+      "evidence_ids": [
+        "56"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Mr",
+      "start": 203.21,
+      "end": 203.71,
+      "evidence_ids": [
+        "58"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Yes",
+      "start": 205.79,
+      "end": 208.17,
+      "evidence_ids": [
+        "59"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Mr",
+      "start": 208.21,
+      "end": 210.13,
+      "evidence_ids": [
+        "60"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Okay",
+      "start": 213.91,
+      "end": 214.76,
+      "evidence_ids": [
+        "61"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 215.66,
+      "end": 217.9,
+      "evidence_ids": [
+        "62"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "But",
+      "start": 218.58,
+      "end": 220.18,
+      "evidence_ids": [
+        "63"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 220.32,
+      "end": 224.44,
+      "evidence_ids": [
+        "64"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Richard Hendricks",
+      "start": 224.74,
+      "end": 227.24,
+      "evidence_ids": [
+        "65"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "There",
+      "start": 227.26,
+      "end": 227.9,
+      "evidence_ids": [
+        "66"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Eye",
+      "start": 229.03,
+      "end": 229.67,
+      "evidence_ids": [
+        "67"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Proud To Tell",
+      "start": 230.03,
+      "end": 237.5,
+      "evidence_ids": [
+        "68"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Oh",
+      "start": 238.28,
+      "end": 238.4,
+      "evidence_ids": [
+        "69"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Hold",
+      "start": 239.28,
+      "end": 241.56,
+      "evidence_ids": [
+        "70"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Basically",
+      "start": 241.76,
+      "end": 246.1,
+      "evidence_ids": [
+        "71"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 246.58,
+      "end": 250.3,
+      "evidence_ids": [
+        "72"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "So",
+      "start": 251.97,
+      "end": 257.15,
+      "evidence_ids": [
+        "74"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Does",
+      "start": 263.63,
+      "end": 266.44,
+      "evidence_ids": [
+        "75"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Perfect",
+      "start": 266.48,
+      "end": 266.74,
+      "evidence_ids": [
+        "76"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Okay",
+      "start": 266.8,
+      "end": 266.98,
+      "evidence_ids": [
+        "77"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "So",
+      "start": 268.2,
+      "end": 270.64,
+      "evidence_ids": [
+        "78"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 271.02,
+      "end": 273.03,
+      "evidence_ids": [
+        "79"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Facebook",
+      "start": 274.66,
+      "end": 278.81,
+      "evidence_ids": [
+        "80"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Google",
+      "start": 279.5,
+      "end": 282.01,
+      "evidence_ids": [
+        "81"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "And Amazon Web",
+      "start": 282.49,
+      "end": 288.03,
+      "evidence_ids": [
+        "82"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "And",
+      "start": 288.35,
+      "end": 291.43,
+      "evidence_ids": [
+        "83"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "See",
+      "start": 291.97,
+      "end": 292.15,
+      "evidence_ids": [
+        "84"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Look",
+      "start": 292.35,
+      "end": 292.53,
+      "evidence_ids": [
+        "85"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "There",
+      "start": 292.75,
+      "end": 292.97,
+      "evidence_ids": [
+        "86"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Even Huli",
+      "start": 293.99,
+      "end": 295.47,
+      "evidence_ids": [
+        "87"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "No",
+      "start": 296.23,
+      "end": 296.92,
+      "evidence_ids": [
+        "88"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "They",
+      "start": 298.45,
+      "end": 300.58,
+      "evidence_ids": [
+        "89"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "They",
+      "start": 300.62,
+      "end": 303.7,
+      "evidence_ids": [
+        "90"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "And",
+      "start": 304.1,
+      "end": 306.48,
+      "evidence_ids": [
+        "91"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "And",
+      "start": 308.06,
+      "end": 312.22,
+      "evidence_ids": [
+        "92"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "They",
+      "start": 312.34,
+      "end": 313.18,
+      "evidence_ids": [
+        "93"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "These",
+      "start": 313.66,
+      "end": 314.82,
+      "evidence_ids": [
+        "94"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "And",
+      "start": 315.76,
+      "end": 319.46,
+      "evidence_ids": [
+        "95"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "They",
+      "start": 320.43,
+      "end": 320.81,
+      "evidence_ids": [
+        "96"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "We",
+      "start": 321.75,
+      "end": 322.21,
+      "evidence_ids": [
+        "97"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "So",
+      "start": 323.73,
+      "end": 324.43,
+      "evidence_ids": [
+        "98"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Because",
+      "start": 325.43,
+      "end": 326.81,
+      "evidence_ids": [
+        "99"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Yeah",
+      "start": 327.62,
+      "end": 327.8,
+      "evidence_ids": [
+        "100"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "We",
+      "start": 328.27,
+      "end": 330.48,
+      "evidence_ids": [
+        "101"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "We",
+      "start": 331.5,
+      "end": 339.76,
+      "evidence_ids": [
+        "103"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "So",
+      "start": 340.2,
+      "end": 341.08,
+      "evidence_ids": [
+        "104"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "They",
+      "start": 341.1,
+      "end": 341.8,
+      "evidence_ids": [
+        "105"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "They",
+      "start": 342.02,
+      "end": 346.8,
+      "evidence_ids": [
+        "106"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "And",
+      "start": 347.96,
+      "end": 351.18,
+      "evidence_ids": [
+        "107"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Democratic",
+      "start": 352.19,
+      "end": 354.41,
+      "evidence_ids": [
+        "108"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "One",
+      "start": 355.03,
+      "end": 360.53,
+      "evidence_ids": [
+        "109"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "One",
+      "start": 361.86,
+      "end": 367.18,
+      "evidence_ids": [
+        "110"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "This",
+      "start": 367.68,
+      "end": 376.43,
+      "evidence_ids": [
+        "111"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "So",
+      "start": 376.67,
+      "end": 377.49,
+      "evidence_ids": [
+        "112"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "No",
+      "start": 405.0,
+      "end": 406.16,
+      "evidence_ids": [
+        "113"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Ah",
+      "start": 406.98,
+      "end": 407.82,
+      "evidence_ids": [
+        "114"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Kingslayer",
+      "start": 408.62,
+      "end": 409.26,
+      "evidence_ids": [
+        "115"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "How",
+      "start": 409.6,
+      "end": 410.1,
+      "evidence_ids": [
+        "116"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Good",
+      "start": 410.18,
+      "end": 411.38,
+      "evidence_ids": [
+        "117"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 411.6,
+      "end": 412.02,
+      "evidence_ids": [
+        "118"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Yeah",
+      "start": 412.3,
+      "end": 414.08,
+      "evidence_ids": [
+        "119"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Of",
+      "start": 415.38,
+      "end": 418.98,
+      "evidence_ids": [
+        "121"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Hold",
+      "start": 420.06,
+      "end": 420.4,
+      "evidence_ids": [
+        "122"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "The",
+      "start": 421.12,
+      "end": 422.28,
+      "evidence_ids": [
+        "123"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Give",
+      "start": 422.56,
+      "end": 423.6,
+      "evidence_ids": [
+        "124"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Jesus",
+      "start": 426.4,
+      "end": 426.78,
+      "evidence_ids": [
+        "125"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Dulles",
+      "start": 427.82,
+      "end": 430.21,
+      "evidence_ids": [
+        "126"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 430.43,
+      "end": 432.03,
+      "evidence_ids": [
+        "127"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Well",
+      "start": 432.07,
+      "end": 433.91,
+      "evidence_ids": [
+        "128"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Reagan",
+      "start": 435.33,
+      "end": 435.73,
+      "evidence_ids": [
+        "129"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "But",
+      "start": 436.21,
+      "end": 437.33,
+      "evidence_ids": [
+        "130"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Well",
+      "start": 438.07,
+      "end": 438.96,
+      "evidence_ids": [
+        "131"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "See",
+      "start": 439.0,
+      "end": 440.86,
+      "evidence_ids": [
+        "132"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Don",
+      "start": 441.62,
+      "end": 442.1,
+      "evidence_ids": [
+        "133"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Jared",
+      "start": 442.22,
+      "end": 442.74,
+      "evidence_ids": [
+        "134"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Never",
+      "start": 443.0,
+      "end": 444.02,
+      "evidence_ids": [
+        "135"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "But",
+      "start": 444.72,
+      "end": 447.3,
+      "evidence_ids": [
+        "136"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Right",
+      "start": 447.34,
+      "end": 447.5,
+      "evidence_ids": [
+        "137"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "We",
+      "start": 447.7,
+      "end": 448.22,
+      "evidence_ids": [
+        "138"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "And",
+      "start": 449.3,
+      "end": 452.16,
+      "evidence_ids": [
+        "139"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Look",
+      "start": 455.44,
+      "end": 456.14,
+      "evidence_ids": [
+        "141"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Can",
+      "start": 456.76,
+      "end": 462.39,
+      "evidence_ids": [
+        "142"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "And",
+      "start": 463.74,
+      "end": 468.24,
+      "evidence_ids": [
+        "143"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Hey",
+      "start": 477.86,
+      "end": 484.44,
+      "evidence_ids": [
+        "144"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "And",
+      "start": 484.5,
+      "end": 488.53,
+      "evidence_ids": [
+        "145"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Way",
+      "start": 488.57,
+      "end": 490.39,
+      "evidence_ids": [
+        "146"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Look",
+      "start": 494.15,
+      "end": 496.69,
+      "evidence_ids": [
+        "148"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Okay",
+      "start": 496.71,
+      "end": 497.89,
+      "evidence_ids": [
+        "149"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Enjoy",
+      "start": 498.21,
+      "end": 498.85,
+      "evidence_ids": [
+        "150"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Your",
+      "start": 499.03,
+      "end": 502.77,
+      "evidence_ids": [
+        "151"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Hey",
+      "start": 505.15,
+      "end": 505.67,
+      "evidence_ids": [
+        "152"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Richard",
+      "start": 506.01,
+      "end": 507.17,
+      "evidence_ids": [
+        "153"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Stand",
+      "start": 508.46,
+      "end": 508.92,
+      "evidence_ids": [
+        "154"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Congratulations",
+      "start": 509.6,
+      "end": 512.2,
+      "evidence_ids": [
+        "155"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Yeah",
+      "start": 513.12,
+      "end": 514.84,
+      "evidence_ids": [
+        "156"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 518.23,
+      "end": 520.53,
+      "evidence_ids": [
+        "157"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Going To Hawaii",
+      "start": 521.33,
+      "end": 523.07,
+      "evidence_ids": [
+        "158"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Okay",
+      "start": 526.45,
+      "end": 527.09,
+      "evidence_ids": [
+        "159"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Congratulations",
+      "start": 527.29,
+      "end": 528.35,
+      "evidence_ids": [
+        "160"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 528.93,
+      "end": 534.06,
+      "evidence_ids": [
+        "161"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Setting",
+      "start": 534.7,
+      "end": 538.84,
+      "evidence_ids": [
+        "162"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 539.56,
+      "end": 541.9,
+      "evidence_ids": [
+        "163"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "What",
+      "start": 542.16,
+      "end": 542.46,
+      "evidence_ids": [
+        "164"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 543.4,
+      "end": 544.3,
+      "evidence_ids": [
+        "165"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Kicked",
+      "start": 545.61,
+      "end": 546.55,
+      "evidence_ids": [
+        "167"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Kicked",
+      "start": 546.63,
+      "end": 547.21,
+      "evidence_ids": [
+        "168"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Why",
+      "start": 547.71,
+      "end": 549.11,
+      "evidence_ids": [
+        "169"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Gabe",
+      "start": 549.41,
+      "end": 551.13,
+      "evidence_ids": [
+        "170"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 551.19,
+      "end": 552.35,
+      "evidence_ids": [
+        "171"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 552.37,
+      "end": 552.89,
+      "evidence_ids": [
+        "172"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Kicked",
+      "start": 553.03,
+      "end": 554.35,
+      "evidence_ids": [
+        "173"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 556.42,
+      "end": 556.96,
+      "evidence_ids": [
+        "174"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Trying To Get",
+      "start": 557.82,
+      "end": 559.32,
+      "evidence_ids": [
+        "175"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Okay",
+      "start": 561.61,
+      "end": 564.37,
+      "evidence_ids": [
+        "177"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "The",
+      "start": 565.13,
+      "end": 569.97,
+      "evidence_ids": [
+        "178"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "And",
+      "start": 570.37,
+      "end": 573.72,
+      "evidence_ids": [
+        "179"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Richard",
+      "start": 573.74,
+      "end": 575.22,
+      "evidence_ids": [
+        "180"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Hey",
+      "start": 575.24,
+      "end": 575.86,
+      "evidence_ids": [
+        "181"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Yes",
+      "start": 576.64,
+      "end": 577.12,
+      "evidence_ids": [
+        "182"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "No",
+      "start": 577.38,
+      "end": 577.74,
+      "evidence_ids": [
+        "183"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Okay",
+      "start": 580.19,
+      "end": 581.03,
+      "evidence_ids": [
+        "184"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Cheers",
+      "start": 581.25,
+      "end": 581.57,
+      "evidence_ids": [
+        "185"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Saw",
+      "start": 582.07,
+      "end": 582.87,
+      "evidence_ids": [
+        "186"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 583.35,
+      "end": 584.39,
+      "evidence_ids": [
+        "187"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "That King",
+      "start": 584.81,
+      "end": 586.7,
+      "evidence_ids": [
+        "188"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Kings",
+      "start": 587.0,
+      "end": 587.92,
+      "evidence_ids": [
+        "189"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Oh",
+      "start": 588.24,
+      "end": 590.7,
+      "evidence_ids": [
+        "190"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "So",
+      "start": 591.4,
+      "end": 595.72,
+      "evidence_ids": [
+        "191"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Were",
+      "start": 596.3,
+      "end": 596.86,
+      "evidence_ids": [
+        "192"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Uh",
+      "start": 597.72,
+      "end": 598.3,
+      "evidence_ids": [
+        "193"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Cool",
+      "start": 598.68,
+      "end": 598.88,
+      "evidence_ids": [
+        "194"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Well",
+      "start": 598.98,
+      "end": 599.82,
+      "evidence_ids": [
+        "195"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Why",
+      "start": 601.0,
+      "end": 601.18,
+      "evidence_ids": [
+        "196"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Well",
+      "start": 601.78,
+      "end": 605.04,
+      "evidence_ids": [
+        "197"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Yes",
+      "start": 605.42,
+      "end": 605.71,
+      "evidence_ids": [
+        "198"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "But",
+      "start": 606.21,
+      "end": 607.25,
+      "evidence_ids": [
+        "199"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "What",
+      "start": 609.8,
+      "end": 609.96,
+      "evidence_ids": [
+        "201"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Doing The Right",
+      "start": 610.14,
+      "end": 613.68,
+      "evidence_ids": [
+        "202"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Sorry",
+      "start": 613.74,
+      "end": 614.52,
+      "evidence_ids": [
+        "203"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "How",
+      "start": 615.02,
+      "end": 616.76,
+      "evidence_ids": [
+        "204"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Sort",
+      "start": 617.02,
+      "end": 618.56,
+      "evidence_ids": [
+        "205"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "But",
+      "start": 619.16,
+      "end": 622.12,
+      "evidence_ids": [
+        "206"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Not Using It",
+      "start": 622.14,
+      "end": 623.26,
+      "evidence_ids": [
+        "207"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 623.62,
+      "end": 624.76,
+      "evidence_ids": [
+        "208"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 625.56,
+      "end": 627.72,
+      "evidence_ids": [
+        "209"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Congress",
+      "start": 627.82,
+      "end": 630.24,
+      "evidence_ids": [
+        "210"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "No",
+      "start": 630.54,
+      "end": 637.39,
+      "evidence_ids": [
+        "211"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Don",
+      "start": 638.15,
+      "end": 639.09,
+      "evidence_ids": [
+        "212"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "But",
+      "start": 641.28,
+      "end": 643.4,
+      "evidence_ids": [
+        "213"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Are",
+      "start": 643.62,
+      "end": 644.76,
+      "evidence_ids": [
+        "214"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Or",
+      "start": 645.2,
+      "end": 646.09,
+      "evidence_ids": [
+        "215"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Sorry",
+      "start": 647.45,
+      "end": 655.79,
+      "evidence_ids": [
+        "217"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Suck",
+      "start": 656.03,
+      "end": 656.37,
+      "evidence_ids": [
+        "218"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Sweet",
+      "start": 656.41,
+      "end": 656.71,
+      "evidence_ids": [
+        "219"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Fucking",
+      "start": 657.25,
+      "end": 658.11,
+      "evidence_ids": [
+        "220"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Are",
+      "start": 658.93,
+      "end": 662.98,
+      "evidence_ids": [
+        "221"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Colin",
+      "start": 663.36,
+      "end": 665.18,
+      "evidence_ids": [
+        "222"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 665.46,
+      "end": 667.84,
+      "evidence_ids": [
+        "223"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Because",
+      "start": 668.38,
+      "end": 669.96,
+      "evidence_ids": [
+        "224"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "No",
+      "start": 670.22,
+      "end": 670.44,
+      "evidence_ids": [
+        "225"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "The Boss",
+      "start": 670.94,
+      "end": 671.48,
+      "evidence_ids": [
+        "226"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Telling You That",
+      "start": 671.92,
+      "end": 674.64,
+      "evidence_ids": [
+        "227"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 674.84,
+      "end": 675.12,
+      "evidence_ids": [
+        "228"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Agree",
+      "start": 675.9,
+      "end": 676.6,
+      "evidence_ids": [
+        "229"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Glad We Have",
+      "start": 677.56,
+      "end": 678.4,
+      "evidence_ids": [
+        "230"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Congratulations",
+      "start": 682.47,
+      "end": 683.07,
+      "evidence_ids": [
+        "232"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Oh",
+      "start": 688.8,
+      "end": 692.77,
+      "evidence_ids": [
+        "233"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "There",
+      "start": 692.79,
+      "end": 694.35,
+      "evidence_ids": [
+        "234"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Just",
+      "start": 694.37,
+      "end": 695.81,
+      "evidence_ids": [
+        "235"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Act",
+      "start": 695.85,
+      "end": 696.29,
+      "evidence_ids": [
+        "236"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Sorry",
+      "start": 697.55,
+      "end": 699.29,
+      "evidence_ids": [
+        "237"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Hey",
+      "start": 702.99,
+      "end": 703.82,
+      "evidence_ids": [
+        "238"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Hey",
+      "start": 704.22,
+      "end": 705.28,
+      "evidence_ids": [
+        "239"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "How",
+      "start": 706.3,
+      "end": 707.64,
+      "evidence_ids": [
+        "240"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Fine",
+      "start": 707.66,
+      "end": 708.86,
+      "evidence_ids": [
+        "241"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Did",
+      "start": 709.16,
+      "end": 710.9,
+      "evidence_ids": [
+        "242"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Thinking About Putting",
+      "start": 711.26,
+      "end": 713.22,
+      "evidence_ids": [
+        "243"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "But",
+      "start": 713.42,
+      "end": 716.12,
+      "evidence_ids": [
+        "244"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Follow",
+      "start": 716.98,
+      "end": 718.32,
+      "evidence_ids": [
+        "245"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Okay",
+      "start": 719.18,
+      "end": 722.61,
+      "evidence_ids": [
+        "246"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Yes",
+      "start": 723.43,
+      "end": 727.05,
+      "evidence_ids": [
+        "247"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Oh",
+      "start": 730.59,
+      "end": 732.13,
+      "evidence_ids": [
+        "249"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 732.7,
+      "end": 738.5,
+      "evidence_ids": [
+        "251"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Yeah",
+      "start": 738.93,
+      "end": 740.13,
+      "evidence_ids": [
+        "252"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 740.33,
+      "end": 742.59,
+      "evidence_ids": [
+        "253"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Richard",
+      "start": 743.29,
+      "end": 746.59,
+      "evidence_ids": [
+        "254"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Of",
+      "start": 746.73,
+      "end": 747.05,
+      "evidence_ids": [
+        "255"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 747.48,
+      "end": 748.62,
+      "evidence_ids": [
+        "256"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Okay",
+      "start": 748.89,
+      "end": 749.08,
+      "evidence_ids": [
+        "257"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Okay",
+      "start": 753.84,
+      "end": 754.82,
+      "evidence_ids": [
+        "260"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Yeah",
+      "start": 755.1,
+      "end": 755.38,
+      "evidence_ids": [
+        "261"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Well",
+      "start": 756.26,
+      "end": 758.0,
+      "evidence_ids": [
+        "262"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Richard",
+      "start": 763.03,
+      "end": 766.91,
+      "evidence_ids": [
+        "263"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "He",
+      "start": 767.41,
+      "end": 769.69,
+      "evidence_ids": [
+        "264"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "So",
+      "start": 770.09,
+      "end": 770.43,
+      "evidence_ids": [
+        "265"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "We",
+      "start": 770.47,
+      "end": 771.53,
+      "evidence_ids": [
+        "266"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "We",
+      "start": 771.69,
+      "end": 773.61,
+      "evidence_ids": [
+        "267"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "We",
+      "start": 774.03,
+      "end": 776.43,
+      "evidence_ids": [
+        "268"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 776.45,
+      "end": 782.91,
+      "evidence_ids": [
+        "269"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Okay",
+      "start": 783.36,
+      "end": 783.58,
+      "evidence_ids": [
+        "270"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Thank",
+      "start": 783.96,
+      "end": 787.44,
+      "evidence_ids": [
+        "271"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Football",
+      "start": 787.9,
+      "end": 788.26,
+      "evidence_ids": [
+        "272"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 788.54,
+      "end": 789.22,
+      "evidence_ids": [
+        "273"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "No",
+      "start": 790.31,
+      "end": 790.61,
+      "evidence_ids": [
+        "274"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Losing",
+      "start": 790.91,
+      "end": 792.79,
+      "evidence_ids": [
+        "275"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "So",
+      "start": 793.07,
+      "end": 793.99,
+      "evidence_ids": [
+        "276"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "We",
+      "start": 794.19,
+      "end": 795.41,
+      "evidence_ids": [
+        "277"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Richard",
+      "start": 795.79,
+      "end": 797.51,
+      "evidence_ids": [
+        "278"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "He",
+      "start": 797.55,
+      "end": 799.87,
+      "evidence_ids": [
+        "279"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 800.07,
+      "end": 802.53,
+      "evidence_ids": [
+        "280"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "What",
+      "start": 802.83,
+      "end": 803.05,
+      "evidence_ids": [
+        "281"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "What",
+      "start": 804.11,
+      "end": 804.31,
+      "evidence_ids": [
+        "282"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Hiroshima",
+      "start": 805.53,
+      "end": 807.88,
+      "evidence_ids": [
+        "283"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Saying Just Because",
+      "start": 809.9,
+      "end": 812.4,
+      "evidence_ids": [
+        "285"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Facebook",
+      "start": 815.2,
+      "end": 820.04,
+      "evidence_ids": [
+        "287"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Well",
+      "start": 820.18,
+      "end": 823.04,
+      "evidence_ids": [
+        "288"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Look",
+      "start": 823.7,
+      "end": 825.52,
+      "evidence_ids": [
+        "289"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "There",
+      "start": 825.54,
+      "end": 829.52,
+      "evidence_ids": [
+        "290"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "There",
+      "start": 829.54,
+      "end": 833.88,
+      "evidence_ids": [
+        "291"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Right",
+      "start": 834.24,
+      "end": 835.12,
+      "evidence_ids": [
+        "292"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Ditching",
+      "start": 835.8,
+      "end": 837.4,
+      "evidence_ids": [
+        "293"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 837.62,
+      "end": 839.0,
+      "evidence_ids": [
+        "294"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Hawaii",
+      "start": 839.57,
+      "end": 840.11,
+      "evidence_ids": [
+        "295"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "In Hawaii",
+      "start": 840.35,
+      "end": 842.99,
+      "evidence_ids": [
+        "296"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "They",
+      "start": 843.19,
+      "end": 846.11,
+      "evidence_ids": [
+        "297"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "That",
+      "start": 846.45,
+      "end": 847.11,
+      "evidence_ids": [
+        "298"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "And",
+      "start": 847.31,
+      "end": 850.83,
+      "evidence_ids": [
+        "299"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Aloha",
+      "start": 851.25,
+      "end": 851.65,
+      "evidence_ids": [
+        "300"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "So Colin",
+      "start": 853.57,
+      "end": 856.51,
+      "evidence_ids": [
+        "301"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Great",
+      "start": 857.63,
+      "end": 857.83,
+      "evidence_ids": [
+        "302"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "This",
+      "start": 858.45,
+      "end": 860.47,
+      "evidence_ids": [
+        "303"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "They",
+      "start": 861.07,
+      "end": 861.63,
+      "evidence_ids": [
+        "304"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Happy To Say",
+      "start": 865.74,
+      "end": 872.32,
+      "evidence_ids": [
+        "305"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Merger",
+      "start": 872.48,
+      "end": 872.88,
+      "evidence_ids": [
+        "306"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Continue",
+      "start": 873.56,
+      "end": 873.94,
+      "evidence_ids": [
+        "307"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Amazon",
+      "start": 874.14,
+      "end": 879.26,
+      "evidence_ids": [
+        "308"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "What",
+      "start": 880.0,
+      "end": 881.03,
+      "evidence_ids": [
+        "309"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "No",
+      "start": 881.43,
+      "end": 881.95,
+      "evidence_ids": [
+        "310"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Essentially",
+      "start": 882.27,
+      "end": 887.45,
+      "evidence_ids": [
+        "311"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Full",
+      "start": 887.89,
+      "end": 889.23,
+      "evidence_ids": [
+        "312"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Perks",
+      "start": 889.51,
+      "end": 890.07,
+      "evidence_ids": [
+        "313"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Well",
+      "start": 892.15,
+      "end": 894.05,
+      "evidence_ids": [
+        "314"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Oh",
+      "start": 894.95,
+      "end": 896.71,
+      "evidence_ids": [
+        "315"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "That",
+      "start": 897.59,
+      "end": 899.25,
+      "evidence_ids": [
+        "316"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "From",
+      "start": 899.43,
+      "end": 901.77,
+      "evidence_ids": [
+        "317"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "As",
+      "start": 903.05,
+      "end": 903.37,
+      "evidence_ids": [
+        "318"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "As Amazon",
+      "start": 903.75,
+      "end": 904.31,
+      "evidence_ids": [
+        "319"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "What",
+      "start": 905.03,
+      "end": 905.25,
+      "evidence_ids": [
+        "320"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Hoover",
+      "start": 907.03,
+      "end": 911.54,
+      "evidence_ids": [
+        "321"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Mr",
+      "start": 911.76,
+      "end": 916.9,
+      "evidence_ids": [
+        "322"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Stop",
+      "start": 922.99,
+      "end": 923.49,
+      "evidence_ids": [
+        "324"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 923.69,
+      "end": 925.39,
+      "evidence_ids": [
+        "325"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Go",
+      "start": 925.97,
+      "end": 926.81,
+      "evidence_ids": [
+        "326"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 930.72,
+      "end": 935.98,
+      "evidence_ids": [
+        "327"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "What",
+      "start": 936.38,
+      "end": 937.4,
+      "evidence_ids": [
+        "328"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Is",
+      "start": 937.64,
+      "end": 938.14,
+      "evidence_ids": [
+        "329"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Is",
+      "start": 938.2,
+      "end": 939.38,
+      "evidence_ids": [
+        "330"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 939.4,
+      "end": 940.08,
+      "evidence_ids": [
+        "331"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "No",
+      "start": 940.64,
+      "end": 942.75,
+      "evidence_ids": [
+        "332"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "That",
+      "start": 943.45,
+      "end": 944.17,
+      "evidence_ids": [
+        "333"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Gavin",
+      "start": 944.35,
+      "end": 948.29,
+      "evidence_ids": [
+        "334"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Is",
+      "start": 949.25,
+      "end": 955.18,
+      "evidence_ids": [
+        "335"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "No",
+      "start": 955.94,
+      "end": 956.1,
+      "evidence_ids": [
+        "336"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 956.44,
+      "end": 958.74,
+      "evidence_ids": [
+        "337"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 958.8,
+      "end": 959.16,
+      "evidence_ids": [
+        "338"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Amazon",
+      "start": 961.9,
+      "end": 970.39,
+      "evidence_ids": [
+        "341"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "So Dinesh",
+      "start": 1000.49,
+      "end": 1001.99,
+      "evidence_ids": [
+        "342"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Correct",
+      "start": 1003.09,
+      "end": 1003.51,
+      "evidence_ids": [
+        "343"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "He",
+      "start": 1004.15,
+      "end": 1006.37,
+      "evidence_ids": [
+        "344"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 1006.39,
+      "end": 1007.05,
+      "evidence_ids": [
+        "345"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Well",
+      "start": 1007.71,
+      "end": 1008.61,
+      "evidence_ids": [
+        "346"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Turing",
+      "start": 1008.75,
+      "end": 1010.13,
+      "evidence_ids": [
+        "347"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Almost",
+      "start": 1010.39,
+      "end": 1012.65,
+      "evidence_ids": [
+        "348"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Fucking Gilfoyle",
+      "start": 1012.89,
+      "end": 1014.33,
+      "evidence_ids": [
+        "349"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "We",
+      "start": 1015.29,
+      "end": 1015.97,
+      "evidence_ids": [
+        "350"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 1018.21,
+      "end": 1019.51,
+      "evidence_ids": [
+        "351"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Son",
+      "start": 1020.89,
+      "end": 1021.77,
+      "evidence_ids": [
+        "353"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Son",
+      "start": 1022.36,
+      "end": 1023.06,
+      "evidence_ids": [
+        "354"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "An",
+      "start": 1023.26,
+      "end": 1024.84,
+      "evidence_ids": [
+        "355"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 1026.06,
+      "end": 1028.46,
+      "evidence_ids": [
+        "356"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "He",
+      "start": 1028.84,
+      "end": 1034.98,
+      "evidence_ids": [
+        "357"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Hang",
+      "start": 1035.38,
+      "end": 1035.7,
+      "evidence_ids": [
+        "358"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Wait",
+      "start": 1035.88,
+      "end": 1036.66,
+      "evidence_ids": [
+        "359"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Do",
+      "start": 1038.48,
+      "end": 1042.4,
+      "evidence_ids": [
+        "360"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Why",
+      "start": 1043.14,
+      "end": 1044.5,
+      "evidence_ids": [
+        "361"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "He",
+      "start": 1044.98,
+      "end": 1046.04,
+      "evidence_ids": [
+        "362"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Hey",
+      "start": 1048.14,
+      "end": 1050.06,
+      "evidence_ids": [
+        "363"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Yes",
+      "start": 1052.23,
+      "end": 1052.51,
+      "evidence_ids": [
+        "364"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Can",
+      "start": 1052.81,
+      "end": 1054.73,
+      "evidence_ids": [
+        "365"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "So",
+      "start": 1060.39,
+      "end": 1062.87,
+      "evidence_ids": [
+        "368"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Wearable",
+      "start": 1069.03,
+      "end": 1069.87,
+      "evidence_ids": [
+        "370"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Sending",
+      "start": 1071.47,
+      "end": 1072.19,
+      "evidence_ids": [
+        "371"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Thank",
+      "start": 1074.77,
+      "end": 1075.35,
+      "evidence_ids": [
+        "372"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Gilfoyle",
+      "start": 1084.98,
+      "end": 1086.06,
+      "evidence_ids": [
+        "373"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Um",
+      "start": 1111.3,
+      "end": 1114.02,
+      "evidence_ids": [
+        "374"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Because",
+      "start": 1114.04,
+      "end": 1119.56,
+      "evidence_ids": [
+        "375"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Was",
+      "start": 1121.58,
+      "end": 1122.24,
+      "evidence_ids": [
+        "376"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Complicated",
+      "start": 1122.66,
+      "end": 1123.76,
+      "evidence_ids": [
+        "377"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Is",
+      "start": 1124.74,
+      "end": 1125.81,
+      "evidence_ids": [
+        "378"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Was",
+      "start": 1126.27,
+      "end": 1126.93,
+      "evidence_ids": [
+        "379"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Yes",
+      "start": 1127.29,
+      "end": 1127.59,
+      "evidence_ids": [
+        "380"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "So",
+      "start": 1127.93,
+      "end": 1129.67,
+      "evidence_ids": [
+        "381"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Yes",
+      "start": 1129.79,
+      "end": 1130.07,
+      "evidence_ids": [
+        "382"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 1130.39,
+      "end": 1131.63,
+      "evidence_ids": [
+        "383"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Yes",
+      "start": 1131.65,
+      "end": 1131.93,
+      "evidence_ids": [
+        "384"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "And",
+      "start": 1131.95,
+      "end": 1132.79,
+      "evidence_ids": [
+        "385"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Do",
+      "start": 1133.09,
+      "end": 1135.25,
+      "evidence_ids": [
+        "386"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 1135.91,
+      "end": 1140.76,
+      "evidence_ids": [
+        "387"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Gabe",
+      "start": 1142.66,
+      "end": 1145.53,
+      "evidence_ids": [
+        "388"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "And",
+      "start": 1146.83,
+      "end": 1148.81,
+      "evidence_ids": [
+        "389"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Look",
+      "start": 1151.73,
+      "end": 1152.15,
+      "evidence_ids": [
+        "390"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Fucking Gabe",
+      "start": 1152.6,
+      "end": 1153.4,
+      "evidence_ids": [
+        "391"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "We",
+      "start": 1162.42,
+      "end": 1167.5,
+      "evidence_ids": [
+        "392"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Let",
+      "start": 1167.94,
+      "end": 1171.22,
+      "evidence_ids": [
+        "393"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "The",
+      "start": 1171.81,
+      "end": 1177.03,
+      "evidence_ids": [
+        "394"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "The",
+      "start": 1177.61,
+      "end": 1186.75,
+      "evidence_ids": [
+        "395"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "He",
+      "start": 1197.53,
+      "end": 1199.08,
+      "evidence_ids": [
+        "400"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Where",
+      "start": 1199.41,
+      "end": 1200.15,
+      "evidence_ids": [
+        "401"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Colin",
+      "start": 1200.39,
+      "end": 1200.71,
+      "evidence_ids": [
+        "402"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "He",
+      "start": 1200.89,
+      "end": 1206.62,
+      "evidence_ids": [
+        "403"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "At",
+      "start": 1207.1,
+      "end": 1209.34,
+      "evidence_ids": [
+        "404"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "And",
+      "start": 1209.6,
+      "end": 1211.04,
+      "evidence_ids": [
+        "405"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "We",
+      "start": 1213.23,
+      "end": 1216.67,
+      "evidence_ids": [
+        "406"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 1217.09,
+      "end": 1226.6,
+      "evidence_ids": [
+        "407"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "This",
+      "start": 1233.93,
+      "end": 1240.67,
+      "evidence_ids": [
+        "409"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "He",
+      "start": 1242.25,
+      "end": 1242.75,
+      "evidence_ids": [
+        "411"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "He",
+      "start": 1244.11,
+      "end": 1245.65,
+      "evidence_ids": [
+        "412"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "He",
+      "start": 1246.71,
+      "end": 1248.88,
+      "evidence_ids": [
+        "413"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Cold",
+      "start": 1251.64,
+      "end": 1252.04,
+      "evidence_ids": [
+        "415"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Hold",
+      "start": 1252.26,
+      "end": 1252.82,
+      "evidence_ids": [
+        "416"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "What",
+      "start": 1252.84,
+      "end": 1254.62,
+      "evidence_ids": [
+        "417"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Blackmail",
+      "start": 1256.2,
+      "end": 1256.7,
+      "evidence_ids": [
+        "418"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "No",
+      "start": 1257.93,
+      "end": 1258.81,
+      "evidence_ids": [
+        "419"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Richard",
+      "start": 1260.31,
+      "end": 1263.99,
+      "evidence_ids": [
+        "420"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "But",
+      "start": 1264.91,
+      "end": 1268.04,
+      "evidence_ids": [
+        "421"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "And",
+      "start": 1268.18,
+      "end": 1270.82,
+      "evidence_ids": [
+        "422"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Yeah",
+      "start": 1271.52,
+      "end": 1274.0,
+      "evidence_ids": [
+        "423"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Yeah",
+      "start": 1274.12,
+      "end": 1275.66,
+      "evidence_ids": [
+        "424"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Yeah",
+      "start": 1276.5,
+      "end": 1277.06,
+      "evidence_ids": [
+        "426"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "He",
+      "start": 1277.34,
+      "end": 1278.99,
+      "evidence_ids": [
+        "427"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Yeah",
+      "start": 1279.31,
+      "end": 1279.49,
+      "evidence_ids": [
+        "428"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Yeah",
+      "start": 1280.21,
+      "end": 1280.37,
+      "evidence_ids": [
+        "429"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Hey",
+      "start": 1282.61,
+      "end": 1283.01,
+      "evidence_ids": [
+        "433"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Did Tracy",
+      "start": 1284.9,
+      "end": 1287.88,
+      "evidence_ids": [
+        "434"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Yeah",
+      "start": 1289.18,
+      "end": 1290.12,
+      "evidence_ids": [
+        "435"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Oh",
+      "start": 1292.1,
+      "end": 1292.5,
+      "evidence_ids": [
+        "437"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Yeah",
+      "start": 1293.14,
+      "end": 1293.28,
+      "evidence_ids": [
+        "438"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Yeah",
+      "start": 1293.66,
+      "end": 1293.84,
+      "evidence_ids": [
+        "439"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Yeah",
+      "start": 1294.04,
+      "end": 1294.22,
+      "evidence_ids": [
+        "440"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Richard",
+      "start": 1298.85,
+      "end": 1309.61,
+      "evidence_ids": [
+        "442"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Yes",
+      "start": 1309.95,
+      "end": 1310.37,
+      "evidence_ids": [
+        "443"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "So",
+      "start": 1310.81,
+      "end": 1312.73,
+      "evidence_ids": [
+        "444"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Yeah",
+      "start": 1319.04,
+      "end": 1320.28,
+      "evidence_ids": [
+        "446"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 1321.56,
+      "end": 1328.14,
+      "evidence_ids": [
+        "447"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 1328.22,
+      "end": 1331.88,
+      "evidence_ids": [
+        "448"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Yeah",
+      "start": 1332.2,
+      "end": 1339.79,
+      "evidence_ids": [
+        "449"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "But",
+      "start": 1340.77,
+      "end": 1341.89,
+      "evidence_ids": [
+        "450"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Richard",
+      "start": 1345.18,
+      "end": 1349.29,
+      "evidence_ids": [
+        "451"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Danny",
+      "start": 1351.97,
+      "end": 1353.67,
+      "evidence_ids": [
+        "452"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 1360.93,
+      "end": 1375.22,
+      "evidence_ids": [
+        "456"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 1375.72,
+      "end": 1376.32,
+      "evidence_ids": [
+        "457"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Data",
+      "start": 1377.16,
+      "end": 1377.76,
+      "evidence_ids": [
+        "458"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Not",
+      "start": 1378.22,
+      "end": 1381.26,
+      "evidence_ids": [
+        "459"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Holy",
+      "start": 1381.54,
+      "end": 1382.18,
+      "evidence_ids": [
+        "460"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Where",
+      "start": 1388.36,
+      "end": 1388.78,
+      "evidence_ids": [
+        "462"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Do",
+      "start": 1388.8,
+      "end": 1389.76,
+      "evidence_ids": [
+        "463"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 1390.95,
+      "end": 1392.63,
+      "evidence_ids": [
+        "464"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Seven",
+      "start": 1394.15,
+      "end": 1394.97,
+      "evidence_ids": [
+        "465"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Oh",
+      "start": 1394.99,
+      "end": 1399.43,
+      "evidence_ids": [
+        "466"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 1399.6,
+      "end": 1402.6,
+      "evidence_ids": [
+        "467"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Oh",
+      "start": 1402.66,
+      "end": 1403.88,
+      "evidence_ids": [
+        "468"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Look",
+      "start": 1404.1,
+      "end": 1404.52,
+      "evidence_ids": [
+        "469"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Say",
+      "start": 1404.86,
+      "end": 1411.04,
+      "evidence_ids": [
+        "470"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 1411.51,
+      "end": 1412.01,
+      "evidence_ids": [
+        "471"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Dude",
+      "start": 1412.03,
+      "end": 1415.39,
+      "evidence_ids": [
+        "472"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Here",
+      "start": 1416.51,
+      "end": 1417.31,
+      "evidence_ids": [
+        "473"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 1417.67,
+      "end": 1429.27,
+      "evidence_ids": [
+        "474"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Son",
+      "start": 1432.39,
+      "end": 1433.85,
+      "evidence_ids": [
+        "475"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 1434.49,
+      "end": 1435.55,
+      "evidence_ids": [
+        "476"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "We",
+      "start": 1435.91,
+      "end": 1436.79,
+      "evidence_ids": [
+        "477"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Yeah",
+      "start": 1437.23,
+      "end": 1439.49,
+      "evidence_ids": [
+        "478"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "And",
+      "start": 1439.53,
+      "end": 1442.34,
+      "evidence_ids": [
+        "479"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Die",
+      "start": 1442.39,
+      "end": 1442.94,
+      "evidence_ids": [
+        "480"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "This",
+      "start": 1444.3,
+      "end": 1446.46,
+      "evidence_ids": [
+        "481"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Let",
+      "start": 1449.46,
+      "end": 1450.52,
+      "evidence_ids": [
+        "482"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Don",
+      "start": 1454.51,
+      "end": 1456.45,
+      "evidence_ids": [
+        "483"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Gabe",
+      "start": 1460.13,
+      "end": 1461.71,
+      "evidence_ids": [
+        "485"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Dinesh",
+      "start": 1461.73,
+      "end": 1463.12,
+      "evidence_ids": [
+        "486"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Thank",
+      "start": 1463.15,
+      "end": 1464.38,
+      "evidence_ids": [
+        "487"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "My",
+      "start": 1466.3,
+      "end": 1468.08,
+      "evidence_ids": [
+        "488"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Dinesh",
+      "start": 1468.78,
+      "end": 1470.4,
+      "evidence_ids": [
+        "490"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Stop",
+      "start": 1470.9,
+      "end": 1471.34,
+      "evidence_ids": [
+        "491"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Why",
+      "start": 1472.04,
+      "end": 1473.06,
+      "evidence_ids": [
+        "492"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Dinesh",
+      "start": 1473.08,
+      "end": 1474.82,
+      "evidence_ids": [
+        "493"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Gabe",
+      "start": 1475.34,
+      "end": 1477.78,
+      "evidence_ids": [
+        "494"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "But",
+      "start": 1478.32,
+      "end": 1481.42,
+      "evidence_ids": [
+        "495"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Dinesh",
+      "start": 1481.59,
+      "end": 1486.61,
+      "evidence_ids": [
+        "496"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Why",
+      "start": 1486.85,
+      "end": 1487.71,
+      "evidence_ids": [
+        "497"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Dinesh",
+      "start": 1487.73,
+      "end": 1491.23,
+      "evidence_ids": [
+        "498"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "One Of Your",
+      "start": 1492.05,
+      "end": 1493.41,
+      "evidence_ids": [
+        "499"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "So",
+      "start": 1494.47,
+      "end": 1494.77,
+      "evidence_ids": [
+        "500"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "So",
+      "start": 1494.91,
+      "end": 1496.41,
+      "evidence_ids": [
+        "501"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Dinesh",
+      "start": 1496.43,
+      "end": 1498.41,
+      "evidence_ids": [
+        "502"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Guilfoyle",
+      "start": 1498.45,
+      "end": 1499.01,
+      "evidence_ids": [
+        "503"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Oh",
+      "start": 1500.37,
+      "end": 1502.23,
+      "evidence_ids": [
+        "504"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Oh",
+      "start": 1506.62,
+      "end": 1507.84,
+      "evidence_ids": [
+        "505"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Uh",
+      "start": 1508.94,
+      "end": 1509.66,
+      "evidence_ids": [
+        "506"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Yes",
+      "start": 1513.64,
+      "end": 1514.18,
+      "evidence_ids": [
+        "507"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Thank",
+      "start": 1519.54,
+      "end": 1520.12,
+      "evidence_ids": [
+        "509"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Uh",
+      "start": 1523.24,
+      "end": 1523.9,
+      "evidence_ids": [
+        "510"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Yes",
+      "start": 1524.54,
+      "end": 1525.08,
+      "evidence_ids": [
+        "511"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Can",
+      "start": 1526.35,
+      "end": 1526.92,
+      "evidence_ids": [
+        "512"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Well",
+      "start": 1535.37,
+      "end": 1538.87,
+      "evidence_ids": [
+        "513"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Because",
+      "start": 1538.91,
+      "end": 1541.09,
+      "evidence_ids": [
+        "514"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Sure",
+      "start": 1541.49,
+      "end": 1541.69,
+      "evidence_ids": [
+        "515"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Yeah",
+      "start": 1542.09,
+      "end": 1542.93,
+      "evidence_ids": [
+        "516"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "What Richard",
+      "start": 1543.21,
+      "end": 1545.31,
+      "evidence_ids": [
+        "517"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "We",
+      "start": 1546.07,
+      "end": 1547.29,
+      "evidence_ids": [
+        "518"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Doing One",
+      "start": 1547.31,
+      "end": 1549.25,
+      "evidence_ids": [
+        "519"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 1549.83,
+      "end": 1550.75,
+      "evidence_ids": [
+        "520"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "But",
+      "start": 1550.87,
+      "end": 1555.15,
+      "evidence_ids": [
+        "521"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 1555.39,
+      "end": 1558.5,
+      "evidence_ids": [
+        "522"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "This",
+      "start": 1558.7,
+      "end": 1560.96,
+      "evidence_ids": [
+        "523"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "And Richard",
+      "start": 1561.26,
+      "end": 1563.82,
+      "evidence_ids": [
+        "524"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Hey",
+      "start": 1564.46,
+      "end": 1565.26,
+      "evidence_ids": [
+        "525"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "So",
+      "start": 1567.74,
+      "end": 1570.22,
+      "evidence_ids": [
+        "526"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Sorry",
+      "start": 1570.76,
+      "end": 1570.98,
+      "evidence_ids": [
+        "527"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 1571.4,
+      "end": 1571.76,
+      "evidence_ids": [
+        "528"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "We",
+      "start": 1571.78,
+      "end": 1572.24,
+      "evidence_ids": [
+        "529"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Right",
+      "start": 1572.7,
+      "end": 1573.06,
+      "evidence_ids": [
+        "530"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "That",
+      "start": 1573.08,
+      "end": 1576.0,
+      "evidence_ids": [
+        "531"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Over",
+      "start": 1577.56,
+      "end": 1579.98,
+      "evidence_ids": [
+        "532"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "All",
+      "start": 1581.92,
+      "end": 1583.03,
+      "evidence_ids": [
+        "533"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "My",
+      "start": 1583.24,
+      "end": 1583.92,
+      "evidence_ids": [
+        "534"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Virtually",
+      "start": 1584.2,
+      "end": 1589.29,
+      "evidence_ids": [
+        "535"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Yep",
+      "start": 1589.39,
+      "end": 1589.63,
+      "evidence_ids": [
+        "536"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Care",
+      "start": 1589.83,
+      "end": 1590.65,
+      "evidence_ids": [
+        "537"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Human",
+      "start": 1592.48,
+      "end": 1593.18,
+      "evidence_ids": [
+        "539"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Oh",
+      "start": 1595.84,
+      "end": 1598.08,
+      "evidence_ids": [
+        "541"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Dinesh",
+      "start": 1598.7,
+      "end": 1600.32,
+      "evidence_ids": [
+        "543"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "And",
+      "start": 1603.39,
+      "end": 1605.11,
+      "evidence_ids": [
+        "546"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Hey",
+      "start": 1607.07,
+      "end": 1607.71,
+      "evidence_ids": [
+        "547"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Can",
+      "start": 1611.45,
+      "end": 1613.71,
+      "evidence_ids": [
+        "548"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Sure",
+      "start": 1614.8,
+      "end": 1615.22,
+      "evidence_ids": [
+        "549"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Paul",
+      "start": 1624.95,
+      "end": 1625.25,
+      "evidence_ids": [
+        "550"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Gavin",
+      "start": 1625.67,
+      "end": 1626.03,
+      "evidence_ids": [
+        "551"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Did",
+      "start": 1626.27,
+      "end": 1627.07,
+      "evidence_ids": [
+        "552"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 1627.55,
+      "end": 1627.85,
+      "evidence_ids": [
+        "553"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "What",
+      "start": 1628.07,
+      "end": 1628.65,
+      "evidence_ids": [
+        "554"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Did",
+      "start": 1628.95,
+      "end": 1631.07,
+      "evidence_ids": [
+        "555"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Did",
+      "start": 1632.29,
+      "end": 1633.45,
+      "evidence_ids": [
+        "557"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Of",
+      "start": 1633.51,
+      "end": 1633.87,
+      "evidence_ids": [
+        "558"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Will",
+      "start": 1633.89,
+      "end": 1636.31,
+      "evidence_ids": [
+        "559"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Well",
+      "start": 1636.57,
+      "end": 1640.08,
+      "evidence_ids": [
+        "560"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "The",
+      "start": 1642.7,
+      "end": 1644.94,
+      "evidence_ids": [
+        "562"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 1644.98,
+      "end": 1645.9,
+      "evidence_ids": [
+        "563"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Did",
+      "start": 1646.6,
+      "end": 1647.16,
+      "evidence_ids": [
+        "564"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "And",
+      "start": 1647.46,
+      "end": 1648.8,
+      "evidence_ids": [
+        "565"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "So",
+      "start": 1649.56,
+      "end": 1650.18,
+      "evidence_ids": [
+        "566"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Yes",
+      "start": 1650.34,
+      "end": 1651.34,
+      "evidence_ids": [
+        "567"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "To",
+      "start": 1651.46,
+      "end": 1658.49,
+      "evidence_ids": [
+        "568"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "So",
+      "start": 1659.05,
+      "end": 1660.33,
+      "evidence_ids": [
+        "569"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Why",
+      "start": 1661.47,
+      "end": 1663.43,
+      "evidence_ids": [
+        "570"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Because",
+      "start": 1664.16,
+      "end": 1666.69,
+      "evidence_ids": [
+        "571"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 1666.97,
+      "end": 1668.57,
+      "evidence_ids": [
+        "572"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 1668.87,
+      "end": 1672.42,
+      "evidence_ids": [
+        "573"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "How",
+      "start": 1672.8,
+      "end": 1674.28,
+      "evidence_ids": [
+        "574"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "We",
+      "start": 1674.66,
+      "end": 1675.46,
+      "evidence_ids": [
+        "575"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Now",
+      "start": 1675.94,
+      "end": 1676.18,
+      "evidence_ids": [
+        "576"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "The",
+      "start": 1676.4,
+      "end": 1677.28,
+      "evidence_ids": [
+        "577"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "And",
+      "start": 1677.94,
+      "end": 1680.39,
+      "evidence_ids": [
+        "578"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Be",
+      "start": 1683.6,
+      "end": 1685.6,
+      "evidence_ids": [
+        "579"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Fuck",
+      "start": 1689.22,
+      "end": 1689.84,
+      "evidence_ids": [
+        "580"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "What",
+      "start": 1690.52,
+      "end": 1692.38,
+      "evidence_ids": [
+        "581"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Why",
+      "start": 1692.62,
+      "end": 1694.04,
+      "evidence_ids": [
+        "582"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Well",
+      "start": 1695.37,
+      "end": 1696.45,
+      "evidence_ids": [
+        "583"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "But",
+      "start": 1698.39,
+      "end": 1707.88,
+      "evidence_ids": [
+        "585"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "What",
+      "start": 1709.54,
+      "end": 1709.72,
+      "evidence_ids": [
+        "586"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Not Gonna Dignify",
+      "start": 1711.37,
+      "end": 1712.77,
+      "evidence_ids": [
+        "587"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Of",
+      "start": 1712.81,
+      "end": 1713.71,
+      "evidence_ids": [
+        "588"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Where",
+      "start": 1714.81,
+      "end": 1716.21,
+      "evidence_ids": [
+        "589"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "All",
+      "start": 1717.39,
+      "end": 1717.97,
+      "evidence_ids": [
+        "590"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Home",
+      "start": 1719.91,
+      "end": 1720.89,
+      "evidence_ids": [
+        "591"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Jared",
+      "start": 1722.31,
+      "end": 1724.19,
+      "evidence_ids": [
+        "592"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "What",
+      "start": 1726.05,
+      "end": 1726.67,
+      "evidence_ids": [
+        "593"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 1739.72,
+      "end": 1740.32,
+      "evidence_ids": [
+        "596"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "From",
+      "start": 1740.76,
+      "end": 1741.45,
+      "evidence_ids": [
+        "597"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Well",
+      "start": 1741.49,
+      "end": 1744.74,
+      "evidence_ids": [
+        "598"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Although",
+      "start": 1745.92,
+      "end": 1748.12,
+      "evidence_ids": [
+        "599"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Oh",
+      "start": 1748.84,
+      "end": 1749.38,
+      "evidence_ids": [
+        "600"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Big Head",
+      "start": 1750.5,
+      "end": 1752.96,
+      "evidence_ids": [
+        "601"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Oh",
+      "start": 1753.88,
+      "end": 1754.56,
+      "evidence_ids": [
+        "602"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Hi",
+      "start": 1754.66,
+      "end": 1755.18,
+      "evidence_ids": [
+        "603"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 1758.58,
+      "end": 1761.16,
+      "evidence_ids": [
+        "605"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Big Head",
+      "start": 1762.52,
+      "end": 1765.82,
+      "evidence_ids": [
+        "606"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Oh",
+      "start": 1766.48,
+      "end": 1766.92,
+      "evidence_ids": [
+        "607"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Gwart",
+      "start": 1766.94,
+      "end": 1768.24,
+      "evidence_ids": [
+        "608"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Oh",
+      "start": 1769.2,
+      "end": 1769.74,
+      "evidence_ids": [
+        "609"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Gwart",
+      "start": 1770.27,
+      "end": 1772.81,
+      "evidence_ids": [
+        "610"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Very",
+      "start": 1773.35,
+      "end": 1774.29,
+      "evidence_ids": [
+        "611"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "But",
+      "start": 1774.83,
+      "end": 1779.32,
+      "evidence_ids": [
+        "612"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "She",
+      "start": 1779.66,
+      "end": 1783.92,
+      "evidence_ids": [
+        "613"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "She",
+      "start": 1784.66,
+      "end": 1786.06,
+      "evidence_ids": [
+        "614"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 1786.88,
+      "end": 1788.58,
+      "evidence_ids": [
+        "615"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "This",
+      "start": 1789.58,
+      "end": 1793.2,
+      "evidence_ids": [
+        "616"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Thank",
+      "start": 1796.12,
+      "end": 1796.84,
+      "evidence_ids": [
+        "618"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Hey",
+      "start": 1808.22,
+      "end": 1811.1,
+      "evidence_ids": [
+        "619"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "May",
+      "start": 1811.57,
+      "end": 1811.88,
+      "evidence_ids": [
+        "620"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Jared",
+      "start": 1812.2,
+      "end": 1813.65,
+      "evidence_ids": [
+        "621"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Everday",
+      "start": 1846.05,
+      "end": 1848.39,
+      "evidence_ids": [
+        "622"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "To",
+      "start": 1850.52,
+      "end": 1858.52,
+      "evidence_ids": [
+        "623"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Every",
+      "start": 1861.16,
+      "end": 1869.31,
+      "evidence_ids": [
+        "624"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Up",
+      "start": 1870.83,
+      "end": 1881.7,
+      "evidence_ids": [
+        "625"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Easy",
+      "start": 1884.6,
+      "end": 1896.79,
+      "evidence_ids": [
+        "626"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 1908.48,
+      "end": 1909.86,
+      "evidence_ids": [
+        "628"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "And",
+      "start": 1911.16,
+      "end": 1913.72,
+      "evidence_ids": [
+        "630"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "But",
+      "start": 1915.8,
+      "end": 1919.22,
+      "evidence_ids": [
+        "632"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Tech Ethics",
+      "start": 1924.58,
+      "end": 1927.02,
+      "evidence_ids": [
+        "634"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "No",
+      "start": 1927.14,
+      "end": 1930.64,
+      "evidence_ids": [
+        "635"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Hey",
+      "start": 1931.04,
+      "end": 1931.68,
+      "evidence_ids": [
+        "636"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Ah",
+      "start": 1932.76,
+      "end": 1933.42,
+      "evidence_ids": [
+        "637"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "It",
+      "start": 1934.52,
+      "end": 1936.16,
+      "evidence_ids": [
+        "638"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "What",
+      "start": 1936.38,
+      "end": 1936.58,
+      "evidence_ids": [
+        "639"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Pied Piper",
+      "start": 1936.7,
+      "end": 1939.18,
+      "evidence_ids": [
+        "640"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "She",
+      "start": 1939.52,
+      "end": 1940.9,
+      "evidence_ids": [
+        "641"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 1941.14,
+      "end": 1942.68,
+      "evidence_ids": [
+        "642"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Not",
+      "start": 1943.0,
+      "end": 1944.34,
+      "evidence_ids": [
+        "643"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Your Buddy",
+      "start": 1944.44,
+      "end": 1946.12,
+      "evidence_ids": [
+        "644"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Ergo",
+      "start": 1946.8,
+      "end": 1948.81,
+      "evidence_ids": [
+        "645"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Check",
+      "start": 1951.53,
+      "end": 1952.17,
+      "evidence_ids": [
+        "646"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "One",
+      "start": 1953.81,
+      "end": 1955.39,
+      "evidence_ids": [
+        "647"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Tres",
+      "start": 1955.51,
+      "end": 1957.13,
+      "evidence_ids": [
+        "648"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Dollar",
+      "start": 1957.27,
+      "end": 1958.03,
+      "evidence_ids": [
+        "649"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Billionaire",
+      "start": 1958.19,
+      "end": 1958.91,
+      "evidence_ids": [
+        "650"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Russ",
+      "start": 1959.13,
+      "end": 1959.83,
+      "evidence_ids": [
+        "651"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "addresses",
+      "source": "speaker",
+      "target": "Fest",
+      "start": 1960.07,
+      "end": 1960.85,
+      "evidence_ids": [
+        "652"
+      ],
+      "confidence": null,
+      "status": "supported"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Russ Fest",
+      "start": 1961.05,
+      "end": 1961.71,
+      "evidence_ids": [
+        "653"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "You",
+      "start": 1964.89,
+      "end": 1967.26,
+      "evidence_ids": [
+        "654"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    },
+    {
+      "kind": "mentions",
+      "source": "utterance",
+      "target": "Fuck",
+      "start": 1967.76,
+      "end": 1968.68,
+      "evidence_ids": [
+        "655"
+      ],
+      "confidence": null,
+      "status": "unresolved"
+    }
+  ],
+  "decisions": [],
+  "account": "speaker addresses Well at 12.39-16.53. speaker addresses Um at 35.84-38.26. speaker addresses Colin at 79.92-80.82. speaker addresses Guilfoyle at 81.82-83.78. speaker addresses Oh at 87.05-87.94. speaker addresses Oh at 121.5-123.1. speaker addresses But at 218.58-220.18. speaker addresses Basically at 241.76-246.1. speaker addresses So at 251.97-257.15. speaker addresses So at 268.2-270.64. speaker addresses Democratic at 352.19-354.41. speaker addresses This at 367.68-376.43."
+}

@@ -69,6 +69,20 @@ def active_speakers(
     )
 
 
+def _session_providers(app: Any) -> list[str]:
+    """Providers actually bound on the loaded buffalo_l sessions."""
+    names: list[str] = []
+    for model in getattr(app, "models", {}).values():
+        session = getattr(model, "session", None)
+        getter = getattr(session, "get_providers", None)
+        if not callable(getter):
+            continue
+        for name in getter():
+            if name not in names:
+                names.append(str(name))
+    return names
+
+
 def run_insightface_payload(payload: dict[str, Any]) -> dict[str, Any]:
     """Child entry for ``buffalo_l``. CUDA is preferred and CPU is the fallback."""
     try:
@@ -80,10 +94,11 @@ def run_insightface_payload(payload: dict[str, Any]) -> dict[str, Any]:
         app = FaceAnalysis(name="buffalo_l", root=payload["root"])
         try:
             app.prepare(ctx_id=0, det_size=(640, 640))
-            provider = "cuda"
         except Exception:
             app.prepare(ctx_id=-1, det_size=(640, 640))
-            provider = "cpu"
+        # prepare(ctx_id=0) does not raise when ORT drops CUDA and keeps CPU.
+        active = _session_providers(app)
+        provider = "cuda" if "CUDAExecutionProvider" in active else "cpu"
         tracks = _sample_tracks(
             app,
             payload["video"],
@@ -92,7 +107,12 @@ def run_insightface_payload(payload: dict[str, Any]) -> dict[str, Any]:
         )
     except Exception as exc:  # noqa: BLE001 - recorded fallback
         return {"status": "fallback", "reason": str(exc), "tracks": []}
-    return {"status": "success", "provider": provider, "tracks": tracks}
+    return {
+        "status": "success",
+        "provider": provider,
+        "providers": active,
+        "tracks": tracks,
+    }
 
 
 def run_talknet_payload(payload: dict[str, Any]) -> dict[str, Any]:

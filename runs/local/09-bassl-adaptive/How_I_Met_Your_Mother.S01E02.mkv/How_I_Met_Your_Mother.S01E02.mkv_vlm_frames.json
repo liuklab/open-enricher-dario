@@ -1,0 +1,882 @@
+{
+  "stage": "vlm_frames",
+  "wall_seconds": 0.0,
+  "experiment_id": "09-bassl-adaptive",
+  "video": "How_I_Met_Your_Mother.S01E02.mkv",
+  "sample_fps": 2.0,
+  "min_frames": 2,
+  "max_frames": 40,
+  "frame_factor": 2,
+  "spans": [
+    {
+      "name": "vlm_frames",
+      "window": 1,
+      "sampled_frames": 26,
+      "frames": [
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c01/explicit_001.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c01/explicit_002.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c01/explicit_003.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c01/explicit_004.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c01/explicit_005.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c01/explicit_006.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c01/explicit_007.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c01/explicit_008.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c01/explicit_009.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c01/explicit_010.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c01/explicit_011.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c01/explicit_012.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c01/explicit_013.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c01/explicit_014.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c01/explicit_015.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c01/explicit_016.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c01/explicit_017.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c01/explicit_018.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c01/explicit_019.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c01/explicit_020.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c01/explicit_021.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c01/explicit_022.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c01/explicit_023.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c01/explicit_024.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c01/explicit_025.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c01/explicit_026.jpg",
+          "source": "explicit"
+        }
+      ],
+      "seconds": 0.0,
+      "start": "00:00:00",
+      "end": "00:02:30"
+    },
+    {
+      "name": "vlm_frames",
+      "window": 2,
+      "sampled_frames": 26,
+      "frames": [
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c02/explicit_001.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c02/explicit_002.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c02/explicit_003.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c02/explicit_004.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c02/explicit_005.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c02/explicit_006.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c02/explicit_007.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c02/explicit_008.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c02/explicit_009.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c02/explicit_010.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c02/explicit_011.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c02/explicit_012.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c02/explicit_013.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c02/explicit_014.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c02/explicit_015.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c02/explicit_016.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c02/explicit_017.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c02/explicit_018.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c02/explicit_019.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c02/explicit_020.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c02/explicit_021.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c02/explicit_022.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c02/explicit_023.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c02/explicit_024.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c02/explicit_025.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0001c02/explicit_026.jpg",
+          "source": "explicit"
+        }
+      ],
+      "seconds": 0.0,
+      "start": "00:02:30",
+      "end": "00:05:00"
+    },
+    {
+      "name": "vlm_frames",
+      "window": 3,
+      "sampled_frames": 30,
+      "frames": [
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_001.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_002.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_003.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_004.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_005.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_006.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_007.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_008.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_009.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_010.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_011.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_012.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_013.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_014.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_015.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_016.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_017.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_018.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_019.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_020.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_021.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_022.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_023.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_024.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_025.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_026.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_027.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_028.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_029.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0002c01/explicit_030.jpg",
+          "source": "explicit"
+        }
+      ],
+      "seconds": 0.0,
+      "start": "00:05:00",
+      "end": "00:10:00"
+    },
+    {
+      "name": "vlm_frames",
+      "window": 4,
+      "sampled_frames": 26,
+      "frames": [
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c01/explicit_001.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c01/explicit_002.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c01/explicit_003.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c01/explicit_004.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c01/explicit_005.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c01/explicit_006.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c01/explicit_007.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c01/explicit_008.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c01/explicit_009.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c01/explicit_010.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c01/explicit_011.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c01/explicit_012.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c01/explicit_013.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c01/explicit_014.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c01/explicit_015.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c01/explicit_016.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c01/explicit_017.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c01/explicit_018.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c01/explicit_019.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c01/explicit_020.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c01/explicit_021.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c01/explicit_022.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c01/explicit_023.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c01/explicit_024.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c01/explicit_025.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c01/explicit_026.jpg",
+          "source": "explicit"
+        }
+      ],
+      "seconds": 0.0,
+      "start": "00:10:00",
+      "end": "00:12:30"
+    },
+    {
+      "name": "vlm_frames",
+      "window": 5,
+      "sampled_frames": 26,
+      "frames": [
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c02/explicit_001.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c02/explicit_002.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c02/explicit_003.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c02/explicit_004.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c02/explicit_005.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c02/explicit_006.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c02/explicit_007.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c02/explicit_008.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c02/explicit_009.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c02/explicit_010.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c02/explicit_011.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c02/explicit_012.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c02/explicit_013.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c02/explicit_014.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c02/explicit_015.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c02/explicit_016.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c02/explicit_017.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c02/explicit_018.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c02/explicit_019.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c02/explicit_020.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c02/explicit_021.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c02/explicit_022.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c02/explicit_023.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c02/explicit_024.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c02/explicit_025.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0003c02/explicit_026.jpg",
+          "source": "explicit"
+        }
+      ],
+      "seconds": 0.0,
+      "start": "00:12:30",
+      "end": "00:15:00"
+    },
+    {
+      "name": "vlm_frames",
+      "window": 6,
+      "sampled_frames": 28,
+      "frames": [
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0004c01/explicit_001.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0004c01/explicit_002.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0004c01/explicit_003.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0004c01/explicit_004.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0004c01/explicit_005.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0004c01/explicit_006.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0004c01/explicit_007.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0004c01/explicit_008.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0004c01/explicit_009.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0004c01/explicit_010.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0004c01/explicit_011.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0004c01/explicit_012.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0004c01/explicit_013.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0004c01/explicit_014.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0004c01/explicit_015.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0004c01/explicit_016.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0004c01/explicit_017.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0004c01/explicit_018.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0004c01/explicit_019.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0004c01/explicit_020.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0004c01/explicit_021.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0004c01/explicit_022.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0004c01/explicit_023.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0004c01/explicit_024.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0004c01/explicit_025.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0004c01/explicit_026.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0004c01/explicit_027.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0004c01/explicit_028.jpg",
+          "source": "explicit"
+        }
+      ],
+      "seconds": 0.0,
+      "start": "00:15:00",
+      "end": "00:20:00"
+    },
+    {
+      "name": "vlm_frames",
+      "window": 7,
+      "sampled_frames": 38,
+      "frames": [
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_001.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_002.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_003.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_004.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_005.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_006.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_007.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_008.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_009.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_010.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_011.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_012.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_013.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_014.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_015.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_016.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_017.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_018.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_019.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_020.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_021.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_022.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_023.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_024.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_025.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_026.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_027.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_028.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_029.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_030.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_031.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_032.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_033.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_034.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_035.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_036.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_037.jpg",
+          "source": "explicit"
+        },
+        {
+          "file": "/SLURM_shared/st_mdp26/open-enricher/runs/local/_cache/How_I_Met_Your_Mother.S01E02.mkv/explicit/09-bassl-adaptive/g0005c01/explicit_038.jpg",
+          "source": "explicit"
+        }
+      ],
+      "seconds": 0.0,
+      "start": "00:20:00",
+      "end": "00:22:06"
+    }
+  ]
+}

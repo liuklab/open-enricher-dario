@@ -1,0 +1,6 @@
+BaSSL failed: MovieSceneSegmentationPipeline: 
+modelscope.preprocessors.video requires the decord library but it was not found in your environment. You can install it with pip:
+`pip install decord>=0.6.0`
+
+srun: error: barbaraliskov: task 0: Exited with exit code 1
+srun: Terminating StepId=122259.0

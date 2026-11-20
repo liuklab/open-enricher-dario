@@ -1,0 +1,41 @@
+{
+  "recsys_metadata": {
+    "primary_genre": "Comedy",
+    "sub_genres": [
+      "Romance",
+      "Sitcom",
+      "Drama"
+    ],
+    "pacing": "Moderate",
+    "mood": [
+      "Humorous",
+      "Reflective",
+      "Sentimental"
+    ]
+  },
+  "search_and_discovery": {
+    "semantic_tags": [
+      "Friendship",
+      "Misunderstandings",
+      "Relationships",
+      "Social Dynamics"
+    ],
+    "main_topics": [
+      "Love and Commitment",
+      "Friendship Support",
+      "Personal Growth"
+    ]
+  },
+  "audience_profiling": {
+    "target_age_group": "Young Adults",
+    "viewer_interests": [
+      "Romantic Comedies",
+      "Character Development",
+      "Friend Group Dynamics"
+    ]
+  },
+  "content_summary": {
+    "visual_style": "The visual style features a mix of warm indoor lighting and vibrant neon accents, with a cohesive palette of earthy tones and bold colors.",
+    "narrative_hook": "Ted's misguided attempts to win Robin's affection through elaborate plans lead to comedic mishaps and heartfelt moments."
+  }
+}

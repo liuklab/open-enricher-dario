@@ -1,0 +1,88 @@
+{
+  "video": "Silicon_Valley.S06E01.mkv",
+  "attempt_id": "20261120T034329Z-53b86c37",
+  "source_fingerprint": "e9759a058181c736eee89828116ae68a7f72dd71563fc22808b6d383345b8e32",
+  "settings_hash": "30f37024069954a3bf2120a04a3e60f1f991e16d95a0f0391bd8cfb912c0ee94",
+  "stage": "bassl",
+  "status": "fallback",
+  "duration": 1971.922,
+  "notes": [
+    "boundaries rejected; restored fixed windows",
+    "modelscope import failed: No module named 'modelscope'"
+  ],
+  "replaced_all": true,
+  "intervals": [
+    {
+      "id": "w0001",
+      "start": 0.0,
+      "end": 300.0,
+      "kind": "window",
+      "source": "fixed",
+      "parent_id": null,
+      "scene_ids": [],
+      "repaired": false
+    },
+    {
+      "id": "w0002",
+      "start": 300.0,
+      "end": 600.0,
+      "kind": "window",
+      "source": "fixed",
+      "parent_id": null,
+      "scene_ids": [],
+      "repaired": false
+    },
+    {
+      "id": "w0003",
+      "start": 600.0,
+      "end": 900.0,
+      "kind": "window",
+      "source": "fixed",
+      "parent_id": null,
+      "scene_ids": [],
+      "repaired": false
+    },
+    {
+      "id": "w0004",
+      "start": 900.0,
+      "end": 1200.0,
+      "kind": "window",
+      "source": "fixed",
+      "parent_id": null,
+      "scene_ids": [],
+      "repaired": false
+    },
+    {
+      "id": "w0005",
+      "start": 1200.0,
+      "end": 1500.0,
+      "kind": "window",
+      "source": "fixed",
+      "parent_id": null,
+      "scene_ids": [],
+      "repaired": false
+    },
+    {
+      "id": "w0006",
+      "start": 1500.0,
+      "end": 1800.0,
+      "kind": "window",
+      "source": "fixed",
+      "parent_id": null,
+      "scene_ids": [],
+      "repaired": false
+    },
+    {
+      "id": "w0007",
+      "start": 1800.0,
+      "end": 1971.922,
+      "kind": "window",
+      "source": "fixed",
+      "parent_id": null,
+      "scene_ids": [],
+      "repaired": false
+    }
+  ],
+  "shots": [],
+  "reason": "modelscope import failed: No module named 'modelscope'"
+}

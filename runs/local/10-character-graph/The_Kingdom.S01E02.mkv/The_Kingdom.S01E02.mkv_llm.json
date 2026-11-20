@@ -1,0 +1,41 @@
+{
+  "recsys_metadata": {
+    "primary_genre": "Drama",
+    "sub_genres": [
+      "Political Thriller",
+      "Religious Drama",
+      "Moral Conflict"
+    ],
+    "pacing": "Moderate",
+    "mood": [
+      "Tense",
+      "Reflective",
+      "Morally Ambiguous"
+    ]
+  },
+  "search_and_discovery": {
+    "semantic_tags": [
+      "Church Corruption",
+      "Political Conspiracy",
+      "Faith Crisis",
+      "Betrayal"
+    ],
+    "main_topics": [
+      "Power Dynamics",
+      "Spiritual Leadership",
+      "Ethical Dilemmas"
+    ]
+  },
+  "audience_profiling": {
+    "target_age_group": "Adults",
+    "viewer_interests": [
+      "Political Commentary",
+      "Religious Themes",
+      "Character Psychology"
+    ]
+  },
+  "content_summary": {
+    "visual_style": "Dominant palette includes cool blues and warm amber tones, contrasting dark, moody interiors with bright, sterile environments.",
+    "narrative_hook": "A revered religious leader is forced to confront his complicity in a politically motivated murder, unraveling a web of conspiracies that challenge his faith and leadership."
+  }
+}

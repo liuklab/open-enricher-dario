@@ -1,0 +1,105 @@
+{
+  "stage": "dialogue",
+  "started_at": "2026-11-20T05:53:48.370079+00:00",
+  "ended_at": "2026-11-20T05:56:17.375970+00:00",
+  "wall_seconds": 149.006,
+  "spans": [
+    {
+      "name": "plot_load",
+      "started_at": "2026-11-20T05:53:48.922890+00:00",
+      "ended_at": "2026-11-20T05:53:55.684984+00:00",
+      "seconds": 6.762,
+      "model_id": "Qwen/Qwen3-8B",
+      "vram_reserved_mib": 6232.0,
+      "vram_allocated_mib": 6182.3
+    },
+    {
+      "name": "plot_generate",
+      "started_at": "2026-11-20T05:53:55.723181+00:00",
+      "ended_at": "2026-11-20T05:54:22.562020+00:00",
+      "seconds": 26.839,
+      "model_id": "Qwen/Qwen3-8B",
+      "vram_reserved_mib": 10456.0,
+      "vram_allocated_mib": 10199.3
+    },
+    {
+      "name": "scene_load",
+      "started_at": "2026-11-20T05:54:22.858302+00:00",
+      "ended_at": "2026-11-20T05:54:29.147725+00:00",
+      "seconds": 6.289,
+      "model_id": "Qwen/Qwen3-8B",
+      "vram_reserved_mib": 10002.0,
+      "vram_allocated_mib": 9908.5
+    },
+    {
+      "name": "scene_generate",
+      "started_at": "2026-11-20T05:54:29.156113+00:00",
+      "ended_at": "2026-11-20T05:54:42.591956+00:00",
+      "seconds": 13.436,
+      "model_id": "Qwen/Qwen3-8B",
+      "window": 1,
+      "vram_reserved_mib": 10606.0,
+      "vram_allocated_mib": 10543.6
+    },
+    {
+      "name": "scene_generate",
+      "started_at": "2026-11-20T05:54:42.599758+00:00",
+      "ended_at": "2026-11-20T05:54:57.342640+00:00",
+      "seconds": 14.743,
+      "model_id": "Qwen/Qwen3-8B",
+      "window": 2,
+      "vram_reserved_mib": 10666.0,
+      "vram_allocated_mib": 10611.1
+    },
+    {
+      "name": "scene_generate",
+      "started_at": "2026-11-20T05:54:57.351801+00:00",
+      "ended_at": "2026-11-20T05:55:10.631056+00:00",
+      "seconds": 13.279,
+      "model_id": "Qwen/Qwen3-8B",
+      "window": 3,
+      "vram_reserved_mib": 10806.0,
+      "vram_allocated_mib": 10734.2
+    },
+    {
+      "name": "scene_generate",
+      "started_at": "2026-11-20T05:55:10.638046+00:00",
+      "ended_at": "2026-11-20T05:55:26.659381+00:00",
+      "seconds": 16.021,
+      "model_id": "Qwen/Qwen3-8B",
+      "window": 4,
+      "vram_reserved_mib": 10806.0,
+      "vram_allocated_mib": 10517.3
+    },
+    {
+      "name": "scene_generate",
+      "started_at": "2026-11-20T05:55:26.667404+00:00",
+      "ended_at": "2026-11-20T05:55:43.108703+00:00",
+      "seconds": 16.441,
+      "model_id": "Qwen/Qwen3-8B",
+      "window": 5,
+      "vram_reserved_mib": 10806.0,
+      "vram_allocated_mib": 10627.7
+    },
+    {
+      "name": "scene_generate",
+      "started_at": "2026-11-20T05:55:43.116850+00:00",
+      "ended_at": "2026-11-20T05:55:59.714161+00:00",
+      "seconds": 16.597,
+      "model_id": "Qwen/Qwen3-8B",
+      "window": 6,
+      "vram_reserved_mib": 10806.0,
+      "vram_allocated_mib": 10663.3
+    },
+    {
+      "name": "scene_generate",
+      "started_at": "2026-11-20T05:55:59.718585+00:00",
+      "ended_at": "2026-11-20T05:56:16.185013+00:00",
+      "seconds": 16.466,
+      "model_id": "Qwen/Qwen3-8B",
+      "window": 7,
+      "vram_reserved_mib": 10806.0,
+      "vram_allocated_mib": 10240.5
+    }
+  ]
+}

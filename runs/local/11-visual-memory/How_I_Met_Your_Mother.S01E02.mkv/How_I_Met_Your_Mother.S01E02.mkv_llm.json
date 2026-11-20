@@ -1,0 +1,41 @@
+{
+  "recsys_metadata": {
+    "primary_genre": "Comedy",
+    "sub_genres": [
+      "Romance",
+      "Sitcom",
+      "Drama"
+    ],
+    "pacing": "Moderate",
+    "mood": [
+      "Humorous",
+      "Reflective",
+      "Sentimental"
+    ]
+  },
+  "search_and_discovery": {
+    "semantic_tags": [
+      "Friendship",
+      "Misunderstandings",
+      "Social Dynamics",
+      "Relationships"
+    ],
+    "main_topics": [
+      "Dating",
+      "Friendship",
+      "Self-discovery"
+    ]
+  },
+  "audience_profiling": {
+    "target_age_group": "Young Adults",
+    "viewer_interests": [
+      "Comedy",
+      "Romance",
+      "Character Development"
+    ]
+  },
+  "content_summary": {
+    "visual_style": "The visual style features warm interior lighting with soft shadows and vibrant pop-art accents, creating a dynamic and colorful atmosphere.",
+    "narrative_hook": "A man's desperate attempts to win a woman's affection through elaborate social strategies clash with the reality of authentic human connection."
+  }
+}

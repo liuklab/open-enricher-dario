@@ -1,0 +1,2056 @@
+{
+  "stage": "vlm_frames",
+  "wall_seconds": 167.513,
+  "experiment_id": "10-character-graph",
+  "video": "The_Kingdom.S01E02.mkv",
+  "sample_fps": 2.0,
+  "min_frames": 2,
+  "max_frames": 40,
+  "frame_factor": 2,
+  "spans": [
+    {
+      "name": "vlm_frames",
+      "window": 1,
+      "clip_frames": 7199,
+      "clip_fps": 23.993334,
+      "sampled_frames": 40,
+      "frames": [
+        {
+          "sample": 1,
+          "index": 0,
+          "clip_seconds": 0.0,
+          "timestamp_seconds": 0.0,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_01.jpg"
+        },
+        {
+          "sample": 2,
+          "index": 185,
+          "clip_seconds": 7.71,
+          "timestamp_seconds": 7.71,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_02.jpg"
+        },
+        {
+          "sample": 3,
+          "index": 369,
+          "clip_seconds": 15.379,
+          "timestamp_seconds": 15.379,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_03.jpg"
+        },
+        {
+          "sample": 4,
+          "index": 554,
+          "clip_seconds": 23.09,
+          "timestamp_seconds": 23.09,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_04.jpg"
+        },
+        {
+          "sample": 5,
+          "index": 738,
+          "clip_seconds": 30.759,
+          "timestamp_seconds": 30.759,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_05.jpg"
+        },
+        {
+          "sample": 6,
+          "index": 923,
+          "clip_seconds": 38.469,
+          "timestamp_seconds": 38.469,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_06.jpg"
+        },
+        {
+          "sample": 7,
+          "index": 1107,
+          "clip_seconds": 46.138,
+          "timestamp_seconds": 46.138,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_07.jpg"
+        },
+        {
+          "sample": 8,
+          "index": 1292,
+          "clip_seconds": 53.848,
+          "timestamp_seconds": 53.848,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_08.jpg"
+        },
+        {
+          "sample": 9,
+          "index": 1477,
+          "clip_seconds": 61.559,
+          "timestamp_seconds": 61.559,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_09.jpg"
+        },
+        {
+          "sample": 10,
+          "index": 1661,
+          "clip_seconds": 69.228,
+          "timestamp_seconds": 69.228,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_10.jpg"
+        },
+        {
+          "sample": 11,
+          "index": 1846,
+          "clip_seconds": 76.938,
+          "timestamp_seconds": 76.938,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_11.jpg"
+        },
+        {
+          "sample": 12,
+          "index": 2030,
+          "clip_seconds": 84.607,
+          "timestamp_seconds": 84.607,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_12.jpg"
+        },
+        {
+          "sample": 13,
+          "index": 2215,
+          "clip_seconds": 92.317,
+          "timestamp_seconds": 92.317,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_13.jpg"
+        },
+        {
+          "sample": 14,
+          "index": 2399,
+          "clip_seconds": 99.986,
+          "timestamp_seconds": 99.986,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_14.jpg"
+        },
+        {
+          "sample": 15,
+          "index": 2584,
+          "clip_seconds": 107.697,
+          "timestamp_seconds": 107.697,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_15.jpg"
+        },
+        {
+          "sample": 16,
+          "index": 2768,
+          "clip_seconds": 115.365,
+          "timestamp_seconds": 115.365,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_16.jpg"
+        },
+        {
+          "sample": 17,
+          "index": 2953,
+          "clip_seconds": 123.076,
+          "timestamp_seconds": 123.076,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_17.jpg"
+        },
+        {
+          "sample": 18,
+          "index": 3138,
+          "clip_seconds": 130.786,
+          "timestamp_seconds": 130.786,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_18.jpg"
+        },
+        {
+          "sample": 19,
+          "index": 3322,
+          "clip_seconds": 138.455,
+          "timestamp_seconds": 138.455,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_19.jpg"
+        },
+        {
+          "sample": 20,
+          "index": 3507,
+          "clip_seconds": 146.166,
+          "timestamp_seconds": 146.166,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_20.jpg"
+        },
+        {
+          "sample": 21,
+          "index": 3691,
+          "clip_seconds": 153.834,
+          "timestamp_seconds": 153.834,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_21.jpg"
+        },
+        {
+          "sample": 22,
+          "index": 3876,
+          "clip_seconds": 161.545,
+          "timestamp_seconds": 161.545,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_22.jpg"
+        },
+        {
+          "sample": 23,
+          "index": 4060,
+          "clip_seconds": 169.214,
+          "timestamp_seconds": 169.214,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_23.jpg"
+        },
+        {
+          "sample": 24,
+          "index": 4245,
+          "clip_seconds": 176.924,
+          "timestamp_seconds": 176.924,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_24.jpg"
+        },
+        {
+          "sample": 25,
+          "index": 4430,
+          "clip_seconds": 184.635,
+          "timestamp_seconds": 184.635,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_25.jpg"
+        },
+        {
+          "sample": 26,
+          "index": 4614,
+          "clip_seconds": 192.303,
+          "timestamp_seconds": 192.303,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_26.jpg"
+        },
+        {
+          "sample": 27,
+          "index": 4799,
+          "clip_seconds": 200.014,
+          "timestamp_seconds": 200.014,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_27.jpg"
+        },
+        {
+          "sample": 28,
+          "index": 4983,
+          "clip_seconds": 207.683,
+          "timestamp_seconds": 207.683,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_28.jpg"
+        },
+        {
+          "sample": 29,
+          "index": 5168,
+          "clip_seconds": 215.393,
+          "timestamp_seconds": 215.393,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_29.jpg"
+        },
+        {
+          "sample": 30,
+          "index": 5352,
+          "clip_seconds": 223.062,
+          "timestamp_seconds": 223.062,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_30.jpg"
+        },
+        {
+          "sample": 31,
+          "index": 5537,
+          "clip_seconds": 230.772,
+          "timestamp_seconds": 230.772,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_31.jpg"
+        },
+        {
+          "sample": 32,
+          "index": 5721,
+          "clip_seconds": 238.441,
+          "timestamp_seconds": 238.441,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_32.jpg"
+        },
+        {
+          "sample": 33,
+          "index": 5906,
+          "clip_seconds": 246.152,
+          "timestamp_seconds": 246.152,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_33.jpg"
+        },
+        {
+          "sample": 34,
+          "index": 6091,
+          "clip_seconds": 253.862,
+          "timestamp_seconds": 253.862,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_34.jpg"
+        },
+        {
+          "sample": 35,
+          "index": 6275,
+          "clip_seconds": 261.531,
+          "timestamp_seconds": 261.531,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_35.jpg"
+        },
+        {
+          "sample": 36,
+          "index": 6460,
+          "clip_seconds": 269.241,
+          "timestamp_seconds": 269.241,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_36.jpg"
+        },
+        {
+          "sample": 37,
+          "index": 6644,
+          "clip_seconds": 276.91,
+          "timestamp_seconds": 276.91,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_37.jpg"
+        },
+        {
+          "sample": 38,
+          "index": 6829,
+          "clip_seconds": 284.621,
+          "timestamp_seconds": 284.621,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_38.jpg"
+        },
+        {
+          "sample": 39,
+          "index": 7013,
+          "clip_seconds": 292.29,
+          "timestamp_seconds": 292.29,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_39.jpg"
+        },
+        {
+          "sample": 40,
+          "index": 7198,
+          "clip_seconds": 300.0,
+          "timestamp_seconds": 300.0,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_01/frame_40.jpg"
+        }
+      ],
+      "seconds": 20.903,
+      "start": "00:00:00",
+      "end": "00:05:00"
+    },
+    {
+      "name": "vlm_frames",
+      "window": 2,
+      "clip_frames": 7200,
+      "clip_fps": 24.0,
+      "sampled_frames": 40,
+      "frames": [
+        {
+          "sample": 1,
+          "index": 0,
+          "clip_seconds": 0.0,
+          "timestamp_seconds": 300.0,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_01.jpg"
+        },
+        {
+          "sample": 2,
+          "index": 185,
+          "clip_seconds": 7.708,
+          "timestamp_seconds": 307.708,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_02.jpg"
+        },
+        {
+          "sample": 3,
+          "index": 369,
+          "clip_seconds": 15.375,
+          "timestamp_seconds": 315.375,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_03.jpg"
+        },
+        {
+          "sample": 4,
+          "index": 554,
+          "clip_seconds": 23.083,
+          "timestamp_seconds": 323.083,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_04.jpg"
+        },
+        {
+          "sample": 5,
+          "index": 738,
+          "clip_seconds": 30.75,
+          "timestamp_seconds": 330.75,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_05.jpg"
+        },
+        {
+          "sample": 6,
+          "index": 923,
+          "clip_seconds": 38.458,
+          "timestamp_seconds": 338.458,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_06.jpg"
+        },
+        {
+          "sample": 7,
+          "index": 1108,
+          "clip_seconds": 46.167,
+          "timestamp_seconds": 346.167,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_07.jpg"
+        },
+        {
+          "sample": 8,
+          "index": 1292,
+          "clip_seconds": 53.833,
+          "timestamp_seconds": 353.833,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_08.jpg"
+        },
+        {
+          "sample": 9,
+          "index": 1477,
+          "clip_seconds": 61.542,
+          "timestamp_seconds": 361.542,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_09.jpg"
+        },
+        {
+          "sample": 10,
+          "index": 1661,
+          "clip_seconds": 69.208,
+          "timestamp_seconds": 369.208,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_10.jpg"
+        },
+        {
+          "sample": 11,
+          "index": 1846,
+          "clip_seconds": 76.917,
+          "timestamp_seconds": 376.917,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_11.jpg"
+        },
+        {
+          "sample": 12,
+          "index": 2030,
+          "clip_seconds": 84.583,
+          "timestamp_seconds": 384.583,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_12.jpg"
+        },
+        {
+          "sample": 13,
+          "index": 2215,
+          "clip_seconds": 92.292,
+          "timestamp_seconds": 392.292,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_13.jpg"
+        },
+        {
+          "sample": 14,
+          "index": 2400,
+          "clip_seconds": 100.0,
+          "timestamp_seconds": 400.0,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_14.jpg"
+        },
+        {
+          "sample": 15,
+          "index": 2584,
+          "clip_seconds": 107.667,
+          "timestamp_seconds": 407.667,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_15.jpg"
+        },
+        {
+          "sample": 16,
+          "index": 2769,
+          "clip_seconds": 115.375,
+          "timestamp_seconds": 415.375,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_16.jpg"
+        },
+        {
+          "sample": 17,
+          "index": 2953,
+          "clip_seconds": 123.042,
+          "timestamp_seconds": 423.042,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_17.jpg"
+        },
+        {
+          "sample": 18,
+          "index": 3138,
+          "clip_seconds": 130.75,
+          "timestamp_seconds": 430.75,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_18.jpg"
+        },
+        {
+          "sample": 19,
+          "index": 3323,
+          "clip_seconds": 138.458,
+          "timestamp_seconds": 438.458,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_19.jpg"
+        },
+        {
+          "sample": 20,
+          "index": 3507,
+          "clip_seconds": 146.125,
+          "timestamp_seconds": 446.125,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_20.jpg"
+        },
+        {
+          "sample": 21,
+          "index": 3692,
+          "clip_seconds": 153.833,
+          "timestamp_seconds": 453.833,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_21.jpg"
+        },
+        {
+          "sample": 22,
+          "index": 3876,
+          "clip_seconds": 161.5,
+          "timestamp_seconds": 461.5,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_22.jpg"
+        },
+        {
+          "sample": 23,
+          "index": 4061,
+          "clip_seconds": 169.208,
+          "timestamp_seconds": 469.208,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_23.jpg"
+        },
+        {
+          "sample": 24,
+          "index": 4246,
+          "clip_seconds": 176.917,
+          "timestamp_seconds": 476.917,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_24.jpg"
+        },
+        {
+          "sample": 25,
+          "index": 4430,
+          "clip_seconds": 184.583,
+          "timestamp_seconds": 484.583,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_25.jpg"
+        },
+        {
+          "sample": 26,
+          "index": 4615,
+          "clip_seconds": 192.292,
+          "timestamp_seconds": 492.292,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_26.jpg"
+        },
+        {
+          "sample": 27,
+          "index": 4799,
+          "clip_seconds": 199.958,
+          "timestamp_seconds": 499.958,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_27.jpg"
+        },
+        {
+          "sample": 28,
+          "index": 4984,
+          "clip_seconds": 207.667,
+          "timestamp_seconds": 507.667,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_28.jpg"
+        },
+        {
+          "sample": 29,
+          "index": 5169,
+          "clip_seconds": 215.375,
+          "timestamp_seconds": 515.375,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_29.jpg"
+        },
+        {
+          "sample": 30,
+          "index": 5353,
+          "clip_seconds": 223.042,
+          "timestamp_seconds": 523.042,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_30.jpg"
+        },
+        {
+          "sample": 31,
+          "index": 5538,
+          "clip_seconds": 230.75,
+          "timestamp_seconds": 530.75,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_31.jpg"
+        },
+        {
+          "sample": 32,
+          "index": 5722,
+          "clip_seconds": 238.417,
+          "timestamp_seconds": 538.417,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_32.jpg"
+        },
+        {
+          "sample": 33,
+          "index": 5907,
+          "clip_seconds": 246.125,
+          "timestamp_seconds": 546.125,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_33.jpg"
+        },
+        {
+          "sample": 34,
+          "index": 6091,
+          "clip_seconds": 253.792,
+          "timestamp_seconds": 553.792,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_34.jpg"
+        },
+        {
+          "sample": 35,
+          "index": 6276,
+          "clip_seconds": 261.5,
+          "timestamp_seconds": 561.5,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_35.jpg"
+        },
+        {
+          "sample": 36,
+          "index": 6461,
+          "clip_seconds": 269.208,
+          "timestamp_seconds": 569.208,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_36.jpg"
+        },
+        {
+          "sample": 37,
+          "index": 6645,
+          "clip_seconds": 276.875,
+          "timestamp_seconds": 576.875,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_37.jpg"
+        },
+        {
+          "sample": 38,
+          "index": 6830,
+          "clip_seconds": 284.583,
+          "timestamp_seconds": 584.583,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_38.jpg"
+        },
+        {
+          "sample": 39,
+          "index": 7014,
+          "clip_seconds": 292.25,
+          "timestamp_seconds": 592.25,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_39.jpg"
+        },
+        {
+          "sample": 40,
+          "index": 7199,
+          "clip_seconds": 299.958,
+          "timestamp_seconds": 599.958,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_02/frame_40.jpg"
+        }
+      ],
+      "seconds": 59.573,
+      "start": "00:05:00",
+      "end": "00:10:00"
+    },
+    {
+      "name": "vlm_frames",
+      "window": 3,
+      "clip_frames": 7200,
+      "clip_fps": 24.0,
+      "sampled_frames": 40,
+      "frames": [
+        {
+          "sample": 1,
+          "index": 0,
+          "clip_seconds": 0.0,
+          "timestamp_seconds": 600.0,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_01.jpg"
+        },
+        {
+          "sample": 2,
+          "index": 185,
+          "clip_seconds": 7.708,
+          "timestamp_seconds": 607.708,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_02.jpg"
+        },
+        {
+          "sample": 3,
+          "index": 369,
+          "clip_seconds": 15.375,
+          "timestamp_seconds": 615.375,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_03.jpg"
+        },
+        {
+          "sample": 4,
+          "index": 554,
+          "clip_seconds": 23.083,
+          "timestamp_seconds": 623.083,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_04.jpg"
+        },
+        {
+          "sample": 5,
+          "index": 738,
+          "clip_seconds": 30.75,
+          "timestamp_seconds": 630.75,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_05.jpg"
+        },
+        {
+          "sample": 6,
+          "index": 923,
+          "clip_seconds": 38.458,
+          "timestamp_seconds": 638.458,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_06.jpg"
+        },
+        {
+          "sample": 7,
+          "index": 1108,
+          "clip_seconds": 46.167,
+          "timestamp_seconds": 646.167,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_07.jpg"
+        },
+        {
+          "sample": 8,
+          "index": 1292,
+          "clip_seconds": 53.833,
+          "timestamp_seconds": 653.833,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_08.jpg"
+        },
+        {
+          "sample": 9,
+          "index": 1477,
+          "clip_seconds": 61.542,
+          "timestamp_seconds": 661.542,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_09.jpg"
+        },
+        {
+          "sample": 10,
+          "index": 1661,
+          "clip_seconds": 69.208,
+          "timestamp_seconds": 669.208,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_10.jpg"
+        },
+        {
+          "sample": 11,
+          "index": 1846,
+          "clip_seconds": 76.917,
+          "timestamp_seconds": 676.917,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_11.jpg"
+        },
+        {
+          "sample": 12,
+          "index": 2030,
+          "clip_seconds": 84.583,
+          "timestamp_seconds": 684.583,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_12.jpg"
+        },
+        {
+          "sample": 13,
+          "index": 2215,
+          "clip_seconds": 92.292,
+          "timestamp_seconds": 692.292,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_13.jpg"
+        },
+        {
+          "sample": 14,
+          "index": 2400,
+          "clip_seconds": 100.0,
+          "timestamp_seconds": 700.0,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_14.jpg"
+        },
+        {
+          "sample": 15,
+          "index": 2584,
+          "clip_seconds": 107.667,
+          "timestamp_seconds": 707.667,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_15.jpg"
+        },
+        {
+          "sample": 16,
+          "index": 2769,
+          "clip_seconds": 115.375,
+          "timestamp_seconds": 715.375,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_16.jpg"
+        },
+        {
+          "sample": 17,
+          "index": 2953,
+          "clip_seconds": 123.042,
+          "timestamp_seconds": 723.042,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_17.jpg"
+        },
+        {
+          "sample": 18,
+          "index": 3138,
+          "clip_seconds": 130.75,
+          "timestamp_seconds": 730.75,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_18.jpg"
+        },
+        {
+          "sample": 19,
+          "index": 3323,
+          "clip_seconds": 138.458,
+          "timestamp_seconds": 738.458,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_19.jpg"
+        },
+        {
+          "sample": 20,
+          "index": 3507,
+          "clip_seconds": 146.125,
+          "timestamp_seconds": 746.125,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_20.jpg"
+        },
+        {
+          "sample": 21,
+          "index": 3692,
+          "clip_seconds": 153.833,
+          "timestamp_seconds": 753.833,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_21.jpg"
+        },
+        {
+          "sample": 22,
+          "index": 3876,
+          "clip_seconds": 161.5,
+          "timestamp_seconds": 761.5,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_22.jpg"
+        },
+        {
+          "sample": 23,
+          "index": 4061,
+          "clip_seconds": 169.208,
+          "timestamp_seconds": 769.208,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_23.jpg"
+        },
+        {
+          "sample": 24,
+          "index": 4246,
+          "clip_seconds": 176.917,
+          "timestamp_seconds": 776.917,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_24.jpg"
+        },
+        {
+          "sample": 25,
+          "index": 4430,
+          "clip_seconds": 184.583,
+          "timestamp_seconds": 784.583,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_25.jpg"
+        },
+        {
+          "sample": 26,
+          "index": 4615,
+          "clip_seconds": 192.292,
+          "timestamp_seconds": 792.292,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_26.jpg"
+        },
+        {
+          "sample": 27,
+          "index": 4799,
+          "clip_seconds": 199.958,
+          "timestamp_seconds": 799.958,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_27.jpg"
+        },
+        {
+          "sample": 28,
+          "index": 4984,
+          "clip_seconds": 207.667,
+          "timestamp_seconds": 807.667,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_28.jpg"
+        },
+        {
+          "sample": 29,
+          "index": 5169,
+          "clip_seconds": 215.375,
+          "timestamp_seconds": 815.375,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_29.jpg"
+        },
+        {
+          "sample": 30,
+          "index": 5353,
+          "clip_seconds": 223.042,
+          "timestamp_seconds": 823.042,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_30.jpg"
+        },
+        {
+          "sample": 31,
+          "index": 5538,
+          "clip_seconds": 230.75,
+          "timestamp_seconds": 830.75,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_31.jpg"
+        },
+        {
+          "sample": 32,
+          "index": 5722,
+          "clip_seconds": 238.417,
+          "timestamp_seconds": 838.417,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_32.jpg"
+        },
+        {
+          "sample": 33,
+          "index": 5907,
+          "clip_seconds": 246.125,
+          "timestamp_seconds": 846.125,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_33.jpg"
+        },
+        {
+          "sample": 34,
+          "index": 6091,
+          "clip_seconds": 253.792,
+          "timestamp_seconds": 853.792,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_34.jpg"
+        },
+        {
+          "sample": 35,
+          "index": 6276,
+          "clip_seconds": 261.5,
+          "timestamp_seconds": 861.5,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_35.jpg"
+        },
+        {
+          "sample": 36,
+          "index": 6461,
+          "clip_seconds": 269.208,
+          "timestamp_seconds": 869.208,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_36.jpg"
+        },
+        {
+          "sample": 37,
+          "index": 6645,
+          "clip_seconds": 276.875,
+          "timestamp_seconds": 876.875,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_37.jpg"
+        },
+        {
+          "sample": 38,
+          "index": 6830,
+          "clip_seconds": 284.583,
+          "timestamp_seconds": 884.583,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_38.jpg"
+        },
+        {
+          "sample": 39,
+          "index": 7014,
+          "clip_seconds": 292.25,
+          "timestamp_seconds": 892.25,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_39.jpg"
+        },
+        {
+          "sample": 40,
+          "index": 7199,
+          "clip_seconds": 299.958,
+          "timestamp_seconds": 899.958,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_03/frame_40.jpg"
+        }
+      ],
+      "seconds": 29.747,
+      "start": "00:10:00",
+      "end": "00:15:00"
+    },
+    {
+      "name": "vlm_frames",
+      "window": 4,
+      "clip_frames": 7200,
+      "clip_fps": 24.0,
+      "sampled_frames": 40,
+      "frames": [
+        {
+          "sample": 1,
+          "index": 0,
+          "clip_seconds": 0.0,
+          "timestamp_seconds": 900.0,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_01.jpg"
+        },
+        {
+          "sample": 2,
+          "index": 185,
+          "clip_seconds": 7.708,
+          "timestamp_seconds": 907.708,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_02.jpg"
+        },
+        {
+          "sample": 3,
+          "index": 369,
+          "clip_seconds": 15.375,
+          "timestamp_seconds": 915.375,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_03.jpg"
+        },
+        {
+          "sample": 4,
+          "index": 554,
+          "clip_seconds": 23.083,
+          "timestamp_seconds": 923.083,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_04.jpg"
+        },
+        {
+          "sample": 5,
+          "index": 738,
+          "clip_seconds": 30.75,
+          "timestamp_seconds": 930.75,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_05.jpg"
+        },
+        {
+          "sample": 6,
+          "index": 923,
+          "clip_seconds": 38.458,
+          "timestamp_seconds": 938.458,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_06.jpg"
+        },
+        {
+          "sample": 7,
+          "index": 1108,
+          "clip_seconds": 46.167,
+          "timestamp_seconds": 946.167,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_07.jpg"
+        },
+        {
+          "sample": 8,
+          "index": 1292,
+          "clip_seconds": 53.833,
+          "timestamp_seconds": 953.833,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_08.jpg"
+        },
+        {
+          "sample": 9,
+          "index": 1477,
+          "clip_seconds": 61.542,
+          "timestamp_seconds": 961.542,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_09.jpg"
+        },
+        {
+          "sample": 10,
+          "index": 1661,
+          "clip_seconds": 69.208,
+          "timestamp_seconds": 969.208,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_10.jpg"
+        },
+        {
+          "sample": 11,
+          "index": 1846,
+          "clip_seconds": 76.917,
+          "timestamp_seconds": 976.917,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_11.jpg"
+        },
+        {
+          "sample": 12,
+          "index": 2030,
+          "clip_seconds": 84.583,
+          "timestamp_seconds": 984.583,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_12.jpg"
+        },
+        {
+          "sample": 13,
+          "index": 2215,
+          "clip_seconds": 92.292,
+          "timestamp_seconds": 992.292,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_13.jpg"
+        },
+        {
+          "sample": 14,
+          "index": 2400,
+          "clip_seconds": 100.0,
+          "timestamp_seconds": 1000.0,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_14.jpg"
+        },
+        {
+          "sample": 15,
+          "index": 2584,
+          "clip_seconds": 107.667,
+          "timestamp_seconds": 1007.667,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_15.jpg"
+        },
+        {
+          "sample": 16,
+          "index": 2769,
+          "clip_seconds": 115.375,
+          "timestamp_seconds": 1015.375,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_16.jpg"
+        },
+        {
+          "sample": 17,
+          "index": 2953,
+          "clip_seconds": 123.042,
+          "timestamp_seconds": 1023.042,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_17.jpg"
+        },
+        {
+          "sample": 18,
+          "index": 3138,
+          "clip_seconds": 130.75,
+          "timestamp_seconds": 1030.75,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_18.jpg"
+        },
+        {
+          "sample": 19,
+          "index": 3323,
+          "clip_seconds": 138.458,
+          "timestamp_seconds": 1038.458,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_19.jpg"
+        },
+        {
+          "sample": 20,
+          "index": 3507,
+          "clip_seconds": 146.125,
+          "timestamp_seconds": 1046.125,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_20.jpg"
+        },
+        {
+          "sample": 21,
+          "index": 3692,
+          "clip_seconds": 153.833,
+          "timestamp_seconds": 1053.833,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_21.jpg"
+        },
+        {
+          "sample": 22,
+          "index": 3876,
+          "clip_seconds": 161.5,
+          "timestamp_seconds": 1061.5,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_22.jpg"
+        },
+        {
+          "sample": 23,
+          "index": 4061,
+          "clip_seconds": 169.208,
+          "timestamp_seconds": 1069.208,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_23.jpg"
+        },
+        {
+          "sample": 24,
+          "index": 4246,
+          "clip_seconds": 176.917,
+          "timestamp_seconds": 1076.917,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_24.jpg"
+        },
+        {
+          "sample": 25,
+          "index": 4430,
+          "clip_seconds": 184.583,
+          "timestamp_seconds": 1084.583,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_25.jpg"
+        },
+        {
+          "sample": 26,
+          "index": 4615,
+          "clip_seconds": 192.292,
+          "timestamp_seconds": 1092.292,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_26.jpg"
+        },
+        {
+          "sample": 27,
+          "index": 4799,
+          "clip_seconds": 199.958,
+          "timestamp_seconds": 1099.958,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_27.jpg"
+        },
+        {
+          "sample": 28,
+          "index": 4984,
+          "clip_seconds": 207.667,
+          "timestamp_seconds": 1107.667,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_28.jpg"
+        },
+        {
+          "sample": 29,
+          "index": 5169,
+          "clip_seconds": 215.375,
+          "timestamp_seconds": 1115.375,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_29.jpg"
+        },
+        {
+          "sample": 30,
+          "index": 5353,
+          "clip_seconds": 223.042,
+          "timestamp_seconds": 1123.042,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_30.jpg"
+        },
+        {
+          "sample": 31,
+          "index": 5538,
+          "clip_seconds": 230.75,
+          "timestamp_seconds": 1130.75,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_31.jpg"
+        },
+        {
+          "sample": 32,
+          "index": 5722,
+          "clip_seconds": 238.417,
+          "timestamp_seconds": 1138.417,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_32.jpg"
+        },
+        {
+          "sample": 33,
+          "index": 5907,
+          "clip_seconds": 246.125,
+          "timestamp_seconds": 1146.125,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_33.jpg"
+        },
+        {
+          "sample": 34,
+          "index": 6091,
+          "clip_seconds": 253.792,
+          "timestamp_seconds": 1153.792,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_34.jpg"
+        },
+        {
+          "sample": 35,
+          "index": 6276,
+          "clip_seconds": 261.5,
+          "timestamp_seconds": 1161.5,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_35.jpg"
+        },
+        {
+          "sample": 36,
+          "index": 6461,
+          "clip_seconds": 269.208,
+          "timestamp_seconds": 1169.208,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_36.jpg"
+        },
+        {
+          "sample": 37,
+          "index": 6645,
+          "clip_seconds": 276.875,
+          "timestamp_seconds": 1176.875,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_37.jpg"
+        },
+        {
+          "sample": 38,
+          "index": 6830,
+          "clip_seconds": 284.583,
+          "timestamp_seconds": 1184.583,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_38.jpg"
+        },
+        {
+          "sample": 39,
+          "index": 7014,
+          "clip_seconds": 292.25,
+          "timestamp_seconds": 1192.25,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_39.jpg"
+        },
+        {
+          "sample": 40,
+          "index": 7199,
+          "clip_seconds": 299.958,
+          "timestamp_seconds": 1199.958,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_04/frame_40.jpg"
+        }
+      ],
+      "seconds": 17.937,
+      "start": "00:15:00",
+      "end": "00:20:00"
+    },
+    {
+      "name": "vlm_frames",
+      "window": 5,
+      "clip_frames": 7200,
+      "clip_fps": 24.0,
+      "sampled_frames": 40,
+      "frames": [
+        {
+          "sample": 1,
+          "index": 0,
+          "clip_seconds": 0.0,
+          "timestamp_seconds": 1200.0,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_01.jpg"
+        },
+        {
+          "sample": 2,
+          "index": 185,
+          "clip_seconds": 7.708,
+          "timestamp_seconds": 1207.708,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_02.jpg"
+        },
+        {
+          "sample": 3,
+          "index": 369,
+          "clip_seconds": 15.375,
+          "timestamp_seconds": 1215.375,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_03.jpg"
+        },
+        {
+          "sample": 4,
+          "index": 554,
+          "clip_seconds": 23.083,
+          "timestamp_seconds": 1223.083,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_04.jpg"
+        },
+        {
+          "sample": 5,
+          "index": 738,
+          "clip_seconds": 30.75,
+          "timestamp_seconds": 1230.75,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_05.jpg"
+        },
+        {
+          "sample": 6,
+          "index": 923,
+          "clip_seconds": 38.458,
+          "timestamp_seconds": 1238.458,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_06.jpg"
+        },
+        {
+          "sample": 7,
+          "index": 1108,
+          "clip_seconds": 46.167,
+          "timestamp_seconds": 1246.167,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_07.jpg"
+        },
+        {
+          "sample": 8,
+          "index": 1292,
+          "clip_seconds": 53.833,
+          "timestamp_seconds": 1253.833,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_08.jpg"
+        },
+        {
+          "sample": 9,
+          "index": 1477,
+          "clip_seconds": 61.542,
+          "timestamp_seconds": 1261.542,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_09.jpg"
+        },
+        {
+          "sample": 10,
+          "index": 1661,
+          "clip_seconds": 69.208,
+          "timestamp_seconds": 1269.208,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_10.jpg"
+        },
+        {
+          "sample": 11,
+          "index": 1846,
+          "clip_seconds": 76.917,
+          "timestamp_seconds": 1276.917,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_11.jpg"
+        },
+        {
+          "sample": 12,
+          "index": 2030,
+          "clip_seconds": 84.583,
+          "timestamp_seconds": 1284.583,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_12.jpg"
+        },
+        {
+          "sample": 13,
+          "index": 2215,
+          "clip_seconds": 92.292,
+          "timestamp_seconds": 1292.292,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_13.jpg"
+        },
+        {
+          "sample": 14,
+          "index": 2400,
+          "clip_seconds": 100.0,
+          "timestamp_seconds": 1300.0,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_14.jpg"
+        },
+        {
+          "sample": 15,
+          "index": 2584,
+          "clip_seconds": 107.667,
+          "timestamp_seconds": 1307.667,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_15.jpg"
+        },
+        {
+          "sample": 16,
+          "index": 2769,
+          "clip_seconds": 115.375,
+          "timestamp_seconds": 1315.375,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_16.jpg"
+        },
+        {
+          "sample": 17,
+          "index": 2953,
+          "clip_seconds": 123.042,
+          "timestamp_seconds": 1323.042,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_17.jpg"
+        },
+        {
+          "sample": 18,
+          "index": 3138,
+          "clip_seconds": 130.75,
+          "timestamp_seconds": 1330.75,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_18.jpg"
+        },
+        {
+          "sample": 19,
+          "index": 3323,
+          "clip_seconds": 138.458,
+          "timestamp_seconds": 1338.458,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_19.jpg"
+        },
+        {
+          "sample": 20,
+          "index": 3507,
+          "clip_seconds": 146.125,
+          "timestamp_seconds": 1346.125,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_20.jpg"
+        },
+        {
+          "sample": 21,
+          "index": 3692,
+          "clip_seconds": 153.833,
+          "timestamp_seconds": 1353.833,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_21.jpg"
+        },
+        {
+          "sample": 22,
+          "index": 3876,
+          "clip_seconds": 161.5,
+          "timestamp_seconds": 1361.5,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_22.jpg"
+        },
+        {
+          "sample": 23,
+          "index": 4061,
+          "clip_seconds": 169.208,
+          "timestamp_seconds": 1369.208,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_23.jpg"
+        },
+        {
+          "sample": 24,
+          "index": 4246,
+          "clip_seconds": 176.917,
+          "timestamp_seconds": 1376.917,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_24.jpg"
+        },
+        {
+          "sample": 25,
+          "index": 4430,
+          "clip_seconds": 184.583,
+          "timestamp_seconds": 1384.583,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_25.jpg"
+        },
+        {
+          "sample": 26,
+          "index": 4615,
+          "clip_seconds": 192.292,
+          "timestamp_seconds": 1392.292,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_26.jpg"
+        },
+        {
+          "sample": 27,
+          "index": 4799,
+          "clip_seconds": 199.958,
+          "timestamp_seconds": 1399.958,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_27.jpg"
+        },
+        {
+          "sample": 28,
+          "index": 4984,
+          "clip_seconds": 207.667,
+          "timestamp_seconds": 1407.667,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_28.jpg"
+        },
+        {
+          "sample": 29,
+          "index": 5169,
+          "clip_seconds": 215.375,
+          "timestamp_seconds": 1415.375,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_29.jpg"
+        },
+        {
+          "sample": 30,
+          "index": 5353,
+          "clip_seconds": 223.042,
+          "timestamp_seconds": 1423.042,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_30.jpg"
+        },
+        {
+          "sample": 31,
+          "index": 5538,
+          "clip_seconds": 230.75,
+          "timestamp_seconds": 1430.75,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_31.jpg"
+        },
+        {
+          "sample": 32,
+          "index": 5722,
+          "clip_seconds": 238.417,
+          "timestamp_seconds": 1438.417,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_32.jpg"
+        },
+        {
+          "sample": 33,
+          "index": 5907,
+          "clip_seconds": 246.125,
+          "timestamp_seconds": 1446.125,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_33.jpg"
+        },
+        {
+          "sample": 34,
+          "index": 6091,
+          "clip_seconds": 253.792,
+          "timestamp_seconds": 1453.792,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_34.jpg"
+        },
+        {
+          "sample": 35,
+          "index": 6276,
+          "clip_seconds": 261.5,
+          "timestamp_seconds": 1461.5,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_35.jpg"
+        },
+        {
+          "sample": 36,
+          "index": 6461,
+          "clip_seconds": 269.208,
+          "timestamp_seconds": 1469.208,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_36.jpg"
+        },
+        {
+          "sample": 37,
+          "index": 6645,
+          "clip_seconds": 276.875,
+          "timestamp_seconds": 1476.875,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_37.jpg"
+        },
+        {
+          "sample": 38,
+          "index": 6830,
+          "clip_seconds": 284.583,
+          "timestamp_seconds": 1484.583,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_38.jpg"
+        },
+        {
+          "sample": 39,
+          "index": 7014,
+          "clip_seconds": 292.25,
+          "timestamp_seconds": 1492.25,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_39.jpg"
+        },
+        {
+          "sample": 40,
+          "index": 7199,
+          "clip_seconds": 299.958,
+          "timestamp_seconds": 1499.958,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_05/frame_40.jpg"
+        }
+      ],
+      "seconds": 12.24,
+      "start": "00:20:00",
+      "end": "00:25:00"
+    },
+    {
+      "name": "vlm_frames",
+      "window": 6,
+      "clip_frames": 7200,
+      "clip_fps": 24.0,
+      "sampled_frames": 40,
+      "frames": [
+        {
+          "sample": 1,
+          "index": 0,
+          "clip_seconds": 0.0,
+          "timestamp_seconds": 1500.0,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_01.jpg"
+        },
+        {
+          "sample": 2,
+          "index": 185,
+          "clip_seconds": 7.708,
+          "timestamp_seconds": 1507.708,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_02.jpg"
+        },
+        {
+          "sample": 3,
+          "index": 369,
+          "clip_seconds": 15.375,
+          "timestamp_seconds": 1515.375,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_03.jpg"
+        },
+        {
+          "sample": 4,
+          "index": 554,
+          "clip_seconds": 23.083,
+          "timestamp_seconds": 1523.083,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_04.jpg"
+        },
+        {
+          "sample": 5,
+          "index": 738,
+          "clip_seconds": 30.75,
+          "timestamp_seconds": 1530.75,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_05.jpg"
+        },
+        {
+          "sample": 6,
+          "index": 923,
+          "clip_seconds": 38.458,
+          "timestamp_seconds": 1538.458,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_06.jpg"
+        },
+        {
+          "sample": 7,
+          "index": 1108,
+          "clip_seconds": 46.167,
+          "timestamp_seconds": 1546.167,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_07.jpg"
+        },
+        {
+          "sample": 8,
+          "index": 1292,
+          "clip_seconds": 53.833,
+          "timestamp_seconds": 1553.833,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_08.jpg"
+        },
+        {
+          "sample": 9,
+          "index": 1477,
+          "clip_seconds": 61.542,
+          "timestamp_seconds": 1561.542,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_09.jpg"
+        },
+        {
+          "sample": 10,
+          "index": 1661,
+          "clip_seconds": 69.208,
+          "timestamp_seconds": 1569.208,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_10.jpg"
+        },
+        {
+          "sample": 11,
+          "index": 1846,
+          "clip_seconds": 76.917,
+          "timestamp_seconds": 1576.917,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_11.jpg"
+        },
+        {
+          "sample": 12,
+          "index": 2030,
+          "clip_seconds": 84.583,
+          "timestamp_seconds": 1584.583,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_12.jpg"
+        },
+        {
+          "sample": 13,
+          "index": 2215,
+          "clip_seconds": 92.292,
+          "timestamp_seconds": 1592.292,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_13.jpg"
+        },
+        {
+          "sample": 14,
+          "index": 2400,
+          "clip_seconds": 100.0,
+          "timestamp_seconds": 1600.0,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_14.jpg"
+        },
+        {
+          "sample": 15,
+          "index": 2584,
+          "clip_seconds": 107.667,
+          "timestamp_seconds": 1607.667,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_15.jpg"
+        },
+        {
+          "sample": 16,
+          "index": 2769,
+          "clip_seconds": 115.375,
+          "timestamp_seconds": 1615.375,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_16.jpg"
+        },
+        {
+          "sample": 17,
+          "index": 2953,
+          "clip_seconds": 123.042,
+          "timestamp_seconds": 1623.042,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_17.jpg"
+        },
+        {
+          "sample": 18,
+          "index": 3138,
+          "clip_seconds": 130.75,
+          "timestamp_seconds": 1630.75,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_18.jpg"
+        },
+        {
+          "sample": 19,
+          "index": 3323,
+          "clip_seconds": 138.458,
+          "timestamp_seconds": 1638.458,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_19.jpg"
+        },
+        {
+          "sample": 20,
+          "index": 3507,
+          "clip_seconds": 146.125,
+          "timestamp_seconds": 1646.125,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_20.jpg"
+        },
+        {
+          "sample": 21,
+          "index": 3692,
+          "clip_seconds": 153.833,
+          "timestamp_seconds": 1653.833,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_21.jpg"
+        },
+        {
+          "sample": 22,
+          "index": 3876,
+          "clip_seconds": 161.5,
+          "timestamp_seconds": 1661.5,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_22.jpg"
+        },
+        {
+          "sample": 23,
+          "index": 4061,
+          "clip_seconds": 169.208,
+          "timestamp_seconds": 1669.208,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_23.jpg"
+        },
+        {
+          "sample": 24,
+          "index": 4246,
+          "clip_seconds": 176.917,
+          "timestamp_seconds": 1676.917,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_24.jpg"
+        },
+        {
+          "sample": 25,
+          "index": 4430,
+          "clip_seconds": 184.583,
+          "timestamp_seconds": 1684.583,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_25.jpg"
+        },
+        {
+          "sample": 26,
+          "index": 4615,
+          "clip_seconds": 192.292,
+          "timestamp_seconds": 1692.292,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_26.jpg"
+        },
+        {
+          "sample": 27,
+          "index": 4799,
+          "clip_seconds": 199.958,
+          "timestamp_seconds": 1699.958,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_27.jpg"
+        },
+        {
+          "sample": 28,
+          "index": 4984,
+          "clip_seconds": 207.667,
+          "timestamp_seconds": 1707.667,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_28.jpg"
+        },
+        {
+          "sample": 29,
+          "index": 5169,
+          "clip_seconds": 215.375,
+          "timestamp_seconds": 1715.375,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_29.jpg"
+        },
+        {
+          "sample": 30,
+          "index": 5353,
+          "clip_seconds": 223.042,
+          "timestamp_seconds": 1723.042,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_30.jpg"
+        },
+        {
+          "sample": 31,
+          "index": 5538,
+          "clip_seconds": 230.75,
+          "timestamp_seconds": 1730.75,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_31.jpg"
+        },
+        {
+          "sample": 32,
+          "index": 5722,
+          "clip_seconds": 238.417,
+          "timestamp_seconds": 1738.417,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_32.jpg"
+        },
+        {
+          "sample": 33,
+          "index": 5907,
+          "clip_seconds": 246.125,
+          "timestamp_seconds": 1746.125,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_33.jpg"
+        },
+        {
+          "sample": 34,
+          "index": 6091,
+          "clip_seconds": 253.792,
+          "timestamp_seconds": 1753.792,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_34.jpg"
+        },
+        {
+          "sample": 35,
+          "index": 6276,
+          "clip_seconds": 261.5,
+          "timestamp_seconds": 1761.5,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_35.jpg"
+        },
+        {
+          "sample": 36,
+          "index": 6461,
+          "clip_seconds": 269.208,
+          "timestamp_seconds": 1769.208,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_36.jpg"
+        },
+        {
+          "sample": 37,
+          "index": 6645,
+          "clip_seconds": 276.875,
+          "timestamp_seconds": 1776.875,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_37.jpg"
+        },
+        {
+          "sample": 38,
+          "index": 6830,
+          "clip_seconds": 284.583,
+          "timestamp_seconds": 1784.583,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_38.jpg"
+        },
+        {
+          "sample": 39,
+          "index": 7014,
+          "clip_seconds": 292.25,
+          "timestamp_seconds": 1792.25,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_39.jpg"
+        },
+        {
+          "sample": 40,
+          "index": 7199,
+          "clip_seconds": 299.958,
+          "timestamp_seconds": 1799.958,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_06/frame_40.jpg"
+        }
+      ],
+      "seconds": 14.602,
+      "start": "00:25:00",
+      "end": "00:30:00"
+    },
+    {
+      "name": "vlm_frames",
+      "window": 7,
+      "clip_frames": 6485,
+      "clip_fps": 24.0,
+      "sampled_frames": 40,
+      "frames": [
+        {
+          "sample": 1,
+          "index": 0,
+          "clip_seconds": 0.0,
+          "timestamp_seconds": 1800.0,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_01.jpg"
+        },
+        {
+          "sample": 2,
+          "index": 166,
+          "clip_seconds": 6.917,
+          "timestamp_seconds": 1806.917,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_02.jpg"
+        },
+        {
+          "sample": 3,
+          "index": 333,
+          "clip_seconds": 13.875,
+          "timestamp_seconds": 1813.875,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_03.jpg"
+        },
+        {
+          "sample": 4,
+          "index": 499,
+          "clip_seconds": 20.792,
+          "timestamp_seconds": 1820.792,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_04.jpg"
+        },
+        {
+          "sample": 5,
+          "index": 665,
+          "clip_seconds": 27.708,
+          "timestamp_seconds": 1827.708,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_05.jpg"
+        },
+        {
+          "sample": 6,
+          "index": 831,
+          "clip_seconds": 34.625,
+          "timestamp_seconds": 1834.625,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_06.jpg"
+        },
+        {
+          "sample": 7,
+          "index": 998,
+          "clip_seconds": 41.583,
+          "timestamp_seconds": 1841.583,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_07.jpg"
+        },
+        {
+          "sample": 8,
+          "index": 1164,
+          "clip_seconds": 48.5,
+          "timestamp_seconds": 1848.5,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_08.jpg"
+        },
+        {
+          "sample": 9,
+          "index": 1330,
+          "clip_seconds": 55.417,
+          "timestamp_seconds": 1855.417,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_09.jpg"
+        },
+        {
+          "sample": 10,
+          "index": 1496,
+          "clip_seconds": 62.333,
+          "timestamp_seconds": 1862.333,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_10.jpg"
+        },
+        {
+          "sample": 11,
+          "index": 1663,
+          "clip_seconds": 69.292,
+          "timestamp_seconds": 1869.292,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_11.jpg"
+        },
+        {
+          "sample": 12,
+          "index": 1829,
+          "clip_seconds": 76.208,
+          "timestamp_seconds": 1876.208,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_12.jpg"
+        },
+        {
+          "sample": 13,
+          "index": 1995,
+          "clip_seconds": 83.125,
+          "timestamp_seconds": 1883.125,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_13.jpg"
+        },
+        {
+          "sample": 14,
+          "index": 2161,
+          "clip_seconds": 90.042,
+          "timestamp_seconds": 1890.042,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_14.jpg"
+        },
+        {
+          "sample": 15,
+          "index": 2328,
+          "clip_seconds": 97.0,
+          "timestamp_seconds": 1897.0,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_15.jpg"
+        },
+        {
+          "sample": 16,
+          "index": 2494,
+          "clip_seconds": 103.917,
+          "timestamp_seconds": 1903.917,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_16.jpg"
+        },
+        {
+          "sample": 17,
+          "index": 2660,
+          "clip_seconds": 110.833,
+          "timestamp_seconds": 1910.833,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_17.jpg"
+        },
+        {
+          "sample": 18,
+          "index": 2826,
+          "clip_seconds": 117.75,
+          "timestamp_seconds": 1917.75,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_18.jpg"
+        },
+        {
+          "sample": 19,
+          "index": 2993,
+          "clip_seconds": 124.708,
+          "timestamp_seconds": 1924.708,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_19.jpg"
+        },
+        {
+          "sample": 20,
+          "index": 3159,
+          "clip_seconds": 131.625,
+          "timestamp_seconds": 1931.625,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_20.jpg"
+        },
+        {
+          "sample": 21,
+          "index": 3325,
+          "clip_seconds": 138.542,
+          "timestamp_seconds": 1938.542,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_21.jpg"
+        },
+        {
+          "sample": 22,
+          "index": 3491,
+          "clip_seconds": 145.458,
+          "timestamp_seconds": 1945.458,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_22.jpg"
+        },
+        {
+          "sample": 23,
+          "index": 3658,
+          "clip_seconds": 152.417,
+          "timestamp_seconds": 1952.417,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_23.jpg"
+        },
+        {
+          "sample": 24,
+          "index": 3824,
+          "clip_seconds": 159.333,
+          "timestamp_seconds": 1959.333,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_24.jpg"
+        },
+        {
+          "sample": 25,
+          "index": 3990,
+          "clip_seconds": 166.25,
+          "timestamp_seconds": 1966.25,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_25.jpg"
+        },
+        {
+          "sample": 26,
+          "index": 4156,
+          "clip_seconds": 173.167,
+          "timestamp_seconds": 1973.167,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_26.jpg"
+        },
+        {
+          "sample": 27,
+          "index": 4323,
+          "clip_seconds": 180.125,
+          "timestamp_seconds": 1980.125,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_27.jpg"
+        },
+        {
+          "sample": 28,
+          "index": 4489,
+          "clip_seconds": 187.042,
+          "timestamp_seconds": 1987.042,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_28.jpg"
+        },
+        {
+          "sample": 29,
+          "index": 4655,
+          "clip_seconds": 193.958,
+          "timestamp_seconds": 1993.958,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_29.jpg"
+        },
+        {
+          "sample": 30,
+          "index": 4821,
+          "clip_seconds": 200.875,
+          "timestamp_seconds": 2000.875,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_30.jpg"
+        },
+        {
+          "sample": 31,
+          "index": 4988,
+          "clip_seconds": 207.833,
+          "timestamp_seconds": 2007.833,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_31.jpg"
+        },
+        {
+          "sample": 32,
+          "index": 5154,
+          "clip_seconds": 214.75,
+          "timestamp_seconds": 2014.75,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_32.jpg"
+        },
+        {
+          "sample": 33,
+          "index": 5320,
+          "clip_seconds": 221.667,
+          "timestamp_seconds": 2021.667,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_33.jpg"
+        },
+        {
+          "sample": 34,
+          "index": 5486,
+          "clip_seconds": 228.583,
+          "timestamp_seconds": 2028.583,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_34.jpg"
+        },
+        {
+          "sample": 35,
+          "index": 5653,
+          "clip_seconds": 235.542,
+          "timestamp_seconds": 2035.542,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_35.jpg"
+        },
+        {
+          "sample": 36,
+          "index": 5819,
+          "clip_seconds": 242.458,
+          "timestamp_seconds": 2042.458,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_36.jpg"
+        },
+        {
+          "sample": 37,
+          "index": 5985,
+          "clip_seconds": 249.375,
+          "timestamp_seconds": 2049.375,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_37.jpg"
+        },
+        {
+          "sample": 38,
+          "index": 6151,
+          "clip_seconds": 256.292,
+          "timestamp_seconds": 2056.292,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_38.jpg"
+        },
+        {
+          "sample": 39,
+          "index": 6318,
+          "clip_seconds": 263.25,
+          "timestamp_seconds": 2063.25,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_39.jpg"
+        },
+        {
+          "sample": 40,
+          "index": 6484,
+          "clip_seconds": 270.167,
+          "timestamp_seconds": 2070.167,
+          "file": "runs/local/_cache/The_Kingdom.S01E02.mkv/frames/10-character-graph/scene_07/frame_40.jpg"
+        }
+      ],
+      "seconds": 12.511,
+      "start": "00:30:00",
+      "end": "00:34:31"
+    }
+  ]
+}

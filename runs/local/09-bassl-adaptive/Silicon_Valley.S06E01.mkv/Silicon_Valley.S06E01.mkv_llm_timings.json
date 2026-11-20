@@ -1,0 +1,27 @@
+{
+  "stage": "llm",
+  "started_at": "2026-11-20T02:07:01.264835+00:00",
+  "ended_at": "2026-11-20T02:24:33.347293+00:00",
+  "wall_seconds": 1052.082,
+  "spans": [
+    {
+      "name": "llm_load",
+      "started_at": "2026-11-20T02:07:01.730454+00:00",
+      "ended_at": "2026-11-20T02:24:07.013149+00:00",
+      "seconds": 1025.283,
+      "model_id": "Qwen/Qwen3-8B",
+      "vram_reserved_mib": 9924.0,
+      "vram_allocated_mib": 9882.0
+    },
+    {
+      "name": "llm_generate",
+      "started_at": "2026-11-20T02:24:07.013874+00:00",
+      "ended_at": "2026-11-20T02:24:32.918566+00:00",
+      "seconds": 25.905,
+      "model_id": "Qwen/Qwen3-8B",
+      "attempt": 1,
+      "vram_reserved_mib": 11348.0,
+      "vram_allocated_mib": 11157.1
+    }
+  ]
+}

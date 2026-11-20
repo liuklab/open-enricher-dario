@@ -1,0 +1,745 @@
+{
+  "video": "Silicon_Valley.S06E01.mkv",
+  "status": "degraded",
+  "stages": [
+    {
+      "stage": "timeline",
+      "status": "success",
+      "output_file": "Silicon_Valley.S06E01.mkv_timeline.json"
+    },
+    {
+      "stage": "audio",
+      "status": "skipped_cache",
+      "output_file": "Silicon_Valley.S06E01.mkv_audio.json"
+    },
+    {
+      "stage": "bassl",
+      "status": "fallback",
+      "output_file": "Silicon_Valley.S06E01.mkv_bassl.json",
+      "reason": "modelscope import failed: No module named 'modelscope'"
+    },
+    {
+      "stage": "dialogue",
+      "status": "success",
+      "scenes": 7,
+      "plot_sampled": false,
+      "timings": {
+        "stage": "dialogue",
+        "started_at": "2026-11-20T03:43:37.210281+00:00",
+        "ended_at": "2026-11-20T03:46:11.059390+00:00",
+        "wall_seconds": 153.849,
+        "spans": [
+          {
+            "name": "plot_load",
+            "started_at": "2026-11-20T03:43:37.966463+00:00",
+            "ended_at": "2026-11-20T03:43:45.651867+00:00",
+            "seconds": 7.685,
+            "model_id": "Qwen/Qwen3-8B",
+            "vram_reserved_mib": 6232.0,
+            "vram_allocated_mib": 6182.3
+          },
+          {
+            "name": "plot_generate",
+            "started_at": "2026-11-20T03:43:45.687623+00:00",
+            "ended_at": "2026-11-20T03:44:12.743862+00:00",
+            "seconds": 27.056,
+            "model_id": "Qwen/Qwen3-8B",
+            "vram_reserved_mib": 10456.0,
+            "vram_allocated_mib": 10199.3
+          },
+          {
+            "name": "scene_load",
+            "started_at": "2026-11-20T03:44:13.021334+00:00",
+            "ended_at": "2026-11-20T03:44:21.761686+00:00",
+            "seconds": 8.74,
+            "model_id": "Qwen/Qwen3-8B",
+            "vram_reserved_mib": 10002.0,
+            "vram_allocated_mib": 9908.5
+          },
+          {
+            "name": "scene_generate",
+            "started_at": "2026-11-20T03:44:21.769517+00:00",
+            "ended_at": "2026-11-20T03:44:35.154497+00:00",
+            "seconds": 13.385,
+            "model_id": "Qwen/Qwen3-8B",
+            "window": 1,
+            "vram_reserved_mib": 10606.0,
+            "vram_allocated_mib": 10543.6
+          },
+          {
+            "name": "scene_generate",
+            "started_at": "2026-11-20T03:44:35.162098+00:00",
+            "ended_at": "2026-11-20T03:44:49.920557+00:00",
+            "seconds": 14.758,
+            "model_id": "Qwen/Qwen3-8B",
+            "window": 2,
+            "vram_reserved_mib": 10666.0,
+            "vram_allocated_mib": 10611.1
+          },
+          {
+            "name": "scene_generate",
+            "started_at": "2026-11-20T03:44:49.929497+00:00",
+            "ended_at": "2026-11-20T03:45:03.394670+00:00",
+            "seconds": 13.465,
+            "model_id": "Qwen/Qwen3-8B",
+            "window": 3,
+            "vram_reserved_mib": 10806.0,
+            "vram_allocated_mib": 10734.2
+          },
+          {
+            "name": "scene_generate",
+            "started_at": "2026-11-20T03:45:03.401638+00:00",
+            "ended_at": "2026-11-20T03:45:19.700411+00:00",
+            "seconds": 16.299,
+            "model_id": "Qwen/Qwen3-8B",
+            "window": 4,
+            "vram_reserved_mib": 10806.0,
+            "vram_allocated_mib": 10517.3
+          },
+          {
+            "name": "scene_generate",
+            "started_at": "2026-11-20T03:45:19.708342+00:00",
+            "ended_at": "2026-11-20T03:45:36.191785+00:00",
+            "seconds": 16.483,
+            "model_id": "Qwen/Qwen3-8B",
+            "window": 5,
+            "vram_reserved_mib": 10806.0,
+            "vram_allocated_mib": 10627.7
+          },
+          {
+            "name": "scene_generate",
+            "started_at": "2026-11-20T03:45:36.199893+00:00",
+            "ended_at": "2026-11-20T03:45:53.284319+00:00",
+            "seconds": 17.084,
+            "model_id": "Qwen/Qwen3-8B",
+            "window": 6,
+            "vram_reserved_mib": 10806.0,
+            "vram_allocated_mib": 10663.3
+          },
+          {
+            "name": "scene_generate",
+            "started_at": "2026-11-20T03:45:53.288522+00:00",
+            "ended_at": "2026-11-20T03:46:10.267208+00:00",
+            "seconds": 16.979,
+            "model_id": "Qwen/Qwen3-8B",
+            "window": 7,
+            "vram_reserved_mib": 10806.0,
+            "vram_allocated_mib": 10240.5
+          }
+        ]
+      },
+      "output_file": "Silicon_Valley.S06E01.mkv_dialogue.json",
+      "timings_file": "Silicon_Valley.S06E01.mkv_dialogue_timings.json"
+    },
+    {
+      "stage": "vlm",
+      "status": "success",
+      "json_valid": true,
+      "result": {
+        "experiment_id": "09-bassl-uniform",
+        "scene_timeline": [
+          {
+            "start_time": "00:00:00",
+            "end_time": "00:02:30",
+            "dialogue_description": "During a congressional hearing, Richard Hendricks addresses a panel discussing Pied Piper's role in developing a new type of internet. He highlights the dominance of tech giants like Facebook, Google, and Amazon, emphasizing their control over market share and user data. Richard argues that these monopolies make it difficult for smaller companies to compete, using the example of Huli, which he claims cannot survive their dominance. His remarks suggest a growing concern about corporate power and the need for alternatives like Pied Piper's decentralized platform. Richard's speech underscores the company's mission to challenge these giants and promote a more equitable digital landscape. However, his focus on competition and market dynamics hints at underlying tensions within the company, particularly regarding ethical practices and the potential for misuse of user data. The exchange ends with Richard's acknowledgment of the challenges ahead, setting the stage for further conflict between innovation and integrity.",
+            "description": "Richard Hendricks stands before a congressional committee, flanked by two others, addressing microphones while surrounded by reporters holding cameras. Behind him, an American flag hangs beside a seal. In another scene, a man walks through a large, modern office space with high ceilings and glass walls. A woman sits at a desk reviewing documents, her expression focused. Another shot shows a group gathered around a table where someone gestures toward a computer screen displaying graphs. Later, Richard is seen standing near a podium labeled 'Mr. Richard Hendricks,' looking directly forward as the camera captures his face. Other individuals appear seated or standing nearby, some listening intently, others taking notes.",
+            "subjects_and_objects": [
+              "Richard Hendricks",
+              "a woman",
+              "a man wearing a suit",
+              "reporters",
+              "cameras",
+              "American flag"
+            ],
+            "actions": [
+              "Richard Hendricks speaks into microphones",
+              "reporters hold up cameras",
+              "a woman looks down at papers",
+              "a man gestures toward a computer screen",
+              "Richard Hendricks stares straight ahead",
+              "people sit or stand around a table"
+            ],
+            "camera_and_shot": "The camera focuses closely on Richard Hendricks during testimony, pans across a wide office interior, cuts to close-ups of individuals working or observing, and tracks movement through corridors and meeting rooms.",
+            "lighting_and_color": "Brightly lit indoor environments with neutral tones; formal settings illuminated evenly under overhead lights.",
+            "on_screen_text": [
+              "Mr. Richard Hendricks"
+            ]
+          },
+          {
+            "start_time": "00:02:30",
+            "end_time": "00:05:00",
+            "dialogue_description": "During a congressional hearing, Richard Hendricks addresses a panel discussing Pied Piper's role in developing a new type of internet. He highlights the dominance of tech giants like Facebook, Google, and Amazon, emphasizing their control over market share and user data. Richard argues that these monopolies make it difficult for smaller companies to compete, using the example of Huli, which he claims cannot survive their dominance. His remarks suggest a growing concern about corporate power and the need for alternatives like Pied Piper's decentralized platform. Richard's speech underscores the company's mission to challenge these giants and promote a more equitable digital landscape. However, his focus on competition and market dynamics hints at underlying tensions within the company, particularly regarding ethical practices and the potential for misuse of user data. The exchange ends with Richard's acknowledgment of the challenges ahead, setting the stage for further conflict between innovation and integrity.",
+            "description": "Richard Hendricks stands at a wooden witness stand, speaking into a microphone while gesturing with his right hand. Behind him, several members of the committee sit at desks with nameplates, including Mr. Golden, Ms. Shizago, and Mr. Biazani. The room has dark wood paneling and ornate architectural details. A large screen behind him displays graphics related to Pied Piper’s technology. To his left, a woman named Ms. Vickers listens attentively. In another view, Richard turns slightly to his side while continuing to speak, maintaining eye contact with the audience. The camera occasionally shifts to capture reactions from the attendees, showing varied expressions ranging from attentive listening to mild surprise.",
+            "subjects_and_objects": [
+              "Richard Hendricks",
+              "Ms. Vickers",
+              "Mr. Golden",
+              "Ms. Shizago",
+              "Mr. Biazani"
+            ],
+            "actions": [
+              "Richard Hendricks speaks into a microphone",
+              "Richard Hendricks gestures with his right hand",
+              "Richard Hendricks turns slightly to his side",
+              "Ms. Vickers listens attentively",
+              "committee members look towards Richard Hendricks"
+            ],
+            "camera_and_shot": "Close-up shots of Richard Hendricks speaking, medium shots capturing the entire witness stand setup, occasional cuts to reactions of committee members, and slight panning to follow his gestures.",
+            "lighting_and_color": "Even, bright indoor lighting with warm tones highlighting the polished wood surfaces and formal attire of participants.",
+            "on_screen_text": []
+          },
+          {
+            "start_time": "00:05:00",
+            "end_time": "00:07:30",
+            "dialogue_description": "During a post-hearing celebration, Richard Hendricks and his colleagues reflect on their recent congressional appearance. Richard, addressing the group, passionately argues that their company represents a new era of democratic, decentralized internet, contrasting sharply with the \"kings\" of Big Tech. His speech is met with approval from his team, who celebrate their success and the potential of their mission. \n\nColin, however, approaches Richard privately, expressing concern about the company’s direction. Richard, still energized by his speech, acknowledges Colin’s presence but remains focused on the broader vision. Their conversation is brief, with Richard dismissing the need for further discussion, indicating he is more interested in moving forward than addressing specific concerns. \n\nThe exchange ends with Richard raising a toast, signaling his commitment to the company’s ideals. While no major decisions are made during this interaction, the tone suggests Richard is determined to push ahead with their mission, even as underlying tensions remain unaddressed.",
+            "description": "Richard Hendricks stands at a podium outdoors, gesturing emphatically with both hands as he speaks. Behind him, a crowd of formally dressed people watches attentively. Some individuals in the background adjust their clothing or shift positions. The setting appears to be a parking lot bordered by trees and parked cars under daylight. Richard maintains direct eye contact with unseen listeners, occasionally turning his head slightly. At one point, he raises his right hand higher while continuing to address the group.",
+            "subjects_and_objects": [
+              "Richard Hendricks",
+              "a crowd of people",
+              "cars",
+              "trees"
+            ],
+            "actions": [
+              "Richard Hendricks speaks while gesturing with both hands",
+              "Richard Hendricks raises his right hand",
+              "Richard Hendricks turns his head slightly",
+              "members of the crowd watch attentively",
+              "some individuals adjust their clothing or shift positions"
+            ],
+            "camera_and_shot": "Medium shots focusing on Richard Hendricks as he speaks, cutting to wider views showing the surrounding crowd and environment, tracking subtle movements among the audience.",
+            "lighting_and_color": "Natural daylight illuminating the outdoor setting, casting soft shadows. Colors include muted greens from foliage, gray asphalt from the parking lot, and various shades of suits worn by the crowd.",
+            "on_screen_text": []
+          },
+          {
+            "start_time": "00:07:30",
+            "end_time": "00:10:00",
+            "dialogue_description": "During a post-hearing celebration, Richard Hendricks and his colleagues reflect on their recent congressional appearance. Richard, addressing the group, passionately argues that their company represents a new era of democratic, decentralized internet, contrasting sharply with the \"kings\" of Big Tech. His speech is met with approval from his team, who celebrate their success and the potential of their mission. \n\nColin, however, approaches Richard privately, expressing concern about the company’s direction. Richard, still energized by his speech, acknowledges Colin’s presence but remains focused on the broader vision. Their conversation is brief, with Richard dismissing the need for further discussion, indicating he is more interested in moving forward than addressing specific concerns. \n\nThe exchange ends with Richard raising a toast, signaling his commitment to the company’s ideals. While no major decisions are made during this interaction, the tone suggests Richard is determined to push ahead with their mission, even as underlying tensions remain unaddressed.",
+            "description": "Richard Hendricks walks through an office party decorated with tropical-themed decorations, holding a beer bottle. He moves past coworkers gathered near tables laden with snacks and drinks, some wearing orange 'Pied Piper' t-shirts. As he navigates the crowded space, he interacts briefly with others, smiling and nodding. The atmosphere is lively, filled with laughter and chatter, with balloons shaped like palm trees and a sign reading 'WELCOME HOME RICHARD!' hanging above. Richard pauses momentarily near a workstation where employees are working, before continuing toward the center of the celebration.",
+            "subjects_and_objects": [
+              "Richard Hendricks",
+              "coworkers",
+              "balloons",
+              "snack table",
+              "workstation",
+              "sign"
+            ],
+            "actions": [
+              "Richard Hendricks walks through the office party",
+              "Richard Hendricks holds a beer bottle",
+              "Richard Hendricks smiles and nods",
+              "coworkers gather around snack tables",
+              "people laugh and chat",
+              "employees work at their computers"
+            ],
+            "camera_and_shot": "Tracking shot following Richard Hendricks as he moves through the party, alternating between close-ups of interactions and wide shots capturing the festive office environment.",
+            "lighting_and_color": "Bright, natural-looking indoor lighting with vibrant colors from decorations, including green palm tree balloons and orange t-shirts. Warm tones dominate due to the celebratory atmosphere.",
+            "on_screen_text": [
+              "WELCOME HOME RICHARD!"
+            ]
+          },
+          {
+            "start_time": "00:10:00",
+            "end_time": "00:12:30",
+            "dialogue_description": "Colin and Richard argue over Colin’s secret data collection, which contradicts the company’s ethical stance. Colin claims he’s only using the data to improve his game, not for profit. Richard insists it undermines their core values, comparing it to historical atrocities like Hiroshima to emphasize its moral weight. He demands Colin stop, but Colin remains defiant, suggesting they’re all compromised. Richard acknowledges the complexity of human behavior, calling it “the cost of working with humans.” Meanwhile, another team member, Gavin, announces a merger with Amazon, offering retention bonuses and keeping Richard’s leadership intact. This news shifts the focus from internal conflict to external pressure, highlighting the tension between maintaining ethics and securing the company’s future. The conversation ends with Richard reluctantly accepting the merger’s terms, signaling a compromise between his ideals and the reality of corporate survival.",
+            "description": "A man in a plaid shirt and grey hoodie gestures animatedly while talking to another man wearing a baseball cap and a 'Gates Galileo' t-shirt. They stand in a bustling, brightly lit warehouse-like space filled with people mingling, colorful decorations, and tech equipment. The man in the hoodie looks upward and then back down, emphasizing points with his hands. The second man listens intently, occasionally reacting with surprise or shifting his gaze away. In the background, people move around, some conversing, others walking past, creating a dynamic, social atmosphere.",
+            "subjects_and_objects": [
+              "man in plaid shirt",
+              "man in baseball cap",
+              "crowd",
+              "colorful decorations",
+              "tech equipment"
+            ],
+            "actions": [
+              "man in plaid shirt gestures with hands",
+              "man in plaid shirt looks upward",
+              "man in plaid shirt glances sideways",
+              "man in baseball cap listens",
+              "man in baseball cap reacts with expression",
+              "people walk around in background"
+            ],
+            "camera_and_shot": "Close-up shots focusing on the two men interacting, interspersed with medium shots revealing the busy surroundings and movement within the space.",
+            "lighting_and_color": "Bright, artificial overhead lighting casts even illumination across the scene. Vibrant colors from decorations contrast with neutral tones of the industrial-style interior.",
+            "on_screen_text": []
+          },
+          {
+            "start_time": "00:12:30",
+            "end_time": "00:15:00",
+            "dialogue_description": "Colin and Richard argue over Colin’s secret data collection, which contradicts the company’s ethical stance. Colin claims he’s only using the data to improve his game, not for profit. Richard insists it undermines their core values, comparing it to historical atrocities like Hiroshima to emphasize its moral weight. He demands Colin stop, but Colin remains defiant, suggesting they’re all compromised. Richard acknowledges the complexity of human behavior, calling it “the cost of working with humans.” Meanwhile, another team member, Gavin, announces a merger with Amazon, offering retention bonuses and keeping Richard’s leadership intact. This news shifts the focus from internal conflict to external pressure, highlighting the tension between maintaining ethics and securing the company’s future. The conversation ends with Richard reluctantly accepting the merger’s terms, signaling a compromise between his ideals and the reality of corporate survival.",
+            "description": "In a modern conference room, three individuals sit around a glass table. A man in a suit sits centrally, gesturing emphatically with both hands while speaking. To his right, a woman in a dark blazer leans slightly forward, her hand resting on the table. Across from him, another man in a suit listens attentively, his head tilted downward. Behind them, large framed artwork hangs on the wall, and blue mics rest on the table. The setting appears formal and professional.",
+            "subjects_and_objects": [
+              "man in suit",
+              "woman in dark blazer",
+              "other man in suit",
+              "glass table",
+              "blue mics",
+              "framed artwork"
+            ],
+            "actions": [
+              "man in suit gestures with both hands",
+              "woman in dark blazer leans forward",
+              "other man in suit tilts head downward",
+              "man in suit speaks"
+            ],
+            "camera_and_shot": "Static mid-shot framing all three seated individuals around the table, showing upper bodies and surrounding decor.",
+            "lighting_and_color": "Even, soft ambient lighting illuminating the room; warm tones from wood paneling and muted colors of clothing create a subdued, serious atmosphere.",
+            "on_screen_text": []
+          },
+          {
+            "start_time": "00:15:00",
+            "end_time": "00:17:30",
+            "dialogue_description": "During a tense meeting, Gavin, a senior executive, announces that the company's properties will be rebranded as Amazon, signaling a potential acquisition. His comment about Bezos wanting to erase the Hooley name sparks anger from another executive, who defiantly states they will retain the Hooley name, calling it a \"deal breaker.\" Meanwhile, Dinesh, a developer, reveals that an AI named Son of Anton has been indexing the entire network, capable of recognizing intent and emotion. This revelation shocks others, particularly Gilfoyle, who accuses Dinesh of creating a bot that mimicked his conversations. Dinesh clarifies that Son of Anton, an homage to a fallen friend, was not trained by him but developed independently. Gilfoyle expresses outrage, claiming he was unknowingly conversing with an AI, highlighting the ethical dilemma of deception and manipulation within the company. The discussion underscores growing concerns about privacy, corporate integrity, and the unintended consequences of their technological advancements. The exchange ends with unresolved tension, emphasizing the conflict between innovation and ethical responsibility.",
+            "description": "In a dimly lit office, a man in a gray suit and red tie sits at a desk, looking up sharply as if responding to someone off-camera. Another man stands behind him, arms crossed, observing. The camera pans to reveal more of the room, including a wooden-paneled wall and a glowing logo in the background. The man at the desk gestures with his left hand while holding a pen in his right. A woman in a black blazer sits beside him, listening intently. The standing man turns toward the seated man, appearing to speak directly to him.",
+            "subjects_and_objects": [
+              "man in gray suit",
+              "man standing",
+              "woman in black blazer",
+              "wooden-paneled wall",
+              "glowing logo",
+              "desk"
+            ],
+            "actions": [
+              "man in gray suit looks up sharply",
+              "man in gray suit gestures with left hand",
+              "man in gray suit holds pen in right hand",
+              "man standing crosses arms",
+              "man standing turns toward seated man",
+              "woman in black blazer listens intently"
+            ],
+            "camera_and_shot": "The shot begins close on the seated man, then slowly pulls back to include the standing man and the woman, capturing the interaction and environment.",
+            "lighting_and_color": "Warm, low-key lighting highlights the characters against darker backgrounds. Rich browns from the wood panels contrast with cooler tones from the illuminated logo and subtle shadows cast by the figures.",
+            "on_screen_text": []
+          },
+          {
+            "start_time": "00:17:30",
+            "end_time": "00:20:00",
+            "dialogue_description": "During a tense meeting, Gavin, a senior executive, announces that the company's properties will be rebranded as Amazon, signaling a potential acquisition. His comment about Bezos wanting to erase the Hooley name sparks anger from another executive, who defiantly states they will retain the Hooley name, calling it a \"deal breaker.\" Meanwhile, Dinesh, a developer, reveals that an AI named Son of Anton has been indexing the entire network, capable of recognizing intent and emotion. This revelation shocks others, particularly Gilfoyle, who accuses Dinesh of creating a bot that mimicked his conversations. Dinesh clarifies that Son of Anton, an homage to a fallen friend, was not trained by him but developed independently. Gilfoyle expresses outrage, claiming he was unknowingly conversing with an AI, highlighting the ethical dilemma of deception and manipulation within the company. The discussion underscores growing concerns about privacy, corporate integrity, and the unintended consequences of their technological advancements. The exchange ends with unresolved tension, emphasizing the conflict between innovation and ethical responsibility.",
+            "description": "A man in a green-and-white polo shirt walks through an open-plan office space, passing by desks where colleagues work. He stops near a trash bin, glances down at his phone, and continues walking past a row of computer monitors displaying code. He approaches a group of people gathered around a table, interacts briefly with one individual, and then moves toward a doorway leading into a hallway.",
+            "subjects_and_objects": [
+              "man in green-and-white polo",
+              "colleagues at desks",
+              "trash bin",
+              "computer monitors",
+              "table with group",
+              "doorway"
+            ],
+            "actions": [
+              "man in green-and-white polo walks through office",
+              "man glances down at phone",
+              "man continues walking past monitors",
+              "man approaches group at table",
+              "man interacts with individual at table",
+              "man moves toward doorway"
+            ],
+            "camera_and_shot": "Follows the man in motion, starting with a medium shot as he walks, transitioning to a wider view as he passes the trash bin, then tightening again as he approaches the group before ending with a shot focused on the doorway ahead.",
+            "lighting_and_color": "Bright, even natural light filters through windows, casting soft shadows across the workspace. Neutral tones dominate — beige walls, gray flooring, and colorful accents from tech equipment and personal items on desks.",
+            "on_screen_text": []
+          },
+          {
+            "start_time": "00:20:00",
+            "end_time": "00:22:30",
+            "dialogue_description": "Colin’s private conversations, stored across the network, are revealed by SPEAKER_04, who details how Son of Anton indexed them, exposing Colin’s misconduct. SPEAKER_15, likely Richard, reacts with outrage, calling Colin’s actions “gobsmackingly awful.” Despite acknowledging the wrongdoing, Richard hesitates, suggesting he might find another way to address the issue. The conversation shifts to a separate concern—moving an office—showing a moment of distraction. Richard then returns to the main conflict, framing Colin’s actions as a betrayal of their ethical stance. He proposes a drastic move: during a board meeting, Richard will amend the bylaws to ensure no user data is collected, threatening to leak the evidence if they refuse. SPEAKER_03 interjects with a crude remark, highlighting the group’s internal dysfunction. The exchange ends with Richard and SPEAKER_15 confronting Colin, demanding accountability. Their plan to expose the truth and uphold their values is set in motion, marking a pivotal moment in the company’s ethical struggle.",
+            "description": "A man in a checkered button-down shirt sits facing another person whose back is to the camera. He speaks animatedly, gesturing with both hands while seated at a white table. Behind him, large screens display complex graphs and data points. He leans forward slightly, then straightens up, maintaining eye contact. At one point, he raises his right hand to gesture emphatically. The setting appears modern and professional, with glass partitions, potted plants, and ambient lighting.",
+            "subjects_and_objects": [
+              "man in checkered shirt",
+              "person with back to camera",
+              "white table",
+              "large screens",
+              "glass partitions",
+              "potted plants"
+            ],
+            "actions": [
+              "man in checkered shirt speaks animatedly",
+              "man in checkered shirt gestures with both hands",
+              "man in checkered shirt leans forward slightly",
+              "man in checkered shirt straightens up",
+              "man in checkered shirt raises right hand to gesture"
+            ],
+            "camera_and_shot": "Medium close-up focusing on the man speaking, occasionally shifting angle to capture his gestures and facial expressions. The camera remains steady throughout, keeping the subject centered.",
+            "lighting_and_color": "Soft, diffused indoor lighting with neutral color tones. The scene is evenly lit without harsh shadows, giving a calm yet serious atmosphere appropriate for a business or technical discussion.",
+            "on_screen_text": []
+          },
+          {
+            "start_time": "00:22:30",
+            "end_time": "00:25:00",
+            "dialogue_description": "Colin’s private conversations, stored across the network, are revealed by SPEAKER_04, who details how Son of Anton indexed them, exposing Colin’s misconduct. SPEAKER_15, likely Richard, reacts with outrage, calling Colin’s actions “gobsmackingly awful.” Despite acknowledging the wrongdoing, Richard hesitates, suggesting he might find another way to address the issue. The conversation shifts to a separate concern—moving an office—showing a moment of distraction. Richard then returns to the main conflict, framing Colin’s actions as a betrayal of their ethical stance. He proposes a drastic move: during a board meeting, Richard will amend the bylaws to ensure no user data is collected, threatening to leak the evidence if they refuse. SPEAKER_03 interjects with a crude remark, highlighting the group’s internal dysfunction. The exchange ends with Richard and SPEAKER_15 confronting Colin, demanding accountability. Their plan to expose the truth and uphold their values is set in motion, marking a pivotal moment in the company’s ethical struggle.",
+            "description": "Three men stand in a dimly lit room filled with tech equipment; two face each other while the third stands beside them looking downward. One man holds a smartphone and looks at its screen, then turns to speak to the second man. The second man responds, turning his head away momentarily before returning his gaze. The third man lifts his head, eyes widening slightly as he listens. A red-lit fan spins behind them, and posters adorn the wall.",
+            "subjects_and_objects": [
+              "three men",
+              "smartphone",
+              "red-lit fan",
+              "posters"
+            ],
+            "actions": [
+              "one man holds smartphone and looks at screen",
+              "one man turns to speak to second man",
+              "second man turns head away then returns gaze",
+              "third man lifts head, eyes widen slightly"
+            ],
+            "camera_and_shot": "Static wide-angle shot capturing all three men and surrounding environment, slight shift in focus as attention moves among individuals.",
+            "lighting_and_color": "Cool blue-toned artificial lighting casts deep shadows, accentuating metallic surfaces and glowing screens. Red highlights from the spinning fan contrast against the dominant blues and dark background.",
+            "on_screen_text": []
+          },
+          {
+            "start_time": "00:25:00",
+            "end_time": "00:27:30",
+            "dialogue_description": "During this interval, several characters discuss the recent acquisition of their company by Amazon. Speaker 11, who has now joined Amazon, informs the group that the deal is finalized and that they are now subletting space from Amazon. Speaker 14 expresses concern over the loss of autonomy and the symbolic shift in power dynamics, noting that Amazon’s logo is now larger than their own. Speaker 11 acknowledges the changes, stating that they now work at Amazon and that the terms of the deal are binding. Speaker 15, who has been struggling with his role and loyalty, reflects on his past decisions and ultimately reaffirms his place at Pied Piper, declaring, “I’m home.” Speaker 10 brings up Gwart, a new person in the incubator, highlighting her technical skills but questioning her fit within the team’s culture. The conversation ends with Speaker 10 offering Speaker 15 some new cans, symbolizing a small gesture of camaraderie amid the uncertainty. The exchange underscores the tension between maintaining company identity and the pressures of external acquisition.",
+            "description": "A man in a teal t-shirt walks through a dimly lit corridor, glancing sideways toward someone off-screen. He pauses briefly, then continues walking with purpose. In the background, another man in a suit follows closely, appearing concerned. They pass under a doorway where bright lights illuminate a sign displaying 'Pied Piper'. The man in the suit stops short, staring ahead with a look of surprise or realization.",
+            "subjects_and_objects": [
+              "man in teal t-shirt",
+              "man in suit",
+              "doorway",
+              "sign with 'Pied Piper'",
+              "bright lights"
+            ],
+            "actions": [
+              "man in teal t-shirt walks through corridor",
+              "man in teal t-shirt glances sideways",
+              "man in teal t-shirt pauses briefly",
+              "man in teal t-shirt continues walking with purpose",
+              "man in suit follows closely",
+              "man in suit stops short"
+            ],
+            "camera_and_shot": "Following shot tracking the man in teal t-shirt as he walks down the corridor, transitioning to a static medium shot as he passes under the doorway. Camera stays level, maintaining focus on the movement and reactions of the two men.",
+            "lighting_and_color": "Dim interior lighting with cool blue undertones, punctuated by sudden bursts of warm, intense light emanating from the doorway. Shadows cast long and dramatic, emphasizing the transition into brighter surroundings.",
+            "on_screen_text": []
+          },
+          {
+            "start_time": "00:27:30",
+            "end_time": "00:30:00",
+            "dialogue_description": "During this interval, several characters discuss the recent acquisition of their company by Amazon. Speaker 11, who has now joined Amazon, informs the group that the deal is finalized and that they are now subletting space from Amazon. Speaker 14 expresses concern over the loss of autonomy and the symbolic shift in power dynamics, noting that Amazon’s logo is now larger than their own. Speaker 11 acknowledges the changes, stating that they now work at Amazon and that the terms of the deal are binding. Speaker 15, who has been struggling with his role and loyalty, reflects on his past decisions and ultimately reaffirms his place at Pied Piper, declaring, “I’m home.” Speaker 10 brings up Gwart, a new person in the incubator, highlighting her technical skills but questioning her fit within the team’s culture. The conversation ends with Speaker 10 offering Speaker 15 some new cans, symbolizing a small gesture of camaraderie amid the uncertainty. The exchange underscores the tension between maintaining company identity and the pressures of external acquisition.",
+            "description": "A man in a checkered shirt exits a car parked near bushes at night, stepping onto the pavement with a thoughtful expression. He adjusts his collar and looks upward, seemingly reflecting. Behind him, the car's door remains open, revealing the interior. The scene transitions indoors to a living room where a young boy sits on a couch holding a video game controller, focused intently. Another child stands nearby, watching. An adult male enters the room, pausing mid-step as he observes the children. The setting includes a stone fireplace, shelves with various items, and soft ambient lighting.",
+            "subjects_and_objects": [
+              "man in checkered shirt",
+              "car",
+              "bushes",
+              "young boy",
+              "video game controller",
+              "child"
+            ],
+            "actions": [
+              "man steps out of car",
+              "man adjusts collar",
+              "man looks upward",
+              "boy sits on couch holding controller",
+              "boy watches",
+              "adult male enters room"
+            ],
+            "camera_and_shot": "Initial close-up on the man exiting the car, followed by a wider shot showing the outdoor setting. Transition to indoor medium shot focusing on the living room scene with the children and the entering adult.",
+            "lighting_and_color": "Outdoor nighttime scene illuminated by faint ambient light, casting shadows. Indoor scene bathed in warm, soft lighting with neutral tones, creating a cozy atmosphere.",
+            "on_screen_text": []
+          },
+          {
+            "start_time": "00:30:00",
+            "end_time": "00:32:52",
+            "dialogue_description": "SPEAKER_15, Richard Hendricks, stands before his team, holding a resignation letter. He declares that Pied Piper is no longer the company he joined, stating it has \"different needs now.\" His words carry weight, revealing his disillusionment with the company’s ethical compromises. SPEAKER_04, Erlich Bachman, reacts with anger, calling Richard a \"buddy fucker,\" highlighting their once-close friendship now strained by ideological differences. The tension between them reflects the broader conflict within the company—between idealism and compromise. SPEAKER_15’s declaration of resignation signals his decision to leave, a move that underscores his belief that the company has strayed from its original mission. Meanwhile, SPEAKER_03, Monica, adds a humorous yet pointed remark about \"Russ Fest,\" a reference to the company’s controversial name change and the growing cynicism around its identity. The exchange ends with Richard questioning whether his actions are illegal, a nod to the ethical dilemmas that have plagued the company. His final line, \"Fuck the police,\" encapsulates his frustration with systemic issues both inside and outside the company.",
+            "description": "Richard Hendricks stands in front of his team, holding a resignation letter. He gestures slightly while speaking, his expression serious and resolute. Erlich Bachman leans forward aggressively, arms crossed, reacting with visible anger. Monica stands beside him, smiling faintly while looking at Richard. The office environment features modern furniture, including glass desks and chairs, with posters and tech equipment visible in the background.",
+            "subjects_and_objects": [
+              "Richard Hendricks",
+              "Erlich Bachman",
+              "Monica",
+              "resignation letter",
+              "glass desk",
+              "chairs"
+            ],
+            "actions": [
+              "Richard holds resignation letter",
+              "Richard gestures while speaking",
+              "Erlich leans forward aggressively",
+              "Erlich crosses arms",
+              "Monica smiles faintly",
+              "Monica looks at Richard"
+            ],
+            "camera_and_shot": "Static medium shot centered on Richard facing his team, capturing upper bodies and facial expressions. The camera angle remains steady throughout the interaction.",
+            "lighting_and_color": "Warm, even indoor lighting with natural color tones. The office appears well-lit, with no harsh shadows or extreme contrasts.",
+            "on_screen_text": []
+          }
+        ],
+        "segments_parsed": 13,
+        "segments_total": 13,
+        "vlm_memory_scenes": 2,
+        "visual_only": false,
+        "extract_visual": false,
+        "memory_compacted": false
+      },
+      "timings": {
+        "stage": "vlm",
+        "started_at": "2026-11-20T03:46:11.171120+00:00",
+        "ended_at": "2026-11-20T04:21:06.273655+00:00",
+        "wall_seconds": 2095.103,
+        "spans": [
+          {
+            "name": "vlm_load",
+            "started_at": "2026-11-20T03:52:10.970830+00:00",
+            "ended_at": "2026-11-20T04:03:44.149427+00:00",
+            "seconds": 693.179,
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 9904.0,
+            "vram_allocated_mib": 9847.1
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T04:03:44.157904+00:00",
+            "ended_at": "2026-11-20T04:04:53.343836+00:00",
+            "seconds": 69.186,
+            "window": 1,
+            "start": "00:00:00",
+            "end": "00:02:30",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 13468.0,
+            "vram_allocated_mib": 13380.8
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T04:04:53.354167+00:00",
+            "ended_at": "2026-11-20T04:05:53.986356+00:00",
+            "seconds": 60.632,
+            "window": 2,
+            "start": "00:02:30",
+            "end": "00:05:00",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 13468.0,
+            "vram_allocated_mib": 13380.8
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T04:05:53.997355+00:00",
+            "ended_at": "2026-11-20T04:06:56.261718+00:00",
+            "seconds": 62.264,
+            "window": 3,
+            "start": "00:05:00",
+            "end": "00:07:30",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 13468.0,
+            "vram_allocated_mib": 13380.8
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T04:06:56.271846+00:00",
+            "ended_at": "2026-11-20T04:08:02.836205+00:00",
+            "seconds": 66.564,
+            "window": 4,
+            "start": "00:07:30",
+            "end": "00:10:00",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 13150.0,
+            "vram_allocated_mib": 13056.9
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T04:08:02.847049+00:00",
+            "ended_at": "2026-11-20T04:09:06.190308+00:00",
+            "seconds": 63.343,
+            "window": 5,
+            "start": "00:10:00",
+            "end": "00:12:30",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 13468.0,
+            "vram_allocated_mib": 13380.8
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T04:09:06.576554+00:00",
+            "ended_at": "2026-11-20T04:10:19.554844+00:00",
+            "seconds": 72.978,
+            "window": 6,
+            "start": "00:12:30",
+            "end": "00:15:00",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 13150.0,
+            "vram_allocated_mib": 13056.9
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T04:10:20.039833+00:00",
+            "ended_at": "2026-11-20T04:11:17.240130+00:00",
+            "seconds": 57.2,
+            "window": 7,
+            "start": "00:15:00",
+            "end": "00:17:30",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 13468.0,
+            "vram_allocated_mib": 13380.8
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T04:11:17.353008+00:00",
+            "ended_at": "2026-11-20T04:12:30.778787+00:00",
+            "seconds": 73.426,
+            "window": 8,
+            "start": "00:17:30",
+            "end": "00:20:00",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 13150.0,
+            "vram_allocated_mib": 13056.9
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T04:12:31.589933+00:00",
+            "ended_at": "2026-11-20T04:14:08.146405+00:00",
+            "seconds": 96.556,
+            "window": 9,
+            "start": "00:20:00",
+            "end": "00:22:30",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 13468.0,
+            "vram_allocated_mib": 13380.8
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T04:14:08.172302+00:00",
+            "ended_at": "2026-11-20T04:15:21.644662+00:00",
+            "seconds": 73.472,
+            "window": 10,
+            "start": "00:22:30",
+            "end": "00:25:00",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 13150.0,
+            "vram_allocated_mib": 13056.9
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T04:15:21.964744+00:00",
+            "ended_at": "2026-11-20T04:17:57.204483+00:00",
+            "seconds": 155.24,
+            "window": 11,
+            "start": "00:25:00",
+            "end": "00:27:30",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 13468.0,
+            "vram_allocated_mib": 13380.8
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T04:17:57.472262+00:00",
+            "ended_at": "2026-11-20T04:19:39.284858+00:00",
+            "seconds": 101.813,
+            "window": 12,
+            "start": "00:27:30",
+            "end": "00:30:00",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 13150.0,
+            "vram_allocated_mib": 13056.9
+          },
+          {
+            "name": "vlm_generate",
+            "started_at": "2026-11-20T04:19:39.713588+00:00",
+            "ended_at": "2026-11-20T04:20:53.038358+00:00",
+            "seconds": 73.325,
+            "window": 13,
+            "start": "00:30:00",
+            "end": "00:32:52",
+            "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+            "vram_reserved_mib": 14110.0,
+            "vram_allocated_mib": 14028.7
+          }
+        ]
+      },
+      "output_file": "Silicon_Valley.S06E01.mkv_vlm.json",
+      "raw_file": "Silicon_Valley.S06E01.mkv_vlm_raw.txt",
+      "sidecar_file": "Silicon_Valley.S06E01.mkv_vlm_sidecar.json",
+      "timings_file": "Silicon_Valley.S06E01.mkv_vlm_timings.json",
+      "frames_file": "Silicon_Valley.S06E01.mkv_vlm_frames.json"
+    },
+    {
+      "stage": "llm",
+      "status": "success",
+      "result": {
+        "recsys_metadata": {
+          "primary_genre": "Drama",
+          "sub_genres": [
+            "Corporate Espionage",
+            "Ethical Conflict",
+            "Technological Ethics"
+          ],
+          "pacing": "Moderate",
+          "mood": [
+            "Tense",
+            "Reflective",
+            "Controversial"
+          ]
+        },
+        "search_and_discovery": {
+          "semantic_tags": [
+            "Data Privacy",
+            "Corporate Integrity",
+            "AI Consequences",
+            "Ethical Dilemma"
+          ],
+          "main_topics": [
+            "Technology",
+            "Business Ethics",
+            "Identity Crisis"
+          ]
+        },
+        "audience_profiling": {
+          "target_age_group": "Young Adults",
+          "viewer_interests": [
+            "Tech Industry",
+            "Ethics",
+            "Corporate Culture"
+          ]
+        },
+        "content_summary": {
+          "visual_style": "The visual style features bright, formal settings with neutral tones, complemented by vibrant colors from decorations and tech equipment, creating a balanced mix of professionalism and festivity.",
+          "narrative_hook": "Richard Hendricks, a visionary leader, faces a critical ethical dilemma when his company's data practices clash with its founding principles, forcing him to choose between corporate survival and moral integrity."
+        }
+      },
+      "timings": {
+        "stage": "llm",
+        "started_at": "2026-11-20T04:21:06.273863+00:00",
+        "ended_at": "2026-11-20T04:40:26.044455+00:00",
+        "wall_seconds": 1159.771,
+        "spans": [
+          {
+            "name": "llm_load",
+            "started_at": "2026-11-20T04:21:07.717393+00:00",
+            "ended_at": "2026-11-20T04:39:58.016844+00:00",
+            "seconds": 1130.299,
+            "model_id": "Qwen/Qwen3-8B",
+            "vram_reserved_mib": 9924.0,
+            "vram_allocated_mib": 9882.0
+          },
+          {
+            "name": "llm_generate",
+            "started_at": "2026-11-20T04:39:58.017691+00:00",
+            "ended_at": "2026-11-20T04:40:24.736090+00:00",
+            "seconds": 26.718,
+            "model_id": "Qwen/Qwen3-8B",
+            "attempt": 1,
+            "vram_reserved_mib": 11828.0,
+            "vram_allocated_mib": 11571.2
+          }
+        ]
+      },
+      "output_file": "Silicon_Valley.S06E01.mkv_llm.json",
+      "timings_file": "Silicon_Valley.S06E01.mkv_llm_timings.json"
+    }
+  ],
+  "stages_ran": [
+    "timeline",
+    "audio",
+    "bassl",
+    "dialogue",
+    "vlm",
+    "llm",
+    "evidence"
+  ],
+  "archived_files": [
+    "Silicon_Valley.S06E01.mkv_timeline.json",
+    "Silicon_Valley.S06E01.mkv_audio.json",
+    "Silicon_Valley.S06E01.mkv_audio_timings.json",
+    "Silicon_Valley.S06E01.mkv_bassl.json",
+    "Silicon_Valley.S06E01.mkv_dialogue.json",
+    "Silicon_Valley.S06E01.mkv_dialogue_timings.json",
+    "Silicon_Valley.S06E01.mkv_vlm.json",
+    "Silicon_Valley.S06E01.mkv_vlm_timings.json",
+    "Silicon_Valley.S06E01.mkv_vlm_frames.json",
+    "Silicon_Valley.S06E01.mkv_vlm_raw.txt",
+    "Silicon_Valley.S06E01.mkv_vlm_sidecar.json",
+    "Silicon_Valley.S06E01.mkv_frame_plan.json",
+    "Silicon_Valley.S06E01.mkv_llm.json",
+    "Silicon_Valley.S06E01.mkv_llm_timings.json",
+    "Silicon_Valley.S06E01.mkv_manifest.json",
+    "Silicon_Valley.S06E01.mkv_evidence.json"
+  ]
+}

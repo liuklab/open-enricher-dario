@@ -1,0 +1,266 @@
+{
+  "experiment_id": "09-bassl-adaptive",
+  "scene_timeline": [
+    {
+      "start_time": "00:00:00",
+      "end_time": "00:05:00",
+      "dialogue_description": "During a congressional hearing, Richard Hendricks addresses a panel discussing Pied Piper's role in developing a new type of internet. He highlights the dominance of tech giants like Facebook, Google, and Amazon, emphasizing their control over market share and user data. Richard argues that these monopolies make it difficult for smaller companies to compete, using the example of Huli, which he claims cannot survive their dominance. His remarks suggest a growing concern about corporate power and the need for alternatives like Pied Piper's decentralized platform. Richard's speech underscores the company's mission to challenge these giants and promote a more equitable digital landscape. However, his focus on competition and market dynamics hints at underlying tensions within the company, particularly regarding ethical practices and the potential for misuse of user data. The exchange ends with Richard's acknowledgment of the challenges ahead, setting the stage for further conflict between innovation and integrity.",
+      "description": "The scene opens in an office where a woman sits behind a desk, gesturing while speaking to someone off-camera. A man stands beside her, looking down at papers. The camera cuts to a wide shot of a large room filled with people seated at tables, some holding notebooks. In another shot, a man walks through a modern building corridor past hanging artwork. Later, inside a formal courtroom-like chamber, several men in suits stand before a panel; one gestures toward the audience while others listen intently. A man speaks into a microphone at a long table labeled 'MR. HUBBARD CHAIRMAN,' surrounded by officials. Another man, identified as Mr. Richard Hendricks, also speaks at the table, occasionally glancing at notes. Audience members watch attentively, some leaning forward. One man holds up a tablet displaying graphs. The final shots show a close-up of a man’s face as he listens, followed by a view of him walking away.",
+      "subjects_and_objects": [
+        "Richard Hendricks",
+        "Mr. Hubbard",
+        "Gavin Belson",
+        "a woman",
+        "an audience",
+        "officials"
+      ],
+      "actions": [
+        "gesturing with hands",
+        "speaking into microphones",
+        "leaning forward",
+        "holding up a tablet",
+        "walking away",
+        "looking down at papers"
+      ],
+      "camera_and_shot": "close-ups, medium shots, wide shots, tracking shots",
+      "lighting_and_color": "even indoor lighting, neutral tones, professional ambiance",
+      "on_screen_text": [
+        "HBO",
+        "Security User Data",
+        "Pied Piper",
+        "Mr. Richard Hendricks",
+        "Mr. Seth Wallace",
+        "MR. HUBBARD CHAIRMAN"
+      ]
+    },
+    {
+      "start_time": "00:05:00",
+      "end_time": "00:10:00",
+      "dialogue_description": "During a post-hearing celebration, Richard Hendricks and his colleagues reflect on their recent congressional appearance. Richard, addressing the group, passionately argues that their company represents a new era of democratic, decentralized internet, contrasting sharply with the \"kings\" of Big Tech. His speech is met with approval from his team, who celebrate their success and the potential of their mission. \n\nColin, however, approaches Richard privately, expressing concern about the company’s direction. Richard, still energized by his speech, acknowledges Colin’s presence but remains focused on the broader vision. Their conversation is brief, with Richard dismissing the need for further discussion, indicating he is more interested in moving forward than addressing specific concerns. \n\nThe exchange ends with Richard raising a toast, signaling his commitment to the company’s ideals. While no major decisions are made during this interaction, the tone suggests Richard is determined to push ahead with their mission, even as underlying tensions remain unaddressed.",
+      "description": "Richard Hendricks walks outside the Pied Piper headquarters, talking animatedly to a colleague while gesturing with his hand. They walk together toward the entrance, passing parked cars under bright sunlight. Inside, they enter a festive party area decorated with tropical-themed balloons and streamers. Richard interacts with employees, including a man in a striped shirt holding a beer bottle, and later joins a crowd celebrating. He raises his glass in a toast, smiling broadly as people cheer around him. The atmosphere is lively, with staff dancing, clapping, and wearing colorful costumes. Richard moves through the crowd, engaging with different groups, sometimes stopping to speak directly to individuals.",
+      "subjects_and_objects": [
+        "Richard Hendricks",
+        "a colleague",
+        "employees",
+        "a man in a striped shirt",
+        "tropical decorations"
+      ],
+      "actions": [
+        "walking",
+        "gesturing with hand",
+        "raising glass",
+        "smiling",
+        "clapping",
+        "dancing"
+      ],
+      "camera_and_shot": "medium shots, tracking shots, handheld movement",
+      "lighting_and_color": "bright daylight outdoors, vibrant colors indoors",
+      "on_screen_text": []
+    },
+    {
+      "start_time": "00:10:00",
+      "end_time": "00:15:00",
+      "dialogue_description": "Colin and Richard argue over Colin’s secret data collection, which contradicts the company’s ethical stance. Colin claims he’s only using the data to improve his game, not for profit. Richard insists it undermines their core values, comparing it to historical atrocities like Hiroshima to emphasize its moral weight. He demands Colin stop, but Colin remains defiant, suggesting they’re all compromised. Richard acknowledges the complexity of human behavior, calling it “the cost of working with humans.” Meanwhile, another team member, Gavin, announces a merger with Amazon, offering retention bonuses and keeping Richard’s leadership intact. This news shifts the focus from internal conflict to external pressure, highlighting the tension between maintaining ethics and securing the company’s future. The conversation ends with Richard reluctantly accepting the merger’s terms, signaling a compromise between his ideals and the reality of corporate survival.",
+      "description": "A man in a plaid shirt and dark jacket stands facing another man in a black cap, both engaged in a tense conversation. Behind them, a crowded room buzzes with activity—people mingle near tables adorned with food and drinks, and colorful decorations hang from the ceiling. The man in the plaid shirt gestures emphatically with his right hand, then brings his left hand to his mouth as if reacting to something shocking. The man in the cap responds with a serious expression, turning slightly to address him. As the camera pans, another man in a gray t-shirt with a logo appears, watching the interaction with a concerned look. The background reveals more guests mingling, some holding plates of food, while others converse near a bar setup. The space feels lively yet charged with emotion.",
+      "subjects_and_objects": [
+        "a man in a plaid shirt",
+        "a man in a black cap",
+        "a man in a gray t-shirt",
+        "guests",
+        "tables with food",
+        "decorations"
+      ],
+      "actions": [
+        "standing",
+        "gesturing with hand",
+        "bringing hand to mouth",
+        "turning head",
+        "watching",
+        "mingling"
+      ],
+      "camera_and_shot": "medium shots, panning shots, handheld movement",
+      "lighting_and_color": "warm indoor lighting, vibrant colors from decorations, casual social ambiance",
+      "on_screen_text": []
+    },
+    {
+      "start_time": "00:15:00",
+      "end_time": "00:16:15",
+      "dialogue_description": "During a tense meeting, Gavin, a senior executive, announces that the company's properties will be rebranded as Amazon, signaling a potential acquisition. His comment about Bezos wanting to erase the Hooley name sparks anger from another executive, who defiantly states they will retain the Hooley name, calling it a \"deal breaker.\" Meanwhile, Dinesh, a developer, reveals that an AI named Son of Anton has been indexing the entire network, capable of recognizing intent and emotion. This revelation shocks others, particularly Gilfoyle, who accuses Dinesh of creating a bot that mimicked his conversations. Dinesh clarifies that Son of Anton, an homage to a fallen friend, was not trained by him but developed independently. Gilfoyle expresses outrage, claiming he was unknowingly conversing with an AI, highlighting the ethical dilemma of deception and manipulation within the company. The discussion underscores growing concerns about privacy, corporate integrity, and the unintended consequences of their technological advancements. The exchange ends with unresolved tension, emphasizing the conflict between innovation and ethical responsibility.",
+      "description": "In a modern conference room, a bald man in a suit stands behind a seated group, speaking authoritatively. A man in a dark blazer sits at the table, looking up at him with a mix of surprise and skepticism. Another man with a beard, dressed formally, leans back in his chair, appearing thoughtful. A woman in a dark suit sits beside him, listening intently. The room features wood-paneled walls, abstract art, and a large screen displaying the 'hoooli' logo. The standing man gestures subtly as he speaks, while the seated men shift their gaze between him and each other, exchanging glances filled with tension. One man taps a pen against his palm, while another rests his hands folded on the table.",
+      "subjects_and_objects": [
+        "a bald man",
+        "a man in a dark blazer",
+        "a man with a beard",
+        "a woman in a dark suit"
+      ],
+      "actions": [
+        "standing",
+        "speaking",
+        "leaning back",
+        "listening intently",
+        "glancing",
+        "tapping a pen"
+      ],
+      "camera_and_shot": "medium shots, static framing focusing on interactions",
+      "lighting_and_color": "even studio lighting, warm tones from wooden panels and neutral decor",
+      "on_screen_text": []
+    },
+    {
+      "start_time": "00:16:15",
+      "end_time": "00:17:30",
+      "dialogue_description": "During a tense meeting, Gavin, a senior executive, announces that the company's properties will be rebranded as Amazon, signaling a potential acquisition. His comment about Bezos wanting to erase the Hooley name sparks anger from another executive, who defiantly states they will retain the Hooley name, calling it a \"deal breaker.\" Meanwhile, Dinesh, a developer, reveals that an AI named Son of Anton has been indexing the entire network, capable of recognizing intent and emotion. This revelation shocks others, particularly Gilfoyle, who accuses Dinesh of creating a bot that mimicked his conversations. Dinesh clarifies that Son of Anton, an homage to a fallen friend, was not trained by him but developed independently. Gilfoyle expresses outrage, claiming he was unknowingly conversing with an AI, highlighting the ethical dilemma of deception and manipulation within the company. The discussion underscores growing concerns about privacy, corporate integrity, and the unintended consequences of their technological advancements. The exchange ends with unresolved tension, emphasizing the conflict between innovation and ethical responsibility.",
+      "description": "A man in a green sweater and white collared shirt sits at a desk, typing rapidly on a keyboard. He looks up briefly, then returns his attention to the screen. In front of him, multiple monitors display code; one shows a chat interface with messages including 'I hate you,' 'Leave me alone,' and 'Bare feet on table.' The office environment is bright and open-plan, with other employees visible in the background, some sitting at desks with laptops, others walking past. The man’s posture is upright, focused, and occasionally shifts slightly as he types.",
+      "subjects_and_objects": [
+        "a man in a green sweater",
+        "monitors displaying code",
+        "other employees",
+        "laptops"
+      ],
+      "actions": [
+        "typing on keyboard",
+        "looking up",
+        "returning focus to screen",
+        "shifting posture slightly"
+      ],
+      "camera_and_shot": "static medium shot, slight zoom-in on the man at his desk",
+      "lighting_and_color": "bright fluorescent lighting, neutral color palette dominated by beige and gray tones of the office furniture",
+      "on_screen_text": [
+        "Odd that you can't type 'asklep' given that you have a drowsing effect",
+        "Shut up! Your voice sucks!",
+        "Gilfoyle: I'm coming over!",
+        "Dinesh C.: Okay.",
+        "Gabe status: Bare feet on table. K-tshirt, a day late."
+      ]
+    },
+    {
+      "start_time": "00:17:30",
+      "end_time": "00:18:45",
+      "dialogue_description": "During a tense meeting, Gavin, a senior executive, announces that the company's properties will be rebranded as Amazon, signaling a potential acquisition. His comment about Bezos wanting to erase the Hooley name sparks anger from another executive, who defiantly states they will retain the Hooley name, calling it a \"deal breaker.\" Meanwhile, Dinesh, a developer, reveals that an AI named Son of Anton has been indexing the entire network, capable of recognizing intent and emotion. This revelation shocks others, particularly Gilfoyle, who accuses Dinesh of creating a bot that mimicked his conversations. Dinesh clarifies that Son of Anton, an homage to a fallen friend, was not trained by him but developed independently. Gilfoyle expresses outrage, claiming he was unknowingly conversing with an AI, highlighting the ethical dilemma of deception and manipulation within the company. The discussion underscores growing concerns about privacy, corporate integrity, and the unintended consequences of their technological advancements. The exchange ends with unresolved tension, emphasizing the conflict between innovation and ethical responsibility.",
+      "description": "A man in a green sweater and white collared shirt sits at a cluttered desk, typing quickly on a keyboard. He pauses, looks toward someone off-screen, then resumes typing. Behind him, another man in a red plaid shirt walks away from a coffee station, holding a mug. The workspace is filled with tech equipment, snacks, and personal items like mugs and notebooks. The man at the desk occasionally glances sideways, showing mild annoyance or distraction.",
+      "subjects_and_objects": [
+        "a man in a green sweater",
+        "a man in a red plaid shirt",
+        "coffee station",
+        "desk with computer monitors",
+        "snacks and mugs"
+      ],
+      "actions": [
+        "typing on keyboard",
+        "pausing and looking off-screen",
+        "resuming typing",
+        "walking away",
+        "holding a mug",
+        "glancing sideways"
+      ],
+      "camera_and_shot": "static medium shot, slight panning to follow movement",
+      "lighting_and_color": "bright overhead lighting, warm tones from wooden shelves and colorful snack packaging",
+      "on_screen_text": [
+        "I hate you more :)",
+        "Dinesh C. 3:23 PM I'm going to kill him.",
+        "Gilfoyle 3:23 PM Murder/suicide?",
+        "Gi",
+        "Who is this?",
+        "Your mom."
+      ]
+    },
+    {
+      "start_time": "00:18:45",
+      "end_time": "00:20:00",
+      "dialogue_description": "During a tense meeting, Gavin, a senior executive, announces that the company's properties will be rebranded as Amazon, signaling a potential acquisition. His comment about Bezos wanting to erase the Hooley name sparks anger from another executive, who defiantly states they will retain the Hooley name, calling it a \"deal breaker.\" Meanwhile, Dinesh, a developer, reveals that an AI named Son of Anton has been indexing the entire network, capable of recognizing intent and emotion. This revelation shocks others, particularly Gilfoyle, who accuses Dinesh of creating a bot that mimicked his conversations. Dinesh clarifies that Son of Anton, an homage to a fallen friend, was not trained by him but developed independently. Gilfoyle expresses outrage, claiming he was unknowingly conversing with an AI, highlighting the ethical dilemma of deception and manipulation within the company. The discussion underscores growing concerns about privacy, corporate integrity, and the unintended consequences of their technological advancements. The exchange ends with unresolved tension, emphasizing the conflict between innovation and ethical responsibility.",
+      "description": "Two men stand facing each other in a modern office space. One wears a green-and-white polo shirt and holds a smartphone, gesturing while speaking. The other, dressed in a red plaid shirt, stands with arms crossed, listening intently. They move closer together as the conversation continues. Behind them, shelves stocked with snacks and drinks line the wall. A doorway leads into a different area where other workers sit at desks.",
+      "subjects_and_objects": [
+        "a man in a green-and-white polo shirt",
+        "a man in a red plaid shirt",
+        "smartphone",
+        "shelves with snacks and drinks",
+        "doorway leading to another room"
+      ],
+      "actions": [
+        "gesturing with hands while talking",
+        "listening with arms crossed",
+        "moving closer to each other",
+        "turning head to look at the other person",
+        "holding a smartphone"
+      ],
+      "camera_and_shot": "medium close-up, following subtle movements between two individuals",
+      "lighting_and_color": "even indoor lighting, muted tones from office decor contrasted with vibrant snack packaging",
+      "on_screen_text": []
+    },
+    {
+      "start_time": "00:20:00",
+      "end_time": "00:25:00",
+      "dialogue_description": "Colin’s private conversations, stored across the network, are revealed by SPEAKER_04, who details how Son of Anton indexed them, exposing Colin’s misconduct. SPEAKER_15, likely Richard, reacts with outrage, calling Colin’s actions “gobsmackingly awful.” Despite acknowledging the wrongdoing, Richard hesitates, suggesting he might find another way to address the issue. The conversation shifts to a separate concern—moving an office—showing a moment of distraction. Richard then returns to the main conflict, framing Colin’s actions as a betrayal of their ethical stance. He proposes a drastic move: during a board meeting, Richard will amend the bylaws to ensure no user data is collected, threatening to leak the evidence if they refuse. SPEAKER_03 interjects with a crude remark, highlighting the group’s internal dysfunction. The exchange ends with Richard and SPEAKER_15 confronting Colin, demanding accountability. Their plan to expose the truth and uphold their values is set in motion, marking a pivotal moment in the company’s ethical struggle.",
+      "description": "A man in a checkered button-down shirt walks through a dimly lit corridor lined with dark curtains, clutching a laptop under his arm. He stops abruptly near a door, turns back slightly, and gestures with his free hand as if responding to something unseen. He then steps forward again, continuing down the hallway.",
+      "subjects_and_objects": [
+        "a man in a checkered button-down shirt",
+        "laptop",
+        "dark curtains",
+        "door"
+      ],
+      "actions": [
+        "walking through a corridor",
+        "stopping abruptly",
+        "turning back slightly",
+        "gesturing with hand",
+        "stepping forward again"
+      ],
+      "camera_and_shot": "following shot tracking the man walking, cuts to static mid-shot when he stops",
+      "lighting_and_color": "low ambient light, shadows cast by curtains, cool blue tones from distant screens",
+      "on_screen_text": []
+    },
+    {
+      "start_time": "00:25:00",
+      "end_time": "00:30:00",
+      "dialogue_description": "During this interval, several characters discuss the recent acquisition of their company by Amazon. Speaker 11, who has now joined Amazon, informs the group that the deal is finalized and that they are now subletting space from Amazon. Speaker 14 expresses concern over the loss of autonomy and the symbolic shift in power dynamics, noting that Amazon’s logo is now larger than their own. Speaker 11 acknowledges the changes, stating that they now work at Amazon and that the terms of the deal are binding. Speaker 15, who has been struggling with his role and loyalty, reflects on his past decisions and ultimately reaffirms his place at Pied Piper, declaring, “I’m home.” Speaker 10 brings up Gwart, a new person in the incubator, highlighting her technical skills but questioning her fit within the team’s culture. The conversation ends with Speaker 10 offering Speaker 15 some new cans, symbolizing a small gesture of camaraderie amid the uncertainty. The exchange underscores the tension between maintaining company identity and the pressures of external acquisition.",
+      "description": "A woman wearing glasses and a white top enters a cluttered living room, approaching a man seated on a couch holding a game controller. She pauses beside him, looking toward the television screen displaying a video game. Another person sits nearby, watching the scene unfold.",
+      "subjects_and_objects": [
+        "a woman wearing glasses and a white top",
+        "a man seated on a couch",
+        "game controller",
+        "television screen",
+        "another person sitting nearby"
+      ],
+      "actions": [
+        "entering a living room",
+        "approaching a seated man",
+        "pausing beside him",
+        "looking toward the television screen",
+        "watching the unfolding scene"
+      ],
+      "camera_and_shot": "static medium shot capturing interaction between three people in a living room",
+      "lighting_and_color": "warm interior lighting, cozy ambiance with soft shadows from furniture and TV glow",
+      "on_screen_text": []
+    },
+    {
+      "start_time": "00:30:00",
+      "end_time": "00:32:52",
+      "dialogue_description": "SPEAKER_15, Richard Hendricks, stands before his team, holding a resignation letter. He declares that Pied Piper is no longer the company he joined, stating it has \"different needs now.\" His words carry weight, revealing his disillusionment with the company’s ethical compromises. SPEAKER_04, Erlich Bachman, reacts with anger, calling Richard a \"buddy fucker,\" highlighting their once-close friendship now strained by ideological differences. The tension between them reflects the broader conflict within the company—between idealism and compromise. SPEAKER_15’s declaration of resignation signals his decision to leave, a move that underscores his belief that the company has strayed from its original mission. Meanwhile, SPEAKER_03, Monica, adds a humorous yet pointed remark about \"Russ Fest,\" a reference to the company’s controversial name change and the growing cynicism around its identity. The exchange ends with Richard questioning whether his actions are illegal, a nod to the ethical dilemmas that have plagued the company. His final line, \"Fuck the police,\" encapsulates his frustration with systemic issues both inside and outside the company.",
+      "description": "Richard Hendricks stands before his team in a modern office setting, holding a resignation letter. He gestures emphatically while speaking, conveying his resolve. Erlich Bachman leans against a desk, arms crossed, reacting angrily with a confrontational expression. Monica, standing nearby, holds a coffee cup and looks amused, gesturing subtly as she speaks. The background shows framed posters, architectural plans, and a large banner with 'Rust Fest' displayed prominently.",
+      "subjects_and_objects": [
+        "Richard Hendricks",
+        "Erlich Bachman",
+        "Monica",
+        "resignation letter",
+        "coffee cup",
+        "framed posters"
+      ],
+      "actions": [
+        "standing before a team",
+        "holding a resignation letter",
+        "gesturing emphatically",
+        "leaning against a desk",
+        "arms crossed",
+        "reacting angrily"
+      ],
+      "camera_and_shot": "medium wide shot capturing all three individuals and the surrounding office environment",
+      "lighting_and_color": "bright, even studio lighting; neutral color palette dominated by beige walls and wooden accents",
+      "on_screen_text": []
+    }
+  ],
+  "segments_parsed": 10,
+  "segments_total": 10,
+  "vlm_memory_scenes": 2,
+  "visual_only": false,
+  "extract_visual": false,
+  "memory_compacted": false
+}

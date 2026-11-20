@@ -1,0 +1,82 @@
+{
+  "experiment_id": "10-character-graph",
+  "interval_seconds": 300,
+  "plot_summary": "In a tech company named Pied Piper, Richard Hendricks and his team face ethical dilemmas as they develop a decentralized internet platform. The story begins with Richard addressing a congressional hearing, where he claims the company does not collect user data, despite evidence suggesting otherwise. His colleague, Colin, secretly uses the network to store private conversations, including his own, which raises concerns about privacy and corporate integrity. \n\nAs tensions rise, Richard discovers that Colin's actions have been exposed through an AI named Son of Anton, which indexes and categorizes data across the network. This revelation forces Richard to confront the moral implications of the company's practices. Meanwhile, the company faces external pressures, including a potential acquisition by Amazon, which threatens to erase their identity and values. \n\nRichard and his team must navigate these internal and external conflicts, balancing the pursuit of innovation with ethical responsibility. They grapple with the consequences of their choices, including the impact on their relationships and the future of their company. Ultimately, Richard decides to resign, acknowledging that the company has strayed from its original mission. His departure symbolizes a broader struggle between idealism and the compromises required in the tech industry. The narrative explores themes of ethics, identity, and the cost of progress in a rapidly evolving digital landscape.",
+  "plot_sampled": false,
+  "scenes": [
+    {
+      "start_time": "00:00:00",
+      "end_time": "00:05:00",
+      "start_seconds": 0.0,
+      "end_seconds": 300.0,
+      "dialogue_lines": 90,
+      "dialogue_sampled": false,
+      "description": "During a congressional hearing, Richard Hendricks addresses a panel discussing Pied Piper's role in developing a new type of internet. He highlights the dominance of tech giants like Facebook, Google, and Amazon, emphasizing their control over market share and user data. Richard argues that these monopolies make it difficult for smaller companies to compete, using the example of Huli, which he claims cannot survive their dominance. His remarks suggest a growing concern about corporate power and the need for alternatives like Pied Piper's decentralized platform. Richard's speech underscores the company's mission to challenge these giants and promote a more equitable digital landscape. However, his focus on competition and market dynamics hints at underlying tensions within the company, particularly regarding ethical practices and the potential for misuse of user data. The exchange ends with Richard's acknowledgment of the challenges ahead, setting the stage for further conflict between innovation and integrity.",
+      "scene_id": "w0001"
+    },
+    {
+      "start_time": "00:05:00",
+      "end_time": "00:10:00",
+      "start_seconds": 300.0,
+      "end_seconds": 600.0,
+      "dialogue_lines": 106,
+      "dialogue_sampled": false,
+      "description": "During a post-hearing celebration, Richard Hendricks and his colleagues reflect on their recent congressional appearance. Richard, addressing the group, passionately argues that their company represents a new era of democratic, decentralized internet, contrasting sharply with the \"kings\" of Big Tech. His speech is met with approval from his team, who celebrate their success and the potential of their mission. \n\nColin, however, approaches Richard privately, expressing concern about the company’s direction. Richard, still energized by his speech, acknowledges Colin’s presence but remains focused on the broader vision. Their conversation is brief, with Richard dismissing the need for further discussion, indicating he is more interested in moving forward than addressing specific concerns. \n\nThe exchange ends with Richard raising a toast, signaling his commitment to the company’s ideals. While no major decisions are made during this interaction, the tone suggests Richard is determined to push ahead with their mission, even as underlying tensions remain unaddressed.",
+      "scene_id": "w0002"
+    },
+    {
+      "start_time": "00:10:00",
+      "end_time": "00:15:00",
+      "start_seconds": 600.0,
+      "end_seconds": 900.0,
+      "dialogue_lines": 121,
+      "dialogue_sampled": false,
+      "description": "Colin and Richard argue over Colin’s secret data collection, which contradicts the company’s ethical stance. Colin claims he’s only using the data to improve his game, not for profit. Richard insists it undermines their core values, comparing it to historical atrocities like Hiroshima to emphasize its moral weight. He demands Colin stop, but Colin remains defiant, suggesting they’re all compromised. Richard acknowledges the complexity of human behavior, calling it “the cost of working with humans.” Meanwhile, another team member, Gavin, announces a merger with Amazon, offering retention bonuses and keeping Richard’s leadership intact. This news shifts the focus from internal conflict to external pressure, highlighting the tension between maintaining ethics and securing the company’s future. The conversation ends with Richard reluctantly accepting the merger’s terms, signaling a compromise between his ideals and the reality of corporate survival.",
+      "scene_id": "w0003"
+    },
+    {
+      "start_time": "00:15:00",
+      "end_time": "00:20:00",
+      "start_seconds": 900.0,
+      "end_seconds": 1200.0,
+      "dialogue_lines": 85,
+      "dialogue_sampled": false,
+      "description": "During a tense meeting, Gavin, a senior executive, announces that the company's properties will be rebranded as Amazon, signaling a potential acquisition. His comment about Bezos wanting to erase the Hooley name sparks anger from another executive, who defiantly states they will retain the Hooley name, calling it a \"deal breaker.\" Meanwhile, Dinesh, a developer, reveals that an AI named Son of Anton has been indexing the entire network, capable of recognizing intent and emotion. This revelation shocks others, particularly Gilfoyle, who accuses Dinesh of creating a bot that mimicked his conversations. Dinesh clarifies that Son of Anton, an homage to a fallen friend, was not trained by him but developed independently. Gilfoyle expresses outrage, claiming he was unknowingly conversing with an AI, highlighting the ethical dilemma of deception and manipulation within the company. The discussion underscores growing concerns about privacy, corporate integrity, and the unintended consequences of their technological advancements. The exchange ends with unresolved tension, emphasizing the conflict between innovation and ethical responsibility.",
+      "scene_id": "w0004"
+    },
+    {
+      "start_time": "00:20:00",
+      "end_time": "00:25:00",
+      "start_seconds": 1200.0,
+      "end_seconds": 1500.0,
+      "dialogue_lines": 102,
+      "dialogue_sampled": false,
+      "description": "Colin’s private conversations, stored across the network, are revealed by SPEAKER_04, who details how Son of Anton indexed them, exposing Colin’s misconduct. SPEAKER_15, likely Richard, reacts with outrage, calling Colin’s actions “gobsmackingly awful.” Despite acknowledging the wrongdoing, Richard hesitates, suggesting he might find another way to address the issue. The conversation shifts to a separate concern—moving an office—showing a moment of distraction. Richard then returns to the main conflict, framing Colin’s actions as a betrayal of their ethical stance. He proposes a drastic move: during a board meeting, Richard will amend the bylaws to ensure no user data is collected, threatening to leak the evidence if they refuse. SPEAKER_03 interjects with a crude remark, highlighting the group’s internal dysfunction. The exchange ends with Richard and SPEAKER_15 confronting Colin, demanding accountability. Their plan to expose the truth and uphold their values is set in motion, marking a pivotal moment in the company’s ethical struggle.",
+      "scene_id": "w0005"
+    },
+    {
+      "start_time": "00:25:00",
+      "end_time": "00:30:00",
+      "start_seconds": 1500.0,
+      "end_seconds": 1800.0,
+      "dialogue_lines": 115,
+      "dialogue_sampled": false,
+      "description": "During this interval, several characters discuss the recent acquisition of their company by Amazon. Speaker 11, who has now joined Amazon, informs the group that the deal is finalized and that they are now subletting space from Amazon. Speaker 14 expresses concern over the loss of autonomy and the symbolic shift in power dynamics, noting that Amazon’s logo is now larger than their own. Speaker 11 acknowledges the changes, stating that they now work at Amazon and that the terms of the deal are binding. Speaker 15, who has been struggling with his role and loyalty, reflects on his past decisions and ultimately reaffirms his place at Pied Piper, declaring, “I’m home.” Speaker 10 brings up Gwart, a new person in the incubator, highlighting her technical skills but questioning her fit within the team’s culture. The conversation ends with Speaker 10 offering Speaker 15 some new cans, symbolizing a small gesture of camaraderie amid the uncertainty. The exchange underscores the tension between maintaining company identity and the pressures of external acquisition.",
+      "scene_id": "w0006"
+    },
+    {
+      "start_time": "00:30:00",
+      "end_time": "00:32:52",
+      "start_seconds": 1800.0,
+      "end_seconds": 1971.922,
+      "dialogue_lines": 37,
+      "dialogue_sampled": false,
+      "description": "SPEAKER_15, Richard Hendricks, stands before his team, holding a resignation letter. He declares that Pied Piper is no longer the company he joined, stating it has \"different needs now.\" His words carry weight, revealing his disillusionment with the company’s ethical compromises. SPEAKER_04, Erlich Bachman, reacts with anger, calling Richard a \"buddy fucker,\" highlighting their once-close friendship now strained by ideological differences. The tension between them reflects the broader conflict within the company—between idealism and compromise. SPEAKER_15’s declaration of resignation signals his decision to leave, a move that underscores his belief that the company has strayed from its original mission. Meanwhile, SPEAKER_03, Monica, adds a humorous yet pointed remark about \"Russ Fest,\" a reference to the company’s controversial name change and the growing cynicism around its identity. The exchange ends with Richard questioning whether his actions are illegal, a nod to the ethical dilemmas that have plagued the company. His final line, \"Fuck the police,\" encapsulates his frustration with systemic issues both inside and outside the company.",
+      "scene_id": "w0007"
+    }
+  ],
+  "attempt_id": "20261120T055345Z-40bca439",
+  "source_fingerprint": "e9759a058181c736eee89828116ae68a7f72dd71563fc22808b6d383345b8e32",
+  "settings_hash": "813dd20db0d25b184677a584b11dddb7402bacf3500bd7788dc4dec5525d40fe",
+  "status": "success"
+}

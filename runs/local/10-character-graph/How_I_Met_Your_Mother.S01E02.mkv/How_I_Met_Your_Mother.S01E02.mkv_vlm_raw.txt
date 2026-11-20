@@ -1,0 +1,86 @@
+--- 00:00:00-00:05:00 ---
+{
+  "description": "The scene takes place in a dimly lit bar where several individuals sit at tables, engaging in conversation. A man in a brown jacket sits beside a woman in a floral dress; they appear to be listening intently while others nearby interact. Another man in a suit stands near the bar, gesturing toward someone off-screen. In another part of the room, two men sit across from each other at a table, one holding a drink and looking down thoughtfully while the other leans forward slightly. The background features neon signs, shelves stocked with bottles, and patrons seated throughout the space.",
+  "subjects_and_objects": [
+    "Ted",
+    "Robin",
+    "Marshall",
+    "Lily",
+    "Barney"
+  ],
+  "actions": [
+    "A man gestures with his hand while speaking.",
+    "Another man listens attentively, leaning forward slightly.",
+    "A woman looks toward him while sitting upright.",
+    "A man in a suit stands by the bar, turning his head to speak.",
+    "Patrons shift positions at tables."
+  ],
+  "camera_and_shot": "Medium shot capturing multiple characters interacting within the bar setting.",
+  "lighting_and_color": "Warm ambient lighting with dark tones, illuminated by neon signs and overhead fixtures.",
+  "on_screen_text": [
+    "the year 2030",
+    "with ralphpathehigiris"
+  ]
+}
+
+--- 00:05:00-00:10:00 ---
+{
+  "description": "The scene shifts to a cluttered toy store filled with colorful merchandise. A man in a brown blazer walks through aisles lined with toys and canned goods, glancing upward with a puzzled expression. Behind him, a man in a yellow raincoat bends down to retrieve something from under a display stand. As the camera pans, a woman with long hair approaches the man in the blazer, smiling warmly. The environment is brightly lit, showcasing vibrant packaging and shelves stacked high with products.",
+  "subjects_and_objects": ["Ted", "Robin", "a man in a yellow raincoat"],
+  "actions": [
+    "A man in a brown blazer walks through the aisle, looking up at the ceiling.",
+    "A man in a yellow raincoat crouches low, reaching into a storage area beneath a shelf.",
+    "A woman approaches the man in the blazer, smiling as she speaks."
+  ],
+  "camera_and_shot": "Tracking shot following the man in the brown blazer as he moves through the store, transitioning to a medium close-up of the approaching woman.",
+  "lighting_and_color": "Bright fluorescent lighting illuminates the vivid colors of toy packaging and product labels.",
+  "on_screen_text": []
+}
+
+--- 00:10:00-00:15:00 ---
+{
+  "description": "The scene unfolds in a cluttered, lived-in apartment where Ted, dressed in a robe, enters and surveys the chaotic gathering. People mill about, some standing, others seated on couches, all surrounded by stacks of books, mismatched furniture, and scattered personal items. A red cup rests on a coffee table, and a lamp casts warm light over the scene. Ted navigates through the crowd, occasionally pausing to look around or gesture, while others engage in conversations or sip drinks.",
+  "subjects_and_objects": ["Ted", "Robin", "Marshall", "Lily", "Barney"],
+  "actions": [
+    "Ted walks through the room, adjusting his robe as he moves.",
+    "He pauses to glance at a group clustered near the doorway.",
+    "A woman in a white top sits on a couch, sipping from a glass.",
+    "Another individual in a gray shirt holds a red cup and raises it to drink.",
+    "People shift positions, talking animatedly or laughing among themselves."
+  ],
+  "camera_and_shot": "Wide-angle establishing shot showing the entire room, followed by medium shots focusing on interactions between characters.",
+  "lighting_and_color": "Warm indoor lighting with soft shadows cast by lamps and windows, creating a cozy yet cluttered atmosphere.",
+  "on_screen_text": []
+}
+
+--- 00:15:00-00:20:00 ---
+{
+  "description": "The setting transitions to a rooftop terrace at night, decorated with string lights and potted plants. Ted stands beside Robin, both facing each other amidst the city skyline illuminated behind them. Robin wears a white jacket over a patterned top, while Ted is in a dark corduroy jacket. They move slightly apart, exchanging glances and gestures, with Robin shifting her weight and gesturing subtly with her hands. Ted leans against a brick wall, turning toward Robin as if responding to her movement. A small table with a red cup sits nearby, and the ambient glow from distant buildings reflects off the railing.",
+  "subjects_and_objects": ["Ted", "Robin"],
+  "actions": [
+    "Robin steps back slightly, then turns to face Ted directly.",
+    "She gestures with her left hand while speaking, her fingers curled inward.",
+    "Ted looks at her intently, then turns away momentarily before pivoting back to face her.",
+    "He places his right hand on his chest, then lowers it as he listens.",
+    "Robin adjusts her stance, leaning forward slightly as she talks."
+  ],
+  "camera_and_shot": "Medium two-shot framing Ted and Robin centered in the frame, slowly zooming in as they interact; occasional slight pan to follow subtle movements.",
+  "lighting_and_color": "Soft artificial lighting from string bulbs and ambient city glow creates a warm, intimate ambiance against the cool blue tones of the nighttime sky and urban backdrop.",
+  "on_screen_text": []
+}
+
+--- 00:20:00-00:22:06 ---
+{
+  "description": "The scene takes place inside a dimly lit bar with green walls adorned with framed pictures and neon signs. Several patrons sit at tables and booths, engaged in conversation. In the foreground, three men are seated at a booth, drinking beer and chatting. One man in a suit holds a mug, while another in a brown jacket gestures animatedly. A woman in a teal dress sits next to him, smiling. Behind them, a woman in a white blouse interacts with a man in a dark jacket, standing close and appearing to speak seriously. Other customers are visible in the background, including a bartender working at the counter.",
+  "subjects_and_objects": ["Ted", "Robin", "Marshall", "Lily", "Barney"],
+  "actions": [
+    "A man in a suit smiles while holding a beer mug.",
+    "A man in a brown jacket gestures with his hands while talking.",
+    "A woman in a teal dress laughs and leans toward the man beside her.",
+    "A woman in a white blouse stands with her hands on her hips, facing a man in a dark jacket.",
+    "The man in the dark jacket speaks to the woman, moving his head slightly as he talks."
+  ],
+  "camera_and_shot": "Medium wide shot capturing the main group at the booth, with a slight pan to include the interaction between the woman in white and the man in dark jacket.",
+  "lighting_and_color": "Dim interior lighting with warm amber hues from hanging lamps, contrasted by the cooler tones of neon signs and reflections from bottles on shelves in the background.",
+  "on_screen_text": []
+}

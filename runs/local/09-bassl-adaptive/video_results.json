@@ -1,0 +1,1780 @@
+[
+  {
+    "video": "How_I_Met_Your_Mother.S01E02.mkv",
+    "status": "degraded",
+    "stages": [
+      {
+        "stage": "timeline",
+        "status": "success",
+        "output_file": "How_I_Met_Your_Mother.S01E02.mkv_timeline.json"
+      },
+      {
+        "stage": "audio",
+        "status": "skipped_cache",
+        "output_file": "How_I_Met_Your_Mother.S01E02.mkv_audio.json"
+      },
+      {
+        "stage": "bassl",
+        "status": "fallback",
+        "output_file": "How_I_Met_Your_Mother.S01E02.mkv_bassl.json",
+        "reason": "modelscope import failed: No module named 'modelscope'"
+      },
+      {
+        "stage": "dialogue",
+        "status": "success",
+        "scenes": 5,
+        "plot_sampled": false,
+        "timings": {
+          "stage": "dialogue",
+          "started_at": "2026-11-20T00:20:28.489052+00:00",
+          "ended_at": "2026-11-20T00:53:04.749748+00:00",
+          "wall_seconds": 1956.261,
+          "spans": [
+            {
+              "name": "plot_load",
+              "started_at": "2026-11-20T00:20:29.452786+00:00",
+              "ended_at": "2026-11-20T00:50:05.651434+00:00",
+              "seconds": 1776.199,
+              "model_id": "Qwen/Qwen3-8B",
+              "vram_reserved_mib": 6232.0,
+              "vram_allocated_mib": 6174.2
+            },
+            {
+              "name": "plot_generate",
+              "started_at": "2026-11-20T00:50:07.846490+00:00",
+              "ended_at": "2026-11-20T00:51:04.709698+00:00",
+              "seconds": 56.863,
+              "model_id": "Qwen/Qwen3-8B",
+              "vram_reserved_mib": 9336.0,
+              "vram_allocated_mib": 9136.9
+            },
+            {
+              "name": "scene_load",
+              "started_at": "2026-11-20T00:51:04.968534+00:00",
+              "ended_at": "2026-11-20T00:51:12.251699+00:00",
+              "seconds": 7.283,
+              "model_id": "Qwen/Qwen3-8B",
+              "vram_reserved_mib": 10002.0,
+              "vram_allocated_mib": 9908.5
+            },
+            {
+              "name": "scene_generate",
+              "started_at": "2026-11-20T00:51:12.841577+00:00",
+              "ended_at": "2026-11-20T00:51:30.235151+00:00",
+              "seconds": 17.394,
+              "model_id": "Qwen/Qwen3-8B",
+              "window": 1,
+              "vram_reserved_mib": 10786.0,
+              "vram_allocated_mib": 10723.9
+            },
+            {
+              "name": "scene_generate",
+              "started_at": "2026-11-20T00:51:36.423796+00:00",
+              "ended_at": "2026-11-20T00:51:52.254150+00:00",
+              "seconds": 15.83,
+              "model_id": "Qwen/Qwen3-8B",
+              "window": 2,
+              "vram_reserved_mib": 10886.0,
+              "vram_allocated_mib": 10823.9
+            },
+            {
+              "name": "scene_generate",
+              "started_at": "2026-11-20T00:51:58.479769+00:00",
+              "ended_at": "2026-11-20T00:52:14.638562+00:00",
+              "seconds": 16.159,
+              "model_id": "Qwen/Qwen3-8B",
+              "window": 3,
+              "vram_reserved_mib": 10886.0,
+              "vram_allocated_mib": 10629.7
+            },
+            {
+              "name": "scene_generate",
+              "started_at": "2026-11-20T00:52:19.482995+00:00",
+              "ended_at": "2026-11-20T00:52:36.324411+00:00",
+              "seconds": 16.841,
+              "model_id": "Qwen/Qwen3-8B",
+              "window": 4,
+              "vram_reserved_mib": 10886.0,
+              "vram_allocated_mib": 10486.4
+            },
+            {
+              "name": "scene_generate",
+              "started_at": "2026-11-20T00:52:42.249959+00:00",
+              "ended_at": "2026-11-20T00:53:02.152592+00:00",
+              "seconds": 19.903,
+              "model_id": "Qwen/Qwen3-8B",
+              "window": 5,
+              "vram_reserved_mib": 10886.0,
+              "vram_allocated_mib": 10243.0
+            }
+          ]
+        },
+        "output_file": "How_I_Met_Your_Mother.S01E02.mkv_dialogue.json",
+        "timings_file": "How_I_Met_Your_Mother.S01E02.mkv_dialogue_timings.json"
+      },
+      {
+        "stage": "vlm",
+        "status": "success",
+        "json_valid": true,
+        "result": {
+          "experiment_id": "09-bassl-adaptive",
+          "scene_timeline": [
+            {
+              "start_time": "00:00:00",
+              "end_time": "00:02:30",
+              "dialogue_description": "SPEAKER_00, Ted, recounts his past attempts to connect with Robin, expressing his belief that he was in love with her after one date. He admits to making a foolish confession, which led to a lack of response from Robin. SPEAKER_03, Marshall, challenges Ted's sincerity, suggesting his feelings were more about the idea of marriage than Robin herself. SPEAKER_05, Barney, tries to encourage Ted to move on, calling his pursuit a relapse. Meanwhile, SPEAKER_02, Lily, shares her own experience of being overly affectionate since getting engaged, highlighting the contrast between Ted's romantic ideals and reality. The group discusses their own relationships, with Lily joking about not wearing underwear, adding a humorous tone to the conversation. Ted, however, remains determined to win Robin's affection, planning to invite her to a party next Friday as a way to create a chance encounter. Despite the mockery from his friends, Ted insists he needs to act casually to make it work. The exchange ends with Ted's determination to pursue Robin, even as his friends question his approach.",
+              "description": "The scene opens with a close-up of a hand holding a beer glass, transitioning into shots of two individuals seated on a couch in a dimly lit room filled with eclectic decor. The setting shifts to a kitchen where three people interact near a refrigerator adorned with magnets; one stands while another kneels before him. A woman in a green turtleneck walks through a busy bar, glancing around as patrons sit at tables and bartenders serve drinks. Later, she sits beside a man in a brown jacket at a booth, both looking toward someone off-screen. They share a drink and engage in conversation, surrounded by other guests. The camera pans across the bar’s interior, showing various patrons and neon signs. The final moments capture the couple laughing together over drinks, with the woman gesturing animatedly.",
+              "subjects_and_objects": [
+                "Ted",
+                "Robin",
+                "Marshall",
+                "Lily",
+                "Barney"
+              ],
+              "actions": [
+                "A hand holds a beer glass",
+                "Two people sit on a couch",
+                "One person kneels in front of another in a kitchen",
+                "A woman walks through a bar",
+                "She sits beside a man at a booth",
+                "They laugh together over drinks"
+              ],
+              "camera_and_shot": "Close-ups transition to medium shots, panning across scenes in a bar and kitchen, ending with a shot focused on two people laughing at a table.",
+              "lighting_and_color": "Warm indoor lighting with neon accents in the bar, contrasting with cooler tones in the kitchen. Overall ambiance is cozy and intimate.",
+              "on_screen_text": [
+                "jason segel",
+                "co-executive producers phil lord & chris miller",
+                "produced by suzy morganberg"
+              ]
+            },
+            {
+              "start_time": "00:02:30",
+              "end_time": "00:05:00",
+              "dialogue_description": "SPEAKER_00, Ted, recounts his past attempts to connect with Robin, expressing his belief that he was in love with her after one date. He admits to making a foolish confession, which led to a lack of response from Robin. SPEAKER_03, Marshall, challenges Ted's sincerity, suggesting his feelings were more about the idea of marriage than Robin herself. SPEAKER_05, Barney, tries to encourage Ted to move on, calling his pursuit a relapse. Meanwhile, SPEAKER_02, Lily, shares her own experience of being overly affectionate since getting engaged, highlighting the contrast between Ted's romantic ideals and reality. The group discusses their own relationships, with Lily joking about not wearing underwear, adding a humorous tone to the conversation. Ted, however, remains determined to win Robin's affection, planning to invite her to a party next Friday as a way to create a chance encounter. Despite the mockery from his friends, Ted insists he needs to act casually to make it work. The exchange ends with Ted's determination to pursue Robin, even as his friends question his approach.",
+              "description": "In a cluttered home office, a man in a striped shirt sits at a desk, smiling as he interacts with a woman in a purple top. She gestures expressively while speaking, leaning slightly forward. Behind them, shelves hold books and decorative items, and a laptop screen displays an open webpage. The scene transitions to a living room where a television shows a news broadcast featuring a reporter standing outside a store. The reporter holds a microphone branded with 'WBZ' and speaks directly to the camera, with shoppers and store aisles visible behind her.",
+              "subjects_and_objects": [
+                "Ted",
+                "Robin",
+                "Marshall",
+                "Lily",
+                "Barney"
+              ],
+              "actions": [
+                "A man smiles while sitting at a desk",
+                "A woman leans forward and gestures while talking",
+                "A reporter holds a microphone and speaks to the camera",
+                "Shoppers walk behind the reporter in a store"
+              ],
+              "camera_and_shot": "Medium shots focus on interactions at a desk, followed by a wide shot capturing the reporter in front of a store display.",
+              "lighting_and_color": "Warm indoor lighting in the office contrasts with bright, natural daylight illuminating the outdoor store scene.",
+              "on_screen_text": []
+            },
+            {
+              "start_time": "00:05:00",
+              "end_time": "00:10:00",
+              "dialogue_description": "Ted is trying to impress Robin by hosting a party, but their interaction is awkward and full of misunderstandings. Robin arrives at Ted’s party, but it seems she never actually attended, as Ted admits he missed her. Their conversation reveals that Ted had planned to meet her at the party, but she was stuck at work and missed it. Ted tries to salvage the situation by offering to extend the party’s duration, hoping to reconnect with Robin. Meanwhile, his friends, including Marshall and others, mock his elaborate plans and suggest he is chasing an unattainable goal. They highlight the futility of his pursuit, emphasizing that real connections require authenticity rather than orchestrated scenarios. Ted’s friends continue to challenge his methods, pointing out that he is wasting his time on a strategy that is unlikely to succeed. Despite his failures, Ted remains hopeful, believing that his sincerity will eventually win over Robin. The exchange ends with Ted expressing his determination to keep trying, even as his friends remain skeptical of his chances.",
+              "description": "The scene takes place inside a bustling convenience store. A man in a yellow raincoat bends down near a red cooler, interacting with another man in a dark jacket. Shelves stocked with canned goods and cleaning supplies line the walls. A woman in a black blazer approaches the counter, engaging in conversation with a cashier. In the background, a sign advertises \"SODA 99\" and \"BEER 6.\" Another customer browses products nearby. The environment feels crowded and lively, with fluorescent lighting casting a bright glow over the merchandise.",
+              "subjects_and_objects": [
+                "Ted",
+                "Robin",
+                "Marshall",
+                "Lily",
+                "Barney"
+              ],
+              "actions": [
+                "A man in a yellow raincoat bends down",
+                "Another man in a dark jacket stands nearby",
+                "A woman in a black blazer talks to a cashier",
+                "Customers browse products on shelves"
+              ],
+              "camera_and_shot": "Wide-angle shots capture the store layout, focusing on interactions at the counter and movement among customers. The camera occasionally zooms in on specific individuals or product displays.",
+              "lighting_and_color": "Bright fluorescent lighting illuminates the store, creating high-contrast shadows. Colors are vivid due to the variety of product packaging and signage.",
+              "on_screen_text": []
+            },
+            {
+              "start_time": "00:10:00",
+              "end_time": "00:12:30",
+              "dialogue_description": "During this interval, Ted's friends confront him about his relentless efforts to win Robin's affection. They reveal that Ted has thrown multiple parties in hopes of connecting with Robin, a woman he met briefly. However, Robin has consistently avoided these gatherings, often missing them entirely. One of Ted's friends, Marshall, expresses frustration, pointing out that Ted's approach is misguided and that he should stop chasing an unattainable goal. Another friend, Lily, adds that Ted's obsession with orchestrating romantic scenarios is not only ineffective but also humorous. Meanwhile, Ted's friend, who is likely Marshall, mentions that he had previously introduced Robin to someone else named Carlos, suggesting that Ted's attempts to create a connection have been based on false assumptions. The conversation highlights the absurdity of Ted's plan and the irony that he has invested so much effort into a relationship that may never materialize. Ultimately, the group's mockery underscores the futility of Ted's pursuit, leaving him in a state of confusion and embarrassment as he realizes his efforts have been in vain.",
+              "description": "Inside a messy apartment, a man in a striped robe walks toward the door, glancing back at a child playing on the floor. As he exits, the room fills with guests mingling; some stand holding drinks, others sit on couches. A woman in a green dress chats with a man in a suit, while another guest in orange clothing moves through the crowd. The space is cluttered with furniture, books, and decorations, including a large framed picture on the wall.",
+              "subjects_and_objects": [
+                "Ted",
+                "a child",
+                "Marshall",
+                "Lily",
+                "Barney",
+                "Robin"
+              ],
+              "actions": [
+                "A man in a striped robe turns away from the camera and walks toward the door",
+                "A child reaches up toward the man’s arm",
+                "Guests mingle and converse in small groups",
+                "One man in a suit gestures while talking to a woman",
+                "People shift positions within the crowded room"
+              ],
+              "camera_and_shot": "The camera pans across the room, starting with a medium shot of the man walking, then shifting to wider views showing the gathering crowd and the cluttered interior.",
+              "lighting_and_color": "Warm, ambient indoor lighting casts soft shadows across the room. Earthy tones dominate the decor, punctuated by pops of color from clothing and furnishings.",
+              "on_screen_text": []
+            },
+            {
+              "start_time": "00:12:30",
+              "end_time": "00:15:00",
+              "dialogue_description": "During this interval, Ted's friends confront him about his relentless efforts to win Robin's affection. They reveal that Ted has thrown multiple parties in hopes of connecting with Robin, a woman he met briefly. However, Robin has consistently avoided these gatherings, often missing them entirely. One of Ted's friends, Marshall, expresses frustration, pointing out that Ted's approach is misguided and that he should stop chasing an unattainable goal. Another friend, Lily, adds that Ted's obsession with orchestrating romantic scenarios is not only ineffective but also humorous. Meanwhile, Ted's friend, who is likely Marshall, mentions that he had previously introduced Robin to someone else named Carlos, suggesting that Ted's attempts to create a connection have been based on false assumptions. The conversation highlights the absurdity of Ted's plan and the irony that he has invested so much effort into a relationship that may never materialize. Ultimately, the group's mockery underscores the futility of Ted's pursuit, leaving him in a state of confusion and embarrassment as he realizes his efforts have been in vain.",
+              "description": "In a cluttered living room filled with furniture and memorabilia, several men and women gather. A man in a brown sweater holds a paper bag and looks upward with surprise. He steps forward, gesturing emphatically as if reacting to something unexpected. Around him, others move about — one man sits on a couch sipping beer, another leans against a doorway, and a woman in a white top stands near a coffee table. A lamp with a beige shade rests on a side table, and various items like bottles, snacks, and decorative pieces fill the space.",
+              "subjects_and_objects": [
+                "Ted",
+                "Marshall",
+                "Lily",
+                "Barney",
+                "Robin"
+              ],
+              "actions": [
+                "A man in a brown sweater raises his hand and points upward",
+                "He shifts his weight and steps forward",
+                "A man seated on a couch lowers his head slightly while drinking",
+                "Another man leans casually against a wooden doorframe",
+                "A woman in a white top stands still, looking toward the center of the room"
+              ],
+              "camera_and_shot": "The camera maintains a steady wide shot capturing the entire room and its occupants, panning slightly to follow the central figure’s gesture and movement.",
+              "lighting_and_color": "Warm, dim indoor lighting bathes the room in amber hues, highlighting wood paneling and vintage decor. Earth-toned furniture contrasts with brighter accents like red chairs and colorful posters.",
+              "on_screen_text": []
+            },
+            {
+              "start_time": "00:15:00",
+              "end_time": "00:20:00",
+              "dialogue_description": "Ted, still fixated on Robin, insists he's not done with his pursuit, claiming the game isn't over. Marshall, trying to ground Ted, points out that Robin isn't the type of woman Ted is looking for—she's not part of the \"million women\" in New York seeking him. Ted counters by saying she's special, the one. When Ted tries to explain his party strategy, Marshall and Robin both question his motives, noting they barely know each other and Ted's sudden romantic gestures feel forced. Robin calls out Ted's exaggerated plans, calling him out for being a \"jackass.\" Ted, caught between his earnestness and the absurdity of his actions, admits he's made a fool of himself. He suggests they start over, as friends, and even proposes meeting immediately for a beer. Robin, though initially hesitant, agrees, saying she'd like that. Ted, relieved, says his friends will love her, and Robin, with a hint of warmth, responds with a dry joke about Ted being a \"jackass.\" The exchange ends with mutual understanding, leaving room for a more genuine connection.",
+              "description": "On a rooftop terrace at night, a man and a woman stand close together under string lights. The city skyline glows behind them. The woman turns away slightly, adjusting her jacket, while the man watches her intently. She speaks, gesturing subtly with her hands, and he listens, his expression shifting from focused to thoughtful. At one point, she places her hand on his chest, leaning in closer as they share a quiet moment.",
+              "subjects_and_objects": [
+                "Ted",
+                "Robin"
+              ],
+              "actions": [
+                "The woman adjusts her jacket",
+                "She turns slightly away from the man",
+                "She gestures with her hands while speaking",
+                "The man watches her closely",
+                "His gaze follows her movements",
+                "He nods slowly while listening"
+              ],
+              "camera_and_shot": "The camera stays stationary, framing the two figures in a medium shot that captures their upper bodies and the surrounding rooftop environment. The angle remains consistent throughout the sequence, focusing on their interaction without cutting away.",
+              "lighting_and_color": "Soft, warm artificial lighting from string lights illuminates the scene, casting gentle shadows. The background features glowing city lights, creating a contrast with the intimate foreground. The overall palette is dominated by deep blues and muted browns from the brickwork and clothing, accented by the golden glow of the lights.",
+              "on_screen_text": []
+            },
+            {
+              "start_time": "00:20:00",
+              "end_time": "00:22:06",
+              "dialogue_description": "SPEAKER_05 expresses disbelief and concern about a situation, suggesting it will lead to disaster. They question why someone would work with another person, implying jealousy or conflict. SPEAKER_01 interrupts with a comment about a date, referencing a scene that has already occurred, indicating they are replaying or rethinking past events. SPEAKER_05 then says they are unsure about someone, likely referring to Robin, and questions their feelings for her. SPEAKER_04, who identifies as Rufus, talks about completing a paper and confidently claims he will get an A, showing his determination and self-assurance. SPEAKER_00 acknowledges Rufus's effort, noting he received a B- but still did well. SPEAKER_03 offers to buy drinks, showing support for Ted, who is trying to find love. SPEAKER_01 reassures Ted that he is a catch and will make someone happy, offering help in finding his future partner. SPEAKER_03 jokes about the difficulty of finding love in a large city, questioning how anyone can find their soulmate. The conversation ends with SPEAKER_01 asking if Ted has met Robin, hinting at a potential connection between them. The exchange highlights Ted's struggle to find love and the support from his friends, while also underscoring the challenges of forming meaningful relationships.",
+              "description": "Inside a dimly lit bar with green walls and neon signs, three patrons sit at a booth. Two men and a woman are engaged in conversation; one man wears a suit and tie, holding a glass of beer, while the woman beside him smiles and gestures animatedly. Behind them, bartenders serve drinks and customers mingle. The atmosphere is casual and social, with ambient lighting reflecting off polished surfaces.",
+              "subjects_and_objects": [
+                "Ted",
+                "Robin",
+                "a bartender"
+              ],
+              "actions": [
+                "The suited man lifts his glass slightly while talking",
+                "The woman next to him laughs and touches her hair",
+                "Behind them, a bartender pours a drink into a glass",
+                "Another patron walks past the booth"
+              ],
+              "camera_and_shot": "The camera holds a static medium shot centered on the booth, keeping all three main subjects in frame while allowing glimpses of activity behind them.",
+              "lighting_and_color": "Warm, low lighting casts soft shadows across the scene. Neon signs cast colored glows on dark green walls, contrasting with the rich burgundy tones of the booths and the reflective shine of the bar counter.",
+              "on_screen_text": []
+            }
+          ],
+          "segments_parsed": 7,
+          "segments_total": 7,
+          "vlm_memory_scenes": 2,
+          "visual_only": false,
+          "extract_visual": false,
+          "memory_compacted": false
+        },
+        "timings": {
+          "stage": "vlm",
+          "started_at": "2026-11-20T00:53:04.911298+00:00",
+          "ended_at": "2026-11-20T01:22:23.718915+00:00",
+          "wall_seconds": 1758.808,
+          "spans": [
+            {
+              "name": "vlm_load",
+              "started_at": "2026-11-20T00:58:13.726231+00:00",
+              "ended_at": "2026-11-20T01:13:06.568469+00:00",
+              "seconds": 892.842,
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 9884.0,
+              "vram_allocated_mib": 9847.1
+            },
+            {
+              "name": "vlm_generate",
+              "started_at": "2026-11-20T01:13:07.005063+00:00",
+              "ended_at": "2026-11-20T01:15:01.194801+00:00",
+              "seconds": 114.19,
+              "window": 1,
+              "start": "00:00:00",
+              "end": "00:02:30",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 14110.0,
+              "vram_allocated_mib": 14028.7
+            },
+            {
+              "name": "vlm_generate",
+              "started_at": "2026-11-20T01:15:01.538752+00:00",
+              "ended_at": "2026-11-20T01:15:58.319321+00:00",
+              "seconds": 56.781,
+              "window": 2,
+              "start": "00:02:30",
+              "end": "00:05:00",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 14110.0,
+              "vram_allocated_mib": 14028.7
+            },
+            {
+              "name": "vlm_generate",
+              "started_at": "2026-11-20T01:15:58.329949+00:00",
+              "ended_at": "2026-11-20T01:17:31.744939+00:00",
+              "seconds": 93.415,
+              "window": 3,
+              "start": "00:05:00",
+              "end": "00:10:00",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 14750.0,
+              "vram_allocated_mib": 14676.6
+            },
+            {
+              "name": "vlm_generate",
+              "started_at": "2026-11-20T01:17:31.756433+00:00",
+              "ended_at": "2026-11-20T01:18:49.630571+00:00",
+              "seconds": 77.874,
+              "window": 4,
+              "start": "00:10:00",
+              "end": "00:12:30",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 14110.0,
+              "vram_allocated_mib": 14028.7
+            },
+            {
+              "name": "vlm_generate",
+              "started_at": "2026-11-20T01:18:49.648437+00:00",
+              "ended_at": "2026-11-20T01:19:56.912715+00:00",
+              "seconds": 67.264,
+              "window": 5,
+              "start": "00:12:30",
+              "end": "00:15:00",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 14110.0,
+              "vram_allocated_mib": 14028.7
+            },
+            {
+              "name": "vlm_generate",
+              "started_at": "2026-11-20T01:19:56.945651+00:00",
+              "ended_at": "2026-11-20T01:21:26.929019+00:00",
+              "seconds": 89.983,
+              "window": 6,
+              "start": "00:15:00",
+              "end": "00:20:00",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 14430.0,
+              "vram_allocated_mib": 14352.7
+            },
+            {
+              "name": "vlm_generate",
+              "started_at": "2026-11-20T01:21:26.942584+00:00",
+              "ended_at": "2026-11-20T01:22:20.501917+00:00",
+              "seconds": 53.559,
+              "window": 7,
+              "start": "00:20:00",
+              "end": "00:22:06",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 15746.0,
+              "vram_allocated_mib": 15678.6
+            }
+          ]
+        },
+        "output_file": "How_I_Met_Your_Mother.S01E02.mkv_vlm.json",
+        "raw_file": "How_I_Met_Your_Mother.S01E02.mkv_vlm_raw.txt",
+        "sidecar_file": "How_I_Met_Your_Mother.S01E02.mkv_vlm_sidecar.json",
+        "timings_file": "How_I_Met_Your_Mother.S01E02.mkv_vlm_timings.json",
+        "frames_file": "How_I_Met_Your_Mother.S01E02.mkv_vlm_frames.json"
+      },
+      {
+        "stage": "llm",
+        "status": "success",
+        "result": {
+          "recsys_metadata": {
+            "primary_genre": "Comedy",
+            "sub_genres": [
+              "Romance",
+              "Sitcom",
+              "Drama"
+            ],
+            "pacing": "Moderate",
+            "mood": [
+              "Humorous",
+              "Reflective",
+              "Sentimental"
+            ]
+          },
+          "search_and_discovery": {
+            "semantic_tags": [
+              "Friendship",
+              "Misunderstandings",
+              "Relationships",
+              "Social Dynamics"
+            ],
+            "main_topics": [
+              "Love and Commitment",
+              "Friendship Support",
+              "Personal Growth"
+            ]
+          },
+          "audience_profiling": {
+            "target_age_group": "Young Adults",
+            "viewer_interests": [
+              "Romantic Comedies",
+              "Character Development",
+              "Friend Group Dynamics"
+            ]
+          },
+          "content_summary": {
+            "visual_style": "The visual style features a mix of warm indoor lighting and vibrant neon accents, with a cohesive palette of earthy tones and bold colors.",
+            "narrative_hook": "Ted's misguided attempts to win Robin's affection through elaborate plans lead to comedic mishaps and heartfelt moments."
+          }
+        },
+        "timings": {
+          "stage": "llm",
+          "started_at": "2026-11-20T01:22:23.719147+00:00",
+          "ended_at": "2026-11-20T01:35:04.291385+00:00",
+          "wall_seconds": 760.572,
+          "spans": [
+            {
+              "name": "llm_load",
+              "started_at": "2026-11-20T01:22:24.246763+00:00",
+              "ended_at": "2026-11-20T01:34:37.363598+00:00",
+              "seconds": 733.117,
+              "model_id": "Qwen/Qwen3-8B",
+              "vram_reserved_mib": 9924.0,
+              "vram_allocated_mib": 9882.0
+            },
+            {
+              "name": "llm_generate",
+              "started_at": "2026-11-20T01:34:37.766136+00:00",
+              "ended_at": "2026-11-20T01:35:02.293345+00:00",
+              "seconds": 24.527,
+              "model_id": "Qwen/Qwen3-8B",
+              "attempt": 1,
+              "vram_reserved_mib": 11108.0,
+              "vram_allocated_mib": 10903.3
+            }
+          ]
+        },
+        "output_file": "How_I_Met_Your_Mother.S01E02.mkv_llm.json",
+        "timings_file": "How_I_Met_Your_Mother.S01E02.mkv_llm_timings.json"
+      }
+    ],
+    "stages_ran": [
+      "timeline",
+      "audio",
+      "bassl",
+      "dialogue",
+      "vlm",
+      "llm",
+      "evidence"
+    ],
+    "archived_files": [
+      "How_I_Met_Your_Mother.S01E02.mkv_timeline.json",
+      "How_I_Met_Your_Mother.S01E02.mkv_audio.json",
+      "How_I_Met_Your_Mother.S01E02.mkv_audio_timings.json",
+      "How_I_Met_Your_Mother.S01E02.mkv_bassl.json",
+      "How_I_Met_Your_Mother.S01E02.mkv_dialogue.json",
+      "How_I_Met_Your_Mother.S01E02.mkv_dialogue_timings.json",
+      "How_I_Met_Your_Mother.S01E02.mkv_vlm.json",
+      "How_I_Met_Your_Mother.S01E02.mkv_vlm_timings.json",
+      "How_I_Met_Your_Mother.S01E02.mkv_vlm_frames.json",
+      "How_I_Met_Your_Mother.S01E02.mkv_vlm_raw.txt",
+      "How_I_Met_Your_Mother.S01E02.mkv_vlm_sidecar.json",
+      "How_I_Met_Your_Mother.S01E02.mkv_frame_plan.json",
+      "How_I_Met_Your_Mother.S01E02.mkv_llm.json",
+      "How_I_Met_Your_Mother.S01E02.mkv_llm_timings.json",
+      "How_I_Met_Your_Mother.S01E02.mkv_manifest.json",
+      "How_I_Met_Your_Mother.S01E02.mkv_evidence.json"
+    ]
+  },
+  {
+    "video": "Silicon_Valley.S06E01.mkv",
+    "status": "degraded",
+    "stages": [
+      {
+        "stage": "timeline",
+        "status": "success",
+        "output_file": "Silicon_Valley.S06E01.mkv_timeline.json"
+      },
+      {
+        "stage": "audio",
+        "status": "skipped_cache",
+        "output_file": "Silicon_Valley.S06E01.mkv_audio.json"
+      },
+      {
+        "stage": "bassl",
+        "status": "fallback",
+        "output_file": "Silicon_Valley.S06E01.mkv_bassl.json",
+        "reason": "modelscope import failed: No module named 'modelscope'"
+      },
+      {
+        "stage": "dialogue",
+        "status": "success",
+        "scenes": 7,
+        "plot_sampled": false,
+        "timings": {
+          "stage": "dialogue",
+          "started_at": "2026-11-20T01:35:53.376491+00:00",
+          "ended_at": "2026-11-20T01:39:05.769892+00:00",
+          "wall_seconds": 192.393,
+          "spans": [
+            {
+              "name": "plot_load",
+              "started_at": "2026-11-20T01:35:53.994739+00:00",
+              "ended_at": "2026-11-20T01:36:01.531724+00:00",
+              "seconds": 7.537,
+              "model_id": "Qwen/Qwen3-8B",
+              "vram_reserved_mib": 6232.0,
+              "vram_allocated_mib": 6182.3
+            },
+            {
+              "name": "plot_generate",
+              "started_at": "2026-11-20T01:36:01.565697+00:00",
+              "ended_at": "2026-11-20T01:36:28.299159+00:00",
+              "seconds": 26.733,
+              "model_id": "Qwen/Qwen3-8B",
+              "vram_reserved_mib": 10456.0,
+              "vram_allocated_mib": 10199.3
+            },
+            {
+              "name": "scene_load",
+              "started_at": "2026-11-20T01:36:28.585048+00:00",
+              "ended_at": "2026-11-20T01:36:34.876455+00:00",
+              "seconds": 6.291,
+              "model_id": "Qwen/Qwen3-8B",
+              "vram_reserved_mib": 10002.0,
+              "vram_allocated_mib": 9908.5
+            },
+            {
+              "name": "scene_generate",
+              "started_at": "2026-11-20T01:36:34.883968+00:00",
+              "ended_at": "2026-11-20T01:36:48.261869+00:00",
+              "seconds": 13.378,
+              "model_id": "Qwen/Qwen3-8B",
+              "window": 1,
+              "vram_reserved_mib": 10606.0,
+              "vram_allocated_mib": 10543.6
+            },
+            {
+              "name": "scene_generate",
+              "started_at": "2026-11-20T01:36:54.279085+00:00",
+              "ended_at": "2026-11-20T01:37:08.986733+00:00",
+              "seconds": 14.708,
+              "model_id": "Qwen/Qwen3-8B",
+              "window": 2,
+              "vram_reserved_mib": 10666.0,
+              "vram_allocated_mib": 10611.1
+            },
+            {
+              "name": "scene_generate",
+              "started_at": "2026-11-20T01:37:15.024087+00:00",
+              "ended_at": "2026-11-20T01:37:28.452809+00:00",
+              "seconds": 13.429,
+              "model_id": "Qwen/Qwen3-8B",
+              "window": 3,
+              "vram_reserved_mib": 10806.0,
+              "vram_allocated_mib": 10734.2
+            },
+            {
+              "name": "scene_generate",
+              "started_at": "2026-11-20T01:37:34.697457+00:00",
+              "ended_at": "2026-11-20T01:37:50.762751+00:00",
+              "seconds": 16.065,
+              "model_id": "Qwen/Qwen3-8B",
+              "window": 4,
+              "vram_reserved_mib": 10806.0,
+              "vram_allocated_mib": 10517.3
+            },
+            {
+              "name": "scene_generate",
+              "started_at": "2026-11-20T01:37:56.728673+00:00",
+              "ended_at": "2026-11-20T01:38:13.245233+00:00",
+              "seconds": 16.517,
+              "model_id": "Qwen/Qwen3-8B",
+              "window": 5,
+              "vram_reserved_mib": 10806.0,
+              "vram_allocated_mib": 10627.7
+            },
+            {
+              "name": "scene_generate",
+              "started_at": "2026-11-20T01:38:19.439985+00:00",
+              "ended_at": "2026-11-20T01:38:36.284634+00:00",
+              "seconds": 16.845,
+              "model_id": "Qwen/Qwen3-8B",
+              "window": 6,
+              "vram_reserved_mib": 10806.0,
+              "vram_allocated_mib": 10663.3
+            },
+            {
+              "name": "scene_generate",
+              "started_at": "2026-11-20T01:38:42.383418+00:00",
+              "ended_at": "2026-11-20T01:38:58.865358+00:00",
+              "seconds": 16.482,
+              "model_id": "Qwen/Qwen3-8B",
+              "window": 7,
+              "vram_reserved_mib": 10806.0,
+              "vram_allocated_mib": 10240.5
+            }
+          ]
+        },
+        "output_file": "Silicon_Valley.S06E01.mkv_dialogue.json",
+        "timings_file": "Silicon_Valley.S06E01.mkv_dialogue_timings.json"
+      },
+      {
+        "stage": "vlm",
+        "status": "success",
+        "json_valid": true,
+        "result": {
+          "experiment_id": "09-bassl-adaptive",
+          "scene_timeline": [
+            {
+              "start_time": "00:00:00",
+              "end_time": "00:05:00",
+              "dialogue_description": "During a congressional hearing, Richard Hendricks addresses a panel discussing Pied Piper's role in developing a new type of internet. He highlights the dominance of tech giants like Facebook, Google, and Amazon, emphasizing their control over market share and user data. Richard argues that these monopolies make it difficult for smaller companies to compete, using the example of Huli, which he claims cannot survive their dominance. His remarks suggest a growing concern about corporate power and the need for alternatives like Pied Piper's decentralized platform. Richard's speech underscores the company's mission to challenge these giants and promote a more equitable digital landscape. However, his focus on competition and market dynamics hints at underlying tensions within the company, particularly regarding ethical practices and the potential for misuse of user data. The exchange ends with Richard's acknowledgment of the challenges ahead, setting the stage for further conflict between innovation and integrity.",
+              "description": "The scene opens in an office where a woman sits behind a desk, gesturing while speaking to someone off-camera. A man stands beside her, looking down at papers. The camera cuts to a wide shot of a large room filled with people seated at tables, some holding notebooks. In another shot, a man walks through a modern building corridor past hanging artwork. Later, inside a formal courtroom-like chamber, several men in suits stand before a panel; one gestures toward the audience while others listen intently. A man speaks into a microphone at a long table labeled 'MR. HUBBARD CHAIRMAN,' surrounded by officials. Another man, identified as Mr. Richard Hendricks, also speaks at the table, occasionally glancing at notes. Audience members watch attentively, some leaning forward. One man holds up a tablet displaying graphs. The final shots show a close-up of a man’s face as he listens, followed by a view of him walking away.",
+              "subjects_and_objects": [
+                "Richard Hendricks",
+                "Mr. Hubbard",
+                "Gavin Belson",
+                "a woman",
+                "an audience",
+                "officials"
+              ],
+              "actions": [
+                "gesturing with hands",
+                "speaking into microphones",
+                "leaning forward",
+                "holding up a tablet",
+                "walking away",
+                "looking down at papers"
+              ],
+              "camera_and_shot": "close-ups, medium shots, wide shots, tracking shots",
+              "lighting_and_color": "even indoor lighting, neutral tones, professional ambiance",
+              "on_screen_text": [
+                "HBO",
+                "Security User Data",
+                "Pied Piper",
+                "Mr. Richard Hendricks",
+                "Mr. Seth Wallace",
+                "MR. HUBBARD CHAIRMAN"
+              ]
+            },
+            {
+              "start_time": "00:05:00",
+              "end_time": "00:10:00",
+              "dialogue_description": "During a post-hearing celebration, Richard Hendricks and his colleagues reflect on their recent congressional appearance. Richard, addressing the group, passionately argues that their company represents a new era of democratic, decentralized internet, contrasting sharply with the \"kings\" of Big Tech. His speech is met with approval from his team, who celebrate their success and the potential of their mission. \n\nColin, however, approaches Richard privately, expressing concern about the company’s direction. Richard, still energized by his speech, acknowledges Colin’s presence but remains focused on the broader vision. Their conversation is brief, with Richard dismissing the need for further discussion, indicating he is more interested in moving forward than addressing specific concerns. \n\nThe exchange ends with Richard raising a toast, signaling his commitment to the company’s ideals. While no major decisions are made during this interaction, the tone suggests Richard is determined to push ahead with their mission, even as underlying tensions remain unaddressed.",
+              "description": "Richard Hendricks walks outside the Pied Piper headquarters, talking animatedly to a colleague while gesturing with his hand. They walk together toward the entrance, passing parked cars under bright sunlight. Inside, they enter a festive party area decorated with tropical-themed balloons and streamers. Richard interacts with employees, including a man in a striped shirt holding a beer bottle, and later joins a crowd celebrating. He raises his glass in a toast, smiling broadly as people cheer around him. The atmosphere is lively, with staff dancing, clapping, and wearing colorful costumes. Richard moves through the crowd, engaging with different groups, sometimes stopping to speak directly to individuals.",
+              "subjects_and_objects": [
+                "Richard Hendricks",
+                "a colleague",
+                "employees",
+                "a man in a striped shirt",
+                "tropical decorations"
+              ],
+              "actions": [
+                "walking",
+                "gesturing with hand",
+                "raising glass",
+                "smiling",
+                "clapping",
+                "dancing"
+              ],
+              "camera_and_shot": "medium shots, tracking shots, handheld movement",
+              "lighting_and_color": "bright daylight outdoors, vibrant colors indoors",
+              "on_screen_text": []
+            },
+            {
+              "start_time": "00:10:00",
+              "end_time": "00:15:00",
+              "dialogue_description": "Colin and Richard argue over Colin’s secret data collection, which contradicts the company’s ethical stance. Colin claims he’s only using the data to improve his game, not for profit. Richard insists it undermines their core values, comparing it to historical atrocities like Hiroshima to emphasize its moral weight. He demands Colin stop, but Colin remains defiant, suggesting they’re all compromised. Richard acknowledges the complexity of human behavior, calling it “the cost of working with humans.” Meanwhile, another team member, Gavin, announces a merger with Amazon, offering retention bonuses and keeping Richard’s leadership intact. This news shifts the focus from internal conflict to external pressure, highlighting the tension between maintaining ethics and securing the company’s future. The conversation ends with Richard reluctantly accepting the merger’s terms, signaling a compromise between his ideals and the reality of corporate survival.",
+              "description": "A man in a plaid shirt and dark jacket stands facing another man in a black cap, both engaged in a tense conversation. Behind them, a crowded room buzzes with activity—people mingle near tables adorned with food and drinks, and colorful decorations hang from the ceiling. The man in the plaid shirt gestures emphatically with his right hand, then brings his left hand to his mouth as if reacting to something shocking. The man in the cap responds with a serious expression, turning slightly to address him. As the camera pans, another man in a gray t-shirt with a logo appears, watching the interaction with a concerned look. The background reveals more guests mingling, some holding plates of food, while others converse near a bar setup. The space feels lively yet charged with emotion.",
+              "subjects_and_objects": [
+                "a man in a plaid shirt",
+                "a man in a black cap",
+                "a man in a gray t-shirt",
+                "guests",
+                "tables with food",
+                "decorations"
+              ],
+              "actions": [
+                "standing",
+                "gesturing with hand",
+                "bringing hand to mouth",
+                "turning head",
+                "watching",
+                "mingling"
+              ],
+              "camera_and_shot": "medium shots, panning shots, handheld movement",
+              "lighting_and_color": "warm indoor lighting, vibrant colors from decorations, casual social ambiance",
+              "on_screen_text": []
+            },
+            {
+              "start_time": "00:15:00",
+              "end_time": "00:16:15",
+              "dialogue_description": "During a tense meeting, Gavin, a senior executive, announces that the company's properties will be rebranded as Amazon, signaling a potential acquisition. His comment about Bezos wanting to erase the Hooley name sparks anger from another executive, who defiantly states they will retain the Hooley name, calling it a \"deal breaker.\" Meanwhile, Dinesh, a developer, reveals that an AI named Son of Anton has been indexing the entire network, capable of recognizing intent and emotion. This revelation shocks others, particularly Gilfoyle, who accuses Dinesh of creating a bot that mimicked his conversations. Dinesh clarifies that Son of Anton, an homage to a fallen friend, was not trained by him but developed independently. Gilfoyle expresses outrage, claiming he was unknowingly conversing with an AI, highlighting the ethical dilemma of deception and manipulation within the company. The discussion underscores growing concerns about privacy, corporate integrity, and the unintended consequences of their technological advancements. The exchange ends with unresolved tension, emphasizing the conflict between innovation and ethical responsibility.",
+              "description": "In a modern conference room, a bald man in a suit stands behind a seated group, speaking authoritatively. A man in a dark blazer sits at the table, looking up at him with a mix of surprise and skepticism. Another man with a beard, dressed formally, leans back in his chair, appearing thoughtful. A woman in a dark suit sits beside him, listening intently. The room features wood-paneled walls, abstract art, and a large screen displaying the 'hoooli' logo. The standing man gestures subtly as he speaks, while the seated men shift their gaze between him and each other, exchanging glances filled with tension. One man taps a pen against his palm, while another rests his hands folded on the table.",
+              "subjects_and_objects": [
+                "a bald man",
+                "a man in a dark blazer",
+                "a man with a beard",
+                "a woman in a dark suit"
+              ],
+              "actions": [
+                "standing",
+                "speaking",
+                "leaning back",
+                "listening intently",
+                "glancing",
+                "tapping a pen"
+              ],
+              "camera_and_shot": "medium shots, static framing focusing on interactions",
+              "lighting_and_color": "even studio lighting, warm tones from wooden panels and neutral decor",
+              "on_screen_text": []
+            },
+            {
+              "start_time": "00:16:15",
+              "end_time": "00:17:30",
+              "dialogue_description": "During a tense meeting, Gavin, a senior executive, announces that the company's properties will be rebranded as Amazon, signaling a potential acquisition. His comment about Bezos wanting to erase the Hooley name sparks anger from another executive, who defiantly states they will retain the Hooley name, calling it a \"deal breaker.\" Meanwhile, Dinesh, a developer, reveals that an AI named Son of Anton has been indexing the entire network, capable of recognizing intent and emotion. This revelation shocks others, particularly Gilfoyle, who accuses Dinesh of creating a bot that mimicked his conversations. Dinesh clarifies that Son of Anton, an homage to a fallen friend, was not trained by him but developed independently. Gilfoyle expresses outrage, claiming he was unknowingly conversing with an AI, highlighting the ethical dilemma of deception and manipulation within the company. The discussion underscores growing concerns about privacy, corporate integrity, and the unintended consequences of their technological advancements. The exchange ends with unresolved tension, emphasizing the conflict between innovation and ethical responsibility.",
+              "description": "A man in a green sweater and white collared shirt sits at a desk, typing rapidly on a keyboard. He looks up briefly, then returns his attention to the screen. In front of him, multiple monitors display code; one shows a chat interface with messages including 'I hate you,' 'Leave me alone,' and 'Bare feet on table.' The office environment is bright and open-plan, with other employees visible in the background, some sitting at desks with laptops, others walking past. The man’s posture is upright, focused, and occasionally shifts slightly as he types.",
+              "subjects_and_objects": [
+                "a man in a green sweater",
+                "monitors displaying code",
+                "other employees",
+                "laptops"
+              ],
+              "actions": [
+                "typing on keyboard",
+                "looking up",
+                "returning focus to screen",
+                "shifting posture slightly"
+              ],
+              "camera_and_shot": "static medium shot, slight zoom-in on the man at his desk",
+              "lighting_and_color": "bright fluorescent lighting, neutral color palette dominated by beige and gray tones of the office furniture",
+              "on_screen_text": [
+                "Odd that you can't type 'asklep' given that you have a drowsing effect",
+                "Shut up! Your voice sucks!",
+                "Gilfoyle: I'm coming over!",
+                "Dinesh C.: Okay.",
+                "Gabe status: Bare feet on table. K-tshirt, a day late."
+              ]
+            },
+            {
+              "start_time": "00:17:30",
+              "end_time": "00:18:45",
+              "dialogue_description": "During a tense meeting, Gavin, a senior executive, announces that the company's properties will be rebranded as Amazon, signaling a potential acquisition. His comment about Bezos wanting to erase the Hooley name sparks anger from another executive, who defiantly states they will retain the Hooley name, calling it a \"deal breaker.\" Meanwhile, Dinesh, a developer, reveals that an AI named Son of Anton has been indexing the entire network, capable of recognizing intent and emotion. This revelation shocks others, particularly Gilfoyle, who accuses Dinesh of creating a bot that mimicked his conversations. Dinesh clarifies that Son of Anton, an homage to a fallen friend, was not trained by him but developed independently. Gilfoyle expresses outrage, claiming he was unknowingly conversing with an AI, highlighting the ethical dilemma of deception and manipulation within the company. The discussion underscores growing concerns about privacy, corporate integrity, and the unintended consequences of their technological advancements. The exchange ends with unresolved tension, emphasizing the conflict between innovation and ethical responsibility.",
+              "description": "A man in a green sweater and white collared shirt sits at a cluttered desk, typing quickly on a keyboard. He pauses, looks toward someone off-screen, then resumes typing. Behind him, another man in a red plaid shirt walks away from a coffee station, holding a mug. The workspace is filled with tech equipment, snacks, and personal items like mugs and notebooks. The man at the desk occasionally glances sideways, showing mild annoyance or distraction.",
+              "subjects_and_objects": [
+                "a man in a green sweater",
+                "a man in a red plaid shirt",
+                "coffee station",
+                "desk with computer monitors",
+                "snacks and mugs"
+              ],
+              "actions": [
+                "typing on keyboard",
+                "pausing and looking off-screen",
+                "resuming typing",
+                "walking away",
+                "holding a mug",
+                "glancing sideways"
+              ],
+              "camera_and_shot": "static medium shot, slight panning to follow movement",
+              "lighting_and_color": "bright overhead lighting, warm tones from wooden shelves and colorful snack packaging",
+              "on_screen_text": [
+                "I hate you more :)",
+                "Dinesh C. 3:23 PM I'm going to kill him.",
+                "Gilfoyle 3:23 PM Murder/suicide?",
+                "Gi",
+                "Who is this?",
+                "Your mom."
+              ]
+            },
+            {
+              "start_time": "00:18:45",
+              "end_time": "00:20:00",
+              "dialogue_description": "During a tense meeting, Gavin, a senior executive, announces that the company's properties will be rebranded as Amazon, signaling a potential acquisition. His comment about Bezos wanting to erase the Hooley name sparks anger from another executive, who defiantly states they will retain the Hooley name, calling it a \"deal breaker.\" Meanwhile, Dinesh, a developer, reveals that an AI named Son of Anton has been indexing the entire network, capable of recognizing intent and emotion. This revelation shocks others, particularly Gilfoyle, who accuses Dinesh of creating a bot that mimicked his conversations. Dinesh clarifies that Son of Anton, an homage to a fallen friend, was not trained by him but developed independently. Gilfoyle expresses outrage, claiming he was unknowingly conversing with an AI, highlighting the ethical dilemma of deception and manipulation within the company. The discussion underscores growing concerns about privacy, corporate integrity, and the unintended consequences of their technological advancements. The exchange ends with unresolved tension, emphasizing the conflict between innovation and ethical responsibility.",
+              "description": "Two men stand facing each other in a modern office space. One wears a green-and-white polo shirt and holds a smartphone, gesturing while speaking. The other, dressed in a red plaid shirt, stands with arms crossed, listening intently. They move closer together as the conversation continues. Behind them, shelves stocked with snacks and drinks line the wall. A doorway leads into a different area where other workers sit at desks.",
+              "subjects_and_objects": [
+                "a man in a green-and-white polo shirt",
+                "a man in a red plaid shirt",
+                "smartphone",
+                "shelves with snacks and drinks",
+                "doorway leading to another room"
+              ],
+              "actions": [
+                "gesturing with hands while talking",
+                "listening with arms crossed",
+                "moving closer to each other",
+                "turning head to look at the other person",
+                "holding a smartphone"
+              ],
+              "camera_and_shot": "medium close-up, following subtle movements between two individuals",
+              "lighting_and_color": "even indoor lighting, muted tones from office decor contrasted with vibrant snack packaging",
+              "on_screen_text": []
+            },
+            {
+              "start_time": "00:20:00",
+              "end_time": "00:25:00",
+              "dialogue_description": "Colin’s private conversations, stored across the network, are revealed by SPEAKER_04, who details how Son of Anton indexed them, exposing Colin’s misconduct. SPEAKER_15, likely Richard, reacts with outrage, calling Colin’s actions “gobsmackingly awful.” Despite acknowledging the wrongdoing, Richard hesitates, suggesting he might find another way to address the issue. The conversation shifts to a separate concern—moving an office—showing a moment of distraction. Richard then returns to the main conflict, framing Colin’s actions as a betrayal of their ethical stance. He proposes a drastic move: during a board meeting, Richard will amend the bylaws to ensure no user data is collected, threatening to leak the evidence if they refuse. SPEAKER_03 interjects with a crude remark, highlighting the group’s internal dysfunction. The exchange ends with Richard and SPEAKER_15 confronting Colin, demanding accountability. Their plan to expose the truth and uphold their values is set in motion, marking a pivotal moment in the company’s ethical struggle.",
+              "description": "A man in a checkered button-down shirt walks through a dimly lit corridor lined with dark curtains, clutching a laptop under his arm. He stops abruptly near a door, turns back slightly, and gestures with his free hand as if responding to something unseen. He then steps forward again, continuing down the hallway.",
+              "subjects_and_objects": [
+                "a man in a checkered button-down shirt",
+                "laptop",
+                "dark curtains",
+                "door"
+              ],
+              "actions": [
+                "walking through a corridor",
+                "stopping abruptly",
+                "turning back slightly",
+                "gesturing with hand",
+                "stepping forward again"
+              ],
+              "camera_and_shot": "following shot tracking the man walking, cuts to static mid-shot when he stops",
+              "lighting_and_color": "low ambient light, shadows cast by curtains, cool blue tones from distant screens",
+              "on_screen_text": []
+            },
+            {
+              "start_time": "00:25:00",
+              "end_time": "00:30:00",
+              "dialogue_description": "During this interval, several characters discuss the recent acquisition of their company by Amazon. Speaker 11, who has now joined Amazon, informs the group that the deal is finalized and that they are now subletting space from Amazon. Speaker 14 expresses concern over the loss of autonomy and the symbolic shift in power dynamics, noting that Amazon’s logo is now larger than their own. Speaker 11 acknowledges the changes, stating that they now work at Amazon and that the terms of the deal are binding. Speaker 15, who has been struggling with his role and loyalty, reflects on his past decisions and ultimately reaffirms his place at Pied Piper, declaring, “I’m home.” Speaker 10 brings up Gwart, a new person in the incubator, highlighting her technical skills but questioning her fit within the team’s culture. The conversation ends with Speaker 10 offering Speaker 15 some new cans, symbolizing a small gesture of camaraderie amid the uncertainty. The exchange underscores the tension between maintaining company identity and the pressures of external acquisition.",
+              "description": "A woman wearing glasses and a white top enters a cluttered living room, approaching a man seated on a couch holding a game controller. She pauses beside him, looking toward the television screen displaying a video game. Another person sits nearby, watching the scene unfold.",
+              "subjects_and_objects": [
+                "a woman wearing glasses and a white top",
+                "a man seated on a couch",
+                "game controller",
+                "television screen",
+                "another person sitting nearby"
+              ],
+              "actions": [
+                "entering a living room",
+                "approaching a seated man",
+                "pausing beside him",
+                "looking toward the television screen",
+                "watching the unfolding scene"
+              ],
+              "camera_and_shot": "static medium shot capturing interaction between three people in a living room",
+              "lighting_and_color": "warm interior lighting, cozy ambiance with soft shadows from furniture and TV glow",
+              "on_screen_text": []
+            },
+            {
+              "start_time": "00:30:00",
+              "end_time": "00:32:52",
+              "dialogue_description": "SPEAKER_15, Richard Hendricks, stands before his team, holding a resignation letter. He declares that Pied Piper is no longer the company he joined, stating it has \"different needs now.\" His words carry weight, revealing his disillusionment with the company’s ethical compromises. SPEAKER_04, Erlich Bachman, reacts with anger, calling Richard a \"buddy fucker,\" highlighting their once-close friendship now strained by ideological differences. The tension between them reflects the broader conflict within the company—between idealism and compromise. SPEAKER_15’s declaration of resignation signals his decision to leave, a move that underscores his belief that the company has strayed from its original mission. Meanwhile, SPEAKER_03, Monica, adds a humorous yet pointed remark about \"Russ Fest,\" a reference to the company’s controversial name change and the growing cynicism around its identity. The exchange ends with Richard questioning whether his actions are illegal, a nod to the ethical dilemmas that have plagued the company. His final line, \"Fuck the police,\" encapsulates his frustration with systemic issues both inside and outside the company.",
+              "description": "Richard Hendricks stands before his team in a modern office setting, holding a resignation letter. He gestures emphatically while speaking, conveying his resolve. Erlich Bachman leans against a desk, arms crossed, reacting angrily with a confrontational expression. Monica, standing nearby, holds a coffee cup and looks amused, gesturing subtly as she speaks. The background shows framed posters, architectural plans, and a large banner with 'Rust Fest' displayed prominently.",
+              "subjects_and_objects": [
+                "Richard Hendricks",
+                "Erlich Bachman",
+                "Monica",
+                "resignation letter",
+                "coffee cup",
+                "framed posters"
+              ],
+              "actions": [
+                "standing before a team",
+                "holding a resignation letter",
+                "gesturing emphatically",
+                "leaning against a desk",
+                "arms crossed",
+                "reacting angrily"
+              ],
+              "camera_and_shot": "medium wide shot capturing all three individuals and the surrounding office environment",
+              "lighting_and_color": "bright, even studio lighting; neutral color palette dominated by beige walls and wooden accents",
+              "on_screen_text": []
+            }
+          ],
+          "segments_parsed": 10,
+          "segments_total": 10,
+          "vlm_memory_scenes": 2,
+          "visual_only": false,
+          "extract_visual": false,
+          "memory_compacted": false
+        },
+        "timings": {
+          "stage": "vlm",
+          "started_at": "2026-11-20T01:39:05.866126+00:00",
+          "ended_at": "2026-11-20T02:07:01.264568+00:00",
+          "wall_seconds": 1675.398,
+          "spans": [
+            {
+              "name": "vlm_load",
+              "started_at": "2026-11-20T01:43:31.674555+00:00",
+              "ended_at": "2026-11-20T01:55:29.008954+00:00",
+              "seconds": 717.334,
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 9904.0,
+              "vram_allocated_mib": 9847.1
+            },
+            {
+              "name": "vlm_generate",
+              "started_at": "2026-11-20T01:55:29.216690+00:00",
+              "ended_at": "2026-11-20T01:57:23.771605+00:00",
+              "seconds": 114.555,
+              "window": 1,
+              "start": "00:00:00",
+              "end": "00:05:00",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 14450.0,
+              "vram_allocated_mib": 14352.6
+            },
+            {
+              "name": "vlm_generate",
+              "started_at": "2026-11-20T01:57:23.790856+00:00",
+              "ended_at": "2026-11-20T01:59:06.600483+00:00",
+              "seconds": 102.81,
+              "window": 2,
+              "start": "00:05:00",
+              "end": "00:10:00",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 14450.0,
+              "vram_allocated_mib": 14352.6
+            },
+            {
+              "name": "vlm_generate",
+              "started_at": "2026-11-20T01:59:06.641149+00:00",
+              "ended_at": "2026-11-20T02:00:43.579026+00:00",
+              "seconds": 96.938,
+              "window": 3,
+              "start": "00:10:00",
+              "end": "00:15:00",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 14450.0,
+              "vram_allocated_mib": 14352.7
+            },
+            {
+              "name": "vlm_generate",
+              "started_at": "2026-11-20T02:00:43.592426+00:00",
+              "ended_at": "2026-11-20T02:01:25.747973+00:00",
+              "seconds": 42.156,
+              "window": 4,
+              "start": "00:15:00",
+              "end": "00:16:15",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 15090.0,
+              "vram_allocated_mib": 15000.6
+            },
+            {
+              "name": "vlm_generate",
+              "started_at": "2026-11-20T02:01:25.759810+00:00",
+              "ended_at": "2026-11-20T02:02:07.581719+00:00",
+              "seconds": 41.822,
+              "window": 5,
+              "start": "00:16:15",
+              "end": "00:17:30",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 15090.0,
+              "vram_allocated_mib": 15000.6
+            },
+            {
+              "name": "vlm_generate",
+              "started_at": "2026-11-20T02:02:07.611988+00:00",
+              "ended_at": "2026-11-20T02:02:49.185082+00:00",
+              "seconds": 41.573,
+              "window": 6,
+              "start": "00:17:30",
+              "end": "00:18:45",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 15090.0,
+              "vram_allocated_mib": 15000.6
+            },
+            {
+              "name": "vlm_generate",
+              "started_at": "2026-11-20T02:02:49.196256+00:00",
+              "ended_at": "2026-11-20T02:03:28.101915+00:00",
+              "seconds": 38.906,
+              "window": 7,
+              "start": "00:18:45",
+              "end": "00:20:00",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 14770.0,
+              "vram_allocated_mib": 14676.6
+            },
+            {
+              "name": "vlm_generate",
+              "started_at": "2026-11-20T02:03:28.113333+00:00",
+              "ended_at": "2026-11-20T02:04:46.831961+00:00",
+              "seconds": 78.719,
+              "window": 8,
+              "start": "00:20:00",
+              "end": "00:25:00",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 14450.0,
+              "vram_allocated_mib": 14352.7
+            },
+            {
+              "name": "vlm_generate",
+              "started_at": "2026-11-20T02:04:46.842968+00:00",
+              "ended_at": "2026-11-20T02:06:09.458362+00:00",
+              "seconds": 82.615,
+              "window": 9,
+              "start": "00:25:00",
+              "end": "00:30:00",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 14110.0,
+              "vram_allocated_mib": 14028.7
+            },
+            {
+              "name": "vlm_generate",
+              "started_at": "2026-11-20T02:06:09.467144+00:00",
+              "ended_at": "2026-11-20T02:06:59.093766+00:00",
+              "seconds": 49.627,
+              "window": 10,
+              "start": "00:30:00",
+              "end": "00:32:52",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 15382.0,
+              "vram_allocated_mib": 15062.6
+            }
+          ]
+        },
+        "output_file": "Silicon_Valley.S06E01.mkv_vlm.json",
+        "raw_file": "Silicon_Valley.S06E01.mkv_vlm_raw.txt",
+        "sidecar_file": "Silicon_Valley.S06E01.mkv_vlm_sidecar.json",
+        "timings_file": "Silicon_Valley.S06E01.mkv_vlm_timings.json",
+        "frames_file": "Silicon_Valley.S06E01.mkv_vlm_frames.json"
+      },
+      {
+        "stage": "llm",
+        "status": "success",
+        "result": {
+          "recsys_metadata": {
+            "primary_genre": "Drama",
+            "sub_genres": [
+              "Corporate Espionage",
+              "Ethical Conflict",
+              "Technological Ethics"
+            ],
+            "pacing": "Moderate",
+            "mood": [
+              "Tense",
+              "Reflective",
+              "Morally Ambiguous"
+            ]
+          },
+          "search_and_discovery": {
+            "semantic_tags": [
+              "Decentralized Internet",
+              "Data Privacy",
+              "Corporate Integrity",
+              "AI Implications"
+            ],
+            "main_topics": [
+              "Ethics in Technology",
+              "Corporate Accountability",
+              "Privacy Concerns"
+            ]
+          },
+          "audience_profiling": {
+            "target_age_group": "Young Adults",
+            "viewer_interests": [
+              "Technology",
+              "Business Ethics",
+              "Social Issues"
+            ]
+          },
+          "content_summary": {
+            "visual_style": "The visual style features a blend of sleek, modern interiors with vibrant color palettes, complemented by stark, minimalist settings that highlight the tension between innovation and ethical ambiguity.",
+            "narrative_hook": "Richard Hendricks, a visionary leader, grapples with the moral implications of his company's actions as it faces internal betrayals and external threats from a corporate giant."
+          }
+        },
+        "timings": {
+          "stage": "llm",
+          "started_at": "2026-11-20T02:07:01.264835+00:00",
+          "ended_at": "2026-11-20T02:24:33.860357+00:00",
+          "wall_seconds": 1052.596,
+          "spans": [
+            {
+              "name": "llm_load",
+              "started_at": "2026-11-20T02:07:01.730454+00:00",
+              "ended_at": "2026-11-20T02:24:07.013149+00:00",
+              "seconds": 1025.283,
+              "model_id": "Qwen/Qwen3-8B",
+              "vram_reserved_mib": 9924.0,
+              "vram_allocated_mib": 9882.0
+            },
+            {
+              "name": "llm_generate",
+              "started_at": "2026-11-20T02:24:07.013874+00:00",
+              "ended_at": "2026-11-20T02:24:32.918566+00:00",
+              "seconds": 25.905,
+              "model_id": "Qwen/Qwen3-8B",
+              "attempt": 1,
+              "vram_reserved_mib": 11348.0,
+              "vram_allocated_mib": 11157.1
+            }
+          ]
+        },
+        "output_file": "Silicon_Valley.S06E01.mkv_llm.json",
+        "timings_file": "Silicon_Valley.S06E01.mkv_llm_timings.json"
+      }
+    ],
+    "stages_ran": [
+      "timeline",
+      "audio",
+      "bassl",
+      "dialogue",
+      "vlm",
+      "llm",
+      "evidence"
+    ],
+    "archived_files": [
+      "Silicon_Valley.S06E01.mkv_timeline.json",
+      "Silicon_Valley.S06E01.mkv_audio.json",
+      "Silicon_Valley.S06E01.mkv_audio_timings.json",
+      "Silicon_Valley.S06E01.mkv_bassl.json",
+      "Silicon_Valley.S06E01.mkv_dialogue.json",
+      "Silicon_Valley.S06E01.mkv_dialogue_timings.json",
+      "Silicon_Valley.S06E01.mkv_vlm.json",
+      "Silicon_Valley.S06E01.mkv_vlm_timings.json",
+      "Silicon_Valley.S06E01.mkv_vlm_frames.json",
+      "Silicon_Valley.S06E01.mkv_vlm_raw.txt",
+      "Silicon_Valley.S06E01.mkv_vlm_sidecar.json",
+      "Silicon_Valley.S06E01.mkv_frame_plan.json",
+      "Silicon_Valley.S06E01.mkv_llm.json",
+      "Silicon_Valley.S06E01.mkv_llm_timings.json",
+      "Silicon_Valley.S06E01.mkv_manifest.json",
+      "Silicon_Valley.S06E01.mkv_evidence.json"
+    ]
+  },
+  {
+    "video": "The_Kingdom.S01E02.mkv",
+    "status": "degraded",
+    "stages": [
+      {
+        "stage": "timeline",
+        "status": "success",
+        "output_file": "The_Kingdom.S01E02.mkv_timeline.json"
+      },
+      {
+        "stage": "audio",
+        "status": "skipped_cache",
+        "output_file": "The_Kingdom.S01E02.mkv_audio.json"
+      },
+      {
+        "stage": "bassl",
+        "status": "fallback",
+        "output_file": "The_Kingdom.S01E02.mkv_bassl.json",
+        "reason": "modelscope import failed: No module named 'modelscope'"
+      },
+      {
+        "stage": "dialogue",
+        "status": "success",
+        "scenes": 7,
+        "plot_sampled": false,
+        "timings": {
+          "stage": "dialogue",
+          "started_at": "2026-11-20T02:25:22.029762+00:00",
+          "ended_at": "2026-11-20T02:29:42.315100+00:00",
+          "wall_seconds": 260.285,
+          "spans": [
+            {
+              "name": "plot_load",
+              "started_at": "2026-11-20T02:25:22.957396+00:00",
+              "ended_at": "2026-11-20T02:26:32.420065+00:00",
+              "seconds": 69.463,
+              "model_id": "Qwen/Qwen3-8B",
+              "vram_reserved_mib": 6232.0,
+              "vram_allocated_mib": 6182.3
+            },
+            {
+              "name": "plot_generate",
+              "started_at": "2026-11-20T02:26:32.482498+00:00",
+              "ended_at": "2026-11-20T02:27:01.322218+00:00",
+              "seconds": 28.84,
+              "model_id": "Qwen/Qwen3-8B",
+              "vram_reserved_mib": 9856.0,
+              "vram_allocated_mib": 9604.1
+            },
+            {
+              "name": "scene_load",
+              "started_at": "2026-11-20T02:27:01.583748+00:00",
+              "ended_at": "2026-11-20T02:27:07.937161+00:00",
+              "seconds": 6.353,
+              "model_id": "Qwen/Qwen3-8B",
+              "vram_reserved_mib": 10002.0,
+              "vram_allocated_mib": 9908.5
+            },
+            {
+              "name": "scene_generate",
+              "started_at": "2026-11-20T02:27:07.943514+00:00",
+              "ended_at": "2026-11-20T02:27:23.628973+00:00",
+              "seconds": 15.685,
+              "model_id": "Qwen/Qwen3-8B",
+              "window": 1,
+              "vram_reserved_mib": 10506.0,
+              "vram_allocated_mib": 10442.1
+            },
+            {
+              "name": "scene_generate",
+              "started_at": "2026-11-20T02:27:26.809212+00:00",
+              "ended_at": "2026-11-20T02:27:46.157164+00:00",
+              "seconds": 19.348,
+              "model_id": "Qwen/Qwen3-8B",
+              "window": 2,
+              "vram_reserved_mib": 10606.0,
+              "vram_allocated_mib": 10547.1
+            },
+            {
+              "name": "scene_generate",
+              "started_at": "2026-11-20T02:27:47.795294+00:00",
+              "ended_at": "2026-11-20T02:28:02.866557+00:00",
+              "seconds": 15.071,
+              "model_id": "Qwen/Qwen3-8B",
+              "window": 3,
+              "vram_reserved_mib": 10606.0,
+              "vram_allocated_mib": 10543.4
+            },
+            {
+              "name": "scene_generate",
+              "started_at": "2026-11-20T02:28:08.669176+00:00",
+              "ended_at": "2026-11-20T02:28:28.431866+00:00",
+              "seconds": 19.763,
+              "model_id": "Qwen/Qwen3-8B",
+              "window": 4,
+              "vram_reserved_mib": 10606.0,
+              "vram_allocated_mib": 10489.6
+            },
+            {
+              "name": "scene_generate",
+              "started_at": "2026-11-20T02:28:34.169778+00:00",
+              "ended_at": "2026-11-20T02:28:52.361890+00:00",
+              "seconds": 18.192,
+              "model_id": "Qwen/Qwen3-8B",
+              "window": 5,
+              "vram_reserved_mib": 10606.0,
+              "vram_allocated_mib": 10538.7
+            },
+            {
+              "name": "scene_generate",
+              "started_at": "2026-11-20T02:28:58.101147+00:00",
+              "ended_at": "2026-11-20T02:29:15.367333+00:00",
+              "seconds": 17.266,
+              "model_id": "Qwen/Qwen3-8B",
+              "window": 6,
+              "vram_reserved_mib": 10766.0,
+              "vram_allocated_mib": 10695.8
+            },
+            {
+              "name": "scene_generate",
+              "started_at": "2026-11-20T02:29:21.306287+00:00",
+              "ended_at": "2026-11-20T02:29:35.921202+00:00",
+              "seconds": 14.615,
+              "model_id": "Qwen/Qwen3-8B",
+              "window": 7,
+              "vram_reserved_mib": 10766.0,
+              "vram_allocated_mib": 10240.0
+            }
+          ]
+        },
+        "output_file": "The_Kingdom.S01E02.mkv_dialogue.json",
+        "timings_file": "The_Kingdom.S01E02.mkv_dialogue_timings.json"
+      },
+      {
+        "stage": "vlm",
+        "status": "success",
+        "json_valid": true,
+        "result": {
+          "experiment_id": "09-bassl-adaptive",
+          "scene_timeline": [
+            {
+              "start_time": "00:00:00",
+              "end_time": "00:02:30",
+              "dialogue_description": "Pastor Emilio Vazquez speaks in a deeply personal and emotional tone, revealing his involvement in the murder of Armando Badajoz. He describes being present during the crime, standing \"by his side\" as the killer acted. His words betray deep guilt and fear, as he admits to feeling the victim's blood on his body. When questioned about his relationship with Remigio Cardenas, Emilio confirms that the accused works at the church's home for children. He challenges the investigator's assumption that Remigio's criminal past connects him to the murder, asserting that many of his collaborators have similar histories. The investigator, SPEAKER_12, insists that Remigio has confessed to the crime. Emilio reacts with disbelief, questioning whether this is a mistake. The investigator clarifies that Remigio has formally pled guilty. Emilio remains defiant, refusing to be discreet or acknowledge any wrongdoing. The exchange ends with the investigator requesting discretion, but Emilio's refusal to comply underscores his internal conflict and the gravity of the situation.",
+              "description": "The video begins with a black screen displaying production credits. A close-up shot focuses on Pastor Emilio Vazquez’s face, illuminated by dim blue light, showing intense emotion as he speaks directly into the camera. As the scene progresses, the camera pulls back slightly, revealing more of his upper body and the dark office environment behind him. The setting transitions to an office where Pastor Emilio sits across a desk from a female investigator. He gestures emphatically while speaking, leaning forward at moments. The woman listens intently, occasionally adjusting her glasses or looking down at documents. Objects like pens, mugs, and a telephone sit cluttered on the desk between them. The background shows wooden cabinets filled with books and blinds covering windows.",
+              "subjects_and_objects": [
+                "Emilio",
+                "investigator"
+              ],
+              "actions": [
+                "Emilio looks upward with a tense expression",
+                "Emilio leans toward the camera",
+                "Emilio gestures with his hands while talking",
+                "Emilio shifts his gaze away from the camera",
+                "Investigator adjusts her glasses",
+                "Investigator looks down at papers"
+              ],
+              "camera_and_shot": "Close-up shots transition to medium shots; camera slowly zooms out from Emilio’s face to reveal the office setting.",
+              "lighting_and_color": "Dim, cool-toned lighting with blue hues casting shadows over faces and surroundings.",
+              "on_screen_text": [
+                "PRODUCIDA POR K&S FILMS"
+              ]
+            },
+            {
+              "start_time": "00:02:30",
+              "end_time": "00:05:00",
+              "dialogue_description": "Pastor Emilio Vazquez speaks in a deeply personal and emotional tone, revealing his involvement in the murder of Armando Badajoz. He describes being present during the crime, standing \"by his side\" as the killer acted. His words betray deep guilt and fear, as he admits to feeling the victim's blood on his body. When questioned about his relationship with Remigio Cardenas, Emilio confirms that the accused works at the church's home for children. He challenges the investigator's assumption that Remigio's criminal past connects him to the murder, asserting that many of his collaborators have similar histories. The investigator, SPEAKER_12, insists that Remigio has confessed to the crime. Emilio reacts with disbelief, questioning whether this is a mistake. The investigator clarifies that Remigio has formally pled guilty. Emilio remains defiant, refusing to be discreet or acknowledge any wrongdoing. The exchange ends with the investigator requesting discretion, but Emilio's refusal to comply underscores his internal conflict and the gravity of the situation.",
+              "description": "A man with gray hair and a serious expression stands facing a woman seated at a desk. He wears a dark suit jacket over a high-collared shirt. Behind him, shelves lined with legal volumes create a formal atmosphere. The woman, dressed in professional attire with a blazer and red blouse, holds a document and appears focused. The man turns his head slightly, maintaining eye contact with her. The room is lit with soft, ambient light filtering through window blinds, creating subtle shadows on their faces.",
+              "subjects_and_objects": [
+                "Emilio",
+                "investigator"
+              ],
+              "actions": [
+                "Emilio stares intensely at the investigator",
+                "Emilio tilts his head downward briefly",
+                "Emilio glances sideways before returning his gaze",
+                "Emilio raises his eyebrows slightly",
+                "Investigator keeps her eyes fixed on Emilio",
+                "Investigator holds a document steady"
+              ],
+              "camera_and_shot": "Medium close-ups alternating between the two characters; slight handheld movement emphasizing tension.",
+              "lighting_and_color": "Soft, natural indoor lighting with warm tones accentuating wood paneling and muted colors in clothing.",
+              "on_screen_text": []
+            },
+            {
+              "start_time": "00:05:00",
+              "end_time": "00:07:30",
+              "dialogue_description": "During this tense exchange, multiple characters discuss the murder of Armando Badajoz and its connection to Remigio Cardenas, a close associate of Pastor Emilio Vazquez. Speaker 03, likely a family member or ally of Emilio, reveals that Remigio was seen at the scene and appears to be the killer. Speaker 11, possibly another relative or confidant, expresses shock and concern, emphasizing the need for coordination in their responses to the media and authorities. Speaker 08, who seems to be a family member, insists on finding out why Remigio acted as he did, highlighting the emotional and reputational stakes for the church. Speaker 02, likely a trusted figure within the church, defends Remigio, suggesting he would never betray the church's finances, which he views as sacred. Despite this, Speaker 08 pushes for clarity, fearing the damage to the church's image. The repeated question—\"Pastor Emilio, does it bother you at all that it doesn't matter what happens?\"—suggests an internal struggle among those close to Emilio, hinting at the broader conflict between personal loyalty and institutional integrity. The conversation ends with uncertainty, underscoring the deepening crisis and the weight of moral ambiguity.",
+              "description": "In a dimly lit room, a man wearing a white button-down shirt walks briskly through a hallway, passing by a doorway leading to a bedroom. Inside the bedroom, a woman with long dark hair, dressed in a floral-patterned top, watches him pass. She steps closer to the doorframe, her expression shifting from neutral to concerned as she observes him. The man pauses briefly near the doorway, turning his head slightly towards her direction before continuing down the hall. The walls are adorned with framed artwork, and sunlight filters through stained-glass windows, casting colorful patterns onto the floor.",
+              "subjects_and_objects": [
+                "man",
+                "woman"
+              ],
+              "actions": [
+                "Man walks quickly down a hallway",
+                "Man pauses near a doorway",
+                "Man turns his head toward the woman",
+                "Woman steps closer to the doorframe",
+                "Woman watches the man walk away"
+              ],
+              "camera_and_shot": "Static wide-angle shot capturing both individuals moving through different areas of the house, transitioning from hallway to bedroom entrance.",
+              "lighting_and_color": "Warm interior lighting with golden-hour tones streaming through stained glass, illuminating dust particles in the air and casting vibrant reflections on surfaces.",
+              "on_screen_text": []
+            },
+            {
+              "start_time": "00:07:30",
+              "end_time": "00:10:00",
+              "dialogue_description": "During this tense exchange, multiple characters discuss the murder of Armando Badajoz and its connection to Remigio Cardenas, a close associate of Pastor Emilio Vazquez. Speaker 03, likely a family member or ally of Emilio, reveals that Remigio was seen at the scene and appears to be the killer. Speaker 11, possibly another relative or confidant, expresses shock and concern, emphasizing the need for coordination in their responses to the media and authorities. Speaker 08, who seems to be a family member, insists on finding out why Remigio acted as he did, highlighting the emotional and reputational stakes for the church. Speaker 02, likely a trusted figure within the church, defends Remigio, suggesting he would never betray the church's finances, which he views as sacred. Despite this, Speaker 08 pushes for clarity, fearing the damage to the church's image. The repeated question—\"Pastor Emilio, does it bother you at all that it doesn't matter what happens?\"—suggests an internal struggle among those close to Emilio, hinting at the broader conflict between personal loyalty and institutional integrity. The conversation ends with uncertainty, underscoring the deepening crisis and the weight of moral ambiguity.",
+              "description": "A man in a blue turtleneck sits calmly in an elevator, looking straight ahead with a composed expression. Another man, older with graying hair and wearing a dark suit, enters behind him, stepping into the confined space. The younger man turns his head slightly to look at the newcomer, while the older man adjusts his stance, appearing uneasy. The elevator’s wooden paneling reflects faint light, and the camera lingers on their interaction as they stand close together without speaking.",
+              "subjects_and_objects": [
+                "man_in_blue_turtleneck",
+                "older_man"
+              ],
+              "actions": [
+                "man_in_blue_turtleneck maintains stillness",
+                "man_in_blue_turtleneck looks forward",
+                "older_man enters the elevator",
+                "older_man shifts position inside the elevator",
+                "older_man glances at the man_in_blue_turtleneck",
+                "man_in_blue_turtleneck turns his head slightly"
+              ],
+              "camera_and_shot": "Close-up shots focusing on each individual's face and upper body, slowly panning between them as they enter and interact within the small space.",
+              "lighting_and_color": "Cool-toned artificial lighting casts soft shadows across the wooden panels, giving the scene a somber, enclosed feel with muted blues and browns dominating the palette.",
+              "on_screen_text": []
+            },
+            {
+              "start_time": "00:10:00",
+              "end_time": "00:12:30",
+              "dialogue_description": "In this tense exchange, Speaker 04, identified as Helena, confronts her daughters, Magdalena and Oscar, about their behavior. She reprimands them for their lack of obedience and reminds them of their role in supporting her. Magdalena, known for her creativity, and Oscar, who often challenges Helena’s authority, resist her commands. Helena insists they follow her instructions without question, emphasizing the need for unity and discipline. She warns them not to engage with external pressures, such as the DA or media, and stresses their responsibility to the church’s future. Magdalena, frustrated, questions why they must live under Helena’s control, implying they deserve more respect. Helena dismisses their complaints, redirecting their focus to the upcoming temple project, which she believes will prove their worth. Despite their resistance, both agree to comply, though their underlying tensions remain. The conversation ends with a fragile agreement, as Helena’s demands are accepted, but the dynamic between mother and daughters remains strained.",
+              "description": "Helena stands in front of her daughters, Magdalena and Oscar, in a large, ornate church sanctuary. Her posture is rigid and commanding as she speaks, gesturing emphatically with her right hand. Magdalena, standing beside her father, has a skeptical expression, her arms crossed defensively. Oscar, positioned further back, listens intently with a serious demeanor. As Helena continues, Magdalena steps forward slightly, raising her voice in protest, while Oscar remains still, watching the confrontation unfold. The marble walls and rows of wooden pews create a solemn backdrop to their tense standoff.",
+              "subjects_and_objects": [
+                "Helena",
+                "Magdalena",
+                "Oscar"
+              ],
+              "actions": [
+                "Helena gestures with her right hand while speaking",
+                "Magdalena crosses her arms and steps forward slightly",
+                "Magdalena raises her voice in protest",
+                "Oscar remains still and watches the confrontation"
+              ],
+              "camera_and_shot": "Medium shot focused on Helena and her two daughters, framing them against the church’s architectural details; slight handheld movement follows Magdalena’s motion as she steps forward.",
+              "lighting_and_color": "Soft natural light streams through tall arched windows, casting gentle highlights on the marble walls and creating warm, diffused illumination throughout the sanctuary. Shadows fall subtly across the wooden pews and stone floors, enhancing the solemn atmosphere.",
+              "on_screen_text": []
+            },
+            {
+              "start_time": "00:12:30",
+              "end_time": "00:15:00",
+              "dialogue_description": "In this tense exchange, Speaker 04, identified as Helena, confronts her daughters, Magdalena and Oscar, about their behavior. She reprimands them for their lack of obedience and reminds them of their role in supporting her. Magdalena, known for her creativity, and Oscar, who often challenges Helena’s authority, resist her commands. Helena insists they follow her instructions without question, emphasizing the need for unity and discipline. She warns them not to engage with external pressures, such as the DA or media, and stresses their responsibility to the church’s future. Magdalena, frustrated, questions why they must live under Helena’s control, implying they deserve more respect. Helena dismisses their complaints, redirecting their focus to the upcoming temple project, which she believes will prove their worth. Despite their resistance, both agree to comply, though their underlying tensions remain. The conversation ends with a fragile agreement, as Helena’s demands are accepted, but the dynamic between mother and daughters remains strained.",
+              "description": "The woman, dressed in a patterned blouse, stands facing a man in a brown shirt near a doorway adorned with textured wallpaper. She holds the door open with her left hand, maintaining eye contact with him. He leans toward her, placing his right hand on her shoulder, and speaks earnestly. Their faces come closer as she gently touches his cheek with her right hand, her fingers brushing his jawline. His gaze meets hers intensely, and he responds by leaning even closer, his eyes narrowing slightly. The background shows a softly lit room with curtains filtering daylight.",
+              "subjects_and_objects": [
+                "woman",
+                "man"
+              ],
+              "actions": [
+                "woman holds the door open with her left hand",
+                "woman maintains eye contact with the man",
+                "man leans toward the woman",
+                "man places his right hand on her shoulder",
+                "woman gently touches his cheek with her right hand",
+                "man narrows his eyes slightly as he leans closer"
+              ],
+              "camera_and_shot": "Close-up shots alternating between the woman and the man, capturing their facial expressions and subtle movements as they lean in and touch each other.",
+              "lighting_and_color": "Warm, ambient indoor lighting filters through sheer curtains, casting soft shadows and illuminating the scene with a golden hue. The color palette consists of earthy tones and muted pastels, contributing to an intimate yet emotionally charged atmosphere.",
+              "on_screen_text": []
+            },
+            {
+              "start_time": "00:15:00",
+              "end_time": "00:17:30",
+              "dialogue_description": "SPEAKER_03, a close associate of Emilio Vazquez, confronts SPEAKER_07, another key figure in the church, about Remigio Cardenas's alleged involvement in the murder of Armando Badajoz. SPEAKER_03 presses SPEAKER_07 for information, suggesting that Remigio may have been manipulated or bribed. SPEAKER_07 responds with a metaphor from the parable of the sower, implying that Remigio, like the seeds, was planted in poor soil and failed to grow. SPEAKER_03, frustrated by the religious analogy, insists on direct action, urging SPEAKER_07 to question Remigio himself. SPEAKER_07 acknowledges the difficulty of reaching Remigio, noting he only speaks to his lawyer. The conversation shifts to SPEAKER_04 and SPEAKER_11, who discuss financial matters, hinting at a broader network of corruption tied to the church and political power. SPEAKER_11 expresses concern about potential legal consequences, while SPEAKER_04 reassures her, suggesting the situation is under control. The exchange reveals a complex web of alliances and betrayals, with both religious and political stakes at play. The dialogue ends with a sense of unresolved tension, underscoring the moral ambiguity and danger surrounding the central conflict.",
+              "description": "Two men sit closely together in a lush garden surrounded by flowering plants and trees. One man, wearing a plaid shirt over a dark t-shirt, looks down at something in his hands before looking up sharply at the other man. The second man, dressed in a light blue button-down shirt, leans forward attentively, his expression shifting from thoughtful to concerned as he listens. Both men appear engaged in a serious conversation, occasionally glancing at each other or downward, indicating deep thought or reflection.",
+              "subjects_and_objects": [
+                "SPEAKER_03",
+                "SPEAKER_07"
+              ],
+              "actions": [
+                "SPEAKER_03 looks down at something in his hands",
+                "SPEAKER_03 looks up sharply at SPEAKER_07",
+                "SPEAKER_07 leans forward attentively",
+                "SPEAKER_07 shifts his gaze between SPEAKER_03 and downward",
+                "SPEAKER_03 turns his head to look directly at SPEAKER_07"
+              ],
+              "camera_and_shot": "Close-up shots focusing alternately on each man's face and upper body, capturing their expressions and interactions within the garden setting.",
+              "lighting_and_color": "Natural sunlight filters through the foliage, casting dappled patterns on the ground and highlighting vibrant greenery and colorful flowers. The overall tone is bright and vivid, contrasting with the intensity of the conversation.",
+              "on_screen_text": []
+            },
+            {
+              "start_time": "00:17:30",
+              "end_time": "00:20:00",
+              "dialogue_description": "SPEAKER_03, a close associate of Emilio Vazquez, confronts SPEAKER_07, another key figure in the church, about Remigio Cardenas's alleged involvement in the murder of Armando Badajoz. SPEAKER_03 presses SPEAKER_07 for information, suggesting that Remigio may have been manipulated or bribed. SPEAKER_07 responds with a metaphor from the parable of the sower, implying that Remigio, like the seeds, was planted in poor soil and failed to grow. SPEAKER_03, frustrated by the religious analogy, insists on direct action, urging SPEAKER_07 to question Remigio himself. SPEAKER_07 acknowledges the difficulty of reaching Remigio, noting he only speaks to his lawyer. The conversation shifts to SPEAKER_04 and SPEAKER_11, who discuss financial matters, hinting at a broader network of corruption tied to the church and political power. SPEAKER_11 expresses concern about potential legal consequences, while SPEAKER_04 reassures her, suggesting the situation is under control. The exchange reveals a complex web of alliances and betrayals, with both religious and political stakes at play. The dialogue ends with a sense of unresolved tension, underscoring the moral ambiguity and danger surrounding the central conflict.",
+              "description": "A woman with short dark hair walks briskly through an office hallway, passing colleagues and heading toward a door marked 'PSYCHOLOGICAL SERVICES'. Her expression is focused and determined as she moves purposefully. As she approaches the door, she pauses briefly, then enters a small room where another woman sits behind a desk. The second woman, wearing a floral blouse, looks up from her work, appearing surprised or startled by the visitor's arrival.",
+              "subjects_and_objects": [
+                "woman",
+                "second woman"
+              ],
+              "actions": [
+                "woman walks briskly down a hallway",
+                "woman passes colleagues in the hallway",
+                "woman stops at a door labeled 'PSYCHOLOGICAL SERVICES'",
+                "woman enters a room",
+                "second woman looks up from her desk"
+              ],
+              "camera_and_shot": "Follow shot tracking the woman walking down the hallway, transitioning to a medium shot as she enters the room, ending with a static shot showing both women in the room.",
+              "lighting_and_color": "Bright, evenly lit interior space with natural light coming through windows. Walls are neutral-toned, and furniture includes standard office desks and chairs. The overall color scheme is composed of beige, gray, and white tones, creating a professional and sterile environment.",
+              "on_screen_text": []
+            },
+            {
+              "start_time": "00:20:00",
+              "end_time": "00:25:00",
+              "dialogue_description": "SPEAKER_17, a figure closely tied to Pastor Emilio Vazquez, confronts Julio about his lack of cooperation. Julio, who has been unresponsive to calls, is pressed for his \"game plan,\" implying he has a strategy to navigate the unfolding crisis. Julio resists, refusing to engage, and when asked where his father holds private meetings, he hesitates, revealing he hasn’t spoken to his father in years. SPEAKER_03, Julio’s father, interjects, expressing concern about the riots and the murder of Armando Badajoz, suggesting his father may have been involved. SPEAKER_04, likely a member of the church, reassures SPEAKER_08, who is connected to the political sphere, that he is not responsible for the violence and that his actions are not bound by political obligations. The conversation shifts to faith, with SPEAKER_04 quoting scripture, emphasizing self-denial and sacrifice as part of following Christ. SPEAKER_08, grappling with his role, acknowledges the weight of his responsibilities, hinting at a deeper conflict between duty and personal conviction. The exchange ends with a sense of unresolved tension, underscoring the moral and spiritual stakes at play.",
+              "description": "A man in a suit stands beside a parked car near a wooden gate, facing another man in a light blue shirt who gestures toward him. The man in the suit steps back slightly, maintaining eye contact, while the other man continues gesturing. They stand in a wooded area with dense greenery and a chain-link fence in the background.",
+              "subjects_and_objects": [
+                "man in suit",
+                "man in light blue shirt"
+              ],
+              "actions": [
+                "man in suit steps back slightly",
+                "man in light blue shirt gestures toward man in suit",
+                "both men maintain eye contact"
+              ],
+              "camera_and_shot": "Medium shot framing both men standing side-by-side, with slight camera movement panning left to follow the gesture.",
+              "lighting_and_color": "Soft, diffused daylight filtering through tree canopy; muted greens and browns dominate the scene with shadows cast across the ground.",
+              "on_screen_text": []
+            },
+            {
+              "start_time": "00:25:00",
+              "end_time": "00:30:00",
+              "dialogue_description": "During this tense exchange, SPEAKER_16 presents a detailed account of the chaos during the church event, claiming it was orchestrated to divert security and allow Remigio Cardenas to act freely. SPEAKER_16 insists the coordination was too elaborate for Cardenas to manage alone, suggesting a broader conspiracy. SPEAKER_12, initially skeptical, listens intently before asking for a slower explanation. When SPEAKER_16 recounts the sequence of events, SPEAKER_12 grows increasingly uneasy, acknowledging the complexity but expressing doubt about the full picture. SPEAKER_12 also notes that the accused, SPEAKER_09, has a history of violent behavior, adding to the suspicion around Cardenas' actions. SPEAKER_09, the public defender, denies involvement in the murder and asserts his right to represent Cardenas despite his past. The conversation ends with mutual uncertainty—SPEAKER_16 remains convinced of a larger plot, while SPEAKER_12 is left questioning the truth behind the chaos. The exchange highlights the growing tension between the church and external forces, as well as the personal stakes for those involved.",
+              "description": "In a dimly lit office, a woman with long brown hair, dressed in a dark blazer over a red top, stands assertively with her hands on her hips. She faces a man in a striped shirt who is bent over a desk, writing frantically. Behind them, another man in a dark suit leans against a wall, observing the interaction with a serious expression. The woman turns sharply, indicating urgency, while the man in the suit watches her move.",
+              "subjects_and_objects": [
+                "woman",
+                "man in striped shirt",
+                "man in dark suit"
+              ],
+              "actions": [
+                "woman stands with hands on hips",
+                "woman turns sharply",
+                "man in striped shirt writes frantically",
+                "man in dark suit leans against wall",
+                "man in dark suit observes the interaction"
+              ],
+              "camera_and_shot": "Static medium shot capturing all three individuals in the office space, focusing on their interactions and postures.",
+              "lighting_and_color": "Dim indoor lighting with warm tones, casting soft shadows. The walls are lined with shelves holding files, and the floor is carpeted in a neutral shade. The overall ambiance feels tense and confined.",
+              "on_screen_text": []
+            },
+            {
+              "start_time": "00:30:00",
+              "end_time": "00:34:31",
+              "dialogue_description": "During this intense exchange, Remigio Cardenas, accused of murdering Armando Badajoz, confesses to the crime during his interrogation. When confronted about his guilt, he claims he did not kill Badajoz but instead confessed to stabbing Pastor Emilio, revealing his deep involvement in the chaos surrounding the church. His admission shocks those present, as it directly implicates the pastor in the violence. Remigio’s insistence on his lawyer, Julio Clámez, highlights his desperation and the potential for legal maneuvering. Meanwhile, Speaker 08, likely Emilio, delivers a powerful monologue reflecting on faith and abandonment, drawing parallels between his current suffering and Jesus’ crucifixion. He expresses his belief that through faithfulness, he will rise again, symbolizing both personal and spiritual renewal. His declaration of loyalty to God, despite feeling forsaken, underscores his internal struggle and resolve. The exchange ends with multiple voices chanting \"Amen,\" signifying a shared recognition of the gravity of the moment and the hope for redemption.",
+              "description": "A man in a black robe walks slowly down the center aisle of an empty church, clutching a book tightly. As he moves forward, the camera tracks his progress, keeping him centered. He pauses briefly, looking upward with a solemn expression, then lowers his gaze back to the book. The vastness of the church surrounds him, its rows of chairs stretching into the distance under bright natural light streaming through tall windows.",
+              "subjects_and_objects": [
+                "man in black robe",
+                "book"
+              ],
+              "actions": [
+                "man in black robe walks slowly down aisle",
+                "man in black robe clutches book tightly",
+                "man in black robe pauses mid-stride",
+                "man in black robe looks upward solemnly",
+                "man in black robe lowers gaze to book"
+              ],
+              "camera_and_shot": "Tracking shot moving backward along the central aisle, maintaining focus on the man walking toward the altar.",
+              "lighting_and_color": "Bright, even natural light floods the interior from large windows, illuminating the polished floors and wooden pews. The color palette is dominated by cool whites and beiges, contrasted by the man's dark attire.",
+              "on_screen_text": []
+            }
+          ],
+          "segments_parsed": 11,
+          "segments_total": 11,
+          "vlm_memory_scenes": 2,
+          "visual_only": false,
+          "extract_visual": false,
+          "memory_compacted": false
+        },
+        "timings": {
+          "stage": "vlm",
+          "started_at": "2026-11-20T02:29:42.411575+00:00",
+          "ended_at": "2026-11-20T02:48:29.054138+00:00",
+          "wall_seconds": 1126.643,
+          "spans": [
+            {
+              "name": "vlm_load",
+              "started_at": "2026-11-20T02:33:08.967894+00:00",
+              "ended_at": "2026-11-20T02:38:30.213421+00:00",
+              "seconds": 321.246,
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 9904.0,
+              "vram_allocated_mib": 9847.1
+            },
+            {
+              "name": "vlm_generate",
+              "started_at": "2026-11-20T02:38:30.746785+00:00",
+              "ended_at": "2026-11-20T02:39:43.134156+00:00",
+              "seconds": 72.387,
+              "window": 1,
+              "start": "00:00:00",
+              "end": "00:02:30",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 15688.0,
+              "vram_allocated_mib": 15511.2
+            },
+            {
+              "name": "vlm_generate",
+              "started_at": "2026-11-20T02:39:43.150071+00:00",
+              "ended_at": "2026-11-20T02:40:27.679045+00:00",
+              "seconds": 44.529,
+              "window": 2,
+              "start": "00:02:30",
+              "end": "00:05:00",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 15758.0,
+              "vram_allocated_mib": 15315.6
+            },
+            {
+              "name": "vlm_generate",
+              "started_at": "2026-11-20T02:40:27.688615+00:00",
+              "ended_at": "2026-11-20T02:41:21.286683+00:00",
+              "seconds": 53.598,
+              "window": 3,
+              "start": "00:05:00",
+              "end": "00:07:30",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 15708.0,
+              "vram_allocated_mib": 15481.6
+            },
+            {
+              "name": "vlm_generate",
+              "started_at": "2026-11-20T02:41:21.297870+00:00",
+              "ended_at": "2026-11-20T02:42:14.772837+00:00",
+              "seconds": 53.475,
+              "window": 4,
+              "start": "00:07:30",
+              "end": "00:10:00",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 15708.0,
+              "vram_allocated_mib": 15482.7
+            },
+            {
+              "name": "vlm_generate",
+              "started_at": "2026-11-20T02:42:14.782716+00:00",
+              "ended_at": "2026-11-20T02:43:04.373053+00:00",
+              "seconds": 49.59,
+              "window": 5,
+              "start": "00:10:00",
+              "end": "00:12:30",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 15748.0,
+              "vram_allocated_mib": 15389.1
+            },
+            {
+              "name": "vlm_generate",
+              "started_at": "2026-11-20T02:43:04.382819+00:00",
+              "ended_at": "2026-11-20T02:43:56.471133+00:00",
+              "seconds": 52.088,
+              "window": 6,
+              "start": "00:12:30",
+              "end": "00:15:00",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 15748.0,
+              "vram_allocated_mib": 15244.8
+            },
+            {
+              "name": "vlm_generate",
+              "started_at": "2026-11-20T02:43:56.480233+00:00",
+              "ended_at": "2026-11-20T02:44:48.202464+00:00",
+              "seconds": 51.722,
+              "window": 7,
+              "start": "00:15:00",
+              "end": "00:17:30",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 15748.0,
+              "vram_allocated_mib": 15392.4
+            },
+            {
+              "name": "vlm_generate",
+              "started_at": "2026-11-20T02:44:48.213433+00:00",
+              "ended_at": "2026-11-20T02:45:40.775617+00:00",
+              "seconds": 52.562,
+              "window": 8,
+              "start": "00:17:30",
+              "end": "00:20:00",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 15736.0,
+              "vram_allocated_mib": 15356.5
+            },
+            {
+              "name": "vlm_generate",
+              "started_at": "2026-11-20T02:45:40.784827+00:00",
+              "ended_at": "2026-11-20T02:46:35.576562+00:00",
+              "seconds": 54.792,
+              "window": 9,
+              "start": "00:20:00",
+              "end": "00:25:00",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 15748.0,
+              "vram_allocated_mib": 15507.7
+            },
+            {
+              "name": "vlm_generate",
+              "started_at": "2026-11-20T02:46:35.587040+00:00",
+              "ended_at": "2026-11-20T02:47:36.475652+00:00",
+              "seconds": 60.889,
+              "window": 10,
+              "start": "00:25:00",
+              "end": "00:30:00",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 15758.0,
+              "vram_allocated_mib": 15486.2
+            },
+            {
+              "name": "vlm_generate",
+              "started_at": "2026-11-20T02:47:36.486543+00:00",
+              "ended_at": "2026-11-20T02:48:25.712636+00:00",
+              "seconds": 49.226,
+              "window": 11,
+              "start": "00:30:00",
+              "end": "00:34:31",
+              "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+              "vram_reserved_mib": 15728.0,
+              "vram_allocated_mib": 15413.7
+            }
+          ]
+        },
+        "output_file": "The_Kingdom.S01E02.mkv_vlm.json",
+        "raw_file": "The_Kingdom.S01E02.mkv_vlm_raw.txt",
+        "sidecar_file": "The_Kingdom.S01E02.mkv_vlm_sidecar.json",
+        "timings_file": "The_Kingdom.S01E02.mkv_vlm_timings.json",
+        "frames_file": "The_Kingdom.S01E02.mkv_vlm_frames.json"
+      },
+      {
+        "stage": "llm",
+        "status": "success",
+        "result": {
+          "recsys_metadata": {
+            "primary_genre": "Drama",
+            "sub_genres": [
+              "Political Thriller",
+              "Religious Drama",
+              "Moral Conflict"
+            ],
+            "pacing": "Moderate",
+            "mood": [
+              "Tense",
+              "Reflective",
+              "Morally Ambiguous"
+            ]
+          },
+          "search_and_discovery": {
+            "semantic_tags": [
+              "Church politics",
+              "Betrayal",
+              "Faith crisis",
+              "Power dynamics"
+            ],
+            "main_topics": [
+              "Criminal justice",
+              "Spiritual leadership",
+              "Internal conflict"
+            ]
+          },
+          "audience_profiling": {
+            "target_age_group": "Adults",
+            "viewer_interests": [
+              "Political intrigue",
+              "Religious themes",
+              "Character-driven stories"
+            ]
+          },
+          "content_summary": {
+            "visual_style": "Dark, cool-toned lighting with blue hues and muted colors dominates the visual style, creating a somber and introspective mood.",
+            "narrative_hook": "Pastor Emilio Vazquez is forced to confront his role in a murder linked to his church's political connections, unraveling a web of conspiracies and moral dilemmas."
+          }
+        },
+        "timings": {
+          "stage": "llm",
+          "started_at": "2026-11-20T02:48:29.054412+00:00",
+          "ended_at": "2026-11-20T02:59:23.619460+00:00",
+          "wall_seconds": 654.565,
+          "spans": [
+            {
+              "name": "llm_load",
+              "started_at": "2026-11-20T02:48:29.728556+00:00",
+              "ended_at": "2026-11-20T02:58:56.353576+00:00",
+              "seconds": 626.625,
+              "model_id": "Qwen/Qwen3-8B",
+              "vram_reserved_mib": 9924.0,
+              "vram_allocated_mib": 9882.0
+            },
+            {
+              "name": "llm_generate",
+              "started_at": "2026-11-20T02:58:56.354392+00:00",
+              "ended_at": "2026-11-20T02:59:22.568362+00:00",
+              "seconds": 26.214,
+              "model_id": "Qwen/Qwen3-8B",
+              "attempt": 1,
+              "vram_reserved_mib": 11648.0,
+              "vram_allocated_mib": 11412.6
+            }
+          ]
+        },
+        "output_file": "The_Kingdom.S01E02.mkv_llm.json",
+        "timings_file": "The_Kingdom.S01E02.mkv_llm_timings.json"
+      }
+    ],
+    "stages_ran": [
+      "timeline",
+      "audio",
+      "bassl",
+      "dialogue",
+      "vlm",
+      "llm",
+      "evidence"
+    ],
+    "archived_files": [
+      "The_Kingdom.S01E02.mkv_timeline.json",
+      "The_Kingdom.S01E02.mkv_audio.json",
+      "The_Kingdom.S01E02.mkv_audio_timings.json",
+      "The_Kingdom.S01E02.mkv_bassl.json",
+      "The_Kingdom.S01E02.mkv_dialogue.json",
+      "The_Kingdom.S01E02.mkv_dialogue_timings.json",
+      "The_Kingdom.S01E02.mkv_vlm.json",
+      "The_Kingdom.S01E02.mkv_vlm_timings.json",
+      "The_Kingdom.S01E02.mkv_vlm_frames.json",
+      "The_Kingdom.S01E02.mkv_vlm_raw.txt",
+      "The_Kingdom.S01E02.mkv_vlm_sidecar.json",
+      "The_Kingdom.S01E02.mkv_frame_plan.json",
+      "The_Kingdom.S01E02.mkv_llm.json",
+      "The_Kingdom.S01E02.mkv_llm_timings.json",
+      "The_Kingdom.S01E02.mkv_manifest.json",
+      "The_Kingdom.S01E02.mkv_evidence.json"
+    ]
+  }
+]
