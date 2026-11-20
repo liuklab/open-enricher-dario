@@ -4,6 +4,10 @@ Running log of commits pushed to `origin/debug` for the GitHub↔cluster loop. N
 
 ## 2026-11-20
 
+### next_run: BaSSL HIMYM smoke
+
+- Added `next_run/smoke_bassl_himym.sh` (GPU sbatch) for `How_I_Met_Your_Mother.S01E02.mkv` via `test_scripts/bassl_scenes.py`.
+
 ### test_scripts: EVA/Q-Former encode smoke
 
 - Added `test_scripts/eva_encode.py`: calls `encode_video`; exits 0 only on real tokens or the known unbound-forward fallback with checkpoint present.
