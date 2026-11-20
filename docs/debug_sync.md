@@ -15,6 +15,8 @@ A pass looks at `jobs_logs/` and `runs/`.
 
 The job id is the number in the SLURM log name, as in `open-enricher-122096.out`. The script asks `squeue -u $USER` which of those ids are still present. A failure of `squeue` aborts the pass. It does not treat a controller outage as "every job finished".
 
+A command committed under `commands/` is executed on fetch. Its transcript is `jobs_logs/command-<name>-<commit>.log` and this same pass publishes it. The name does not end in `-<jobid>.out`, so it is not treated as a running SLURM job. See [debug_batch.md](debug_batch.md).
+
 ## What the commit contains
 
 The commit is the whole tree, not only the file that woke the pass: `jobs_logs/`, `runs/`, and any other project file that is not ignored. The message is `Sync job logs and runs`.

@@ -1,6 +1,6 @@
 # Planned runs on adalovelace
 
-New runs are shell scripts in `next_run/`. An agent working through GitHub commits those scripts on `debug`. This machine fetches that branch and submits each new or changed script with `sbatch`. A push that does not add or modify one of those scripts does not start a job.
+An agent working through GitHub commits on `debug`. This machine fetches that branch. A new or changed shell script in `next_run/` is submitted with `sbatch`. A new or changed shell script in `commands/` is executed on the login node, and its output is published back on `debug` through the log sync. A push that touches neither directory does not start a job or a command.
 
 The checkout that moves is `/SLURM_shared/st_mdp26/open-enricher`. `dataset/`, `runs/`, `jobs_logs/`, `.env`, and `.venv` stay on disk. The cluster address is private, so the fetch runs here, not on a GitHub-hosted runner.
 
@@ -35,7 +35,17 @@ Two passes cannot overlap: the script takes `/SLURM_shared/st_mdp26/actions-runn
 
 If `requirements.txt` or `pyproject.toml` changed in the same range, the pass runs `pip install -r requirements.txt` and `pip install -e .` in `.venv` before `sbatch`.
 
-Pushes that only publish `jobs_logs/`, `runs/`, or `dataset/`, including those from `scripts/push_debug_logs.py`, fast-forward the checkout and do not start a job. See [debug_sync.md](debug_sync.md). That publisher also does not start the runs; it only pushes the tree.
+Pushes that only publish `jobs_logs/`, `runs/`, or `dataset/`, including those from `scripts/push_debug_logs.py`, fast-forward the checkout and do not start a job or a command. See [debug_sync.md](debug_sync.md). That publisher also does not start the runs; it only pushes the tree.
+
+## Commands
+
+`commands/` is for a shell command whose output should come back on `debug`. Commit `commands/<name>.sh` as a bash script. It is not a SLURM job: it has no `#SBATCH` header and it runs on the login node, in `/SLURM_shared/st_mdp26/open-enricher`, with `.venv/bin` on `PATH`. GPU experiments stay in `next_run/`.
+
+The watcher runs each added or changed `commands/*.sh` once, after the `sbatch` calls from the same fetch. Standard output and standard error go to `jobs_logs/command-<name>-<commit>.log`. The commit in the file name is the one that brought the script. The transcript starts with `script`, `commit`, and `started`, and ends with `exit` and `finished`. Exit 124 means the command was stopped after 15 minutes. A non-zero exit is still published; the command is not run again unless a later commit changes the script.
+
+`scripts/push_debug_logs.py` is already running on this login node. It treats that transcript like any other file under `jobs_logs/` and pushes it to `origin/debug`. While a SLURM job from `jobs_logs/` is queued or running, the push waits up to 10 minutes. Otherwise the next poll, about 30 seconds, pushes it. The agent reads the transcript on `debug` after that push.
+
+A command must not edit files under `commands/` or `next_run/`. The following fetch would see those scripts as changed and execute them again.
 
 ## When the fast-forward does not happen
 
