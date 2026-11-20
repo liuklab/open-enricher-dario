@@ -37,8 +37,11 @@ insightface==2.1
 # --- BaSSL scene segmentation (ModelScope) ---
 # Do not install the modelscope[cv] extra: it would downgrade packages the
 # GPU stack already pins. datasets 5.x is required next to fsspec 2026.x.
+# decord is required by the ModelScope movie-scene video preprocessor; pin
+# neither a version nor modelscope[cv] so the torch/CUDA stack stays intact.
 modelscope==1.40.3
 datasets==5.2.0
 addict
 simplejson
+decord
 https://modelscope.oss-cn-beijing.aliyuncs.com/releases/dependencies/shotdetect_scenedetect_lgss-0.0.4-py3-none-any.whl
