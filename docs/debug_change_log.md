@@ -4,6 +4,10 @@ Running log of commits pushed to `origin/debug` for the GitHub↔cluster loop. N
 
 ## 2026-11-20
 
+### next_run: TalkNet HIMYM smoke
+
+- Added `next_run/smoke_talknet_himym.sh` (GPU sbatch) for HIMYM TalkNet adapter probe via `test_scripts/talknet_speakers.py`.
+
 ### next_run: InsightFace HIMYM smoke
 
 - Added `next_run/smoke_insightface_himym.sh` (GPU sbatch) for HIMYM face reappearance probe via `test_scripts/insightface_faces.py`.
