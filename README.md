@@ -93,7 +93,7 @@ python -m open_enricher
 
 Resume uses `runs/local/progress.jsonl`. Pass `--force` to re-run an experiment already marked done. Pass `--no-cache` to ignore the shared audio cache.
 
-See [docs/local_loop.md](docs/local_loop.md), [docs/evaluator.md](docs/evaluator.md), and [docs/debug_sync.md](docs/debug_sync.md). The last one is the login-node process that publishes `jobs_logs/` and `runs/` to the `debug` branch. Planned runs are shell scripts in `next_run/`, and one-shot commands are shell scripts in `commands/`. A fetch of `debug` submits the runs and executes the commands, then publishes command output from `jobs_logs/`: see [docs/debug_batch.md](docs/debug_batch.md).
+See [docs/local_loop.md](docs/local_loop.md) and [docs/evaluator.md](docs/evaluator.md). Agent control on the cluster is via a Cursor self-hosted worker (not a GitHub push→sbatch bridge). SLURM helpers: `run_job.sh`, `run_job_09_12.sh`, `run_experiments.sh`, and `test_scripts/smoke_*.sh` / `test_scripts/run_*.sh` — submit with `sbatch` when needed.
 
 ## Stages
 

@@ -1,48 +1,16 @@
 # Debug branch change log
 
-Running log of commits pushed to `origin/debug` for the GitHub↔cluster loop. Newest entries first.
+Running log of notable commits on `debug`. Newest entries first.
 
 ## 2026-11-20
 
-### commands: probe_sync login-node sync check
+### Remove GitHub↔cluster sync scaffolding
 
-- Added `commands/probe_sync.sh` (login node, no `#SBATCH`, <30s) to print date, hostname, `git rev-parse HEAD`, a short `squeue -u $USER`, and `jobs_logs/command-*.log` basenames. Used to verify automatic command → `jobs_logs` → GitHub sync on `origin/debug`.
-
-### push_debug_logs: stage porcelain paths only
-
-- Root cause: `git add -A -- . ':(exclude).env' ...` still errors when an ignored `.env` exists on the cluster ("paths are ignored by one of your .gitignore files"). Staging now uses only the non-excluded paths from `changed_paths()` (`git add -- <paths>`), so ignored secrets are never named in a pathspec. After ff-merge, `python3 scripts/push_debug_logs.py --once` can finish already-staged command logs.
-
-### gitignore: track command transcripts under jobs_logs
-
-- Root cause: global `*.log` hid `jobs_logs/command-*.log`, so `push_debug_logs` never saw porcelain changes and skipped publishing login-node command transcripts (SLURM `.out`/`.err` were fine). Added `!jobs_logs/command-*.log`; noted in `docs/debug_batch.md` / `docs/debug_sync.md`.
-
-### commands: re-trigger checkpoint path check
-
-- Comment-only touch of `commands/check_model_checkpoints.sh` so it runs once under the new watcher order (saved tip was already at `f23041d`).
-
-### watcher: commands before sbatch
-
-- Reordered `next_run/sync_debug.sh` so changed `commands/*.sh` run on the login node right after fetch/ff-merge (and deps), before any `sbatch` of `next_run/*.sh`. Tip advances only after all sbatch calls succeed; on sbatch failure tip stays put and existing `jobs_logs/command-*-<HEAD>.log` transcripts skip re-runs. Documented in `docs/debug_batch.md`.
-
-### commands: checkpoint path check
-
-- Added `commands/check_model_checkpoints.sh` (login node, 15 min, no GPU) to verify `dataset/models_cache/external/{bassl,insightface/buffalo_l,talknet,lavis}` and print non-CUDA import/version lines.
-
-### next_run: EVA/Q-Former HIMYM smoke
-
-- Added `next_run/smoke_eva_himym.sh` (GPU sbatch) for HIMYM visual encode probe via `test_scripts/eva_encode.py`.
-
-### next_run: TalkNet HIMYM smoke
-
-- Added `next_run/smoke_talknet_himym.sh` (GPU sbatch) for HIMYM TalkNet adapter probe via `test_scripts/talknet_speakers.py`.
-
-### next_run: InsightFace HIMYM smoke
-
-- Added `next_run/smoke_insightface_himym.sh` (GPU sbatch) for HIMYM face reappearance probe via `test_scripts/insightface_faces.py`.
-
-### next_run: BaSSL HIMYM smoke
-
-- Added `next_run/smoke_bassl_himym.sh` (GPU sbatch) for `How_I_Met_Your_Mother.S01E02.mkv` via `test_scripts/bassl_scenes.py`.
+- Agent control is now via the Cursor self-hosted worker on the cluster; do not use GitHub push→sbatch as an agent bridge.
+- Deleted `commands/`, `next_run/sync_debug.sh`, `scripts/push_debug_logs.py`, `docs/debug_batch.md`, `docs/debug_sync.md`, and the untracked `.github/workflows/deploy-debug.yml` bridge workflow.
+- Kept useful SLURM helpers: moved `next_run/smoke_*.sh` → `test_scripts/`, `next_run/run_experiments.sh` → repo root next to `run_job.sh` / `run_job_09_12.sh`.
+- Removed the `!jobs_logs/command-*.log` gitignore exception and stopped recommending cron for `sync_debug`.
+- Left experiment pipeline code, variants 09–12, `test_scripts/` smokes, and `jobs_logs/` / `runs/` outputs in place.
 
 ### test_scripts: EVA/Q-Former encode smoke
 
