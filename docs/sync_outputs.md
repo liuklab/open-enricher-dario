@@ -1,5 +1,7 @@
 # Sync experiment outputs
 
+This page copies `runs/local/` to a PC with `rsync`. Publishing the same tree to GitHub on the `debug` branch is a separate process: see [debug_sync.md](debug_sync.md).
+
 Experiment archives live on the GPU host under `runs/local/`. Copy them to your PC with `rsync`. Run the command in a terminal on your PC, from your local clone of this repository (the directory that contains `runs/`).
 
 The integrated terminal of this workspace is already an SSH session on the host: the prompt is `st_mdp26@adalovelace`. Running the command there connects back to the same machine (`adalovelace` resolves to `127.0.0.1`) and writes into the folder it just read. Nothing is copied to your PC.

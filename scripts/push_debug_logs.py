@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
-"""Publish SLURM logs from jobs_logs/ to origin/debug.
+"""Publish the working tree to origin/debug when an experiment moves.
 
-The script only stages files under jobs_logs/. It does not switch branches
-and it does not commit the rest of the working tree.
+A pass is triggered by a change under jobs_logs/ or runs/. The commit then
+includes the whole tree: logs, runs, and any other project file that is
+not ignored. .vscode, .github, and secret files are left out. The script does not
+switch branches.
 
 Cadence:
-- a log whose SLURM job is still queued or running is pushed at most once
-  every 10 minutes, even if the file grows every second;
-- a log whose job has left the queue is pushed on the next poll.
+- while a SLURM job from jobs_logs/ is still queued or running, changes are
+  pushed at most once every 10 minutes;
+- when that job has left the queue, the next poll pushes immediately.
 
 Run one pass (cron, once a minute is enough):
 
@@ -27,6 +29,7 @@ from __future__ import annotations
 import argparse
 import fcntl
 import json
+import os
 import re
 import subprocess
 import sys
@@ -43,6 +46,14 @@ INTERVAL_SECONDS = 10 * 60
 AUTHOR_NAME = "Dario Napolitano"
 AUTHOR_EMAIL = "darionapo2.0@gmail.com"
 JOB_FILE = re.compile(r"-(\d+)\.(?:out|err)$")
+ADD_PATHSPEC = [
+    ".",
+    ":(exclude).vscode",
+    ":(exclude).github",
+    ":(exclude).env",
+    ":(exclude).env.*",
+    ":(exclude)config/secrets.toml",
+]
 
 
 class SyncError(RuntimeError):
@@ -77,37 +88,54 @@ def save_state(state: dict) -> None:
     STATE_PATH.write_text(json.dumps(state, indent=2) + "\n", encoding="utf-8")
 
 
-def log_files() -> list[Path]:
+def log_job_ids() -> set[str]:
     if not LOG_DIR.is_dir():
-        return []
-    return sorted(
-        path for path in LOG_DIR.iterdir() if path.is_file() and JOB_FILE.search(path.name)
+        return set()
+    return {
+        match.group(1)
+        for path in LOG_DIR.iterdir()
+        if path.is_file() and (match := JOB_FILE.search(path.name))
+    }
+
+
+def is_excluded(path: str) -> bool:
+    return (
+        path == ".env"
+        or path.startswith((".vscode/", ".github/", ".env"))
+        or path == "config/secrets.toml"
     )
 
 
-def dirty_log_paths() -> list[str]:
-    result = git("status", "--porcelain", "--untracked-files=all", "--", "jobs_logs")
+def is_trigger(path: str) -> bool:
+    return path.startswith(("jobs_logs/", "runs/"))
+
+
+def changed_paths() -> list[str]:
+    result = git("status", "--porcelain", "--untracked-files=all")
     paths: list[str] = []
     for line in result.stdout.splitlines():
         path = line[3:]
         if " -> " in path:
             path = path.split(" -> ", 1)[1]
-        if path.startswith("jobs_logs/"):
+        if path and not is_excluded(path):
             paths.append(path)
     return paths
 
 
 def running_job_ids(job_ids: set[str]) -> set[str]:
-    """Return the subset of job_ids still visible to squeue.
+    """Return which of job_ids are still in this user's queue.
 
-    An unknown id is treated as finished. A SLURM outage aborts the pass
-    so a down controller is not mistaken for every job having ended.
+    Old log files are not passed to squeue: an unknown id makes SLURM
+    reject the whole query. A controller failure aborts the pass.
     """
     if not job_ids:
         return set()
+    user = os.environ.get("USER")
+    if not user:
+        raise SyncError("USER is unset; refusing to guess which jobs are running")
     try:
         result = subprocess.run(
-            ["squeue", "-h", "-o", "%i", "-j", ",".join(sorted(job_ids))],
+            ["squeue", "-h", "-u", user, "-o", "%i"],
             text=True,
             capture_output=True,
             check=False,
@@ -116,10 +144,9 @@ def running_job_ids(job_ids: set[str]) -> set[str]:
         raise SyncError("squeue is not on PATH; refusing to guess which jobs finished") from exc
     if result.returncode != 0:
         message = (result.stderr or result.stdout).strip()
-        if "Invalid job id" not in message:
-            raise SyncError(f"squeue failed: {message}")
-        return set()
-    return {line.strip() for line in result.stdout.splitlines() if line.strip()}
+        raise SyncError(f"squeue failed: {message}")
+    visible = {line.strip() for line in result.stdout.splitlines() if line.strip()}
+    return visible & job_ids
 
 
 def job_id_of(path: str) -> str | None:
@@ -127,27 +154,28 @@ def job_id_of(path: str) -> str | None:
     return match.group(1) if match else None
 
 
-def due_paths(dirty: list[str], running: set[str], last_push: float, now: float) -> list[str]:
-    interval_open = now - last_push >= INTERVAL_SECONDS
-    due: list[str] = []
-    for path in dirty:
-        job_id = job_id_of(path)
-        finished = job_id is not None and job_id not in running
-        if finished or interval_open:
-            due.append(path)
-    return due
+def snapshot_is_due(triggers: list[str], running: set[str], last_push: float, now: float) -> bool:
+    if not triggers:
+        return False
+    dirty_jobs = {job_id for path in triggers if (job_id := job_id_of(path))}
+    finished = dirty_jobs - running
+    if finished or not running:
+        return True
+    return now - last_push >= INTERVAL_SECONDS
 
 
-def commit_logs(paths: list[str], running: set[str]) -> None:
-    git("add", "--", *paths)
-    finished = sorted({job_id_of(path) for path in paths if job_id_of(path) not in running})
-    still_running = sorted({job_id_of(path) for path in paths if job_id_of(path) in running})
+def commit_snapshot(paths: list[str], running: set[str]) -> None:
+    git("add", "-A", "--", *ADD_PATHSPEC)
+    dirty_jobs = {job_id for path in paths if (job_id := job_id_of(path))}
+    finished = sorted(dirty_jobs - running)
+    still_running = sorted(dirty_jobs & running)
     parts = []
     if finished:
-        parts.append("finished " + ", ".join(job for job in finished if job))
+        parts.append("finished " + ", ".join(finished))
     if still_running:
         parts.append("running " + ", ".join(still_running))
-    message = "Update SLURM job logs (" + "; ".join(parts) + ")."
+    detail = f" ({'; '.join(parts)})" if parts else ""
+    message = f"Sync job logs and runs{detail}."
     git(
         "-c",
         f"user.name={AUTHOR_NAME}",
@@ -184,28 +212,28 @@ def sync_once(dry_run: bool) -> str:
 
     state = load_state()
     now = time.time()
-    dirty = dirty_log_paths()
-    job_ids = {job_id for path in dirty if (job_id := job_id_of(path))}
-    running = running_job_ids(job_ids)
-    due = due_paths(dirty, running, float(state.get("last_push") or 0), now)
+    changes = changed_paths()
+    triggers = [path for path in changes if is_trigger(path)]
+    running = running_job_ids(log_job_ids())
+    due = snapshot_is_due(triggers, running, float(state.get("last_push") or 0), now)
 
     if dry_run:
-        waiting = [path for path in dirty if path not in due]
+        action = "would commit the working tree" if due else "would hold"
         return (
-            f"dry-run: would commit {len(due)} log file(s), "
-            f"hold {len(waiting)} until the 10 minute mark or job end, "
+            f"dry-run: {action}; trigger files={len(triggers)}, "
+            f"tree files={len(changes)}, running jobs={sorted(running)}, "
             f"push pending={bool(state.get('push_pending'))}"
         )
 
     if due:
-        commit_logs(due, running)
+        commit_snapshot(changes, running)
         state["push_pending"] = True
         save_state(state)
 
     if not state.get("push_pending"):
-        if dirty and not due:
-            return f"holding {len(dirty)} growing log file(s) until the next 10 minute push"
-        return "jobs_logs is unchanged"
+        if triggers:
+            return f"holding {len(triggers)} changed log and run file(s) until the next 10 minute push"
+        return "jobs_logs and runs are unchanged"
 
     if not ahead_of_origin():
         state["push_pending"] = False
