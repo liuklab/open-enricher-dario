@@ -1,0 +1,25 @@
+script: commands/probe_sync.sh
+commit: a1155a7e12a9b7f75023df860680a271b1839cd5
+started: 2026-11-20 15:20:03
+----
+=== probe_sync ===
+date:     2026-11-20T14:20:03Z
+hostname: adalovelace
+HEAD:     a1155a7e12a9b7f75023df860680a271b1839cd5
+
+=== squeue -u $USER (short) ===
+             JOBID PARTITION                           NAME    STATE       TIME
+            122347 all-nodes              smoke-bassl-himym  PENDING       0:00
+            122350 all-nodes            smoke-talknet-himym  PENDING       0:00
+            122349 all-nodes        smoke-insightface-himym  PENDING       0:00
+            122348 all-nodes                smoke-eva-himym  PENDING       0:00
+
+=== jobs_logs/command-*.log basenames ===
+command-check_model_checkpoints-626d702ef4a5.log
+command-check_model_checkpoints-f23041d4a926.log
+command-probe_sync-a1155a7e12a9.log
+
+probe_sync OK
+----
+exit: 0
+finished: 2026-11-20 15:20:03
