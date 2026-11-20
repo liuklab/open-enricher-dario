@@ -21,6 +21,8 @@ A command committed under `commands/` is executed on fetch. Its transcript is `j
 
 The commit is the whole tree, not only the file that woke the pass: `jobs_logs/`, `runs/`, and any other project file that is not ignored. The message is `Sync job logs and runs`.
 
+Staging uses the porcelain path list (after the exclusions below), not `git add -A` with `:(exclude)` pathspecs. Naming an ignored file in a pathspec — even as `:(exclude).env` — makes `git add` fail when `.env` is present.
+
 Left out:
 
 - `.vscode/`

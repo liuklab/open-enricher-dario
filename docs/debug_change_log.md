@@ -4,6 +4,10 @@ Running log of commits pushed to `origin/debug` for the GitHub↔cluster loop. N
 
 ## 2026-11-20
 
+### push_debug_logs: stage porcelain paths only
+
+- Root cause: `git add -A -- . ':(exclude).env' ...` still errors when an ignored `.env` exists on the cluster ("paths are ignored by one of your .gitignore files"). Staging now uses only the non-excluded paths from `changed_paths()` (`git add -- <paths>`), so ignored secrets are never named in a pathspec. After ff-merge, `python3 scripts/push_debug_logs.py --once` can finish already-staged command logs.
+
 ### gitignore: track command transcripts under jobs_logs
 
 - Root cause: global `*.log` hid `jobs_logs/command-*.log`, so `push_debug_logs` never saw porcelain changes and skipped publishing login-node command transcripts (SLURM `.out`/`.err` were fine). Added `!jobs_logs/command-*.log`; noted in `docs/debug_batch.md` / `docs/debug_sync.md`.
