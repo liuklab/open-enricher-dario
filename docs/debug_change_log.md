@@ -10,6 +10,8 @@ Running log of notable commits on `debug`. Newest entries first.
 - At 14:05 the CPU package `onnxruntime==1.32.0` was installed on top of `onnxruntime-gpu==1.26.0`. Both own the `onnxruntime` import, and 1.32 needs CUDA 13, so the CUDA 12 libraries in this venv never loaded. The GPU dist-info was left behind.
 - Removed the CPU package and reinstalled `onnxruntime-gpu==1.26.0` with `--no-deps`. `requirements.txt` already pins that wheel and already says not to install the CPU distribution.
 - `test_scripts/insightface_faces.py` now prints the onnxruntime version and provider list and exits before reading the film when `CUDAExecutionProvider` is missing. `--max-frames` caps a probe. `MAX_FRAMES` on `test_scripts/smoke_insightface_himym.sh` forwards that cap. The pipeline call still reads the whole file.
+- After the reinstall the login interpreter reports onnxruntime 1.26.0 with `CUDAExecutionProvider` present. The CPU distribution is gone.
+- Submitted job `122559` (`insightface-cuda-probe`, `MAX_FRAMES=20`) to read a few HIMYM frames on a GPU. It is pending for Resources; `squeue --start` estimated 2026-11-21 10:38. The finish watcher is tracking that id. No second probe was submitted on top of it.
 
 ### Slurm finish watcher
 
