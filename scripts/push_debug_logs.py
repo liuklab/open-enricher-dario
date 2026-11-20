@@ -46,14 +46,6 @@ INTERVAL_SECONDS = 10 * 60
 AUTHOR_NAME = "Dario Napolitano"
 AUTHOR_EMAIL = "darionapo2.0@gmail.com"
 JOB_FILE = re.compile(r"-(\d+)\.(?:out|err)$")
-ADD_PATHSPEC = [
-    ".",
-    ":(exclude).vscode",
-    ":(exclude).github",
-    ":(exclude).env",
-    ":(exclude).env.*",
-    ":(exclude)config/secrets.toml",
-]
 
 
 class SyncError(RuntimeError):
@@ -165,7 +157,13 @@ def snapshot_is_due(triggers: list[str], running: set[str], last_push: float, no
 
 
 def commit_snapshot(paths: list[str], running: set[str]) -> None:
-    git("add", "-A", "--", *ADD_PATHSPEC)
+    # Stage only porcelain paths already filtered by is_excluded(). Do not use
+    # `git add -A -- . ':(exclude).env' ...`: naming an ignored path in a
+    # pathspec (even as :(exclude)) makes git add fail with "ignored by one of
+    # your .gitignore files" when .env exists on the cluster.
+    if not paths:
+        raise SyncError("commit_snapshot called with no paths")
+    git("add", "--", *paths)
     dirty_jobs = {job_id for path in paths if (job_id := job_id_of(path))}
     finished = sorted(dirty_jobs - running)
     still_running = sorted(dirty_jobs & running)
