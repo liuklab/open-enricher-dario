@@ -4,6 +4,10 @@ Running log of commits pushed to `origin/debug` for the GitHub↔cluster loop. N
 
 ## 2026-11-20
 
+### test_scripts: EVA/Q-Former encode smoke
+
+- Added `test_scripts/eva_encode.py`: calls `encode_video`; exits 0 only on real tokens or the known unbound-forward fallback with checkpoint present.
+
 ### test_scripts: TalkNet speaker smoke
 
 - Added `test_scripts/talknet_speakers.py`: detect face tracks then call `active_speakers`; exits 0 only when scoring succeeds or the known unbound-forward fallback is returned with checkpoint present.
