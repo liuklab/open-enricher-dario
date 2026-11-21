@@ -8,7 +8,7 @@ Running log of notable commits on `debug`. Newest entries first.
 
 - Job `122809` ran BaSSL on the full HIMYM file and recorded `status=fallback`. Fourteen boundaries were dropped because they had no numeric span, then the fixed 300-second windows were restored. The same file's smoke had 14 scenes.
 - ModelScope puts each span in `timestamps` as clock strings (`00:04:41.573`), not in `start` / `end`. `validate_scene_bounds` now reads that pair, and a clock string in `start` / `end` as well.
-- `test_scripts/run_12_combined_bassl.sh` reruns only the `bassl` stage on the full HIMYM file. The spec matches `12-combined`, under experiment id `12-combined-bassl`, so it does not skip or overwrite the long run. Outputs go under `dataset-bassl-check`, so the fallback already stored for `122809` is not reused.
+- `test_scripts/run_12_combined_bassl.sh` reruns only the `bassl` stage on the full HIMYM file. Job `122853`, Slurm limit 2 hours. The spec matches `12-combined`, under experiment id `12-combined-bassl`, so it does not skip or overwrite the long run. Outputs go under `dataset-bassl-check`, so the fallback already stored for `122809` is not reused.
 
 ### A short archive does not skip the full films
 
