@@ -438,6 +438,8 @@ def run_pipeline(
             results.append(outcome)
             status = str(outcome.get("status") or "failed")
             if experimental:
+                if status not in {"success", "degraded", "fallback", "skipped_cache"}:
+                    logger.error("Stage '%s' failed: %s", name, outcome.get("error"))
                 if name == "timeline" and status == "failed":
                     overall = "failed"
                     break

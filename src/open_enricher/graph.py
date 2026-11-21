@@ -22,6 +22,19 @@ _SELF_RE = re.compile(
 _VOCATIVE_RE = re.compile(
     r"^\s*([A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,2})\s*[,!:]",
 )
+_PROPER_RE = re.compile(r"\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,2})\b")
+# Sentence-initial closed-class words looked like names on the full HIMYM
+# transcript (Okay, It, You, So). They are not character aliases.
+_NAME_STOP = frozenset(
+    {
+        "a", "an", "and", "are", "but", "for", "from", "her", "hey", "him",
+        "his", "how", "if", "in", "it", "its", "just", "like", "man", "me",
+        "my", "no", "not", "now", "of", "oh", "ok", "okay", "on", "or", "our",
+        "she", "so", "that", "the", "their", "them", "then", "there", "they",
+        "this", "to", "uh", "um", "we", "well", "what", "when", "who", "why",
+        "yeah", "yes", "you", "your",
+    }
+)
 
 
 def cosine(left: list[float], right: list[float]) -> float:
@@ -46,6 +59,7 @@ class TrackObservation:
     end: float
     shot_id: str
     co_visible: tuple[str, ...] = ()
+    samples: int = 1
 
 
 @dataclass
@@ -58,6 +72,7 @@ class CharacterNode:
     alias: str | None = None
     provisional: bool = False
     tracks: list[str] = field(default_factory=list)
+    samples: int = 1
 
 
 @dataclass
@@ -98,6 +113,14 @@ class Edge:
         }
 
 
+def _accept_name(value: str) -> str | None:
+    """Return a title-cased name, or None when every token is a stopword."""
+    tokens = [part for part in value.split() if part]
+    if not tokens or any(part.lower() in _NAME_STOP for part in tokens):
+        return None
+    return _title_name(value)
+
+
 def interpret_mention(text: str) -> tuple[str, str | None]:
     """
     Classify one utterance without a text model.
@@ -105,18 +128,24 @@ def interpret_mention(text: str) -> tuple[str, str | None]:
     Returns ``(role, name)``. ``role`` is ``self_introduction``,
     ``addressee`` or ``third_party``. A vocative such as
     ``Richard, come here`` is an addressee and does not name the speaker.
-    ``I am Richard Hendricks`` names the speaker.
+    ``I am Richard Hendricks`` names the speaker. A capitalized closed-class
+    word such as ``Okay`` or ``It`` is not a name.
     """
     stripped = text.strip()
     self_match = _SELF_RE.search(stripped)
     if self_match:
-        return "self_introduction", _title_name(self_match.group(1))
+        name = _accept_name(self_match.group(1))
+        if name:
+            return "self_introduction", name
     vocative = _VOCATIVE_RE.match(stripped)
     if vocative:
-        return "addressee", _title_name(vocative.group(1))
-    proper = re.search(r"\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,2})\b", stripped)
-    if proper:
-        return "third_party", _title_name(proper.group(1))
+        name = _accept_name(vocative.group(1))
+        if name:
+            return "addressee", name
+    for proper in _PROPER_RE.finditer(stripped):
+        name = _accept_name(proper.group(1))
+        if name:
+            return "third_party", name
     return "third_party", None
 
 
@@ -171,6 +200,7 @@ def assign_character_ids(
             node = scored[0][1]
             node.tracks.append(track.track_id)
             node.weight += 1
+            node.samples += max(1, track.samples)
             node.embedding = _average(node.embedding, track.embedding, node.weight)
             node.provisional = False
             decision = "merged"
@@ -180,6 +210,7 @@ def assign_character_ids(
                 embedding=list(track.embedding),
                 tracks=[track.track_id],
                 provisional=not accept,
+                samples=max(1, track.samples),
             )
             nodes.append(node)
             decision = "provisional" if scored else "new"
@@ -195,6 +226,114 @@ def assign_character_ids(
             }
         )
     return nodes, decisions
+
+
+def link_observations(
+    tracks: list[TrackObservation],
+    *,
+    threshold: float = 0.6,
+    gap: float = 2.0,
+) -> list[TrackObservation]:
+    """Collapse nearby samples of one face into a single track.
+
+    Faces in the same frame stay on different tracks. A later sample joins
+    the recent track with the highest cosine at or above ``threshold`` when
+    it starts within ``gap`` seconds of that track. The returned tracks are
+    what character assignment sees, so a person who stays in shot is one
+    observation instead of one identity per frame.
+    """
+    ordered = sorted(tracks, key=lambda track: (track.start, track.track_id))
+    groups: list[list[TrackObservation]] = []
+    for track in ordered:
+        if groups and abs(groups[-1][0].start - track.start) < 1e-3:
+            groups[-1].append(track)
+        else:
+            groups.append([track])
+    chains: list[dict[str, Any]] = []
+    for group in groups:
+        stamp = group[0].start
+        active = [
+            index
+            for index, chain in enumerate(chains)
+            if stamp - float(chain["end"]) <= gap
+        ]
+        pairs: list[tuple[float, int, int]] = []
+        for local_index, track in enumerate(group):
+            for chain_index in active:
+                score = cosine(track.embedding, chains[chain_index]["embedding"])
+                if score >= threshold:
+                    pairs.append((score, local_index, chain_index))
+        pairs.sort(key=lambda item: item[0], reverse=True)
+        used_local: set[int] = set()
+        used_chain: set[int] = set()
+        assignment: dict[int, int] = {}
+        for _score, local_index, chain_index in pairs:
+            if local_index in used_local or chain_index in used_chain:
+                continue
+            used_local.add(local_index)
+            used_chain.add(chain_index)
+            assignment[local_index] = chain_index
+        frame_chains: list[int] = []
+        for local_index, track in enumerate(group):
+            chain_index = assignment.get(local_index)
+            if chain_index is None:
+                chains.append(
+                    {
+                        "embedding": list(track.embedding),
+                        "start": track.start,
+                        "end": track.end,
+                        "shot_id": track.shot_id,
+                        "samples": max(1, track.samples),
+                        "ids": [track.track_id],
+                        "co": set(),
+                    }
+                )
+                chain_index = len(chains) - 1
+            else:
+                chain = chains[chain_index]
+                incoming = max(1, track.samples)
+                previous = int(chain["samples"])
+                chain["samples"] = previous + incoming
+                chain["embedding"] = [
+                    (left * previous + right * incoming) / chain["samples"]
+                    for left, right in zip(chain["embedding"], track.embedding)
+                ]
+                chain["end"] = max(float(chain["end"]), track.end)
+                chain["ids"].append(track.track_id)
+            frame_chains.append(chain_index)
+        for left in frame_chains:
+            for right in frame_chains:
+                if left != right:
+                    chains[left]["co"].add(right)
+    pooled: list[TrackObservation] = []
+    ids = [f"p{index + 1:04d}" for index in range(len(chains))]
+    for index, chain in enumerate(chains):
+        pooled.append(
+            TrackObservation(
+                track_id=ids[index],
+                embedding=list(chain["embedding"]),
+                start=float(chain["start"]),
+                end=float(chain["end"]),
+                shot_id=str(chain["shot_id"]),
+                co_visible=tuple(ids[other] for other in sorted(chain["co"])),
+                samples=int(chain["samples"]),
+            )
+        )
+    return pooled
+
+
+def visible_characters(nodes: list[CharacterNode]) -> list[CharacterNode]:
+    """Keep faces that recur or stay on screen. One-frame leftovers drop out.
+
+    A kept node was merged across tracks, was sampled at least three times,
+    or received an alias. The full HIMYM pass otherwise published thousands
+    of single-frame provisional ids.
+    """
+    return [
+        node
+        for node in nodes
+        if node.weight >= 2 or node.samples >= 3 or bool(node.alias)
+    ]
 
 
 def _average(current: list[float], new: list[float], weight: int) -> list[float]:
@@ -380,17 +519,41 @@ def relations_for_interval(
 def compact_account(
     nodes: list[dict[str, Any]],
     edges: list[dict[str, Any]],
+    *,
+    limit: int = 12,
 ) -> str:
-    """One short paragraph of supported facts for the profile writer."""
+    """One short paragraph of supported facts for the profile writer.
+
+    Only the heaviest characters are listed. The HIMYM graph named every
+    provisional face and the profile prompt no longer fit in GPU memory.
+    """
+    ranked = sorted(
+        nodes,
+        key=lambda node: (
+            -(
+                int(node["samples"])
+                if isinstance(node.get("samples"), int)
+                else len(node.get("tracks") or [])
+            ),
+            str(node.get("character_id") or ""),
+        ),
+    )
+    shown = ranked[:limit]
     lines: list[str] = []
-    for node in nodes:
+    for node in shown:
         alias = node.get("alias") or "unnamed"
-        tracks = node.get("tracks") or []
+        if isinstance(node.get("samples"), int):
+            count = int(node["samples"])
+        else:
+            count = len(node.get("tracks") or [])
         lines.append(
-            f"{node.get('character_id')} ({alias}) appears in {len(tracks)} face track(s)."
+            f"{node.get('character_id')} ({alias}) appears in {count} face sample(s)."
         )
+    hidden = len(ranked) - len(shown)
+    if hidden:
+        lines.append(f"{hidden} further character(s) were left out.")
     supported = [edge for edge in edges if edge.get("status") == "supported"]
-    for edge in supported[:12]:
+    for edge in supported[:8]:
         lines.append(
             f"{edge.get('source')} {edge.get('kind')} {edge.get('target')} "
             f"at {edge.get('start')}-{edge.get('end')}."

@@ -24,7 +24,9 @@ from open_enricher.graph import (
     compact_account,
     dedupe_edges,
     interpret_mention,
+    link_observations,
     speaker_edges,
+    visible_characters,
 )
 from open_enricher.logging_setup import get_logger
 from open_enricher.manifest import load_json, matching_artifact
@@ -207,12 +209,21 @@ class CharacterGraphStage:
         spec = load_pipeline_spec()
         video = storage.video_inputs() / video_filename
         reasons: list[str] = []
-        face = detect_tracks(video, spec, sample_fps=spec.budgets.face_sample_fps)
+        sample_fps = min(float(spec.budgets.face_sample_fps), 1.0)
+        logger.info("Detecting faces for %s at %.2f fps", video_filename, sample_fps)
+        face = detect_tracks(video, spec, sample_fps=sample_fps)
         if face.get("status") != "success":
             reasons.append(str(face.get("reason") or "faces unavailable"))
         observations = _observations(face.get("tracks") or [])
+        pooled = link_observations(observations)
+        logger.info(
+            "Face detection returned %s samples, pooled into %s tracks (%s)",
+            len(observations),
+            len(pooled),
+            face.get("status"),
+        )
         nodes, decisions = assign_character_ids(
-            observations,
+            pooled,
             threshold=spec.budgets.match_threshold,
             margin=spec.budgets.match_margin,
         )
@@ -228,6 +239,13 @@ class CharacterGraphStage:
             )
         )
         edges = dedupe_edges(edges)
+        kept = visible_characters(nodes)
+        kept_ids = {node.character_id for node in kept}
+        edges = [
+            edge
+            for edge in edges
+            if edge.kind != "speaks" or edge.source in kept_ids
+        ]
         node_rows = [
             {
                 "character_id": node.character_id,
@@ -235,25 +253,33 @@ class CharacterGraphStage:
                 "provisional": node.provisional,
                 "tracks": list(node.tracks),
                 "weight": node.weight,
+                "samples": node.samples,
             }
-            for node in nodes
+            for node in kept
         ]
         edge_rows = [edge.to_dict() for edge in edges]
-        if nodes and not reasons:
+        if kept and not reasons:
             status = "success"
-        elif nodes or edge_rows:
+        elif kept or edge_rows:
             status = "degraded"
         else:
             status = "fallback"
+        kept_decisions = [
+            row for row in decisions if row.get("character_id") in kept_ids
+        ]
         document = _base(video_filename)
         document.update(
             {
                 "stage": self.name,
                 "status": status,
                 "reasons": reasons,
+                "face_sample_fps": sample_fps,
+                "face_samples": len(observations),
+                "pooled_tracks": len(pooled),
+                "dropped_nodes": len(nodes) - len(kept),
                 "nodes": node_rows,
                 "edges": edge_rows,
-                "decisions": decisions,
+                "decisions": kept_decisions,
                 "account": compact_account(node_rows, edge_rows),
             }
         )

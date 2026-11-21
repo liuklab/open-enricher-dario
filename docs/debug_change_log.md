@@ -4,6 +4,12 @@ Running log of notable commits on `debug`. Newest entries first.
 
 ## 2026-11-21
 
+### The character graph kept one identity per frame
+
+- Job `122809` was cancelled at 19:24 Europe/Rome after 6:24:42. HIMYM finished the pipeline without a profile. Silicon Valley was still inside `character_graph` (since 16:07) and The Kingdom had not started.
+- HIMYM faces were sampled at 5 fps and each sample became its own track. The graph published 6750 nodes (4749 of them a single frame), 19117 match decisions, and no `speaks` edge. `account` listed every node, about 298000 characters, and the profile LLM then failed with CUDA out of memory.
+- Face samples are now capped at 1 fps, nearby samples of the same face are one track, and a node is published only when it recurs, stays for three samples, or has an alias. The account lists at most 12 characters. Capitalized closed-class words are not names. A failed experimental stage is logged instead of being swallowed.
+
 ### BaSSL clock timestamps were dropped
 
 - Job `122809` ran BaSSL on the full HIMYM file and recorded `status=fallback`. Fourteen boundaries were dropped because they had no numeric span, then the fixed 300-second windows were restored. The same file's smoke had 14 scenes.

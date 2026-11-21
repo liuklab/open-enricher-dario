@@ -8,9 +8,12 @@ from open_enricher.graph import (
     TrackObservation,
     apply_alias,
     assign_character_ids,
+    compact_account,
     dedupe_edges,
     interpret_mention,
+    link_observations,
     link_speaker,
+    visible_characters,
 )
 
 
@@ -43,6 +46,49 @@ def test_vocative_does_not_rename_the_speaker() -> None:
     self_role, self_name = interpret_mention("I am Richard Hendricks")
     assert self_role == "self_introduction"
     assert apply_alias(node, self_role, self_name) == "Richard Hendricks"
+
+
+def test_nearby_samples_of_one_face_become_one_track() -> None:
+    face = [1.0, 0.0]
+    other = [0.0, 1.0]
+    tracks = [
+        TrackObservation("f0", face, 0.0, 1.0, "frame"),
+        TrackObservation("f1", [0.98, 0.02], 1.0, 2.0, "frame"),
+        TrackObservation("f2", face, 2.0, 3.0, "frame"),
+        TrackObservation("g0", other, 0.0, 1.0, "frame", co_visible=("f0",)),
+    ]
+    pooled = link_observations(tracks, threshold=0.6, gap=2.0)
+    assert len(pooled) == 2
+    kept_track = next(track for track in pooled if track.samples == 3)
+    assert kept_track.end == 3.0
+    nodes, _decisions = assign_character_ids(pooled, threshold=0.45, margin=0.08)
+    visible = visible_characters(nodes)
+    assert len(visible) == 1
+    assert visible[0].samples == 3
+
+
+def test_one_frame_faces_stay_out_of_the_published_graph() -> None:
+    tracks = [
+        TrackObservation(f"f{index}", [float(index), 1.0], float(index), float(index) + 0.2, "frame")
+        for index in range(5)
+    ]
+    nodes, _decisions = assign_character_ids(tracks, threshold=0.99, margin=0.5)
+    assert visible_characters(nodes) == []
+    account = compact_account(
+        [{"character_id": f"c{index:04d}", "samples": 1, "tracks": ["f"]} for index in range(20)],
+        [],
+    )
+    assert "c0001" in account
+    assert "8 further character(s) were left out." in account
+
+
+def test_sentence_initial_words_are_not_names() -> None:
+    role, name = interpret_mention("Okay, wait.")
+    assert role == "third_party"
+    assert name is None
+    role, name = interpret_mention("It was Robin.")
+    assert role == "third_party"
+    assert name == "Robin"
 
 
 def test_one_alignment_stays_unresolved_and_edges_do_not_duplicate() -> None:
