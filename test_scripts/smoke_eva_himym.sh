@@ -17,7 +17,16 @@
 
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# Slurm copies this file under /var/spool/slurmd, so BASH_SOURCE is not the repo.
+# Submit from the repo root. SLURM_SUBMIT_DIR is that directory.
+if [ -n "${SLURM_SUBMIT_DIR:-}" ] && [ -f "${SLURM_SUBMIT_DIR}/test_scripts/eva_encode.py" ]; then
+  ROOT="$SLURM_SUBMIT_DIR"
+elif [ -f "$(pwd)/test_scripts/eva_encode.py" ]; then
+  ROOT="$(pwd)"
+else
+  echo "eva smoke: submit from the repo root (test_scripts/eva_encode.py not found)" >&2
+  exit 1
+fi
 cd "$ROOT"
 export PATH="/SLURM_shared/st_mdp26/open-enricher/.venv/bin:$PATH"
 export PYTHONPATH="${ROOT}/src${PYTHONPATH:+:$PYTHONPATH}"
@@ -37,7 +46,7 @@ if [ -n "${MAX_FRAMES:-}" ]; then
   ARGS+=(--max-frames "${MAX_FRAMES}")
 fi
 
-srun --unbuffered \
+srun --unbuffered --chdir="$ROOT" \
   /SLURM_shared/st_mdp26/open-enricher/.venv/bin/python \
-  test_scripts/eva_encode.py \
+  "${ROOT}/test_scripts/eva_encode.py" \
   "${ARGS[@]}"
