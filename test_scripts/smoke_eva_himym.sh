@@ -31,10 +31,14 @@ cd "$ROOT"
 export PATH="/SLURM_shared/st_mdp26/open-enricher/.venv/bin:$PATH"
 export PYTHONPATH="${ROOT}/src${PYTHONPATH:+:$PYTHONPATH}"
 
-if [ ! -d "$ROOT/dataset/models_cache" ]; then
-  export OPEN_ENRICHER_DATASET_ROOT="/SLURM_shared/st_mdp26/open-enricher/dataset"
+# Weights live in the shared checkout. An sbatch --export list does not
+# keep variables this script sets, so the step receives the root explicitly.
+if [ -d "$ROOT/dataset/models_cache" ]; then
+  DATA="$ROOT/dataset"
+else
+  DATA="/SLURM_shared/st_mdp26/open-enricher/dataset"
 fi
-DATA="${OPEN_ENRICHER_DATASET_ROOT:-$ROOT/dataset}"
+export OPEN_ENRICHER_DATASET_ROOT="$DATA"
 
 FFMPEG_ROOT=/SLURM_shared/st_mdp26/ffmpeg-libs
 SITE=/SLURM_shared/st_mdp26/open-enricher/.venv/lib/python3.12/site-packages/nvidia
@@ -46,7 +50,17 @@ if [ -n "${MAX_FRAMES:-}" ]; then
   ARGS+=(--max-frames "${MAX_FRAMES}")
 fi
 
-srun --unbuffered --chdir="$ROOT" \
+echo "dataset ${DATA}"
+test -f "${DATA}/models_cache/external/lavis/eva_vit_g.pth"
+test -f "${DATA}/models_cache/external/lavis/blip2_pretrained_flant5xxl.pth"
+
+# --export=ALL keeps the script environment. The env prefix sets the dataset
+# root again so a limited sbatch --export list cannot drop it.
+srun --unbuffered --chdir="$ROOT" --export=ALL \
+  /usr/bin/env \
+  OPEN_ENRICHER_DATASET_ROOT="$DATA" \
+  PYTHONPATH="${ROOT}/src" \
+  "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" \
   /SLURM_shared/st_mdp26/open-enricher/.venv/bin/python \
   "${ROOT}/test_scripts/eva_encode.py" \
   "${ARGS[@]}"
