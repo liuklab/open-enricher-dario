@@ -26,6 +26,9 @@ FFMPEG_ROOT=/SLURM_shared/st_mdp26/ffmpeg-libs
 SITE=/SLURM_shared/st_mdp26/open-enricher/.venv/lib/python3.12/site-packages/nvidia
 export LD_LIBRARY_PATH="$SITE/cudnn/lib:$SITE/cublas/lib:$SITE/cuda_runtime/lib:$SITE/cufft/lib:$SITE/curand/lib:$SITE/cusolver/lib:$SITE/cusparse/lib:$SITE/cuda_nvrtc/lib:$SITE/nvjitlink/lib:$FFMPEG_ROOT/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 
+# Arguments after the script name are passed through, for example
+# --video and --output-dir. Sampling stays the script's own step.
 srun --export=ALL --unbuffered \
   /SLURM_shared/st_mdp26/open-enricher/.venv/bin/python \
-  test_scripts/insightface_mid30.py
+  test_scripts/insightface_mid30.py \
+  "$@"

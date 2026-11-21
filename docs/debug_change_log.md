@@ -4,6 +4,10 @@ Running log of notable commits on `debug`. Newest entries first.
 
 ## 2026-11-21
 
+### Mid-episode InsightFace smokes for the other films
+
+- `test_scripts/smoke_insightface_mid30.sh` forwards extra arguments to the existing 30s sampler. The same step is used for HIMYM, Silicon Valley, and The Kingdom. Each film is its own Slurm job, so one failure does not cancel the others. Logs stay under the main checkout `jobs_logs/`.
+
 ### Small InsightFace faces are dropped
 
 - Relative size is the larger box side divided by the matching frame side. On the HIMYM middle 30s (144 frames, 846 faces, 1920x1080) the 50th percentile is 0.13050925925925927 (min 0.048796, max 0.357500, 423 faces below).
