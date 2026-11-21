@@ -8,7 +8,7 @@ Running log of notable commits on `debug`. Newest entries first.
 
 - Job `122721` exited 0 in nine seconds with `Skipping 12-combined: already archived and evaluated`. The 30-second job had written that row for HIMYM alone into `runs/local/progress.jsonl`.
 - A step is settled only when its latest ok row names every requested video and each archived manifest fingerprint matches the file now in `video_inputs`. A different file of the same name is kept under `*.source-<fingerprint>`. An audio cache without that fingerprint is left unused.
-- The 30-second profile stays. The full-film script is unchanged.
+- The 30-second profile stays. The full-film script is unchanged. Job `122809` (`open-enricher-12-full`, 24 hours, `--export=ALL`) walks HIMYM, then Silicon Valley, then The Kingdom. The finish watcher is tracking that id.
 
 ### Full-film 12-combined
 
