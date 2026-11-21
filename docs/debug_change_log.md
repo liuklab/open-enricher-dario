@@ -4,6 +4,13 @@ Running log of notable commits on `debug`. Newest entries first.
 
 ## 2026-11-21
 
+### Short 12-combined HIMYM profile
+
+- This branch carries the finish watcher, the InsightFace CUDA fail-fast, the EVA ViT-G / Q-Former forward, and the TalkNet forward.
+- `test_scripts/run_12_combined_himym_short.sh` runs `12-combined` on a 30-second span of `How_I_Met_Your_Mother.S01E02.mkv` from 00:00:20. The Slurm limit is 40 minutes, so the job cannot hold a GPU for hours. Stage outputs and `runs/local` stay in this worktree. Weights stay in the shared cache.
+- The batch submission and the step both use `--export=ALL`, so the dataset root and the clip directory reach Python.
+- Job `122643` (`open-enricher-12-short`) is pending for a GPU. The finish watcher is tracking that id. The profile is written when the job finishes.
+
 ### EVA-CLIP ViT-G and BLIP-2 Q-Former tokens
 
 - Smoke 122348 opened both checkpoints (`eva` 528 tensors, `qformer` present) and returned fallback because the forward was unbound. The bank had 0 frames, so the history budget stayed on the current clip.
