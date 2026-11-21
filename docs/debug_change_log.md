@@ -11,7 +11,7 @@ Running log of notable commits on `debug`. Newest entries first.
 - A missing or misshapen weight still returns `status=fallback` with an empty frame list. The history budget then stays on the current clip.
 - Checked against the files on disk, on CPU: both checkpoints loaded, and two frames of `How_I_Met_Your_Mother.S01E02.mkv` (0.0s and 4.0s) each emitted 32 vectors of width 768.
 - Job `122565` (`smoke-eva-tokens`, `MAX_FRAMES=4`) exited 2 in one second. Slurm runs a copy of the batch script from `/var/spool/slurmd`, so resolving the repo from that copy made Python look for `/var/spool/slurmd/test_scripts/eva_encode.py`. The forward was not started. The script now uses `SLURM_SUBMIT_DIR` and an absolute path to `eva_encode.py`.
-- Resubmitted as job `122623` (`smoke-eva-tokens`, `MAX_FRAMES=4`). It is pending. The finish watcher is tracking that id. No further probe was submitted.
+- Job `122623` (`smoke-eva-tokens`, `MAX_FRAMES=4`) exited 1 in one second. The step found the episode, then returned `EVA-CLIP or Q-Former checkpoint is missing` and 0 frames. The batch script exports `OPEN_ENRICHER_DATASET_ROOT` to the shared weight cache, but the job was submitted with `--export=MAX_FRAMES=4`, so `srun` did not pass that variable. Python then looked for the weights under the worktree `dataset/`, which does not exist. The forward did not run. This was the second launch failure. No third job was submitted. The smoke left the bank empty, so the history budget stays on the current clip. On CPU, with the weight files opened directly, two frames still emit 32 vectors of width 768.
 
 ### InsightFace smoke was on the CPU wheel
 
