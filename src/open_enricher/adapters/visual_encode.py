@@ -1,8 +1,8 @@
 """Frozen EVA-CLIP and BLIP-2 Q-Former tokens.
 
 LAVIS is not imported. The checkpoints are opened in a child process.
-When the forward pass is not available the parent keeps an empty bank
-and the history budget returns to the current clip.
+A missing weight or a key mismatch keeps an empty bank, and the history
+budget returns to the current clip.
 """
 
 from __future__ import annotations
@@ -27,8 +27,18 @@ def qformer_path(spec: PipelineSpec) -> Path:
     return storage.models_cache() / "external" / "lavis" / "blip2_pretrained_flant5xxl.pth"
 
 
-def encode_video(video: Path, spec: PipelineSpec, *, sample_fps: float) -> dict[str, Any]:
-    """Encode candidate frames. The parent does not import the encoders."""
+def encode_video(
+    video: Path,
+    spec: PipelineSpec,
+    *,
+    sample_fps: float,
+    max_frames: int | None = None,
+) -> dict[str, Any]:
+    """Encode candidate frames. The parent does not import the encoders.
+
+    ``max_frames`` caps how many sampled frames are encoded. ``None`` reads
+    the whole file at ``sample_fps``. The pipeline leaves it unset.
+    """
     eva = eva_path(spec)
     qformer = qformer_path(spec)
     if not eva.is_file() or not qformer.is_file():
@@ -37,45 +47,30 @@ def encode_video(video: Path, spec: PipelineSpec, *, sample_fps: float) -> dict[
             "reason": "EVA-CLIP or Q-Former checkpoint is missing",
             "frames": [],
         }
+    payload: dict[str, Any] = {
+        "video": str(video),
+        "eva": str(eva),
+        "qformer": str(qformer),
+        "sample_fps": sample_fps,
+    }
+    if max_frames is not None:
+        payload["max_frames"] = max_frames
     return call_in_child(
         "open_enricher.adapters.visual_encode",
         "run_encode_payload",
-        {
-            "video": str(video),
-            "eva": str(eva),
-            "qformer": str(qformer),
-            "sample_fps": sample_fps,
-        },
+        payload,
     )
 
 
 def run_encode_payload(payload: dict[str, Any]) -> dict[str, Any]:
-    """
-    Child entry.
-
-    The released files are checked and their top-level tensor names are
-    recorded. Building 32 query tokens requires the vendored EVA ViT-G
-    and Q-Former forward. Until that forward is bound, the bank stays
-    empty and the caller returns the history budget to the current clip.
-    """
+    """Child entry. Loads ViT-G and the Q-Former and returns query tokens."""
     try:
-        import torch
+        import torch as _torch
     except Exception as exc:  # noqa: BLE001 - optional dependency
         return {"status": "fallback", "reason": f"torch import failed: {exc}", "frames": []}
-    found: dict[str, int] = {}
+    del _torch
     try:
-        for label, path in ("eva", payload["eva"]), ("qformer", payload["qformer"]):
-            blob = torch.load(path, map_location="cpu")
-            if isinstance(blob, dict):
-                found[label] = len(blob)
-            else:
-                found[label] = 1
+        from open_enricher.adapters.eva_qformer import encode_payload
     except Exception as exc:  # noqa: BLE001 - recorded fallback
         return {"status": "fallback", "reason": str(exc), "frames": []}
-    return {
-        "status": "fallback",
-        "reason": "EVA/Q-Former forward is not bound; history budget returns to the current clip",
-        "checkpoint_present": True,
-        "tensors": found,
-        "frames": [],
-    }
+    return encode_payload(payload)

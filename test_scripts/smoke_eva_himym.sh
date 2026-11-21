@@ -1,31 +1,43 @@
 #!/bin/bash
-#SBATCH --job-name=smoke-eva-himym
+#SBATCH --job-name=smoke-eva-tokens
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=32GB
-#SBATCH --time=02:00:00
-#SBATCH --output=/SLURM_shared/st_mdp26/open-enricher/jobs_logs/smoke-eva-himym-%j.out
-#SBATCH --error=/SLURM_shared/st_mdp26/open-enricher/jobs_logs/smoke-eva-himym-%j.err
+#SBATCH --time=01:00:00
+#SBATCH --output=/SLURM_shared/st_mdp26/open-enricher/jobs_logs/smoke-eva-tokens-%j.out
+#SBATCH --error=/SLURM_shared/st_mdp26/open-enricher/jobs_logs/smoke-eva-tokens-%j.err
 #SBATCH --account=studenti
 #SBATCH --partition=all-nodes
 #SBATCH --gres=gpu:1
 
-# EVA-CLIP / Q-Former encode smoke for How_I_Met_Your_Mother.S01E02.mkv only.
-# Unbound forward is reported clearly; empty frames are not treated as success.
+# EVA-CLIP / Q-Former token smoke for How_I_Met_Your_Mother.S01E02.mkv.
+# MAX_FRAMES limits the sampled frames. Unset, the smoke reads the whole episode.
+# A key mismatch leaves the visual bank empty.
 
 set -euo pipefail
 
-cd /SLURM_shared/st_mdp26/open-enricher
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$ROOT"
 export PATH="/SLURM_shared/st_mdp26/open-enricher/.venv/bin:$PATH"
+export PYTHONPATH="${ROOT}/src${PYTHONPATH:+:$PYTHONPATH}"
+
+if [ ! -d "$ROOT/dataset/models_cache" ]; then
+  export OPEN_ENRICHER_DATASET_ROOT="/SLURM_shared/st_mdp26/open-enricher/dataset"
+fi
+DATA="${OPEN_ENRICHER_DATASET_ROOT:-$ROOT/dataset}"
 
 FFMPEG_ROOT=/SLURM_shared/st_mdp26/ffmpeg-libs
-export LD_LIBRARY_PATH="$FFMPEG_ROOT/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+SITE=/SLURM_shared/st_mdp26/open-enricher/.venv/lib/python3.12/site-packages/nvidia
+export LD_LIBRARY_PATH="$SITE/cudnn/lib:$SITE/cublas/lib:$SITE/cuda_runtime/lib:$SITE/cufft/lib:$SITE/curand/lib:$SITE/cusolver/lib:$SITE/cusparse/lib:$SITE/cuda_nvrtc/lib:$SITE/nvjitlink/lib:$FFMPEG_ROOT/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 
 VIDEO="How_I_Met_Your_Mother.S01E02.mkv"
+ARGS=(--video "${DATA}/video_inputs/${VIDEO}" --sample-fps 0.25)
+if [ -n "${MAX_FRAMES:-}" ]; then
+  ARGS+=(--max-frames "${MAX_FRAMES}")
+fi
 
 srun --unbuffered \
   /SLURM_shared/st_mdp26/open-enricher/.venv/bin/python \
   test_scripts/eva_encode.py \
-  --video "dataset/video_inputs/${VIDEO}" \
-  --sample-fps 0.25
+  "${ARGS[@]}"

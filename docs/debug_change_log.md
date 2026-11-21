@@ -4,6 +4,14 @@ Running log of notable commits on `debug`. Newest entries first.
 
 ## 2026-11-21
 
+### EVA-CLIP ViT-G and BLIP-2 Q-Former tokens
+
+- Smoke 122348 opened both checkpoints (`eva` 528 tensors, `qformer` present) and returned fallback because the forward was unbound. The bank had 0 frames, so the history budget stayed on the current clip.
+- The released EVA file is a 40-block ViT-G/14. BLIP-2 uses the first 39 blocks, so the 40th block and the 1024-d contrastive head are not loaded. The Q-Former file stores 32 query tokens, the vision layer-norm, and 12 query layers under `model`. Cross-attention is on the even layers and reads the 1408-d vision sequence. The Flan-T5 projection is not part of the visual token. LAVIS is not imported.
+- A missing or misshapen weight still returns `status=fallback` with an empty frame list. The history budget then stays on the current clip.
+- Checked against the files on disk, on CPU: both checkpoints loaded, and two frames of `How_I_Met_Your_Mother.S01E02.mkv` (0.0s and 4.0s) each emitted 32 vectors of width 768.
+- Submitted job `122565` (`smoke-eva-tokens`, `MAX_FRAMES=4`) so the same probe can run on a GPU. It is pending (`Priority`). The finish watcher is tracking that id. No second probe was submitted.
+
 ### InsightFace smoke was on the CPU wheel
 
 - Job 122290 (12:40, `barbaraliskov`) bound `CUDAExecutionProvider` and finished. Job 122349 (19:49, same node) scanned the episode for 30 minutes and exited 1 with only `CPUExecutionProvider`.
