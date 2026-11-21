@@ -32,6 +32,7 @@ os.environ.setdefault(
 )
 
 from open_enricher.adapters.face_speech import insightface_root  # noqa: E402
+from open_enricher.face_size import MIN_FACE_SIDE_RATIO, face_is_relevant  # noqa: E402
 from open_enricher.face_time import face_instant, face_span  # noqa: E402
 from open_enricher.graph import TrackObservation, assign_character_ids  # noqa: E402
 from open_enricher.stages.pipeline_spec import PipelineSpec  # noqa: E402
@@ -326,6 +327,10 @@ def run_detection(
             ids_here: list[str] = []
             for face_index, face in enumerate(app.get(frame) or []):
                 bbox = [float(value) for value in getattr(face, "bbox", [])]
+                # Fixed ratio, not a percentile of this video. Dropped
+                # faces are absent from clustering, crops, and drawings.
+                if not face_is_relevant(bbox, width, height):
+                    continue
                 box = _clip_box(bbox, width, height)
                 crop = None
                 if box is not None:
@@ -588,6 +593,7 @@ def main() -> int:
         "providers": detected["providers"],
         "match_threshold": MATCH_THRESHOLD,
         "match_margin": MATCH_MARGIN,
+        "min_face_side_ratio": MIN_FACE_SIDE_RATIO,
         "face_samples": detected["face_samples"],
         "detection_count": detected["detection_count"],
         "crop_count": detected["crop_count"],

@@ -4,6 +4,12 @@ Running log of notable commits on `debug`. Newest entries first.
 
 ## 2026-11-21
 
+### Small InsightFace faces are dropped
+
+- Relative size is the larger box side divided by the matching frame side. On the HIMYM middle 30s (144 frames, 846 faces, 1920x1080) the 50th percentile is 0.13050925925925927 (min 0.048796, max 0.357500, 423 faces below).
+- That percentile is the fixed constant `MIN_FACE_SIDE_RATIO` in `src/open_enricher/face_size.py`. Runtime compares each face to the constant and does not recompute a percentile per video.
+- Faces below the constant are removed before identity clustering and before JSON, crops, and annotated frames. `time` and `seconds` stay on the faces that remain. No new Slurm job.
+
 ### Face times are instants
 
 - One face on one frame is no longer written as a start/end interval. The fields are `time` (`HH:MM:SS`) and `seconds`. `end` / `end_seconds` are added only when a later frame is a different instant.

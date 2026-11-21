@@ -12,6 +12,7 @@ from typing import Any
 
 from open_enricher import storage
 from open_enricher.adapters.isolate import call_in_child
+from open_enricher.face_size import face_is_relevant
 from open_enricher.face_time import face_instant
 from open_enricher.stages.pipeline_spec import PipelineSpec
 
@@ -181,6 +182,9 @@ def _sample_tracks(
             stamp = index / native_fps
             instant = face_instant(stamp)
             faces = app.get(frame) or []
+            frame_size = getattr(frame, "shape", None)
+            height = int(frame_size[0]) if frame_size is not None else 0
+            width = int(frame_size[1]) if frame_size is not None else 0
             ids_here: list[str] = []
             for face_index, face in enumerate(faces):
                 embedding = getattr(face, "embedding", None)
@@ -191,6 +195,9 @@ def _sample_tracks(
                     continue
                 vector = [float(value) / norm for value in embedding.tolist()]
                 bbox = [float(value) for value in getattr(face, "bbox", [])]
+                # Small faces never reach identity clustering.
+                if not face_is_relevant(bbox, width, height):
+                    continue
                 track_id = f"f{index:06d}_{face_index}"
                 ids_here.append(track_id)
                 grouped[track_id] = {
