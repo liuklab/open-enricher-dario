@@ -353,8 +353,10 @@ def _observations(rows: list[dict[str, Any]]) -> list[TrackObservation]:
             TrackObservation(
                 track_id=str(row.get("track_id")),
                 embedding=[float(value) for value in embedding],
-                start=float(row.get("start") or 0),
-                end=float(row.get("end") or 0),
+                start=float(row.get("seconds", row.get("start") or 0)),
+                end=float(
+                    row["end"] if row.get("end") is not None else row.get("seconds", row.get("start") or 0)
+                ),
                 shot_id=str(row.get("shot_id") or ""),
                 co_visible=tuple(str(item) for item in row.get("co_visible") or []),
             )

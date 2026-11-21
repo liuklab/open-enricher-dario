@@ -4,6 +4,12 @@ Running log of notable commits on `debug`. Newest entries first.
 
 ## 2026-11-21
 
+### Face times are instants
+
+- One face on one frame is no longer written as a start/end interval. The fields are `time` (`HH:MM:SS`) and `seconds`. `end` / `end_seconds` are added only when a later frame is a different instant.
+- A fraction that only copies the integer seconds, such as 178.178 from stuffing that count into `HH:MM:SS.mmm` and parsing it back, collapses to the whole second. A real frame offset (`frame index / fps`, such as 648.038) stays next to the clock. Whole seconds stay whole.
+- Rewrote the stored HIMYM face times in `test_scripts/output/How_I_Met_Your_Mother.S01E02.mkv.faces.json`. No new Slurm job.
+
 ### Middle-segment InsightFace smoke
 
 - Added `test_scripts/insightface_mid30.py` and `test_scripts/smoke_insightface_mid30.sh`. They cut 30 seconds from the middle of `How_I_Met_Your_Mother.S01E02.mkv` and score it with InsightFace at the character-graph rate (`budgets.face_sample_fps` 5, same frame step as `detect_tracks`). Raw frames, box annotations, and face crops go under `test_scripts/output/himym-s01e02-mid30/` in this worktree, separate from job 122559.

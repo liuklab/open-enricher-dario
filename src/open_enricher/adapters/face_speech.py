@@ -12,6 +12,7 @@ from typing import Any
 
 from open_enricher import storage
 from open_enricher.adapters.isolate import call_in_child
+from open_enricher.face_time import face_instant
 from open_enricher.stages.pipeline_spec import PipelineSpec
 
 
@@ -176,7 +177,9 @@ def _sample_tracks(
             if index % step:
                 index += 1
                 continue
+            # Frame clock. One face is this instant, not a made-up interval.
             stamp = index / native_fps
+            instant = face_instant(stamp)
             faces = app.get(frame) or []
             ids_here: list[str] = []
             for face_index, face in enumerate(faces):
@@ -193,8 +196,9 @@ def _sample_tracks(
                 grouped[track_id] = {
                     "track_id": track_id,
                     "embedding": vector,
-                    "start": round(stamp, 3),
-                    "end": round(stamp + 1.0 / max(sample_fps, 0.1), 3),
+                    "time": instant["time"],
+                    "seconds": instant["seconds"],
+                    "start": instant["seconds"],
                     "shot_id": "frame",
                     "bbox": bbox,
                     "co_visible": [],

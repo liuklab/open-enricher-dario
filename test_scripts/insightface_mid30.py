@@ -32,6 +32,7 @@ os.environ.setdefault(
 )
 
 from open_enricher.adapters.face_speech import insightface_root  # noqa: E402
+from open_enricher.face_time import face_instant, face_span  # noqa: E402
 from open_enricher.graph import TrackObservation, assign_character_ids  # noqa: E402
 from open_enricher.stages.pipeline_spec import PipelineSpec  # noqa: E402
 from insightface_faces import (  # noqa: E402
@@ -315,6 +316,7 @@ def run_detection(
                 index += 1
                 continue
             source_time = start + index / native_fps
+            instant = face_instant(source_time)
             order = len(pending) + 1
             stem = f"f{order:04d}_t{stamp_name(source_time)}"
             raw_path = frames_dir / f"{stem}.jpg"
@@ -352,8 +354,8 @@ def run_detection(
                     TrackObservation(
                         track_id=track_id,
                         embedding=embedding,
-                        start=round(source_time, 3),
-                        end=round(source_time + 1.0 / max(sample_fps, 0.1), 3),
+                        start=float(instant["seconds"]),
+                        end=float(instant["seconds"]),
                         shot_id="frame",
                         co_visible=tuple(other for other in ids_here if other != track_id),
                     )
@@ -362,7 +364,8 @@ def run_detection(
                 {
                     "order": order,
                     "index": index,
-                    "source_seconds": round(source_time, 3),
+                    "time": instant["time"],
+                    "seconds": instant["seconds"],
                     "stem": stem,
                     "raw": raw_path,
                     "detections": detections,
@@ -405,6 +408,8 @@ def run_detection(
                     "det": detection["det"],
                     "track_id": track_id,
                     "character_id": character_id,
+                    "time": item["time"],
+                    "seconds": item["seconds"],
                     "bbox": [round(value, 1) for value in detection["bbox"]],
                     "crop": f"crops/{crop_name}" if crop_name else None,
                 }
@@ -415,7 +420,8 @@ def run_detection(
             {
                 "order": item["order"],
                 "frame_index": item["index"],
-                "source_seconds": item["source_seconds"],
+                "time": item["time"],
+                "seconds": item["seconds"],
                 "raw": f"frames/{item['raw'].name}",
                 "annotated": f"frames/{annotated_path.name}",
                 "detections": det_rows,
@@ -445,10 +451,7 @@ def run_detection(
                 "character_id": node.character_id,
                 "samples": len(node.tracks),
                 "provisional": node.provisional,
-                "spans": [
-                    {"start_seconds": round(begin, 3), "end_seconds": round(end, 3)}
-                    for begin, end in spans
-                ],
+                "spans": [face_span(begin, end) for begin, end in spans],
             }
         )
 

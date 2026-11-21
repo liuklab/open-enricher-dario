@@ -18,6 +18,7 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "src"))
 
 from open_enricher.adapters.face_speech import detect_tracks  # noqa: E402
+from open_enricher.face_time import face_span  # noqa: E402
 from open_enricher.graph import TrackObservation, assign_character_ids  # noqa: E402
 from open_enricher.stages.pipeline_spec import PipelineSpec  # noqa: E402
 
@@ -26,15 +27,13 @@ MATCH_THRESHOLD = 0.45
 MATCH_MARGIN = 0.08
 
 
-def _clock(seconds: float) -> str:
-    whole = int(seconds)
-    millis = int(round((seconds - whole) * 1000))
-    if millis == 1000:
-        whole += 1
-        millis = 0
-    hours, rest = divmod(whole, 3600)
-    minutes, secs = divmod(rest, 60)
-    return f"{hours:02d}:{minutes:02d}:{secs:02d}.{millis:03d}"
+def _track_bounds(row: dict) -> tuple[float, float]:
+    """Instant from the track. A missing end repeats the start."""
+    start = float(row.get("seconds", row.get("start") or 0))
+    end = row.get("end")
+    if end is None:
+        return start, start
+    return start, float(end)
 
 
 def _spans(stamps: list[float], gap: float) -> list[tuple[float, float]]:
@@ -137,12 +136,13 @@ def main() -> int:
         embedding = row.get("embedding")
         if not isinstance(embedding, list) or not embedding:
             continue
+        start, end = _track_bounds(row)
         observations.append(
             TrackObservation(
                 track_id=str(row.get("track_id")),
                 embedding=[float(value) for value in embedding],
-                start=float(row.get("start") or 0),
-                end=float(row.get("end") or 0),
+                start=start,
+                end=end,
                 shot_id=str(row.get("shot_id") or ""),
                 co_visible=tuple(str(item) for item in row.get("co_visible") or []),
             )
@@ -167,15 +167,7 @@ def main() -> int:
                 "character_id": node.character_id,
                 "samples": len(node.tracks),
                 "provisional": node.provisional,
-                "spans": [
-                    {
-                        "start": _clock(start),
-                        "end": _clock(end),
-                        "start_seconds": round(start, 3),
-                        "end_seconds": round(end, 3),
-                    }
-                    for start, end in ranges
-                ],
+                "spans": [face_span(start, end) for start, end in ranges],
             }
         )
 
@@ -204,10 +196,10 @@ def main() -> int:
             flush=True,
         )
         for span in spans:
-            if span["start"] == span["end"]:
-                print(f"  {span['start']}", flush=True)
+            if "end" in span:
+                print(f"  {span['time']} - {span['end']}", flush=True)
             else:
-                print(f"  {span['start']} - {span['end']}", flush=True)
+                print(f"  {span['time']}", flush=True)
     print(f"wrote {output}", flush=True)
     return 0
 
