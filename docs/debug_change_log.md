@@ -4,6 +4,14 @@ Running log of notable commits on `debug`. Newest entries first.
 
 ## 2026-11-21
 
+### TalkNet forward is bound
+
+- Smoke 122350 loaded `pretrain_TalkSet.model` and returned `status=fallback` with `TalkNet forward is not bound`: 1989 face tracks, 0 scores.
+- The checkpoint is the TalkNet-ASD graph (visual 3D-ResNet, depthwise temporal stack, SE-ResNet audio encoder, cross-attention, `lossAV`). `src/open_enricher/adapters/talknet_asd.py` matches those names. `load_state_dict(..., strict=True)` succeeds, and a 25-frame forward returns one speaking logit per frame.
+- A score is the mean speaking logit over that one-second window. `reliable` means the mean is at least 0, the same speaking cut the TalkNet demo uses. The character graph overlaps reliable windows with diarized lines and, after two hits on the same face, writes a supported `speaks` edge. `compact_account` includes that edge, so the profile can say which face character is `SPEAKER_00` instead of leaving the label unattached. A failed load still keeps the face nodes and leaves speech unresolved.
+- The probe does not rescore the 1989 tracks. It cuts 8 seconds of HIMYM S01E02 from 00:00:20 (the couch scene, where the transcript already has `SPEAKER_00`), samples at most 40 frames, and forwards at most 4 windows. Boxes smaller than 40 pixels are dropped.
+- Job `122566` (`smoke-talknet-forward`, 20-minute cap, 1 GPU) is pending with reason Priority. The finish watcher is tracking that id. This pass did not wait on the InsightFace CUDA probe.
+
 ### InsightFace smoke was on the CPU wheel
 
 - Job 122290 (12:40, `barbaraliskov`) bound `CUDAExecutionProvider` and finished. Job 122349 (19:49, same node) scanned the episode for 30 minutes and exited 1 with only `CPUExecutionProvider`.

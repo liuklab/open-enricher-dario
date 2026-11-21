@@ -24,7 +24,7 @@ from open_enricher.graph import (
     compact_account,
     dedupe_edges,
     interpret_mention,
-    link_speaker,
+    speaker_edges,
 )
 from open_enricher.logging_setup import get_logger
 from open_enricher.manifest import load_json, matching_artifact
@@ -220,20 +220,13 @@ class CharacterGraphStage:
         if speech.get("status") != "success":
             reasons.append(str(speech.get("reason") or "TalkNet unavailable"))
         edges = _mention_edges(video_filename, nodes)
-        linked = link_speaker(speech.get("scores") or [])
-        for speaker, character_id in linked.items():
-            edges.append(
-                Edge(
-                    "speaks",
-                    character_id,
-                    speaker,
-                    0.0,
-                    0.0,
-                    [speaker],
-                    None,
-                    "supported",
-                )
+        edges.extend(
+            speaker_edges(
+                speech.get("scores") or [],
+                decisions,
+                _audio_lines(video_filename),
             )
+        )
         edges = dedupe_edges(edges)
         node_rows = [
             {

@@ -1,32 +1,38 @@
 #!/bin/bash
-#SBATCH --job-name=smoke-talknet-himym
+#SBATCH --job-name=smoke-talknet-forward
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=8
+#SBATCH --cpus-per-task=4
 #SBATCH --mem=16GB
 #SBATCH --gres=gpu:1
-#SBATCH --time=04:00:00
-#SBATCH --output=/SLURM_shared/st_mdp26/open-enricher/jobs_logs/smoke-talknet-himym-%j.out
-#SBATCH --error=/SLURM_shared/st_mdp26/open-enricher/jobs_logs/smoke-talknet-himym-%j.err
+#SBATCH --time=00:20:00
+#SBATCH --output=/SLURM_shared/st_mdp26/open-enricher-wt-talknet-0ef6/jobs_logs/smoke-talknet-forward-%j.out
+#SBATCH --error=/SLURM_shared/st_mdp26/open-enricher-wt-talknet-0ef6/jobs_logs/smoke-talknet-forward-%j.err
 #SBATCH --account=studenti
 #SBATCH --partition=all-nodes
 
-# TalkNet adapter smoke for How_I_Met_Your_Mother.S01E02.mkv only.
-# Expects faces via InsightFace first; unbound forward is reported, not success.
+# Short TalkNet probe. Eight seconds of HIMYM from 00:00:20, at most four
+# one-second windows. The checkout is the directory sbatch was run from.
 
 set -euo pipefail
 
-cd /SLURM_shared/st_mdp26/open-enricher
-export PATH="/SLURM_shared/st_mdp26/open-enricher/.venv/bin:$PATH"
+ROOT="${SLURM_SUBMIT_DIR:-$(pwd)}"
+cd "$ROOT"
+export PYTHONPATH="${ROOT}/src${PYTHONPATH:+:$PYTHONPATH}"
+export OPEN_ENRICHER_DATASET_ROOT=/SLURM_shared/st_mdp26/open-enricher/dataset
+export PATH="/SLURM_shared/st_mdp26/open-enricher/.venv/bin:/SLURM_shared/st_mdp26/ffmpeg-libs/bin:${PATH}"
 
 FFMPEG_ROOT=/SLURM_shared/st_mdp26/ffmpeg-libs
 SITE=/SLURM_shared/st_mdp26/open-enricher/.venv/lib/python3.12/site-packages/nvidia
 export LD_LIBRARY_PATH="$SITE/cudnn/lib:$SITE/cublas/lib:$SITE/cuda_runtime/lib:$SITE/cufft/lib:$SITE/curand/lib:$SITE/cusolver/lib:$SITE/cusparse/lib:$SITE/cuda_nvrtc/lib:$SITE/nvjitlink/lib:$FFMPEG_ROOT/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 
-VIDEO="How_I_Met_Your_Mother.S01E02.mkv"
+mkdir -p "$ROOT/jobs_logs"
 
 srun --unbuffered \
   /SLURM_shared/st_mdp26/open-enricher/.venv/bin/python \
   test_scripts/talknet_speakers.py \
-  --video "dataset/video_inputs/${VIDEO}" \
-  --sample-fps 0.5
+  --start 20 \
+  --seconds 8 \
+  --sample-fps 5 \
+  --max-frames 40 \
+  --max-tracks 4
