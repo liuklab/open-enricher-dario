@@ -207,6 +207,103 @@ def _average(current: list[float], new: list[float], weight: int) -> list[float]
     ]
 
 
+def align_speaker_scores(
+    scores: list[dict[str, Any]],
+    decisions: list[dict[str, Any]],
+    lines: list[Any],
+) -> list[dict[str, Any]]:
+    """Pair reliable TalkNet windows with overlapping diarized lines.
+
+    A row that already names ``speaker`` and ``character_id`` is kept.
+    Otherwise the face track is resolved through ``decisions``. One window
+    can hit several lines. ``link_speaker`` still wants repeated hits.
+    """
+    track_to_character = {
+        str(row.get("track_id")): str(row.get("character_id"))
+        for row in decisions
+        if row.get("track_id") and row.get("character_id")
+    }
+    aligned: list[dict[str, Any]] = []
+    for score in scores:
+        if not isinstance(score, dict) or not score.get("reliable"):
+            continue
+        character_id = str(score.get("character_id") or "")
+        if not character_id:
+            character_id = track_to_character.get(str(score.get("track_id") or ""), "")
+        if not character_id:
+            continue
+        speaker = str(score.get("speaker") or "")
+        if speaker and speaker != "UNKNOWN":
+            aligned.append({**score, "speaker": speaker, "character_id": character_id, "reliable": True})
+            continue
+        start = float(score.get("start") or 0)
+        end = float(score.get("end") or start)
+        for line in lines:
+            if not isinstance(line, dict):
+                continue
+            line_speaker = str(line.get("speaker") or "")
+            if not line_speaker or line_speaker == "UNKNOWN":
+                continue
+            line_start = float(line.get("start_timestamp") or line.get("start") or 0)
+            line_end = float(line.get("end_timestamp") or line.get("end") or line_start)
+            if min(end, line_end) - max(start, line_start) <= 0:
+                continue
+            aligned.append(
+                {
+                    "speaker": line_speaker,
+                    "character_id": character_id,
+                    "reliable": True,
+                    "track_id": score.get("track_id"),
+                    "score": score.get("score"),
+                    "start": max(start, line_start),
+                    "end": min(end, line_end),
+                }
+            )
+    return aligned
+
+
+def speaker_edges(
+    scores: list[dict[str, Any]],
+    decisions: list[dict[str, Any]],
+    lines: list[Any],
+) -> list[Edge]:
+    """Supported ``speaks`` edges for labels that clear ``link_speaker``."""
+    alignments = align_speaker_scores(scores, decisions, lines)
+    linked = link_speaker(alignments)
+    edges: list[Edge] = []
+    for speaker, character_id in linked.items():
+        hits = [
+            row
+            for row in alignments
+            if row.get("reliable")
+            and str(row.get("speaker") or "") == speaker
+            and str(row.get("character_id") or "") == character_id
+        ]
+        if not hits:
+            continue
+        start = min(float(row.get("start") or 0) for row in hits)
+        end = max(float(row.get("end") or row.get("start") or 0) for row in hits)
+        values = [
+            float(row["score"])
+            for row in hits
+            if isinstance(row.get("score"), (int, float))
+        ]
+        confidence = round(sum(values) / len(values), 4) if values else None
+        edges.append(
+            Edge(
+                "speaks",
+                character_id,
+                speaker,
+                start,
+                end,
+                [speaker],
+                confidence,
+                "supported",
+            )
+        )
+    return edges
+
+
 def link_speaker(
     alignments: list[dict[str, Any]],
     *,

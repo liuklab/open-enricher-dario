@@ -63,17 +63,36 @@ def active_speakers(
     video: Path,
     spec: PipelineSpec,
     tracks: list[dict[str, Any]],
+    *,
+    max_tracks: int | None = None,
 ) -> dict[str, Any]:
-    """Score tracks with TalkNet. Without a loaded net this is a fallback."""
+    """Score tracks with TalkNet. Without a loaded net this is a fallback.
+
+    ``max_tracks`` caps how many one-second windows are forwarded. The
+    pipeline leaves it unset, and the child then scores four windows so a
+    character-graph pass does not hold the GPU for the whole episode.
+    """
     weights = talknet_weights(spec)
     if not weights.is_file():
         return {"status": "fallback", "reason": f"TalkNet weights missing: {weights}", "scores": []}
     if not tracks:
         return {"status": "fallback", "reason": "no face tracks to score", "scores": []}
+    slim = [
+        {
+            "track_id": row.get("track_id"),
+            "start": row.get("start"),
+            "end": row.get("end"),
+            "bbox": row.get("bbox"),
+        }
+        for row in tracks
+    ]
+    payload: dict[str, Any] = {"video": str(video), "weights": str(weights), "tracks": slim}
+    if max_tracks is not None:
+        payload["max_tracks"] = max_tracks
     return call_in_child(
         "open_enricher.adapters.face_speech",
         "run_talknet_payload",
-        {"video": str(video), "weights": str(weights), "tracks": tracks},
+        payload,
     )
 
 
@@ -126,29 +145,15 @@ def run_insightface_payload(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def run_talknet_payload(payload: dict[str, Any]) -> dict[str, Any]:
-    """
-    Child entry for TalkNet.
-
-    The checkpoint is loaded only to record that the weights are readable.
-    Lip-motion scoring needs the vendored TalkNet definition; until that
-    forward pass is bound, the parent keeps speaker links unresolved.
-    """
+    """Child entry for TalkNet. A checkpoint mismatch stays a fallback."""
     try:
-        import torch
+        from open_enricher.adapters.talknet_asd import score_talknet
     except Exception as exc:  # noqa: BLE001 - optional dependency
-        return {"status": "fallback", "reason": f"torch import failed: {exc}", "scores": []}
+        return {"status": "fallback", "reason": f"talknet import failed: {exc}", "scores": []}
     try:
-        blob = torch.load(payload["weights"], map_location="cpu")
+        return score_talknet(payload)
     except Exception as exc:  # noqa: BLE001 - recorded fallback
         return {"status": "fallback", "reason": str(exc), "scores": []}
-    keys = list(blob)[:8] if isinstance(blob, dict) else []
-    return {
-        "status": "fallback",
-        "reason": "TalkNet forward is not bound; speaker links stay unresolved",
-        "checkpoint_present": True,
-        "state_keys": [str(key) for key in keys],
-        "scores": [],
-    }
 
 
 def _sample_tracks(
