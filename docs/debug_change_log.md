@@ -4,6 +4,12 @@ Running log of notable commits on `debug`. Newest entries first.
 
 ## 2026-11-21
 
+### Full-film 12-combined
+
+- `test_scripts/run_12_combined_full.sh` runs one `12-combined` experiment on the full files, in order: `How_I_Met_Your_Mother.S01E02.mkv`, `Silicon_Valley.S06E01.mkv`, `The_Kingdom.S01E02.mkv`. There is no span cut. The Slurm limit is 24 hours. Submission and the step both use `--export=ALL`.
+- Stage outputs go under this worktree's `dataset-full`. Weights stay on the shared cache.
+- Job `122721` (`open-enricher-12-full`) is the sequential run. The 30-second job `122717` is still queued. The finish watcher is tracking `122721`.
+
 ### Short 12-combined HIMYM profile
 
 - This branch carries the finish watcher, the InsightFace CUDA fail-fast, the EVA ViT-G / Q-Former forward, and the TalkNet forward.
