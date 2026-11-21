@@ -4,6 +4,10 @@ Running log of notable commits on `debug`. Newest entries first.
 
 ## 2026-11-21
 
+### Middle-segment InsightFace smoke
+
+- Added `test_scripts/insightface_mid30.py` and `test_scripts/smoke_insightface_mid30.sh`. They cut 30 seconds from the middle of `How_I_Met_Your_Mother.S01E02.mkv` and score it with InsightFace at the character-graph rate (`budgets.face_sample_fps` 5, same frame step as `detect_tracks`). Raw frames, box annotations, and face crops go under `test_scripts/output/himym-s01e02-mid30/` in this worktree, separate from job 122559.
+
 ### InsightFace smoke was on the CPU wheel
 
 - Job 122290 (12:40, `barbaraliskov`) bound `CUDAExecutionProvider` and finished. Job 122349 (19:49, same node) scanned the episode for 30 minutes and exited 1 with only `CPUExecutionProvider`.
