@@ -45,6 +45,24 @@ def test_invalid_boundaries_restore_fixed_windows() -> None:
     assert notes
 
 
+def test_modelscope_clock_timestamps_cover_the_file() -> None:
+    """Scene rows shaped like ModelScope output are not dropped as non-numeric."""
+    raw = [
+        {"timestamps": ["00:00:00.000", "00:04:41.573"], "frame": ["0", "6741"]},
+        {"timestamps": ["00:04:41.573", "00:22:06.080"], "frame": ["6742", "31826"]},
+    ]
+    intervals, notes, replaced = validate_scene_bounds(
+        raw,
+        1326.08,
+        interval_seconds=300,
+    )
+    assert replaced is False
+    assert [item.source for item in intervals] == ["bassl", "bassl"]
+    assert abs(intervals[0].end - 281.573) < 1e-3
+    assert abs(intervals[-1].end - 1326.08) < 1e-3
+    assert not any("no numeric span" in note for note in notes)
+
+
 def test_valid_scenes_keep_ids_and_cover_a_gap() -> None:
     intervals, notes, replaced = validate_scene_bounds(
         [(0.0, 100.0), (120.0, 300.0)],

@@ -172,21 +172,49 @@ def assign_utterances(
     return buckets
 
 
-def _as_pair(raw: Any) -> tuple[float, float] | None:
-    """Read one boundary object or pair into ``(start, end)`` seconds."""
-    if isinstance(raw, (list, tuple)) and len(raw) >= 2:
+def _seconds(value: Any) -> float | None:
+    """Read a number of seconds or a ``HH:MM:SS`` clock string."""
+    if isinstance(value, bool) or value is None:
+        return None
+    if isinstance(value, (int, float)):
+        return float(value)
+    if not isinstance(value, str):
+        return None
+    text = value.strip()
+    if not text:
+        return None
+    total = 0.0
+    for part in text.split(":"):
         try:
-            return (float(raw[0]), float(raw[1]))
-        except (TypeError, ValueError):
+            total = total * 60 + float(part)
+        except ValueError:
             return None
+    return total
+
+
+def _as_pair(raw: Any) -> tuple[float, float] | None:
+    """Read one boundary object or pair into ``(start, end)`` seconds.
+
+    ModelScope scene rows store the span in ``timestamps`` as clock strings
+    such as ``00:04:41.573``. Numeric ``start`` / ``end`` keys still work.
+    """
+    if isinstance(raw, (list, tuple)) and len(raw) >= 2:
+        start, end = _seconds(raw[0]), _seconds(raw[1])
+        if start is None or end is None:
+            return None
+        return (start, end)
     if not isinstance(raw, dict):
         return None
-    start = raw.get("start", raw.get("start_time", raw.get("start_seconds")))
-    end = raw.get("end", raw.get("end_time", raw.get("end_seconds")))
-    try:
-        return (float(start), float(end))
-    except (TypeError, ValueError):
+    timestamps = raw.get("timestamps")
+    if isinstance(timestamps, (list, tuple)) and len(timestamps) >= 2:
+        start, end = _seconds(timestamps[0]), _seconds(timestamps[1])
+        if start is not None and end is not None:
+            return (start, end)
+    start = _seconds(raw.get("start", raw.get("start_time", raw.get("start_seconds"))))
+    end = _seconds(raw.get("end", raw.get("end_time", raw.get("end_seconds"))))
+    if start is None or end is None:
         return None
+    return (start, end)
 
 
 def validate_scene_bounds(
