@@ -136,6 +136,86 @@ def is_done(experiment_id: str, step: str = "archived") -> bool:
     return False
 
 
+def _recorded_fingerprint(experiment_id: str, video: str) -> str:
+    """Return the source fingerprint stored on an archived manifest, or ""."""
+    path = RUNS_ROOT / experiment_id / video / f"{video}_manifest.json"
+    if not path.is_file():
+        return ""
+    try:
+        document = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return ""
+    if not isinstance(document, dict):
+        return ""
+    return str(document.get("source_fingerprint") or "")
+
+
+def archive_matches_sources(
+    experiment_id: str,
+    videos: list[str],
+    step: str,
+) -> bool:
+    """
+    Report whether the latest successful step covers these source files.
+
+    A shorter file that shares a video name is not the same source. The
+    progress row must name every requested video, and each archived manifest
+    must still match the file now under ``video_inputs``.
+    """
+    if not videos:
+        return False
+    latest: dict[str, Any] | None = None
+    for row in load_progress():
+        if (
+            row.get("experiment_id") == experiment_id
+            and row.get("step") == step
+            and row.get("status") == "ok"
+        ):
+            latest = row
+    if latest is None:
+        return False
+    covered = {
+        str(item.get("video"))
+        for item in (latest.get("results") or [])
+        if isinstance(item, dict) and item.get("video")
+    }
+    if not set(videos) <= covered:
+        return False
+    from open_enricher.fingerprint import source_fingerprint
+    from open_enricher import storage
+
+    for video in videos:
+        recorded = _recorded_fingerprint(experiment_id, video)
+        source = storage.video_inputs() / video
+        if not recorded or not source.is_file():
+            return False
+        if recorded != source_fingerprint(source):
+            return False
+    return True
+
+
+def retain_different_source(experiment_id: str, video: str, source: Path) -> Path | None:
+    """
+    Move an archive aside when it was built from a different file.
+
+    The previous folder keeps its profile. The caller can then archive the
+    current source under the original video name.
+    """
+    from open_enricher.fingerprint import source_fingerprint
+
+    folder = RUNS_ROOT / experiment_id / video
+    recorded = _recorded_fingerprint(experiment_id, video)
+    if not recorded or not source.is_file():
+        return None
+    if recorded == source_fingerprint(source):
+        return None
+    kept = folder.with_name(f"{video}.source-{recorded[:12]}")
+    if kept.exists():
+        return kept
+    folder.rename(kept)
+    return kept
+
+
 def list_variants(variants_dir: Path) -> list[Path]:
     """
     List variant JSON files in sorted order.

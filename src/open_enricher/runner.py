@@ -212,6 +212,30 @@ def _artifact_globs(stage: str, video_filename: str) -> list[str]:
     return []
 
 
+def _cache_stamp_path(source_dir: Path) -> Path:
+    return source_dir / "source.json"
+
+
+def _cache_matches_source(source_dir: Path, video_filename: str) -> bool:
+    """True when the cache stamp names the file now under video_inputs."""
+    stamp_path = _cache_stamp_path(source_dir)
+    if not stamp_path.is_file():
+        return False
+    video = storage.video_inputs() / video_filename
+    if not video.is_file():
+        return False
+    try:
+        stamp = json.loads(stamp_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return False
+    recorded = str(stamp.get("source_fingerprint") or "") if isinstance(stamp, dict) else ""
+    if not recorded:
+        return False
+    from open_enricher.fingerprint import source_fingerprint
+
+    return recorded == source_fingerprint(video)
+
+
 def restore_cached_stage(
     stage: str,
     video_filename: str,
@@ -227,12 +251,19 @@ def restore_cached_stage(
 
     Returns:
         True when the primary artifact was restored, False when the cache
-        misses or the stage is not cacheable.
+        misses, belongs to a different file, or the stage is not cacheable.
     """
     if stage not in CACHEABLE_STAGES:
         return False
     source_dir = cache_root / video_filename / stage
     if not source_dir.is_dir():
+        return False
+    if not _cache_matches_source(source_dir, video_filename):
+        logger.info(
+            "Leaving %s cache for %s unused; it is not this source file",
+            stage,
+            video_filename,
+        )
         return False
     dest_dir = storage.get_output_dir(stage)
     dest_dir.mkdir(parents=True, exist_ok=True)
@@ -276,6 +307,18 @@ def save_stage_to_cache(
         for path in source_dir.glob(pattern):
             if path.is_file():
                 shutil.copy2(path, dest_dir / path.name)
+    video = storage.video_inputs() / video_filename
+    if video.is_file():
+        from open_enricher.fingerprint import source_fingerprint
+
+        storage.atomic_write_text(
+            _cache_stamp_path(dest_dir),
+            json.dumps(
+                {"source_fingerprint": source_fingerprint(video)},
+                indent=2,
+            )
+            + "\n",
+        )
 
 
 def list_videos(video_names: Sequence[str] | None = None) -> list[str]:

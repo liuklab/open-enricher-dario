@@ -17,10 +17,11 @@ from typing import Any
 
 from open_enricher.experiments.archive import (
     append_progress,
+    archive_matches_sources,
     experiment_dir,
-    is_done,
     list_variants,
     merge_timings,
+    retain_different_source,
     video_archive_dir,
     write_json,
 )
@@ -37,6 +38,7 @@ from open_enricher.experiments.config import (
     VARIANTS_DIR,
 )
 from open_enricher.experiments.stages import STAGE_CHOICES
+from open_enricher import storage
 from open_enricher.logging_setup import configure_logging, get_logger
 
 logger = get_logger(__name__)
@@ -261,8 +263,12 @@ def run_one_experiment(
     variant = _load_variant(variant_path)
     logger.info("======== Experiment %s ========", experiment_id)
 
-    pipeline_done = skip_done and is_done(experiment_id, "archived")
-    evaluation_done = skip_done and is_done(experiment_id, "evaluation")
+    pipeline_done = skip_done and archive_matches_sources(
+        experiment_id, videos, "archived"
+    )
+    evaluation_done = skip_done and archive_matches_sources(
+        experiment_id, videos, "evaluation"
+    )
     if pipeline_done and evaluation_done:
         logger.info(f"Skipping {experiment_id}: already archived and evaluated")
         return {
@@ -323,6 +329,10 @@ def run_one_experiment(
                     vram_rows,
                 )
 
+            source = storage.video_inputs() / video
+            retained = retain_different_source(experiment_id, video, source)
+            if retained is not None:
+                logger.info("Kept the previous archive at %s", retained)
             dest = video_archive_dir(experiment_id, video)
             archive_stages = summary.get("stages_ran") or stages
             archived = runner.archive_artifacts(video, dest, stages=archive_stages)

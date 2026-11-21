@@ -4,6 +4,12 @@ Running log of notable commits on `debug`. Newest entries first.
 
 ## 2026-11-21
 
+### A short archive does not skip the full films
+
+- Job `122721` exited 0 in nine seconds with `Skipping 12-combined: already archived and evaluated`. The 30-second job had written that row for HIMYM alone into `runs/local/progress.jsonl`.
+- A step is settled only when its latest ok row names every requested video and each archived manifest fingerprint matches the file now in `video_inputs`. A different file of the same name is kept under `*.source-<fingerprint>`. An audio cache without that fingerprint is left unused.
+- The 30-second profile stays. The full-film script is unchanged.
+
 ### Full-film 12-combined
 
 - `test_scripts/run_12_combined_full.sh` runs one `12-combined` experiment on the full files, in order: `How_I_Met_Your_Mother.S01E02.mkv`, `Silicon_Valley.S06E01.mkv`, `The_Kingdom.S01E02.mkv`. There is no span cut. The Slurm limit is 24 hours. Submission and the step both use `--export=ALL`.
