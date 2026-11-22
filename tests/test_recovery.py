@@ -7,13 +7,31 @@ from pathlib import Path
 
 import pytest
 
+from open_enricher import storage
 from open_enricher.adapters.bassl import segment_video
 from open_enricher.adapters.isolate import call_in_child
 from open_enricher.experiments.config import PIPELINE_STAGES, VARIANTS_DIR
 from open_enricher.experiments.stages import stages_for_spec
 from open_enricher.manifest import profile_decision
 from open_enricher.stages.pipeline_spec import Checkpoints, PipelineSpec, load_pipeline_spec
-from open_enricher import storage
+
+
+def test_child_response_ignores_adapter_stdout(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    module = tmp_path / "noisy_adapter.py"
+    module.write_text(
+        "import os\n"
+        "print('import diagnostic')\n"
+        "def run(payload):\n"
+        "    os.write(1, b'native diagnostic\\n')\n"
+        "    return payload\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setenv("PYTHONPATH", str(tmp_path), prepend=":")
+    assert call_in_child("noisy_adapter", "run", {"status": "success"}) == {
+        "status": "success"
+    }
 
 
 def test_control_does_not_insert_optional_stages(monkeypatch: pytest.MonkeyPatch) -> None:

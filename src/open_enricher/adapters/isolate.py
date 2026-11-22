@@ -23,14 +23,17 @@ def call_in_child(
     """
     Call ``module.function(payload)`` in a fresh interpreter.
 
-    The child prints one JSON object. A non-zero exit, a timeout, or
-    unreadable stdout becomes ``status=fallback``.
+    The child reserves its stdout pipe for the JSON response and sends
+    adapter diagnostics to stderr. A crash, timeout, or unreadable response
+    becomes ``status=fallback``.
     """
     code = (
-        "import importlib, json, sys\n"
+        "import importlib, json, os, sys\n"
         "payload = json.loads(sys.stdin.read() or '{}')\n"
-        "fn = getattr(importlib.import_module(sys.argv[1]), sys.argv[2])\n"
-        "json.dump(fn(payload), sys.stdout)\n"
+        "with os.fdopen(os.dup(1), 'w', encoding='utf-8') as response:\n"
+        "    os.dup2(2, 1)\n"
+        "    fn = getattr(importlib.import_module(sys.argv[1]), sys.argv[2])\n"
+        "    json.dump(fn(payload), response)\n"
     )
     try:
         completed = subprocess.run(
@@ -53,7 +56,7 @@ def call_in_child(
             "returncode": completed.returncode,
         }
     try:
-        document = json.loads(completed.stdout or "{}")
+        document = json.loads(completed.stdout)
     except json.JSONDecodeError:
         return {"status": "fallback", "reason": "child returned no JSON"}
     if not isinstance(document, dict):
