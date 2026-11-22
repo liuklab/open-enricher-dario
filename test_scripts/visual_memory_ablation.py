@@ -103,6 +103,12 @@ def main() -> None:
         if current_stamps:
             context.append(f"Current frames at source times: {', '.join(f'{t:.1f}s' for t in current_stamps)}.")
         if args.mode == "grounded":
+            if earlier:
+                context.append(
+                    f"The first {len(earlier)} images are from earlier scenes. "
+                    f"The final {len(current_stamps)} images show the current scene. "
+                    "Every action in your description must be visible in those current images."
+                )
             relations = relations_for_interval(graph["edges"], start, end)
             context.append(
                 "Write at least one sentence about visible content in the current frames whenever they "
