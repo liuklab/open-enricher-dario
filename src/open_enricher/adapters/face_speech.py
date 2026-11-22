@@ -7,6 +7,7 @@ for the parent pipeline.
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 from typing import Any
 
@@ -117,11 +118,20 @@ def run_insightface_payload(payload: dict[str, Any]) -> dict[str, Any]:
     """Child entry for ``buffalo_l``. CUDA is preferred and CPU is the fallback."""
     try:
         import cv2
+        import onnxruntime
         from insightface.app import FaceAnalysis
     except Exception as exc:  # noqa: BLE001 - optional dependency
         return {"status": "fallback", "reason": f"insightface import failed: {exc}", "tracks": []}
     try:
-        app = FaceAnalysis(name="buffalo_l", root=payload["root"])
+        cpu_count = len(os.sched_getaffinity(0)) if hasattr(os, "sched_getaffinity") else os.cpu_count()
+        threads = min(4, cpu_count or 1)
+        session_options = onnxruntime.SessionOptions()
+        session_options.intra_op_num_threads = threads
+        session_options.inter_op_num_threads = 1
+        session_options.add_session_config_entry("session.intra_op.allow_spinning", "0")
+        session_options.add_session_config_entry("session.inter_op.allow_spinning", "0")
+        cv2.setNumThreads(threads)
+        app = FaceAnalysis(name="buffalo_l", root=payload["root"], sess_options=session_options)
         try:
             app.prepare(ctx_id=0, det_size=(640, 640))
         except Exception:
@@ -143,6 +153,7 @@ def run_insightface_payload(payload: dict[str, Any]) -> dict[str, Any]:
         "status": "success",
         "provider": provider,
         "providers": active,
+        "intra_op_threads": threads,
         "tracks": tracks,
     }
 

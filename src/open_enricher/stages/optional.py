@@ -291,6 +291,8 @@ class CharacterGraphStage:
                 "status": status,
                 "reasons": reasons,
                 "face_sample_fps": sample_fps,
+                "face_provider": face.get("provider"),
+                "face_intra_op_threads": face.get("intra_op_threads"),
                 "face_samples": len(observations),
                 "pooled_tracks": len(pooled),
                 "dropped_nodes": len(nodes) - len(kept),
