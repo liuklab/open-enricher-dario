@@ -43,3 +43,7 @@ Job 123009 completed successfully. It reproduced 80 face detections, 10 publishe
 The historical full-film run spent hours in character matching. A local stress check with 650 distinct 512-dimensional tracks took 28.44 seconds with per-exemplar Python cosine scoring and 0.26 seconds with cached unit vectors. On 180 clustered tracks the updated matcher reproduced the reference decisions and node contents. Slurm job 123013 checks real clip output parity with 123009.
 
 The in-progress integration job 122988 produced 13 timestamped dialogue lines from two diarized speakers and three BaSSL scenes with 21 shots on the clip. The BaSSL timeline covered the clip without repairs.
+
+Job 123013 completed in 12 minutes 36 seconds. Its detections, pooled track counts, published nodes, match decisions, scores, and edges exactly matched job 123009. Reviewing the graph also found a false supported edge, `speaker addresses Hi`. Replaying the original diarization after excluding greetings yields an unresolved mention of Ted at that timestamp. The regression test preserves that distinction.
+
+Job 123017 uses the updated checkout for an end-to-end run on the same clip. It is queued behind job 122988 and the successful graph parity job. The full-film job remains gated on the updated clip profile.
