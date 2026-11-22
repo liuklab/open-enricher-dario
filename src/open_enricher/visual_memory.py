@@ -9,6 +9,7 @@ timestamp is strictly earlier than the scene start.
 
 from __future__ import annotations
 
+from heapq import heappop, heappush
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -195,20 +196,47 @@ def _compact_long_term(entries: list[MemoryEntry], capacity: int) -> list[Memory
     if len(entries) <= capacity or capacity < 2:
         return consolidate(entries, max(1, capacity))
     pending = list(entries)
-    while len(pending) > capacity:
-        if len(pending) < 3:
-            break
-        scores = [
-            mean_token_cosine(pending[index], pending[index + 1])
-            for index in range(1, len(pending) - 2)
-        ]
-        if not scores:
-            break
-        offset = max(range(len(scores)), key=lambda index: (scores[index], -index))
-        pair_index = offset + 1
-        merged = _merge_pair(pending[pair_index], pending[pair_index + 1])
-        pending = pending[:pair_index] + [merged] + pending[pair_index + 2 :]
-    return pending
+    next_index = list(range(1, len(pending) + 1))
+    previous_index = list(range(-1, len(pending) - 1))
+    revisions = [0] * len(pending)
+    heap: list[tuple[float, int, int, int, int]] = []
+    last = len(pending) - 1
+
+    def queue_pair(left: int) -> None:
+        right = next_index[left]
+        if 0 < left < right < last:
+            score = mean_token_cosine(pending[left], pending[right])
+            heappush(heap, (-score, left, right, revisions[left], revisions[right]))
+
+    for left in range(1, last - 1):
+        queue_pair(left)
+
+    remaining = len(pending)
+    while remaining > capacity and heap:
+        _, left, right, left_revision, right_revision = heappop(heap)
+        if (
+            next_index[left] != right
+            or revisions[left] != left_revision
+            or revisions[right] != right_revision
+        ):
+            continue
+
+        pending[left] = _merge_pair(pending[left], pending[right])
+        revisions[left] += 1
+        revisions[right] += 1
+        successor = next_index[right]
+        next_index[left] = successor
+        previous_index[successor] = left
+        remaining -= 1
+        queue_pair(previous_index[left])
+        queue_pair(left)
+
+    compacted = []
+    index = 0
+    while index <= last:
+        compacted.append(pending[index])
+        index = next_index[index]
+    return compacted
 
 
 def visible_entries(entries: list[MemoryEntry], scene_start: float) -> list[MemoryEntry]:
