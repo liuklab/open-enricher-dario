@@ -169,3 +169,8 @@ def test_speaker_edges_preserve_gaps_between_supported_windows() -> None:
     assert [edge.evidence_ids for edge in edges] == [
         ["f0@6.000-7.000"], ["f1@25.000-26.000"],
     ]
+
+
+def test_a_greeting_does_not_create_a_named_addressee() -> None:
+    assert interpret_mention("Hi, have you met Ted?") == ("third_party", "Ted")
+    assert interpret_mention("Hello!") == ("third_party", None)

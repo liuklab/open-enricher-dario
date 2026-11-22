@@ -29,7 +29,8 @@ _PROPER_RE = re.compile(r"\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,2})\b")
 # transcript (Okay, It, You, So). They are not character aliases.
 _NAME_STOP = frozenset(
     {
-        "a", "an", "and", "are", "but", "for", "from", "her", "hey", "him",
+        "a", "an", "and", "are", "but", "bye", "for", "from", "goodbye", "hello",
+        "her", "hey", "hi", "him",
         "his", "how", "if", "in", "it", "its", "just", "like", "man", "me",
         "my", "no", "not", "now", "of", "oh", "ok", "okay", "on", "or", "our",
         "she", "so", "that", "the", "their", "them", "then", "there", "they",
@@ -117,7 +118,7 @@ class Edge:
 
 
 def _accept_name(value: str) -> str | None:
-    """Return a title-cased name, or None when every token is a stopword."""
+    """Return a title-cased name when none of its tokens are stopwords."""
     tokens = [part for part in value.split() if part]
     if not tokens or any(part.lower() in _NAME_STOP for part in tokens):
         return None
