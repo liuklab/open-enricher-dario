@@ -60,6 +60,7 @@ class TrackObservation:
     shot_id: str
     co_visible: tuple[str, ...] = ()
     samples: int = 1
+    source_track_ids: tuple[str, ...] = ()
 
 
 @dataclass
@@ -219,6 +220,7 @@ def assign_character_ids(
             {
                 "track_id": track.track_id,
                 "character_id": node.character_id,
+                "source_track_ids": list(track.source_track_ids),
                 "decision": decision,
                 "best": round(best, 6),
                 "second": round(second, 6),
@@ -284,7 +286,7 @@ def link_observations(
                         "end": track.end,
                         "shot_id": track.shot_id,
                         "samples": max(1, track.samples),
-                        "ids": [track.track_id],
+                        "ids": list(track.source_track_ids or (track.track_id,)),
                         "co": set(),
                     }
                 )
@@ -299,7 +301,7 @@ def link_observations(
                     for left, right in zip(chain["embedding"], track.embedding)
                 ]
                 chain["end"] = max(float(chain["end"]), track.end)
-                chain["ids"].append(track.track_id)
+                chain["ids"].extend(track.source_track_ids or (track.track_id,))
             frame_chains.append(chain_index)
         for left in frame_chains:
             for right in frame_chains:
@@ -317,6 +319,7 @@ def link_observations(
                 shot_id=str(chain["shot_id"]),
                 co_visible=tuple(ids[other] for other in sorted(chain["co"])),
                 samples=int(chain["samples"]),
+                source_track_ids=tuple(chain["ids"]),
             )
         )
     return pooled
@@ -358,9 +361,11 @@ def align_speaker_scores(
     can hit several lines. ``link_speaker`` still wants repeated hits.
     """
     track_to_character = {
-        str(row.get("track_id")): str(row.get("character_id"))
+        str(track_id): str(row["character_id"])
         for row in decisions
-        if row.get("track_id") and row.get("character_id")
+        if row.get("character_id")
+        for track_id in (row.get("track_id"), *(row.get("source_track_ids") or ()))
+        if track_id
     }
     aligned: list[dict[str, Any]] = []
     for score in scores:
@@ -464,16 +469,15 @@ def link_speaker(
         if not speaker or speaker == "UNKNOWN" or not character_id:
             continue
         counts[(speaker, character_id)] = counts.get((speaker, character_id), 0) + 1
-    linked: dict[str, str] = {}
+    candidates: dict[str, list[str]] = {}
     for (speaker, character_id), hits in counts.items():
-        if hits < minimum_hits:
-            continue
-        previous = linked.get(speaker)
-        if previous is not None and previous != character_id:
-            linked.pop(speaker, None)
-            continue
-        linked[speaker] = character_id
-    return linked
+        if hits >= minimum_hits:
+            candidates.setdefault(speaker, []).append(character_id)
+    return {
+        speaker: identities[0]
+        for speaker, identities in candidates.items()
+        if len(identities) == 1
+    }
 
 
 def dedupe_edges(edges: list[Edge]) -> list[Edge]:
