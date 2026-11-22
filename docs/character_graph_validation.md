@@ -27,3 +27,9 @@ The branch starts from `debug` and includes the 16 intermediate commits on `curs
 ## Slurm operation
 
 Submit from the intended checkout with `sbatch --export=ALL test_scripts/run_12_combined_himym_short.sh`. Record the commit, input, job ID, output path, and stage results for each probe. Stop the Slack-backed `oe-slurm-watcher` session before submission. Poll the queue every 10 minutes, then check state and exit code with `sacct` and inspect the artifacts. Stop after three failed attempts per issue. Submit `test_scripts/run_12_combined_full.sh` once the clip validations pass.
+
+## Experiment 123005
+
+CPU job 122993 recovered 80 face detections, 56 pooled tracks, and 10 published characters on the HIMYM clip. It produced no `speaks` edges. Historical job 122566 showed that the four-window TalkNet probe ran successfully but returned no positive scores.
+
+Job 123005 holds the clip, diarization, and face sampling constant. It allows up to 96 TalkNet windows, selects windows that overlap diarized dialogue, and samples across the clip if the candidate count exceeds the budget. The graph saves the per-window score, time, and source track ID. Compare the number of reliable windows, the identity and dialogue overlap for each, and the resulting `speaks` edges. One window that intersects several utterances cannot satisfy the repeated-evidence requirement on its own.
