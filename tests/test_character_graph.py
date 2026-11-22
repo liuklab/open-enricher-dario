@@ -13,6 +13,7 @@ from open_enricher.graph import (
     interpret_mention,
     link_observations,
     link_speaker,
+    speaker_edges,
     visible_characters,
 )
 
@@ -107,3 +108,31 @@ def test_one_alignment_stays_unresolved_and_edges_do_not_duplicate() -> None:
         "supported",
     )
     assert len(dedupe_edges([edge, edge])) == 1
+
+
+def test_speaker_edges_use_original_face_sample_ids_after_pooling() -> None:
+    observations = [
+        TrackObservation(f"f{index}", [1.0, 0.0], index, index + 1, "shot")
+        for index in range(3)
+    ]
+    pooled = link_observations(observations)
+    nodes, decisions = assign_character_ids(pooled, threshold=0.45, margin=0.08)
+    scores = [
+        {"track_id": f"f{index}", "start": index, "end": index + 1, "reliable": True}
+        for index in range(2)
+    ]
+    lines = [{"speaker": "SPEAKER_00", "start_timestamp": 0, "end_timestamp": 2}]
+
+    edges = speaker_edges(scores, decisions, lines)
+
+    assert len(edges) == 1
+    assert (edges[0].source, edges[0].target) == (nodes[0].character_id, "SPEAKER_00")
+
+
+def test_speaker_with_three_supported_candidates_stays_unresolved() -> None:
+    alignments = [
+        {"speaker": "SPEAKER_00", "character_id": character, "reliable": True}
+        for character in ("c0001", "c0002", "c0003")
+        for _ in range(2)
+    ]
+    assert link_speaker(alignments) == {}
