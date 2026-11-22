@@ -11,9 +11,9 @@
 #SBATCH --partition=all-nodes
 #SBATCH --gres=gpu:1
 
-# One short 12-combined pass on How_I_Met_Your_Mother.S01E02.mkv.
-# The span is 30 seconds from 00:00:20 (the couch scene). The earlier
-# successful run took 63 minutes, including model loading and evaluation.
+# Run one short 12-combined pass. Optional arguments are video filename,
+# start time and duration. Use a separate checkout for concurrent clips.
+# The default is a 30-second HIMYM clip starting at 00:00:20.
 
 set -euo pipefail
 
@@ -38,14 +38,20 @@ if [ ! -e "$ROOT/.env" ] && [ -f "$SHARED/.env" ]; then
   ln -s "$SHARED/.env" "$ROOT/.env"
 fi
 
-VIDEO="How_I_Met_Your_Mother.S01E02.mkv"
+VIDEO="${1:-How_I_Met_Your_Mother.S01E02.mkv}"
+START="${2:-20}"
+DURATION="${3:-30}"
+if [ "$#" -gt 3 ] || [ "$VIDEO" != "${VIDEO##*/}" ]; then
+  printf 'Usage: sbatch %s [filename [start [duration]]]\n' "$0" >&2
+  exit 2
+fi
 SRC="$SHARED_DATA/video_inputs/$VIDEO"
 CLIP_DIR="$DATA/video_inputs"
 mkdir -p "$CLIP_DIR"
 # Re-encode so the container duration is the span. Stream copy can leave
 # a duration that does not match the pictures BaSSL has to cover.
 ffmpeg -y -hide_banner -loglevel error \
-  -ss 20 -t 30 -i "$SRC" \
+  -ss "$START" -t "$DURATION" -i "$SRC" \
   -c:v libx264 -preset veryfast -pix_fmt yuv420p \
   -c:a aac \
   "$CLIP_DIR/$VIDEO"
