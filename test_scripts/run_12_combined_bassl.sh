@@ -38,7 +38,7 @@ if [ ! -e "$ROOT/.env" ] && [ -f "$SHARED/.env" ]; then
   ln -s "$SHARED/.env" "$ROOT/.env"
 fi
 
-VIDEO="How_I_Met_Your_Mother.S01E02.mkv"
+VIDEO="${1:-How_I_Met_Your_Mother.S01E02.mkv}"
 export OPEN_ENRICHER_DATASET_ROOT="$DATA"
 export OPEN_ENRICHER_VIDEO_INPUTS="$SHARED_DATA/video_inputs"
 test -f "${OPEN_ENRICHER_VIDEO_INPUTS}/${VIDEO}"

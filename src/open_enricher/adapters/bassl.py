@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import tempfile
+import traceback
 from pathlib import Path
 from typing import Any
 
@@ -86,9 +87,14 @@ def run_modelscope_payload(payload: dict[str, Any]) -> dict[str, Any]:
                 model=str(root),
                 device="gpu",
             )
-            result = pipe(video)
+            detector = pipe.model.shot_detector
+            with IndexedKeyframes(video) as keyframes:
+                detector.get_frame_img = keyframes.read_batch
+                result = pipe(video)
         except Exception as exc:  # noqa: BLE001 - recorded fallback
-            return {"status": "fallback", "reason": str(exc), "scenes": [], "shots": []}
+            location = traceback.extract_tb(exc.__traceback__)[-1]
+            reason = f"{exc} ({Path(location.filename).name}:{location.lineno})"
+            return {"status": "fallback", "reason": reason, "scenes": [], "shots": []}
     return {
         "status": "success",
         "scenes": _rows(result, "SCENE_META_LIST", "scene_meta_list", "scenes"),
@@ -96,6 +102,61 @@ def run_modelscope_payload(payload: dict[str, Any]) -> dict[str, Any]:
         "scene_num": _scalar(result, "SCENE_NUM", "scene_num"),
         "shot_num": _scalar(result, "SHOT_NUM", "shot_num"),
     }
+
+
+class IndexedKeyframes:
+    """Read requested frames, including repeated and overlapping shot windows."""
+
+    def __init__(self, video: str) -> None:
+        import cv2
+
+        self.cv2 = cv2
+        self.capture = cv2.VideoCapture(video)
+        self.last_index: int | None = None
+        self.last_image: Any = None
+
+    def __enter__(self) -> IndexedKeyframes:
+        if not self.capture.isOpened():
+            self.capture.release()
+            raise ValueError("BaSSL could not open the video for keyframe decoding")
+        return self
+
+    def __exit__(self, *_exc: Any) -> None:
+        self.capture.release()
+
+    def read_batch(
+        self, timecodes: dict[int, list[Any]], start_shot_idx: int, total_shot_num: int
+    ) -> list[list[Any]]:
+        from PIL import Image
+
+        shots = []
+        for shot, frames in timecodes.items():
+            images = []
+            for timecode in frames:
+                index = timecode.get_frames()
+                if self.last_index != index:
+                    position = int(self.capture.get(self.cv2.CAP_PROP_POS_FRAMES))
+                    if index < position or index - position > 48:
+                        if not self.capture.set(self.cv2.CAP_PROP_POS_FRAMES, index):
+                            raise ValueError(f"BaSSL could not seek to frame {index} in shot {shot}")
+                        position = int(self.capture.get(self.cv2.CAP_PROP_POS_FRAMES))
+                    if position > index:
+                        raise ValueError(f"BaSSL seek skipped frame {index} in shot {shot}")
+                    for _ in range(position, index):
+                        if not self.capture.grab():
+                            raise ValueError(f"BaSSL could not advance to frame {index} in shot {shot}")
+                    ok, frame = self.capture.read()
+                    if not ok:
+                        raise ValueError(f"BaSSL could not decode frame {index} in shot {shot}")
+                    self.last_image = Image.fromarray(
+                        self.cv2.cvtColor(frame, self.cv2.COLOR_BGR2RGB)
+                    )
+                    self.last_index = index
+                images.append(self.last_image)
+            if not images:
+                raise ValueError(f"BaSSL requested no keyframes for shot {shot}")
+            shots.append(images)
+        return shots
 
 
 def _rows(result: Any, *names: str) -> list[Any]:
