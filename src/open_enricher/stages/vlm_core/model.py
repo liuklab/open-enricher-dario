@@ -236,12 +236,23 @@ def extract_metadata_from_images(
     ]
     content.append({"type": "text", "text": config.prompt})
     messages = [{"role": "user", "content": content}]
+    image_processor = processor.image_processor
+    token_edge = image_processor.patch_size * image_processor.merge_size
+    pixel_limit = config.max_video_tokens * token_edge**2
     inputs = processor.apply_chat_template(
         messages,
         tokenize=True,
         add_generation_prompt=True,
         return_dict=True,
         return_tensors="pt",
+        processor_kwargs={
+            "images_kwargs": {
+                "size": {
+                    "shortest_edge": min(config.video_shortest_edge, pixel_limit),
+                    "longest_edge": pixel_limit,
+                }
+            }
+        },
     )
     if "input_ids" not in inputs:
         raise RuntimeError(f"Processor did not return input_ids. Keys: {list(inputs.keys())}")

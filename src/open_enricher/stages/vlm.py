@@ -171,7 +171,10 @@ class VLMStage:
 
         stage_status = "success"
         if spec.features.any_enabled and (
-            not is_valid_json or frame_plan.get("scoring_failed") or frame_plan.get("history_returned")
+            not is_valid_json
+            or frame_plan.get("scoring_failed")
+            or frame_plan.get("history_returned")
+            or any(span.get("fallback") for span in frame_spans)
         ):
             stage_status = "degraded"
         logger.info("VLM stage completed. Saved to %s (json_valid=%s)", json_path.name, is_valid_json)

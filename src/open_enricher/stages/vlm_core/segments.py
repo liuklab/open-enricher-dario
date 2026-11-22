@@ -410,12 +410,15 @@ def run_segmented(
                             raw_text = extract_metadata_from_images(
                                 model, processor, image_paths, window_cfg
                             )
-                        except Exception:
+                        except Exception as exc:
                             if not continue_on_error:
                                 raise
+                            frame_span["fallback"] = "clip"
+                            frame_span["error"] = str(exc)
                             logger.warning(
-                                "Explicit frames failed for window %s; using the clip",
+                                "Explicit frames failed for window %s, using the clip: %s",
                                 index,
+                                exc,
                             )
                             raw_text = _clip_generation(
                                 video_path, start, end, model, processor, window_cfg
