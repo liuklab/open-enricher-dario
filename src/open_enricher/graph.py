@@ -14,6 +14,8 @@ import re
 from dataclasses import dataclass, field
 from typing import Any
 
+import numpy as np
+
 
 _SELF_RE = re.compile(
     r"\b(?:i am|i'm|my name is)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,2})",
@@ -182,23 +184,51 @@ def assign_character_ids(
     nodes: list[CharacterNode] = []
     decisions: list[dict[str, Any]] = []
     track_to_character: dict[str, str] = {}
+    node_indexes: dict[str, int] = {}
+    width = len(ordered[0].embedding) if ordered else 0
+    uniform_width = width > 0 and all(len(track.embedding) == width for track in ordered)
+    # Store unit vectors so scoring does not recompute every exemplar norm.
+    exemplars = np.zeros((len(ordered), width)) if uniform_width else None
+
     for track in ordered:
         blocked = {
             track_to_character[other]
             for other in track.co_visible
             if other in track_to_character
         }
-        scored: list[tuple[float, CharacterNode]] = []
-        for node in nodes:
-            if node.character_id in blocked:
-                continue
-            scored.append((cosine(track.embedding, node.embedding), node))
-        scored.sort(key=lambda item: item[0], reverse=True)
-        best = scored[0][0] if scored else 0.0
-        second = scored[1][0] if len(scored) > 1 else 0.0
-        accept = bool(scored) and best >= threshold and (best - second) >= margin
-        if accept:
-            node = scored[0][1]
+        best_index = None
+        best = second = 0.0
+        if exemplars is not None and nodes:
+            vector = np.asarray(track.embedding)
+            norm = np.linalg.norm(vector)
+            if norm:
+                vector = vector / norm
+            scores = np.einsum("ij,j->i", exemplars[:len(nodes)], vector)
+            for character_id in blocked:
+                scores[node_indexes[character_id]] = -np.inf
+            index = int(np.argmax(scores))
+            if scores[index] != -np.inf:
+                best_index = index
+                best = float(scores[index])
+                scores[index] = -np.inf
+                runner_up = float(scores.max())
+                second = runner_up if runner_up != -np.inf else 0.0
+        elif exemplars is None:
+            scored = sorted(
+                (
+                    (cosine(track.embedding, node.embedding), index)
+                    for index, node in enumerate(nodes)
+                    if node.character_id not in blocked
+                ),
+                key=lambda item: item[0],
+                reverse=True,
+            )
+            if scored:
+                best, best_index = scored[0]
+                second = scored[1][0] if len(scored) > 1 else 0.0
+
+        if best_index is not None and best >= threshold and (best - second) >= margin:
+            node = nodes[best_index]
             node.tracks.append(track.track_id)
             node.weight += 1
             node.samples += max(1, track.samples)
@@ -210,11 +240,16 @@ def assign_character_ids(
                 character_id=f"c{len(nodes) + 1:04d}",
                 embedding=list(track.embedding),
                 tracks=[track.track_id],
-                provisional=not accept,
+                provisional=True,
                 samples=max(1, track.samples),
             )
+            node_indexes[node.character_id] = len(nodes)
             nodes.append(node)
-            decision = "provisional" if scored else "new"
+            decision = "provisional" if best_index is not None else "new"
+        if exemplars is not None:
+            vector = np.asarray(node.embedding)
+            norm = np.linalg.norm(vector)
+            exemplars[node_indexes[node.character_id]] = vector / norm if norm else vector
         track_to_character[track.track_id] = node.character_id
         decisions.append(
             {
