@@ -18,8 +18,7 @@ import numpy as np
 
 
 _SELF_RE = re.compile(
-    r"\b(?:i am|i'm|my name is)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,2})",
-    re.IGNORECASE,
+    r"\b(?i:i am|i'm|my name is)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,2})",
 )
 _VOCATIVE_RE = re.compile(
     r"^\s*([A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,2})\s*[,!:]",
@@ -29,13 +28,13 @@ _PROPER_RE = re.compile(r"\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,2})\b")
 # transcript (Okay, It, You, So). They are not character aliases.
 _NAME_STOP = frozenset(
     {
-        "a", "an", "and", "are", "but", "bye", "for", "from", "goodbye", "hello",
+        "a", "all", "an", "and", "are", "but", "bye", "for", "from", "goodbye", "hello",
         "her", "hey", "hi", "him",
-        "his", "how", "if", "in", "it", "its", "just", "like", "man", "me",
+        "his", "how", "if", "in", "is", "it", "its", "just", "let", "like", "man", "me",
         "my", "no", "not", "now", "of", "oh", "ok", "okay", "on", "or", "our",
-        "she", "so", "that", "the", "their", "them", "then", "there", "they",
-        "this", "to", "uh", "um", "we", "well", "what", "when", "who", "why",
-        "yeah", "yes", "you", "your",
+        "right", "she", "so", "that", "the", "their", "them", "then", "there", "they",
+        "this", "to", "uh", "um", "wait", "we", "well", "what", "when", "who", "why",
+        "wow", "yeah", "yes", "you", "your",
     }
 )
 
@@ -147,6 +146,9 @@ def interpret_mention(text: str) -> tuple[str, str | None]:
         if name:
             return "addressee", name
     for proper in _PROPER_RE.finditer(stripped):
+        # Capitalization alone is weak evidence at the start of an utterance.
+        if not proper.start() and " " not in proper.group(1):
+            continue
         name = _accept_name(proper.group(1))
         if name:
             return "third_party", name

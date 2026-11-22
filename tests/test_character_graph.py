@@ -174,3 +174,11 @@ def test_speaker_edges_preserve_gaps_between_supported_windows() -> None:
 def test_a_greeting_does_not_create_a_named_addressee() -> None:
     assert interpret_mention("Hi, have you met Ted?") == ("third_party", "Ted")
     assert interpret_mention("Hello!") == ("third_party", None)
+
+
+def test_sentence_initial_commands_and_verbs_do_not_create_name_mentions() -> None:
+    for utterance in ("Wait!", "Fail.", "Wow.", "Let's go.", "I'm tired."):
+        assert interpret_mention(utterance) == ("third_party", None)
+    assert interpret_mention("I am Richard Hendricks") == (
+        "self_introduction", "Richard Hendricks",
+    )

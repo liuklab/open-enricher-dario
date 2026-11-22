@@ -433,7 +433,7 @@ def _mention_edges(video_filename: str, nodes: list[CharacterNode]) -> list[Edge
                 Edge("speaks", speaker_node.character_id, name, start, end, [evidence], None, "supported")
             )
         elif role == "addressee":
-            edges.append(Edge("addresses", "speaker", name, start, end, [evidence], None, "supported"))
+            edges.append(Edge("addresses", "speaker", name, start, end, [evidence], None, "unresolved"))
         else:
             edges.append(Edge("mentions", "utterance", name, start, end, [evidence], None, "unresolved"))
     return edges
