@@ -18,9 +18,11 @@ SHARED=/SLURM_shared/st_mdp26/open-enricher
 SOURCE="${1:?Pass the integrated clip dataset path}"
 VIDEO="${2:?Pass the video filename}"
 MODE="${3:-ablate}"
+VIDEO_INPUTS="${PROFILE_VIDEO_INPUTS:-$SOURCE/video_inputs}"
+test -f "$VIDEO_INPUTS/$VIDEO"
 DATA="$ROOT/var/graph-profile-control-$SLURM_JOB_ID"
 mkdir -p "$DATA/outputs/graph_results"
-ln -s "$SOURCE/video_inputs" "$DATA/video_inputs"
+ln -s "$VIDEO_INPUTS" "$DATA/video_inputs"
 ln -s "$SHARED/dataset/models_cache" "$DATA/models_cache"
 for stage in audio_results dialogue_results vlms_results memory_results; do
     ln -s "$SOURCE/outputs/$stage" "$DATA/outputs/$stage"
