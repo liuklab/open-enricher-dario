@@ -133,10 +133,7 @@ def main() -> None:
     (vlm / f"{args.video}_vlm.json").write_text(json.dumps(parsed, indent=2))
     (vlm / f"{args.video}_vlm_raw.txt").write_text(raw)
     print(f"VLM JSON coverage: {parsed['segments_parsed']}/{parsed['segments_total']}", flush=True)
-    described_scenes = sum(
-        scene["description"] not in ("", "No description.", "No frame was sampled for this scene.")
-        for scene in parsed["scene_timeline"]
-    )
+    described_scenes = parsed["segments_with_visual_description"]
     print(f"VLM visual descriptions: {described_scenes}/{parsed['segments_total']}", flush=True)
     if args.mode == "grounded":
         graph["account"] = (

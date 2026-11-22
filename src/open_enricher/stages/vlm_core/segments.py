@@ -315,6 +315,7 @@ def run_segmented(
     raw_parts: list[str] = []
     frame_spans: list[dict[str, Any]] = []
     parsed_count = 0
+    described_count = 0
     memory_compacted = False
     try:
         for index, scene in enumerate(scenes, start=1):
@@ -454,7 +455,9 @@ def run_segmented(
                 texts: list[str] = []
             else:
                 parsed_count += 1
-                description = str(parsed.get("description") or "").strip() or "No description."
+                description = str(parsed.get("description") or "").strip()
+                described_count += bool(description and description != "No description.")
+                description = description or "No description."
                 list_limit = 12 if extract_visual else 6
                 subjects = _as_list(parsed.get("subjects_and_objects"), limit=list_limit)
                 actions = _as_list(parsed.get("actions"), limit=list_limit)
@@ -482,6 +485,7 @@ def run_segmented(
         "experiment_id": experiment_id,
         "scene_timeline": segments,
         "segments_parsed": parsed_count,
+        "segments_with_visual_description": described_count,
         "segments_total": len(scenes),
         "vlm_memory_scenes": 0 if extract_visual else vlm_memory_scenes,
         "visual_only": visual_only or extract_visual,
