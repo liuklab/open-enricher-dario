@@ -4,22 +4,20 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=32GB
-#SBATCH --time=00:40:00
-#SBATCH --output=/SLURM_shared/st_mdp26/open-enricher-wt-combined-aa84/jobs_logs/open-enricher-12-short-%j.out
-#SBATCH --error=/SLURM_shared/st_mdp26/open-enricher-wt-combined-aa84/jobs_logs/open-enricher-12-short-%j.err
+#SBATCH --time=02:00:00
+#SBATCH --output=jobs_logs/open-enricher-12-short-%j.out
+#SBATCH --error=jobs_logs/open-enricher-12-short-%j.err
 #SBATCH --account=studenti
 #SBATCH --partition=all-nodes
 #SBATCH --gres=gpu:1
 
 # One short 12-combined pass on How_I_Met_Your_Mother.S01E02.mkv.
-# The span is 30 seconds from 00:00:20 (the couch scene). The Slurm limit
-# is 40 minutes, so this job cannot hold a GPU for hours. It still runs the
-# real pipeline and writes a VideoProfile, or a degraded profile if an
-# optional stage falls back.
+# The span is 30 seconds from 00:00:20 (the couch scene). The earlier
+# successful run took 63 minutes, including model loading and evaluation.
 
 set -euo pipefail
 
-ROOT="${SLURM_SUBMIT_DIR:-/SLURM_shared/st_mdp26/open-enricher-wt-combined-aa84}"
+ROOT="${SLURM_SUBMIT_DIR:?Submit from the repository root with sbatch}"
 cd "$ROOT"
 mkdir -p "$ROOT/jobs_logs"
 

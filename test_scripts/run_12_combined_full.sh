@@ -5,27 +5,18 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=32GB
 #SBATCH --time=24:00:00
-#SBATCH --output=/SLURM_shared/st_mdp26/open-enricher-wt-combined-aa84/jobs_logs/open-enricher-12-full-%j.out
-#SBATCH --error=/SLURM_shared/st_mdp26/open-enricher-wt-combined-aa84/jobs_logs/open-enricher-12-full-%j.err
+#SBATCH --output=jobs_logs/open-enricher-12-full-%j.out
+#SBATCH --error=jobs_logs/open-enricher-12-full-%j.err
 #SBATCH --account=studenti
 #SBATCH --partition=all-nodes
 #SBATCH --gres=gpu:1
 
-# One 12-combined run over the full films, in this order:
-# How_I_Met_Your_Mother.S01E02.mkv, Silicon_Valley.S06E01.mkv,
-# The_Kingdom.S01E02.mkv. No span cut. Stage files go under dataset-full
-# so they stay off the 30-second clip dataset. Weights stay on the shared
-# models cache.
+# Run 12-combined on all videos by default, or on the filenames passed
+# to this script. Stage files go under dataset-full. Models are shared.
 
 set -euo pipefail
 
-if [ "$#" -eq 0 ]; then
-  set -- \
-    How_I_Met_Your_Mother.S01E02.mkv \
-    Silicon_Valley.S06E01.mkv \
-    The_Kingdom.S01E02.mkv
-fi
-ROOT="${SLURM_SUBMIT_DIR:-/SLURM_shared/st_mdp26/open-enricher-wt-combined-aa84}"
+ROOT="${SLURM_SUBMIT_DIR:?Submit from the repository root with sbatch}"
 cd "$ROOT"
 mkdir -p "$ROOT/jobs_logs"
 
@@ -48,6 +39,10 @@ fi
 
 export OPEN_ENRICHER_DATASET_ROOT="$DATA"
 export OPEN_ENRICHER_VIDEO_INPUTS="$SHARED_DATA/video_inputs"
+VIDEO_ARGS=()
+if [ "$#" -gt 0 ]; then
+  VIDEO_ARGS=(--video "$@")
+fi
 for VIDEO in "$@"; do
   test -f "${OPEN_ENRICHER_VIDEO_INPUTS}/${VIDEO}"
 done
@@ -64,4 +59,4 @@ srun --unbuffered --chdir="$ROOT" --export=ALL \
   "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" \
   /SLURM_shared/st_mdp26/open-enricher/.venv/bin/python -m open_enricher \
   --only 12-combined \
-  --video "$@"
+  "${VIDEO_ARGS[@]}"
