@@ -73,3 +73,15 @@ Job 123038 completed in 32 minutes and validated the grounded profile with the u
 With both clip checks passed, Slurm accepted job 123065 for all four full-length titles at revision `208ec3a`. The run has its own dataset output directory and the local monitor checks it every ten minutes. Audit the per-title manifests, profile files, graph evidence, and evaluator results after completion.
 
 Slurm estimated a multi-day wait for job 123065. A scheduling dry run with four CPUs and 24 GB of host RAM showed a same-day slot. Job 123117 replaced the original while it was still pending. It keeps one GPU, the 24-hour limit, all four full-length titles, and the same pipeline code. The host-memory request leaves room above the observed clip peak. Full-length resource use still needs verification.
+
+## Character interaction experiment
+
+The first full episode from job 123117 published 278 character nodes, ten supported speaker intervals, and zero edges between character nodes. All 77 mentions and 23 addresses were unresolved. This exposed a gap between speaker attribution and the interaction evidence available to profile generation.
+
+| Probe | Input and control | Evidence to inspect |
+| --- | --- | --- |
+| Graph smoke, job 123143 | HIMYM at 1195 seconds for 60 seconds, using the first full run's diarization rebased to the clip | Both endpoints exist in the published graph, both detections belong to the same frame, and the frame timestamp falls inside the supported speaker interval |
+| GPU integration, job 123146 | The same source span with fresh audio, graph, and visual outputs | Stage manifest, observed relations in scene context, profile fidelity, and unsupported claims about named addressees |
+| Profile comparison | Replay the integrated clip artifacts with the new edges present and removed, keeping source, model, and text reference fixed | Compare source-grounded interaction facts and check that neither profile asserts addressee identity or a relationship from co-presence alone |
+
+Job 123143 completed in 9 minutes 32 seconds. It published 34 character nodes, seven supported speaker intervals, and six speech co-presence observations. The six observations represent four ordered character pairs. This probe measures what the camera and audio jointly support. The identity of an intended addressee remains unresolved.
