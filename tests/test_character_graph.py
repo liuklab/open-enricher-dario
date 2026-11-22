@@ -136,3 +136,13 @@ def test_speaker_with_three_supported_candidates_stays_unresolved() -> None:
         for _ in range(2)
     ]
     assert link_speaker(alignments) == {}
+
+
+def test_one_talknet_window_cannot_count_twice_across_dialogue_lines() -> None:
+    scores = [{"track_id": "f0", "start": 0, "end": 1, "reliable": True}]
+    decisions = [{"track_id": "f0", "character_id": "c0001"}]
+    lines = [
+        {"speaker": "SPEAKER_00", "start_timestamp": 0, "end_timestamp": 0.4},
+        {"speaker": "SPEAKER_00", "start_timestamp": 0.5, "end_timestamp": 1},
+    ]
+    assert speaker_edges(scores, decisions, lines) == []

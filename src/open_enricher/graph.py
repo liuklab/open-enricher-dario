@@ -398,6 +398,7 @@ def align_speaker_scores(
                     "character_id": character_id,
                     "reliable": True,
                     "track_id": score.get("track_id"),
+                    "window": (start, end),
                     "score": score.get("score"),
                     "start": max(start, line_start),
                     "end": min(end, line_end),
@@ -440,7 +441,11 @@ def speaker_edges(
                 speaker,
                 start,
                 end,
-                [speaker],
+                list(dict.fromkeys(
+                    f"{row.get('track_id')}@{row['window'][0]:.3f}-{row['window'][1]:.3f}"
+                    for row in hits
+                    if row.get("window") and row.get("track_id")
+                )) or [speaker],
                 confidence,
                 "supported",
             )
@@ -460,18 +465,18 @@ def link_speaker(
     A label with fewer than ``minimum_hits`` reliable alignments stays
     unresolved and is omitted.
     """
-    counts: dict[tuple[str, str], int] = {}
-    for row in alignments:
+    windows: dict[tuple[str, str], set[object]] = {}
+    for index, row in enumerate(alignments):
         if not row.get("reliable"):
             continue
         speaker = str(row.get("speaker") or "")
         character_id = str(row.get("character_id") or "")
         if not speaker or speaker == "UNKNOWN" or not character_id:
             continue
-        counts[(speaker, character_id)] = counts.get((speaker, character_id), 0) + 1
+        windows.setdefault((speaker, character_id), set()).add(row.get("window", index))
     candidates: dict[str, list[str]] = {}
-    for (speaker, character_id), hits in counts.items():
-        if hits >= minimum_hits:
+    for (speaker, character_id), hits in windows.items():
+        if len(hits) >= minimum_hits:
             candidates.setdefault(speaker, []).append(character_id)
     return {
         speaker: identities[0]

@@ -227,15 +227,32 @@ class CharacterGraphStage:
             threshold=spec.budgets.match_threshold,
             margin=spec.budgets.match_margin,
         )
-        speech = active_speakers(video, spec, face.get("tracks") or [])
+        lines = _audio_lines(video_filename)
+        dialogue_spans = [
+            (float(line["start_timestamp"]), float(line["end_timestamp"]))
+            for line in lines
+            if isinstance(line, dict)
+            and line.get("speaker") not in {None, "", "UNKNOWN"}
+            and isinstance(line.get("start_timestamp"), (int, float))
+            and isinstance(line.get("end_timestamp"), (int, float))
+            and line["end_timestamp"] > line["start_timestamp"]
+        ]
+        speech = active_speakers(
+            video,
+            spec,
+            face.get("tracks") or [],
+            max_tracks=96,
+            dialogue_spans=dialogue_spans or None,
+        )
+        scores = speech.get("scores") or []
         if speech.get("status") != "success":
             reasons.append(str(speech.get("reason") or "TalkNet unavailable"))
         edges = _mention_edges(video_filename, nodes)
         edges.extend(
             speaker_edges(
-                speech.get("scores") or [],
+                scores,
                 decisions,
-                _audio_lines(video_filename),
+                lines,
             )
         )
         edges = dedupe_edges(edges)
@@ -277,6 +294,10 @@ class CharacterGraphStage:
                 "face_samples": len(observations),
                 "pooled_tracks": len(pooled),
                 "dropped_nodes": len(nodes) - len(kept),
+                "speaker_window_scores": [
+                    {key: value for key, value in score.items() if key != "frame_scores"}
+                    for score in scores
+                ],
                 "nodes": node_rows,
                 "edges": edge_rows,
                 "decisions": kept_decisions,

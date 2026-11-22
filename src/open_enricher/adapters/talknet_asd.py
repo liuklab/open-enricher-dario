@@ -504,7 +504,11 @@ def _slice_cluster(cluster: list[dict[str, Any]], limit: int) -> list[dict[str, 
     return windows
 
 
-def select_windows(tracks: list[dict[str, Any]], max_tracks: int) -> list[dict[str, Any]]:
+def select_windows(
+    tracks: list[dict[str, Any]],
+    max_tracks: int,
+    dialogue_spans: list[list[float]] | None = None,
+) -> list[dict[str, Any]]:
     """Turn per-frame boxes into a few one-second TalkNet windows.
 
     Faces that overlap in time stay in one cluster. Windows are taken
@@ -513,7 +517,28 @@ def select_windows(tracks: list[dict[str, Any]], max_tracks: int) -> list[dict[s
     """
     if max_tracks < 1:
         return []
-    queues = [_slice_cluster(cluster, max_tracks) for cluster in _clusters(tracks)]
+    clusters = _clusters(tracks)
+    if dialogue_spans is not None:
+        windows = sorted(
+            (
+                window
+                for cluster in clusters
+                for window in _slice_cluster(cluster, len(cluster))
+                if any(
+                    min(window["end"], end) > max(window["start"], start)
+                    for start, end in dialogue_spans
+                )
+            ),
+            key=lambda window: (window["start"], window["track_id"]),
+        )
+        if len(windows) <= max_tracks:
+            return windows
+        return [
+            windows[(2 * index + 1) * len(windows) // (2 * max_tracks)]
+            for index in range(max_tracks)
+        ]
+
+    queues = [_slice_cluster(cluster, max_tracks) for cluster in clusters]
     queues = [queue for queue in queues if queue]
     queues.sort(key=len, reverse=True)
     picked: list[dict[str, Any]] = []
@@ -660,7 +685,7 @@ def score_talknet(payload: dict[str, Any]) -> dict[str, Any]:
     tracks = list(payload.get("tracks") or [])
     max_tracks = int(payload.get("max_tracks") or 4)
     present = Path(weights).is_file()
-    windows = select_windows(tracks, max_tracks)
+    windows = select_windows(tracks, max_tracks, payload.get("dialogue_spans"))
     if not windows:
         return {
             "status": "fallback",

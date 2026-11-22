@@ -65,12 +65,13 @@ def active_speakers(
     tracks: list[dict[str, Any]],
     *,
     max_tracks: int | None = None,
+    dialogue_spans: list[tuple[float, float]] | None = None,
 ) -> dict[str, Any]:
     """Score tracks with TalkNet. Without a loaded net this is a fallback.
 
     ``max_tracks`` caps how many one-second windows are forwarded. The
-    pipeline leaves it unset, and the child then scores four windows so a
-    character-graph pass does not hold the GPU for the whole episode.
+    child defaults to four windows for standalone probes. The graph passes
+    its own budget and the diarized dialogue spans.
     """
     weights = talknet_weights(spec)
     if not weights.is_file():
@@ -89,6 +90,8 @@ def active_speakers(
     payload: dict[str, Any] = {"video": str(video), "weights": str(weights), "tracks": slim}
     if max_tracks is not None:
         payload["max_tracks"] = max_tracks
+    if dialogue_spans is not None:
+        payload["dialogue_spans"] = dialogue_spans
     return call_in_child(
         "open_enricher.adapters.face_speech",
         "run_talknet_payload",
