@@ -13,5 +13,6 @@ subjects_and_objects lists people and things visible in the frames. Use a name f
 Return one JSON object and no other text, with these keys:
 description (string), subjects_and_objects (list of strings), actions (list of strings),
 camera_and_shot (string), lighting_and_color (string), on_screen_text (list of strings).
+Keep the description to 2 or 3 short sentences. Use at most 4 short subjects, 4 short actions, and 3 on-screen text items. Camera and lighting each need at most one short sentence. Close every array and the object.
 lighting_and_color describes the image. on_screen_text is empty when nothing is readable.
 Do not describe other parts of the file. Keep names consistent with the earlier metadata when a person is the same.
