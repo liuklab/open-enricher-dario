@@ -1,0 +1,29 @@
+# Visual memory and evidence experiments
+
+## Current pipeline
+
+BaSSL supplies timestamped scene intervals when it succeeds. Dialogue assigns utterances to those intervals and writes a plot summary and scene descriptions. Adaptive frame allocation sets the current-image budget for each VLM call. Qwen also receives up to two earlier text scene records.
+
+EVA/Q-Former encodes sampled frames for visual retrieval. The short-term buffer consolidates 16 observations toward eight and carries one entry into the next buffer. The long-term bank retains up to 64 entries and selects up to four prior frames per scene. Qwen receives decoded images of the selections, with earlier and current timestamps in separate prompt lines. It re-encodes those images. The EVA embeddings stay in the retrieval pipeline.
+
+The VLM gets a compact account of the whole character graph in each scene. The profile writer gets that account, the VLM scene timeline, the dialogue summary and selected original utterances. Its direct visual-memory field currently reports the size of the bank. The graph account can include provisional IDs and does not provide a verified mapping from visible faces to names spoken in dialogue.
+
+## Controlled Slurm replay
+
+All four jobs replay the same full HIMYM source, saved BaSSL scene windows, dialogue, graph, model settings, and per-scene number of images. They archive the exact frame timestamps, raw and parsed VLM results, and final profile in separate job directories. A common random seed reduces sampling variability. The comparison uses the local episode synopsis, relevant source dialogue, and the sampled frames.
+
+| Job | Variant | Question |
+| --- | --- | --- |
+| 123187 | Current-only frames | How much does the same number of images help when every image comes from the current scene? |
+| 123188 | Recent prior frames | Does immediate visual continuity improve the scene account or introduce details from the previous scene? This is a recent-history control. |
+| 123189 | Production memory retrieval | Does similarity and recency retrieval from the consolidated bank outperform simple recent frames? |
+| 123190 | Grounded evidence template | With the same retrieved frames as 123189, does explicitly marking their role and supplying scene-local graph relations improve fidelity or specificity? The profile writer also receives instructions about using those observations. |
+
+Compare matching scenes by ID and verify frame counts before reading scores. At the VLM, check JSON coverage, current-scene factual accuracy, correct continuity references, and leaks from earlier frames. At the LLM, check distinctive, supported tags and hooks, unsupported identities or relationships, and repeated coverage of the same events. Record measured time and available token or VRAM counters. Inspect the claims manually and use the synopsis-based evaluator as a secondary check.
+
+## Follow-up tests
+
+1. Isolate the short-term consolidation itself. Reuse the same encoded candidates and queries, and compare the production bank with a bank that skips short-term merges but uses the same 64-entry cap and retrieval rule. Compare retained events, their distance from queries, and downstream metadata. The recent-frame replay tests proximity and does not isolate the internal consolidation algorithm.
+2. Split the grounded template experiment into VLM-only and writer-only variants if its paired result improves. Prefer timestamped facts scoped to a scene, mark historical images as continuity evidence, and require the writer to prioritize recurring actions, objects, or conflicts. The existing clip controls additionally test removing new graph edges at the writer and removing graph evidence from both VLM and writer.
+3. Test source-supported BaSSL intervals against fixed windows with the same title coverage and image budget once the Silicon Valley BaSSL replay passes. Check whether meaningful events remain intact and whether metadata mentions more distinctive, correct details.
+4. Repeat the useful variants on a second title, integrate the validated changes, and run the complete pipeline. Check each title manually against its synopsis and preserve the artifacts for comparison.
