@@ -31,3 +31,14 @@ Compare matching scenes by ID and verify frame counts before reading scores. At 
 ## Chronology audit
 
 Slot timestamps alone missed five retrieved entries whose representative frame was earlier than the query while their embedding included frames at or after the query. Three are in HIMYM and two are in Silicon Valley. The production retrieval and temporal fallback now require each entry's entire source interval to precede the query. The queued replay reads pre-fix archives, so all four arms exclude these entries before choosing matching frame counts. This historical replay cannot rerank candidates because the archive intentionally omits embedding matrices.
+
+## Replay results
+
+| Inference job | Evaluator job | Parsed scenes | Structured visual descriptions | Overall | Fidelity |
+| --- | --- | --- | --- | --- | --- |
+| 123187 | 123269 | 15/15 | 2/15 | 3.00/5 | 3/5 |
+| 123188 | 123270 | 14/15 | 2/15 | 3.40/5 | 3/5 |
+| 123189 | 123271 | 15/15 | 0/15 | 3.00/5 | 3/5 |
+| 123190 | 123272 | 15/15 | 14/15 | 3.75/5 | 4/5 |
+
+The retrieved-frame and grounded runs used identical frame manifests. The recent-frame run incorrectly imported arcade footage into the rooftop scene. The grounded run kept that description within the rooftop scene and added a party tag, but its hook still omitted Ted, Robin, and the repeated parties. Writer replay 123276 holds the grounded inputs fixed and applies the specificity prompt. Evaluator job 123277 depends on that replay. Suits memory probes 123194 and 123195 test a fresh visual-memory stage run and the effect of short-term consolidation on identical embeddings.
