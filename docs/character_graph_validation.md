@@ -1,26 +1,27 @@
-# Validazione del ramo 12-combined su Slurm
+# Validate 12-combined on Slurm
 
-La base è `debug` con i 16 commit intermedi di `cursor/12-combined-himym-aa84`. La clip storica di HIMYM parte a 00:00:20 e dura 30 secondi. Il job 122717 ha scritto un profilo per la clip. Il job 122809 è stato cancellato dopo circa 6 ore e 25 minuti. Su HIMYM ha prodotto 6.750 nodi e nessun arco `speaks`, poi il generatore del profilo ha esaurito la memoria GPU. Su Silicon Valley si è fermato durante il grafo. The Kingdom era ancora in attesa. I ritocchi successivi riducono la frequenza di campionamento, raggruppano i volti, limitano il riepilogo e leggono i timestamp BaSSL in formato orario. Il job BaSSL 122853 ha lasciato un artefatto separato da verificare.
+The branch starts from `debug` and includes the 16 intermediate commits on `cursor/12-combined-himym-aa84`. The historical HIMYM clip starts at 00:00:20 and lasts 30 seconds. Job 122717 wrote a degraded profile with 69 graph nodes and no `speaks` edges. Job 122809 was cancelled after about 6 hours and 25 minutes. It produced 6,750 nodes and no `speaks` edges for HIMYM, then ran out of GPU memory during profile generation. The run stopped while building the Silicon Valley graph, before The Kingdom started. The intermediate fixes reduce face sampling, pool observations, cap the graph summary, and accept BaSSL clock timestamps. Job 122853 produced 14 actual intervals. The timeline extended the final interval to 1326.08 seconds and recorded `degraded`.
 
-## Sequenza degli esperimenti
+## Experiment sequence
 
-| Esperimento | Input | Criteri di riuscita |
+| Experiment | Input | Pass criteria |
 | --- | --- | --- |
-| InsightFace | Clip HIMYM, pochi frame | CUDA realmente attivo, embedding non vuoti, tempi e numero di campioni registrati |
-| Audio e TalkNet | Clip HIMYM con dialogo | Trascrizione con timestamp e speaker; forward reale con finestre valide e almeno due finestre affidabili distinte per uno speaker visibile annotato |
-| Grafo personaggi | Stessa clip, output nuovi | Volti simultanei con ID distinti, ricomparse coerenti, archi `speaks` collegati a nodi e timestamp verificabili, riepilogo limitato. Confrontare con una verifica manuale della scena |
-| BaSSL e timeline | Prima clip, poi artefatto 122853 o un episodio intero | Intervalli validi entro la durata, segmentazione reale su episodio, copertura e ordine temporale |
-| EVA/Q-Former e memoria visiva | Clip con più scene | Token reali 32×768 per frame, memoria popolata e retrieval che usa solo timestamp precedenti |
-| Composizione e profilo | Clip HIMYM, poi brevi estratti degli altri due titoli | Profilo conforme allo schema con metadati, evidenze e timestamp coerenti. Controllare audio, dialogo, colore, allocazione dei frame, VLM, LLM e metriche. Verificare gli stati degli stage anche con exit code Slurm 0 |
-| Pipeline completa | Tutti i video in input con 12-combined e tutti gli stage attivi | Un profilo valido per ogni titolo, manifest coerente con il file sorgente, nessun fallback inatteso, tempi e picchi di memoria registrati |
+| InsightFace | A few HIMYM clip frames | Confirm the active CUDA provider, nonempty embeddings, sample count, and timing |
+| Audio and TalkNet | HIMYM clip with dialogue | Timestamped diarization, real model scores, and two distinct reliable windows for a manually identified visible speaker |
+| Character graph | Same clip with fresh outputs | Separate co-visible faces, consistent identities across appearances, timestamped `speaks` edges pointing to published nodes, and a bounded summary. Compare with manual annotations |
+| BaSSL and timeline | Clip, then job 122853 artifacts or a full episode | Real scene boundaries on the full episode and ordered, valid intervals covering the input |
+| EVA/Q-Former and visual memory | A clip with several scenes | Real 32×768 tokens per frame, populated memory, and retrieval limited to earlier frames |
+| Profile composition | HIMYM clip, then short extracts from the other titles | Schema-valid profiles with traceable evidence and consistent timestamps. Check audio, dialogue, frame allocation, VLM, LLM, and evaluation. Inspect stage results even when the Slurm exit code is zero |
+| Full pipeline | All inputs with the complete 12-combined stage sequence | A valid profile per title, manifests matching the source files, no unexpected fallbacks, and recorded time and peak memory. The shared input directory currently contains HIMYM, Silicon Valley, Suits, and The Kingdom |
 
-## Fix da validare e diagnosi successive
+## Fixes and follow-up checks
 
-- Il grafo conserva la mappa dagli ID originali delle rilevazioni agli ID raggruppati. I test di regressione coprono anche uno speaker con tre identità concorrenti.
-- Controllare la copertura di TalkNet. Il percorso attuale limita il forward a quattro finestre per titolo. Misurare quante finestre hanno dialogo diarizzato e verificare gli archi nella clip. Se la copertura è insufficiente, distribuire un budget esplicito di finestre sui tratti con dialogo e contare una sola volta ciascuna finestra per coppia speaker–personaggio.
-- Misurare separatamente rilevazione, raggruppamento, abbinamento, TalkNet e generazione del profilo. Se il grafo cresce troppo, misurare il costo delle comparazioni con gli esemplari. Se il profilo esaurisce ancora la memoria, misurare i token in ingresso e il picco GPU prima di modificare il budget.
-- Verificare cache e ripresa con un output isolato per clip e un dataset separato per i titoli interi. Controllare che un archivio con lo stesso nome e una durata diversa non faccia saltare un run.
+- The graph preserves the mapping from original face detection IDs to pooled tracks. Regression tests also verify that a speaker with three qualifying identities stays unresolved.
+- TalkNet currently forwards up to four windows per title. Measure how many overlap diarized speech and verify the resulting edges on the clip. If coverage is insufficient, allocate a bounded set of windows across dialogue spans and count each window once per speaker and character.
+- Record face detection, pooling, assignment, TalkNet, and profile generation separately. If graph time grows too quickly, measure comparisons against exemplars. If profile generation still exhausts memory, record input tokens and peak GPU memory before changing the budget.
+- The Qwen processor applies the visual budget to explicit frames. With historical HIMYM frames it produced 3,672 input tokens for all 30 capped frames and 4,096 tokens for two frames at the previous settings. Falling back to clip generation now marks the stage degraded. GPU generation remains to be validated.
+- Keep clip and full-film outputs isolated. Verify that an archive for a shorter source with the same filename cannot skip a full-film run.
 
-## Operatività
+## Slurm operation
 
-Spegnere e verificare sul nodo di login la sessione tmux `oe-slurm-watcher` prima della prima sottomissione. Per ogni esperimento registrare commit, input, job ID, percorso output, stati degli stage e risultati. Controllare la coda ogni 10 minuti. Dopo l'uscita dalla coda verificare stato ed exit code con `sacct` e ispezionare gli artefatti. Fermare i tentativi su ogni problema dopo tre prove fallite e lasciare il run completo sospeso finché i controlli sulle clip restano aperti.
+Submit from the intended checkout with `sbatch --export=ALL test_scripts/run_12_combined_himym_short.sh`. Record the commit, input, job ID, output path, and stage results for each probe. Stop the Slack-backed `oe-slurm-watcher` session before submission. Poll the queue every 10 minutes, then check state and exit code with `sacct` and inspect the artifacts. Stop after three failed attempts per issue. Submit `test_scripts/run_12_combined_full.sh` once the clip validations pass.
