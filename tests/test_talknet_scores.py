@@ -58,10 +58,11 @@ def test_two_hits_reach_the_profile_account() -> None:
         {"start_timestamp": 22.1, "end_timestamp": 22.9, "speaker": "SPEAKER_00", "text": "Back then."},
     ]
     edges = speaker_edges(scores, decisions, lines)
-    assert len(edges) == 1
-    assert edges[0].source == "c0001"
-    assert edges[0].target == "SPEAKER_00"
-    assert edges[0].status == "supported"
+    assert [(edge.start, edge.end) for edge in edges] == [(20.2, 20.8), (22.1, 22.9)]
+    assert all(
+        (edge.source, edge.target, edge.status) == ("c0001", "SPEAKER_00", "supported")
+        for edge in edges
+    )
     account = compact_account(
         [{"character_id": "c0001", "alias": None, "tracks": ["a", "b"]}],
         [edge.to_dict() for edge in edges],
