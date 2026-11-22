@@ -146,3 +146,26 @@ def test_one_talknet_window_cannot_count_twice_across_dialogue_lines() -> None:
         {"speaker": "SPEAKER_00", "start_timestamp": 0.5, "end_timestamp": 1},
     ]
     assert speaker_edges(scores, decisions, lines) == []
+
+
+def test_speaker_edges_preserve_gaps_between_supported_windows() -> None:
+    scores = [
+        {"track_id": "f0", "start": 6, "end": 7, "reliable": True},
+        {"track_id": "f1", "start": 25, "end": 26, "reliable": True},
+    ]
+    decisions = [
+        {"track_id": track_id, "character_id": "c0001"}
+        for track_id in ("f0", "f1")
+    ]
+    lines = [
+        {"speaker": "SPEAKER_00", "start_timestamp": 5, "end_timestamp": 8},
+        {"speaker": "SPEAKER_01", "start_timestamp": 10, "end_timestamp": 20},
+        {"speaker": "SPEAKER_00", "start_timestamp": 24, "end_timestamp": 27},
+    ]
+
+    edges = speaker_edges(scores, decisions, lines)
+
+    assert [(edge.start, edge.end) for edge in edges] == [(6, 7), (25, 26)]
+    assert [edge.evidence_ids for edge in edges] == [
+        ["f0@6.000-7.000"], ["f1@25.000-26.000"],
+    ]

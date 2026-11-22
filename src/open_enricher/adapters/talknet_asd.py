@@ -669,6 +669,7 @@ def _score_window(
     mean = float(sum(values) / len(values))
     return {
         "track_id": window["track_id"],
+        "bbox": window["bbox"],
         "start": window["start"],
         "end": window["end"],
         "score": round(mean, 4),

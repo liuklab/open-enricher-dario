@@ -424,32 +424,40 @@ def speaker_edges(
             and str(row.get("speaker") or "") == speaker
             and str(row.get("character_id") or "") == character_id
         ]
-        if not hits:
-            continue
-        start = min(float(row.get("start") or 0) for row in hits)
-        end = max(float(row.get("end") or row.get("start") or 0) for row in hits)
-        values = [
-            float(row["score"])
-            for row in hits
-            if isinstance(row.get("score"), (int, float))
-        ]
-        confidence = round(sum(values) / len(values), 4) if values else None
-        edges.append(
-            Edge(
-                "speaks",
-                character_id,
-                speaker,
-                start,
-                end,
-                list(dict.fromkeys(
-                    f"{row.get('track_id')}@{row['window'][0]:.3f}-{row['window'][1]:.3f}"
-                    for row in hits
-                    if row.get("window") and row.get("track_id")
-                )) or [speaker],
-                confidence,
-                "supported",
+        groups: list[list[dict[str, Any]]] = []
+        group_end = -math.inf
+        for row in sorted(hits, key=lambda item: float(item.get("start") or 0)):
+            start = float(row.get("start") or 0)
+            end = float(row.get("end") or start)
+            if not groups or start > group_end:
+                groups.append([])
+                group_end = end
+            groups[-1].append(row)
+            group_end = max(group_end, end)
+
+        for group in groups:
+            values = [
+                float(row["score"])
+                for row in group
+                if isinstance(row.get("score"), (int, float))
+            ]
+            evidence_ids = list(dict.fromkeys(
+                f"{row['track_id']}@{row['window'][0]:.3f}-{row['window'][1]:.3f}"
+                for row in group
+                if row.get("window") and row.get("track_id")
+            ))
+            edges.append(
+                Edge(
+                    "speaks",
+                    character_id,
+                    speaker,
+                    float(group[0].get("start") or 0),
+                    max(float(row.get("end") or row.get("start") or 0) for row in group),
+                    evidence_ids or [speaker],
+                    round(sum(values) / len(values), 4) if values else None,
+                    "supported",
+                )
             )
-        )
     return edges
 
 
