@@ -42,3 +42,5 @@ Slot timestamps alone missed five retrieved entries whose representative frame w
 | 123190 | 123272 | 15/15 | 14/15 | 3.75/5 | 4/5 |
 
 The retrieved-frame and grounded runs used identical frame manifests. The recent-frame run incorrectly imported arcade footage into the rooftop scene. The grounded run kept that description within the rooftop scene and added a party tag, but its hook still omitted Ted, Robin, and the repeated parties. Writer replay 123276 holds the grounded inputs fixed and applies the specificity prompt. Evaluator job 123277 depends on that replay. Suits memory probes 123194 and 123195 test a fresh visual-memory stage run and the effect of short-term consolidation on identical embeddings.
+
+Job 123194 encoded the Suits episode and built a 64-entry bank, but the probe omitted the dialogue artifact that supplies scene starts. Its successful exit therefore verified bank construction only. The matching dialogue artifact contains 46 scenes and was linked into job 123195 while it was encoding frames. The corrected stage probe, job 123280, includes dialogue from startup and requires at least one non-empty retrieval before it passes.
