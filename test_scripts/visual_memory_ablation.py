@@ -105,8 +105,11 @@ def main() -> None:
         if args.mode == "grounded":
             relations = relations_for_interval(graph["edges"], start, end)
             context.append(
-                "Describe events from the current frames. Earlier frames may help identify recurring settings "
-                "or objects and establish continuity. Use only scene-local graph observations, and treat "
+                "Write at least one sentence about visible content in the current frames whenever they "
+                "show anything recognizable. If the action or identity is unclear, describe a visible "
+                "setting, object, or posture. Include visible details even when the dialogue does not "
+                "mention them. Earlier frames may help identify recurring settings or objects and "
+                "establish continuity. Use only scene-local graph observations, and treat "
                 "speaker labels as local references. Co-presence provides evidence of visibility during "
                 "speech. Leave recipient identity and relationship unresolved when the evidence is ambiguous."
             )
