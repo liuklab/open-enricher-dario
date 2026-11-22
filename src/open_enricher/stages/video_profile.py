@@ -6,15 +6,19 @@ scored shape cannot drift from the generated shape. Depends only on pydantic.
 
 from __future__ import annotations
 
-from typing import List
+from typing import List, Literal
 
 from pydantic import BaseModel, Field
 
 
 class RecSysMetadata(BaseModel):
-    primary_genre: str = Field(..., description="Main genre, e.g. Action, Comedy, Education, Vlog")
+    primary_genre: Literal[
+        "Action", "Adventure", "Animation", "Comedy", "Crime", "Documentary",
+        "Drama", "Education", "Fantasy", "Horror", "Music", "Mystery", "News",
+        "Romance", "Sci-Fi", "Science Fiction", "Sports", "Thriller", "Vlog", "Western",
+    ] = Field(..., description="Main genre, e.g. Action, Comedy, Education, Vlog")
     sub_genres: List[str] = Field(..., description="1 to 4 specific sub-genres")
-    pacing: str = Field(..., description="Fast, Moderate, or Slow")
+    pacing: Literal["Fast", "Moderate", "Slow"] = Field(..., description="Fast, Moderate, or Slow")
     mood: List[str] = Field(..., description="1 to 4 mood adjectives")
 
 
@@ -24,7 +28,9 @@ class SearchAndDiscovery(BaseModel):
 
 
 class AudienceProfiling(BaseModel):
-    target_age_group: str = Field(..., description="e.g. Gen Z, Millennials, Young Adults, All Ages")
+    target_age_group: Literal[
+        "All Ages", "Children", "Teens", "Young Adults", "Gen Z", "Millennials", "Adults", "Family",
+    ] = Field(..., description="e.g. Gen Z, Millennials, Young Adults, All Ages")
     viewer_interests: List[str] = Field(..., description="1 to 4 target audience interests")
 
 
