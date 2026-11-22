@@ -105,6 +105,7 @@ def prepare_scenes(
     *,
     sample_fps: float,
     video_fps: float = 24.0,
+    extract_frames: bool = True,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     """
     Attach per-call frame caps and, when ffmpeg can, explicit JPEGs.
@@ -187,7 +188,7 @@ def prepare_scenes(
             if stamp not in stamps
         ]
         image_paths: list[str] = []
-        if stamps or history_stamps:
+        if extract_frames and (stamps or history_stamps):
             dest = CACHE_ROOT / video_filename / "explicit" / spec.experiment_id / str(group["call_id"])
             image_paths = _grab(video, history_stamps + stamps, dest)
         extra_lines = []

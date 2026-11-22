@@ -45,8 +45,9 @@ def main() -> None:
         raise SystemExit("The replay requires matched graph, dialogue, and memory artifacts")
 
     spec = load_pipeline_spec()
-    planned.CACHE_ROOT = args.dataset / "prepared_frames"
-    scenes, plan = planned.prepare_scenes(video, args.video, dialogue["scenes"], spec, sample_fps=2)
+    scenes, plan = planned.prepare_scenes(
+        video, args.video, dialogue["scenes"], spec, sample_fps=2, extract_frames=False,
+    )
     memory_end = {entry["frame_id"]: entry["end"] for entry in memory["entries"]}
     audit = []
     for scene, group in zip(scenes, plan["groups"], strict=True):
