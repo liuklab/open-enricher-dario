@@ -20,6 +20,9 @@ def main() -> None:
     timeline_file = storage.get_output_dir("bassl") / f"{video}_bassl.json"
     timeline = json.loads(timeline_file.read_text())
     os.environ["OPEN_ENRICHER_ATTEMPT_ID"] = timeline["attempt_id"]
+    starts = _scene_starts(video)
+    if len(starts) < 2:
+        raise SystemExit("The comparison requires at least two scene starts")
     spec = load_pipeline_spec()
     budget = spec.budgets
     encoded = encode_video(
@@ -30,9 +33,6 @@ def main() -> None:
         raise SystemExit(encoded.get("reason") or "Insufficient frames to compare both capacities")
     del encoded
 
-    starts = _scene_starts(video)
-    if len(starts) < 2:
-        raise SystemExit("The comparison requires at least two scene starts")
     before = perf_counter()
     production = stream_memory(
         frames, short_capacity=budget.short_term_capacity, short_target=budget.short_term_target,
