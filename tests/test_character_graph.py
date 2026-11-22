@@ -182,3 +182,26 @@ def test_sentence_initial_commands_and_verbs_do_not_create_name_mentions() -> No
     assert interpret_mention("I am Richard Hendricks") == (
         "self_introduction", "Richard Hendricks",
     )
+
+
+def test_visible_speech_edges_need_both_published_faces_in_the_speech_frame():
+    from open_enricher.graph import Edge, TrackObservation, visible_speech_edges
+
+    observations = [
+        TrackObservation(track_id="face-a", embedding=[1.0], start=2.0, end=2.0, shot_id="shot"),
+        TrackObservation(track_id="face-b", embedding=[1.0], start=2.0, end=2.0, shot_id="shot"),
+        TrackObservation(track_id="face-c", embedding=[1.0], start=3.0, end=3.0, shot_id="shot"),
+    ]
+    decisions = [
+        {"source_track_ids": [face], "character_id": character}
+        for face, character in [("face-a", "a"), ("face-b", "b"), ("face-c", "c")]
+    ]
+    speech = Edge("speaks", "a", "SPEAKER_00", 1.5, 2.5, ["window"], 0.9, "supported")
+
+    edges = visible_speech_edges(observations, decisions, [speech], {"a", "b", "c"})
+
+    assert edges == [
+        Edge("speaks_in_presence_of", "a", "b", 2.0, 2.0,
+             ["window", "face-a", "face-b"], 0.9, "supported")
+    ]
+    assert not visible_speech_edges(observations, decisions, [speech], {"a", "c"})

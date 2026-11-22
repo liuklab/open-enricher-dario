@@ -31,7 +31,8 @@ export PATH="/SLURM_shared/st_mdp26/ffmpeg-libs/bin:$PATH"
 export PYTHONPATH="$ROOT/src"
 export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4
 export CUDA_VISIBLE_DEVICES=""
-export GRAPH_SOURCE_DATASET="$SHARED/dataset"
+export GRAPH_SOURCE_DATASET="${GRAPH_SOURCE_DATASET:-$SHARED/dataset}"
+export GRAPH_SOURCE_VIDEO_INPUTS="${GRAPH_SOURCE_VIDEO_INPUTS:-$SHARED/dataset/video_inputs}"
 srun --unbuffered --export=ALL "$SHARED/.venv/bin/python" - "$VIDEO" "$START" "$DURATION" <<'PY'
 import json
 import os
@@ -50,7 +51,7 @@ dataset = Path(os.environ["OPEN_ENRICHER_DATASET_ROOT"])
 subprocess.run(
     [
         "ffmpeg", "-hide_banner", "-loglevel", "error", "-threads", "4",
-        "-ss", start_arg, "-t", duration_arg, "-i", str(source / "video_inputs" / video),
+        "-ss", start_arg, "-t", duration_arg, "-i", str(Path(os.environ["GRAPH_SOURCE_VIDEO_INPUTS"]) / video),
         "-c:v", "libx264", "-threads", "4", "-preset", "veryfast",
         "-pix_fmt", "yuv420p", "-c:a", "aac", str(dataset / "video_inputs" / video),
     ],

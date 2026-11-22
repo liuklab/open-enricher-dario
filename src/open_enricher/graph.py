@@ -531,6 +531,50 @@ def link_speaker(
     }
 
 
+def visible_speech_edges(
+    observations: list[TrackObservation],
+    decisions: list[dict[str, Any]],
+    speech_edges: list[Edge],
+    kept_ids: set[str],
+) -> list[Edge]:
+    """Record speech with another published character visible in the same frame."""
+    characters = {
+        track_id: row["character_id"]
+        for row in decisions
+        if row.get("character_id") in kept_ids
+        for track_id in row.get("source_track_ids") or ()
+    }
+    frames: dict[float, dict[str, str]] = {}
+    for observation in observations:
+        character = characters.get(observation.track_id)
+        if character:
+            frames.setdefault(observation.start, {})[character] = observation.track_id
+
+    edges: list[Edge] = []
+    for speech in speech_edges:
+        if speech.source not in kept_ids or speech.status != "supported":
+            continue
+        for timestamp, visible in frames.items():
+            if not speech.start <= timestamp <= speech.end or speech.source not in visible:
+                continue
+            for other, track_id in visible.items():
+                if other == speech.source:
+                    continue
+                edges.append(
+                    Edge(
+                        "speaks_in_presence_of",
+                        speech.source,
+                        other,
+                        timestamp,
+                        timestamp,
+                        [*speech.evidence_ids, visible[speech.source], track_id],
+                        speech.confidence,
+                        "supported",
+                    )
+                )
+    return edges
+
+
 def dedupe_edges(edges: list[Edge]) -> list[Edge]:
     """Drop edges that repeat the same key. Order of first occurrence is kept."""
     seen: set[tuple[Any, ...]] = set()
@@ -608,7 +652,7 @@ def compact_account(
     if hidden:
         lines.append(f"{hidden} further character(s) were left out.")
     supported = [edge for edge in edges if edge.get("status") == "supported"]
-    for edge in supported[:8]:
+    for edge in sorted(supported, key=lambda edge: edge.get("kind") != "speaks_in_presence_of")[:8]:
         lines.append(
             f"{edge.get('source')} {edge.get('kind')} {edge.get('target')} "
             f"at {edge.get('start')}-{edge.get('end')}."
