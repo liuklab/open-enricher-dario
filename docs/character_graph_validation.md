@@ -63,3 +63,11 @@ Suits job 123022 returned four published characters and four supported speech in
 The clip-scoped baseline evaluation in job 123037 scored the same profile at 3.15/5 and marked it usable. This score is the comparison baseline for job 123038. The full-episode score measures a different source scope.
 
 Silicon Valley job 123021 timed out after 30 minutes. With the same clip, node, and CPU allocation, job 123034 finished in 2 minutes 56 seconds. It reported four ONNX intra-op threads, 401 face detections, 65 published characters in a crowded scene, 96 scored windows, and two supported speech intervals. Across all four title clips, published speaker edges point to existing nodes, cite reliable windows, and overlap diarization for the same speaker. No two co-visible face samples share the same published character ID.
+
+## Full-run submission
+
+Job 123017 completed in 1 hour 7 minutes with a full profile and all eight stages successful. Its GPU graph published three supported speech spans, each within a matching diarized utterance and backed by a reliable TalkNet window. Its earlier evaluator configuration timed out at bridge startup.
+
+Job 123038 completed in 32 minutes and validated the grounded profile with the updated evaluator. The clip-scoped score rose from 3.15/5 to 3.85/5, with fidelity 4/5 and consistency 5/5. The evaluator marked the profile usable and identified a few unsupported details. The standalone harness now sets the shared model cache before importing the model, avoiding the duplicate download observed in this job.
+
+With both clip checks passed, Slurm accepted job 123065 for all four full-length titles at revision `208ec3a`. The run has its own dataset output directory and the local monitor checks it every ten minutes. Audit the per-title manifests, profile files, graph evidence, and evaluator results after completion.
