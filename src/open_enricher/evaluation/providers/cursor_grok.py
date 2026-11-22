@@ -15,6 +15,7 @@ from typing import Any
 # Default model id for Grok 4.7 via Cursor. Override with OPEN_ENRICHER_EVAL_MODEL.
 # Cursor.models.list() accepts "grok-4.7", not IDE slugs such as "grok-4.7-high-fast".
 DEFAULT_MODEL = "grok-4.7"
+BRIDGE_STARTUP_TIMEOUT_SECONDS = 120
 
 
 class CursorGrokProvider:
@@ -72,7 +73,7 @@ class CursorGrokProvider:
         from cursor_sdk import (  # type: ignore[import-untyped]
             Agent,
             AgentOptions,
-            CursorAgentError,
+            Client,
             LocalAgentOptions,
         )
 
@@ -86,10 +87,11 @@ class CursorGrokProvider:
                 tools=[],
                 local=LocalAgentOptions(cwd=tmp),
             )
-            try:
-                result: Any = Agent.prompt(message, options)
-            except CursorAgentError:
-                raise
+            # The bridge can take longer than the SDK default on a cold Slurm node.
+            with Client.launch_bridge(
+                workspace=tmp, timeout=BRIDGE_STARTUP_TIMEOUT_SECONDS,
+            ) as client:
+                result: Any = Agent.prompt(message, options, client=client)
 
         status = getattr(result, "status", None)
         run_id = getattr(result, "id", None)

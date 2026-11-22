@@ -95,6 +95,19 @@ Resume uses `runs/local/progress.jsonl`. Pass `--force` to re-run an experiment 
 
 See [docs/local_loop.md](docs/local_loop.md) and [docs/evaluator.md](docs/evaluator.md).
 
+### Run the combined visual pipeline
+
+```bash
+python -m open_enricher --only 12-combined --video VIDEO_FILENAME
+```
+
+The combined variant adds BaSSL scene boundaries, InsightFace and TalkNet
+character evidence, and EVA/Q-Former frame retrieval. Install the optional GPU
+dependencies and provide the model weights under the dataset's
+`models_cache/external/` directory. Make FFmpeg available on `PATH`.
+Inspect the per-title manifest for fallback or degraded stages.
+
+
 ## Stages
 
 | Stage | What it writes |

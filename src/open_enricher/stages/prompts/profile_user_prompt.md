@@ -1,6 +1,8 @@
-Analyze the following video metadata.
-plot_summary is the high-level plot from the full transcript.
-scene_metadata lists each interval. dialogue_description is what was said there. The other fields are what the frames showed.
+Describe the supplied video. The file may be an excerpt.
+- dialogue_excerpts are timestamped snippets from the audio. scene_metadata describes the observed intervals. Prefer these sources when plot_summary adds details that they do not support.
+- Distinguish events shown in the present from past events recounted in voice-over or flashback. Describe a recap as a recap and leave later episode events unstated.
+- Use concrete events, relationships, settings, and format as search signals. For comedy with a romantic premise, keep both signals when supported.
+- Character IDs are local tracking labels. Names mentioned in conversation do not identify visible faces unless the evidence explicitly links them.
 
 {{SCRIPT_TEXT}}
 
@@ -12,7 +14,7 @@ Hard limits, which override any longer list in the metadata:
 - audience_profiling.viewer_interests has 1 to 4 items.
 - audience_profiling.target_age_group is exactly one of: All Ages, Children, Teens, Young Adults, Gen Z, Millennials, Adults, Family. Do not join two labels with 'and'.
 - content_summary.visual_style is one sentence and must mention the dominant palette when the metadata describes dark, near-black, or night colors.
-- content_summary.narrative_hook is one sentence. Do not say a missing person was found alive unless the metadata says that without contradiction.
+- content_summary.narrative_hook is one sentence about the observed setup or conflict. Leave the outcome open when the evidence stops before its resolution.
 - Use spoken names only when the metadata already contains them.
 
 Populate this exact JSON structure:

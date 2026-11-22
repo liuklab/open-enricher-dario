@@ -216,3 +216,71 @@ def extract_metadata(
     if not text.strip():
         raise RuntimeError("Decoded generation is empty")
     return text
+
+
+def extract_metadata_from_images(
+    model: Any,
+    processor: Any,
+    image_paths: list[str | Path],
+    config: MetadataConfig,
+) -> str:
+    """Run one generation on an explicit list of images instead of a clip."""
+    paths = [Path(path) for path in image_paths]
+    missing = [path for path in paths if not path.is_file()]
+    if missing:
+        raise FileNotFoundError(f"Explicit frame is missing: {missing[0]}")
+    if not config.prompt.strip():
+        raise ValueError("Prompt text is empty")
+    content: list[dict[str, str]] = [
+        {"type": "image", "image": str(path)} for path in paths
+    ]
+    content.append({"type": "text", "text": config.prompt})
+    messages = [{"role": "user", "content": content}]
+    image_processor = processor.image_processor
+    token_edge = image_processor.patch_size * image_processor.merge_size
+    pixel_limit = config.max_video_tokens * token_edge**2
+    inputs = processor.apply_chat_template(
+        messages,
+        tokenize=True,
+        add_generation_prompt=True,
+        return_dict=True,
+        return_tensors="pt",
+        processor_kwargs={
+            "images_kwargs": {
+                "size": {
+                    "shortest_edge": min(config.video_shortest_edge, pixel_limit),
+                    "longest_edge": pixel_limit,
+                }
+            }
+        },
+    )
+    if "input_ids" not in inputs:
+        raise RuntimeError(f"Processor did not return input_ids. Keys: {list(inputs.keys())}")
+    inputs = inputs.to(model_device(model))
+    try:
+        gen_kwargs: dict[str, Any] = {
+            "max_new_tokens": config.max_new_tokens,
+            "do_sample": config.do_sample,
+            "repetition_penalty": config.repetition_penalty,
+        }
+        if config.do_sample:
+            gen_kwargs["temperature"] = config.temperature
+            gen_kwargs["top_p"] = config.top_p
+            gen_kwargs["top_k"] = config.top_k
+        with torch.inference_mode():
+            generated = model.generate(**inputs, **gen_kwargs)
+        prompt_len = inputs.input_ids.shape[1]
+        if generated.shape[1] <= prompt_len:
+            raise RuntimeError("Model produced no new tokens")
+        text = processor.batch_decode(
+            generated[:, prompt_len:],
+            skip_special_tokens=True,
+            clean_up_tokenization_spaces=False,
+        )[0]
+    finally:
+        del inputs
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+    if not text.strip():
+        raise RuntimeError("Decoded generation is empty")
+    return text

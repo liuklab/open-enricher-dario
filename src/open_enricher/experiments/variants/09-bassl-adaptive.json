@@ -1,0 +1,18 @@
+{
+  "experiment_id": "09-bassl-adaptive",
+  "title": "bassl-adaptive",
+  "interval_seconds": 300,
+  "vlm_memory_scenes": 2,
+  "visual_only": false,
+  "features": {
+    "bassl": true,
+    "adaptive_frames": true,
+    "character_graph": false,
+    "visual_memory": false
+  },
+  "frame_allocation": "adaptive",
+  "budgets": {
+    "max_qwen_frames": 40,
+    "history_frame_fraction": 0.0
+  }
+}

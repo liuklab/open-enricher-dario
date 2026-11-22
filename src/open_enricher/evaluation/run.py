@@ -18,6 +18,7 @@ from open_enricher.evaluation.score import (
 from open_enricher.evaluation.synopsis import load_synopsis
 from open_enricher.experiments.archive import experiment_dir, video_archive_dir
 from open_enricher.logging_setup import get_logger
+from open_enricher.manifest import profile_decision
 from open_enricher import storage
 
 logger = get_logger(__name__)
@@ -159,6 +160,54 @@ def evaluate_video(
         )
         report_path.write_text(
             json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8"
+        )
+        return {
+            "video": video_filename,
+            "status": "failed",
+            "error": report["error"],
+            "output_file": str(report_path),
+        }
+
+    manifest = None
+    if experiment_id:
+        loaded = _load_json(
+            video_archive_dir(experiment_id, video_filename)
+            / f"{video_filename}_manifest.json"
+        )
+        if isinstance(loaded, dict):
+            manifest = loaded
+    decision = profile_decision(manifest, profile_path.name)
+    if decision == "degraded":
+        note = {
+            "video": video_filename,
+            "title": title,
+            "status": "degraded",
+            "profile_kind": "degraded",
+            "scored": False,
+            "profile_file": profile_path.name,
+        }
+        report_path.write_text(
+            json.dumps(note, indent=2, ensure_ascii=False),
+            encoding="utf-8",
+        )
+        return {
+            "video": video_filename,
+            "status": "degraded",
+            "output_file": str(report_path),
+        }
+    if decision == "rejected":
+        report = failed_report(
+            video_filename=video_filename,
+            title=title,
+            profile_file=profile_path.name,
+            error="Profile is not an accepted artifact of this attempt.",
+            uses_synopsis=with_synopsis,
+            provider=provider_name,
+            model=model,
+        )
+        report_path.write_text(
+            json.dumps(report, indent=2, ensure_ascii=False),
+            encoding="utf-8",
         )
         return {
             "video": video_filename,

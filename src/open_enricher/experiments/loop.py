@@ -17,10 +17,11 @@ from typing import Any
 
 from open_enricher.experiments.archive import (
     append_progress,
+    archive_matches_sources,
     experiment_dir,
-    is_done,
     list_variants,
     merge_timings,
+    retain_different_source,
     video_archive_dir,
     write_json,
 )
@@ -36,6 +37,8 @@ from open_enricher.experiments.config import (
     REPO_ROOT,
     VARIANTS_DIR,
 )
+from open_enricher.experiments.stages import STAGE_CHOICES
+from open_enricher import storage
 from open_enricher.logging_setup import configure_logging, get_logger
 
 logger = get_logger(__name__)
@@ -260,8 +263,12 @@ def run_one_experiment(
     variant = _load_variant(variant_path)
     logger.info("======== Experiment %s ========", experiment_id)
 
-    pipeline_done = skip_done and is_done(experiment_id, "archived")
-    evaluation_done = skip_done and is_done(experiment_id, "evaluation")
+    pipeline_done = skip_done and archive_matches_sources(
+        experiment_id, videos, "archived"
+    )
+    evaluation_done = skip_done and archive_matches_sources(
+        experiment_id, videos, "evaluation"
+    )
     if pipeline_done and evaluation_done:
         logger.info(f"Skipping {experiment_id}: already archived and evaluated")
         return {
@@ -322,8 +329,13 @@ def run_one_experiment(
                     vram_rows,
                 )
 
+            source = storage.video_inputs() / video
+            retained = retain_different_source(experiment_id, video, source)
+            if retained is not None:
+                logger.info("Kept the previous archive at %s", retained)
             dest = video_archive_dir(experiment_id, video)
-            archived = runner.archive_artifacts(video, dest, stages=stages)
+            archive_stages = summary.get("stages_ran") or stages
+            archived = runner.archive_artifacts(video, dest, stages=archive_stages)
             summary["archived_files"] = archived
 
             timing_paths = list(dest.glob(f"{video}_*_timings.json"))
@@ -352,7 +364,9 @@ def run_one_experiment(
     if not pipeline_done:
         write_json(exp_dir / "video_results.json", video_results)
         write_json(exp_dir / "variant.json", variant)
-        pipeline_ok = all(row.get("status") == "success" for row in video_results)
+        pipeline_ok = all(
+            row.get("status") in {"success", "degraded"} for row in video_results
+        )
         append_progress(
             {
                 "experiment_id": experiment_id,
@@ -379,7 +393,7 @@ def run_one_experiment(
         eval_ok = (
             evaluation_error is None
             and bool(evaluation_results)
-            and all(row.get("status") == "success" for row in evaluation_results)
+            and all(row.get("status") in {"success", "degraded"} for row in evaluation_results)
         )
         append_progress(
             {
@@ -410,14 +424,14 @@ def run_one_experiment(
     )
 
     pipeline_ok = (
-        all(row.get("status") == "success" for row in video_results)
+        all(row.get("status") in {"success", "degraded"} for row in video_results)
         if video_results
         else pipeline_done
     )
     eval_ok = evaluation_done or (
         evaluation_error is None
         and bool(evaluation_results)
-        and all(row.get("status") == "success" for row in evaluation_results)
+        and all(row.get("status") in {"success", "degraded"} for row in evaluation_results)
     )
     overall = "ok" if pipeline_ok and eval_ok else "error"
 
@@ -535,8 +549,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--stages",
         nargs="+",
-        choices=list(PIPELINE_STAGES),
-        help="Subset of stages to run. Default: audio color vlm llm.",
+        choices=list(STAGE_CHOICES),
+        help="Subset of stages to run. Default: audio dialogue vlm llm.",
     )
     parser.add_argument(
         "--no-cache",

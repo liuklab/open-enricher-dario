@@ -22,3 +22,26 @@ scenedetect
 opencv-python-headless
 scikit-learn
 Pillow
+
+# --- Character graph (InsightFace buffalo_l) ---
+# Weights stay in dataset/models_cache/external/insightface/models/buffalo_l.
+# onnxruntime-gpu 1.26 is the newest wheel that links CUDA 12 and cuDNN 9,
+# the same major versions as the torch cu128 libraries in this venv.
+# Wheels from 1.27 onward require CUDA 13 and do not load those libraries.
+# Do not also install the CPU distribution onnxruntime: both own the
+# onnxruntime import. insightface and faster-whisper name the CPU
+# distribution, but this wheel is what the import resolves to.
+onnxruntime-gpu==1.26.0
+insightface==2.1
+
+# --- BaSSL scene segmentation (ModelScope) ---
+# Do not install the modelscope[cv] extra: it would downgrade packages the
+# GPU stack already pins. datasets 5.x is required next to fsspec 2026.x.
+# decord is required by the ModelScope movie-scene video preprocessor; pin
+# neither a version nor modelscope[cv] so the torch/CUDA stack stays intact.
+modelscope==1.40.3
+datasets==5.2.0
+addict
+simplejson
+decord
+https://modelscope.oss-cn-beijing.aliyuncs.com/releases/dependencies/shotdetect_scenedetect_lgss-0.0.4-py3-none-any.whl

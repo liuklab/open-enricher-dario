@@ -49,6 +49,25 @@ class LLMStage:
         spec = load_pipeline_spec()
         enriched_script: Dict[str, Any] = {"experiment_id": spec.experiment_id}
 
+        audio_path = storage.get_output_dir("audio") / f"{video_filename}_audio.json"
+        try:
+            audio = json.loads(audio_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            audio = []
+        if isinstance(audio, list):
+            snippets = [
+                {
+                    "start": line.get("start_timestamp"),
+                    "text": str(line["text"]).strip()[:180],
+                }
+                for line in audio
+                if isinstance(line, dict) and str(line.get("text") or "").strip()
+            ]
+            if len(snippets) > 24:
+                snippets = [snippets[index * (len(snippets) - 1) // 23] for index in range(24)]
+            if snippets:
+                enriched_script["dialogue_excerpts"] = snippets
+
         dialogue_path = storage.get_output_dir("dialogue") / f"{video_filename}_dialogue.json"
         vlm_path = storage.get_output_dir("vlm") / f"{video_filename}_vlm.json"
         if dialogue_path.is_file():
@@ -61,6 +80,20 @@ class LLMStage:
             enriched_script["scene_metadata"] = vlm.get("scene_timeline", [])
         else:
             logger.info("No VLM metadata found for %s", video_filename)
+        from open_enricher.manifest import matching_artifact
+
+        graph = matching_artifact(
+            storage.get_output_dir("character_graph") / f"{video_filename}_graph.json"
+        )
+        if graph and graph.get("account"):
+            enriched_script["character_account"] = graph["account"]
+        memory = matching_artifact(
+            storage.get_output_dir("visual_memory") / f"{video_filename}_memory.json"
+        )
+        if memory and memory.get("status") == "success":
+            enriched_script["visual_memory_note"] = (
+                f"Visual memory kept {len(memory.get('entries') or [])} consolidated entries."
+            )
         return enriched_script
 
     def _clean_json_candidate(self, raw_text: str) -> str:
