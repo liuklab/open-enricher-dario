@@ -347,6 +347,25 @@ def temporal_history(
     ]
 
 
+def retrieve_scene_history(
+    frames: list[MemoryEntry],
+    bank: list[MemoryEntry],
+    scene_starts: list[float],
+    *,
+    limit: int = 4,
+) -> list[dict[str, Any]]:
+    """Query the same memory bank at each scene boundary."""
+    rows = [entry.to_dict() for entry in bank]
+    history = []
+    for start in scene_starts:
+        query = next((frame for frame in frames if frame.timestamp >= start), None)
+        picked = retrieve(query, bank, limit=limit, scene_start=start) if query else []
+        if not picked:
+            picked = temporal_history(rows, start, limit=limit)
+        history.append({"start": start, "frames": picked})
+    return history
+
+
 def dedupe_frame_ids(short_ids: list[str], long_ids: list[str]) -> list[str]:
     """Keep short-term ids first, then long-term ids that are not already included."""
     seen: set[str] = set()

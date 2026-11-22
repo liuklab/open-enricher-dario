@@ -15,6 +15,7 @@ set -euo pipefail
 ROOT="${SLURM_SUBMIT_DIR:?Submit from the worktree root}"
 SOURCE="${1:?Pass the source dataset directory}"
 VIDEO="${2:?Pass the video filename}"
+MODE="${3:-stage}"
 SHARED=/SLURM_shared/st_mdp26/open-enricher
 DATA="$ROOT/var/memory-stage-$SLURM_JOB_ID"
 mkdir -p "$DATA/outputs"
@@ -28,6 +29,10 @@ export PYTHONPATH="$ROOT/src" HF_HOME="$DATA/models_cache/huggingface"
 export OPEN_ENRICHER_PIPELINE_SPEC="$ROOT/src/open_enricher/experiments/variants/12-combined.json"
 FFMPEG=/SLURM_shared/st_mdp26/ffmpeg-libs
 export PATH="$FFMPEG/bin:$PATH" LD_LIBRARY_PATH="$FFMPEG/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+if [[ "$MODE" == compare-consolidation ]]; then
+    exec srun --unbuffered --export=ALL "$SHARED/.venv/bin/python" \
+        "$ROOT/test_scripts/visual_memory_consolidation_probe.py" "$VIDEO" "$SHARED" "$DATA"
+fi
 srun --unbuffered --export=ALL "$SHARED/.venv/bin/python" - "$VIDEO" "$SHARED" <<'PY'
 import json
 import os

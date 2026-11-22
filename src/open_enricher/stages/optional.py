@@ -37,7 +37,7 @@ from open_enricher.timeline import Interval, fixed_windows, validate_scene_bound
 from open_enricher.visual_memory import (
     MemoryEntry,
     stream_memory,
-    temporal_history,
+    retrieve_scene_history,
 )
 
 logger = get_logger(__name__)
@@ -345,23 +345,7 @@ class VisualMemoryStage:
             short_target=spec.budgets.short_term_target,
             long_capacity=spec.budgets.long_term_capacity,
         )
-        starts = _scene_starts(video_filename)
-        retrievals = []
-        for start in starts:
-            query = next((frame for frame in frames if frame.timestamp >= start), None)
-            if query is None:
-                picked: list[dict[str, Any]] = []
-            else:
-                from open_enricher.visual_memory import retrieve
-
-                picked = retrieve(query, bank["long_term"], limit=4, scene_start=start)
-            if not picked:
-                picked = temporal_history(
-                    [entry.to_dict() for entry in bank["long_term"]],
-                    start,
-                    limit=4,
-                )
-            retrievals.append({"start": start, "frames": picked})
+        retrievals = retrieve_scene_history(frames, bank["long_term"], _scene_starts(video_filename))
         document = _base(video_filename)
         document.update(
             {
