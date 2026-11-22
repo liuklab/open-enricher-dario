@@ -47,3 +47,7 @@ The in-progress integration job 122988 produced 13 timestamped dialogue lines fr
 Job 123013 completed in 12 minutes 36 seconds. Its detections, pooled track counts, published nodes, match decisions, scores, and edges exactly matched job 123009. Reviewing the graph also found a false supported edge, `speaker addresses Hi`. Replaying the original diarization after excluding greetings yields an unresolved mention of Ted at that timestamp. The regression test preserves that distinction.
 
 Job 123017 uses the updated checkout for an end-to-end run on the same clip. It is queued behind job 122988 and the successful graph parity job. The full-film job remains gated on the updated clip profile.
+
+The baseline GPU job 122988 reached the VLM and parsed all three scenes as valid JSON from explicit-frame inputs. The three scene inputs used 2, 5, and 26 frames. Frame allocation and image inference reported no fallback. The memory bank held 15 entries and every retrieved frame preceded its query scene.
+
+Cross-title graph probes use 30-second clips and the shared historical full-title audio artifacts. The script trims dialogue spans to the clip and rebases them to zero. The submitted jobs are 123021 for Silicon Valley at 180 seconds, 123022 for Suits at 60 seconds, and 123023 for The Kingdom at 120 seconds.
