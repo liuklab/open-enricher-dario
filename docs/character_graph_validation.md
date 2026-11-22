@@ -51,3 +51,11 @@ Job 123017 uses the updated checkout for an end-to-end run on the same clip. It 
 The baseline GPU job 122988 reached the VLM and parsed all three scenes as valid JSON from explicit-frame inputs. The three scene inputs used 2, 5, and 26 frames. Frame allocation and image inference reported no fallback. The memory bank held 15 entries and every retrieved frame preceded its query scene.
 
 Cross-title graph probes use 30-second clips and the shared historical full-title audio artifacts. The script trims dialogue spans to the clip and rebases them to zero. The submitted jobs are 123021 for Silicon Valley at 180 seconds, 123022 for Suits at 60 seconds, and 123023 for The Kingdom at 120 seconds.
+
+## Profile quality and remaining probes
+
+Job 122988 completed in 1 hour 47 minutes. Its manifest records a full schema-valid profile and success for all eight stages. The Cursor evaluator failed during bridge discovery. Job 123032 verified bridge startup on a CPU node in 11.98 seconds. The evaluator now owns its bridge explicitly with a 120-second startup budget. Job 123033 successfully scored the archived profile without rerunning inference. Its score was 2.5/5 against the full-episode synopsis, below the usability threshold.
+
+The first 30 seconds contain an opening recap. The prior profile treated that recap as the main episode plot and leaned on generic romance tags. Profile generation now uses bounded excerpts from the original transcript alongside the scene evidence and distinguishes narrated past events from present action. Job 123037 scores the old profile against a reference for the actual clip. Job 123038 regenerates the profile from the same upstream artifacts, then uses the same clip reference.
+
+Suits job 123022 returned four published characters and four supported speech intervals. The Kingdom job 123023 returned three characters and three supported speech intervals. Reviewing Suits found sentence-initial words classified as names, including a supported edge targeting “Wait.” The name parser now keeps weak candidates out of supported metadata. Silicon Valley job 123021 had 159 InsightFace threads inside an allocation of four CPUs. The adapter now caps ONNX Runtime and OpenCV threads to the allocation. Job 123034 repeats the same clip on the same node to check the fix.
