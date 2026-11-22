@@ -21,7 +21,7 @@ DATA="$ROOT/var/memory-stage-$SLURM_JOB_ID"
 mkdir -p "$DATA/outputs"
 ln -s "$SHARED/dataset/video_inputs" "$DATA/video_inputs"
 ln -s "$SHARED/dataset/models_cache" "$DATA/models_cache"
-for stage in timeline_results bassl_results; do
+for stage in timeline_results bassl_results dialogue_results; do
     ln -s "$SOURCE/outputs/$stage" "$DATA/outputs/$stage"
 done
 export OPEN_ENRICHER_DATASET_ROOT="$DATA" OPEN_ENRICHER_VIDEO_INPUTS="$DATA/video_inputs"
@@ -54,6 +54,8 @@ if result["status"] != "success":
 memory = json.loads((storage.get_output_dir("visual_memory") / result["output_file"]).read_text())
 entries = {entry["frame_id"]: entry for entry in memory["entries"]}
 assert entries and len(entries) <= 64
+if not any(query["frames"] for query in memory["retrievals"]):
+    raise SystemExit("No scene retrieved visual history")
 for query in memory["retrievals"]:
     for frame in query["frames"]:
         assert entries[frame["frame_id"]]["end"] < query["start"]
