@@ -35,3 +35,11 @@ CPU job 122993 recovered 80 face detections, 56 pooled tracks, and 10 published 
 Job 123005 holds the clip, diarization, and face sampling constant. It allows up to 96 TalkNet windows, selects windows that overlap diarized dialogue, and samples across the clip if the candidate count exceeds the budget. The graph saves the per-window score, time, and source track ID. Compare the number of reliable windows, the identity and dialogue overlap for each, and the resulting `speaks` edges. One window that intersects several utterances cannot satisfy the repeated-evidence requirement on its own.
 
 Job 123005 completed in 3 minutes 48 seconds. It retained 10 characters, scored 67 windows, and found 13 reliable windows. Two windows linked `c0004` to `SPEAKER_00`. The original writer stretched that edge from 6.006 to 26.025 seconds, including unsupported time and dialogue from another speaker. The next revision keeps each contiguous supported interval separate and saves the face crop bounds alongside the scores. Job 123009 reruns the clip to verify the published intervals and evidence.
+
+## Interval and performance validation
+
+Job 123009 completed successfully. It reproduced 80 face detections, 10 published characters, 67 scores, and 13 reliable windows. The graph attributed `SPEAKER_00` to `c0004` only at 6.006–7.006, 25.025–25.180, and 25.590–26.025 seconds. The two saved face crops were visually consistent. The graph excludes the gap and the intervening `SPEAKER_01` dialogue.
+
+The historical full-film run spent hours in character matching. A local stress check with 650 distinct 512-dimensional tracks took 28.44 seconds with per-exemplar Python cosine scoring and 0.26 seconds with cached unit vectors. On 180 clustered tracks the updated matcher reproduced the reference decisions and node contents. Slurm job 123013 checks real clip output parity with 123009.
+
+The in-progress integration job 122988 produced 13 timestamped dialogue lines from two diarized speakers and three BaSSL scenes with 21 shots on the clip. The BaSSL timeline covered the clip without repairs.
