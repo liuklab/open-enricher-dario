@@ -27,3 +27,7 @@ Compare matching scenes by ID and verify frame counts before reading scores. At 
 2. Split the grounded template experiment into VLM-only and writer-only variants if its paired result improves. Prefer timestamped facts scoped to a scene, mark historical images as continuity evidence, and require the writer to prioritize recurring actions, objects, or conflicts. The existing clip controls additionally test removing new graph edges at the writer and removing graph evidence from both VLM and writer.
 3. Test source-supported BaSSL intervals against fixed windows with the same title coverage and image budget once the Silicon Valley BaSSL replay passes. Check whether meaningful events remain intact and whether metadata mentions more distinctive, correct details.
 4. Repeat the useful variants on a second title, integrate the validated changes, and run the complete pipeline. Check each title manually against its synopsis and preserve the artifacts for comparison.
+
+## Chronology audit
+
+Slot timestamps alone missed five retrieved entries whose representative frame was earlier than the query while their embedding included frames at or after the query. Three are in HIMYM and two are in Silicon Valley. The production retrieval and temporal fallback now require each entry's entire source interval to precede the query. The queued replay reads pre-fix archives, so all four arms exclude these entries before choosing matching frame counts. This historical replay cannot rerank candidates because the archive intentionally omits embedding matrices.

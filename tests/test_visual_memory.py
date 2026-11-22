@@ -42,3 +42,18 @@ def test_second_appearance_retrieves_the_original_and_not_the_future() -> None:
     assert "lamp" in ids
     assert "lamp-late" not in ids
     assert "lookalike" in ids
+
+
+def test_retrieval_excludes_entries_with_future_constituents() -> None:
+    from open_enricher.visual_memory import temporal_history
+
+    query = MemoryEntry("query", 10.0, [[1.0, 0.0]])
+    past = MemoryEntry("past", 6.0, [[0.0, 1.0]], end=9.0)
+    straddling = MemoryEntry("straddling", 8.0, [[1.0, 0.0]], end=10.0)
+    bank = [past, straddling]
+
+    assert visible_entries(bank, 10.0) == [past]
+    assert [row["frame_id"] for row in retrieve(query, bank, limit=4, scene_start=10.0)] == ["past"]
+    assert [row["frame_id"] for row in temporal_history(
+        [entry.to_dict() for entry in bank], 10.0, limit=4
+    )] == ["past"]

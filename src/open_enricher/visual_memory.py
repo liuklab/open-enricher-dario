@@ -212,8 +212,11 @@ def _compact_long_term(entries: list[MemoryEntry], capacity: int) -> list[Memory
 
 
 def visible_entries(entries: list[MemoryEntry], scene_start: float) -> list[MemoryEntry]:
-    """Prefix-only read: entries whose timestamp is strictly before the scene."""
-    return [entry for entry in entries if entry.timestamp < scene_start]
+    """Use entries only when their representative and all merged frames are earlier."""
+    return [
+        entry for entry in entries
+        if max(entry.timestamp, entry.end if entry.end is not None else entry.timestamp) < scene_start
+    ]
 
 
 def retrieve(
@@ -288,7 +291,10 @@ def temporal_history(
     prior = [
         row
         for row in entries
-        if isinstance(row, dict) and float(row.get("timestamp") or 0) < scene_start
+        if isinstance(row, dict)
+        and float(row.get("timestamp") or 0) < scene_start
+        and float(row.get("end") if row.get("end") is not None else row.get("timestamp") or 0)
+        < scene_start
     ]
     if not prior or limit <= 0:
         return []

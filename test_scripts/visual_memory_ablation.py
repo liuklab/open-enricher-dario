@@ -47,13 +47,24 @@ def main() -> None:
     spec = load_pipeline_spec()
     planned.CACHE_ROOT = args.dataset / "prepared_frames"
     scenes, plan = planned.prepare_scenes(video, args.video, dialogue["scenes"], spec, sample_fps=2)
+    memory_end = {entry["frame_id"]: entry["end"] for entry in memory["entries"]}
     audit = []
     for scene, group in zip(scenes, plan["groups"], strict=True):
         start, end = group["start"], group["end"]
         current = list(group["timestamps"])
         room = max(0, spec.budgets.max_qwen_frames - len(current))
         room -= room % 2
-        history = [stamp for stamp in planned._history_stamps(args.video, start, room) if stamp not in current]
+        eligible = {
+            frame["timestamp"]
+            for query in memory["retrievals"]
+            if abs(query["start"] - start) <= 0.05
+            for frame in query["frames"]
+            if memory_end[frame["frame_id"]] < start
+        }
+        history = [
+            stamp for stamp in planned._history_stamps(args.video, start, room)
+            if stamp in eligible and stamp not in current
+        ]
         if any(stamp >= start for stamp in history):
             raise SystemExit("The memory bank returned a frame from the current or future scene")
         if args.mode == "current":
@@ -104,7 +115,7 @@ def main() -> None:
             context.append(f"Supported character relations: {graph['account']}")
         scene["prompt_extra"] = "\n".join(context)
         audit.append({"scene": group["call_id"], "earlier": earlier, "current": current_stamps})
-    if not any(planned._history_stamps(args.video, scene["start_seconds"], 4) for scene in scenes):
+    if not any(row["earlier"] for row in audit) and args.mode != "current":
         raise SystemExit("No scene can exercise visual history")
     (args.dataset / "frames.json").write_text(json.dumps(audit, indent=2))
     set_seed(49)
