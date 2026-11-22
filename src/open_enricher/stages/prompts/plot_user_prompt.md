@@ -1,9 +1,9 @@
-The lines below are a Whisper transcript of the whole file. {{SAMPLING_NOTE}}
+The lines below are Whisper dialogue from the supplied video file. It may be an excerpt. {{SAMPLING_NOTE}}
 
 {{TRANSCRIPT}}
 
-Write a high-level plot summary in 200 to 320 words.
-Cover the opening, the middle, and the ending.
+Summarize the events supported by these lines, using up to 240 words. A short excerpt may need only a few sentences.
+Distinguish events happening in the dialogue from past events described by a narrator. Leave the outcome open if the lines stop before it.
 Name people only when a speaker or the dialogue names them.
 State the conflicts and what the characters are trying to achieve.
 Do not describe cameras, lighting, or events the transcript does not support.
