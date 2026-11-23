@@ -101,3 +101,7 @@ The second full title in job 123117, Silicon Valley S06E01, reproduced the graph
 ## Clip dialogue follow-up
 
 Transcript-only scene replay 123310 returned a schema-valid profile, but evaluator 123311 scored it 2.65/5 with fidelity 2/5. The scene summaries still speculate about relationships, and the writer describes the paper as an academic rivalry. The inherited plot summary independently introduces the same rivalry framing. Writer job 123373 omits that summary while replaying the same audio, scene descriptions, graph, and visual metadata. Evaluator 123375 uses the same clip reference as 123311. This is the third and final attempt to resolve the clip's academic-rivalry error.
+
+## Full-episode plot chronology
+
+Plot replay 123317 consumed all 503 HIMYM utterances. It restored the repeated parties, rooftop conversation, and agreement to be friends, which the quote-led replay 123234 had described less accurately. It still labels Carlos as Ted's friend. The synopsis describes Carlos as someone Ted offers to introduce to Robin as a cover story. Job 123376 tests a final prompt revision that treats introductions and mentions as evidence for those acts, and requires direct support for relationship labels.
