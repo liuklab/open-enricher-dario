@@ -19,3 +19,5 @@ The grounded and baseline runs each returned descriptions for all 33 VLM calls. 
 ## Segmentation control
 
 Job 123370 compares BaSSL against fixed windows on the same 100-second Silicon Valley clip beginning at source second 470. Both variant specifications use the same per-call cap, pacing policy, and memory configuration. Scene boundaries can change the number of calls and realized frame counts. Compare the archived plans, scene claims, and profiles against the clip, and report any realized frame or call imbalance when attributing quality differences. The full-episode synopsis can provide context, but only events inside the clip count toward accuracy and coverage.
+
+The clip-scoped evaluators 123423 and 123424 both scored 2.65/5 with fidelity 2/5. BaSSL retained three scene intervals and the fixed-window control used one. Both plans allocated 30 current frames. Both hooks invented a competition and omitted the misheard compliment and the toast, and both profiles added unsupported romance. This clip offers no evidence that BaSSL improves metadata quality over fixed windows.
