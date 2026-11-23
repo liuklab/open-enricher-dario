@@ -26,7 +26,7 @@ mkdir -p "$DATA/video_inputs" "$DATA/outputs/audio_results"
 ln -s "$SHARED/dataset/models_cache" "$DATA/models_cache"
 export OPEN_ENRICHER_DATASET_ROOT="$DATA"
 export OPEN_ENRICHER_VIDEO_INPUTS="$DATA/video_inputs"
-export OPEN_ENRICHER_PIPELINE_SPEC="$ROOT/src/open_enricher/experiments/variants/12-combined.json"
+export OPEN_ENRICHER_PIPELINE_SPEC="${OPEN_ENRICHER_PIPELINE_SPEC:-$ROOT/src/open_enricher/experiments/variants/12-combined.json}"
 export PATH="/SLURM_shared/st_mdp26/ffmpeg-libs/bin:$PATH"
 export PYTHONPATH="$ROOT/src"
 export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4

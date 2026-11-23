@@ -242,7 +242,7 @@ class CharacterGraphStage:
             video,
             spec,
             face.get("tracks") or [],
-            max_tracks=96,
+            max_tracks=spec.budgets.talknet_max_windows,
             dialogue_spans=dialogue_spans or None,
         )
         scores = speech.get("scores") or []
@@ -288,6 +288,7 @@ class CharacterGraphStage:
                 "face_samples": len(observations),
                 "pooled_tracks": len(pooled),
                 "dropped_nodes": len(nodes) - len(kept),
+                "talknet_max_windows": spec.budgets.talknet_max_windows,
                 "speaker_window_scores": [
                     {key: value for key, value in score.items() if key != "frame_scores"}
                     for score in scores

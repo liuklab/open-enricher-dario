@@ -49,6 +49,7 @@ class Budgets:
     max_qwen_frames: int = 40
     history_frame_fraction: float = 0.25
     face_sample_fps: float = 5.0
+    talknet_max_windows: int = 96
     memory_candidate_fps: float = 1.0
     short_term_capacity: int = 16
     short_term_target: int = 8
@@ -232,6 +233,10 @@ def _load_budgets(value: Any) -> Budgets:
         ),
         face_sample_fps=float(
             value.get("face_sample_fps", defaults.face_sample_fps)
+        ),
+        talknet_max_windows=_require_positive_int(
+            "budgets.talknet_max_windows",
+            value.get("talknet_max_windows", defaults.talknet_max_windows),
         ),
         memory_candidate_fps=float(
             value.get("memory_candidate_fps", defaults.memory_candidate_fps)
