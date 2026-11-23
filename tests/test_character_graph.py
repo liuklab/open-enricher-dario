@@ -205,3 +205,15 @@ def test_visible_speech_edges_need_both_published_faces_in_the_speech_frame():
              ["window", "face-a", "face-b"], 0.9, "supported")
     ]
     assert not visible_speech_edges(observations, decisions, [speech], {"a", "c"})
+
+
+def test_recurring_interactions_skip_single_frame_crowds() -> None:
+    from open_enricher.graph import recurring_interaction_edges
+
+    speech = Edge("speaks", "a", "speaker", 0.0, 2.0, [], 0.9, "supported").to_dict()
+    repeat = Edge("speaks_in_presence_of", "a", "b", 1.0, 1.0, [], 0.9, "supported").to_dict()
+    crowd = {**repeat, "target": "c"}
+    later = {**repeat, "start": 4.0, "end": 4.0}
+    assert recurring_interaction_edges([speech, crowd, crowd.copy(), repeat, later]) == [
+        speech, repeat,
+    ]

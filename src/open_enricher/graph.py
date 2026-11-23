@@ -615,6 +615,27 @@ def relations_for_interval(
     return picked
 
 
+def recurring_interaction_edges(edges: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Keep other evidence and one example per recurring co-presence pair."""
+    sightings: dict[tuple[str, str], set[float]] = {}
+    for edge in edges:
+        if edge["kind"] == "speaks_in_presence_of" and edge["status"] == "supported":
+            pair = (edge["source"], edge["target"])
+            sightings.setdefault(pair, set()).add(edge["start"])
+
+    retained = []
+    selected: set[tuple[str, str]] = set()
+    for edge in edges:
+        if edge["kind"] != "speaks_in_presence_of":
+            retained.append(edge)
+            continue
+        pair = (edge["source"], edge["target"])
+        if edge["status"] == "supported" and len(sightings[pair]) > 1 and pair not in selected:
+            retained.append(edge)
+            selected.add(pair)
+    return retained
+
+
 def compact_account(
     nodes: list[dict[str, Any]],
     edges: list[dict[str, Any]],
