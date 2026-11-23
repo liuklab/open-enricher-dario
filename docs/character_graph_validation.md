@@ -85,3 +85,13 @@ The first full episode from job 123117 published 278 character nodes, ten suppor
 | Profile comparison | Replay the integrated clip artifacts with the new edges present and removed, keeping source, model, and text reference fixed | Compare source-grounded interaction facts and check that neither profile asserts addressee identity or a relationship from co-presence alone |
 
 Job 123143 completed in 9 minutes 32 seconds. It published 34 character nodes, seven supported speaker intervals, and six speech co-presence observations. The six observations represent four ordered character pairs. This probe measures what the camera and audio jointly support. The identity of an intended addressee remains unresolved.
+
+The integrated clip and both graph controls were scored against the same reviewed clip synopsis.
+
+| Inference job | Evaluator job | Graph evidence supplied | Overall |
+| --- | --- | --- | --- |
+| 123146 | 123235 | Full graph at both stages | 2.80/5 |
+| 123147 | 123291 | Eight speech co-presence edges removed from the writer input | 2.30/5 |
+| 123179 | 123292 | Graph omitted from the VLM and writer inputs | 2.40/5 |
+
+All three profiles were below the evaluator's usability threshold and framed the clip as an academic rivalry. The shared dialogue descriptions overemphasized the paper and speculated about peer rivalry. Scene replay 123233 and evaluator 123303 test whether revising those descriptions improves the profile while retaining the archived visual extraction and graph.
