@@ -23,3 +23,9 @@ Job 123370 compares BaSSL against fixed windows on the same 100-second Silicon V
 ## Writer candidate
 
 The third genre prompt returned Drama and Legal Drama for Suits (jobs 123360 and 123361, 3.80/5) and Comedy and Sitcom for HIMYM (jobs 123362 and 123363, 3.90/5). Suits improved from 3.40/5 on the second prompt while remaining below its 3.90/5 full-run baseline. HIMYM improved from 3.45/5 on the baseline. The Suits hook still obscures the source of pressure on Mike, and both visual styles need stronger support. This branch adopts the tested prompt and writer taxonomy. The existing segmentation experiment runs on a separate worktree.
+
+## Character lookup controls
+
+Job 123427 compares the combined pipeline with graph construction enabled and disabled on the same 100-second Silicon Valley clip. Both arms use the candidate writer, BaSSL, and visual memory. Score both archived profiles against the same clip reference and verify that the graph-free manifest skipped graph construction.
+
+A candidate lookup would retain face-cluster IDs, timestamped appearance evidence, and supported links to diarized speakers. Names would require explicit transcript evidence and ambiguous names would stay unset. A person mentioned in dialogue may be absent from the frame. The lookup experiment should compare an unnamed table and evidence-backed names with the graph-free control before passing either table to the default writer.
