@@ -4,7 +4,7 @@ The dataset currently contains How I Met Your Mother S01E02, Silicon Valley S06E
 
 ## Full-episode pilot
 
-Job 123306 ran The Kingdom on the grounded-planning revision. All eight stages returned an artifact. BaSSL extended its final interval by approximately 0.45 seconds beyond the last shot and marked the result degraded. The profile was archived, and job 123369 evaluates it separately.
+Job 123306 ran The Kingdom on the grounded-planning revision. All eight stages returned an artifact. BaSSL extended its final interval by approximately 0.45 seconds beyond the last shot and marked the result degraded. The profile was archived and evaluated separately. Job 123369 scored it 4.25/5, compared with 4.00/5 in baseline evaluator job 123221. Specificity rose from 3 to 4. Fidelity stayed at 4, and the remaining dimensions stayed level.
 
 The grounded and baseline runs each returned descriptions for all 33 VLM calls. The grounded run returned action lists for 25 calls, compared with 26 in the baseline. Both profiles capture the religious and political fallout of a murder. The grounded profile adds a murder-investigation topic but still omits Emilio, Remigio, the confession, and the political succession from its hook. This is weak evidence of a final-profile improvement.
 
