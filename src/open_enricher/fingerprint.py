@@ -14,6 +14,7 @@ from dataclasses import asdict
 from pathlib import Path
 from typing import Any
 
+from open_enricher.adapters.upstream import LAVIS_REV, TALKNET_REV
 from open_enricher.stages.pipeline_spec import PipelineSpec
 
 ATTEMPT_ID = "OPEN_ENRICHER_ATTEMPT_ID"
@@ -53,6 +54,10 @@ def settings_hash(spec: PipelineSpec) -> str:
         "budgets": asdict(spec.budgets),
         "checkpoints": asdict(spec.checkpoints),
     }
+    if spec.features.character_graph:
+        payload["talknet_revision"] = TALKNET_REV
+    if spec.features.visual_memory:
+        payload["lavis_revision"] = LAVIS_REV
     encoded = json.dumps(payload, sort_keys=True, separators=(",", ":"))
     return hashlib.sha256(encoded.encode("utf-8")).hexdigest()
 

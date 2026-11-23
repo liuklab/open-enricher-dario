@@ -1,87 +1,34 @@
-"""Vendored EVA ViT-G and BLIP-2 Q-Former token forward."""
+"""Checkpoint loading, BLIP-2 image preprocessing and the public sampler."""
 
-from __future__ import annotations
-
+import os
 from pathlib import Path
 
+import numpy as np
+import pytest
 import torch
+from PIL import Image
 
-from open_enricher.adapters.eva_qformer import (
-    KEY_MISMATCH,
-    build_blip2_qformer,
-    build_eva_vit,
-    build_eva_vit_g,
-    build_qformer,
-    encode_images,
-    parameter_mismatch,
-)
+from open_enricher.adapters.eva_qformer import CLIP_MEAN, CLIP_STD, _prepare_frame, load_matching
 from open_enricher.adapters.visual_encode import encode_video
 from open_enricher.stages.pipeline_spec import Checkpoints, PipelineSpec
 
 
-def test_production_names_match_the_released_checkpoints() -> None:
-    with torch.device("meta"):
-        vision = build_eva_vit_g()
-        bridge = build_blip2_qformer()
-    vision_state = vision.state_dict()
-    bridge_state = bridge.state_dict()
-    # 39 blocks x 13 tensors, plus cls, pos, patch weight/bias, and the final norm.
-    assert len(vision_state) == 513
-    assert "blocks.39.norm1.weight" not in vision_state
-    assert tuple(vision_state["pos_embed"].shape) == (1, 257, 1408)
-    assert tuple(vision_state["blocks.0.attn.qkv.weight"].shape) == (4224, 1408)
-    assert tuple(vision_state["blocks.0.mlp.fc1.weight"].shape) == (6144, 1408)
-    # 6 cross-attention layers and 6 self-only layers, plus queries and two layer-norms.
-    assert len(bridge_state) == 257
-    assert tuple(bridge_state["query_tokens"].shape) == (1, 32, 768)
-    key = "Qformer.bert.encoder.layer.0.crossattention.self.key.weight"
-    assert tuple(bridge_state[key].shape) == (768, 1408)
-    assert "Qformer.bert.encoder.layer.1.crossattention.self.key.weight" not in bridge_state
-    assert "t5_proj.weight" not in bridge_state
+def test_checkpoint_requires_each_inference_tensor_but_allows_unused_heads() -> None:
+    layer = torch.nn.Linear(5, 3)
+    state = dict(layer.state_dict(), **{"t5_proj.weight": torch.empty(17, 3)})
+    assert load_matching(layer, state) is None
+    assert "weight" in load_matching(layer, dict(state, weight=torch.empty(4, 5)))
+    del state["bias"]
+    assert "bias" in load_matching(layer, state)
 
 
-def test_tiny_forward_emits_finite_query_tokens() -> None:
-    vision = build_eva_vit(
-        img_size=16,
-        patch_size=8,
-        embed_dim=32,
-        depth=2,
-        num_heads=4,
-        mlp_ratio=2.0,
-    )
-    bridge = build_qformer(
-        hidden=32,
-        heads=4,
-        layers=2,
-        queries=4,
-        vision_width=32,
-        intermediate=64,
-        cross_every=2,
-    )
-    images = torch.randn(2, 3, 16, 16)
-    tokens = encode_images(vision, bridge, images)
-    assert tuple(tokens.shape) == (2, 4, 32)
-    assert torch.isfinite(tokens).all()
-
-
-def test_extra_checkpoint_keys_are_ignored_and_a_missing_weight_is_not() -> None:
-    vision = build_eva_vit(
-        img_size=16,
-        patch_size=8,
-        embed_dim=32,
-        depth=2,
-        num_heads=4,
-        mlp_ratio=2.0,
-    )
-    state = {name: value.clone() for name, value in vision.state_dict().items()}
-    state["blocks.39.norm1.weight"] = torch.zeros(32)
-    state["head.weight"] = torch.zeros(8, 32)
-    assert parameter_mismatch(vision, state) is None
-    del state["blocks.0.attn.qkv.weight"]
-    reason = parameter_mismatch(vision, state)
-    assert reason is not None
-    assert KEY_MISMATCH in reason
-    assert "blocks.0.attn.qkv.weight" in reason
+def test_frame_matches_lavis_rgb_bicubic_eval_transform() -> None:
+    rng = np.random.default_rng(12)
+    bgr = rng.integers(0, 256, (283, 493, 3), dtype=np.uint8)
+    rgb = Image.fromarray(bgr[:, :, ::-1]).resize((224, 224), Image.Resampling.BICUBIC)
+    expected = np.asarray(rgb).astype(np.float32) / 255
+    expected = (expected - np.array(CLIP_MEAN, np.float32)) / np.array(CLIP_STD, np.float32)
+    np.testing.assert_allclose(_prepare_frame(bgr).numpy(), expected.transpose(2, 0, 1), atol=1e-6)
 
 
 def test_max_frames_is_sent_only_when_set(monkeypatch, tmp_path: Path) -> None:
@@ -110,3 +57,26 @@ def test_max_frames_is_sent_only_when_set(monkeypatch, tmp_path: Path) -> None:
     encode_video(tmp_path / "video.mkv", spec, sample_fps=0.25)
     assert captured[0]["max_frames"] == 4
     assert "max_frames" not in captured[1]
+
+
+def test_released_qformer_on_two_video_frames() -> None:
+    """Opt-in smoke test using the public, isolated adapter and local weights."""
+    source = os.environ.get("OPEN_ENRICHER_SMOKE_VIDEO")
+    if not source:
+        pytest.skip("Set OPEN_ENRICHER_SMOKE_VIDEO to a clip with two distinct frames four seconds apart")
+    spec = PipelineSpec(
+        experiment_id="encoder-smoke",
+        title="encoder smoke",
+        interval_seconds=300,
+        vlm_memory_scenes=None,
+        visual_only=False,
+        narrate_from_visual=False,
+    )
+    result = encode_video(Path(source), spec, sample_fps=0.25, max_frames=2)
+    assert result["status"] == "success", result.get("reason")
+    frames = result["frames"]
+    assert len(frames) == 2 and frames[0]["timestamp"] < frames[1]["timestamp"]
+    tokens = np.array([frame["tokens"] for frame in frames])
+    assert tokens.shape == (2, 32, 768)
+    assert np.isfinite(tokens).all()
+    assert not np.allclose(tokens[0], tokens[1])

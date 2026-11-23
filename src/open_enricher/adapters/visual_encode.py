@@ -1,6 +1,6 @@
 """Frozen EVA-CLIP and BLIP-2 Q-Former tokens.
 
-LAVIS is not imported. The checkpoints are opened in a child process.
+The worker loads the pinned LAVIS encoders and local checkpoints.
 A missing weight or a key mismatch keeps an empty bank, and the history
 budget returns to the current clip.
 """

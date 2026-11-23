@@ -1,11 +1,4 @@
-"""TalkNet-ASD forward for ``pretrain_TalkSet.model``.
-
-The module names and tensor ranks follow that checkpoint: a 3D visual
-front end, a depthwise temporal stack, an SE-ResNet audio encoder, two
-cross-attention blocks, and the audio-visual classifier. Scores are the
-speaking-class logits. A positive mean is the same speaking threshold the
-TalkNet demo uses.
-"""
+"""Score Open-Enricher face windows with the authors' TalkNet-ASD model."""
 
 from __future__ import annotations
 
@@ -18,295 +11,25 @@ from typing import Any
 
 import numpy
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
+from torch import nn
 from scipy.fftpack import dct
 
-
-
-class _VisualResBlock(nn.Module):
-    """Two residual units. The 1x1 downsample exists even when stride is 1."""
-
-    def __init__(self, inplanes: int, outplanes: int, stride: int) -> None:
-        super().__init__()
-        self.stride = stride
-        self.conv1a = nn.Conv2d(inplanes, outplanes, kernel_size=3, stride=stride, padding=1, bias=False)
-        self.bn1a = nn.BatchNorm2d(outplanes, momentum=0.01, eps=0.001)
-        self.conv2a = nn.Conv2d(outplanes, outplanes, kernel_size=3, stride=1, padding=1, bias=False)
-        self.downsample = nn.Conv2d(inplanes, outplanes, kernel_size=1, stride=stride, bias=False)
-        self.outbna = nn.BatchNorm2d(outplanes, momentum=0.01, eps=0.001)
-        self.conv1b = nn.Conv2d(outplanes, outplanes, kernel_size=3, stride=1, padding=1, bias=False)
-        self.bn1b = nn.BatchNorm2d(outplanes, momentum=0.01, eps=0.001)
-        self.conv2b = nn.Conv2d(outplanes, outplanes, kernel_size=3, stride=1, padding=1, bias=False)
-        self.outbnb = nn.BatchNorm2d(outplanes, momentum=0.01, eps=0.001)
-
-    def forward(self, batch: torch.Tensor) -> torch.Tensor:
-        out = F.relu(self.bn1a(self.conv1a(batch)))
-        out = self.conv2a(out)
-        residual = batch if self.stride == 1 else self.downsample(batch)
-        out = out + residual
-        intermediate = out
-        out = F.relu(self.outbna(out))
-        out = F.relu(self.bn1b(self.conv1b(out)))
-        out = self.conv2b(out)
-        return F.relu(self.outbnb(out + intermediate))
-
-
-class _VisualResNet(nn.Module):
-    def __init__(self) -> None:
-        super().__init__()
-        self.layer1 = _VisualResBlock(64, 64, stride=1)
-        self.layer2 = _VisualResBlock(64, 128, stride=2)
-        self.layer3 = _VisualResBlock(128, 256, stride=2)
-        self.layer4 = _VisualResBlock(256, 512, stride=2)
-        self.avgpool = nn.AvgPool2d(kernel_size=4, stride=1)
-
-    def forward(self, batch: torch.Tensor) -> torch.Tensor:
-        batch = self.layer1(batch)
-        batch = self.layer2(batch)
-        batch = self.layer3(batch)
-        batch = self.layer4(batch)
-        return self.avgpool(batch)
-
-
-class _VisualFrontend(nn.Module):
-    def __init__(self) -> None:
-        super().__init__()
-        self.frontend3D = nn.Sequential(
-            nn.Conv3d(1, 64, kernel_size=(5, 7, 7), stride=(1, 2, 2), padding=(2, 3, 3), bias=False),
-            nn.BatchNorm3d(64, momentum=0.01, eps=0.001),
-            nn.ReLU(),
-            nn.MaxPool3d(kernel_size=(1, 3, 3), stride=(1, 2, 2), padding=(0, 1, 1)),
-        )
-        self.resnet = _VisualResNet()
-
-    def forward(self, batch: torch.Tensor) -> torch.Tensor:
-        batch = batch.transpose(0, 1).transpose(1, 2)
-        batchsize = batch.shape[0]
-        batch = self.frontend3D(batch)
-        batch = batch.transpose(1, 2)
-        batch = batch.reshape(batch.shape[0] * batch.shape[1], batch.shape[2], batch.shape[3], batch.shape[4])
-        batch = self.resnet(batch)
-        batch = batch.reshape(batchsize, -1, 512)
-        batch = batch.transpose(1, 2)
-        return batch.transpose(1, 2).transpose(0, 1)
-
-
-class _ChannelNorm(nn.Module):
-    def __init__(self, channels: int) -> None:
-        super().__init__()
-        self.gamma = nn.Parameter(torch.ones(1, channels, 1))
-        self.beta = nn.Parameter(torch.zeros(1, channels, 1))
-
-    def forward(self, batch: torch.Tensor) -> torch.Tensor:
-        mean = batch.mean(dim=1, keepdim=True).mean(dim=2, keepdim=True)
-        var = (batch - mean).pow(2).mean(dim=1, keepdim=True).mean(dim=2, keepdim=True)
-        return self.gamma * (batch - mean) / torch.pow(var + 1e-8, 0.5) + self.beta
-
-
-class _DSConv(nn.Module):
-    def __init__(self) -> None:
-        super().__init__()
-        self.net = nn.Sequential(
-            nn.ReLU(),
-            nn.BatchNorm1d(512),
-            nn.Conv1d(512, 512, 3, stride=1, padding=1, dilation=1, groups=512, bias=False),
-            nn.PReLU(),
-            _ChannelNorm(512),
-            nn.Conv1d(512, 512, 1, bias=False),
-        )
-
-    def forward(self, batch: torch.Tensor) -> torch.Tensor:
-        return self.net(batch) + batch
-
-
-class _VisualTCN(nn.Module):
-    def __init__(self) -> None:
-        super().__init__()
-        self.net = nn.Sequential(*[_DSConv() for _ in range(5)])
-
-    def forward(self, batch: torch.Tensor) -> torch.Tensor:
-        return self.net(batch)
-
-
-class _VisualConv1D(nn.Module):
-    def __init__(self) -> None:
-        super().__init__()
-        self.net = nn.Sequential(
-            nn.Conv1d(512, 256, 5, stride=1, padding=2),
-            nn.BatchNorm1d(256),
-            nn.ReLU(),
-            nn.Conv1d(256, 128, 1),
-        )
-
-    def forward(self, batch: torch.Tensor) -> torch.Tensor:
-        return self.net(batch)
-
-
-class _SELayer(nn.Module):
-    def __init__(self, channel: int, reduction: int = 8) -> None:
-        super().__init__()
-        self.avg_pool = nn.AdaptiveAvgPool2d(1)
-        self.fc = nn.Sequential(
-            nn.Linear(channel, channel // reduction),
-            nn.ReLU(inplace=True),
-            nn.Linear(channel // reduction, channel),
-            nn.Sigmoid(),
-        )
-
-    def forward(self, batch: torch.Tensor) -> torch.Tensor:
-        scale = self.avg_pool(batch).view(batch.shape[0], batch.shape[1])
-        scale = self.fc(scale).view(batch.shape[0], batch.shape[1], 1, 1)
-        return batch * scale
-
-
-class _SEBasicBlock(nn.Module):
-    def __init__(
-        self,
-        inplanes: int,
-        planes: int,
-        stride: int | tuple[int, int] = 1,
-        downsample: nn.Module | None = None,
-    ) -> None:
-        super().__init__()
-        self.conv1 = nn.Conv2d(inplanes, planes, kernel_size=3, stride=stride, padding=1, bias=False)
-        self.bn1 = nn.BatchNorm2d(planes)
-        self.conv2 = nn.Conv2d(planes, planes, kernel_size=3, padding=1, bias=False)
-        self.bn2 = nn.BatchNorm2d(planes)
-        self.relu = nn.ReLU(inplace=True)
-        self.se = _SELayer(planes)
-        self.downsample = downsample
-
-    def forward(self, batch: torch.Tensor) -> torch.Tensor:
-        residual = batch
-        out = self.relu(self.conv1(batch))
-        out = self.bn1(out)
-        out = self.bn2(self.conv2(out))
-        out = self.se(out)
-        if self.downsample is not None:
-            residual = self.downsample(batch)
-        return self.relu(out + residual)
-
-
-class _AudioEncoder(nn.Module):
-    def __init__(self, layers: list[int], num_filters: list[int]) -> None:
-        super().__init__()
-        self.inplanes = num_filters[0]
-        self.conv1 = nn.Conv2d(1, num_filters[0], kernel_size=7, stride=(2, 1), padding=3, bias=False)
-        self.bn1 = nn.BatchNorm2d(num_filters[0])
-        self.relu = nn.ReLU(inplace=True)
-        self.layer1 = self._make_layer(num_filters[0], layers[0])
-        self.layer2 = self._make_layer(num_filters[1], layers[1], stride=(2, 2))
-        self.layer3 = self._make_layer(num_filters[2], layers[2], stride=(2, 2))
-        self.layer4 = self._make_layer(num_filters[3], layers[3], stride=(1, 1))
-
-    def _make_layer(
-        self,
-        planes: int,
-        blocks: int,
-        stride: int | tuple[int, int] = 1,
-    ) -> nn.Sequential:
-        downsample = None
-        if stride != 1 or self.inplanes != planes:
-            downsample = nn.Sequential(
-                nn.Conv2d(self.inplanes, planes, kernel_size=1, stride=stride, bias=False),
-                nn.BatchNorm2d(planes),
-            )
-        layers: list[nn.Module] = [_SEBasicBlock(self.inplanes, planes, stride, downsample)]
-        self.inplanes = planes
-        for _ in range(1, blocks):
-            layers.append(_SEBasicBlock(self.inplanes, planes))
-        return nn.Sequential(*layers)
-
-    def forward(self, batch: torch.Tensor) -> torch.Tensor:
-        batch = self.relu(self.bn1(self.conv1(batch)))
-        batch = self.layer1(batch)
-        batch = self.layer2(batch)
-        batch = self.layer3(batch)
-        batch = self.layer4(batch)
-        batch = torch.mean(batch, dim=2, keepdim=True)
-        batch = batch.view(batch.shape[0], batch.shape[1], -1)
-        return batch.transpose(1, 2)
-
-
-class _Attention(nn.Module):
-    def __init__(self, d_model: int, nhead: int) -> None:
-        super().__init__()
-        self.self_attn = nn.MultiheadAttention(d_model, nhead, dropout=0.1)
-        self.linear1 = nn.Linear(d_model, d_model * 4)
-        self.dropout = nn.Dropout(0.1)
-        self.linear2 = nn.Linear(d_model * 4, d_model)
-        self.norm1 = nn.LayerNorm(d_model)
-        self.norm2 = nn.LayerNorm(d_model)
-        self.dropout1 = nn.Dropout(0.1)
-        self.dropout2 = nn.Dropout(0.1)
-        self.activation = F.relu
-
-    def forward(self, src: torch.Tensor, tar: torch.Tensor) -> torch.Tensor:
-        src = src.transpose(0, 1)
-        tar = tar.transpose(0, 1)
-        attended = self.self_attn(tar, src, src, attn_mask=None, key_padding_mask=None)[0]
-        src = self.norm1(src + self.dropout1(attended))
-        src = self.norm2(src + self.dropout2(self.linear2(self.dropout(self.activation(self.linear1(src))))))
-        return src.transpose(0, 1)
-
-
-class _TalkNetEncoder(nn.Module):
-    def __init__(self) -> None:
-        super().__init__()
-        self.visualFrontend = _VisualFrontend()
-        self.visualTCN = _VisualTCN()
-        self.visualConv1D = _VisualConv1D()
-        self.audioEncoder = _AudioEncoder([3, 4, 6, 3], [16, 32, 64, 128])
-        self.crossA2V = _Attention(128, 8)
-        self.crossV2A = _Attention(128, 8)
-        self.selfAV = _Attention(256, 8)
-
-    def forward_visual_frontend(self, batch: torch.Tensor) -> torch.Tensor:
-        groups, frames, width, height = batch.shape
-        batch = batch.view(groups * frames, 1, 1, width, height)
-        batch = (batch / 255 - 0.4161) / 0.1688
-        batch = self.visualFrontend(batch)
-        batch = batch.view(groups, frames, 512)
-        batch = batch.transpose(1, 2)
-        batch = self.visualTCN(batch)
-        batch = self.visualConv1D(batch)
-        return batch.transpose(1, 2)
-
-    def forward_audio_frontend(self, batch: torch.Tensor) -> torch.Tensor:
-        batch = batch.unsqueeze(1).transpose(2, 3)
-        return self.audioEncoder(batch)
-
-    def forward_cross_attention(
-        self,
-        audio: torch.Tensor,
-        visual: torch.Tensor,
-    ) -> tuple[torch.Tensor, torch.Tensor]:
-        audio_context = self.crossA2V(src=audio, tar=visual)
-        visual_context = self.crossV2A(src=visual, tar=audio)
-        return audio_context, visual_context
-
-    def forward_audio_visual_backend(self, audio: torch.Tensor, visual: torch.Tensor) -> torch.Tensor:
-        fused = torch.cat((audio, visual), 2)
-        fused = self.selfAV(src=fused, tar=fused)
-        return torch.reshape(fused, (-1, 256))
-
-
-class _Classifier(nn.Module):
-    def __init__(self, width: int) -> None:
-        super().__init__()
-        self.FC = nn.Linear(width, 2)
+from open_enricher.adapters.upstream import activate
 
 
 class TalkNetASD(nn.Module):
-    """Checkpoint root. ``model``, ``lossAV``, ``lossA`` and ``lossV`` are the saved names."""
+    """Group the released encoder and heads under the TalkSet checkpoint keys."""
 
     def __init__(self) -> None:
         super().__init__()
-        self.model = _TalkNetEncoder()
-        self.lossAV = _Classifier(256)
-        self.lossA = _Classifier(128)
-        self.lossV = _Classifier(128)
+        activate("talknet")
+        from loss import lossA, lossAV, lossV
+        from model.talkNetModel import talkNetModel
+
+        self.model = talkNetModel()
+        self.lossAV = lossAV()
+        self.lossA = lossA()
+        self.lossV = lossV()
 
 
 def load_talknet(weights: str | Path, device: str | None = None) -> tuple[TalkNetASD, str]:
@@ -315,7 +38,7 @@ def load_talknet(weights: str | Path, device: str | None = None) -> tuple[TalkNe
     if device is None:
         device = "cuda" if torch.cuda.is_available() else "cpu"
     network = TalkNetASD()
-    blob = torch.load(path, map_location="cpu", weights_only=False)
+    blob = torch.load(path, map_location="cpu", weights_only=True)
     if not isinstance(blob, dict):
         raise TypeError(f"checkpoint is {type(blob).__name__}, expected a state dict")
     cleaned = {}
@@ -344,8 +67,7 @@ def forward_scores(network: TalkNetASD, audio: numpy.ndarray, visual: numpy.ndar
         visual_embed = network.model.forward_visual_frontend(visual_tensor)
         audio_embed, visual_embed = network.model.forward_cross_attention(audio_embed, visual_embed)
         fused = network.model.forward_audio_visual_backend(audio_embed, visual_embed)
-        logits = network.lossAV.FC(fused)[:, 1]
-    return logits.detach().float().cpu().numpy()
+        return network.lossAV(fused)
 
 
 def _hz_to_mel(hz: numpy.ndarray) -> numpy.ndarray:
@@ -692,7 +414,7 @@ def score_talknet(payload: dict[str, Any]) -> dict[str, Any]:
     except Exception as exc:  # noqa: BLE001 - recorded for the probe log
         return {
             "status": "fallback",
-            "reason": f"TalkNet checkpoint does not match the vendored forward: {exc}",
+            "reason": f"TalkNet model could not be loaded: {exc}",
             "checkpoint_present": present,
             "scores": [],
         }

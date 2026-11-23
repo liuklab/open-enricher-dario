@@ -15,6 +15,7 @@ from open_enricher.adapters.talknet_asd import (
     mfcc,
     select_windows,
 )
+from open_enricher.adapters.upstream import runtime_path
 from open_enricher.graph import compact_account, speaker_edges
 
 
@@ -90,6 +91,8 @@ def test_mfcc_frame_count_matches_the_talknet_rate() -> None:
 
 
 def test_unloaded_forward_returns_one_logit_per_frame() -> None:
+    if not runtime_path("talknet").is_dir():
+        pytest.skip("Run python -m open_enricher.adapters.upstream talknet")
     network = TalkNetASD().eval()
     audio = numpy.zeros((100, 13), dtype=numpy.float32)
     visual = numpy.zeros((25, 112, 112), dtype=numpy.float32)
@@ -111,10 +114,10 @@ def _checkpoint() -> Path | None:
     return None
 
 
-def test_checkpoint_matches_the_vendored_graph() -> None:
+def test_checkpoint_matches_upstream_talknet() -> None:
     path = _checkpoint()
-    if path is None:
-        pytest.skip("TalkNet checkpoint is not on this machine")
+    if path is None or not runtime_path("talknet").is_dir():
+        pytest.skip("TalkNet weights and upstream runtime are required")
     network, device = load_talknet(path, device="cpu")
     assert device == "cpu"
     assert network.lossAV.FC.weight.shape == (2, 256)

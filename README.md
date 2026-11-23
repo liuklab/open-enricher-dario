@@ -105,6 +105,28 @@ The combined variant adds BaSSL scene boundaries, InsightFace and TalkNet
 character evidence, and EVA/Q-Former frame retrieval. Install the optional GPU
 dependencies and provide the model weights under the dataset's
 `models_cache/external/` directory. Make FFmpeg available on `PATH`.
+With PyTorch, matching torchvision and OpenCV installed in the worker's Python
+environment, install the two pinned encoder runtimes once on a host with network access. Use the same `OPEN_ENRICHER_DATASET_ROOT`
+on the setup host and on Slurm workers.
+
+```bash
+python -m open_enricher.adapters.upstream
+```
+
+TalkNet reads `talknet/pretrain_TalkSet.model`. BLIP-2 reads
+`lavis/eva_vit_g.pth` and `lavis/blip2_pretrained_flant5xxl.pth`.
+These paths are relative to `models_cache/external/`. The installer places the
+authors' inference modules and the BLIP-2 worker's Python dependencies under
+`models_cache/external/upstream/`. Inference uses the local files. The main
+VLM process keeps its own Transformers version. The revisions are pinned to
+[TalkNet-ASD](https://github.com/TaoRuijie/TalkNet-ASD/tree/6d6821479af485e251c4991487e40573b42181b4)
+and [Salesforce LAVIS](https://github.com/salesforce/LAVIS/tree/05cb670f47296522e24e7727e366b4a997d28582).
+
+To smoke-test the visual adapter with pytest, choose a clip whose frames at
+0 and 4 seconds differ. Set `OPEN_ENRICHER_SMOKE_VIDEO` to its path and run
+`python -m pytest -q tests/test_eva_qformer.py tests/test_talknet_scores.py`.
+
+For a previously completed experiment, pass `--force` to run it again.
 Inspect the per-title manifest for fallback or degraded stages.
 
 
