@@ -4,6 +4,11 @@ Describe the supplied video. The file may be an excerpt.
 - Use concrete events, relationships, settings, and format as search signals. Ground at least two semantic tags in distinctive evidence from the supplied excerpt or episode, such as a concrete action, object, setting, or repeated situation. Prefer features that distinguish this item from another episode of the same series. For comedy with a romantic premise, keep both signals when supported.
 - Character IDs are local tracking labels. Names mentioned in conversation do not identify visible faces unless the evidence explicitly links them.
 
+Choose the primary genre by asking what drives the central conflict:
+- Choose Drama when a professional case, high-stakes decision, or personal consequence drives the story. A legal case with office banter is Drama, with Legal Drama as a possible subgenre.
+- Choose Comedy when the setup is organized around comic situations or misunderstandings. A comic pursuit with romantic stakes can be Comedy with Romance or Sitcom among the subgenres.
+- Use a narrower supported label in sub_genres and use mood for tone.
+
 {{SCRIPT_TEXT}}
 
 Hard limits, which override any longer list in the metadata:
