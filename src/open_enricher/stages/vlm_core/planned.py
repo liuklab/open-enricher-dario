@@ -7,12 +7,14 @@ returns to the current scenes.
 
 from __future__ import annotations
 
+import json
 import subprocess
 from pathlib import Path
 from typing import Any
 
 from open_enricher import storage
 from open_enricher.experiments.config import CACHE_ROOT
+from open_enricher.graph import relations_for_interval
 from open_enricher.manifest import matching_artifact
 from open_enricher.stages.pipeline_spec import PipelineSpec
 from open_enricher.stages.vlm_core.allocation import allocate_frames, control_frame_budget
@@ -191,14 +193,31 @@ def prepare_scenes(
             dest = CACHE_ROOT / video_filename / "explicit" / spec.experiment_id / str(group["call_id"])
             image_paths = _grab(video, history_stamps + stamps, dest)
         extra_lines = []
-        if history_stamps:
+        if len(image_paths) != len(history_stamps) + len(stamps):
+            # The clip sampler can recover when explicit decoding loses an image.
+            image_paths = []
+        if image_paths and history_stamps:
             shown = ", ".join(f"{stamp:.1f}s" for stamp in history_stamps)
             extra_lines.append(f"Earlier frames from this title, in order: {shown}.")
-        if stamps:
+            extra_lines.append(
+                f"The first {len(history_stamps)} images are from earlier scenes. "
+                f"The final {len(stamps)} images show the current scene. "
+                "Every described action must be visible in the current images. "
+                "Earlier images can help establish continuity."
+            )
+        if image_paths and stamps:
             shown = ", ".join(f"{stamp:.1f}s" for stamp in stamps)
             extra_lines.append(f"Current frames at source times: {shown}.")
-        if graph and graph.get("account"):
-            extra_lines.append(f"Supported character relations: {graph['account']}")
+        if graph:
+            relations = relations_for_interval(graph.get("edges") or [], start, end)
+            if relations:
+                extra_lines.append(
+                    "Scene-local graph observations: " + json.dumps(relations[:8])
+                )
+                extra_lines.append(
+                    "Treat speaker labels as local references. Co-presence supports visibility "
+                    "during speech. Leave the recipient and relationship unresolved when ambiguous."
+                )
         row = {
             "start_time": _clock(start),
             "end_time": _clock(end),
