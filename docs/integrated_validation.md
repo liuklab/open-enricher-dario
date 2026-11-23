@@ -35,3 +35,9 @@ Downloaded the annotation archive from the project CDN listed by upstream BaSSL 
 ## MovieChat-SSeg pilot
 
 Job 123441 runs the Open Enricher BaSSL adapter on MovieChat-SSeg test video 1. The source file matches the published manifest size. Its 9,620 decoded frames match the final annotated shot index. The reference maps the first shot of each interior human scene to its decoded presentation timestamp relative to the first frame, giving seven boundaries. Score the result at one second before inspecting misses or testing duration thresholds. The clip and annotations remain local. [MovieChat-SSeg annotations at revision e85354d](https://github.com/jungucho92/moviechat-sseg/tree/e85354d)
+
+## Scene timeline quality review
+
+The Kingdom baseline and grounded pilot have 33 matching VLM windows. The first paired spot check compared their visual descriptions against source contact sheets. At 04:22–04:23, the source transitions through black into the opening montage; the baseline carries forward the interview close-up, while the candidate invents a Netflix logo. At 06:46–08:05, the sampled frames show a conversation in a house and kitchen. The candidate gets the kitchen and people broadly right, but the baseline introduces an ornate hall and an earlier-looking close-up absent from the sampled frames. The candidate still gives an incomplete account of the exchange. The inherited dialogue description is identical between the two runs for this kitchen window, so this comparison does not establish a dialogue-summary improvement.
+
+Use timestamped frames to score visual fidelity and the aligned transcript to score dialogue attribution. Review coverage and temporal leakage in both fields. The published RecSys evaluator scores the separate profile artifact; its score cannot stand in for this audit.
