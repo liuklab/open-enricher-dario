@@ -13,9 +13,9 @@
 set -euo pipefail
 ROOT="${SLURM_SUBMIT_DIR:?}"
 SHARED=/SLURM_shared/st_mdp26/open-enricher
-# Replay full-film diarization after translating its timestamps to the clip.
+# Reuse full-film diarization for the episode or rebase it to a clip.
 VIDEO="${1:?Pass the dataset video filename}"
-START="${2:?Pass the clip start in seconds}"
+START="${2:?Pass the clip start in seconds or full}"
 DURATION="${3:-30}"
 if [ "$VIDEO" != "${VIDEO##*/}" ]; then
   printf 'Pass a video filename without directories.\n' >&2
@@ -43,36 +43,43 @@ from pathlib import Path
 from open_enricher.stages.optional import CharacterGraphStage
 
 video, start_arg, duration_arg = sys.argv[1:]
-start, duration = float(start_arg), float(duration_arg)
-if start < 0 or duration <= 0:
-    raise ValueError("The clip must have a nonnegative start and a positive duration")
 source = Path(os.environ["GRAPH_SOURCE_DATASET"])
 dataset = Path(os.environ["OPEN_ENRICHER_DATASET_ROOT"])
-subprocess.run(
-    [
-        "ffmpeg", "-hide_banner", "-loglevel", "error", "-threads", "4",
-        "-ss", start_arg, "-t", duration_arg, "-i", str(Path(os.environ["GRAPH_SOURCE_VIDEO_INPUTS"]) / video),
-        "-c:v", "libx264", "-threads", "4", "-preset", "veryfast",
-        "-pix_fmt", "yuv420p", "-c:a", "aac", str(dataset / "video_inputs" / video),
-    ],
-    check=True,
-)
+source_video = Path(os.environ["GRAPH_SOURCE_VIDEO_INPUTS"]) / video
 audio_filename = f"{video}_audio.json"
-lines = json.loads((source / "outputs" / "audio_results" / audio_filename).read_text())
-clip_lines = [
-    {
-        **line,
-        "start_timestamp": round(max(0.0, line["start_timestamp"] - start), 3),
-        "end_timestamp": round(min(duration, line["end_timestamp"] - start), 3),
-    }
-    for line in lines
-    if line["start_timestamp"] < start + duration and line["end_timestamp"] > start
-]
-if not clip_lines:
-    raise ValueError("The cached transcript has no dialogue in this clip")
-(dataset / "outputs" / "audio_results" / audio_filename).write_text(
-    json.dumps(clip_lines), encoding="utf-8"
-)
+source_audio = source / "outputs" / "audio_results" / audio_filename
+target_audio = dataset / "outputs" / "audio_results" / audio_filename
+if start_arg == "full":
+    (dataset / "video_inputs" / video).symlink_to(source_video.resolve(strict=True))
+    target_audio.symlink_to(source_audio.resolve(strict=True))
+else:
+    lines = json.loads(source_audio.read_text(encoding="utf-8"))
+    start, duration = float(start_arg), float(duration_arg)
+    if start < 0 or duration <= 0:
+        raise ValueError("The clip must have a nonnegative start and a positive duration")
+    subprocess.run(
+        [
+            "ffmpeg", "-hide_banner", "-loglevel", "error", "-threads", "4",
+            "-ss", start_arg, "-t", duration_arg, "-i", str(source_video),
+            "-c:v", "libx264", "-threads", "4", "-preset", "veryfast",
+            "-pix_fmt", "yuv420p", "-c:a", "aac", str(dataset / "video_inputs" / video),
+        ],
+        check=True,
+    )
+    clip_lines = [
+        {
+            **line,
+            "start_timestamp": round(max(0.0, line["start_timestamp"] - start), 3),
+            "end_timestamp": round(min(duration, line["end_timestamp"] - start), 3),
+        }
+        for line in lines
+        if line["start_timestamp"] < start + duration and line["end_timestamp"] > start
+    ]
+    if not clip_lines:
+        raise ValueError("The cached transcript has no dialogue in this clip")
+    target_audio.write_text(
+        json.dumps(clip_lines), encoding="utf-8"
+    )
 result = CharacterGraphStage().run(video)
 print(json.dumps(result), flush=True)
 if result["status"] != "success":
