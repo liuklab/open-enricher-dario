@@ -31,3 +31,7 @@ A preliminary manual audit used contact sheets from seconds 60–300 of The King
 ## MovieNet-SSeg held-out annotations
 
 Downloaded the annotation archive from the project CDN listed by upstream BaSSL revision `0651dd6`. The extracted test split contains 105,976 shot records from 64 films, with 7,272 records labeled as scene boundaries and 838 carrying the sentinel label -1. The NDJSON identifies boundaries by shot index. Benchmark inference needs matching keyframes or a compatible shot-index alignment. The keyframe ZIP URL in the upstream download script returned HTTP 404. The annotations remain in the local audit directory. [Upstream download script](https://github.com/kakaobrain/bassl/blob/0651dd6/scripts/download_movienet_data.sh)
+
+## MovieChat-SSeg pilot
+
+Job 123441 runs the Open Enricher BaSSL adapter on MovieChat-SSeg test video 1. The source file matches the published manifest size. Its 9,620 decoded frames match the final annotated shot index. The reference maps the first shot of each interior human scene to its decoded presentation timestamp relative to the first frame, giving seven boundaries. Score the result at one second before inspecting misses or testing duration thresholds. The clip and annotations remain local. [MovieChat-SSeg annotations at revision e85354d](https://github.com/jungucho92/moviechat-sseg/tree/e85354d)
