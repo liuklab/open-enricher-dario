@@ -15,3 +15,7 @@ The grounded and baseline runs each returned descriptions for all 33 VLM calls. 
 - Compare the raw and recurring co-presence writer prompts before promoting the 192-window TalkNet setting.
 - Review the chronological dialogue and genre controls for factual accuracy before integrating prompt changes. Track each unresolved issue against the three-attempt limit.
 - Run the selected configuration first on a short clip and then across the four titles using the existing Slurm launcher. Audit the actual manifests and manually compare profiles with their synopsis after the evaluator finishes.
+
+## Segmentation control
+
+Job 123370 compares BaSSL against fixed windows on the same 100-second Silicon Valley clip beginning at source second 470. Both variant specifications use the same per-call cap, pacing policy, and memory configuration. Scene boundaries can change the number of calls and realized frame counts. Compare the archived plans, scene claims, and profiles against the clip, and report any realized frame or call imbalance when attributing quality differences. The full-episode synopsis can provide context, but only events inside the clip count toward accuracy and coverage.
