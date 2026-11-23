@@ -105,3 +105,5 @@ Transcript-only scene replay 123310 returned a schema-valid profile, but evaluat
 ## Full-episode plot chronology
 
 Plot replay 123317 consumed all 503 HIMYM utterances. It restored the repeated parties, rooftop conversation, and agreement to be friends, which the quote-led replay 123234 had described less accurately. It still labels Carlos as Ted's friend. The synopsis describes Carlos as someone Ted offers to introduce to Robin as a cover story. Job 123376 tests a final prompt revision that treats introductions and mentions as evidence for those acts, and requires direct support for relationship labels.
+
+The final clip-control evaluator, job 123375, scored 2.75/5 with fidelity 2/5. Removing the inherited plot summary removed the explicit academic-rivalry framing from the hook, but it still inferred insecurities and added a tense rooftop romance that the clip reference does not support. The profile remains below the usability threshold. Close this clip-specific prompt investigation at the third attempt.
