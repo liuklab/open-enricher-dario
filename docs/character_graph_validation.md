@@ -105,3 +105,7 @@ The clip result therefore does not establish that speech co-presence survives fu
 Replaying alignment with the saved graph decisions and 656 diarized lines found 15 distinct reliable windows that aligned to dialogue. Only one speaker-to-character pair cleared the repeated-window and uniqueness checks. Multiple transcript rows from a single model window do not count as independent support.
 
 Job 123332 runs the same graph stage on seconds 470–570 of the Silicon Valley episode, using the full-run transcript rebased to the clip. The full run scored 15 windows in this span, which contains one supported speaker interval. The probe tests whether a clip-local candidate pool improves the coverage and yields supported co-presence with the same model and attribution policy.
+
+Job 123332 completed in 10 minutes 25 seconds. It retained 153 nodes, scored 96 windows, and marked 22 reliable. It emitted 11 unresolved mentions and two unresolved addresses, with zero supported speaker or character-to-character edges. Restricting candidate selection to the clip did not recover attribution.
+
+Job 123334 repeats the same 100-second clip with a 192-window cap, holding the model, transcript and attribution rules fixed. The trial code is revision `a80218a` on `experiment/talknet-window-budget`. The default cap stays at 96. Compare distinct aligned windows per pair, supported speaker and co-presence intervals, and runtime before selecting a cap for a full episode.
