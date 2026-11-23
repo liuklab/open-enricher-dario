@@ -48,3 +48,7 @@ Job 123194 encoded the Suits episode and built a 64-entry bank, but the probe om
 Job 123195 failed because it could not load scene starts. Job 123281 retries with the dialogue artifact available from startup and validates scene queries before encoding frames.
 
 Job 123280 completed in 12 minutes 59 seconds. The Suits artifact has 172 short-term spans, 64 compacted long-term entries, and 175 retrieved frames across 46 scene queries. Forty-five queries returned at least one frame. Every returned frame maps to a bank entry whose source interval ends strictly before the query. This verifies retrieval chronology on a second title. Job 123281 measures the effect of short-term consolidation on the selected history using identical embeddings.
+
+Job 123281 compared both banks using 2,572 identical candidate embeddings. Both retained 64 entries and retrieved 175 frames, with the same count at every scene query. The selected frame set differed in 26 of 46 scenes. Short-then-long consolidation took 59.20 seconds and yielded a median frame age of 382.8 seconds. Direct-long consolidation took 34.37 seconds and yielded a median age of 432.2 seconds. These differences establish an effect on retrieval.
+
+Grounded Suits replays 123346 (short-then-long) and 123348 (direct-long) hold the other inference inputs fixed. Evaluators 123347 and 123349 use the same synopsis. Compare the archived manifests for equal current frames and total image counts before attributing changes in the generated profiles to consolidation.

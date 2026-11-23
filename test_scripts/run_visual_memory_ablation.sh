@@ -16,14 +16,21 @@ ROOT="${SLURM_SUBMIT_DIR:?Submit from the worktree root}"
 SOURCE="${1:?Pass the source dataset directory}"
 VIDEO="${2:?Pass the video filename}"
 MODE="${3:?Choose current, recent, retrieved, or grounded}"
+MEMORY_OVERRIDE="${4:-}"
 SHARED=/SLURM_shared/st_mdp26/open-enricher
 DATA="$ROOT/var/memory-ablation-$SLURM_JOB_ID"
 mkdir -p "$DATA/outputs"
 ln -s "$SHARED/dataset/video_inputs" "$DATA/video_inputs"
 ln -s "$SHARED/dataset/models_cache" "$DATA/models_cache"
-for stage in audio_results dialogue_results memory_results; do
+for stage in audio_results dialogue_results; do
     ln -s "$SOURCE/outputs/$stage" "$DATA/outputs/$stage"
 done
+if [[ -n "$MEMORY_OVERRIDE" ]]; then
+    mkdir -p "$DATA/outputs/memory_results"
+    cp -- "$MEMORY_OVERRIDE" "$DATA/outputs/memory_results/${VIDEO}_memory.json"
+else
+    ln -s "$SOURCE/outputs/memory_results" "$DATA/outputs/memory_results"
+fi
 mkdir -p "$DATA/outputs/graph_results"
 cp "$SOURCE/outputs/graph_results/${VIDEO}_graph.json" "$DATA/outputs/graph_results/"
 export OPEN_ENRICHER_DATASET_ROOT="$DATA" OPEN_ENRICHER_VIDEO_INPUTS="$DATA/video_inputs"
