@@ -101,3 +101,7 @@ All three profiles were below the evaluator's usability threshold and framed the
 In the Silicon Valley integrated replay, job 123242 finished graph construction and advanced to visual memory. The graph stage reported success with 8,596 face observations, 4,184 pooled tracks, and 639 retained identities. None of the retained identities had an alias. The graph stored 119 unresolved mentions, 39 unresolved addresses, and two supported speaker intervals for the same visual identity. It produced no supported character-to-character edges.
 
 The clip result therefore does not establish that speech co-presence survives full-episode processing. Compare the active-speaker window coverage and reliable detections with the supported speaker intervals before changing identity filters or adding interaction evidence.
+
+Replaying alignment with the saved graph decisions and 656 diarized lines found 15 distinct reliable windows that aligned to dialogue. Only one speaker-to-character pair cleared the repeated-window and uniqueness checks. Multiple transcript rows from a single model window do not count as independent support.
+
+Job 123332 runs the same graph stage on seconds 470–570 of the Silicon Valley episode, using the full-run transcript rebased to the clip. The full run scored 15 windows in this span, which contains one supported speaker interval. The probe tests whether a clip-local candidate pool improves the coverage and yields supported co-presence with the same model and attribution policy.
