@@ -95,3 +95,7 @@ The combined run did recover evidence that the earlier optional-model runs misse
 The new pipeline's dialogue summary introduces a material error: it claims Robin is engaged to Carlos. The synopsis identifies Carlos as the person Ted claims he wanted Robin to meet. The final profile omits that error but also misses the concrete party sequence that the same dialogue summary supplied.
 
 These archives show stronger intermediate evidence without a clear final-profile specificity gain. A numerical score from different run conditions does not isolate a model contribution. Job 123147 isolates the character account at the profile writer while holding the VLM output fixed. The VLM also receives the graph account, so measuring the graph's total effect requires replaying both VLM and profile generation with the same inputs and graph evidence removed. A visual-memory comparison likewise needs the same scene and frame budgets with the history allocation applied to current frames in the control.
+
+## Full-episode specificity replay
+
+Job 123228 reused the full-episode evidence and applied the specificity prompt. Evaluator 123229 scored the profile at 3.65/5, compared with 3.45/5 for the full-episode baseline. The new hook names Ted and Robin and mentions the party setups. Fidelity scored 3/5 because the hook gives too much weight to the confession in the recap and the visual style embellishes the party palette. Writer replay 123276 applies the specificity prompt to the grounded visual evidence, with evaluation in job 123277.
