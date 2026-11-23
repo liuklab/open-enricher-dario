@@ -19,3 +19,7 @@ The grounded and baseline runs each returned descriptions for all 33 VLM calls. 
 ## Segmentation control
 
 Job 123370 compares BaSSL against fixed windows on the same 100-second Silicon Valley clip beginning at source second 470. Both variant specifications use the same per-call cap, pacing policy, and memory configuration. Scene boundaries can change the number of calls and realized frame counts. Compare the archived plans, scene claims, and profiles against the clip, and report any realized frame or call imbalance when attributing quality differences. The full-episode synopsis can provide context, but only events inside the clip count toward accuracy and coverage.
+
+## Writer candidate
+
+The third genre prompt returned Drama and Legal Drama for Suits (jobs 123360 and 123361, 3.80/5) and Comedy and Sitcom for HIMYM (jobs 123362 and 123363, 3.90/5). Suits improved from 3.40/5 on the second prompt while remaining below its 3.90/5 full-run baseline. HIMYM improved from 3.45/5 on the baseline. The Suits hook still obscures the source of pressure on Mike, and both visual styles need stronger support. This branch adopts the tested prompt and writer taxonomy. The existing segmentation experiment runs on a separate worktree.
