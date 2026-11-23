@@ -1,0 +1,20 @@
+{
+  "experiment_id": "12-combined-fixed-control",
+  "title": "Combined pipeline with fixed scene windows",
+  "interval_seconds": 300,
+  "vlm_memory_scenes": 2,
+  "visual_only": false,
+  "features": {
+    "bassl": false,
+    "adaptive_frames": true,
+    "character_graph": true,
+    "visual_memory": true
+  },
+  "frame_allocation": "adaptive",
+  "budgets": {
+    "max_qwen_frames": 40,
+    "history_frame_fraction": 0.25,
+    "face_sample_fps": 5,
+    "memory_candidate_fps": 1
+  }
+}
