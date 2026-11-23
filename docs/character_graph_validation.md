@@ -101,3 +101,5 @@ The second full title in job 123117, Silicon Valley S06E01, reproduced the graph
 ## Primary genre replay
 
 The first taxonomy-constrained Suits replay, job 123206, returned Comedy. The dominant-conflict prompt in replay 123289 also returned Comedy even though it described a patent dispute and selected Legal Drama as a subgenre. The third probe distinguishes a legal case with comic exchanges from a plot driven by comic misunderstandings. Writer jobs 123360 (Suits) and 123362 (How I Met Your Mother) use the existing full-episode evidence. Evaluators 123361 and 123363 check whether Suits moves to Drama while the sitcom remains Comedy without a loss in factual accuracy.
+
+Evaluator 123290 scored the second Suits replay 3.40/5 with fidelity 3/5, down from 3.65/5 in the first constrained replay. Manual review confirms that the patent dispute and drug-test coercion are episode-specific. Louis uses the drug test to pressure Mike into courting a client, while Harvey confronts Mike afterward. Framing the incident as a comedic mishap loses the coercion and misstates how the two plotlines connect. The genre and hook should both reflect that distinction.
