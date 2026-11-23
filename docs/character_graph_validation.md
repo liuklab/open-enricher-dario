@@ -95,3 +95,9 @@ The integrated clip and both graph controls were scored against the same reviewe
 | 123179 | 123292 | Graph omitted from the VLM and writer inputs | 2.40/5 |
 
 All three profiles were below the evaluator's usability threshold and framed the clip as an academic rivalry. The shared dialogue descriptions overemphasized the paper and speculated about peer rivalry. Scene replay 123233 and evaluator 123303 test whether revising those descriptions improves the profile while retaining the archived visual extraction and graph.
+
+## Full-episode graph check
+
+In the Silicon Valley integrated replay, job 123242 finished graph construction and advanced to visual memory. The graph stage reported success with 8,596 face observations, 4,184 pooled tracks, and 639 retained identities. None of the retained identities had an alias. The graph stored 119 unresolved mentions, 39 unresolved addresses, and two supported speaker intervals for the same visual identity. It produced no supported character-to-character edges.
+
+The clip result therefore does not establish that speech co-presence survives full-episode processing. Compare the active-speaker window coverage and reliable detections with the supported speaker intervals before changing identity filters or adding interaction evidence.
