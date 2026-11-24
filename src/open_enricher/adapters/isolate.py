@@ -7,7 +7,6 @@ fallback outcome instead of killing the pipeline.
 from __future__ import annotations
 
 import json
-import os
 import subprocess
 import sys
 from typing import Any
@@ -62,14 +61,3 @@ def call_in_child(
     if not isinstance(document, dict):
         return {"status": "fallback", "reason": "child returned a non-object"}
     return document
-
-
-def echo_payload(payload: dict[str, Any]) -> dict[str, Any]:
-    """Return the payload. Used to prove the child channel works."""
-    return {"status": "success", "payload": payload}
-
-
-def crash_payload(payload: dict[str, Any]) -> dict[str, Any]:
-    """Terminate the child without a Python exception."""
-    del payload
-    os._exit(3)

@@ -270,7 +270,7 @@ def sample_scene(
                 "index": frame_index,
                 "clip_seconds": round(clip_seconds, 3),
                 "timestamp_seconds": round(start_seconds + clip_seconds, 3),
-                "file": str(path.relative_to(REPO_ROOT)),
+                "file": str(path.relative_to(REPO_ROOT) if path.is_relative_to(REPO_ROOT) else path),
             }
         )
     return {

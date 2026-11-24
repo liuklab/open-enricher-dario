@@ -48,8 +48,15 @@ class AudioStage:
         """
         self.hf_token = hf_token
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.model_name = "large-v2"
         self.batch_size = 16
         self.compute_type = "float16" if self.device == "cuda" else "int8"
+
+    def cache_settings(self) -> dict[str, Any]:
+        return {
+            "model": self.model_name, "device": self.device,
+            "compute_type": self.compute_type, "batch_size": self.batch_size,
+        }
 
     def _free_vram(self) -> None:
         """Force garbage collection and clear the PyTorch CUDA cache."""
@@ -76,15 +83,15 @@ class AudioStage:
 
         timing = TimingRecorder(self.name)
         logger.info("Loading WhisperX model...")
-        with timing.span("whisperx_load", model_id="large-v2"):
-            model = whisperx.load_model("large-v2", self.device, compute_type=self.compute_type)
+        with timing.span("whisperx_load", model_id=self.model_name):
+            model = whisperx.load_model(self.model_name, self.device, compute_type=self.compute_type)
 
         try:
             logger.info(f"Reading audio from: {video_path}")
             audio = whisperx.load_audio(str(video_path))
 
             logger.info("Transcribing...")
-            with timing.span("whisperx_transcribe", model_id="large-v2"):
+            with timing.span("whisperx_transcribe", model_id=self.model_name):
                 result = model.transcribe(
                     audio, batch_size=self.batch_size, interleaved_context=True
                 )
@@ -114,6 +121,7 @@ class AudioStage:
         logger.info("Identifying speakers...")
         os.environ["HF_TOKEN"] = self.hf_token
         diarize_model = None
+        diarized = False
         try:
             with timing.span("diarization_load"):
                 try:
@@ -123,6 +131,7 @@ class AudioStage:
             with timing.span("diarization_infer"):
                 diarize_segments = diarize_model(audio)
                 result = assign_word_speakers(diarize_segments, result)
+                diarized = True
         except Exception as exc:
             # The community diarization weights are gated. The transcript is still usable.
             logger.warning(f"Speaker diarization skipped: {exc}")
@@ -161,6 +170,7 @@ class AudioStage:
             "stage": self.name,
             "status": "success",
             "lines_extracted": len(dialogues),
+            "diarized": diarized,
             "result": payload,
             "timings": timing.document(),
             "output_file": str(output_path.name),

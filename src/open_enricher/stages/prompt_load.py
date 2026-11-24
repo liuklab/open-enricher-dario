@@ -2,13 +2,11 @@
 
 from __future__ import annotations
 
-from functools import lru_cache
 from pathlib import Path
 
 PROMPTS_DIR = Path(__file__).resolve().parent / "prompts"
 
 
-@lru_cache(maxsize=64)
 def load_prompt(name: str) -> str:
     """
     Load a prompt template by file name from ``stages/prompts``.

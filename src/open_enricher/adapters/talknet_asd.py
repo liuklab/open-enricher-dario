@@ -2,17 +2,14 @@
 
 from __future__ import annotations
 
-import math
 import shutil
 import subprocess
-from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
 from typing import Any
 
 import numpy
 import torch
 from torch import nn
-from scipy.fftpack import dct
 
 from open_enricher.adapters.upstream import activate
 
@@ -70,80 +67,14 @@ def forward_scores(network: TalkNetASD, audio: numpy.ndarray, visual: numpy.ndar
         return network.lossAV(fused)
 
 
-def _hz_to_mel(hz: numpy.ndarray) -> numpy.ndarray:
-    return 2595.0 * numpy.log10(1.0 + hz / 700.0)
-
-
-def _mel_to_hz(mel: numpy.ndarray) -> numpy.ndarray:
-    return 700.0 * (10 ** (mel / 2595.0) - 1.0)
-
-
-def _filterbank(nfilt: int, nfft: int, samplerate: int) -> numpy.ndarray:
-    lowmel = _hz_to_mel(numpy.array(0.0))
-    highmel = _hz_to_mel(numpy.array(samplerate / 2.0))
-    melpoints = numpy.linspace(lowmel, highmel, nfilt + 2)
-    bins = numpy.floor((nfft + 1) * _mel_to_hz(melpoints) / samplerate)
-    bank = numpy.zeros((nfilt, nfft // 2 + 1), dtype=numpy.float64)
-    for index in range(nfilt):
-        left = int(bins[index])
-        middle = int(bins[index + 1])
-        right = int(bins[index + 2])
-        span_up = middle - left
-        span_down = right - middle
-        for bin_index in range(left, middle):
-            if span_up:
-                bank[index, bin_index] = (bin_index - bins[index]) / span_up
-        for bin_index in range(middle, right):
-            if span_down:
-                bank[index, bin_index] = (bins[index + 2] - bin_index) / span_down
-    return bank
-
-
-def _frame_signal(signal: numpy.ndarray, frame_len: float, frame_step: float) -> numpy.ndarray:
-    length = int(Decimal(frame_len).quantize(Decimal("1"), rounding=ROUND_HALF_UP))
-    step = int(Decimal(frame_step).quantize(Decimal("1"), rounding=ROUND_HALF_UP))
-    size = len(signal)
-    if size <= length:
-        count = 1
-    else:
-        count = 1 + int(math.ceil((size - length) / float(step)))
-    padded = numpy.zeros((count - 1) * step + length, dtype=numpy.float64)
-    padded[:size] = signal
-    frames = numpy.zeros((count, length), dtype=numpy.float64)
-    for index in range(count):
-        start = index * step
-        frames[index] = padded[start : start + length]
-    return frames
-
-
 def mfcc(signal: numpy.ndarray, samplerate: int = 16000) -> numpy.ndarray:
-    """13 MFCCs with the python_speech_features defaults TalkNet was trained on.
+    """Compute the 13 MFCCs used by the original TalkNet demo."""
+    from python_speech_features import mfcc as talknet_mfcc
 
-    Rectangular window, 25 ms / 10 ms, 26 mel filters, lifter 22, and the
-    zeroth coefficient replaced by log energy. ``signal`` is the int16
-    waveform promoted to float, which is what that library does.
-    """
     samples = numpy.asarray(signal, dtype=numpy.float64)
-    if samples.size == 0:
-        return numpy.zeros((0, 13), dtype=numpy.float64)
-    emphasized = numpy.empty_like(samples)
-    emphasized[0] = samples[0]
-    emphasized[1:] = samples[1:] - 0.97 * samples[:-1]
-    frames = _frame_signal(emphasized, 0.025 * samplerate, 0.010 * samplerate)
-    nfft = 512
-    spectrum = numpy.fft.rfft(frames, nfft)
-    power = (1.0 / nfft) * numpy.square(numpy.abs(spectrum))
-    energy = numpy.sum(power, axis=1)
-    energy = numpy.where(energy == 0, numpy.finfo(float).eps, energy)
-    bank = _filterbank(26, nfft, samplerate)
-    features = numpy.dot(power, bank.T)
-    features = numpy.where(features == 0, numpy.finfo(float).eps, features)
-    features = numpy.log(features)
-    cepstra = dct(features, type=2, axis=1, norm="ortho")[:, :13]
-    ramp = numpy.arange(13)
-    cepstra *= 1.0 + 11.0 * numpy.sin(numpy.pi * ramp / 22.0)
-    cepstra[:, 0] = numpy.log(energy)
-    return cepstra
+    if not samples.size:
+        return numpy.empty((0, 13), dtype=numpy.float64)
+    return talknet_mfcc(samples, samplerate=samplerate)
 
 
 def _bbox(track: dict[str, Any]) -> list[float] | None:
@@ -395,7 +326,7 @@ def _score_window(
 
 
 def score_talknet(payload: dict[str, Any]) -> dict[str, Any]:
-    """Score a handful of face windows. The cap keeps a probe off the GPU."""
+    """Score the face windows selected by the experiment budget."""
     weights = str(payload.get("weights") or "")
     video = str(payload.get("video") or "")
     tracks = list(payload.get("tracks") or [])
@@ -411,7 +342,7 @@ def score_talknet(payload: dict[str, Any]) -> dict[str, Any]:
         }
     try:
         network, device = load_talknet(weights)
-    except Exception as exc:  # noqa: BLE001 - recorded for the probe log
+    except Exception as exc:  # noqa: BLE001 - recorded in the stage output
         return {
             "status": "fallback",
             "reason": f"TalkNet model could not be loaded: {exc}",

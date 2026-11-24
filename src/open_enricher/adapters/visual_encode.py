@@ -56,21 +56,7 @@ def encode_video(
     if max_frames is not None:
         payload["max_frames"] = max_frames
     return call_in_child(
-        "open_enricher.adapters.visual_encode",
-        "run_encode_payload",
+        "open_enricher.adapters.eva_qformer",
+        "encode_payload",
         payload,
     )
-
-
-def run_encode_payload(payload: dict[str, Any]) -> dict[str, Any]:
-    """Child entry. Loads ViT-G and the Q-Former and returns query tokens."""
-    try:
-        import torch as _torch
-    except Exception as exc:  # noqa: BLE001 - optional dependency
-        return {"status": "fallback", "reason": f"torch import failed: {exc}", "frames": []}
-    del _torch
-    try:
-        from open_enricher.adapters.eva_qformer import encode_payload
-    except Exception as exc:  # noqa: BLE001 - recorded fallback
-        return {"status": "fallback", "reason": str(exc), "frames": []}
-    return encode_payload(payload)

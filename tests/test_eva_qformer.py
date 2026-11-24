@@ -1,6 +1,7 @@
 """Checkpoint loading, BLIP-2 image preprocessing and the public sampler."""
 
 import os
+from unittest.mock import Mock
 from pathlib import Path
 
 import numpy as np
@@ -8,7 +9,7 @@ import pytest
 import torch
 from PIL import Image
 
-from open_enricher.adapters.eva_qformer import CLIP_MEAN, CLIP_STD, _prepare_frame, load_matching
+from open_enricher.adapters.eva_qformer import CLIP_MEAN, CLIP_STD, _prepare_frame, _sample_frames, load_matching
 from open_enricher.adapters.visual_encode import encode_video
 from open_enricher.stages.pipeline_spec import Checkpoints, PipelineSpec
 
@@ -29,6 +30,21 @@ def test_frame_matches_lavis_rgb_bicubic_eval_transform() -> None:
     expected = np.asarray(rgb).astype(np.float32) / 255
     expected = (expected - np.array(CLIP_MEAN, np.float32)) / np.array(CLIP_STD, np.float32)
     np.testing.assert_allclose(_prepare_frame(bgr).numpy(), expected.transpose(2, 0, 1), atol=1e-6)
+
+
+def test_sampling_reads_prefix_on_demand_and_releases_decoder(monkeypatch) -> None:
+    import cv2
+
+    capture = Mock()
+    capture.isOpened.return_value = True
+    capture.get.return_value = 4.0
+    capture.read.side_effect = [(True, "first"), (True, "unused"), (True, "second")]
+    monkeypatch.setattr(cv2, "VideoCapture", lambda _: capture)
+    sampled = _sample_frames("clip", sample_fps=2, max_frames=2)
+    assert next(sampled) == (0, 0.0, "first")
+    assert capture.read.call_count == 1
+    assert list(sampled) == [(2, 0.5, "second")]
+    capture.release.assert_called_once()
 
 
 def test_max_frames_is_sent_only_when_set(monkeypatch, tmp_path: Path) -> None:

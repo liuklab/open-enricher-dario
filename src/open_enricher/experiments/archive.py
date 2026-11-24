@@ -10,8 +10,9 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
+from uuid import uuid4
 
-from open_enricher.experiments.config import CACHE_ROOT, PROGRESS_PATH, RUNS_ROOT
+from open_enricher.experiments.config import PROGRESS_PATH, RUNS_ROOT
 
 
 def experiment_dir(experiment_id: str) -> Path:
@@ -41,21 +42,6 @@ def video_archive_dir(experiment_id: str, video_filename: str) -> Path:
         Path ``runs/local/<experiment_id>/<video_filename>/``.
     """
     path = experiment_dir(experiment_id) / video_filename
-    path.mkdir(parents=True, exist_ok=True)
-    return path
-
-
-def cache_dir(video_filename: str) -> Path:
-    """
-    Return (and create) the shared cache folder for one video.
-
-    Args:
-        video_filename: Exact video file name.
-
-    Returns:
-        Path ``runs/local/_cache/<video_filename>/``.
-    """
-    path = CACHE_ROOT / video_filename
     path.mkdir(parents=True, exist_ok=True)
     return path
 
@@ -115,103 +101,54 @@ def load_progress() -> list[dict[str, Any]]:
     return rows
 
 
-def is_done(experiment_id: str, step: str = "archived") -> bool:
-    """
-    Report whether an experiment already completed a named step successfully.
-
-    Args:
-        experiment_id: Stable experiment id.
-        step: Progress step name (default ``archived``).
-
-    Returns:
-        True when a matching ``status=ok`` event exists in the progress log.
-    """
-    for row in load_progress():
-        if (
-            row.get("experiment_id") == experiment_id
-            and row.get("step") == step
-            and row.get("status") == "ok"
-        ):
-            return True
-    return False
-
-
-def _recorded_fingerprint(experiment_id: str, video: str) -> str:
-    """Return the source fingerprint stored on an archived manifest, or ""."""
-    path = RUNS_ROOT / experiment_id / video / f"{video}_manifest.json"
-    if not path.is_file():
-        return ""
-    try:
-        document = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
-        return ""
-    if not isinstance(document, dict):
-        return ""
-    return str(document.get("source_fingerprint") or "")
-
-
 def archive_matches_sources(
-    experiment_id: str,
-    videos: list[str],
-    step: str,
+    experiment_id: str, videos: list[str], step: str, *, settings: str
 ) -> bool:
-    """
-    Report whether the latest successful step covers these source files.
-
-    A shorter file that shares a video name is not the same source. The
-    progress row must name every requested video, and each archived manifest
-    must still match the file now under ``video_inputs``.
-    """
-    if not videos:
-        return False
-    latest: dict[str, Any] | None = None
-    for row in load_progress():
-        if (
-            row.get("experiment_id") == experiment_id
-            and row.get("step") == step
-            and row.get("status") == "ok"
-        ):
-            latest = row
-    if latest is None:
-        return False
-    covered = {
-        str(item.get("video"))
-        for item in (latest.get("results") or [])
-        if isinstance(item, dict) and item.get("video")
-    }
-    if not set(videos) <= covered:
-        return False
-    from open_enricher.fingerprint import source_fingerprint
+    """Require the latest step, archived attempt, source bytes and settings to agree."""
     from open_enricher import storage
+    from open_enricher.fingerprint import source_fingerprint
+    from open_enricher.manifest import load_json
 
+    row = next(
+        (event for event in reversed(load_progress())
+         if event.get("experiment_id") == experiment_id and event.get("step") == step),
+        {},
+    )
+    if not videos or row.get("status") != "ok" or row.get("settings_hash") != settings:
+        return False
+    receipts = {item.get("video"): item for item in row.get("results", []) if isinstance(item, dict)}
     for video in videos:
-        recorded = _recorded_fingerprint(experiment_id, video)
+        folder = RUNS_ROOT / experiment_id / video
+        result = load_json(folder / "result.json") or {}
+        receipt = receipts.get(video, {})
         source = storage.video_inputs() / video
-        if not recorded or not source.is_file():
+        if result.get("status") != "success" or result.get("settings_hash") != settings:
             return False
-        if recorded != source_fingerprint(source):
+        if not receipt.get("archive_id") or receipt["archive_id"] != result.get("archive_id"):
             return False
+        if not source.is_file() or result.get("source_fingerprint") != source_fingerprint(source):
+            return False
+        if step == "evaluation":
+            score = folder / "score.json"
+            if not score.is_file() or receipt.get("score_sha256") != source_fingerprint(score):
+                return False
+        checksums = result.get("artifact_sha256")
+        if not isinstance(checksums, dict) or not checksums or set(checksums) != set(result.get("archived_files", [])):
+            return False
+        for name, expected in checksums.items():
+            artifact = folder / name
+            if not artifact.is_file() or source_fingerprint(artifact) != expected:
+                return False
     return True
 
 
-def retain_different_source(experiment_id: str, video: str, source: Path) -> Path | None:
-    """
-    Move an archive aside when it was built from a different file.
-
-    The previous folder keeps its profile. The caller can then archive the
-    current source under the original video name.
-    """
-    from open_enricher.fingerprint import source_fingerprint
-
+def retain_previous_run(experiment_id: str, video: str) -> Path | None:
+    """Keep the entire previous attempt, including legacy results without a manifest."""
     folder = RUNS_ROOT / experiment_id / video
-    recorded = _recorded_fingerprint(experiment_id, video)
-    if not recorded or not source.is_file():
+    if not folder.is_dir():
         return None
-    if recorded == source_fingerprint(source):
-        return None
-    kept = folder.with_name(f"{video}.source-{recorded[:12]}")
-    if kept.exists():
-        return kept
+    kept = folder.parent / "_previous" / f"{video}.{uuid4().hex}"
+    kept.parent.mkdir(exist_ok=True)
     folder.rename(kept)
     return kept
 

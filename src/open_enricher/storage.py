@@ -85,7 +85,8 @@ def outputs_dir() -> Path:
     Returns:
         ``dataset_root()/outputs``.
     """
-    return dataset_root() / "outputs"
+    override = os.environ.get("OPEN_ENRICHER_OUTPUT_ROOT")
+    return Path(override) if override else dataset_root() / "outputs"
 
 
 def models_cache() -> Path:

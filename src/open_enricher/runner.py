@@ -1,13 +1,13 @@
 """In-process pipeline runner for a local GPU host.
 
-Builds the same stage registry the old FastAPI worker used, then calls
-``stage.run(video)`` in order without HTTP, tunnels, or remote deploy.
+Builds the stage registry and calls ``stage.run(video)`` in the configured order.
 Audio output can be restored from a shared cache so a later run skips
 transcription that does not depend on the pipeline spec.
 """
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import shutil
@@ -212,113 +212,48 @@ def _artifact_globs(stage: str, video_filename: str) -> list[str]:
     return []
 
 
-def _cache_stamp_path(source_dir: Path) -> Path:
-    return source_dir / "source.json"
+def _cache_path(stage: str, video_filename: str, cache_root: Path, options: dict | None) -> Path:
+    from open_enricher.fingerprint import audio_model_identity, source_fingerprint
+
+    source = source_fingerprint(storage.video_inputs() / video_filename)
+    settings = {
+        "code": source_fingerprint(Path(__file__).parent / "stages" / f"{stage}.py"),
+        "options": options, "models": audio_model_identity(),
+    }
+    producer = hashlib.sha256(json.dumps(settings, sort_keys=True).encode()).hexdigest()
+    return cache_root / video_filename / stage / f"{source}-{producer}.json"
 
 
-def _cache_matches_source(source_dir: Path, video_filename: str) -> bool:
-    """True when the cache stamp names the file now under video_inputs."""
-    stamp_path = _cache_stamp_path(source_dir)
-    if not stamp_path.is_file():
+def restore_cached_stage(stage: str, video_filename: str, cache_root: Path, options: dict | None = None) -> bool:
+    """Restore a complete stage entry for this source, ASR models and producer settings."""
+    if stage not in CACHEABLE_STAGES:
         return False
-    video = storage.video_inputs() / video_filename
-    if not video.is_file():
-        return False
+    path = _cache_path(stage, video_filename, cache_root, options)
     try:
-        stamp = json.loads(stamp_path.read_text(encoding="utf-8"))
+        files = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         return False
-    recorded = str(stamp.get("source_fingerprint") or "") if isinstance(stamp, dict) else ""
-    if not recorded:
+    primary = primary_artifact_path(stage, video_filename)
+    names = _artifact_globs(stage, video_filename)
+    if not isinstance(files, dict) or not files.get(primary.name):
         return False
-    from open_enricher.fingerprint import source_fingerprint
-
-    return recorded == source_fingerprint(video)
-
-
-def restore_cached_stage(
-    stage: str,
-    video_filename: str,
-    cache_root: Path,
-) -> bool:
-    """
-    Copy cached audio or color artifacts into the shared dataset folders.
-
-    Args:
-        stage: Must be a cacheable stage (audio or color).
-        video_filename: Exact file name under ``video_inputs``.
-        cache_root: Directory holding per-video cache folders.
-
-    Returns:
-        True when the primary artifact was restored, False when the cache
-        misses, belongs to a different file, or the stage is not cacheable.
-    """
-    if stage not in CACHEABLE_STAGES:
+    if any(name not in names or not isinstance(body, str) for name, body in files.items()):
         return False
-    source_dir = cache_root / video_filename / stage
-    if not source_dir.is_dir():
-        return False
-    if not _cache_matches_source(source_dir, video_filename):
-        logger.info(
-            "Leaving %s cache for %s unused; it is not this source file",
-            stage,
-            video_filename,
-        )
-        return False
-    dest_dir = storage.get_output_dir(stage)
-    dest_dir.mkdir(parents=True, exist_ok=True)
-    copied = 0
-    for path in source_dir.iterdir():
-        if path.is_file():
-            shutil.copy2(path, dest_dir / path.name)
-            copied += 1
-    ok = stage_output_exists(stage, video_filename)
-    if ok:
-        logger.info(
-            "Restored %s cached file(s) for %s / %s",
-            copied,
-            stage,
-            video_filename,
-        )
-    return ok
+    for name, body in files.items():
+        storage.atomic_write_text(primary.parent / name, body)
+    return True
 
 
-def save_stage_to_cache(
-    stage: str,
-    video_filename: str,
-    cache_root: Path,
-) -> None:
-    """
-    Persist audio or color artifacts into the shared cache for later runs.
-
-    Args:
-        stage: Must be a cacheable stage (audio or color).
-        video_filename: Exact file name under ``video_inputs``.
-        cache_root: Directory holding per-video cache folders.
-    """
-    if stage not in CACHEABLE_STAGES:
+def save_stage_to_cache(stage: str, video_filename: str, cache_root: Path, options: dict | None = None) -> None:
+    """Publish one atomic cache entry containing the stage output and timings."""
+    if stage not in CACHEABLE_STAGES or not stage_output_exists(stage, video_filename):
         return
-    if not stage_output_exists(stage, video_filename):
-        return
-    dest_dir = cache_root / video_filename / stage
-    dest_dir.mkdir(parents=True, exist_ok=True)
-    source_dir = storage.get_output_dir(stage)
-    for pattern in _artifact_globs(stage, video_filename):
-        for path in source_dir.glob(pattern):
-            if path.is_file():
-                shutil.copy2(path, dest_dir / path.name)
-    video = storage.video_inputs() / video_filename
-    if video.is_file():
-        from open_enricher.fingerprint import source_fingerprint
-
-        storage.atomic_write_text(
-            _cache_stamp_path(dest_dir),
-            json.dumps(
-                {"source_fingerprint": source_fingerprint(video)},
-                indent=2,
-            )
-            + "\n",
-        )
+    directory = storage.get_output_dir(stage)
+    files = {
+        name: (directory / name).read_text(encoding="utf-8")
+        for name in _artifact_globs(stage, video_filename) if (directory / name).is_file()
+    }
+    storage.atomic_write_text(_cache_path(stage, video_filename, cache_root, options), json.dumps(files))
 
 
 def list_videos(video_names: Sequence[str] | None = None) -> list[str]:
@@ -374,8 +309,7 @@ def run_pipeline(
         stage_registry: Optional pre-built registry. Built on demand otherwise.
         cache_root: Shared cache for audio. When None, caching is
             skipped even if ``use_cache`` is True.
-        use_cache: When True, restore or skip cacheable stages that already
-            have artifacts, and refresh the cache after a successful run.
+        use_cache: Restore matching cache entries and publish successful stages.
 
     Returns:
         Summary dict with per-stage status, overall status, and video name.
@@ -395,7 +329,7 @@ def run_pipeline(
     overall = "success"
     previous_env: dict[str, str | None] = {}
     if experimental and spec is not None:
-        previous_env = _begin_attempt(video_path, spec)
+        previous_env = _begin_attempt(video_path, spec, tuple(stages))
 
     try:
         for name in stage_names:
@@ -409,19 +343,23 @@ def run_pipeline(
                 overall = "failed"
                 break
 
-            if use_cache and cache_root is not None and name in CACHEABLE_STAGES:
-                if not stage_output_exists(name, video_filename):
-                    restore_cached_stage(name, video_filename, cache_root)
-                if stage_output_exists(name, video_filename):
-                    logger.info("Skipping %s for %s (cached)", name, video_filename)
-                    results.append(
-                        {
-                            "stage": name,
-                            "status": "skipped_cache",
-                            "output_file": primary_artifact_path(name, video_filename).name,
-                        }
-                    )
-                    continue
+            # A live sidecar may belong to an earlier clip or failed attempt.
+            # Clear the requested stage only, preserving inputs for explicit subsets.
+            for filename in _artifact_globs(name, video_filename):
+                (storage.get_output_dir(name) / filename).unlink(missing_ok=True)
+            caching = use_cache and cache_root is not None and name in CACHEABLE_STAGES
+            options = None
+            if caching and hasattr(registry[name], "cache_settings"):
+                options = registry[name].cache_settings()
+            if caching and restore_cached_stage(name, video_filename, cache_root, options):
+                results.append(
+                    {
+                        "stage": name,
+                        "status": "skipped_cache",
+                        "output_file": primary_artifact_path(name, video_filename).name,
+                    }
+                )
+                continue
 
             logger.info("Running stage '%s' on %s", name, video_filename)
             try:
@@ -437,6 +375,10 @@ def run_pipeline(
             outcome.setdefault("stage", name)
             results.append(outcome)
             status = str(outcome.get("status") or "failed")
+            if status == "success" and caching and outcome.get("diarized", True):
+                save_stage_to_cache(name, video_filename, cache_root, options)
+            if status in {"error", "failed"} and name in STAGE_PRIMARY_ARTIFACT:
+                primary_artifact_path(name, video_filename).unlink(missing_ok=True)
             if experimental:
                 if status not in {"success", "degraded", "fallback", "skipped_cache"}:
                     logger.error("Stage '%s' failed: %s", name, outcome.get("error"))
@@ -447,20 +389,16 @@ def run_pipeline(
                     overall = "failed"
                     break
                 continue
+            if name == "audio" and outcome.get("diarized") is False:
+                overall = "degraded"
             if status != "success":
                 overall = "failed"
                 logger.error("Stage '%s' failed: %s", name, outcome.get("error"))
                 break
 
-            if use_cache and cache_root is not None and name in CACHEABLE_STAGES:
-                save_stage_to_cache(name, video_filename, cache_root)
     finally:
         try:
             if experimental and spec is not None:
-                if use_cache and cache_root is not None and stage_output_exists(
-                    "audio", video_filename
-                ):
-                    save_stage_to_cache("audio", video_filename, cache_root)
                 manifest = _publish(video_filename, spec, results)
                 published = str(manifest.get("profile_kind") or "none")
                 if published == "full":
@@ -476,7 +414,8 @@ def run_pipeline(
         "video": video_filename,
         "status": overall,
         "stages": results,
-        "stages_ran": list(stage_names) + (["evidence"] if experimental else []),
+        "stages_ran": [row["stage"] for row in results if row["stage"] in STAGE_PRIMARY_ARTIFACT]
+        + (["evidence"] if experimental else []),
     }
 
 
@@ -552,7 +491,7 @@ def _load_spec() -> Any:
         return None
 
 
-def _begin_attempt(video_path: Path, spec: Any) -> dict[str, str | None]:
+def _begin_attempt(video_path: Path, spec: Any, stages: tuple[str, ...]) -> dict[str, str | None]:
     """Publish the attempt id for optional stages and return the previous env."""
     from open_enricher.fingerprint import (
         ATTEMPT_ID,
@@ -568,7 +507,7 @@ def _begin_attempt(video_path: Path, spec: Any) -> dict[str, str | None]:
         datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + uuid.uuid4().hex[:8]
     )
     os.environ[SOURCE_FINGERPRINT] = source_fingerprint(video_path)
-    os.environ[SETTINGS_HASH] = settings_hash(spec)
+    os.environ[SETTINGS_HASH] = settings_hash(spec, stages=stages)
     return previous
 
 
@@ -599,19 +538,9 @@ def _publish(video_filename: str, spec: Any, results: list[dict[str, Any]]) -> d
         json.dumps(note, indent=2, ensure_ascii=False) + "\n",
     )
     paths: list[Path] = [evidence_path]
-    for stage in (
-        "timeline",
-        "audio",
-        "bassl",
-        "dialogue",
-        "character_graph",
-        "visual_memory",
-        "vlm",
-        "llm",
-    ):
-        folder = storage.get_output_dir(stage)
-        for pattern in _artifact_globs(stage, video_filename):
-            paths.extend(path for path in folder.glob(pattern) if path.is_file())
+    for row in results:
+        if row.get("status") in {"success", "degraded", "fallback", "skipped_cache"}:
+            paths.extend(collect_artifacts(video_filename, [row["stage"]]))
     stamp = current_stamp()
     return publish_manifest(
         video_filename,
@@ -634,7 +563,12 @@ def _publish(video_filename: str, spec: Any, results: list[dict[str, Any]]) -> d
 def _profile_kind(spec: Any, results: list[dict[str, Any]]) -> tuple[str, str | None]:
     """Map stage outcomes to full, degraded, or none."""
     by_name = {str(row.get("stage")): row for row in results}
-    degraded = False
+    degraded = any(
+        (by_name.get(name) or {}).get("status") not in {"success", "skipped_cache"}
+        for name in ("audio", "dialogue", "vlm")
+    )
+    if (by_name.get("audio") or {}).get("diarized") is False:
+        degraded = True
     for name, enabled in (
         ("bassl", spec.features.bassl),
         ("character_graph", spec.features.character_graph),
@@ -645,9 +579,6 @@ def _profile_kind(spec: Any, results: list[dict[str, Any]]) -> tuple[str, str | 
         status = str((by_name.get(name) or {}).get("status") or "failed")
         if status in {"fallback", "failed", "degraded"}:
             degraded = True
-    vlm_status = str((by_name.get("vlm") or {}).get("status") or "failed")
-    if vlm_status == "degraded" or (spec.features.adaptive_frames and vlm_status != "success"):
-        degraded = True
     llm = by_name.get("llm") or {}
     if llm.get("status") == "success" and not degraded:
         return "full", None

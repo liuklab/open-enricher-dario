@@ -7,17 +7,20 @@ returns to the current scenes.
 
 from __future__ import annotations
 
+import json
 import subprocess
 from pathlib import Path
 from typing import Any
 
 from open_enricher import storage
 from open_enricher.experiments.config import CACHE_ROOT
+from open_enricher.graph import relations_for_interval
 from open_enricher.manifest import matching_artifact
 from open_enricher.stages.pipeline_spec import PipelineSpec
 from open_enricher.stages.vlm_core.allocation import allocate_frames, control_frame_budget
+from open_enricher.stages.vlm_core.enrichment import format_dialogue_lines
 from open_enricher.stages.vlm_core.frames import FRAME_FACTOR
-from open_enricher.timeline import Interval
+from open_enricher.timeline import Interval, utterance_bounds
 
 
 def _clock(seconds: float) -> str:
@@ -50,6 +53,7 @@ def _grab(video: Path, timestamps: list[float], dest: Path) -> list[str]:
     written: list[str] = []
     for index, stamp in enumerate(timestamps, start=1):
         target = dest / f"explicit_{index:03d}.jpg"
+        target.unlink(missing_ok=True)
         cmd = [
             "ffmpeg",
             "-y",
@@ -97,6 +101,20 @@ def _history_stamps(video_filename: str, start: float, limit: int) -> list[float
     return []
 
 
+def _window_dialogue(lines: list[Any], start: float, end: float) -> str:
+    local = []
+    for line in lines:
+        if not isinstance(line, dict) or not str(line.get("text") or "").strip():
+            continue
+        bounds = utterance_bounds(line)
+        if bounds is None:
+            continue
+        left, right = bounds
+        if min(right, end) > max(left, start) or (left == right and start <= left < end):
+            local.append(line)
+    return "\n".join(format_dialogue_lines(local)) if local else ""
+
+
 def prepare_scenes(
     video: Path,
     video_filename: str,
@@ -110,7 +128,8 @@ def prepare_scenes(
     Attach per-call frame caps and, when ffmpeg can, explicit JPEGs.
 
     The returned plan is archived beside the VLM output. Scene records
-    keep the original dialogue description. Relations and times go in
+    keep summaries for complete intervals and overlapping transcript lines
+    for subdivisions. Relations and times go in
     ``prompt_extra``.
     """
     mode = spec.allocation_mode()
@@ -161,6 +180,7 @@ def prepare_scenes(
         storage.get_output_dir("character_graph") / f"{video_filename}_graph.json"
     )
     by_id = {str(scene.get("scene_id")): scene for scene in scenes if scene.get("scene_id")}
+    transcript: list[Any] | None = None
     prepared: list[dict[str, Any]] = []
     for group in plan.get("groups") or []:
         members = [by_id[scene_id] for scene_id in group.get("scene_ids") or [] if scene_id in by_id]
@@ -168,13 +188,22 @@ def prepare_scenes(
             members = [
                 scene
                 for scene in scenes
-                if abs(float(scene.get("start_seconds") or -1) - float(group["start"])) < 0.05
+                if abs(float(scene.get("start_seconds", -1)) - float(group["start"])) < 0.05
             ]
         description = "\n".join(
             str(scene.get("description") or "").strip() for scene in members if scene.get("description")
         )
         start = float(group["start"])
         end = float(group["end"])
+        if any(float(row.get("start_seconds", start)) < start or float(row.get("end_seconds", end)) > end
+               for row in members):
+            # A scene split by the frame budget cannot inherit a summary of the
+            # entire parent. Restrict its evidence to utterances inside this call.
+            if transcript is None:
+                audio = storage.get_output_dir("audio") / f"{video_filename}_audio.json"
+                raw = json.loads(audio.read_text(encoding="utf-8")) if audio.is_file() else []
+                transcript = raw if isinstance(raw, list) else []
+            description = _window_dialogue(transcript, start, end)
         current_count = int(group.get("frames") or 0)
         per_call_history = 0
         if history > 0 and current_count > 0:
@@ -191,14 +220,31 @@ def prepare_scenes(
             dest = CACHE_ROOT / video_filename / "explicit" / spec.experiment_id / str(group["call_id"])
             image_paths = _grab(video, history_stamps + stamps, dest)
         extra_lines = []
-        if history_stamps:
+        if len(image_paths) != len(history_stamps) + len(stamps):
+            # The clip sampler can recover when explicit decoding loses an image.
+            image_paths = []
+        if image_paths and history_stamps:
             shown = ", ".join(f"{stamp:.1f}s" for stamp in history_stamps)
             extra_lines.append(f"Earlier frames from this title, in order: {shown}.")
-        if stamps:
+            extra_lines.append(
+                f"The first {len(history_stamps)} images are from earlier scenes. "
+                f"The final {len(stamps)} images show the current scene. "
+                "Every described action must be visible in the current images. "
+                "Earlier images can help establish continuity."
+            )
+        if image_paths and stamps:
             shown = ", ".join(f"{stamp:.1f}s" for stamp in stamps)
             extra_lines.append(f"Current frames at source times: {shown}.")
-        if graph and graph.get("account"):
-            extra_lines.append(f"Supported character relations: {graph['account']}")
+        if graph:
+            relations = relations_for_interval(graph.get("edges") or [], start, end)
+            if relations:
+                extra_lines.append(
+                    "Scene-local graph observations: " + json.dumps(relations[:8])
+                )
+                extra_lines.append(
+                    "Treat speaker labels as local references. Co-presence supports visibility "
+                    "during speech. Leave the recipient and relationship unresolved when ambiguous."
+                )
         row = {
             "start_time": _clock(start),
             "end_time": _clock(end),

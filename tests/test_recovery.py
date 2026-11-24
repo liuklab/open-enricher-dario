@@ -74,14 +74,15 @@ def test_atomic_write_replaces_the_destination(tmp_path: Path) -> None:
     assert list(tmp_path.glob(".note.json.*")) == []
 
 
-def test_child_crash_is_a_fallback() -> None:
-    result = call_in_child(
-        "open_enricher.adapters.isolate",
-        "crash_payload",
-        {"ok": True},
-        timeout=30,
+def test_child_crash_is_a_fallback(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    (tmp_path / "crashing_adapter.py").write_text(
+        "import os\ndef run(payload):\n    os._exit(3)\n",
+        encoding="utf-8",
     )
+    monkeypatch.setenv("PYTHONPATH", str(tmp_path), prepend=":")
+    result = call_in_child("crashing_adapter", "run", {}, timeout=30)
     assert result["status"] == "fallback"
+    assert result["returncode"] == 3
 
 
 def test_missing_bassl_checkpoint_does_not_raise(tmp_path: Path) -> None:

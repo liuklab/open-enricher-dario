@@ -1,14 +1,7 @@
-"""BaSSL scene boundaries through the ModelScope pipeline.
-
-The published configuration and checkpoint are loaded together. The
-preprocessor's 120-second ``end_time`` is replaced with the real
-duration. Import and constructor failures stay inside the child process.
-"""
+"""Scene boundaries through the full-video ModelScope demo linked by BaSSL's authors."""
 
 from __future__ import annotations
 
-import json
-import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -56,65 +49,81 @@ def segment_video(
 
 
 def run_modelscope_payload(payload: dict[str, Any]) -> dict[str, Any]:
-    """Child entry. Patch ``end_time`` and run the published pipeline."""
-    try:
-        from modelscope.pipelines import pipeline
-        from modelscope.utils.constant import Tasks
-    except Exception as exc:  # noqa: BLE001 - optional dependency
-        return {"status": "fallback", "reason": f"modelscope import failed: {exc}"}
+    """Run the published detector with indexed decoding for overlapping shot windows."""
+    from modelscope.outputs import OutputKeys
+    from modelscope.pipelines import pipeline
+    from modelscope.utils.constant import Tasks
 
-    model_dir = Path(payload["model_dir"])
-    duration = float(payload["duration"])
     video = str(payload["video"])
-    config = json.loads((model_dir / "configuration.json").read_text(encoding="utf-8"))
-    shot = config.setdefault("preprocessor", {}).setdefault("shot_detect", {})
-    shot["begin_time"] = 0.0
-    shot["end_time"] = duration
-    shot["begin_frame"] = 0
-    shot["end_frame"] = max(1, int(duration * 30) + 8)
-    with tempfile.TemporaryDirectory(prefix="bassl-") as tmp:
-        root = Path(tmp)
-        (root / "configuration.json").write_text(
-            json.dumps(config),
-            encoding="utf-8",
-        )
-        link = root / "pytorch_model.pt"
-        link.symlink_to(model_dir / "pytorch_model.pt")
-        try:
-            pipe = pipeline(
-                Tasks.movie_scene_segmentation,
-                model=str(root),
-                device="gpu",
-            )
-            result = pipe(video)
-        except Exception as exc:  # noqa: BLE001 - recorded fallback
-            return {"status": "fallback", "reason": str(exc), "scenes": [], "shots": []}
+    pipe = pipeline(Tasks.movie_scene_segmentation, model=str(payload["model_dir"]))
+    # The packaged shot detector scans the full source when both starts are zero.
+    shot = pipe.model.cfg.preprocessor.shot_detect
+    shot.begin_time = 0.0
+    shot.begin_frame = 0
+    shot.end_time = float(payload["duration"])
+    with IndexedKeyframes(video) as keyframes:
+        pipe.model.shot_detector.get_frame_img = keyframes.read_batch
+        result = pipe(video)
     return {
         "status": "success",
-        "scenes": _rows(result, "SCENE_META_LIST", "scene_meta_list", "scenes"),
-        "shots": _rows(result, "SHOT_META_LIST", "shot_meta_list", "shots"),
-        "scene_num": _scalar(result, "SCENE_NUM", "scene_num"),
-        "shot_num": _scalar(result, "SHOT_NUM", "shot_num"),
+        "scenes": result[OutputKeys.SCENE_META_LIST],
+        "shots": result[OutputKeys.SHOT_META_LIST],
+        "scene_num": result[OutputKeys.SCENE_NUM],
+        "shot_num": result[OutputKeys.SHOT_NUM],
     }
 
 
-def _rows(result: Any, *names: str) -> list[Any]:
-    if not isinstance(result, dict):
-        return []
-    for name in names:
-        if name in result:
-            value = result[name]
-            return list(value) if isinstance(value, list) else []
-    return []
+class IndexedKeyframes:
+    """Read requested frames, including repeated and overlapping shot windows."""
 
+    def __init__(self, video: str) -> None:
+        import cv2
 
-def _scalar(result: Any, *names: str) -> int | None:
-    if not isinstance(result, dict):
-        return None
-    for name in names:
-        if name in result:
-            try:
-                return int(result[name])
-            except (TypeError, ValueError):
-                return None
-    return None
+        self.cv2 = cv2
+        self.capture = cv2.VideoCapture(video)
+        self.last_index: int | None = None
+        self.last_image: Any = None
+
+    def __enter__(self) -> IndexedKeyframes:
+        if not self.capture.isOpened():
+            self.capture.release()
+            raise ValueError("BaSSL could not open the video for keyframe decoding")
+        return self
+
+    def __exit__(self, *_exc: Any) -> None:
+        self.capture.release()
+
+    def read_batch(
+        self, timecodes: dict[int, list[Any]], start_shot_idx: int, total_shot_num: int
+    ) -> list[list[Any]]:
+        from PIL import Image
+
+        # ModelScope supplies the keyframe indices for every shot in this batch.
+        shots = []
+        for shot, frames in timecodes.items():
+            images = []
+            for timecode in frames:
+                index = timecode.get_frames()
+                if self.last_index != index:
+                    position = int(self.capture.get(self.cv2.CAP_PROP_POS_FRAMES))
+                    if index < position or index - position > 48:
+                        if not self.capture.set(self.cv2.CAP_PROP_POS_FRAMES, index):
+                            raise ValueError(f"BaSSL could not seek to frame {index} in shot {shot}")
+                        position = int(self.capture.get(self.cv2.CAP_PROP_POS_FRAMES))
+                    if position > index:
+                        raise ValueError(f"BaSSL seek skipped frame {index} in shot {shot}")
+                    for _ in range(position, index):
+                        if not self.capture.grab():
+                            raise ValueError(f"BaSSL could not advance to frame {index} in shot {shot}")
+                    ok, frame = self.capture.read()
+                    if not ok:
+                        raise ValueError(f"BaSSL could not decode frame {index} in shot {shot}")
+                    self.last_image = Image.fromarray(
+                        self.cv2.cvtColor(frame, self.cv2.COLOR_BGR2RGB)
+                    )
+                    self.last_index = index
+                images.append(self.last_image)
+            if not images:
+                raise ValueError(f"BaSSL requested no keyframes for shot {shot}")
+            shots.append(images)
+        return shots

@@ -1,0 +1,11 @@
+# Inference models
+
+Open-Enricher runs each optional model in an isolated worker. The experiment JSON selects stages through `features.bassl`, `features.character_graph` and `features.visual_memory`. A checkpoint path in `checkpoints` overrides the corresponding default below. Default paths are relative to `models_cache/external/` under the configured dataset root.
+
+| Feature | Local checkpoint | Inference and output |
+| --- | --- | --- |
+| BaSSL | `bassl/configuration.json` and `bassl/pytorch_model.pt` | The ModelScope full-video demo linked by the BaSSL authors runs the MovieNet-finetuned shot encoder, contextual relation network and boundary head. Open-Enricher decodes the exact keyframes requested by the demo, including repeated indices and overlapping shot windows. The stage writes shots and scenes. [Author release](https://github.com/kakaobrain/bassl/blob/0651dd64f8414be13868736e23a0c94b5afa42af/README.md) · [Published inference pipeline](https://github.com/modelscope/modelscope/blob/v1.40.3/modelscope/models/cv/movie_scene_segmentation/model.py) |
+| Character graph | `insightface/models/buffalo_l/` and `talknet/pretrain_TalkSet.model` | InsightFace provides face observations. TalkNet's reference MFCC frontend, neural encoder and classifier score speaking activity within selected face windows. [TalkNet-ASD](https://github.com/TaoRuijie/TalkNet-ASD/tree/6d6821479af485e251c4991487e40573b42181b4) |
+| Visual memory | `lavis/eva_vit_g.pth` and `lavis/blip2_pretrained_flant5xxl.pth` | The LAVIS EVA and Q-Former modules produce 32 query vectors per sampled frame. The memory stage uses these vectors to select earlier frames. [Salesforce LAVIS](https://github.com/salesforce/LAVIS/tree/05cb670f47296522e24e7727e366b4a997d28582) |
+
+Install the worker dependencies from `requirements.txt` in an environment with matching PyTorch and torchvision builds. Run `python -m open_enricher.adapters.upstream` once using the same dataset root and Python version as the workers to prepare the pinned TalkNet and LAVIS modules. A missing optional dependency or checkpoint is recorded in the stage output. Check the recorded stage status before interpreting boundaries, speaker links or retrieved frames as model predictions.

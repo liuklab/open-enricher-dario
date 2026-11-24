@@ -17,10 +17,8 @@ bitsandbytes
 accelerate
 av
 
-# --- Video, images, ML utilities (color stage) ---
-scenedetect
+# --- Video decoding, face crops and image preprocessing ---
 opencv-python-headless
-scikit-learn
 Pillow
 
 # --- Character graph (InsightFace buffalo_l) ---
@@ -33,6 +31,8 @@ Pillow
 # distribution, but this wheel is what the import resolves to.
 onnxruntime-gpu==1.26.0
 insightface==2.1
+# MFCC frontend used by the reference TalkNet demo.
+python_speech_features==0.6
 
 # --- BaSSL scene segmentation (ModelScope) ---
 # Do not install the modelscope[cv] extra: it would downgrade packages the

@@ -2,8 +2,7 @@
 
 First pass: one high-level plot summary of every dialogue line, then the
 model is unloaded. Second pass: the same weights are loaded again and, for
-each fixed interval, write a detailed description from that interval's lines
-plus the plot summary. The VLM stage reads this file after the text model
+each interval, summarize only the lines assigned to that interval. The VLM stage reads this file after the text model
 has been released.
 """
 
@@ -110,7 +109,6 @@ def _plot_messages(transcript: str, *, sampled: bool) -> list[dict[str, str]]:
 def _scene_messages(
     transcript: str,
     *,
-    plot_summary: str,
     start: float,
     end: float,
     sampled: bool,
@@ -122,7 +120,6 @@ def _scene_messages(
             "content": fill_prompt(
                 load_prompt("scene_dialogue_user_prompt.md"),
                 {
-                    "PLOT_SUMMARY": plot_summary,
                     "START": _clock(start),
                     "END": _clock(end),
                     "SAMPLING_NOTE": _sampling_note(sampled),
@@ -286,7 +283,6 @@ class DialogueStage:
             scenes = self._scene_pass(
                 raw_lines,
                 windows,
-                plot_summary,
                 timing,
                 buckets=buckets,
                 scene_ids=scene_ids,
@@ -365,7 +361,6 @@ class DialogueStage:
         self,
         raw_lines: list[Any],
         windows: list[tuple[float, float]],
-        plot_summary: str,
         timing: TimingRecorder,
         *,
         buckets: dict[str, list[dict[str, Any]]] | None = None,
@@ -402,7 +397,6 @@ class DialogueStage:
                             tokenizer,
                             _scene_messages(
                                 body,
-                                plot_summary=plot_summary,
                                 start=_start,
                                 end=_end,
                                 sampled=sampled,
@@ -421,7 +415,6 @@ class DialogueStage:
                             device,
                             _scene_messages(
                                 transcript,
-                                plot_summary=plot_summary,
                                 start=start,
                                 end=end,
                                 sampled=sampled,

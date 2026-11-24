@@ -8,7 +8,7 @@ from pathlib import Path
 from open_enricher.experiments.archive import (
     append_progress,
     archive_matches_sources,
-    retain_different_source,
+    retain_previous_run,
 )
 from open_enricher.fingerprint import source_fingerprint
 from open_enricher.runner import restore_cached_stage
@@ -58,7 +58,7 @@ def test_short_archive_does_not_cover_the_full_films(
         "The_Kingdom.S01E02.mkv",
     ]
     monkeypatch.setenv("OPEN_ENRICHER_VIDEO_INPUTS", str(videos))
-    assert archive_matches_sources("12-combined", requested, "archived") is False
+    assert archive_matches_sources("12-combined", requested, "archived", settings="now") is False
 
 
 def test_same_name_with_a_different_file_is_not_done(
@@ -83,11 +83,11 @@ def test_same_name_with_a_different_file_is_not_done(
             "results": [{"video": short.name, "status": "degraded"}],
         }
     )
-    full = _video(videos, short.name, b"full-film-bytes")
+    _video(videos, short.name, b"full-film-bytes")
     monkeypatch.setenv("OPEN_ENRICHER_VIDEO_INPUTS", str(videos))
-    assert archive_matches_sources("12-combined", [short.name], "archived") is False
+    assert archive_matches_sources("12-combined", [short.name], "archived", settings="now") is False
 
-    kept = retain_different_source("12-combined", short.name, full)
+    kept = retain_previous_run("12-combined", short.name)
     assert kept is not None
     assert kept.is_dir()
     assert json.loads((kept / f"{short.name}_llm.json").read_text(encoding="utf-8")) == {
@@ -114,3 +114,84 @@ def test_audio_cache_from_another_file_is_not_restored(
         tmp_path / "dataset" / "outputs" / "audio_results" / f"{video.name}_audio.json"
     ).exists()
     assert (cache / f"{video.name}_audio.json").is_file()
+
+
+def test_pipeline_cache_validates_source_before_reusing_live_audio(tmp_path, monkeypatch):
+    from open_enricher import storage
+    from open_enricher.runner import primary_artifact_path, run_pipeline
+
+    monkeypatch.setenv("OPEN_ENRICHER_DATASET_ROOT", str(tmp_path / "data"))
+    monkeypatch.delenv("OPEN_ENRICHER_PIPELINE_SPEC", raising=False)
+    video = _video(storage.video_inputs(), "episode.mkv", b"short")
+    cache = tmp_path / "cache"
+    calls = []
+
+    class Audio:
+        model = "first-checkpoint"
+
+        def cache_settings(self):
+            return {"model": self.model}
+
+        def run(self, name):
+            payload = video.read_text()
+            calls.append(payload)
+            storage.atomic_write_text(primary_artifact_path("audio", name), json.dumps([payload]))
+            return {"stage": "audio", "status": "success"}
+
+    def run():
+        return run_pipeline(video.name, stages=("audio",), cache_root=cache, stage_registry={"audio": Audio()})
+
+    assert run()["stages"][0]["status"] == "success"
+    video.write_bytes(b"longer episode")
+    assert run()["stages"][0]["status"] == "success"
+    assert json.loads(primary_artifact_path("audio", video.name).read_text()) == ["longer episode"]
+    assert run()["stages"][0]["status"] == "skipped_cache"
+    assert calls == ["short", "longer episode"]
+    Audio.model = "second-checkpoint"
+    assert run()["stages"][0]["status"] == "success"
+    assert calls[-1] == "longer episode"
+
+
+def test_resume_requires_same_attempt_settings_and_intact_files(tmp_path, monkeypatch):
+    runs = tmp_path / "runs"
+    video = _video(tmp_path / "inputs", "episode.mkv", b"episode")
+    monkeypatch.setenv("OPEN_ENRICHER_VIDEO_INPUTS", str(video.parent))
+    monkeypatch.setattr("open_enricher.experiments.archive.RUNS_ROOT", runs)
+    monkeypatch.setattr("open_enricher.experiments.archive.PROGRESS_PATH", runs / "progress.jsonl")
+    dest = runs / "variant" / video.name
+    dest.mkdir(parents=True)
+    (dest / "output.json").write_text("{}")
+    (dest / "result.json").write_text(json.dumps({
+        "archive_id": "a", "settings_hash": "old", "status": "success",
+        "source_fingerprint": source_fingerprint(video), "archived_files": ["output.json"],
+        "artifact_sha256": {"output.json": source_fingerprint(dest / "output.json")},
+    }))
+    append_progress({
+        "experiment_id": "variant", "step": "archived", "status": "ok",
+        "settings_hash": "old", "results": [{"video": video.name, "archive_id": "a"}],
+    })
+    assert archive_matches_sources("variant", [video.name], "archived", settings="old")
+    assert not archive_matches_sources("variant", [video.name], "archived", settings="changed")
+    result = json.loads((dest / "result.json").read_text())
+    (dest / "result.json").write_text(json.dumps(dict(result, status="degraded")))
+    assert not archive_matches_sources("variant", [video.name], "archived", settings="old")
+    (dest / "result.json").write_text(json.dumps(result))
+    (dest / "output.json").write_text('{"stale": true}')
+    assert not archive_matches_sources("variant", [video.name], "archived", settings="old")
+
+
+def test_prompt_edit_invalidates_same_variant(tmp_path, monkeypatch):
+    from open_enricher import fingerprint
+    from open_enricher.stages.pipeline_spec import PipelineSpec
+
+    package = tmp_path / "open_enricher"
+    prompts = package / "stages" / "prompts"
+    prompts.mkdir(parents=True)
+    prompt = prompts / "scene.md"
+    prompt.write_text("Describe the current frame")
+    monkeypatch.setattr(fingerprint, "__file__", str(package / "fingerprint.py"))
+    monkeypatch.setattr(fingerprint, "audio_model_identity", lambda: {})
+    spec = PipelineSpec("same-id", "scene", 300, None, False, False)
+    original = fingerprint.settings_hash(spec)
+    prompt.write_text("Describe the current action")
+    assert fingerprint.settings_hash(spec) != original

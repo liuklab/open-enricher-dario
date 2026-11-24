@@ -81,6 +81,7 @@ def resolve_profile_path(
         )
         if archived.is_file():
             return archived
+        raise FileNotFoundError(f"Missing archived profile for {video_filename} in {experiment_id}")
     live = storage.get_output_dir("llm") / f"{video_filename}_llm.json"
     if live.is_file():
         return live

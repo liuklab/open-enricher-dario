@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import uuid
 from pathlib import Path
 from typing import Any
 
@@ -21,7 +22,7 @@ from open_enricher.experiments.archive import (
     experiment_dir,
     list_variants,
     merge_timings,
-    retain_different_source,
+    retain_previous_run,
     video_archive_dir,
     write_json,
 )
@@ -34,7 +35,7 @@ from open_enricher.timings import (
 from open_enricher.experiments.config import (
     CACHE_ROOT,
     PIPELINE_STAGES,
-    REPO_ROOT,
+    RUNS_ROOT,
     VARIANTS_DIR,
 )
 from open_enricher.experiments.stages import STAGE_CHOICES
@@ -183,26 +184,6 @@ def _activate_variant(variant_path: Path) -> None:
     os.environ["OPEN_ENRICHER_PIPELINE_SPEC"] = str(variant_path.resolve())
 
 
-def _load_archived_video_results(experiment_id: str) -> list[dict[str, Any]]:
-    """
-    Load per-video pipeline summaries already written for an experiment.
-
-    Args:
-        experiment_id: Stable experiment id.
-
-    Returns:
-        Parsed ``video_results.json`` list, or an empty list when missing.
-    """
-    path = experiment_dir(experiment_id) / "video_results.json"
-    if not path.is_file():
-        return []
-    try:
-        data = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
-        return []
-    return data if isinstance(data, list) else []
-
-
 def _evaluate_experiment(
     experiment_id: str,
     videos: list[str],
@@ -252,7 +233,7 @@ def run_one_experiment(
         variant_path: Path to the variant JSON file.
         videos: Video filenames under the dataset ``video_inputs``.
         stages: Ordered stage names to execute.
-        use_cache: Reuse shared audio/color cache when available.
+        use_cache: Reuse shared audio cache when available.
         skip_done: Skip pipeline and evaluation steps already marked done.
 
     Returns:
@@ -263,11 +244,16 @@ def run_one_experiment(
     variant = _load_variant(variant_path)
     logger.info("======== Experiment %s ========", experiment_id)
 
+    from open_enricher.fingerprint import settings_hash, source_fingerprint
+    from open_enricher.stages.pipeline_spec import load_pipeline_spec
+
+    _activate_variant(variant_path)
+    settings = settings_hash(load_pipeline_spec(), stages=stages)
     pipeline_done = skip_done and archive_matches_sources(
-        experiment_id, videos, "archived"
+        experiment_id, videos, "archived", settings=settings
     )
-    evaluation_done = skip_done and archive_matches_sources(
-        experiment_id, videos, "evaluation"
+    evaluation_done = pipeline_done and archive_matches_sources(
+        experiment_id, videos, "evaluation", settings=settings
     )
     if pipeline_done and evaluation_done:
         logger.info(f"Skipping {experiment_id}: already archived and evaluated")
@@ -282,9 +268,12 @@ def run_one_experiment(
     video_results: list[dict[str, Any]] = []
     if pipeline_done:
         logger.info(f"Skipping pipeline for {experiment_id}: already archived")
-        video_results = _load_archived_video_results(experiment_id)
+        exp_dir = experiment_dir(experiment_id)
+        video_results = [
+            json.loads((exp_dir / video / "result.json").read_text(encoding="utf-8"))
+            for video in videos
+        ]
     else:
-        _activate_variant(variant_path)
         runner = _runner()
         registry = runner.build_stages()
         try:
@@ -330,17 +319,22 @@ def run_one_experiment(
                 )
 
             source = storage.video_inputs() / video
-            retained = retain_different_source(experiment_id, video, source)
+            retained = retain_previous_run(experiment_id, video)
             if retained is not None:
                 logger.info("Kept the previous archive at %s", retained)
             dest = video_archive_dir(experiment_id, video)
-            archive_stages = summary.get("stages_ran") or stages
+            archive_stages = summary.get("stages_ran") or ()
             archived = runner.archive_artifacts(video, dest, stages=archive_stages)
-            summary["archived_files"] = archived
+            summary["archive_id"] = uuid.uuid4().hex
+            summary["source_fingerprint"] = source_fingerprint(source) if source.is_file() else ""
+            summary["settings_hash"] = settings
 
             timing_paths = list(dest.glob(f"{video}_*_timings.json"))
             timing_doc = merge_timings(timing_paths)
             write_json(dest / "timings.json", timing_doc)
+            archived.append("timings.json")
+            summary["archived_files"] = archived
+            summary["artifact_sha256"] = {name: source_fingerprint(dest / name) for name in archived}
             write_performance_csv(
                 experiment_dir(experiment_id) / "performance" / f"{video}.csv",
                 timing_doc,
@@ -371,9 +365,10 @@ def run_one_experiment(
             {
                 "experiment_id": experiment_id,
                 "step": "archived",
+                "settings_hash": settings,
                 "status": "ok" if pipeline_ok else "error",
                 "results": [
-                    {"video": row.get("video"), "status": row.get("status")}
+                    {"video": row.get("video"), "status": row.get("status"), "archive_id": row["archive_id"]}
                     for row in video_results
                 ],
             }
@@ -395,10 +390,16 @@ def run_one_experiment(
             and bool(evaluation_results)
             and all(row.get("status") in {"success", "degraded"} for row in evaluation_results)
         )
+        archive_ids = {row["video"]: row.get("archive_id") for row in video_results}
+        score_hashes = {
+            video: source_fingerprint(exp_dir / video / "score.json")
+            for video in videos if (exp_dir / video / "score.json").is_file()
+        }
         append_progress(
             {
                 "experiment_id": experiment_id,
                 "step": "evaluation",
+                "settings_hash": settings,
                 "status": "ok" if eval_ok else "error",
                 "provider": "cursor",
                 "uses_synopsis": True,
@@ -408,6 +409,8 @@ def run_one_experiment(
                         "video": row.get("video"),
                         "status": row.get("status"),
                         "overall": row.get("overall"),
+                        "archive_id": archive_ids.get(row.get("video")),
+                        "score_sha256": score_hashes.get(row.get("video")),
                     }
                     for row in evaluation_results
                 ],
@@ -462,7 +465,7 @@ def run_loop(
         videos: Optional explicit video filenames. Defaults to every file in
             ``video_inputs``.
         stages: Ordered stage names for each run.
-        use_cache: Reuse shared audio/color cache when available.
+        use_cache: Reuse shared audio cache when available.
         skip_done: Skip experiments already marked archived in progress.jsonl.
 
     Returns:
@@ -512,7 +515,7 @@ def run_loop(
             )
         )
 
-    write_json(REPO_ROOT / "runs" / "local" / "loop_summary.json", summaries)
+    write_json(RUNS_ROOT / "loop_summary.json", summaries)
     return summaries
 
 
@@ -555,7 +558,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--no-cache",
         action="store_true",
-        help="Do not restore or update the shared audio/color cache.",
+        help="Do not restore or update the shared audio cache.",
     )
     parser.add_argument(
         "--force",

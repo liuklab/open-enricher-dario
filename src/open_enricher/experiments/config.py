@@ -1,22 +1,25 @@
 """Fixed paths and defaults for the local experiment round.
 
 Centralizes repository-relative locations for variants, archived runs,
-shared audio/color cache, and the default stage order. The local runner
+shared audio cache, and the default stage order. The local runner
 reads these constants instead of Colab or Kaggle machine bindings.
 """
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 # Repository root: experiments/config.py -> open_enricher -> src -> repo.
 REPO_ROOT = Path(__file__).resolve().parents[3]
 
 # Packaged experiment variant JSON files.
-VARIANTS_DIR = Path(__file__).resolve().parent / "variants"
+VARIANTS_DIR = Path(
+    os.environ.get("OPEN_ENRICHER_VARIANTS_DIR") or Path(__file__).resolve().parent / "variants"
+).resolve()
 
 # Archived outputs for the local sequential round.
-RUNS_ROOT = REPO_ROOT / "runs" / "local"
+RUNS_ROOT = Path(os.environ.get("OPEN_ENRICHER_RUNS_ROOT") or REPO_ROOT / "runs" / "local").resolve()
 
 # Shared audio cache reused across runs of the same video.
 CACHE_ROOT = RUNS_ROOT / "_cache"

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterator
 from functools import partial
 from typing import Any
 
@@ -115,7 +116,7 @@ def _prepare_frame(frame: Any) -> torch.Tensor:
     return TF.normalize(TF.to_tensor(image), CLIP_MEAN, CLIP_STD)
 
 
-def _sample_frames(video: str, sample_fps: float, max_frames: int | None) -> list[tuple[int, float, Any]]:
+def _sample_frames(video: str, sample_fps: float, max_frames: int | None) -> Iterator[tuple[int, float, Any]]:
     import cv2
 
     capture = cv2.VideoCapture(video)
@@ -123,7 +124,7 @@ def _sample_frames(video: str, sample_fps: float, max_frames: int | None) -> lis
         raise RuntimeError(f"could not open video {video}")
     native_fps = float(capture.get(cv2.CAP_PROP_FPS) or 0) or 25.0
     step = max(1, int(round(native_fps / max(sample_fps, 0.01))))
-    chosen: list[tuple[int, float, Any]] = []
+    count = 0
     index = 0
     try:
         while True:
@@ -131,13 +132,13 @@ def _sample_frames(video: str, sample_fps: float, max_frames: int | None) -> lis
             if not ok:
                 break
             if index % step == 0:
-                chosen.append((index, index / native_fps, frame))
-                if max_frames is not None and len(chosen) >= max_frames:
+                yield index, index / native_fps, frame
+                count += 1
+                if max_frames is not None and count >= max_frames:
                     break
             index += 1
     finally:
         capture.release()
-    return chosen
 
 
 def _token_rows(tokens: torch.Tensor) -> list[list[float]]:
@@ -182,22 +183,12 @@ def encode_payload(payload: dict[str, Any]) -> dict[str, Any]:
     encoders, device = _place(nn.Sequential(vision, bridge), device)
     encoders.eval()
     limit = payload.get("max_frames")
-    try:
-        sampled = _sample_frames(
-            str(payload["video"]),
-            float(payload["sample_fps"]),
-            None if limit is None else int(limit),
-        )
-    except Exception as exc:  # noqa: BLE001 - recorded fallback
-        return {
-            "status": "fallback",
-            "reason": str(exc),
-            "checkpoint_present": True,
-            "tensors": counts,
-            "frames": [],
-        }
     frames: list[dict[str, Any]] = []
     try:
+        sampled = _sample_frames(
+            str(payload["video"]), float(payload["sample_fps"]),
+            None if limit is None else int(limit),
+        )
         with torch.inference_mode():
             for index, stamp, frame in sampled:
                 image = _prepare_frame(frame).unsqueeze(0).to(device)
@@ -218,7 +209,7 @@ def encode_payload(payload: dict[str, Any]) -> dict[str, Any]:
                     }
                 )
                 del image, tokens
-    except RuntimeError as exc:
+    except (RuntimeError, ValueError, OSError) as exc:
         return {
             "status": "fallback",
             "reason": str(exc),

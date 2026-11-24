@@ -14,7 +14,7 @@ from open_enricher import storage
 from open_enricher.adapters.bassl import segment_video
 from open_enricher.adapters.face_speech import active_speakers, detect_tracks
 from open_enricher.adapters.visual_encode import encode_video
-from open_enricher.fingerprint import current_stamp, reusable
+from open_enricher.fingerprint import current_stamp
 from open_enricher.graph import (
     CharacterNode,
     Edge,
@@ -29,7 +29,7 @@ from open_enricher.graph import (
     visible_characters,
 )
 from open_enricher.logging_setup import get_logger
-from open_enricher.manifest import load_json, matching_artifact
+from open_enricher.manifest import matching_artifact
 from open_enricher.stages.pipeline_spec import load_pipeline_spec
 from open_enricher.stages.vlm_core.video import probe_duration_seconds
 from open_enricher.timeline import Interval, fixed_windows, validate_scene_bounds
@@ -53,22 +53,6 @@ def _base(video_filename: str) -> dict[str, Any]:
     document = {"video": video_filename}
     document.update(current_stamp())
     return document
-
-
-def _reuse(path: Path) -> dict[str, Any] | None:
-    document = load_json(path)
-    if document is None or not reusable(document):
-        return None
-    stamp = current_stamp()
-    if stamp["attempt_id"] and document.get("attempt_id") != stamp["attempt_id"]:
-        document["attempt_id"] = stamp["attempt_id"]
-        _write(path, document)
-    return {
-        "stage": document.get("stage"),
-        "status": document.get("status") or "success",
-        "reused": True,
-        "output_file": path.name,
-    }
 
 
 def _intervals_from(document: dict[str, Any] | None, duration: float, interval: int) -> list[Interval]:
@@ -104,9 +88,6 @@ class TimelineStage:
 
     def run(self, video_filename: str) -> dict[str, Any]:
         path = storage.get_output_dir(self.name) / f"{video_filename}_timeline.json"
-        cached = _reuse(path)
-        if cached is not None:
-            return cached
         video = storage.video_inputs() / video_filename
         spec = load_pipeline_spec()
         try:
@@ -137,9 +118,6 @@ class BasslStage:
 
     def run(self, video_filename: str) -> dict[str, Any]:
         path = storage.get_output_dir(self.name) / f"{video_filename}_bassl.json"
-        cached = _reuse(path)
-        if cached is not None:
-            return cached
         spec = load_pipeline_spec()
         video = storage.video_inputs() / video_filename
         timeline_path = storage.get_output_dir("timeline") / f"{video_filename}_timeline.json"
@@ -203,9 +181,6 @@ class CharacterGraphStage:
 
     def run(self, video_filename: str) -> dict[str, Any]:
         path = storage.get_output_dir(self.name) / f"{video_filename}_graph.json"
-        cached = _reuse(path)
-        if cached is not None:
-            return cached
         spec = load_pipeline_spec()
         video = storage.video_inputs() / video_filename
         reasons: list[str] = []
@@ -317,9 +292,6 @@ class VisualMemoryStage:
 
     def run(self, video_filename: str) -> dict[str, Any]:
         path = storage.get_output_dir(self.name) / f"{video_filename}_memory.json"
-        cached = _reuse(path)
-        if cached is not None:
-            return cached
         spec = load_pipeline_spec()
         video = storage.video_inputs() / video_filename
         encoded = encode_video(
