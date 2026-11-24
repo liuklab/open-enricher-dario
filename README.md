@@ -38,9 +38,9 @@ sbatch run_job.sh --only 12-combined --video Suits.S01E02.mkv
 Submit from the checkout root. A variant selects its models and budgets.
 Use `09-bassl-uniform` for scene boundaries, `10-character-graph` for face
 tracks and TalkNet, or `11-visual-memory` for EVA/BLIP-2 retrieval.
-`01-scene-context` remains available as a historical control. With no arguments
-the Python CLI iterates the packaged variants; with no arguments the Slurm
-launcher selects `12-combined`. [Local experiment guide](docs/local_loop.md)
+`01-scene-context` remains available as a historical control. By default the
+Python CLI iterates the packaged variants and the Slurm launcher selects
+`12-combined`. [Local experiment guide](docs/local_loop.md)
 
 ## Outputs
 

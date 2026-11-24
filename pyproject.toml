@@ -32,6 +32,10 @@ open-enricher-eval = "open_enricher.evaluation.cli:main"
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--ignore=local-archive"
+
 [tool.setuptools.package-data]
 open_enricher = ["*.json", "*.md"]
 "open_enricher.stages" = ["pipeline_spec.json", "prompts/*.md"]
