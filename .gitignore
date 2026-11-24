@@ -247,3 +247,9 @@ __pycache__/
 
 .old_runs/
 .old_outputs/
+# Local archived experiments, generated runs, scheduler logs and IDE state
+/local-archive/
+/runs/
+/jobs_logs/
+/slurm-*.out
+/.idea/
