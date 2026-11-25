@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Any
 
 from open_enricher.adapters.upstream import LAVIS_REV, TALKNET_REV
+from open_enricher.language import requested_audio_language
 from open_enricher.stages.pipeline_spec import PipelineSpec
 
 ATTEMPT_ID = "OPEN_ENRICHER_ATTEMPT_ID"
@@ -76,11 +77,14 @@ def settings_hash(spec: PipelineSpec, *, stages: tuple[str, ...] | None = None) 
         "experiment_id": spec.experiment_id,
         "stages": stages,
         "audio_models": audio_model_identity(),
+        "audio_language": requested_audio_language(),
         "language_models": _hub_revisions(("qwen--qwen3",)),
         "interval_seconds": spec.interval_seconds,
         "vlm_memory_scenes": spec.vlm_memory_scenes,
         "visual_only": spec.visual_only,
         "narrate_from_visual": spec.narrate_from_visual,
+        "narration_context_scenes": spec.narration_context_scenes,
+        "select_dialogue_exchanges": spec.select_dialogue_exchanges,
         "frame_allocation": spec.frame_allocation,
         "features": asdict(spec.features),
         "budgets": asdict(spec.budgets),

@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Any
 
 from open_enricher.logging_setup import get_logger
+from open_enricher.language import language_prompt
 from open_enricher.stages.prompt_load import fill_prompt, load_prompt
 from open_enricher.stages.vlm_core.config import MetadataConfig, ModelConfig
 from open_enricher.stages.vlm_core.frames import sample_scene
@@ -175,22 +176,23 @@ def _scene_prompt(
     *,
     visual_only: bool,
     extract_visual: bool = False,
+    language: str = "en",
 ) -> str:
     start = str(scene.get("start_time") or "")
     end = str(scene.get("end_time") or "")
     if extract_visual:
         prompt = fill_prompt(
-            load_prompt("vlm_scene_extract_prompt.md"),
+            language_prompt(load_prompt("vlm_scene_extract_prompt.md"), language),
             {"START": start, "END": end},
         )
     elif visual_only:
         prompt = fill_prompt(
-            load_prompt("vlm_scene_visual_prompt.md"),
+            language_prompt(load_prompt("vlm_scene_visual_prompt.md"), language),
             {"START": start, "END": end, "MEMORY": memory},
         )
     else:
         prompt = fill_prompt(
-            load_prompt("vlm_scene_prompt.md"),
+            language_prompt(load_prompt("vlm_scene_prompt.md"), language),
             {
                 "START": start,
                 "END": end,
@@ -268,6 +270,7 @@ def run_segmented(
     visual_only: bool = False,
     extract_visual: bool = False,
     continue_on_error: bool = False,
+    language: str = "en",
 ) -> tuple[str, dict[str, Any], bool, int, list[dict[str, Any]]]:
     """
     Run the VLM once per dialogue interval and accumulate the metadata.
@@ -341,6 +344,7 @@ def run_segmented(
                 memory,
                 visual_only=visual_only,
                 extract_visual=extract_visual,
+                language=language,
             )
             window_cfg = replace(
                 meta_cfg,
@@ -360,7 +364,8 @@ def run_segmented(
                         "start_time": scene.get("start_time"),
                         "end_time": scene.get("end_time"),
                         "dialogue_description": str(scene.get("description") or "").strip(),
-                        "description": "No frame was sampled for this scene.",
+                        "description": ("Nessun fotogramma campionato per questa scena." if language == "it"
+                                        else "No frame was sampled for this scene."),
                         "subjects_and_objects": [],
                         "actions": [],
                         "camera_and_shot": "",
@@ -445,8 +450,9 @@ def run_segmented(
 
             raw_parts.append(f"--- {scene.get('start_time')}-{scene.get('end_time')} ---\n{raw_text}")
             parsed = _parse_object(raw_text)
+            no_description = "Nessuna descrizione." if language == "it" else "No description."
             if parsed is None:
-                description = raw_text.strip()[:500] or "No description."
+                description = raw_text.strip()[:500] or no_description
                 subjects: list[str] = []
                 actions: list[str] = []
                 camera = ""
@@ -454,7 +460,7 @@ def run_segmented(
                 texts: list[str] = []
             else:
                 parsed_count += 1
-                description = str(parsed.get("description") or "").strip() or "No description."
+                description = str(parsed.get("description") or "").strip() or no_description
                 list_limit = 12 if extract_visual else 6
                 subjects = _as_list(parsed.get("subjects_and_objects"), limit=list_limit)
                 actions = _as_list(parsed.get("actions"), limit=list_limit)

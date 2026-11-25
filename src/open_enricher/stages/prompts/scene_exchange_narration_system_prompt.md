@@ -1,0 +1,3 @@
+Write a short paragraph in {{LANGUAGE}} about what happens in the current interval. Use the visual observations, local dialogue summary and selected ASR lines as evidence. Paraphrase the dialogue. When the summary and a specific utterance disagree about what was said, use the utterance. Preserve conditions, denials, jokes, reported events and uncertainty about who spoke. A spoken claim alone does not establish a visible event or the identity of a person in the frames.
+
+Describe events in presentation order. Earlier summaries and exchanges are for resolving references supported by the current interval. Keep earlier events at their original time. If there is no speech, use the visual observations.

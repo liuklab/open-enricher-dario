@@ -28,6 +28,41 @@ enables frame retrieval, and `12-combined` enables all three. Use
 and select one with `--only`. Check the episode manifest for the stages that
 actually succeeded and inspect their outputs during comparison.
 
+`13-narrate-exchanges` uses 4-minute windows and up to 40 current frames.
+In the same call as the interval summary, the dialogue model selects up to two
+short exchanges by transcript line ID, most informative first. The VLM sees
+only the current frames. The narrator receives the local summary and selected
+lines, plus the summaries and top exchange from each of the last three windows.
+In `*_dialogue.json` and `*_vlm.json`, each window's `dialogue_exchanges` field
+contains the original ASR text, timestamps, speaker labels and window-local IDs.
+A silent window or an interval without a valid selection has an empty list.
+
+```bash
+python -m open_enricher --only 13-narrate-exchanges --video Suits.S01E02.mkv
+```
+
+WhisperX transcribes the selected audio track in its spoken language and saves
+the language code in `*_audio_language.json`. Italian audio yields Italian plot
+summaries, scene descriptions and free-text RecSys fields. JSON keys and the
+controlled labels for primary genre, pacing and target age group stay in English.
+Selected ASR lines and on-screen quotations retain their source wording.
+The two API evaluations return Italian commentary for all films.
+Italian word alignment uses TorchAudio's VoxPopuli checkpoint,
+`dataset/models_cache/torch/hub/checkpoints/wav2vec2_voxpopuli_base_10k_asr_it.pt`
+with the default cache layout.
+
+Automatic language detection is the default for mixed batches. To force Italian
+for a specific film with an ambiguous opening, run it on its own:
+
+```bash
+OPEN_ENRICHER_AUDIO_LANGUAGE=it python -m open_enricher --only 13-narrate-exchanges --video 'Il vigile (1960).DVD.XviD.avi'
+```
+
+WhisperX uses FFmpeg's default audio selection. For a multilingual container,
+verify that the desired dub is the selected track. The language override tells
+WhisperX how to transcribe that track. On archived inputs without a recorded
+language, downstream stages use the override when supplied, or English by default.
+
 ## Output and cache paths
 
 | Default path | Contents |

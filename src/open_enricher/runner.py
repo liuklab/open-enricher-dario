@@ -167,6 +167,7 @@ def _artifact_globs(stage: str, video_filename: str) -> list[str]:
     if stage == "audio":
         return [
             f"{video_filename}_audio.json",
+            f"{video_filename}_audio_language.json",
             f"{video_filename}_audio_timings.json",
         ]
     if stage == "dialogue":
@@ -433,10 +434,10 @@ def collect_artifacts(video_filename: str, stages: Iterable[str] = PIPELINE_STAG
     found: list[Path] = []
     for stage in stages:
         folder = storage.get_output_dir(stage)
-        for pattern in _artifact_globs(stage, video_filename):
-            for path in folder.glob(pattern):
-                if path.is_file():
-                    found.append(path)
+        for filename in _artifact_globs(stage, video_filename):
+            path = folder / filename
+            if path.is_file():
+                found.append(path)
         if stage == "color":
             frames = folder / f"{video_filename}_frames"
             if frames.is_dir():

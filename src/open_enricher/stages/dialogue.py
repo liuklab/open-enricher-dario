@@ -2,21 +2,24 @@
 
 First pass: one high-level plot summary of every dialogue line, then the
 model is unloaded. Second pass: the same weights are loaded again and, for
-each interval, summarize only the lines assigned to that interval. The VLM stage reads this file after the text model
-has been released.
+each interval, summarize only the lines assigned to that interval. Narration
+variants can select ASR exchanges during the same summary generation.
 """
 
 from __future__ import annotations
 
 import gc
 import json
+from functools import partial
 from typing import Any
 
 from open_enricher import storage
 from open_enricher.fingerprint import current_stamp
+from open_enricher.language import language_prompt, metadata_language
 from open_enricher.logging_setup import get_logger
 from open_enricher.manifest import matching_artifact
 from open_enricher.narrative import cue_from_lines, parse_label
+from open_enricher.stages.dialogue_exchanges import resolve_exchanges
 from open_enricher.stages.pipeline_spec import load_pipeline_spec
 from open_enricher.stages.prompt_load import fill_prompt, load_prompt
 from open_enricher.stages.vlm_core.enrichment import (
@@ -93,9 +96,9 @@ def _sampling_note(sampled: bool) -> str:
     return "Every dialogue line is included, in order."
 
 
-def _plot_messages(transcript: str, *, sampled: bool) -> list[dict[str, str]]:
+def _plot_messages(transcript: str, *, sampled: bool, language: str = "en") -> list[dict[str, str]]:
     return [
-        {"role": "system", "content": load_prompt("plot_system_prompt.md")},
+        {"role": "system", "content": language_prompt(load_prompt("plot_system_prompt.md"), language)},
         {
             "role": "user",
             "content": fill_prompt(
@@ -112,9 +115,15 @@ def _scene_messages(
     start: float,
     end: float,
     sampled: bool,
+    select_exchanges: bool = False,
+    language: str = "en",
 ) -> list[dict[str, str]]:
+    system = (
+        "scene_exchange_selection_system_prompt.md" if select_exchanges
+        else "scene_dialogue_system_prompt.md"
+    )
     return [
-        {"role": "system", "content": load_prompt("scene_dialogue_system_prompt.md")},
+        {"role": "system", "content": language_prompt(load_prompt(system), language)},
         {
             "role": "user",
             "content": fill_prompt(
@@ -183,6 +192,7 @@ def _generate(
     messages: list[dict[str, str]],
     *,
     max_new_tokens: int,
+    min_chars: int = 40,
 ) -> str:
     import torch
 
@@ -202,7 +212,7 @@ def _generate(
         )
     new_tokens = generated_ids[0][len(model_inputs.input_ids[0]) :]
     text = _strip_think(tokenizer.decode(new_tokens, skip_special_tokens=True))
-    if len(text) < 40:
+    if len(text) < min_chars:
         raise RuntimeError(f"Text model output is too short to be useful: {text!r}")
     return text
 
@@ -248,9 +258,17 @@ class DialogueStage:
             raise FileNotFoundError(f"Audio transcript not found: {audio_path}")
 
         raw_lines = json.loads(audio_path.read_text(encoding="utf-8"))
+        language = metadata_language(video_filename)
         if not isinstance(raw_lines, list):
-            raw_lines = []
-        dialogue_lines = format_dialogue_lines(raw_lines)
+            raise ValueError("Audio metadata must be a list of dialogue lines")
+        if spec.select_dialogue_exchanges:
+            raw_lines = [
+                row for row in raw_lines
+                if isinstance(row, dict) and str(row.get("text") or "").strip()
+            ]
+            dialogue_lines = format_dialogue_lines(raw_lines) if raw_lines else []
+        else:
+            dialogue_lines = format_dialogue_lines(raw_lines)
         speakers = {
             str(line.get("speaker") or "UNKNOWN")
             for line in raw_lines
@@ -279,15 +297,23 @@ class DialogueStage:
         else:
             windows = interval_windows(duration, spec.interval_seconds)
         try:
-            plot_summary, plot_sampled = self._plot_pass(dialogue_lines, timing)
-            scenes = self._scene_pass(
-                raw_lines,
-                windows,
-                timing,
-                buckets=buckets,
-                scene_ids=scene_ids,
-                score_narrative=spec.features.adaptive_frames,
-            )
+            if dialogue_lines:
+                plot_summary, plot_sampled = self._plot_pass(dialogue_lines, timing, language=language)
+                scenes = self._scene_pass(
+                    raw_lines,
+                    windows,
+                    timing,
+                    buckets=buckets,
+                    scene_ids=scene_ids,
+                    score_narrative=spec.features.adaptive_frames,
+                    select_exchanges=spec.select_dialogue_exchanges,
+                    language=language,
+                )
+            else:
+                plot_summary, plot_sampled = "", False
+                scenes = _empty_scenes(windows, scene_ids, buckets, raw_lines, language=language)
+                for scene in scenes:
+                    scene["dialogue_exchanges"] = []
             status = "success"
             error = None
         except Exception as exc:
@@ -295,7 +321,7 @@ class DialogueStage:
                 raise
             logger.warning("Dialogue model failed for %s: %s", video_filename, exc)
             plot_summary, plot_sampled = "", False
-            scenes = _empty_scenes(windows, scene_ids, buckets, raw_lines)
+            scenes = _empty_scenes(windows, scene_ids, buckets, raw_lines, language=language)
             status = "degraded"
             error = str(exc)
 
@@ -304,6 +330,7 @@ class DialogueStage:
             "interval_seconds": spec.interval_seconds,
             "plot_summary": plot_summary,
             "plot_sampled": plot_sampled,
+            "metadata_language": language,
             "scenes": scenes,
         }
         if spec.features.any_enabled:
@@ -332,13 +359,14 @@ class DialogueStage:
         self,
         dialogue_lines: list[str],
         timing: TimingRecorder,
+        *, language: str = "en",
     ) -> tuple[str, bool]:
         model, tokenizer, device = _load_text_model(timing, "plot_load")
         try:
             budget = _input_budget(model, PLOT_MAX_NEW_TOKENS)
 
             def prompt_tokens(body: str, sampled: bool) -> int:
-                return _prompt_token_count(tokenizer, _plot_messages(body, sampled=sampled))
+                return _prompt_token_count(tokenizer, _plot_messages(body, sampled=sampled, language=language))
 
             transcript, sampled = fit_dialogue_lines(
                 dialogue_lines,
@@ -350,7 +378,7 @@ class DialogueStage:
                     model,
                     tokenizer,
                     device,
-                    _plot_messages(transcript, sampled=sampled),
+                    _plot_messages(transcript, sampled=sampled, language=language),
                     max_new_tokens=PLOT_MAX_NEW_TOKENS,
                 )
             return summary, sampled
@@ -366,6 +394,8 @@ class DialogueStage:
         buckets: dict[str, list[dict[str, Any]]] | None = None,
         scene_ids: list[str] | None = None,
         score_narrative: bool = False,
+        select_exchanges: bool = False,
+        language: str = "en",
     ) -> list[dict[str, Any]]:
         model, tokenizer, device = _load_text_model(timing, "scene_load")
         scenes: list[dict[str, Any]] = []
@@ -386,40 +416,42 @@ class DialogueStage:
                     _clock(end),
                     len(window_rows),
                 )
+                exchanges = []
                 if not window_rows:
-                    description = _EMPTY_SCENE
+                    description = _empty_description(language)
                     sampled = False
                 else:
                     formatted = format_dialogue_lines(window_rows)
+                    if select_exchanges:
+                        formatted = [
+                            f"{line_id}. {' '.join(line.splitlines())}"
+                            for line_id, line in enumerate(formatted, start=1)
+                        ]
 
-                    def prompt_tokens(body: str, sampled: bool, *, _start: float = start, _end: float = end) -> int:
-                        return _prompt_token_count(
-                            tokenizer,
-                            _scene_messages(
-                                body,
-                                start=_start,
-                                end=_end,
-                                sampled=sampled,
-                            ),
-                        )
+                    messages_for = partial(
+                        _scene_messages, start=start, end=end,
+                        select_exchanges=select_exchanges, language=language,
+                    )
 
                     transcript, sampled = fit_dialogue_lines(
                         formatted,
                         input_budget=budget,
-                        prompt_tokens=prompt_tokens,
+                        prompt_tokens=lambda body, sampled: _prompt_token_count(
+                            tokenizer, messages_for(body, sampled=sampled)
+                        ),
                     )
                     with timing.span("scene_generate", model_id=SUMMARY_MODEL_ID, window=index):
                         description = _generate(
                             model,
                             tokenizer,
                             device,
-                            _scene_messages(
-                                transcript,
-                                start=start,
-                                end=end,
-                                sampled=sampled,
-                            ),
+                            messages_for(transcript, sampled=sampled),
                             max_new_tokens=SCENE_MAX_NEW_TOKENS,
+                            min_chars=1 if select_exchanges else 40,
+                        )
+                    if select_exchanges:
+                        description, exchanges = resolve_exchanges(
+                            description, window_rows, formatted, transcript
                         )
                 scenes.append(
                     {
@@ -430,6 +462,7 @@ class DialogueStage:
                         "dialogue_lines": len(window_rows),
                         "dialogue_sampled": sampled,
                         "description": description,
+                        **({"dialogue_exchanges": exchanges} if select_exchanges else {}),
                         **({"scene_id": scene_id} if scene_id else {}),
                         **(
                             _narrative_fields(model, tokenizer, device, window_rows)
@@ -453,11 +486,13 @@ class DialogueStage:
         duration = probe_duration_seconds(video_path)
         intervals = _intervals_for(video_filename, duration, spec.interval_seconds)
         windows = [(item.start, item.end) for item in intervals]
-        scenes = _empty_scenes(windows, [item.id for item in intervals], None, [])
+        language = metadata_language(video_filename)
+        scenes = _empty_scenes(windows, [item.id for item in intervals], None, [], language=language)
         payload = {
             "experiment_id": spec.experiment_id,
             "interval_seconds": spec.interval_seconds,
             "plot_summary": "",
+            "metadata_language": language,
             "plot_sampled": False,
             "scenes": scenes,
             "status": "degraded",
@@ -504,11 +539,16 @@ def _intervals_for(video_filename: str, duration: float, interval_seconds: int) 
     return intervals or fixed_windows(duration, interval_seconds)
 
 
+def _empty_description(language: str) -> str:
+    return "Nessun dialogo trascritto in questo intervallo." if language == "it" else _EMPTY_SCENE
+
+
 def _empty_scenes(
     windows: list[tuple[float, float]],
     scene_ids: list[str] | None,
     buckets: dict[str, list[dict[str, Any]]] | None,
     raw_lines: list[Any],
+    *, language: str = "en",
 ) -> list[dict[str, Any]]:
     scenes: list[dict[str, Any]] = []
     for index, (start, end) in enumerate(windows, start=1):
@@ -525,7 +565,7 @@ def _empty_scenes(
             "end_seconds": round(end, 3),
             "dialogue_lines": len(rows),
             "dialogue_sampled": False,
-            "description": _EMPTY_SCENE,
+            "description": _empty_description(language),
         }
         if scene_id:
             row["scene_id"] = scene_id

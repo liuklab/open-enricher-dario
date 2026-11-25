@@ -16,6 +16,7 @@ import whisperx
 from whisperx.diarize import DiarizationPipeline, assign_word_speakers
 
 from open_enricher import storage
+from open_enricher.language import requested_audio_language
 from open_enricher.logging_setup import get_logger
 from open_enricher.timings import TimingRecorder
 
@@ -56,6 +57,7 @@ class AudioStage:
         return {
             "model": self.model_name, "device": self.device,
             "compute_type": self.compute_type, "batch_size": self.batch_size,
+            "language": requested_audio_language(),
         }
 
     def _free_vram(self) -> None:
@@ -93,8 +95,10 @@ class AudioStage:
             logger.info("Transcribing...")
             with timing.span("whisperx_transcribe", model_id=self.model_name):
                 result = model.transcribe(
-                    audio, batch_size=self.batch_size, interleaved_context=True
+                    audio, batch_size=self.batch_size, language=requested_audio_language(),
+                    task="transcribe", interleaved_context=True,
                 )
+                language = result["language"]
         finally:
             del model
             self._free_vram()
@@ -102,7 +106,7 @@ class AudioStage:
         logger.info("Performing temporal alignment...")
         with timing.span("whisperx_align_load"):
             model_a, metadata = whisperx.load_align_model(
-                language_code=result["language"], device=self.device
+                language_code=language, device=self.device
             )
         try:
             with timing.span("whisperx_align"):
@@ -160,6 +164,10 @@ class AudioStage:
         output_dir = storage.get_output_dir(self.name)
         output_path = output_dir / f"{video_filename}_audio.json"
         timings_path = output_dir / f"{video_filename}_audio_timings.json"
+        storage.atomic_write_text(
+            output_dir / f"{video_filename}_audio_language.json",
+            json.dumps({"language": language}) + "\n",
+        )
         timing.save(timings_path)
 
         logger.info(f"Saving results to {output_path}")
@@ -171,6 +179,7 @@ class AudioStage:
             "status": "success",
             "lines_extracted": len(dialogues),
             "diarized": diarized,
+            "language": language,
             "result": payload,
             "timings": timing.document(),
             "output_file": str(output_path.name),

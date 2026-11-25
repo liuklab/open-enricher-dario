@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from typing import Any
 
+from open_enricher.language import language_prompt
+from open_enricher.stages.pipeline_spec import DEFAULT_NARRATION_CONTEXT_SCENES as NARRATION_CONTEXT_SCENES
 from open_enricher.stages.prompt_load import fill_prompt, load_prompt
-
-# Sliding context for the narration pass. The VLM does not receive it.
-NARRATION_CONTEXT_SCENES = 2
+from open_enricher.stages.vlm_core.enrichment import format_dialogue_lines
 
 
 def previous_scene_summaries(
@@ -34,7 +34,16 @@ def previous_scene_summaries(
     return list(scenes[start:index])
 
 
-def format_prior_summaries(scenes: list[dict[str, Any]]) -> str:
+def _exchange_text(scene: dict[str, Any], limit: int) -> str:
+    """Select by importance, then present the retained exchanges in spoken order."""
+    exchanges = (scene.get("dialogue_exchanges") or [])[:limit]
+    return "\n\n".join(
+        "\n".join(format_dialogue_lines(exchange))
+        for exchange in sorted(exchanges, key=lambda lines: lines[0]["line_id"])
+    )
+
+
+def format_prior_summaries(scenes: list[dict[str, Any]], *, with_exchanges: bool = False) -> str:
     """
     Format earlier dialogue summaries for the narration prompt.
 
@@ -52,15 +61,21 @@ def format_prior_summaries(scenes: list[dict[str, Any]]) -> str:
         end = str(scene.get("end_time") or "")
         summary = str(scene.get("dialogue_description") or "").strip() or "(no summary)"
         blocks.append(f"{start}-{end}: {summary}")
+        if with_exchanges and (exchange := _exchange_text(scene, 1)):
+            blocks[-1] += f"\nEarlier exchange:\n{exchange}"
     return "\n\n".join(blocks)
 
 
-def narration_system_prompt() -> str:
+def narration_system_prompt(*, with_exchanges: bool = False, language: str = "en") -> str:
     """Return the system message for one scene narration."""
-    return load_prompt("scene_narration_system_prompt.md")
+    template = "scene_exchange_narration_system_prompt.md" if with_exchanges else "scene_narration_system_prompt.md"
+    return language_prompt(load_prompt(template), language)
 
 
-def narration_user_prompt(scene: dict[str, Any], prior: list[dict[str, Any]]) -> str:
+def narration_user_prompt(
+    scene: dict[str, Any], prior: list[dict[str, Any]], *, with_exchanges: bool = False,
+    language: str = "en",
+) -> str:
     """
     Return the user message for one scene narration.
 
@@ -73,12 +88,18 @@ def narration_user_prompt(scene: dict[str, Any], prior: list[dict[str, Any]]) ->
     actions = scene.get("actions") or []
     object_text = "\n".join(f"- {item}" for item in objects) or "- none listed"
     action_text = "\n".join(f"- {item}" for item in actions) or "- none listed"
+    template = (
+        "scene_exchange_narration_user_prompt.md" if with_exchanges
+        else "scene_narration_user_prompt.md"
+    )
     return fill_prompt(
-        load_prompt("scene_narration_user_prompt.md"),
+        load_prompt(template),
         {
             "START": str(scene.get("start_time") or ""),
+            "LANGUAGE": "Italian" if language == "it" else "English",
             "END": str(scene.get("end_time") or ""),
-            "PRIOR": format_prior_summaries(prior),
+            "PRIOR": format_prior_summaries(prior, with_exchanges=with_exchanges),
+            "EXCHANGES": (_exchange_text(scene, 2) or "(none selected)") if with_exchanges else "",
             "SCENE_SUMMARY": str(scene.get("dialogue_description") or "").strip()
             or "(no dialogue summary)",
             "OBJECTS": object_text,

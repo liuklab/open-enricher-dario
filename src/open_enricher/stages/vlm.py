@@ -1,9 +1,8 @@
 """Vision-Language Model stage orchestrator (Qwen3-VL).
 
-Runs after the dialogue stage. For each fixed interval, Qwen3-VL sees the
-clip, the dialogue description of that interval, and the metadata written
-for earlier intervals. Those earlier records are passed in the prompt:
-the model does not keep them between generate calls.
+Runs after the dialogue stage. The variant determines which evidence enters
+each visual prompt. Narration variants extract observations from the current
+frames; the text narrator later combines them with the dialogue evidence.
 """
 
 from __future__ import annotations
@@ -14,6 +13,7 @@ from typing import Any, Dict
 from open_enricher import storage
 from open_enricher.logging_setup import get_logger
 from open_enricher.fingerprint import current_stamp
+from open_enricher.language import metadata_language
 from open_enricher.stages.pipeline_spec import load_pipeline_spec
 from open_enricher.stages.vlm_core.config import build_configs
 from open_enricher.stages.vlm_core.planned import prepare_scenes
@@ -56,6 +56,7 @@ class VLMStage:
         spec = load_pipeline_spec()
         timing = TimingRecorder(self.name)
         dialogue = json.loads(dialogue_path.read_text(encoding="utf-8"))
+        language = dialogue.get("metadata_language") or metadata_language(video_filename)
         scenes = dialogue.get("scenes")
         if not isinstance(scenes, list) or not scenes:
             if not spec.features.any_enabled:
@@ -92,6 +93,7 @@ class VLMStage:
                 vlm_memory_scenes=spec.vlm_memory_scenes,
                 visual_only=spec.visual_only,
                 extract_visual=spec.narrate_from_visual,
+                language=language,
                 continue_on_error=spec.features.any_enabled,
             )
         except Exception as exc:
@@ -99,6 +101,17 @@ class VLMStage:
                 raise
             logger.warning("VLM failed for %s and will be skipped: %s", video_filename, exc)
             return _degraded_vlm(self.name, video_filename, spec.experiment_id, str(exc), timing)
+
+        parsed_payload["metadata_language"] = language
+        if spec.select_dialogue_exchanges:
+            # Attach the ASR evidence after visual inference, including for silent windows.
+            exchanges_by_window = {
+                (row["start_time"], row["end_time"]): row.get("dialogue_exchanges", [])
+                for row in dialogue["scenes"]
+            }
+            for segment in parsed_payload["scene_timeline"]:
+                interval = segment["start_time"], segment["end_time"]
+                segment["dialogue_exchanges"] = exchanges_by_window.get(interval, [])
 
         output_dir = storage.get_output_dir(self.name)
         raw_path = output_dir / f"{video_filename}_vlm_raw.txt"

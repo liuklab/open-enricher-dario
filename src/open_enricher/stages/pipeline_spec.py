@@ -20,6 +20,7 @@ from typing import Any
 _DEFAULT_PATH = Path(__file__).resolve().parent / "pipeline_spec.json"
 
 _ALLOCATION_MODES = {"adaptive", "duration"}
+DEFAULT_NARRATION_CONTEXT_SCENES = 2
 
 
 @dataclass(frozen=True)
@@ -90,6 +91,8 @@ class PipelineSpec:
     frame_allocation: str | None = None
     budgets: Budgets = Budgets()
     checkpoints: Checkpoints = Checkpoints()
+    narration_context_scenes: int = DEFAULT_NARRATION_CONTEXT_SCENES
+    select_dialogue_exchanges: bool = False
 
     def allocation_mode(self) -> str | None:
         """
@@ -330,6 +333,13 @@ def load_pipeline_spec(path: Path | None = None) -> PipelineSpec:
         ):
             raise ValueError(f"budgets.{key} must be a positive number")
 
+    narrate = _require_bool("narrate_from_visual", data.get("narrate_from_visual"))
+    exchanges = _require_bool("select_dialogue_exchanges", data.get("select_dialogue_exchanges"))
+    if exchanges and not narrate:
+        raise ValueError("select_dialogue_exchanges requires narrate_from_visual")
+    context = data.get("narration_context_scenes", DEFAULT_NARRATION_CONTEXT_SCENES)
+    if type(context) is not int or context < 0:
+        raise ValueError("narration_context_scenes must be a non-negative integer")
     return PipelineSpec(
         experiment_id=str(data.get("experiment_id") or "default").strip(),
         title=str(data.get("title") or "default").strip(),
@@ -340,9 +350,9 @@ def load_pipeline_spec(path: Path | None = None) -> PipelineSpec:
             "vlm_memory_scenes", data.get("vlm_memory_scenes")
         ),
         visual_only=_require_bool("visual_only", data.get("visual_only"), default=False),
-        narrate_from_visual=_require_bool(
-            "narrate_from_visual", data.get("narrate_from_visual"), default=False
-        ),
+        narrate_from_visual=narrate,
+        narration_context_scenes=context,
+        select_dialogue_exchanges=exchanges,
         features=_load_features(data.get("features")),
         frame_allocation=_load_allocation(data.get("frame_allocation")),
         budgets=_load_budgets(data.get("budgets")),

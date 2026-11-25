@@ -1,15 +1,15 @@
-Continue the story for {{START}} to {{END}} only.
+Describe what happens between {{START}} and {{END}}.
 
-Previous scenes, already summarized. Continuity only:
+Earlier dialogue summaries for continuity
 {{PRIOR}}
 
-Current scene summary. This is the plot you may use:
+Dialogue summary for the current interval
 {{SCENE_SUMMARY}}
 
-Objects and people extracted from the frames:
+People and objects observed in the current frames
 {{OBJECTS}}
 
-Actions and expressions extracted from the frames:
+Actions and expressions observed in the current frames
 {{ACTIONS}}
 
-Rewrite this scene as one narration of about 120 to 180 words. Keep every plot fact inside the current summary. Use the objects and actions to say what people do, how they look, and what is around them. If the summary states a fact the frames do not show, keep the fact and do not pretend it was seen. If an object or action is not tied to the summary, mention it only as something visible.
+Write one short paragraph in {{LANGUAGE}}. Connect a spoken detail to a visible action only when the evidence links them. If the speakers give competing accounts, preserve the disagreement. If the interval has no speech, describe the visible activity. If neither source identifies an event, say so briefly. Omit reconstructed quotations, invented transitions and decorative detail.

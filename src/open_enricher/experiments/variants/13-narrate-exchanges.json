@@ -1,0 +1,9 @@
+{
+  "experiment_id": "13-narrate-exchanges",
+  "title": "Narration with selected dialogue exchanges",
+  "interval_seconds": 240,
+  "visual_only": true,
+  "narrate_from_visual": true,
+  "narration_context_scenes": 3,
+  "select_dialogue_exchanges": true
+}

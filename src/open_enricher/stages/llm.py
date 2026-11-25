@@ -14,9 +14,9 @@ from pydantic import ValidationError
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 from open_enricher import storage
+from open_enricher.language import language_prompt, metadata_language
 from open_enricher.logging_setup import get_logger
 from open_enricher.stages.llm_core.narrate import (
-    NARRATION_CONTEXT_SCENES,
     narration_system_prompt,
     narration_user_prompt,
     previous_scene_summaries,
@@ -26,7 +26,7 @@ from open_enricher.stages.llm_core.prompt import (
     profile_system_prompt,
     profile_user_prompt,
 )
-from open_enricher.stages.pipeline_spec import load_pipeline_spec
+from open_enricher.stages.pipeline_spec import PipelineSpec, load_pipeline_spec
 from open_enricher.stages.video_profile import VideoProfile
 from open_enricher.timings import TimingRecorder
 
@@ -73,11 +73,15 @@ class LLMStage:
         if dialogue_path.is_file():
             dialogue = json.loads(dialogue_path.read_text(encoding="utf-8"))
             enriched_script["plot_summary"] = dialogue.get("plot_summary", "")
+            if dialogue.get("metadata_language"):
+                enriched_script["metadata_language"] = dialogue["metadata_language"]
         else:
             logger.info("No dialogue summary found for %s", video_filename)
         if vlm_path.is_file():
             vlm = json.loads(vlm_path.read_text(encoding="utf-8"))
             enriched_script["scene_metadata"] = vlm.get("scene_timeline", [])
+            if vlm.get("metadata_language"):
+                enriched_script["metadata_language"] = vlm["metadata_language"]
         else:
             logger.info("No VLM metadata found for %s", video_filename)
         from open_enricher.manifest import matching_artifact
@@ -141,32 +145,38 @@ class LLMStage:
         tokenizer: AutoTokenizer,
         scenes: List[Dict[str, Any]],
         timing: TimingRecorder,
+        spec: PipelineSpec,
+        language: str = "en",
     ) -> List[Dict[str, Any]]:
         """
         Rewrite each scene from its dialogue summary and the VLM extracts.
 
-        The two previous dialogue summaries are continuity only. The VLM
-        never received them.
+        Earlier dialogue summaries and any selected ASR exchanges supply
+        continuity. The VLM never received them.
 
         Args:
             model: Loaded text model.
             tokenizer: Matching tokenizer.
             scenes: VLM timeline records.
             timing: Recorder for one span per scene.
+            spec: Narration context and evidence settings.
+            language: Output language of the generated metadata.
 
         Returns:
             Copies of ``scenes`` whose ``description`` is the narration.
             The VLM sentence is kept on ``visual_description``.
         """
-        system = narration_system_prompt()
+        system = narration_system_prompt(with_exchanges=spec.select_dialogue_exchanges, language=language)
         rewritten: List[Dict[str, Any]] = []
         for index, scene in enumerate(scenes):
             prior = previous_scene_summaries(
-                scenes, index, limit=NARRATION_CONTEXT_SCENES
+                scenes, index, limit=spec.narration_context_scenes
             )
             messages = [
                 {"role": "system", "content": system},
-                {"role": "user", "content": narration_user_prompt(scene, prior)},
+                {"role": "user", "content": narration_user_prompt(
+                    scene, prior, with_exchanges=spec.select_dialogue_exchanges, language=language
+                )},
             ]
             logger.info(
                 "Narrating scene %s/%s %s-%s",
@@ -190,8 +200,12 @@ class LLMStage:
             prose = _THINK_RE.sub("", raw).strip()
             prose = re.sub(r"^```(?:\w+)?\s*|\s*```$", "", prose).strip()
             updated = dict(scene)
-            updated["visual_description"] = str(scene.get("description") or "").strip()
-            updated["description"] = prose or updated["visual_description"] or "No description."
+            updated["visual_description"] = str(
+                scene.get("visual_description") or scene.get("description") or ""
+            ).strip()
+            updated["description"] = prose or updated["visual_description"] or (
+                "Nessuna descrizione." if language == "it" else "No description."
+            )
             rewritten.append(updated)
         return rewritten
 
@@ -199,6 +213,7 @@ class LLMStage:
         self,
         video_filename: str,
         scenes: List[Dict[str, Any]],
+        context_scenes: int,
     ) -> None:
         """Store the narrated descriptions on the VLM timeline."""
         vlm_path = storage.get_output_dir("vlm") / f"{video_filename}_vlm.json"
@@ -209,7 +224,7 @@ class LLMStage:
             return
         payload["scene_timeline"] = scenes
         payload["narrate_from_visual"] = True
-        payload["narration_context_scenes"] = NARRATION_CONTEXT_SCENES
+        payload["narration_context_scenes"] = context_scenes
         vlm_path.write_text(
             json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
             encoding="utf-8",
@@ -230,6 +245,7 @@ class LLMStage:
         timing = TimingRecorder(self.name)
 
         metadata = self._gather_metadata(video_filename)
+        language = metadata.get("metadata_language") or metadata_language(video_filename)
         if not metadata.get("plot_summary") and not metadata.get("scene_metadata"):
             return {
                 "stage": self.name,
@@ -284,13 +300,17 @@ class LLMStage:
             if spec.narrate_from_visual:
                 scenes = metadata.get("scene_metadata") or []
                 if isinstance(scenes, list) and scenes:
-                    narrated = self._narrate_scenes(model, tokenizer, scenes, timing)
-                    metadata["scene_metadata"] = narrated
-                    self._write_narrated_timeline(video_filename, narrated)
+                    narrated = self._narrate_scenes(model, tokenizer, scenes, timing, spec, language)
+                    self._write_narrated_timeline(video_filename, narrated, spec.narration_context_scenes)
+                    # Keep the per-window ASR evidence on disk. The profile consumes the narration.
+                    metadata["scene_metadata"] = [
+                        {key: value for key, value in scene.items() if key != "dialogue_exchanges"}
+                        for scene in narrated
+                    ]
 
             script_text = json.dumps(metadata, separators=(",", ":"), ensure_ascii=False)
             messages = [
-                {"role": "system", "content": profile_system_prompt()},
+                {"role": "system", "content": language_prompt(profile_system_prompt(), language)},
                 {
                     "role": "user",
                     "content": profile_user_prompt(
