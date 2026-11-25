@@ -34,12 +34,8 @@ DIMENSION_RUBRICS: Dict[str, str] = {
         "(avoid vague words like video, scene, content, various)?"
     ),
     "fidelity": (
-        "How well do the metadata claims match the real work? "
-        "Without a synopsis, judge against your training knowledge of the titled "
-        "film or episode. With a synopsis, judge against that synopsis text. "
-        "Penalize invented plot points, wrong genre, wrong characters, or wrong "
-        "setting. If you do not recognize the title and no synopsis is given, "
-        "score low and say so in the note."
+        "Do the plot, characters, setting and genre claims agree with the synopsis? "
+        "Penalize contradictions. Treat details the synopsis leaves open as unverified."
     ),
     "consistency": (
         "Do fields agree with each other (genre vs mood vs tags vs narrative_hook) "

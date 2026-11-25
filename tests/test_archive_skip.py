@@ -195,3 +195,47 @@ def test_prompt_edit_invalidates_same_variant(tmp_path, monkeypatch):
     original = fingerprint.settings_hash(spec)
     prompt.write_text("Describe the current action")
     assert fingerprint.settings_hash(spec) != original
+
+
+def test_evaluation_resume_requires_both_scores_and_current_synopsis(tmp_path, monkeypatch):
+    from open_enricher.evaluation import synopsis
+    from open_enricher.evaluation.understanding import REPORT_NAME
+
+    runs = tmp_path / "runs"
+    video = _video(tmp_path / "inputs", "episode.mkv", b"episode")
+    monkeypatch.setenv("OPEN_ENRICHER_VIDEO_INPUTS", str(video.parent))
+    monkeypatch.setattr("open_enricher.experiments.archive.RUNS_ROOT", runs)
+    monkeypatch.setattr("open_enricher.experiments.archive.PROGRESS_PATH", runs / "progress.jsonl")
+    monkeypatch.setattr(synopsis, "DEFAULT_SYNOPSIS_DIR", tmp_path)
+    folder = runs / "variant" / video.name
+    folder.mkdir(parents=True)
+    timeline = folder / f"{video.name}_vlm.json"
+    timeline.write_text("{}")
+    ref = synopsis.synopsis_path(video.name)
+    ref.write_text("A reference.")
+    recsys = folder / "score.json"
+    recsys.write_text("{}")
+    understanding = folder / REPORT_NAME
+    (folder / "result.json").write_text(json.dumps({
+        "archive_id": "a", "settings_hash": "s", "status": "success",
+        "source_fingerprint": source_fingerprint(video), "archived_files": [timeline.name],
+        "artifact_sha256": {timeline.name: source_fingerprint(timeline)},
+    }))
+    receipt = {"video": video.name, "archive_id": "a", "score_sha256": source_fingerprint(recsys)}
+    event = {"experiment_id": "variant", "step": "evaluation", "status": "ok", "settings_hash": "s",
+             "results": [receipt]}
+
+    def done():
+        return archive_matches_sources("variant", [video.name], "evaluation", settings="s")
+
+    append_progress(event)
+    assert not done()
+    understanding.write_text(json.dumps({"synopsis_sha256": source_fingerprint(ref)}))
+    receipt["understanding_score_sha256"] = source_fingerprint(understanding)
+    append_progress(event)
+    assert done()
+    ref.write_text("Another cut.")
+    assert not done()
+    ref.write_text("A reference.")
+    understanding.write_text("{}")
+    assert not done()

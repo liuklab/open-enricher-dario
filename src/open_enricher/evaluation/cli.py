@@ -26,7 +26,7 @@ def build_parser() -> argparse.ArgumentParser:
     """
     parser = argparse.ArgumentParser(
         description=(
-            "Score VideoProfile JSON files with an external evaluator "
+            "Score RecSys profiles and scene-level video understanding with an external evaluator "
             "(Cursor SDK / Grok by default). Not part of the local GPU pipeline."
         )
     )
@@ -39,14 +39,16 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--experiment",
         help=(
-            "Experiment id under runs/local/. Reads archived *_llm.json and "
-            "writes score.json there."
+            "Experiment id under runs/local/. Reads archived profiles and timelines and "
+            "writes the selected reports there."
         ),
     )
     parser.add_argument(
-        "--with-synopsis",
-        action="store_true",
-        help="Include synopsis/<video>_summary.txt in the prompt for fidelity.",
+        "--task", choices=("both", "recsys", "understanding"), default="both",
+        help="Tasks to score (default: both). Both tasks require the reference synopsis.",
+    )
+    parser.add_argument(
+        "--with-synopsis", action="store_true", help=argparse.SUPPRESS,  # Legacy CLI spelling.
     )
     parser.add_argument(
         "--synopsis-dir",
@@ -104,10 +106,10 @@ def main(argv: list[str] | None = None) -> None:
     results = evaluate_videos(
         videos,
         provider_name=args.provider,
-        with_synopsis=args.with_synopsis,
         synopsis_dir=args.synopsis_dir,
         experiment_id=args.experiment,
         model=args.model,
+        task=args.task,
     )
 
     print(json.dumps(results, indent=2, ensure_ascii=False))

@@ -81,7 +81,7 @@ def build_report(
     title: str,
     profile_file: str,
     llm_payload: Dict[str, Any],
-    uses_synopsis: bool = False,
+    uses_synopsis: bool = True,
     provider: str = "cursor",
     model: str | None = None,
 ) -> Dict[str, Any]:
@@ -177,7 +177,7 @@ def failed_report(
     title: str,
     profile_file: str | None,
     error: str,
-    uses_synopsis: bool = False,
+    uses_synopsis: bool = True,
     provider: str = "cursor",
     model: str | None = None,
 ) -> Dict[str, Any]:

@@ -6,6 +6,7 @@ events for resume, and merges per-stage timing documents after a run.
 
 from __future__ import annotations
 
+import hashlib
 import json
 from datetime import datetime, timezone
 from pathlib import Path
@@ -106,6 +107,8 @@ def archive_matches_sources(
 ) -> bool:
     """Require the latest step, archived attempt, source bytes and settings to agree."""
     from open_enricher import storage
+    from open_enricher.evaluation.synopsis import load_synopsis
+    from open_enricher.evaluation.understanding import REPORT_NAME
     from open_enricher.fingerprint import source_fingerprint
     from open_enricher.manifest import load_json
 
@@ -131,6 +134,19 @@ def archive_matches_sources(
         if step == "evaluation":
             score = folder / "score.json"
             if not score.is_file() or receipt.get("score_sha256") != source_fingerprint(score):
+                return False
+            understanding = folder / REPORT_NAME
+            if (
+                not understanding.is_file()
+                or receipt.get("understanding_score_sha256") != source_fingerprint(understanding)
+            ):
+                return False
+            try:
+                synopsis = load_synopsis(video)
+            except (OSError, ValueError):
+                return False
+            report = load_json(understanding) or {}
+            if report.get("synopsis_sha256") != hashlib.sha256(synopsis.encode("utf-8")).hexdigest():
                 return False
         checksums = result.get("artifact_sha256")
         if not isinstance(checksums, dict) or not checksums or set(checksums) != set(result.get("archived_files", [])):

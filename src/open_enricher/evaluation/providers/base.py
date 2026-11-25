@@ -7,10 +7,10 @@ from typing import Protocol
 
 class EvaluatorProvider(Protocol):
     """
-    One-shot text completion used to score a VideoProfile.
+    One-shot text completion for an external evaluation task.
 
     Implementations must start a fresh conversation for every ``complete``
-    call so evaluations never share context across videos.
+    call so each video and task is judged independently.
     """
 
     name: str
@@ -22,7 +22,7 @@ class EvaluatorProvider(Protocol):
 
         Args:
             system: System instruction (rubrics, score bounds).
-            user: User message (title, optional synopsis, profile JSON).
+            user: User message with the inputs for the selected task.
 
         Returns:
             Raw assistant text, expected to be a JSON object.

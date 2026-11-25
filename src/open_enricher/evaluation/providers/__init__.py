@@ -1,7 +1,7 @@
 """Evaluator provider registry.
 
 Register new backends (Codex, Gemini, ...) by adding a factory here. Host-side
-weights and JSON report assembly stay in ``evaluation.score``.
+scoring and report assembly are independent of provider selection.
 """
 
 from __future__ import annotations

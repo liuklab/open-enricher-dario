@@ -28,7 +28,7 @@ def test_cli_list_variants(capsys: pytest.CaptureFixture[str]) -> None:
 def test_run_one_experiment_evaluates_with_cursor(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    """Each experiment scores archived profiles with Cursor and the synopsis."""
+    """Each experiment reports both independent assessments."""
     variant = tmp_path / "01-scene-context.json"
     variant.write_text(
         '{"experiment_id": "01-scene-context", "title": "scene-context"}',
@@ -59,7 +59,11 @@ def test_run_one_experiment_evaluates_with_cursor(
     def _evaluate(videos: list[str], **kwargs: object) -> list[dict]:
         seen["videos"] = videos
         seen["kwargs"] = kwargs
-        return [{"video": videos[0], "status": "success", "overall": 4.1}]
+        return [{
+            "video": videos[0], "status": "success", "recsys_status": "success", "overall": 4.1,
+            "video_understanding": {"status": "success", "overall": 2.5,
+                                    "output_file": str(runs / "video_understanding_score.json")},
+        }]
 
     monkeypatch.setattr(
         "open_enricher.evaluation.run.evaluate_videos", _evaluate
@@ -84,7 +88,8 @@ def test_run_one_experiment_evaluates_with_cursor(
     assert seen["kwargs"]["experiment_id"] == "01-scene-context"
     assert seen["kwargs"]["with_synopsis"] is True
     text = (runs / "01-scene-context" / "EXPERIMENT.md").read_text(encoding="utf-8")
-    assert "overall `4.1`" in text
+    assert "RecSys: **success** overall `4.1`" in text
+    assert "Video understanding: **success** overall `2.5`" in text
     assert calls["n"] == 1
     device_path = runs / "01-scene-context" / "performance" / "device.json"
     assert json.loads(device_path.read_text(encoding="utf-8")) == device

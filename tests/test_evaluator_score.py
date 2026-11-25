@@ -120,17 +120,9 @@ class TestEvaluatorHelpers(unittest.TestCase):
         self.assertEqual(report["error"], "missing profile")
         self.assertEqual(report["overall"], 1.0)
 
-    def test_prompt_without_synopsis(self) -> None:
-        system = system_prompt()
-        self.assertIn("empty conversation", system.lower())
-        self.assertIn("Do NOT invent a synopsis", system)
-        user = user_prompt(
-            title="Stranger Things S01E03",
-            profile={"recsys_metadata": {"primary_genre": "Drama"}},
-        )
-        self.assertIn("Stranger Things S01E03", user)
-        self.assertNotIn("Ground-truth synopsis", user)
-        self.assertNotIn("transcript", user.lower())
+    def test_prompt_requires_nonempty_reference(self) -> None:
+        with self.assertRaisesRegex(ValueError, "nonempty reference synopsis"):
+            user_prompt(title="Demo", profile={}, synopsis="  ")
 
     def test_prompt_with_synopsis(self) -> None:
         user = user_prompt(
@@ -138,7 +130,10 @@ class TestEvaluatorHelpers(unittest.TestCase):
             profile={"recsys_metadata": {"primary_genre": "Drama"}},
             synopsis="Mike plays air hockey with Wyatt.",
         )
-        self.assertIn("Ground-truth synopsis", user)
+        self.assertIn("sole factual reference", system_prompt())
+        self.assertIn("Reference synopsis", user)
+        self.assertIn("Suits S01E02", user)
+        self.assertIn("primary_genre", user)
         self.assertIn("Mike plays air hockey with Wyatt.", user)
 
     def test_prompt_loaded_from_markdown(self) -> None:
@@ -151,7 +146,7 @@ class TestEvaluatorHelpers(unittest.TestCase):
         self.assertIn("{{SCORE_MIN}}", system_text)
         self.assertIn("{{TITLE}}", user_text)
         self.assertIn("{{PROFILE_JSON}}", user_text)
-        self.assertIn("{{SYNOPSIS_BLOCK}}", user_text)
+        self.assertIn("{{SYNOPSIS}}", user_text)
 
     def test_provider_registry_has_cursor(self) -> None:
         self.assertIn("cursor", PROVIDERS)
@@ -165,6 +160,8 @@ class TestEvaluatorHelpers(unittest.TestCase):
             tmp_path = Path(tmp)
             llm_dir = tmp_path / "llms_results"
             llm_dir.mkdir()
+            synopsis = "A client hires a lawyer."
+            (tmp_path / "demo.mkv_summary.txt").write_text(synopsis, encoding="utf-8")
             profile = {"recsys_metadata": {"primary_genre": "Drama"}}
             profile_path = llm_dir / "demo.mkv_llm.json"
             profile_path.write_text(json.dumps(profile), encoding="utf-8")
@@ -186,7 +183,7 @@ class TestEvaluatorHelpers(unittest.TestCase):
                     ),
                 ),
             ):
-                result = evaluate_video("demo.mkv", provider=fake)
+                result = evaluate_video("demo.mkv", provider=fake, synopsis_dir=tmp_path)
 
             self.assertEqual(result["status"], "success")
             self.assertTrue(result["usable"])
@@ -194,9 +191,10 @@ class TestEvaluatorHelpers(unittest.TestCase):
             report = json.loads(
                 (eval_dir / "demo.mkv_evaluation.json").read_text(encoding="utf-8")
             )
-            self.assertFalse(report["method"]["uses_synopsis"])
+            self.assertTrue(report["method"]["uses_synopsis"])
+            self.assertIn(synopsis, fake.calls[0][1])
 
-    def test_evaluate_video_with_synopsis_missing_fails(self) -> None:
+    def test_evaluate_video_requires_synopsis_by_default(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             tmp_path = Path(tmp)
             llm_dir = tmp_path / "llms_results"
@@ -225,7 +223,6 @@ class TestEvaluatorHelpers(unittest.TestCase):
                 result = evaluate_video(
                     "demo.mkv",
                     provider=fake,
-                    with_synopsis=True,
                     synopsis_dir=synopsis_dir,
                 )
 

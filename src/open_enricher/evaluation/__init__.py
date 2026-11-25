@@ -1,11 +1,11 @@
 """External metadata evaluator (separate from the local GPU pipeline).
 
-After ``llm`` writes a VideoProfile, run::
+To score scene understanding and the final RecSys profile, run::
 
     python -m open_enricher.evaluation --video <file>
 
 Providers live under ``evaluation.providers``. The default is Cursor SDK with
-Grok 4.7. Host-side weights and report assembly stay in ``evaluation.score``.
+Grok 4.7. The two tasks use independent prompts and reports.
 """
 
 from open_enricher.evaluation.score import (

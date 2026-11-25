@@ -1,4 +1,4 @@
-"""Resolve optional synopsis files for the external evaluator."""
+"""Resolve reference synopsis files for the external evaluator."""
 
 from __future__ import annotations
 

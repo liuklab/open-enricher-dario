@@ -1,6 +1,9 @@
 Title (from video file name): {{TITLE}}
-{{SYNOPSIS_BLOCK}}
+
+Reference synopsis:
+{{SYNOPSIS}}
+
 VideoProfile metadata to evaluate:
 {{PROFILE_JSON}}
 
-Judge the metadata quality and how well it matches the real titled work. Output the JSON score object now.
+Evaluate the profile against the reference synopsis and return the JSON score object.

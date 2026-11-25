@@ -60,7 +60,7 @@ class CursorGrokProvider:
 
         Args:
             system: System instruction.
-            user: User message with title and profile.
+            user: User message with the inputs for the selected task.
 
         Returns:
             Assistant text from the finished run.

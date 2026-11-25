@@ -1,13 +1,12 @@
-"""Score VideoProfile JSON files with an external evaluator provider."""
+"""Score RecSys profiles and scene-level video understanding using the same provider."""
 
 from __future__ import annotations
 
 import json
-import re
 from pathlib import Path
 from typing import Any
 
-from open_enricher.evaluation.prompt import system_prompt, user_prompt
+from open_enricher.evaluation.prompt import clean_json_candidate, system_prompt, user_prompt
 from open_enricher.evaluation.providers import DEFAULT_PROVIDER, get_provider
 from open_enricher.evaluation.providers.base import EvaluatorProvider
 from open_enricher.evaluation.score import (
@@ -16,6 +15,7 @@ from open_enricher.evaluation.score import (
     title_from_filename,
 )
 from open_enricher.evaluation.synopsis import load_synopsis
+from open_enricher.evaluation.understanding import evaluate_understanding
 from open_enricher.experiments.archive import experiment_dir, video_archive_dir
 from open_enricher.logging_setup import get_logger
 from open_enricher.manifest import profile_decision
@@ -36,23 +36,13 @@ def evaluation_output_dir() -> Path:
     return path
 
 
-def _clean_json_candidate(raw_text: str) -> str:
-    """Isolate the JSON object between the first '{' and last '}'."""
-    cleaned = re.sub(r"```(?:json)?", "", raw_text).strip()
-    start = cleaned.find("{")
-    end = cleaned.rfind("}")
-    if start != -1 and end != -1 and end > start:
-        return cleaned[start : end + 1]
-    return cleaned
-
-
 def _load_json(path: Path) -> Any:
     """Load a JSON file; return None when missing or unreadable."""
     if not path.exists():
         return None
     try:
         return json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as err:
+    except (OSError, UnicodeError, json.JSONDecodeError) as err:
         logger.warning("Failed to parse %s: %s", path.name, err)
         return None
 
@@ -121,7 +111,7 @@ def evaluate_video(
     video_filename: str,
     *,
     provider: EvaluatorProvider,
-    with_synopsis: bool = False,
+    with_synopsis: bool = True,
     synopsis_dir: Path | None = None,
     experiment_id: str | None = None,
 ) -> dict[str, Any]:
@@ -131,7 +121,7 @@ def evaluate_video(
     Args:
         video_filename: Exact video file name under ``video_inputs``.
         provider: Provider instance (new conversation per call).
-        with_synopsis: When True, load and inject the synopsis file.
+        with_synopsis: Retained for caller compatibility. The reference synopsis is always required.
         synopsis_dir: Optional synopsis directory override.
         experiment_id: Optional experiment archive id for I/O paths.
 
@@ -155,7 +145,6 @@ def evaluate_video(
             title=title,
             profile_file=None,
             error=str(exc),
-            uses_synopsis=with_synopsis,
             provider=provider_name,
             model=model,
         )
@@ -202,7 +191,6 @@ def evaluate_video(
             title=title,
             profile_file=profile_path.name,
             error="Profile is not an accepted artifact of this attempt.",
-            uses_synopsis=with_synopsis,
             provider=provider_name,
             model=model,
         )
@@ -224,7 +212,6 @@ def evaluate_video(
             title=title,
             profile_file=profile_path.name,
             error=f"Unreadable LLM profile: {profile_path.name}",
-            uses_synopsis=with_synopsis,
             provider=provider_name,
             model=model,
         )
@@ -238,32 +225,29 @@ def evaluate_video(
             "output_file": str(report_path),
         }
 
-    synopsis_text: str | None = None
-    if with_synopsis:
-        try:
-            synopsis_text = load_synopsis(
-                video_filename, synopsis_dir=synopsis_dir
-            )
-        except (FileNotFoundError, ValueError) as exc:
-            report = failed_report(
-                video_filename=video_filename,
-                title=title,
-                profile_file=profile_path.name,
-                error=str(exc),
-                uses_synopsis=True,
-                provider=provider_name,
-                model=model,
-            )
-            report_path.write_text(
-                json.dumps(report, indent=2, ensure_ascii=False),
-                encoding="utf-8",
-            )
-            return {
-                "video": video_filename,
-                "status": "failed",
-                "error": report["error"],
-                "output_file": str(report_path),
-            }
+    try:
+        synopsis_text = load_synopsis(
+            video_filename, synopsis_dir=synopsis_dir
+        )
+    except (OSError, ValueError) as exc:
+        report = failed_report(
+            video_filename=video_filename,
+            title=title,
+            profile_file=profile_path.name,
+            error=str(exc),
+            provider=provider_name,
+            model=model,
+        )
+        report_path.write_text(
+            json.dumps(report, indent=2, ensure_ascii=False),
+            encoding="utf-8",
+        )
+        return {
+            "video": video_filename,
+            "status": "failed",
+            "error": report["error"],
+            "output_file": str(report_path),
+        }
 
     system = system_prompt()
     user = user_prompt(
@@ -273,11 +257,10 @@ def evaluate_video(
     last_raw = ""
     try:
         logger.info(
-            "Evaluating %s with provider=%s model=%s synopsis=%s",
+            "Evaluating %s with provider=%s model=%s",
             video_filename,
             provider_name,
             model,
-            with_synopsis,
         )
         last_raw = provider.complete(system, user)
     except Exception as exc:  # noqa: BLE001 - surface provider failures as reports
@@ -286,7 +269,6 @@ def evaluate_video(
             title=title,
             profile_file=profile_path.name,
             error=f"Provider failed: {exc}",
-            uses_synopsis=with_synopsis,
             provider=provider_name,
             model=model,
         )
@@ -303,7 +285,7 @@ def evaluate_video(
             "output_file": str(report_path),
         }
 
-    candidate = _clean_json_candidate(last_raw)
+    candidate = clean_json_candidate(last_raw)
     try:
         payload = json.loads(candidate)
         if not isinstance(payload, dict):
@@ -313,7 +295,6 @@ def evaluate_video(
             title=title,
             profile_file=profile_path.name,
             llm_payload=payload,
-            uses_synopsis=with_synopsis,
             provider=provider_name,
             model=model,
         )
@@ -326,7 +307,6 @@ def evaluate_video(
             title=title,
             profile_file=profile_path.name,
             error=f"Evaluator JSON parse failed: {exc}",
-            uses_synopsis=with_synopsis,
             provider=provider_name,
             model=model,
         )
@@ -350,7 +330,7 @@ def evaluate_video(
         "usable": report["usable"],
         "dimensions": dimension_scores,
         "output_file": str(report_path),
-        "uses_synopsis": with_synopsis,
+        "uses_synopsis": True,
         "provider": provider_name,
         "model": model,
     }
@@ -363,11 +343,12 @@ def evaluate_videos(
     videos: list[str],
     *,
     provider_name: str = DEFAULT_PROVIDER,
-    with_synopsis: bool = False,
+    with_synopsis: bool = True,
     synopsis_dir: Path | None = None,
     experiment_id: str | None = None,
     api_key: str | None = None,
     model: str | None = None,
+    task: str = "both",
 ) -> list[dict[str, Any]]:
     """
     Evaluate one or more videos with a fresh provider conversation each time.
@@ -375,30 +356,46 @@ def evaluate_videos(
     Args:
         videos: Video filenames to score.
         provider_name: Registry key (default ``cursor``).
-        with_synopsis: Inject synopsis text when True.
+        with_synopsis: Retained for caller compatibility. Both tasks require the reference synopsis.
         synopsis_dir: Optional synopsis directory override.
         experiment_id: Optional experiment archive id.
         api_key: Optional API key for the provider.
-        model: Optional model id override.
+        model: Optional model id override, shared by both tasks.
+        task: Score both tasks, only recsys, or only understanding.
 
     Returns:
-        List of per-video status dicts. When ``experiment_id`` is set, also
+        List of per-video status dicts. When scoring archived RecSys profiles, also
         refreshes ``scores.json`` under the experiment folder.
     """
+    if task not in ("both", "recsys", "understanding"):
+        raise ValueError(f"Unknown evaluation task: {task}")
     provider = get_provider(provider_name, api_key=api_key, model=model)
     results: list[dict[str, Any]] = []
     for video in videos:
-        results.append(
-            evaluate_video(
-                video,
-                provider=provider,
-                with_synopsis=with_synopsis,
-                synopsis_dir=synopsis_dir,
-                experiment_id=experiment_id,
+        if task in ("recsys", "both"):
+            recsys = evaluate_video(
+                video, provider=provider,
+                synopsis_dir=synopsis_dir, experiment_id=experiment_id,
             )
-        )
+            if task == "recsys":
+                results.append(recsys)
+                continue
 
-    if experiment_id:
+        understanding = evaluate_understanding(
+            video, provider=provider, synopsis_dir=synopsis_dir, experiment_id=experiment_id,
+        )
+        if task == "understanding":
+            results.append(understanding)
+            continue
+
+        results.append({
+            **recsys,
+            "recsys_status": recsys["status"],
+            "video_understanding": understanding,
+            "status": recsys["status"] if understanding["status"] == "success" else "failed",
+        })
+
+    if experiment_id and task != "understanding":
         exp = experiment_dir(experiment_id)
         scores: dict[str, Any] = {}
         for video in videos:

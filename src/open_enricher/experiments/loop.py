@@ -2,7 +2,7 @@
 
 For each pipeline variant JSON, point the process at that spec, run the
 in-process enricher on the configured videos, archive artifacts under
-``runs/local/<experiment_id>/``, score the profiles with the Cursor SDK
+``runs/local/<experiment_id>/``, score the profiles and scene timelines with the Cursor SDK
 evaluator, and continue to the next variant. No deploy, HTTP client, Colab,
 Kaggle, or Google Drive is involved.
 """
@@ -135,13 +135,13 @@ def _write_stub_experiment_md(
         lines.append(f"Cursor evaluation failed to start: {evaluation_error}")
     elif evaluation_results:
         for row in evaluation_results:
-            overall = row.get("overall")
-            score = f" overall `{overall}`" if overall is not None else ""
-            err = row.get("error")
-            lines.append(
-                f"- `{row.get('video')}`: **{row.get('status')}**{score}"
-                + (f" - {err}" if err else "")
-            )
+            lines.append(f"- `{row['video']}`")
+            for label, assessment in (("RecSys", row), ("Video understanding", row["video_understanding"])):
+                status = assessment.get("recsys_status", assessment["status"])
+                overall = assessment.get("overall")
+                score = f" overall `{overall}`" if overall is not None else ""
+                error = assessment.get("error")
+                lines.append(f"  - {label}: **{status}**{score}" + (f" - {error}" if error else ""))
     else:
         lines.append("No evaluation results.")
     lines.append("")
@@ -189,18 +189,17 @@ def _evaluate_experiment(
     videos: list[str],
 ) -> list[dict[str, Any]]:
     """
-    Score archived profiles for one experiment with the Cursor SDK provider.
+    Score archived profiles and scene timelines with the same Cursor SDK provider.
 
     Fidelity is judged against ``synopsis/<video>_summary.txt``. A missing
     synopsis fails that video; there is no fallback to model memory.
 
     Args:
         experiment_id: Stable experiment id under ``runs/local/``.
-        videos: Video filenames whose ``*_llm.json`` should be scored.
+        videos: Video filenames whose archived outputs should be scored.
 
     Returns:
-        Per-video evaluator status dicts. Also writes ``score.json`` and
-        refreshes ``scores.json``.
+        Per-video statuses and separate RecSys and video understanding reports.
     """
     from open_enricher.evaluation.providers import DEFAULT_PROVIDER
     from open_enricher.evaluation.run import evaluate_videos
@@ -329,7 +328,7 @@ def run_one_experiment(
             summary["source_fingerprint"] = source_fingerprint(source) if source.is_file() else ""
             summary["settings_hash"] = settings
 
-            timing_paths = list(dest.glob(f"{video}_*_timings.json"))
+            timing_paths = [dest / name for name in archived if name.endswith("_timings.json")]
             timing_doc = merge_timings(timing_paths)
             write_json(dest / "timings.json", timing_doc)
             archived.append("timings.json")
@@ -391,10 +390,10 @@ def run_one_experiment(
             and all(row.get("status") in {"success", "degraded"} for row in evaluation_results)
         )
         archive_ids = {row["video"]: row.get("archive_id") for row in video_results}
-        score_hashes = {
-            video: source_fingerprint(exp_dir / video / "score.json")
-            for video in videos if (exp_dir / video / "score.json").is_file()
-        }
+
+        def report_hash(path: Path) -> str | None:
+            return source_fingerprint(path) if path.is_file() else None
+
         append_progress(
             {
                 "experiment_id": experiment_id,
@@ -410,7 +409,11 @@ def run_one_experiment(
                         "status": row.get("status"),
                         "overall": row.get("overall"),
                         "archive_id": archive_ids.get(row.get("video")),
-                        "score_sha256": score_hashes.get(row.get("video")),
+                        "score_sha256": report_hash(exp_dir / row["video"] / "score.json"),
+                        "understanding_score_sha256": report_hash(
+                            Path(row["video_understanding"]["output_file"])
+                        ),
+                        "understanding_overall": row["video_understanding"].get("overall"),
                     }
                     for row in evaluation_results
                 ],
