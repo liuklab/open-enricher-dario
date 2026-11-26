@@ -61,3 +61,29 @@ def test_extract_prompt_omits_summary_and_memory() -> None:
     assert "patent" not in text
     assert "judge" not in text
     assert "actions" in text
+
+
+def test_truncated_visual_json_is_regenerated_on_the_same_clip(tmp_path, monkeypatch):
+    import pytest
+    from dataclasses import replace
+    from open_enricher.stages.vlm_core import segments
+    from open_enricher.stages.vlm_core.config import build_configs
+
+    generated = []
+    def generate(model, processor, clip, cfg):
+        generated.append((clip, cfg.prompt))
+        return next(replies)
+
+    monkeypatch.setattr(segments, "clip_video_range", lambda source, start, duration, dest: dest)
+    monkeypatch.setattr(segments, "extract_metadata", generate)
+    cfg = replace(build_configs()[1], prompt="Observe the current frames.")
+    incomplete = '{"description": "Closing credits", "on_screen_text": ["VISUAL'
+    complete = '{"description": "Closing credits", "on_screen_text": ["VISUAL EFFECTS"]}'
+    replies = iter([incomplete, complete])
+    args = (tmp_path / "film.mkv", 0.0, 240.0, None, None, cfg)
+    assert segments._clip_generation(*args, require_visual_json=True) == complete
+    assert generated[0][0] == generated[1][0]
+    assert generated[0][1] != generated[1][1]
+    replies = iter([incomplete, incomplete])
+    with pytest.raises(ValueError, match="after retry"):
+        segments._clip_generation(*args, require_visual_json=True)

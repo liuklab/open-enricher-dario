@@ -214,6 +214,7 @@ def _clip_generation(
     processor: Any,
     window_cfg: MetadataConfig,
     *,
+    require_visual_json: bool = False,
     frame_spans: list[dict[str, Any]] | None = None,
     video_filename: str = "",
     experiment_id: str = "",
@@ -255,7 +256,22 @@ def _clip_generation(
             frame_span["start"] = scene.get("start_time")
             frame_span["end"] = scene.get("end_time")
             frame_spans.append(frame_span)
-        return extract_metadata(model, processor, clip, window_cfg)
+        raw = extract_metadata(model, processor, clip, window_cfg)
+        if require_visual_json and not (_parse_object(raw) or {}).get("description"):
+            logger.info("Requesting a complete visual JSON object for window %s", scene_index)
+            retry_cfg = replace(
+                window_cfg,
+                prompt=window_cfg.prompt + (
+                    "\nUse one short sentence for description and at most three short entries "
+                    "per list. For credits, describe the credits once and quote at most one "
+                    "readable example. Finish the JSON object including its closing brace."
+                ),
+                max_new_tokens=max(window_cfg.max_new_tokens, 600),
+            )
+            raw = extract_metadata(model, processor, clip, retry_cfg)
+            if not (_parse_object(raw) or {}).get("description"):
+                raise ValueError(f"Missing structured visual description for window {scene_index} after retry")
+        return raw
 
 
 def run_segmented(
@@ -437,6 +453,7 @@ def run_segmented(
                             model,
                             processor,
                             window_cfg,
+                            require_visual_json=extract_visual and not continue_on_error,
                             frame_spans=frame_spans,
                             video_filename=video_filename,
                             experiment_id=experiment_id,
