@@ -31,8 +31,8 @@ private `.env`. [Encoder setup](docs/encoders.md) · [Evaluator](docs/evaluator.
 
 ```bash
 python -m open_enricher --list
-python -m open_enricher --only 12-combined --video Suits.S01E02.mkv
-sbatch run_job.sh --only 12-combined --video Suits.S01E02.mkv
+python -m open_enricher --only 12-combined --video suits_s01e02.mkv
+sbatch run_job.sh --only 12-combined --video suits_s01e02.mkv
 ```
 
 Submit from the checkout root. A variant selects its models and budgets.

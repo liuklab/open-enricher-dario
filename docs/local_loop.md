@@ -7,8 +7,8 @@ variant that uses them. [Encoder setup](encoders.md)
 
 ```bash
 python -m open_enricher --list
-python -m open_enricher --only 12-combined --video Suits.S01E02.mkv
-sbatch run_job.sh --only 10-character-graph --video Suits.S01E02.mkv
+python -m open_enricher --only 12-combined --video suits_s01e02.mkv
+sbatch run_job.sh --only 10-character-graph --video suits_s01e02.mkv
 ```
 
 Submit from the repository root. The Slurm launcher passes its arguments to
@@ -37,8 +37,16 @@ In `*_dialogue.json` and `*_vlm.json`, each window's `dialogue_exchanges` field
 contains the original ASR text, timestamps, speaker labels and window-local IDs.
 A silent window or an interval without a valid selection has an empty list.
 
+Each window also has JPEGs in
+`runs/local/_cache/<video>/frames/13-narrate-exchanges/scene_XX/`.
+The archived `<video>_vlm_frames.json` lists each image, its clip index and its
+timestamp in the original video. The exporter uses Qwen's sampler on the same
+clip. The JPEGs show the selected images before the model's spatial resizing
+and normalization. Short final windows may contain fewer than 40 frames.
+Copy the frame directory alongside the manifest when keeping a run.
+
 ```bash
-python -m open_enricher --only 13-narrate-exchanges --video Suits.S01E02.mkv
+python -m open_enricher --only 13-narrate-exchanges --video suits_s01e02.mkv
 ```
 
 WhisperX transcribes the selected audio track in its spoken language and saves
@@ -55,7 +63,7 @@ Automatic language detection is the default for mixed batches. To force Italian
 for a specific film with an ambiguous opening, run it on its own:
 
 ```bash
-OPEN_ENRICHER_AUDIO_LANGUAGE=it python -m open_enricher --only 13-narrate-exchanges --video 'Il vigile (1960).DVD.XviD.avi'
+OPEN_ENRICHER_AUDIO_LANGUAGE=it python -m open_enricher --only 13-narrate-exchanges --video il_vigile.avi
 ```
 
 WhisperX uses FFmpeg's default audio selection. For a multilingual container,
@@ -81,7 +89,7 @@ run root. The dataset root still supplies the videos and model cache.
 ```bash
 export OPEN_ENRICHER_OUTPUT_ROOT="$PWD/dataset/outputs/my-comparison"
 export OPEN_ENRICHER_RUNS_ROOT="$PWD/runs/my-comparison"
-python -m open_enricher --only 12-combined --video Suits.S01E02.mkv
+python -m open_enricher --only 12-combined --video suits_s01e02.mkv
 ```
 
 Use `--force` when intentionally repeating a completed variant. Name a separate

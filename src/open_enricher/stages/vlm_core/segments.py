@@ -234,6 +234,7 @@ def _clip_generation(
             try:
                 frame_span = sample_scene(
                     clip,
+                    video_processor=processor.video_processor,
                     video_filename=video_filename,
                     experiment_id=experiment_id,
                     scene_index=scene_index,

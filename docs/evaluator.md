@@ -9,7 +9,7 @@ The experiment loop evaluates two outputs for each video. Both tasks use the sam
 
 ## Video understanding
 
-Supply an independent reference at `synopsis/<exact video filename>_summary.txt` or use `--synopsis-dir`. Use the synopsis for the correct cut or episode. A synopsis that only describes the premise can only establish fidelity and coverage for that part of the story.
+Supply an independent reference at `synopsis/<exact video filename>_summary.txt` or use `--synopsis-dir`. Use the synopsis for the correct cut or episode. Keep references for titles awaiting their video under `synopsis/pending/`. Once the video arrives, match its exact filename, including its container extension. A synopsis that only describes the premise can only establish fidelity and coverage for that part of the story.
 
 Both evaluations request Italian notes and summaries, including for English titles.
 Video-understanding findings also use Italian for the judge's claims. Quotations
@@ -40,13 +40,16 @@ Install the evaluation extra with `pip install -e '.[evaluation]'` and configure
 
 ```bash
 # Score both outputs with the reference synopsis.
-python -m open_enricher.evaluation --video Suits.S01E02.mkv
+python -m open_enricher.evaluation --video suits_s01e02.mkv
 
 # Score only scene understanding using an existing experiment archive.
-python -m open_enricher.evaluation --experiment 08-narrate-visual --video Suits.S01E02.mkv --task understanding
+archive=local-archive/2026-11-24/worktrees/open-enricher
+OPEN_ENRICHER_RUNS_ROOT="$archive/.old_runs/local2" python -m open_enricher.evaluation \
+  --experiment 08-narrate-visual --video Suits.S01E02.mkv --task understanding \
+  --synopsis-dir "$archive/synopsis"
 
 # Run only the original RecSys assessment.
-python -m open_enricher.evaluation --video Suits.S01E02.mkv --task recsys
+python -m open_enricher.evaluation --video suits_s01e02.mkv --task recsys
 ```
 
 With `--experiment`, reports are written under `runs/local/<experiment>/<video>/`. Set `OPEN_ENRICHER_RUNS_ROOT` to the parent of an experiment directory to evaluate an older archive in place. Selecting only understanding leaves the RecSys report and its experiment aggregate `scores.json` untouched. For live outputs, the files are `dataset/outputs/evaluation/<video>_evaluation.json` and `<video>_video_understanding.json`. The experiment summary shows both scores independently. [Prompt templates](../src/open_enricher/evaluation/prompts/)

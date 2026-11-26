@@ -9,7 +9,7 @@ Run rsync on the destination computer. Substitute the SSH host alias, remote
 repository path, experiment ID and episode filename for your installation.
 
 ```bash
-rsync -avP 'cluster:/path/to/open-enricher/runs/local/12-combined/Suits.S01E02.mkv/' ./results/Suits.S01E02/
+rsync -avP 'cluster:/path/to/open-enricher/runs/local/12-combined/suits_s01e02.mkv/' ./results/suits_s01e02/
 ```
 
 An episode directory contains the stage JSONs, timings and, for combined runs,

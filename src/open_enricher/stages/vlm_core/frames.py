@@ -1,14 +1,15 @@
 """Explainability copies of the frames a Qwen3-VL window would sample.
 
 The VLM reads a temporary clip and samples frames in memory. This module
-repeats that index rule on the same clip and writes JPEGs plus timestamp
-records. The model call does not read those files.
+asks the installed video processor for indices on the same clip and writes
+JPEGs plus timestamp records. The model call does not read those files.
 """
 
 from __future__ import annotations
 
 import json
 import subprocess
+from copy import copy
 from pathlib import Path
 from typing import Any
 
@@ -17,8 +18,7 @@ from open_enricher.logging_setup import get_logger
 
 logger = get_logger(__name__)
 
-# Qwen video processors pair frames (temporal patch size 2). Counts are
-# rounded down to a multiple of this factor.
+# The optional scene planner allocates in pairs for Qwen's temporal patches.
 FRAME_FACTOR = 2
 
 
@@ -42,7 +42,7 @@ def sampled_frame_count(
     frame_factor: int = FRAME_FACTOR,
 ) -> int:
     """
-    Return how many frames Qwen's ``smart_nframes`` keeps for one clip.
+    Estimate an even frame budget for the optional scene planner.
 
     Args:
         total_frames: Decoded frame count of the clip the model reads.
@@ -53,7 +53,7 @@ def sampled_frame_count(
         frame_factor: Temporal patch size. Qwen uses 2.
 
     Returns:
-        Frame count actually indexed. A 300 s window at ``sample_fps=2``
+        Planned frame count. A 300 s window at ``sample_fps=2``
         asks for 600 frames and is then capped at ``max_frames``.
     """
     if total_frames <= 0:
@@ -73,30 +73,6 @@ def sampled_frame_count(
     if count < 1:
         count = 1
     return int(min(count, total_frames))
-
-
-def frame_indices(total_frames: int, nframes: int) -> list[int]:
-    """
-    Evenly spaced indices from the first frame to the last, inclusive.
-
-    Matches ``linspace(0, total_frames - 1, nframes)`` rounded half to even,
-    which is what the Qwen video processor uses.
-
-    Args:
-        total_frames: Decoded frame count of the clip.
-        nframes: Count returned by ``sampled_frame_count``.
-
-    Returns:
-        Increasing frame indices into the clip.
-    """
-    if total_frames <= 0:
-        raise ValueError(f"total_frames must be positive, got {total_frames}")
-    if nframes <= 0:
-        raise ValueError(f"nframes must be positive, got {nframes}")
-    if nframes == 1:
-        return [0]
-    span = total_frames - 1
-    return [int(round(span * step / (nframes - 1))) for step in range(nframes)]
 
 
 def probe_clip(path: Path) -> tuple[int, float]:
@@ -176,6 +152,7 @@ def save_scene_frames(
 
     Args:
         clip: Temporary window file the VLM reads.
+        video_processor: The video sampler attached to the loaded Qwen processor.
         dest_dir: Scene directory under the frame cache.
         indices: Frame indices into ``clip``, in sample order.
 
@@ -226,6 +203,7 @@ def save_scene_frames(
 def sample_scene(
     clip: Path,
     *,
+    video_processor: Any,
     video_filename: str,
     experiment_id: str,
     scene_index: int,
@@ -239,6 +217,7 @@ def sample_scene(
 
     Args:
         clip: Temporary window file the VLM reads.
+        video_processor: The video sampler attached to the loaded Qwen processor.
         video_filename: Exact video file name.
         experiment_id: Active experiment id.
         scene_index: 1-based window number.
@@ -250,15 +229,14 @@ def sample_scene(
     Returns:
         One span record: indices, film timestamps, and cache-relative paths.
     """
+    from transformers.video_utils import VideoMetadata
+
     total_frames, video_fps = probe_clip(clip)
-    count = sampled_frame_count(
-        total_frames,
-        video_fps,
-        sample_fps,
-        min_frames,
-        max_frames,
-    )
-    indices = frame_indices(total_frames, count)
+    sampler = copy(video_processor)
+    sampler.min_frames = min_frames
+    sampler.max_frames = max_frames
+    metadata = VideoMetadata(total_num_frames=total_frames, fps=video_fps)
+    indices = [int(index) for index in sampler.sample_frames(metadata, fps=sample_fps)]
     dest = scene_frame_dir(video_filename, experiment_id, scene_index)
     written = save_scene_frames(clip, dest, indices)
     frames = []
@@ -278,7 +256,7 @@ def sample_scene(
         "window": scene_index,
         "clip_frames": total_frames,
         "clip_fps": round(video_fps, 6),
-        "sampled_frames": count,
+        "sampled_frames": len(indices),
         "frames": frames,
     }
 
