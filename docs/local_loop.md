@@ -30,7 +30,9 @@ actually succeeded and inspect their outputs during comparison.
 
 `13-narrate-exchanges` uses 4-minute windows and up to 40 current frames.
 In the same call as the interval summary, the dialogue model selects up to two
-short exchanges by transcript line ID, most informative first. The VLM sees
+short exchanges by transcript line ID, most informative first. If Qwen supplies
+only the line IDs, the same model receives the transcript again to generate the
+missing summary. The VLM sees
 only the current frames. The narrator receives the local summary and selected
 lines, plus the summaries and top exchange from each of the last three windows.
 In `*_dialogue.json` and `*_vlm.json`, each window's `dialogue_exchanges` field

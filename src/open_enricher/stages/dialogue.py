@@ -19,7 +19,7 @@ from open_enricher.language import language_prompt, metadata_language
 from open_enricher.logging_setup import get_logger
 from open_enricher.manifest import matching_artifact
 from open_enricher.narrative import cue_from_lines, parse_label
-from open_enricher.stages.dialogue_exchanges import resolve_exchanges
+from open_enricher.stages.dialogue_exchanges import MissingIntervalSummary, resolve_exchanges
 from open_enricher.stages.pipeline_spec import load_pipeline_spec
 from open_enricher.stages.prompt_load import fill_prompt, load_prompt
 from open_enricher.stages.vlm_core.enrichment import (
@@ -450,9 +450,22 @@ class DialogueStage:
                             min_chars=1 if select_exchanges else 40,
                         )
                     if select_exchanges:
-                        description, exchanges = resolve_exchanges(
-                            description, window_rows, formatted, transcript
-                        )
+                        reply = description
+                        try:
+                            description, exchanges = resolve_exchanges(reply, window_rows, formatted, transcript)
+                        except MissingIntervalSummary:
+                            logger.info("Requesting missing dialogue summary for window %s", index)
+                            messages = _scene_messages(
+                                transcript, start=start, end=end, sampled=sampled, language=language,
+                            )
+                            with timing.span("scene_summary_retry", model_id=SUMMARY_MODEL_ID, window=index):
+                                prose = _generate(
+                                    model, tokenizer, device, messages,
+                                    max_new_tokens=SCENE_MAX_NEW_TOKENS, min_chars=1,
+                                )
+                            description, exchanges = resolve_exchanges(
+                                f"{prose}\n{reply}", window_rows, formatted, transcript,
+                            )
                 scenes.append(
                     {
                         "start_time": _clock(start),

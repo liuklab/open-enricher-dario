@@ -24,6 +24,7 @@ def test_resolver_only_accepts_visible_adjacent_rows_and_preserves_rank():
     shown = "\n".join(numbered[:3] + numbered[4:])
     reply = "A proposal.\nEXCHANGES: [[4],[1,3],[true],[5,6],[6],[1,2],[3]]"
     summary, exchanges = resolve_exchanges(reply, rows, numbered, shown)
+    assert resolve_exchanges("EXCHANGES: [[1]]\nA proposal.", rows, numbered, shown)[0] == "A proposal."
     assert summary == "A proposal."
     assert [[row["line_id"] for row in ex] for ex in exchanges] == [[5, 6], [1, 2]]
     assert exchanges[0][0] == dict(rows[4], line_id=5, speaker="UNKNOWN")
@@ -62,12 +63,17 @@ def test_italian_exchange_variant_from_asr_to_narration(tmp_path, monkeypatch):
         assert "in Italian" in messages[0]["content"]
         if "EXCHANGES:" in messages[0]["content"]:
             selectors.append(messages[1]["content"])
+            if len(selectors) == 2:
+                return "EXCHANGES: [[2],[1]]"
             return f"Riassunto {len(selectors)}.\nEXCHANGES: [[2],[1]]"
+        if "Summarize only the dialogue" in messages[1]["content"]:
+            assert selectors[-1] == messages[1]["content"]
+            return "Riassunto 2."
         return "Trama complessiva."
 
     monkeypatch.setattr(dialogue, "_generate", generate)
     dialogue.DialogueStage().run(video)
-    assert len(selectors) == 5  # One generation per speaking window, none for the silent tail.
+    assert len(selectors) == 5  # One exchange selection per speaking window.
     assert "2. [00:00:02] SPEAKER_04: Battuta 0.2" in selectors[0]
 
     def generate_visual(video_path, start, end, model, processor, cfg, **kwargs):

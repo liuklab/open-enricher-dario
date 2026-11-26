@@ -12,6 +12,10 @@ logger = get_logger(__name__)
 _FOOTER = re.compile(r"^\s*EXCHANGES[ \t]*:[ \t]*", re.MULTILINE | re.IGNORECASE)
 
 
+class MissingIntervalSummary(ValueError):
+    """The model selected exchanges but supplied no accompanying dialogue summary."""
+
+
 def resolve_exchanges(
     reply: str,
     rows: list[dict[str, Any]],
@@ -19,17 +23,27 @@ def resolve_exchanges(
     transcript: str,
 ) -> tuple[str, list[list[dict[str, Any]]]]:
     """Keep the prose and resolve at most two non-overlapping, visible selections."""
-    parts = _FOOTER.split(reply, maxsplit=1)
-    summary = parts[0].strip()
-    if not summary:
-        raise ValueError("Dialogue model omitted the interval summary")
-    if len(parts) == 1:
+    marker = _FOOTER.search(reply)
+    if marker is None:
+        summary = reply.strip()
+        if not summary:
+            raise MissingIntervalSummary("Dialogue model omitted the interval summary")
         logger.warning("Dialogue model omitted the EXCHANGES footer")
         return summary, []
+
+    summary = reply[:marker.start()].strip()
+    footer = reply[marker.end():].strip()
     try:
-        selections = json.loads(parts[1].strip())
+        selections, end = json.JSONDecoder().raw_decode(footer)
+        # Qwen sometimes places the requested ID list before its prose.
+        if not summary:
+            summary = footer[end:].strip()
+        elif footer[end:].strip():
+            selections = None
     except ValueError:
         selections = None
+    if not summary:
+        raise MissingIntervalSummary("Dialogue model omitted the interval summary")
     if not isinstance(selections, list):
         logger.warning("Dialogue model returned an invalid EXCHANGES footer")
         return summary, []
