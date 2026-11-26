@@ -11,9 +11,11 @@ The experiment loop evaluates two outputs for each video. Both tasks use the sam
 
 Supply an independent reference at `synopsis/<exact video filename>_summary.txt` or use `--synopsis-dir`. Use the synopsis for the correct cut or episode. Keep references for titles awaiting their video under `synopsis/pending/`. Once the video arrives, match its exact filename, including its container extension. A synopsis that only describes the premise can only establish fidelity and coverage for that part of the story.
 
-Both evaluations request Italian notes and summaries, including for English titles.
-Video-understanding findings also use Italian for the judge's claims. Quotations
-retain the exact wording of the source synopsis or scene so they can be verified.
+Both judges write their notes, summaries and findings in Italian when the generated
+descriptions are consistently Italian. They use English for English, mixed or
+indeterminate prose. Evidence quotations retain the exact wording and language
+of the source synopsis or scene. Controlled labels and character names do not
+determine the language of the review.
 
 The [video understanding system prompt](../src/open_enricher/evaluation/prompts/video_understanding.md) holds the grading instructions. The user prompt is a JSON object containing the synopsis and the ordered scenes for that video. The Cursor provider joins both parts into one message for `Agent.prompt`.
 

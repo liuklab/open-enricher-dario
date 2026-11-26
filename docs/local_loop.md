@@ -56,7 +56,8 @@ the language code in `*_audio_language.json`. Italian audio yields Italian plot
 summaries, scene descriptions and free-text RecSys fields. JSON keys and the
 controlled labels for primary genre, pacing and target age group stay in English.
 Selected ASR lines and on-screen quotations retain their source wording.
-The two API evaluations return Italian commentary for all films.
+Both API evaluations use Italian for consistently Italian metadata and English otherwise.
+Evidence quotations retain their original language.
 Italian word alignment uses TorchAudio's VoxPopuli checkpoint,
 `dataset/models_cache/torch/hub/checkpoints/wav2vec2_voxpopuli_base_10k_asr_it.pt`
 with the default cache layout.
